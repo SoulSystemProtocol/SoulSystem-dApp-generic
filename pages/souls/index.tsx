@@ -6,14 +6,13 @@ import SoulList from "components/soul/SoulList";
 import useError from "hooks/useError";
 import useSoul from "hooks/useSoul";
 import { useContext, useEffect, useState } from "react";
-import type { TSoulProps } from "./souls.types";
 import Link from "next/link";
 import { DataContext } from "contexts/data";
 
 /**
  * Page for a list of souls
  */
-export default function SoulsPage({}: TSoulProps) {
+export default function SoulsPage({}: any) {
   const { accountSoul } = useContext(DataContext);
   const { handleError } = useError();
   const { getSouls } = useSoul();

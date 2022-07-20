@@ -1,16 +1,14 @@
-/**
- * Page for a list of bounties
- */
-import * as React from 'react';
+import * as React from "react";
 import { Box } from "@mui/material";
 import Layout from "../../components/layout/Layout";
 
-import type { TBountiesProps } from './bounties.types';
-
-export default function BountiesPage({}: TBountiesProps) {
+/**
+ * Page for a list of bounties
+ */
+export default function BountiesPage({}: any) {
   return (
     <Layout>
       <Box>Bounties</Box>
     </Layout>
-  )
+  );
 }
