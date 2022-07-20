@@ -101,7 +101,7 @@ export default function SoulManage({ soul }: any) {
       >
         {status === STATUS.isAvailable && (
           <Button variant="contained" type="submit">
-            {soul ? 'Edit Soul' : 'Create Soul'}
+            {soul ? 'Save' : 'Create'}
           </Button>
         )}
         {status === STATUS.isUploadingToIpfs && (
