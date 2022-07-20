@@ -3,16 +3,18 @@ import Layout from '../../components/layout/Layout';
 
 import Soul from 'classes/Soul';
 import SoulList from 'components/soul/SoulList';
+import { DataContext } from 'contexts/data';
+import { Web3Context } from 'contexts/web3';
 import useError from 'hooks/useError';
 import useSoul from 'hooks/useSoul';
-import { useContext, useEffect, useState } from 'react';
 import Link from 'next/link';
-import { DataContext } from 'contexts/data';
+import { useContext, useEffect, useState } from 'react';
 
 /**
  * Page for a list of souls
  */
 export default function SoulsPage({}: any) {
+  const { account } = useContext(Web3Context);
   const { accountSoul } = useContext(DataContext);
   const { handleError } = useError();
   const { getSouls } = useSoul();
@@ -53,7 +55,7 @@ export default function SoulsPage({}: any) {
     <Layout title="MentorDAO — Souls">
       <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
         <Typography variant="h5">Souls</Typography>
-        {!accountSoul && (
+        {account && !accountSoul && (
           <Link href="/souls/create" passHref>
             <Button variant="outlined">Create Soul</Button>
           </Link>
