@@ -179,21 +179,21 @@ export default function Header() {
           </Link>
           {/* Souls link */}
           {/* TODO: Use correct href */}
-          <Link href="/" passHref>
+          <Link href="/souls" passHref>
             <MenuItem onClick={handleCloseUserMenu}>
               <Typography>Souls</Typography>
             </MenuItem>
           </Link>
           {/* Projects link */}
           {/* TODO: Use correct href */}
-          <Link href="/" passHref>
+          <Link href="/projects" passHref>
             <MenuItem onClick={handleCloseUserMenu}>
               <Typography>Projects</Typography>
             </MenuItem>
           </Link>
           {/* Bounties link */}
           {/* TODO: Use correct href */}
-          <Link href="/" passHref>
+          <Link href="/bounties" passHref>
             <MenuItem onClick={handleCloseUserMenu}>
               <Typography>Bounties</Typography>
             </MenuItem>
