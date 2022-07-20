@@ -1,7 +1,7 @@
-import Soul from "classes/Soul";
-import { hexStringToJson } from "utils/converters";
-import useSoulContract from "./contracts/useSoulContract";
-import useSubgraph from "./useSubgraph";
+import Soul from 'classes/Soul';
+import { hexStringToJson } from 'utils/converters';
+import useSoulContract from './contracts/useSoulContract';
+import useSubgraph from './useSubgraph';
 
 /**
  * Hook for work with souls.
@@ -16,7 +16,7 @@ export default function useSoul() {
 
   let editSoul = async function (
     id: string,
-    metadataUrl: string
+    metadataUrl: string,
   ): Promise<any> {
     return update(id, metadataUrl);
   };
@@ -35,11 +35,11 @@ export default function useSoul() {
     ids?: Array<string>,
     owners?: Array<string>,
     first = 10,
-    skip = 0
+    skip = 0,
   ): Promise<Array<Soul>> {
     const subgraphSouls = await findSouls(ids, owners, first, skip);
     return subgraphSouls.map((subgraphSoul: any) =>
-      convertSubgraphSoulToSoul(subgraphSoul)
+      convertSubgraphSoulToSoul(subgraphSoul),
     );
   };
 
@@ -60,6 +60,6 @@ function convertSubgraphSoulToSoul(subgraphSoul: any) {
     hexStringToJson(subgraphSoul.uriData),
     subgraphSoul.uriImage,
     subgraphSoul.uriFirstName,
-    subgraphSoul.uriLastName
+    subgraphSoul.uriLastName,
   );
 }

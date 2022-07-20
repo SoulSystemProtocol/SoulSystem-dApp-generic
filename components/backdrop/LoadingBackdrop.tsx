@@ -1,4 +1,4 @@
-import { Backdrop, CircularProgress } from "@mui/material";
+import { Backdrop, CircularProgress } from '@mui/material';
 
 /**
  * A component with a loading backdrop.
@@ -8,7 +8,7 @@ export default function LoadingBackdrop() {
     <Backdrop
       sx={{
         zIndex: (theme) => theme.zIndex.drawer + 1,
-        background: "#FFFFFF",
+        background: '#FFFFFF',
       }}
       open
     >

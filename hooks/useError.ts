@@ -1,4 +1,4 @@
-import useToast from "./useToast";
+import useToast from './useToast';
 
 /**
  * Hook for work with errors.

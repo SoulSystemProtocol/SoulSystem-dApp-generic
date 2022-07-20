@@ -4,13 +4,13 @@ import {
   Language,
   Telegram,
   Twitter,
-} from "@mui/icons-material";
-import { InputAdornment, Stack, TextField, Typography } from "@mui/material";
-import { Box } from "@mui/system";
-import { WidgetProps } from "@rjsf/core";
-import { PROFILE_TRAIT_TYPE } from "constants/metadata";
-import { useEffect, useState } from "react";
-import { getTraitValue } from "utils/metadata";
+} from '@mui/icons-material';
+import { InputAdornment, Stack, TextField, Typography } from '@mui/material';
+import { Box } from '@mui/system';
+import { WidgetProps } from '@rjsf/core';
+import { PROFILE_TRAIT_TYPE } from 'constants/metadata';
+import { useEffect, useState } from 'react';
+import { getTraitValue } from 'utils/metadata';
 
 /**
  * A widget to input an soul attributes.
@@ -25,7 +25,7 @@ export default function SoulAttributesInput(props: WidgetProps) {
     // Define event params
     const eventTargetName = event.target.name;
     const eventTargetValue =
-      event.target.type === "checkbox"
+      event.target.type === 'checkbox'
         ? event.target.checked
         : event.target.value;
     // Update state of attributes
@@ -35,12 +35,12 @@ export default function SoulAttributesInput(props: WidgetProps) {
           if (attribute.trait_type === eventTargetName) {
             return {
               trait_type: attribute.trait_type,
-              value: eventTargetValue !== null ? eventTargetValue : "",
+              value: eventTargetValue !== null ? eventTargetValue : '',
             };
           } else {
             return attribute;
           }
-        })
+        }),
       );
     }
   }
@@ -50,7 +50,7 @@ export default function SoulAttributesInput(props: WidgetProps) {
     const attributes = Object.values(PROFILE_TRAIT_TYPE).map((traitType) => {
       return {
         trait_type: traitType,
-        value: getTraitValue(propsAttributes, traitType) || "",
+        value: getTraitValue(propsAttributes, traitType) || '',
       };
     });
     setAttributes(attributes);
@@ -79,7 +79,7 @@ export default function SoulAttributesInput(props: WidgetProps) {
                 name={PROFILE_TRAIT_TYPE.firstName}
                 disabled={propsDisabled}
                 value={
-                  getTraitValue(attributes, PROFILE_TRAIT_TYPE.firstName) || ""
+                  getTraitValue(attributes, PROFILE_TRAIT_TYPE.firstName) || ''
                 }
                 required
               />
@@ -90,7 +90,7 @@ export default function SoulAttributesInput(props: WidgetProps) {
                 name={PROFILE_TRAIT_TYPE.lastName}
                 disabled={propsDisabled}
                 value={
-                  getTraitValue(attributes, PROFILE_TRAIT_TYPE.lastName) || ""
+                  getTraitValue(attributes, PROFILE_TRAIT_TYPE.lastName) || ''
                 }
                 required
               />
@@ -102,7 +102,7 @@ export default function SoulAttributesInput(props: WidgetProps) {
                 disabled={propsDisabled}
                 value={
                   getTraitValue(attributes, PROFILE_TRAIT_TYPE.description) ||
-                  ""
+                  ''
                 }
                 multiline
                 rows={4}
@@ -114,7 +114,7 @@ export default function SoulAttributesInput(props: WidgetProps) {
                 name={PROFILE_TRAIT_TYPE.email}
                 disabled={propsDisabled}
                 value={
-                  getTraitValue(attributes, PROFILE_TRAIT_TYPE.email) || ""
+                  getTraitValue(attributes, PROFILE_TRAIT_TYPE.email) || ''
                 }
                 placeholder="email@site.com"
               />
@@ -131,7 +131,7 @@ export default function SoulAttributesInput(props: WidgetProps) {
                 label="Site"
                 name={PROFILE_TRAIT_TYPE.site}
                 disabled={propsDisabled}
-                value={getTraitValue(attributes, PROFILE_TRAIT_TYPE.site) || ""}
+                value={getTraitValue(attributes, PROFILE_TRAIT_TYPE.site) || ''}
                 placeholder="https://site.com"
                 type="url"
                 InputProps={{
@@ -149,7 +149,7 @@ export default function SoulAttributesInput(props: WidgetProps) {
                 name={PROFILE_TRAIT_TYPE.twitter}
                 disabled={propsDisabled}
                 value={
-                  getTraitValue(attributes, PROFILE_TRAIT_TYPE.twitter) || ""
+                  getTraitValue(attributes, PROFILE_TRAIT_TYPE.twitter) || ''
                 }
                 placeholder="username"
                 InputProps={{
@@ -167,7 +167,7 @@ export default function SoulAttributesInput(props: WidgetProps) {
                 name={PROFILE_TRAIT_TYPE.telegram}
                 disabled={propsDisabled}
                 value={
-                  getTraitValue(attributes, PROFILE_TRAIT_TYPE.telegram) || ""
+                  getTraitValue(attributes, PROFILE_TRAIT_TYPE.telegram) || ''
                 }
                 placeholder="username"
                 InputProps={{
@@ -185,7 +185,7 @@ export default function SoulAttributesInput(props: WidgetProps) {
                 name={PROFILE_TRAIT_TYPE.facebook}
                 disabled={propsDisabled}
                 value={
-                  getTraitValue(attributes, PROFILE_TRAIT_TYPE.facebook) || ""
+                  getTraitValue(attributes, PROFILE_TRAIT_TYPE.facebook) || ''
                 }
                 placeholder="username"
                 InputProps={{
@@ -203,7 +203,7 @@ export default function SoulAttributesInput(props: WidgetProps) {
                 name={PROFILE_TRAIT_TYPE.instagram}
                 disabled={propsDisabled}
                 value={
-                  getTraitValue(attributes, PROFILE_TRAIT_TYPE.instagram) || ""
+                  getTraitValue(attributes, PROFILE_TRAIT_TYPE.instagram) || ''
                 }
                 placeholder="username"
                 InputProps={{

@@ -1,5 +1,5 @@
-import axios from "axios";
-import { create } from "ipfs-http-client";
+import axios from 'axios';
+import { create } from 'ipfs-http-client';
 
 /**
  * Hook for work with IPFS.
@@ -14,7 +14,7 @@ export default function useIpfs() {
 
   let uploadFileToIPFS = async function (file: any) {
     const created = await infuraClient.add({
-      path: "",
+      path: '',
       content: file,
     });
     const cid = created.path;

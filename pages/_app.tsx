@@ -1,9 +1,9 @@
-import { DataProvider } from "contexts/data";
-import { Web3Provider } from "contexts/web3";
+import { DataProvider } from 'contexts/data';
+import { Web3Provider } from 'contexts/web3';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import type { AppProps } from "next/app";
-import { SnackbarProvider } from "notistack";
-import "../styles/globals.css";
+import type { AppProps } from 'next/app';
+import { SnackbarProvider } from 'notistack';
+import '../styles/globals.css';
 
 const darkTheme = createTheme({
   palette: {

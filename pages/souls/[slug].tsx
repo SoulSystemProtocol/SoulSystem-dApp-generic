@@ -1,13 +1,13 @@
 /**
  * Page for a soul detail
  */
-import Soul from "classes/Soul";
-import Layout from "components/layout/Layout";
-import SoulDetail from "components/soul/SoulDetail";
-import useError from "hooks/useError";
-import useSoul from "hooks/useSoul";
-import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import Soul from 'classes/Soul';
+import Layout from 'components/layout/Layout';
+import SoulDetail from 'components/soul/SoulDetail';
+import useError from 'hooks/useError';
+import useSoul from 'hooks/useSoul';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 
 interface SoulProps {}
 

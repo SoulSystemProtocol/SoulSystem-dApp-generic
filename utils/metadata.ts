@@ -3,10 +3,10 @@
  */
 export function getTraitValue(
   attributes: Array<object> | null,
-  traitType: string
+  traitType: string,
 ): string | null {
   const attribute: any = attributes?.find(
-    (attribute: any) => attribute?.trait_type === traitType
+    (attribute: any) => attribute?.trait_type === traitType,
   );
   return attribute?.value || null;
 }

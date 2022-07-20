@@ -6,7 +6,7 @@ import {
   PersonOutlineOutlined,
   Telegram,
   Twitter,
-} from "@mui/icons-material";
+} from '@mui/icons-material';
 import {
   Avatar,
   Button,
@@ -14,17 +14,17 @@ import {
   Stack,
   Typography,
   Link as MuiLink,
-} from "@mui/material";
-import { Box } from "@mui/system";
-import { PROFILE_TRAIT_TYPE } from "constants/metadata";
-import { Web3Context } from "contexts/web3";
-import Link from "next/link";
-import { useContext } from "react";
+} from '@mui/material';
+import { Box } from '@mui/system';
+import { PROFILE_TRAIT_TYPE } from 'constants/metadata';
+import { Web3Context } from 'contexts/web3';
+import Link from 'next/link';
+import { useContext } from 'react';
 import {
   addressToShortAddress,
   soulToFirstLastNameString,
-} from "utils/converters";
-import { getTraitValue } from "utils/metadata";
+} from 'utils/converters';
+import { getTraitValue } from 'utils/metadata';
 
 /**
  * A component with soul details.
@@ -34,8 +34,8 @@ export default function SoulDetail({ soul, sx }: any) {
     return (
       <Box
         sx={{
-          display: "flex",
-          flexDirection: { xs: "column", md: "row" },
+          display: 'flex',
+          flexDirection: { xs: 'column', md: 'row' },
           ...sx,
         }}
       >
@@ -44,12 +44,12 @@ export default function SoulDetail({ soul, sx }: any) {
           <SoulEditButton soul={soul} sx={{ mt: 2, width: 164 }} />
         </Box>
         <Box sx={{ mt: { xs: 2, md: 0 }, ml: { md: 4 } }}>
-          <Chip label={`ID: ${soul.id}`} sx={{ height: "24px", mb: 1.5 }} />
+          <Chip label={`ID: ${soul.id}`} sx={{ height: '24px', mb: 1.5 }} />
           <Box
             sx={{
-              display: "flex",
-              flexDirection: "row",
-              alignItems: "baseline",
+              display: 'flex',
+              flexDirection: 'row',
+              alignItems: 'baseline',
             }}
           >
             <Typography variant="h4">
@@ -76,7 +76,7 @@ function SoulImage({ soul, sx }: any) {
         sx={{
           width: 164,
           height: 164,
-          borderRadius: "24px",
+          borderRadius: '24px',
         }}
         src={soul?.uriData?.image}
       >
@@ -89,7 +89,7 @@ function SoulImage({ soul, sx }: any) {
 function SoulDescription({ soul, sx }: any) {
   const description = getTraitValue(
     soul.uriData?.attributes,
-    PROFILE_TRAIT_TYPE.description
+    PROFILE_TRAIT_TYPE.description,
   );
   if (description) {
     return <Typography sx={{ ...sx }}>{description}</Typography>;
@@ -100,27 +100,27 @@ function SoulDescription({ soul, sx }: any) {
 function SoulLinks({ soul, sx }: any) {
   const email = getTraitValue(
     soul?.uriData?.attributes,
-    PROFILE_TRAIT_TYPE.email
+    PROFILE_TRAIT_TYPE.email,
   );
   const site = getTraitValue(
     soul?.uriData?.attributes,
-    PROFILE_TRAIT_TYPE.site
+    PROFILE_TRAIT_TYPE.site,
   );
   const twitter = getTraitValue(
     soul?.uriData?.attributes,
-    PROFILE_TRAIT_TYPE.twitter
+    PROFILE_TRAIT_TYPE.twitter,
   );
   const telegram = getTraitValue(
     soul?.uriData?.attributes,
-    PROFILE_TRAIT_TYPE.telegram
+    PROFILE_TRAIT_TYPE.telegram,
   );
   const facebook = getTraitValue(
     soul?.uriData?.attributes,
-    PROFILE_TRAIT_TYPE.facebook
+    PROFILE_TRAIT_TYPE.facebook,
   );
   const instagram = getTraitValue(
     soul?.uriData?.attributes,
-    PROFILE_TRAIT_TYPE.instagram
+    PROFILE_TRAIT_TYPE.instagram,
   );
 
   return (

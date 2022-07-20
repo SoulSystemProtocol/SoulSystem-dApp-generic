@@ -1,26 +1,26 @@
-import { Save } from "@mui/icons-material";
-import { LoadingButton } from "@mui/lab";
-import { Box, Button, Divider, Typography } from "@mui/material";
-import { MuiForm5 as Form } from "@rjsf/material-ui";
-import SoulMetadata from "classes/metadata/SoulMetadata";
-import ImageInput from "components/form/widgets/ImageInput";
-import SoulAttributesInput from "components/form/widgets/soul/SoulAttributesInput";
-import useError from "hooks/useError";
-import useIpfs from "hooks/useIpfs";
-import useSoul from "hooks/useSoul";
-import useToast from "hooks/useToast";
-import { JSONSchema7 } from "json-schema";
-import { useRouter } from "next/router";
-import { useState } from "react";
+import { Save } from '@mui/icons-material';
+import { LoadingButton } from '@mui/lab';
+import { Box, Button, Divider, Typography } from '@mui/material';
+import { MuiForm5 as Form } from '@rjsf/material-ui';
+import SoulMetadata from 'classes/metadata/SoulMetadata';
+import ImageInput from 'components/form/widgets/ImageInput';
+import SoulAttributesInput from 'components/form/widgets/soul/SoulAttributesInput';
+import useError from 'hooks/useError';
+import useIpfs from 'hooks/useIpfs';
+import useSoul from 'hooks/useSoul';
+import useToast from 'hooks/useToast';
+import { JSONSchema7 } from 'json-schema';
+import { useRouter } from 'next/router';
+import { useState } from 'react';
 
 /**
  * A component for create or edit own soul.
  */
 export default function SoulManage({ soul }: any) {
   const STATUS = {
-    isAvailable: "isAvailable",
-    isUploadingToIpfs: "isUploadingToIpfs",
-    isUsingContract: "isUsingContract",
+    isAvailable: 'isAvailable',
+    isUploadingToIpfs: 'isUploadingToIpfs',
+    isUsingContract: 'isUsingContract',
   };
 
   const router = useRouter();
@@ -32,15 +32,15 @@ export default function SoulManage({ soul }: any) {
   const [formData, setFormData] = useState(soul?.uriData || {});
 
   const schema: JSONSchema7 = {
-    type: "object",
+    type: 'object',
     properties: {
       image: {
-        type: "string",
-        title: "",
+        type: 'string',
+        title: '',
       },
       attributes: {
-        type: "array",
-        title: "",
+        type: 'array',
+        title: '',
         items: [{}],
       },
     },
@@ -48,10 +48,10 @@ export default function SoulManage({ soul }: any) {
 
   const uiSchema = {
     image: {
-      "ui:widget": "ImageInput",
+      'ui:widget': 'ImageInput',
     },
     attributes: {
-      "ui:widget": "SoulAttributesInput",
+      'ui:widget': 'SoulAttributesInput',
     },
   };
 
@@ -67,18 +67,18 @@ export default function SoulManage({ soul }: any) {
       // Upload json with form data to IPFS
       setStatus(STATUS.isUploadingToIpfs);
       const { url: metadataUrl } = await uploadJsonToIPFS(
-        new SoulMetadata(formData.image, formData.attributes)
+        new SoulMetadata(formData.image, formData.attributes),
       );
       // Use contract
       setStatus(STATUS.isUsingContract);
       if (soul) {
         await editSoul(soul.id, metadataUrl);
-        showToastSuccess("Your soul will be transformed momentarily");
+        showToastSuccess('Your soul will be transformed momentarily');
       } else {
         await createSoul(metadataUrl);
-        showToastSuccess("Your soul will arrive shortly");
+        showToastSuccess('Your soul will arrive shortly');
       }
-      router.push("/");
+      router.push('/');
     } catch (error: any) {
       handleError(error, true);
       setStatus(STATUS.isAvailable);
@@ -88,7 +88,7 @@ export default function SoulManage({ soul }: any) {
   return (
     <Box>
       <Typography variant="h5" gutterBottom>
-        {soul ? "Edit Soul" : "Create Soul"}
+        {soul ? 'Edit Soul' : 'Create Soul'}
       </Typography>
       <Divider />
       <Form
@@ -101,7 +101,7 @@ export default function SoulManage({ soul }: any) {
       >
         {status === STATUS.isAvailable && (
           <Button variant="contained" type="submit">
-            {soul ? "Edit Soul" : "Create Soul"}
+            {soul ? 'Edit Soul' : 'Create Soul'}
           </Button>
         )}
         {status === STATUS.isUploadingToIpfs && (
@@ -121,7 +121,7 @@ export default function SoulManage({ soul }: any) {
             startIcon={<Save />}
             variant="outlined"
           >
-            {soul ? "Updating" : "Creating"}
+            {soul ? 'Updating' : 'Creating'}
           </LoadingButton>
         )}
       </Form>

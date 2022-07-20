@@ -1,10 +1,10 @@
 import {
   default as WalletConnect,
   default as WalletConnectProvider,
-} from "@walletconnect/web3-provider";
-import { ethers } from "ethers";
-import { createContext, useEffect, useRef, useState } from "react";
-import Web3Modal from "web3modal";
+} from '@walletconnect/web3-provider';
+import { ethers } from 'ethers';
+import { createContext, useEffect, useRef, useState } from 'react';
+import Web3Modal from 'web3modal';
 
 interface IWeb3Context {
   isReady: any;
@@ -40,15 +40,15 @@ export function Web3Provider({ children }: any) {
       const instance = await web3ModalRef.current.connect();
       // Define data
       setIsReady(false);
-      const provider = new ethers.providers.Web3Provider(instance, "any");
+      const provider = new ethers.providers.Web3Provider(instance, 'any');
       const accounts = await provider.listAccounts();
       const network = await provider.getNetwork();
       const networkChainId = network?.chainId;
       // Add listeners if the user has changed the chain or account
-      instance.addListener("chainChanged", (chainId: any) =>
-        setNetworkChainId(chainId)
+      instance.addListener('chainChanged', (chainId: any) =>
+        setNetworkChainId(chainId),
       );
-      instance.addListener("accountsChanged", (accounts: any) => {
+      instance.addListener('accountsChanged', (accounts: any) => {
         if (accounts && accounts.length > 0) {
           setAccount(accounts[0]);
         }
@@ -75,11 +75,11 @@ export function Web3Provider({ children }: any) {
         instance.disconnect();
       }
       // Remove listeners
-      instance?.removeAllListeners("chainChanged");
-      instance?.removeAllListeners("accountsChanged");
+      instance?.removeAllListeners('chainChanged');
+      instance?.removeAllListeners('accountsChanged');
       // Clear providers
       web3ModalRef.current?.clearCachedProvider();
-      localStorage.removeItem("walletconnect");
+      localStorage.removeItem('walletconnect');
       // Clear states
       setInstance(null);
       setProvider(null);
@@ -104,14 +104,14 @@ export function Web3Provider({ children }: any) {
   async function switchNetwork() {
     try {
       await instance.request({
-        method: "wallet_switchEthereumChain",
+        method: 'wallet_switchEthereumChain',
         params: [{ chainId: process.env.NEXT_PUBLIC_NETWORK_CHAIN_ID_HEX }],
       });
     } catch (error: any) {
       console.error(error);
       if (
         error?.code === 4902 ||
-        error?.message?.toLowerCase()?.includes("unrecognized chain id")
+        error?.message?.toLowerCase()?.includes('unrecognized chain id')
       ) {
         addNetwork();
       }
@@ -122,7 +122,7 @@ export function Web3Provider({ children }: any) {
   async function addNetwork() {
     try {
       await instance.request({
-        method: "wallet_addEthereumChain",
+        method: 'wallet_addEthereumChain',
         params: [
           {
             chainId: process.env.NEXT_PUBLIC_NETWORK_CHAIN_ID_HEX,
@@ -132,7 +132,7 @@ export function Web3Provider({ children }: any) {
               name: process.env.NEXT_PUBLIC_NETWORK_CURRENCY_NAME,
               symbol: process.env.NEXT_PUBLIC_NETWORK_CURRENCY_SYMBOL,
               decimals: parseInt(
-                process.env.NEXT_PUBLIC_NETWORK_CURRENCY_DECIMALS || ""
+                process.env.NEXT_PUBLIC_NETWORK_CURRENCY_DECIMALS || '',
               ),
             },
             blockExplorerUrls: [
@@ -149,7 +149,7 @@ export function Web3Provider({ children }: any) {
   useEffect(() => {
     // Init default provider
     const rpcProvider = new ethers.providers.JsonRpcProvider(
-      process.env.NEXT_PUBLIC_NETWORK_RPC_URL
+      process.env.NEXT_PUBLIC_NETWORK_RPC_URL,
     );
     // TODO: Test that default provider is work
     setDefaultProvider(rpcProvider);
@@ -161,7 +161,7 @@ export function Web3Provider({ children }: any) {
           package: WalletConnect,
           options: {
             rpc: {
-              [process.env.NEXT_PUBLIC_NETWORK_CHAIN_ID || ""]:
+              [process.env.NEXT_PUBLIC_NETWORK_CHAIN_ID || '']:
                 process.env.NEXT_PUBLIC_NETWORK_RPC_URL,
             },
           },

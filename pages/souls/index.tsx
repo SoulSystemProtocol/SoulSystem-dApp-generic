@@ -1,13 +1,13 @@
-import { Box, Button, Pagination, Typography } from "@mui/material";
-import Layout from "../../components/layout/Layout";
+import { Box, Button, Pagination, Typography } from '@mui/material';
+import Layout from '../../components/layout/Layout';
 
-import Soul from "classes/Soul";
-import SoulList from "components/soul/SoulList";
-import useError from "hooks/useError";
-import useSoul from "hooks/useSoul";
-import { useContext, useEffect, useState } from "react";
-import Link from "next/link";
-import { DataContext } from "contexts/data";
+import Soul from 'classes/Soul';
+import SoulList from 'components/soul/SoulList';
+import useError from 'hooks/useError';
+import useSoul from 'hooks/useSoul';
+import { useContext, useEffect, useState } from 'react';
+import Link from 'next/link';
+import { DataContext } from 'contexts/data';
 
 /**
  * Page for a list of souls
@@ -32,7 +32,7 @@ export default function SoulsPage({}: any) {
         undefined,
         undefined,
         pageSize,
-        (page - 1) * pageSize
+        (page - 1) * pageSize,
       );
       setSouls(souls);
       // Add next page to pagination if possible
@@ -51,7 +51,7 @@ export default function SoulsPage({}: any) {
 
   return (
     <Layout title="MentorDAO — Souls">
-      <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+      <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
         <Typography variant="h5">Souls</Typography>
         {!accountSoul && (
           <Link href="/souls/create" passHref>
@@ -62,10 +62,10 @@ export default function SoulsPage({}: any) {
       <SoulList souls={souls} sx={{ mt: 1 }} />
       <Box
         sx={{
-          display: "flex",
-          flexDirection: { xs: "column", md: "row" },
-          justifyContent: { md: "space-between" },
-          alignItems: { md: "center" },
+          display: 'flex',
+          flexDirection: { xs: 'column', md: 'row' },
+          justifyContent: { md: 'space-between' },
+          alignItems: { md: 'center' },
           mt: 3,
         }}
       >

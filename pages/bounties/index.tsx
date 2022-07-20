@@ -1,6 +1,6 @@
-import * as React from "react";
-import { Box } from "@mui/material";
-import Layout from "../../components/layout/Layout";
+import * as React from 'react';
+import { Box } from '@mui/material';
+import Layout from '../../components/layout/Layout';
 
 /**
  * Page for a list of bounties

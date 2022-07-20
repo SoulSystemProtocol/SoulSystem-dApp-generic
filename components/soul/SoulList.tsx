@@ -1,5 +1,5 @@
-import { Grid, Typography } from "@mui/material";
-import SoulCard from "./SoulCard";
+import { Grid, Typography } from '@mui/material';
+import SoulCard from './SoulCard';
 
 /**
  * A component with a list of souls.

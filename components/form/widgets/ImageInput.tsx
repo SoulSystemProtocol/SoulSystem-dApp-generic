@@ -1,10 +1,10 @@
-import { AddOutlined } from "@mui/icons-material";
-import { Avatar, CircularProgress, Input } from "@mui/material";
-import { Box } from "@mui/system";
-import { WidgetProps } from "@rjsf/core";
-import useError from "hooks/useError";
-import useIpfs from "hooks/useIpfs";
-import { ReactNode, useState } from "react";
+import { AddOutlined } from '@mui/icons-material';
+import { Avatar, CircularProgress, Input } from '@mui/material';
+import { Box } from '@mui/system';
+import { WidgetProps } from '@rjsf/core';
+import useError from 'hooks/useError';
+import useIpfs from 'hooks/useIpfs';
+import { ReactNode, useState } from 'react';
 
 /**
  * A widget to input an image, upload it to IPFS, and get URI.
@@ -25,10 +25,10 @@ export default function ImageInput(props: WidgetProps) {
       return false;
     }
     const isJpgOrPng =
-      file.type === "image/jpeg" ||
-      file.type === "image/png" ||
-      file.type === "image/gif" ||
-      file.type === "image/svg+xml";
+      file.type === 'image/jpeg' ||
+      file.type === 'image/png' ||
+      file.type === 'image/gif' ||
+      file.type === 'image/svg+xml';
     if (!isJpgOrPng) {
       return false;
     }
@@ -50,7 +50,7 @@ export default function ImageInput(props: WidgetProps) {
     try {
       if (!isFileValid(file)) {
         throw new Error(
-          "Only JPG/PNG/GIF files with size smaller than 2MB are currently supported!"
+          'Only JPG/PNG/GIF files with size smaller than 2MB are currently supported!',
         );
       }
       setIsLoading(true);
@@ -69,10 +69,10 @@ export default function ImageInput(props: WidgetProps) {
       <label htmlFor="input" style={{ width: size, height: size }}>
         <Avatar
           sx={{
-            cursor: !isLoading && !propsDisabled ? "pointer" : null,
+            cursor: !isLoading && !propsDisabled ? 'pointer' : null,
             width: size,
             height: size,
-            borderRadius: "24px",
+            borderRadius: '24px',
           }}
           src={!isLoading ? propsImage : null}
         >
@@ -80,7 +80,7 @@ export default function ImageInput(props: WidgetProps) {
         </Avatar>
         <Input
           onChange={onChange}
-          sx={{ display: "none" }}
+          sx={{ display: 'none' }}
           id="input"
           type="file"
           disabled={isLoading || propsDisabled}

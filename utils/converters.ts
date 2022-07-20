@@ -1,4 +1,4 @@
-import { truncate } from "lodash";
+import { truncate } from 'lodash';
 
 /**
  * Convert hex string to json.
@@ -9,11 +9,11 @@ export function hexStringToJson(hexString: string): object | null {
   }
   try {
     var hex = hexString.toString();
-    if (hex.startsWith("0x")) {
+    if (hex.startsWith('0x')) {
       hex = hex.substring(2);
     }
     var str = decodeURIComponent(
-      hex.replace(/\s+/g, "").replace(/[0-9a-f]{2}/g, "%$&")
+      hex.replace(/\s+/g, '').replace(/[0-9a-f]{2}/g, '%$&'),
     );
     return JSON.parse(str);
   } catch (error) {
@@ -29,7 +29,7 @@ export function addressToShortAddress(address: string): string {
   let shortAddress = address;
   if (address.length > 10) {
     shortAddress = `${address.substring(0, 6)}...${address.substring(
-      address.length - 4
+      address.length - 4,
     )}`;
   }
   return shortAddress?.toLowerCase();
@@ -39,9 +39,9 @@ export function addressToShortAddress(address: string): string {
  * Get first name and last name of soul.
  */
 export function soulToFirstLastNameString(soul: any, length = 36): string {
-  let firstLastName = "Anonymous";
+  let firstLastName = 'Anonymous';
   if (soul?.uriFirstName || soul?.uriLastName) {
-    firstLastName = (soul.uriFirstName || "") + " " + (soul.uriLastName || "");
+    firstLastName = (soul.uriFirstName || '') + ' ' + (soul.uriLastName || '');
   }
   return truncate(firstLastName, { length: length });
 }

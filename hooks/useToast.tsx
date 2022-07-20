@@ -1,9 +1,9 @@
-import { Button } from "@mui/material";
-import { truncate } from "lodash";
-import { useSnackbar } from "notistack";
-import { useContext } from "react";
-import { Web3Context } from "contexts/web3";
-import WrongNetworkError from "errors/WrongNetworkError";
+import { Button } from '@mui/material';
+import { truncate } from 'lodash';
+import { useSnackbar } from 'notistack';
+import { useContext } from 'react';
+import { Web3Context } from 'contexts/web3';
+import WrongNetworkError from 'errors/WrongNetworkError';
 
 /**
  * Hook for work with toasts.
@@ -19,7 +19,7 @@ export default function useToast() {
 
   let showToastSuccess = function (message: string) {
     enqueueSnackbar(message, {
-      variant: "success",
+      variant: 'success',
       autoHideDuration: autoHideDuration,
     });
   };
@@ -28,13 +28,13 @@ export default function useToast() {
     enqueueSnackbar(message, {
       action: (
         <Button
-          onClick={() => window.open(link, "_blank")?.focus()}
+          onClick={() => window.open(link, '_blank')?.focus()}
           color="inherit"
         >
           Open
         </Button>
       ),
-      variant: "success",
+      variant: 'success',
       autoHideDuration: autoHideDuration,
     });
   };
@@ -61,7 +61,7 @@ export default function useToast() {
         length: 256,
       });
       enqueueSnackbar(message, {
-        variant: "error",
+        variant: 'error',
         autoHideDuration: autoHideDuration,
       });
     }

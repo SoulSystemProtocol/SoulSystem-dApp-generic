@@ -1,8 +1,8 @@
-import { Web3Context } from "contexts/web3";
-import WrongNetworkError from "errors/WrongNetworkError";
-import { Contract } from "ethers";
-import { useContext } from "react";
-import contractAbi from "contracts/abi/Soul.json";
+import { Web3Context } from 'contexts/web3';
+import WrongNetworkError from 'errors/WrongNetworkError';
+import { Contract } from 'ethers';
+import { useContext } from 'react';
+import contractAbi from 'contracts/abi/Soul.json';
 
 /**
  * Hook for work with soul contract.
@@ -12,9 +12,9 @@ export default function useSoulContract() {
 
   function getContract(signerOrProvider: any) {
     return new Contract(
-      process.env.NEXT_PUBLIC_SOUL_CONTRACT_ADDRESS || "",
+      process.env.NEXT_PUBLIC_SOUL_CONTRACT_ADDRESS || '',
       contractAbi,
-      signerOrProvider
+      signerOrProvider,
     );
   }
 

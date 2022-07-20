@@ -1,7 +1,7 @@
-import Layout from "components/layout/Layout";
-import SoulManage from "components/soul/SoulManage";
-import { DataContext } from "contexts/data";
-import { useContext } from "react";
+import Layout from 'components/layout/Layout';
+import SoulManage from 'components/soul/SoulManage';
+import { DataContext } from 'contexts/data';
+import { useContext } from 'react';
 
 /**
  * Page where account can edit soul.

@@ -1,4 +1,4 @@
-import { PersonOutlineOutlined } from "@mui/icons-material";
+import { PersonOutlineOutlined } from '@mui/icons-material';
 import {
   Avatar,
   Box,
@@ -6,12 +6,12 @@ import {
   CardContent,
   Link as MuiLink,
   Typography,
-} from "@mui/material";
-import Link from "next/link";
+} from '@mui/material';
+import Link from 'next/link';
 import {
   addressToShortAddress,
   soulToFirstLastNameString,
-} from "utils/converters";
+} from 'utils/converters';
 
 /**
  * A component with a card with soul.
@@ -20,12 +20,12 @@ export default function SoulCard({ soul }: any) {
   if (soul) {
     return (
       <Card variant="outlined">
-        <CardContent sx={{ p: "10px !important" }}>
+        <CardContent sx={{ p: '10px !important' }}>
           <Box
             sx={{
-              display: "flex",
-              flexDirection: "row",
-              alignItems: "center",
+              display: 'flex',
+              flexDirection: 'row',
+              alignItems: 'center',
             }}
           >
             <SoulImage soul={soul} sx={{ mr: 2 }} />
@@ -46,10 +46,10 @@ function SoulImage({ soul, sx }: any) {
         <Link href={`/souls/${soul.id}`} passHref>
           <Avatar
             sx={{
-              cursor: "pointer",
+              cursor: 'pointer',
               width: 82,
               height: 82,
-              borderRadius: "16px",
+              borderRadius: '16px',
             }}
             src={soul.uriImage}
           >
