@@ -27,7 +27,7 @@ export default function SoulManage({ soul }: any) {
   const { showToastSuccess } = useToast();
   const { uploadJsonToIPFS } = useIpfs();
   const { handleError } = useError();
-  const { createSoul } = useSoul();
+  const { createSoul, editSoul } = useSoul();
   const [status, setStatus] = useState(STATUS.isAvailable);
   const [formData, setFormData] = useState(soul?.uriData || {});
 
@@ -72,7 +72,8 @@ export default function SoulManage({ soul }: any) {
       // Use contract
       setStatus(STATUS.isUsingContract);
       if (soul) {
-        // TODO: Update soul
+        await editSoul(soul.id, metadataUrl);
+        showToastSuccess("Your soul will be transformed momentarily");
       } else {
         await createSoul(metadataUrl);
         showToastSuccess("Your soul will arrive shortly");

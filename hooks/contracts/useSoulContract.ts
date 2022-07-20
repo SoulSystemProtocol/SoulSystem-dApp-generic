@@ -25,7 +25,15 @@ export default function useSoulContract() {
     return await getContract(provider?.getSigner()).mint(tokenUri);
   }
 
+  async function update(tokenId: string, tokenUri: string) {
+    if (!isNetworkChainIdCorrect) {
+      throw new WrongNetworkError();
+    }
+    return await getContract(provider?.getSigner()).update(tokenId, tokenUri);
+  }
+
   return {
     mint,
+    update,
   };
 }

@@ -1,17 +1,20 @@
-import { Box, Pagination, Typography } from "@mui/material";
+import { Box, Button, Pagination, Typography } from "@mui/material";
 import Layout from "../../components/layout/Layout";
 
 import Soul from "classes/Soul";
 import SoulList from "components/soul/SoulList";
 import useError from "hooks/useError";
 import useSoul from "hooks/useSoul";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import type { TSoulProps } from "./souls.types";
+import Link from "next/link";
+import { DataContext } from "contexts/data";
 
 /**
  * Page for a list of souls
  */
 export default function SoulsPage({}: TSoulProps) {
+  const { accountSoul } = useContext(DataContext);
   const { handleError } = useError();
   const { getSouls } = useSoul();
   const [souls, setSouls] = useState<Array<Soul> | null>(null);
@@ -49,7 +52,14 @@ export default function SoulsPage({}: TSoulProps) {
 
   return (
     <Layout title="MentorDAO — Souls">
-      <Typography variant="h5">Souls</Typography>
+      <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+        <Typography variant="h5">Souls</Typography>
+        {!accountSoul && (
+          <Link href="/souls/create" passHref>
+            <Button variant="outlined">Create Soul</Button>
+          </Link>
+        )}
+      </Box>
       <SoulList souls={souls} sx={{ mt: 1 }} />
       <Box
         sx={{

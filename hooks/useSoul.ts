@@ -7,11 +7,23 @@ import useSubgraph from "./useSubgraph";
  * Hook for work with souls.
  */
 export default function useSoul() {
-  const { mint } = useSoulContract();
+  const { mint, update } = useSoulContract();
   const { findSouls } = useSubgraph();
 
   let createSoul = async function (metadataUrl: string): Promise<any> {
     return mint(metadataUrl);
+  };
+
+  let editSoul = async function (
+    id: string,
+    metadataUrl: string
+  ): Promise<any> {
+    return update(id, metadataUrl);
+  };
+
+  let getSoulById = async function (id: string): Promise<Soul | null> {
+    const souls = await getSouls([id]);
+    return souls.length > 0 ? souls[0] : null;
   };
 
   let getSoulByOwner = async function (owner: string): Promise<Soul | null> {
@@ -33,6 +45,8 @@ export default function useSoul() {
 
   return {
     createSoul,
+    editSoul,
+    getSoulById,
     getSoulByOwner,
     getSouls,
   };
