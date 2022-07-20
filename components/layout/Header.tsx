@@ -1,16 +1,14 @@
-import { MenuOutlined } from "@mui/icons-material";
 import {
-  AppBar,
   Button,
-  IconButton,
-  Menu,
-  MenuItem,
   Toolbar,
   Link as MuiLink,
   Tooltip,
   Typography,
 } from "@mui/material";
 import { Box } from "@mui/system";
+import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
+import IconButton from '@mui/material/IconButton';
+import MenuIcon from '@mui/icons-material/Menu';
 import Link from "next/link";
 import { useContext, useState } from "react";
 import { Web3Context } from "contexts/web3";
@@ -20,10 +18,41 @@ import {
 } from "utils/converters";
 import { DataContext } from "contexts/data";
 
+import { styled } from '@mui/material/styles';
+
+const drawerWidth = 240;
+
+interface AppBarProps extends MuiAppBarProps {
+  open?: boolean;
+}
+
+const AppBar = styled(MuiAppBar, {
+  shouldForwardProp: (prop) => prop !== 'open',
+})<AppBarProps>(({ theme, open }) => ({
+  zIndex: theme.zIndex.drawer + 1,
+  transition: theme.transitions.create(['width', 'margin'], {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.leavingScreen,
+  }),
+  ...(open && {
+    marginLeft: drawerWidth,
+    width: `calc(100% - ${drawerWidth}px)`,
+    transition: theme.transitions.create(['width', 'margin'], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+  }),
+}));
+
+interface IHeaderProps {
+  open: boolean;
+  toggleDrawer: () => void;
+}
+
 /**
  * Component with a header.
  */
-export default function Header() {
+export default function Header({ open, toggleDrawer }: IHeaderProps) {
   const { account, connectWallet, disconnectWallet } = useContext(Web3Context);
   const { accountSoul } = useContext(DataContext);
   const [anchorElUser, setAnchorElUser] = useState(null);
@@ -37,15 +66,28 @@ export default function Header() {
 
   return (
     <AppBar
-      color="inherit"
+      color="primary"
       position="fixed"
       elevation={1}
+      open={open}
       sx={{
         zIndex: (theme) => theme.zIndex.drawer + 1,
         boxShadow: "0px 2px 6px rgba(118, 139, 160, 0.1)",
       }}
     >
       <Toolbar>
+        <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            onClick={toggleDrawer}
+            edge="start"
+            sx={{
+              marginRight: 5,
+              ...(open && { display: 'none' }),
+            }}
+          >
+          <MenuIcon />
+        </IconButton>
         {/* Logo */}
         <Box sx={{ flexGrow: 1, display: "flex", flexDirection: "row" }}>
           <Link href="/" passHref>
@@ -59,44 +101,9 @@ export default function Header() {
               pl: 1,
             }}
           >
-            v{process.env.NEXT_PUBLIC_VERSION}
+            {process.env.NEXT_PUBLIC_VERSION}
           </Typography>
         </Box>
-
-        {/* Menu button */}
-        <Tooltip title="Open Menu">
-          <IconButton onClick={handleOpenUserMenu} sx={{ ml: 1, p: "6px" }}>
-            <MenuOutlined />
-          </IconButton>
-        </Tooltip>
-
-        {/* Menu */}
-        <Menu
-          sx={{
-            mt: "45px",
-            padding: "15px",
-            [`& .MuiPaper-root`]: {
-              padding: 0,
-              borderRadius: "15px",
-              overflow: "hidden",
-            },
-            [`& .MuiBackdrop-root`]: {
-              backgroundColor: "rgba(0, 0, 0, 0.5)",
-            },
-          }}
-          anchorEl={anchorElUser}
-          anchorOrigin={{
-            vertical: "top",
-            horizontal: "right",
-          }}
-          keepMounted
-          transformOrigin={{
-            vertical: "top",
-            horizontal: "right",
-          }}
-          open={Boolean(anchorElUser)}
-          onClose={handleCloseUserMenu}
-        >
           {/* Connect wallet button */}
           {!account && (
             <Box
@@ -147,57 +154,6 @@ export default function Header() {
               </Typography>
             </Box>
           )}
-          {/* Create own profile button */}
-          {account && !accountSoul && (
-            <Link href="/soul/create" passHref>
-              <Box
-                sx={{
-                  pt: "6px",
-                  pb: "12px",
-                  px: "16px",
-                  display: "flex",
-                }}
-              >
-                <Button
-                  sx={{ flex: 1 }}
-                  variant="outlined"
-                  size="small"
-                  onClick={() => {
-                    handleCloseUserMenu();
-                  }}
-                >
-                  Create Soul
-                </Button>
-              </Box>
-            </Link>
-          )}
-          {/* Home link */}
-          <Link href="/" passHref>
-            <MenuItem onClick={handleCloseUserMenu}>
-              <Typography>Home</Typography>
-            </MenuItem>
-          </Link>
-          {/* Souls link */}
-          {/* TODO: Use correct href */}
-          <Link href="/souls" passHref>
-            <MenuItem onClick={handleCloseUserMenu}>
-              <Typography>Souls</Typography>
-            </MenuItem>
-          </Link>
-          {/* Projects link */}
-          {/* TODO: Use correct href */}
-          <Link href="/projects" passHref>
-            <MenuItem onClick={handleCloseUserMenu}>
-              <Typography>Projects</Typography>
-            </MenuItem>
-          </Link>
-          {/* Bounties link */}
-          {/* TODO: Use correct href */}
-          <Link href="/bounties" passHref>
-            <MenuItem onClick={handleCloseUserMenu}>
-              <Typography>Bounties</Typography>
-            </MenuItem>
-          </Link>
           {/* Disconnect wallet button */}
           {account && (
             <Box
@@ -218,7 +174,6 @@ export default function Header() {
               </Button>
             </Box>
           )}
-        </Menu>
       </Toolbar>
     </AppBar>
   );
