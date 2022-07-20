@@ -6,20 +6,26 @@ import {
   Menu,
   MenuItem,
   Toolbar,
+  Link as MuiLink,
   Tooltip,
   Typography,
 } from "@mui/material";
 import { Box } from "@mui/system";
 import Link from "next/link";
 import { useContext, useState } from "react";
-import { Web3Context } from "../../contexts/web3";
-import { addressToShortAddress } from "../../utils/converters";
+import { Web3Context } from "contexts/web3";
+import {
+  addressToShortAddress,
+  soulToFirstLastNameString,
+} from "utils/converters";
+import { DataContext } from "contexts/data";
 
 /**
  * Component with a header.
  */
 export default function Header() {
   const { account, connectWallet, disconnectWallet } = useContext(Web3Context);
+  const { accountSoul } = useContext(DataContext);
   const [anchorElUser, setAnchorElUser] = useState(null);
 
   function handleOpenUserMenu(event: any) {
@@ -42,8 +48,10 @@ export default function Header() {
       <Toolbar>
         {/* Logo */}
         <Box sx={{ flexGrow: 1, display: "flex", flexDirection: "row" }}>
-          <Link href="/">
-            <Typography>MentorDAO</Typography>
+          <Link href="/" passHref>
+            <MuiLink underline="none">
+              <Typography>MentorDAO</Typography>
+            </MuiLink>
           </Link>
           <Typography
             sx={{
@@ -125,10 +133,43 @@ export default function Header() {
                 borderColor: "grey.200",
               }}
             >
+              {accountSoul && (
+                <Link href={`/soul/${accountSoul.id}`} passHref>
+                  <MuiLink underline="none">
+                    <Typography>
+                      {soulToFirstLastNameString(accountSoul)}
+                    </Typography>
+                  </MuiLink>
+                </Link>
+              )}
               <Typography variant="body2">
                 {addressToShortAddress(account)}
               </Typography>
             </Box>
+          )}
+          {/* Create own profile button */}
+          {account && !accountSoul && (
+            <Link href="/soul/create" passHref>
+              <Box
+                sx={{
+                  pt: "6px",
+                  pb: "12px",
+                  px: "16px",
+                  display: "flex",
+                }}
+              >
+                <Button
+                  sx={{ flex: 1 }}
+                  variant="outlined"
+                  size="small"
+                  onClick={() => {
+                    handleCloseUserMenu();
+                  }}
+                >
+                  Create Soul
+                </Button>
+              </Box>
+            </Link>
           )}
           {/* Home link */}
           <Link href="/" passHref>

@@ -1,5 +1,5 @@
 {
-  "name": "dapp",
+  "name": "mentor-dao-dapp",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -12,15 +12,23 @@
     "@emotion/react": "^11.9.3",
     "@emotion/styled": "^11.9.3",
     "@mui/icons-material": "^5.8.4",
+    "@mui/lab": "^5.0.0-alpha.91",
     "@mui/material": "^5.9.1",
+    "@rjsf/core": "^4.2.2",
+    "@rjsf/material-ui": "^4.2.2",
     "@walletconnect/web3-provider": "^1.7.8",
+    "axios": "^0.27.2",
     "ethers": "^5.6.9",
+    "ipfs-http-client": "^57.0.3",
+    "lodash": "^4.17.21",
     "next": "12.2.2",
+    "notistack": "^2.0.5",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "web3modal": "^1.9.8"
   },
   "devDependencies": {
+    "@types/lodash": "^4.14.182",
     "@types/node": "18.0.6",
     "@types/react": "18.0.15",
     "@types/react-dom": "18.0.6",

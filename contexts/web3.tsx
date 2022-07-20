@@ -60,7 +60,7 @@ export function Web3Provider({ children }: any) {
         setAccount(accounts[0]);
       }
       setNetworkChainId(networkChainId);
-    } catch (error) {
+    } catch (error: any) {
       console.error(error);
     } finally {
       setIsReady(true);
@@ -86,7 +86,7 @@ export function Web3Provider({ children }: any) {
       setAccount(null);
       setNetworkChainId(null);
       setIsNetworkChainCorrect(null);
-    } catch (error) {
+    } catch (error: any) {
       console.error(error);
     } finally {
       setIsReady(true);
@@ -118,7 +118,7 @@ export function Web3Provider({ children }: any) {
     }
   }
 
-  // TODO: Test it
+  // TODO: Check if this function works
   async function addNetwork() {
     try {
       await instance.request({
@@ -141,7 +141,7 @@ export function Web3Provider({ children }: any) {
           },
         ],
       });
-    } catch (error) {
+    } catch (error: any) {
       console.error(error);
     }
   }

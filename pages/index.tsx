@@ -1,5 +1,5 @@
 import { Typography } from "@mui/material";
-import Layout from "../components/layout/Layout";
+import Layout from "components/layout/Layout";
 
 /**
  * Home page with souls.
