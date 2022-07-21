@@ -1,3 +1,3 @@
 export const GAME_TYPE = {
-  dao: 'DAO',
+  mdao: 'MDAO',
 };

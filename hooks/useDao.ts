@@ -11,7 +11,7 @@ export default function useDao() {
     name: string,
     metadataUrl: string,
   ): Promise<any> {
-    return gameMake(GAME_TYPE.dao, name, metadataUrl);
+    return gameMake(GAME_TYPE.mdao, name, metadataUrl);
   };
 
   return {
