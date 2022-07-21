@@ -1,22 +1,27 @@
-import * as React from 'react';
-import Link from 'next/link';
-import { styled, useTheme, Theme, CSSObject } from '@mui/material/styles';
-import Box from '@mui/material/Box';
-import MuiDrawer from '@mui/material/Drawer';
-import List from '@mui/material/List';
-import CssBaseline from '@mui/material/CssBaseline';
-import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
+import {
+  CurrencyBitcoinOutlined,
+  PersonOutlineOutlined,
+  SchoolOutlined,
+  WorkOutlineOutlined,
+} from '@mui/icons-material';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import { Container, Toolbar } from '@mui/material';
+import Box from '@mui/material/Box';
+import CssBaseline from '@mui/material/CssBaseline';
+import Divider from '@mui/material/Divider';
+import MuiDrawer from '@mui/material/Drawer';
+import IconButton from '@mui/material/IconButton';
+import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import PanoramaFishEyeIcon from '@mui/icons-material/PanoramaFishEye';
-import Header from './Header';
+import { CSSObject, styled, Theme, useTheme } from '@mui/material/styles';
 import Head from 'next/head';
-import { Container, Toolbar } from '@mui/material';
+import Link from 'next/link';
+import * as React from 'react';
+import Header from './Header';
 
 const drawerWidth = 240;
 
@@ -71,22 +76,22 @@ const LINK_CONFIGS = [
   {
     route: '/souls',
     label: 'Souls',
-    icon: <PanoramaFishEyeIcon color="warning" />, // TODO: this is placeholder, update to an icon
+    icon: <PersonOutlineOutlined color="warning" />,
   },
   {
     route: '/daos',
     label: 'mDAOs',
-    icon: <PanoramaFishEyeIcon color="warning" />, // TODO: this is placeholder, update to an icon
+    icon: <SchoolOutlined color="warning" />,
   },
   {
     route: '/projects',
     label: 'Projects',
-    icon: <PanoramaFishEyeIcon color="warning" />, // TODO: this is placeholder, update to an icon
+    icon: <WorkOutlineOutlined color="warning" />,
   },
   {
     route: '/bounties',
     label: 'Bounties',
-    icon: <PanoramaFishEyeIcon color="warning" />, // TODO: this is placeholder, update to an icon
+    icon: <CurrencyBitcoinOutlined color="warning" />,
   },
 ];
 
