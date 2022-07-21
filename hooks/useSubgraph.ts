@@ -19,8 +19,21 @@ export default function useSubgraph() {
     return response.souls;
   };
 
+  let findGames = async function (
+    ids?: Array<string>,
+    type?: string,
+    first?: number,
+    skip?: number,
+  ) {
+    const response = await makeSubgraphQuery(
+      getFindGamesQuery(ids, type, first, skip),
+    );
+    return response.games;
+  };
+
   return {
     findSouls,
+    findGames,
   };
 }
 
@@ -66,4 +79,25 @@ function getFindSoulsQuery(
         uriLastName
       }
     }`;
+}
+
+function getFindGamesQuery(
+  ids?: Array<string>,
+  type?: string,
+  first?: number,
+  skip?: number,
+) {
+  let idsFilter = ids ? `id_in: ["${ids.join('","')}"]` : '';
+  let typeFilter = type ? `type: "${type}"` : '';
+  let filterParams = `where: {${idsFilter}, ${typeFilter}}`;
+  let paginationParams = `first: ${first}, skip: ${skip}`;
+  return `{
+    games(${filterParams}, ${paginationParams}) {
+      id
+      name
+      uri
+      uriData
+      type
+    }
+  }`;
 }
