@@ -24,7 +24,7 @@ export default function DaoManageDialog({ dao, isClose, onClose }: any) {
   const { showToastSuccess } = useToast();
   const { uploadJsonToIPFS } = useIpfs();
   const { handleError } = useError();
-  const { createDao } = useDao();
+  const { createDao, editDao } = useDao();
   const [isLoading, setIsLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(!isClose);
   const [formData, setFormData] = useState({
@@ -88,7 +88,7 @@ export default function DaoManageDialog({ dao, isClose, onClose }: any) {
         new DaoMetadata(formData.image, formData.description),
       );
       if (dao) {
-        // TODO: Implement
+        await editDao(dao.id, metadataUrl);
       } else {
         await createDao(formData.name, metadataUrl);
       }

@@ -41,7 +41,7 @@ function DaoImage({ dao, sx }: any) {
               height: 82,
               borderRadius: '16px',
             }}
-            src={dao.uriImage}
+            src={dao.uriData?.image}
           >
             <SchoolOutlined />
           </Avatar>

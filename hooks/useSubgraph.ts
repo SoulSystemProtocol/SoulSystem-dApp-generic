@@ -95,9 +95,15 @@ function getFindGamesQuery(
     games(${filterParams}, ${paginationParams}) {
       id
       name
+      type
       uri
       uriData
-      type
+      roles {
+        id
+        roleId
+        souls
+        soulsCount
+      }
     }
   }`;
 }

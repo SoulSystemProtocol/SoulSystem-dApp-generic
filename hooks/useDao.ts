@@ -1,6 +1,7 @@
 import Dao from 'classes/Dao';
 import { GAME_TYPE } from 'constants/contracts';
 import { hexStringToJson } from 'utils/converters';
+import useGameContract from './contracts/useGameContract';
 import useHubContract from './contracts/useHubContract';
 import useSubgraph from './useSubgraph';
 
@@ -9,6 +10,7 @@ import useSubgraph from './useSubgraph';
  */
 export default function useDao() {
   const { gameMake } = useHubContract();
+  const { setUri } = useGameContract();
   const { findGames } = useSubgraph();
 
   let createDao = async function (
@@ -16,6 +18,15 @@ export default function useDao() {
     metadataUrl: string,
   ): Promise<any> {
     return gameMake(GAME_TYPE.mdao, name, metadataUrl);
+  };
+
+  let editDao = async function (id: string, metadataUrl: string) {
+    return setUri(id, metadataUrl);
+  };
+
+  let getDaoById = async function (id: string): Promise<Dao | null> {
+    const daos = await getDaos([id]);
+    return daos.length > 0 ? daos[0] : null;
   };
 
   let getDaos = async function (
@@ -29,9 +40,23 @@ export default function useDao() {
     );
   };
 
+  let isSoulHasRole = function (
+    dao: Dao,
+    soul: string,
+    roleId: string,
+  ): boolean {
+    const daoRole = dao.roles?.find(
+      (element: any) => element?.roleId === roleId,
+    );
+    return daoRole?.souls?.includes(soul);
+  };
+
   return {
     createDao,
+    editDao,
+    getDaoById,
     getDaos,
+    isSoulHasRole,
   };
 }
 
@@ -42,5 +67,6 @@ function convertSubgraphGameToDao(subgraphGame: any) {
     subgraphGame.type,
     subgraphGame.uri,
     hexStringToJson(subgraphGame.uriData),
+    subgraphGame.roles,
   );
 }
