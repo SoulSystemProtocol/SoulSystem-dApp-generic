@@ -5,7 +5,6 @@ function Document() {
     <Html>
       <Head>
         <meta name="description" content="MentorDAO" />
-        {/* TODO: Use custom favicon */}
         <link rel="icon" href="/favicon.ico" />
         <link
           href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"
