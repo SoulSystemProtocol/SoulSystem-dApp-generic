@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { IS_SOULS_CREATED_BY_CONTRACTS_DISABLED } from 'constants/features';
 
 /**
  * Hook to work with subgraph.
@@ -66,7 +67,8 @@ function getFindSoulsQuery(
 ) {
   let idsFilter = ids ? `id_in: ["${ids.join('","')}"]` : '';
   let ownersFilter = owners ? `owner_in: ["${owners.join('","')}"]` : '';
-  let filterParams = `where: {${idsFilter}, ${ownersFilter}}`;
+  let typeFilter = IS_SOULS_CREATED_BY_CONTRACTS_DISABLED ? 'type: ""' : '';
+  let filterParams = `where: {${idsFilter}, ${ownersFilter}, ${typeFilter}}`;
   let paginationParams = `first: ${first}, skip: ${skip}`;
   return `{
       souls(${filterParams}, ${paginationParams}) {
