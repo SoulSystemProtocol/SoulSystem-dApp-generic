@@ -45,10 +45,14 @@ export default function useDao() {
     soul: string,
     roleId: string,
   ): boolean {
+    return getSoulsByRole(dao, roleId).includes(soul);
+  };
+
+  let getSoulsByRole = function (dao: Dao, roleId: string) {
     const daoRole = dao.roles?.find(
       (element: any) => element?.roleId === roleId,
     );
-    return daoRole?.souls?.includes(soul);
+    return daoRole?.souls || [];
   };
 
   return {
@@ -57,6 +61,7 @@ export default function useDao() {
     getDaoById,
     getDaos,
     isSoulHasRole,
+    getSoulsByRole,
   };
 }
 

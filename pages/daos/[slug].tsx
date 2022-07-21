@@ -1,8 +1,6 @@
-/**
- * Page for a DAO detail
- */
 import Dao from 'classes/Dao';
 import DaoDetail from 'components/dao/DaoDetail';
+import DaoTabs from 'components/dao/DaoTabs';
 import Layout from 'components/layout/Layout';
 import useDao from 'hooks/useDao';
 import useError from 'hooks/useError';
@@ -39,6 +37,7 @@ export default function DaoDetailPage({}: DaoProps) {
   return (
     <Layout title="MentorDAO — Mentor DAO">
       <DaoDetail dao={dao} />
+      <DaoTabs dao={dao} sx={{ mt: 4 }} />
     </Layout>
   );
 }
