@@ -1,5 +1,6 @@
 export const GAME_TYPE = {
   mdao: 'MDAO',
+  project: 'PROJECT',
 };
 
 export const GAME_ROLE = {
