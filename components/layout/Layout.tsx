@@ -1,5 +1,4 @@
 import {
-  CurrencyBitcoinOutlined,
   PersonOutlineOutlined,
   SchoolOutlined,
   WorkOutlineOutlined,
@@ -87,11 +86,6 @@ const LINK_CONFIGS = [
     route: '/projects',
     label: 'Projects',
     icon: <WorkOutlineOutlined color="warning" />,
-  },
-  {
-    route: '/bounties',
-    label: 'Bounties',
-    icon: <CurrencyBitcoinOutlined color="warning" />,
   },
 ];
 
