@@ -1,5 +1,5 @@
 import { SchoolOutlined } from '@mui/icons-material';
-import { Avatar, Button, Typography } from '@mui/material';
+import { Avatar, Button, Stack, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import { GAME_ROLE } from 'constants/contracts';
 import { DataContext } from 'contexts/data';
@@ -7,6 +7,7 @@ import { DialogContext } from 'contexts/dialog';
 import useDao from 'hooks/useDao';
 import { useContext, useEffect, useState } from 'react';
 import DaoManageDialog from './DaoManageDialog';
+import DaoRoleManageDialog from './DaoRoleManageDialog';
 
 /**
  * A component with DAO details.
@@ -23,7 +24,7 @@ export default function DaoDetail({ dao, sx }: any) {
       >
         <Box>
           <DaoImage dao={dao} />
-          <DaoEditButton dao={dao} sx={{ mt: 2, width: 164 }} />
+          <DaoAdminActions dao={dao} sx={{ mt: 2, width: 164 }} />
         </Box>
         <Box sx={{ mt: { xs: 2, md: 0 }, ml: { md: 4 } }}>
           <Typography variant="h4">{dao.name}</Typography>
@@ -53,7 +54,7 @@ function DaoImage({ dao, sx }: any) {
   );
 }
 
-function DaoEditButton({ dao, sx }: any) {
+function DaoAdminActions({ dao, sx }: any) {
   const { accountSoul } = useContext(DataContext);
   const { showDialog, closeDialog } = useContext(DialogContext);
   const { isSoulHasRole } = useDao();
@@ -69,16 +70,28 @@ function DaoEditButton({ dao, sx }: any) {
 
   if (isSoulAdmin) {
     return (
-      <Button
-        size="small"
-        variant="outlined"
-        sx={{ ...sx }}
-        onClick={() =>
-          showDialog?.(<DaoManageDialog dao={dao} onClose={closeDialog} />)
-        }
-      >
-        Edit
-      </Button>
+      <Stack direction="column" spacing={1} sx={{ ...sx }}>
+        <Button
+          size="small"
+          variant="outlined"
+          onClick={() =>
+            showDialog?.(<DaoManageDialog dao={dao} onClose={closeDialog} />)
+          }
+        >
+          Edit
+        </Button>
+        <Button
+          size="small"
+          variant="outlined"
+          onClick={() =>
+            showDialog?.(
+              <DaoRoleManageDialog dao={dao} onClose={closeDialog} />,
+            )
+          }
+        >
+          Manage Roles
+        </Button>
+      </Stack>
     );
   } else {
     return <></>;
