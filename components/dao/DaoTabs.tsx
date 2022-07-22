@@ -7,6 +7,7 @@ import useDao from 'hooks/useDao';
 import useError from 'hooks/useError';
 import useSoul from 'hooks/useSoul';
 import { useEffect, useState } from 'react';
+import DaoApplications from './DaoApplications';
 
 /**
  * A component with DAO tabs.
@@ -58,12 +59,16 @@ export default function DaoTabs({ dao, sx }: any) {
           >
             <Tab label="Members" value="1" />
             <Tab label="Admins" value="2" />
+            <Tab label="Applications" value="3" />
           </TabList>
           <TabPanel value="1" sx={{ px: 0 }}>
             <SoulList souls={memberSouls} />
           </TabPanel>
           <TabPanel value="2" sx={{ px: 0 }}>
             <SoulList souls={adminSouls} />
+          </TabPanel>
+          <TabPanel value="3" sx={{ px: 0 }}>
+            <DaoApplications dao={dao} />
           </TabPanel>
         </TabContext>
       </Box>

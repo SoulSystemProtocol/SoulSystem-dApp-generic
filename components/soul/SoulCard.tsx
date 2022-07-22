@@ -39,7 +39,7 @@ export default function SoulCard({ soul }: any) {
   return <></>;
 }
 
-function SoulImage({ soul, sx }: any) {
+export function SoulImage({ soul, sx }: any) {
   if (soul) {
     return (
       <Box sx={{ ...sx }}>
@@ -63,7 +63,7 @@ function SoulImage({ soul, sx }: any) {
   return <></>;
 }
 
-function SoulDetails({ soul, sx }: any) {
+export function SoulDetails({ soul, sx }: any) {
   if (soul) {
     return (
       <Box sx={{ ...sx }}>

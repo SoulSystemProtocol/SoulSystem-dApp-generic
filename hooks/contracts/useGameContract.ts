@@ -24,6 +24,27 @@ export default function useGameContract() {
     ).setContractURI(uri);
   }
 
+  async function leave(contractAddress: string) {
+    if (!isNetworkChainIdCorrect) {
+      throw new WrongNetworkError();
+    }
+    return await getContract(contractAddress, provider?.getSigner()).leave();
+  }
+
+  async function nominate(
+    contractAddress: string,
+    tokenId: string,
+    uri: string,
+  ) {
+    if (!isNetworkChainIdCorrect) {
+      throw new WrongNetworkError();
+    }
+    return await getContract(contractAddress, provider?.getSigner()).nominate(
+      tokenId,
+      uri,
+    );
+  }
+
   async function assignRole(
     contractAddress: string,
     token: string,
@@ -54,6 +75,8 @@ export default function useGameContract() {
 
   return {
     setUri,
+    leave,
+    nominate,
     assignRole,
     removeRole,
   };

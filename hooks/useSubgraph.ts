@@ -106,6 +106,16 @@ function getFindGamesQuery(
         souls
         soulsCount
       }
+      nominations {
+        id
+        createdDate
+        nominator {
+          id
+        }
+        nominated {
+          id
+        }
+      }
     }
   }`;
 }

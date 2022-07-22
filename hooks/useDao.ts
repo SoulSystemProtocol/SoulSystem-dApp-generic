@@ -10,7 +10,13 @@ import useSubgraph from './useSubgraph';
  */
 export default function useDao() {
   const { gameMake } = useHubContract();
-  const { setUri, assignRole, removeRole } = useGameContract();
+  const {
+    setUri,
+    leave: leaveGame,
+    nominate,
+    assignRole,
+    removeRole,
+  } = useGameContract();
   const { findGames } = useSubgraph();
 
   let createDao = async function (
@@ -55,6 +61,14 @@ export default function useDao() {
     return daoRole?.souls || [];
   };
 
+  let leave = function (dao: Dao) {
+    return leaveGame(dao.id);
+  };
+
+  let applyToJoin = function (dao: Dao, soul: string) {
+    return nominate(dao.id, soul, '');
+  };
+
   let assignRoleToSoul = function (dao: Dao, soul: string, roleName: string) {
     return assignRole(dao.id, soul, roleName);
   };
@@ -70,6 +84,8 @@ export default function useDao() {
     getDaos,
     isSoulHasRole,
     getSoulsByRole,
+    leave,
+    applyToJoin,
     assignRoleToSoul,
     removeRoleToSoul,
   };
@@ -83,5 +99,6 @@ function convertSubgraphGameToDao(subgraphGame: any) {
     subgraphGame.uri,
     hexStringToJson(subgraphGame.uriData),
     subgraphGame.roles,
+    subgraphGame.nominations,
   );
 }
