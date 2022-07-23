@@ -1,5 +1,8 @@
 import axios from 'axios';
-import { IS_SOULS_CREATED_BY_CONTRACTS_DISABLED } from 'constants/features';
+import {
+  IS_GAMES_CREATED_BY_NOT_HUB_DISABLED,
+  IS_SOULS_CREATED_BY_CONTRACTS_DISABLED,
+} from 'constants/features';
 
 /**
  * Hook to work with subgraph.
@@ -91,7 +94,10 @@ function getFindGamesQuery(
 ) {
   let idsFilter = ids ? `id_in: ["${ids.join('","')}"]` : '';
   let typeFilter = type ? `type: "${type}"` : '';
-  let filterParams = `where: {${idsFilter}, ${typeFilter}}`;
+  let hubFilter = IS_GAMES_CREATED_BY_NOT_HUB_DISABLED
+    ? `hub: "${process.env.NEXT_PUBLIC_HUB_CONTRACT_ADDRESS?.toLowerCase()}"`
+    : '';
+  let filterParams = `where: {${idsFilter}, ${typeFilter}, ${hubFilter}}`;
   let paginationParams = `first: ${first}, skip: ${skip}`;
   return `{
     games(${filterParams}, ${paginationParams}) {

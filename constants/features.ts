@@ -1,1 +1,2 @@
 export const IS_SOULS_CREATED_BY_CONTRACTS_DISABLED = true;
+export const IS_GAMES_CREATED_BY_NOT_HUB_DISABLED = true;
