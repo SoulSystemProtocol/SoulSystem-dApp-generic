@@ -1,13 +1,12 @@
-import { TabContext, TabList, TabPanel } from '@mui/lab';
-import { Box, Tab } from '@mui/material';
+import { Box } from '@mui/material';
 import Soul from 'classes/Soul';
 import SoulList from 'components/soul/SoulList';
 import { GAME_ROLE } from 'constants/contracts';
 import useDao from 'hooks/useDao';
 import useError from 'hooks/useError';
 import useSoul from 'hooks/useSoul';
+import { union } from 'lodash';
 import { useEffect, useState } from 'react';
-import DaoApplications from './DaoApplications';
 
 /** DEPRECATED - Using GameMembers instead
  * A component with DAO tabs.
@@ -25,17 +24,17 @@ export default function DaoTabs({ dao, sx }: any) {
       const admin = getSoulsByRole(dao, GAME_ROLE.admin.id);
       const authority = getSoulsByRole(dao, GAME_ROLE.authority.id);
       const applicant = getSoulsByRole(dao, GAME_ROLE.applicant.id);
-      const all = _.union(member, admin, authority, applicant);
+      const all: string[] = union(member, admin, authority, applicant);
       //Fetch All Souls
       setMemberSouls(await getSouls(all, undefined, 25, 0));
       //Index Roles by Soul ID
       const roles: Object = {};
-      _.each({ member, admin, authority, applicant }, function (values, key) {
-        _.each(values, function (value) {
-          if (!roles[value]) roles[value] = Array();
-          roles[value].push(key);
-        });
-      });
+      // _.each({ member, admin, authority, applicant }, function (values, key) {
+      //   _.each(values, function (value) {
+      //     if (!roles[value]) roles[value] = Array();
+      //     roles[value].push(key);
+      //   });
+      // });
       setRoles(roles);
     } catch (error: any) {
       handleError(error, true);
