@@ -103,7 +103,7 @@ export default function GameManageDialog({ dao, isClose, onClose }: any) {
   return (
     <Dialog
       open={isOpen}
-      onClose={isLoading ? () => { } : close}
+      onClose={isLoading ? () => {} : close}
       maxWidth="xs"
       fullWidth
     >

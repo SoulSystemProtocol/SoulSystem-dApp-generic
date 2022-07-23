@@ -7,12 +7,12 @@ import useError from 'hooks/useError';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
-interface DaoProps { }
+interface DaoProps {}
 
 /**
  * Page with DAO details.
  */
-export default function DaoDetailPage({ }: DaoProps) {
+export default function DaoDetailPage({}: DaoProps) {
   const router = useRouter();
   const { slug } = router.query;
   const { handleError } = useError();

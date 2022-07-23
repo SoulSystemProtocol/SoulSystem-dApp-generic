@@ -7,12 +7,12 @@ import useProject from 'hooks/useProject';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
-interface ProjectProps { }
+interface ProjectProps {}
 
 /**
  * Page for a project detail.
  */
-export default function ProjectDetailPage({ }: ProjectProps) {
+export default function ProjectDetailPage({}: ProjectProps) {
   const router = useRouter();
   const { slug } = router.query;
   const { handleError } = useError();
