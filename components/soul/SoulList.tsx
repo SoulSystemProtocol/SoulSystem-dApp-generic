@@ -4,7 +4,7 @@ import SoulCard from './SoulCard';
 /**
  * A component with a list of souls.
  */
-export default function SoulList({ souls, sx, roles }: any) {
+export default function SoulList({ souls, sx, roles = {} }: any) {
   return (
     <Grid container spacing={2} sx={{ ...sx }}>
       {!souls && (
@@ -20,8 +20,8 @@ export default function SoulList({ souls, sx, roles }: any) {
       {souls?.length > 0 && (
         <>
           {souls.map((soul: any, index: number) => (
-            <Grid key={index} item xs={12}>
-              <SoulCard soul={soul} roles={roles[soul.id]} />
+            <Grid item key={String(index)} xs={12}>
+              <SoulCard soul={soul} roles={roles?.[soul.id]} />
             </Grid>
           ))}
         </>

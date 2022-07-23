@@ -18,7 +18,7 @@ import {
 /**
  * A component with a card with soul.
  */
-export default function SoulCard({ soul, roles }: any) {
+export default function SoulCard({ soul, roles = [] }: any) {
   if (soul) {
     return (
       <Grid item xs={12} lg={6}>
