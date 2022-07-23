@@ -4,6 +4,8 @@ import {
   Box,
   Card,
   CardContent,
+  Chip,
+  Grid,
   Link as MuiLink,
   Typography,
 } from '@mui/material';
@@ -16,27 +18,34 @@ import {
 /**
  * A component with a card with soul.
  */
-export default function SoulCard({ soul }: any) {
+export default function SoulCard({ soul, roles }: any) {
   if (soul) {
     return (
-      <Card variant="outlined">
-        <CardContent sx={{ p: '10px !important' }}>
-          <Box
-            sx={{
-              display: 'flex',
-              flexDirection: 'row',
-              alignItems: 'center',
-            }}
-          >
-            <SoulImage soul={soul} sx={{ mr: 2 }} />
-            <SoulDetails soul={soul} />
-          </Box>
-        </CardContent>
-      </Card>
+      <Grid item xs={12} lg={6}>
+        <Card variant="outlined">
+          <CardContent sx={{ p: '10px !important' }}>
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: 'row',
+                alignItems: 'center',
+              }}
+            >
+              <SoulImage soul={soul} sx={{ mr: 2 }} />
+              <SoulDetails soul={soul} />
+              {roles.length > 0 && <SoulRoles roles={roles} />}
+            </Box>
+          </CardContent>
+        </Card>
+      </Grid>
     );
   }
 
   return <></>;
+}
+
+export function SoulRoles({ roles }: any) {
+  return <>{roles.map(role => <Chip key={role} label={role} size="small" />)}</>;
 }
 
 export function SoulImage({ soul, sx }: any) {

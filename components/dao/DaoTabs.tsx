@@ -16,23 +16,28 @@ export default function DaoTabs({ dao, sx }: any) {
   const { handleError } = useError();
   const { getSoulsByRole } = useDao();
   const { getSouls } = useSoul();
-  const [tabValue, setTabValue] = useState('1');
-  const [memberSouls, setMemberSouls] = useState<Array<Soul> | null>(null);
-  const [adminSouls, setAdminSouls] = useState<Array<Soul> | null>(null);
+  const [memberSouls, setMemberSouls] = useState<Array<Soul>>([]);
+  const [roles, setRoles] = useState<Object | {}>({});
 
   async function loadData() {
     try {
-      const members = getSoulsByRole(dao, GAME_ROLE.member.id);
-      const admins = getSoulsByRole(dao, GAME_ROLE.admin.id);
-      setMemberSouls(await getSouls(members, undefined, 25, 0));
-      setAdminSouls(await getSouls(admins, undefined, 25, 0));
+      const member = getSoulsByRole(dao, GAME_ROLE.member.id);
+      const admin = getSoulsByRole(dao, GAME_ROLE.admin.id);
+      const all = _.union(member, admin);
+      //Fetch All Souls
+      setMemberSouls(await getSouls(all, undefined, 25, 0));
+      //Index Roles by Soul ID
+      const roles: Object = {};
+      _.each({ member, admin }, function (values, key) {
+        _.each(values, function (value) {
+          if (!roles[value]) roles[value] = Array();
+          roles[value].push(key);
+        });
+      });
+      setRoles(roles);
     } catch (error: any) {
       handleError(error, true);
     }
-  }
-
-  function handleChange(_: any, newTabValue: any) {
-    setTabValue(newTabValue);
   }
 
   useEffect(() => {
@@ -44,33 +49,8 @@ export default function DaoTabs({ dao, sx }: any) {
 
   if (dao) {
     return (
-      <Box sx={{ width: '100%', ...sx }}>
-        <TabContext value={tabValue}>
-          <TabList
-            onChange={handleChange}
-            variant="scrollable"
-            scrollButtons="auto"
-            sx={{
-              borderBottom: 1,
-              borderColor: 'divider',
-              mb: 1,
-              maxWidth: 'calc(100vw - 32px)',
-            }}
-          >
-            <Tab label="Members" value="1" />
-            <Tab label="Admins" value="2" />
-            <Tab label="Applications" value="3" />
-          </TabList>
-          <TabPanel value="1" sx={{ px: 0 }}>
-            <SoulList souls={memberSouls} />
-          </TabPanel>
-          <TabPanel value="2" sx={{ px: 0 }}>
-            <SoulList souls={adminSouls} />
-          </TabPanel>
-          <TabPanel value="3" sx={{ px: 0 }}>
-            <DaoApplications dao={dao} />
-          </TabPanel>
-        </TabContext>
+      <Box sx={{ sm: 12, ...sx }}>
+        <SoulList souls={memberSouls} roles={roles} />
       </Box>
     );
   }
