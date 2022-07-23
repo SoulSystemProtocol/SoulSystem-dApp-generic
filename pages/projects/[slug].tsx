@@ -1,17 +1,18 @@
 import Project from 'classes/Project';
 import Layout from 'components/layout/Layout';
 import ProjectDetail from 'components/project/ProjectDetail';
+import GameMembers from 'components/game/GameMembers';
 import useError from 'hooks/useError';
 import useProject from 'hooks/useProject';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
-interface ProjectProps {}
+interface ProjectProps { }
 
 /**
  * Page for a project detail.
  */
-export default function ProjectDetailPage({}: ProjectProps) {
+export default function ProjectDetailPage({ }: ProjectProps) {
   const router = useRouter();
   const { slug } = router.query;
   const { handleError } = useError();
@@ -36,6 +37,7 @@ export default function ProjectDetailPage({}: ProjectProps) {
   return (
     <Layout title="MentorDAO — Project">
       <ProjectDetail project={project} />
+      <GameMembers game={project} sx={{ mt: 4 }} />
     </Layout>
   );
 }

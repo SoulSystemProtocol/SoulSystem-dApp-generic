@@ -1,18 +1,18 @@
 import Dao from 'classes/Dao';
 import DaoDetail from 'components/dao/DaoDetail';
-import DaoTabs from 'components/dao/DaoTabs';
+import GameMembers from 'components/game/GameMembers';
 import Layout from 'components/layout/Layout';
 import useDao from 'hooks/useDao';
 import useError from 'hooks/useError';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
-interface DaoProps {}
+interface DaoProps { }
 
 /**
  * Page with DAO details.
  */
-export default function DaoDetailPage({}: DaoProps) {
+export default function DaoDetailPage({ }: DaoProps) {
   const router = useRouter();
   const { slug } = router.query;
   const { handleError } = useError();
@@ -37,7 +37,7 @@ export default function DaoDetailPage({}: DaoProps) {
   return (
     <Layout title="MentorDAO — Mentor DAO">
       <DaoDetail dao={dao} />
-      <DaoTabs dao={dao} sx={{ mt: 4 }} />
+      <GameMembers game={dao} sx={{ mt: 4 }} />
     </Layout>
   );
 }

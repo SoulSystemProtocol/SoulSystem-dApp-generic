@@ -4,13 +4,13 @@ import { Avatar, Button, Stack, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import { GAME_ROLE } from 'constants/contracts';
 import { DataContext } from 'contexts/data';
-import { DialogContext } from 'contexts/dialog';
 import useDao from 'hooks/useDao';
 import useError from 'hooks/useError';
 import useToast from 'hooks/useToast';
 import { useContext, useEffect, useState } from 'react';
-import DaoManageDialog from './DaoManageDialog';
-import DaoRoleManageDialog from './DaoRoleManageDialog';
+// import { DialogContext } from 'contexts/dialog';
+// import DaoManageDialog from './DaoManageDialog';
+// import DaoRoleManageDialog from './DaoRoleManageDialog';
 
 import GameAdminActions from '../game/GameAdminActions';
 
@@ -39,7 +39,6 @@ export default function DaoDetail({ dao, sx }: any) {
       </Box>
     );
   }
-
   return <></>;
 }
 
@@ -60,6 +59,7 @@ function DaoImage({ dao, sx }: any) {
   );
 }
 
+/* DEPRECATED
 function DaoAdminActions({ dao, sx }: any) {
   const { accountSoul } = useContext(DataContext);
   const { showDialog, closeDialog } = useContext(DialogContext);
@@ -103,6 +103,7 @@ function DaoAdminActions({ dao, sx }: any) {
     return <></>;
   }
 }
+*/
 
 function DaoMembershipActions({ dao, sx }: any) {
   const { accountSoul } = useContext(DataContext);

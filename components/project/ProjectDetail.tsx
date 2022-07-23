@@ -8,6 +8,8 @@ import useProject from 'hooks/useProject';
 import { useContext, useEffect, useState } from 'react';
 import ProjectManageDialog from './ProjectManageDialog';
 
+import GameAdminActions from '../game/GameAdminActions';
+
 /**
  * A component with project details.
  */
@@ -23,7 +25,8 @@ export default function ProjectDetail({ project, sx }: any) {
       >
         <Box>
           <ProjectImage project={project} />
-          <ProjectEditButton project={project} sx={{ mt: 2, width: 164 }} />
+          <GameAdminActions game={project} sx={{ mt: 2, width: 164 }} />
+          {/* <ProjectEditButton project={project} sx={{ mt: 2, width: 164 }} /> */}
         </Box>
         <Box sx={{ mt: { xs: 2, md: 0 }, ml: { md: 4 } }}>
           <Typography variant="h4">{project.name}</Typography>
@@ -53,6 +56,7 @@ function ProjectImage({ project, sx }: any) {
   );
 }
 
+/* DEPRECATED
 function ProjectEditButton({ project, sx }: any) {
   const { accountSoul } = useContext(DataContext);
   const { showDialog, closeDialog } = useContext(DialogContext);
@@ -88,3 +92,4 @@ function ProjectEditButton({ project, sx }: any) {
     return <></>;
   }
 }
+*/

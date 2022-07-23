@@ -1,4 +1,4 @@
-import { TabContext, TabList, TabPanel } from '@mui/lab';
+// import { TabContext, TabList, TabPanel } from '@mui/lab';
 import { Box, Tab } from '@mui/material';
 import Soul from 'classes/Soul';
 import SoulList from 'components/soul/SoulList';
@@ -7,12 +7,12 @@ import useDao from 'hooks/useDao';
 import useError from 'hooks/useError';
 import useSoul from 'hooks/useSoul';
 import { useEffect, useState } from 'react';
-import DaoApplications from './DaoApplications';
+// import DaoApplications from './DaoApplications';
 
-/** DEPRECATED - Using GameMembers instead
+/**
  * A component with DAO tabs.
  */
-export default function DaoTabs({ dao, sx }: any) {
+export default function GameMembers({ game: dao, sx }: any) {
   const { handleError } = useError();
   const { getSoulsByRole } = useDao();
   const { getSouls } = useSoul();
