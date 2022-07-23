@@ -29,15 +29,15 @@ export default function ProjectTabs({ project, sx }: any) {
               maxWidth: 'calc(100vw - 32px)',
             }}
           >
-            <Tab label="Members" value="1" />
-            <Tab label="Tasks" value="2" />
+            <Tab label="Tasks" value="1" />
+            <Tab label="Members" value="2" />
           </TabList>
           <TabPanel value="1" sx={{ px: 0 }}>
-            <GameSouls game={project} />
-          </TabPanel>
-          <TabPanel value="2" sx={{ px: 0 }}>
             <ProjectAddTaskButton project={project} sx={{ mb: 4 }} />
             <ProjectTaskList project={project} />
+          </TabPanel>
+          <TabPanel value="2" sx={{ px: 0 }}>
+            <GameSouls game={project} />
           </TabPanel>
         </TabContext>
       </Box>
