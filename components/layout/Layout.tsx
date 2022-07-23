@@ -100,30 +100,30 @@ export default function Layout({ children, title }: any) {
   const renderMenu = LINK_CONFIGS.map(({ label, route, icon }) => {
     return (
       <ListItem key={label} disablePadding sx={{ display: 'block' }}>
-        <ListItemButton
-          sx={{
-            minHeight: 48,
-            justifyContent: open ? 'initial' : 'center',
-            px: 2.5,
-          }}
-        >
-          <ListItemIcon
+        <Link href={route} passHref>
+          <ListItemButton
             sx={{
-              minWidth: 0,
-              mr: open ? 3 : 'auto',
-              justifyContent: 'center',
+              minHeight: 48,
+              justifyContent: open ? 'initial' : 'center',
+              px: 2.5,
             }}
           >
-            {icon}
-          </ListItemIcon>
-          <Link href={route} passHref>
+            <ListItemIcon
+              sx={{
+                minWidth: 0,
+                mr: open ? 3 : 'auto',
+                justifyContent: 'center',
+              }}
+            >
+              {icon}
+            </ListItemIcon>
             <ListItemText
-              onClick={() => console.log('clicked')}
+              onClick={() => console.log('clicked', route)}
               primary={label}
               sx={{ opacity: open ? 1 : 0 }}
             />
-          </Link>
-        </ListItemButton>
+          </ListItemButton>
+        </Link>
       </ListItem>
     );
   });
