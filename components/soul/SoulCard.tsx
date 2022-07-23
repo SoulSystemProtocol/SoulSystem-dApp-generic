@@ -45,7 +45,13 @@ export default function SoulCard({ soul, roles }: any) {
 }
 
 export function SoulRoles({ roles }: any) {
-  return <>{roles.map(role => <Chip key={role} label={role} size="small" />)}</>;
+  return (
+    <>
+      {roles.map((role) => (
+        <Chip key={role} label={role} size="small" />
+      ))}
+    </>
+  );
 }
 
 export function SoulImage({ soul, sx }: any) {
