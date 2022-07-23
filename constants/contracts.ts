@@ -12,4 +12,13 @@ export const GAME_ROLE = {
     id: '2',
     name: 'member',
   },
+  authority: {
+    id: '3',
+    name: 'authority',
+  },
+  applicant: {
+    /* in Game of type:project */
+    id: '4',
+    name: 'applicant',
+  },
 };

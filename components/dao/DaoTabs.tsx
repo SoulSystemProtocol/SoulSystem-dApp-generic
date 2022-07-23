@@ -23,12 +23,14 @@ export default function DaoTabs({ dao, sx }: any) {
     try {
       const member = getSoulsByRole(dao, GAME_ROLE.member.id);
       const admin = getSoulsByRole(dao, GAME_ROLE.admin.id);
-      const all = _.union(member, admin);
+      const authority = getSoulsByRole(dao, GAME_ROLE.authority.id);
+      const applicant = getSoulsByRole(dao, GAME_ROLE.applicant.id);
+      const all = _.union(member, admin, authority, applicant);
       //Fetch All Souls
       setMemberSouls(await getSouls(all, undefined, 25, 0));
       //Index Roles by Soul ID
       const roles: Object = {};
-      _.each({ member, admin }, function (values, key) {
+      _.each({ member, admin, authority, applicant }, function (values, key) {
         _.each(values, function (value) {
           if (!roles[value]) roles[value] = Array();
           roles[value].push(key);
