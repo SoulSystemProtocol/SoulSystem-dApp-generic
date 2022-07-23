@@ -1,7 +1,7 @@
 import Project from 'classes/Project';
 import Layout from 'components/layout/Layout';
 import ProjectDetail from 'components/project/ProjectDetail';
-import GameSouls from 'components/game/GameSouls';
+import ProjectTabs from 'components/project/ProjectTabs';
 import useError from 'hooks/useError';
 import useProject from 'hooks/useProject';
 import { useRouter } from 'next/router';
@@ -37,7 +37,7 @@ export default function ProjectDetailPage({}: ProjectProps) {
   return (
     <Layout title="MentorDAO — Project">
       <ProjectDetail project={project} />
-      <GameSouls game={project} sx={{ mt: 4 }} />
+      <ProjectTabs project={project} sx={{ mt: 4 }} />
     </Layout>
   );
 }

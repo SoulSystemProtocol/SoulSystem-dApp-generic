@@ -21,3 +21,10 @@ export const GAME_ROLE = {
     name: 'applicant',
   },
 };
+
+export const CLAIM_ROLE = {
+  admin: {
+    id: '1',
+    name: 'admin',
+  },
+};
