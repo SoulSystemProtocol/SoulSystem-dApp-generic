@@ -54,7 +54,7 @@ export default function useDao() {
     return getSoulsByRole(dao, roleId).includes(soul);
   };
 
-  let getSoulsByRole = function (dao: Dao, roleId: string) {
+  let getSoulsByRole = function (dao: Dao, roleId: string): Array<string> {
     const daoRole = dao.roles?.find(
       (element: any) => element?.roleId === roleId,
     );

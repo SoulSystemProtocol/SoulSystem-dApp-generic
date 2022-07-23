@@ -4,7 +4,7 @@ import SoulCard from './SoulCard';
 /**
  * A component with a list of souls.
  */
-export default function SoulList({ souls, sx, roles = {} }: any) {
+export default function SoulList({ souls, sx, roles }: any) {
   return (
     <Grid container spacing={2} sx={{ ...sx }}>
       {!souls && (

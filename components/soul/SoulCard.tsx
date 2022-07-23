@@ -7,8 +7,11 @@ import {
   Chip,
   Grid,
   Link as MuiLink,
+  Stack,
   Typography,
 } from '@mui/material';
+import { GAME_ROLE } from 'constants/contracts';
+import { capitalize } from 'lodash';
 import Link from 'next/link';
 import {
   addressToShortAddress,
@@ -18,7 +21,7 @@ import {
 /**
  * A component with a card with soul.
  */
-export default function SoulCard({ soul, roles = [] }: any) {
+export default function SoulCard({ soul, roles }: any) {
   if (soul) {
     return (
       <Grid item>
@@ -29,11 +32,20 @@ export default function SoulCard({ soul, roles = [] }: any) {
                 display: 'flex',
                 flexDirection: 'row',
                 alignItems: 'center',
+                justifyContent: 'space-between',
               }}
             >
-              <SoulImage soul={soul} sx={{ mr: 2 }} />
-              <SoulDetails soul={soul} />
-              {roles.length > 0 && <SoulRoles roles={roles} />}
+              <Box
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                }}
+              >
+                <SoulImage soul={soul} sx={{ mr: 2 }} />
+                <SoulDetails soul={soul} />
+              </Box>
+              <SoulRoles roles={roles} />
             </Box>
           </CardContent>
         </Card>
@@ -45,13 +57,24 @@ export default function SoulCard({ soul, roles = [] }: any) {
 }
 
 export function SoulRoles({ roles }: any) {
-  return (
-    <>
-      {roles.map((role: String, index: number) => (
-        <Chip key={index} label={role} size="small" />
-      ))}
-    </>
-  );
+  if (roles?.length > 0) {
+    return (
+      <Stack spacing={1}>
+        {roles.map((role: string, index: number) => (
+          <Chip
+            key={index}
+            label={capitalize(
+              Object.values(GAME_ROLE).find((element) => element.id == role)
+                ?.name,
+            )}
+            // label={role}
+            size="small"
+          />
+        ))}
+      </Stack>
+    );
+  }
+  return <></>;
 }
 
 export function SoulImage({ soul, sx }: any) {
@@ -74,7 +97,6 @@ export function SoulImage({ soul, sx }: any) {
       </Box>
     );
   }
-
   return <></>;
 }
 
@@ -91,6 +113,5 @@ export function SoulDetails({ soul, sx }: any) {
       </Box>
     );
   }
-
   return <></>;
 }

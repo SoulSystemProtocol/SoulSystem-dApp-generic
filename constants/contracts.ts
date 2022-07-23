@@ -17,7 +17,6 @@ export const GAME_ROLE = {
     name: 'authority',
   },
   applicant: {
-    /* in Game of type:project */
     id: '4',
     name: 'applicant',
   },

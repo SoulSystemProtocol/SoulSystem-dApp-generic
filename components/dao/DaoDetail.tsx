@@ -1,6 +1,6 @@
 import { Save, SchoolOutlined } from '@mui/icons-material';
 import { LoadingButton } from '@mui/lab';
-import { Avatar, Button, Stack, Typography } from '@mui/material';
+import { Avatar, Button, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import { GAME_ROLE } from 'constants/contracts';
 import { DataContext } from 'contexts/data';
@@ -8,10 +8,6 @@ import useDao from 'hooks/useDao';
 import useError from 'hooks/useError';
 import useToast from 'hooks/useToast';
 import { useContext, useEffect, useState } from 'react';
-// import { DialogContext } from 'contexts/dialog';
-// import DaoManageDialog from './DaoManageDialog';
-// import DaoRoleManageDialog from './DaoRoleManageDialog';
-
 import GameAdminActions from '../game/GameAdminActions';
 
 /**
@@ -58,52 +54,6 @@ function DaoImage({ dao, sx }: any) {
     </Box>
   );
 }
-
-/* DEPRECATED
-function DaoAdminActions({ dao, sx }: any) {
-  const { accountSoul } = useContext(DataContext);
-  const { showDialog, closeDialog } = useContext(DialogContext);
-  const { isSoulHasRole } = useDao();
-  const [isSoulAdmin, setIsSoulAdmin] = useState(false);
-
-  useEffect(() => {
-    setIsSoulAdmin(false);
-    if (accountSoul && dao) {
-      setIsSoulAdmin(isSoulHasRole(dao, accountSoul.id, GAME_ROLE.admin.id));
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [accountSoul, dao]);
-
-  if (isSoulAdmin) {
-    return (
-      <Stack direction="column" spacing={1} sx={{ ...sx }}>
-        <Button
-          size="small"
-          variant="outlined"
-          onClick={() =>
-            showDialog?.(<DaoManageDialog dao={dao} onClose={closeDialog} />)
-          }
-        >
-          Edit
-        </Button>
-        <Button
-          size="small"
-          variant="outlined"
-          onClick={() =>
-            showDialog?.(
-              <DaoRoleManageDialog dao={dao} onClose={closeDialog} />,
-            )
-          }
-        >
-          Manage Roles
-        </Button>
-      </Stack>
-    );
-  } else {
-    return <></>;
-  }
-}
-*/
 
 function DaoMembershipActions({ dao, sx }: any) {
   const { accountSoul } = useContext(DataContext);
