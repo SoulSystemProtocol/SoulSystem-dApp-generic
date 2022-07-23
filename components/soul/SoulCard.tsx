@@ -47,7 +47,7 @@ export default function SoulCard({ soul, roles }: any) {
 export function SoulRoles({ roles }: any) {
   return (
     <>
-      {roles.map((role) => (
+      {roles.map((role: String) => (
         <Chip key={role} label={role} size="small" />
       ))}
     </>
