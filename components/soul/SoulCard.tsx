@@ -21,7 +21,7 @@ import {
 export default function SoulCard({ soul, roles = [] }: any) {
   if (soul) {
     return (
-      <Grid item xs={12} lg={6}>
+      <Grid item>
         <Card variant="outlined">
           <CardContent sx={{ p: '10px !important' }}>
             <Box

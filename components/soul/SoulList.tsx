@@ -20,7 +20,7 @@ export default function SoulList({ souls, sx, roles = {} }: any) {
       {souls?.length > 0 && (
         <>
           {souls.map((soul: any, index: number) => (
-            <Grid item key={String(index)} xs={12}>
+            <Grid item key={String(index)} xs={12} lg={6}>
               <SoulCard soul={soul} roles={roles?.[soul.id]} />
             </Grid>
           ))}
