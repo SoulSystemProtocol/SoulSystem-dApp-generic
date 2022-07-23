@@ -12,6 +12,8 @@ import { useContext, useEffect, useState } from 'react';
 import DaoManageDialog from './DaoManageDialog';
 import DaoRoleManageDialog from './DaoRoleManageDialog';
 
+import GameAdminActions from '../game/GameAdminActions';
+
 /**
  * A component with DAO details.
  */
@@ -27,7 +29,7 @@ export default function DaoDetail({ dao, sx }: any) {
       >
         <Box>
           <DaoImage dao={dao} />
-          <DaoAdminActions dao={dao} sx={{ mt: 2, width: 164 }} />
+          <GameAdminActions game={dao} sx={{ mt: 2, width: 164 }} />
         </Box>
         <Box sx={{ mt: { xs: 2, md: 0 }, ml: { md: 4 } }}>
           <Typography variant="h4">{dao.name}</Typography>
