@@ -117,11 +117,7 @@ export default function Layout({ children, title }: any) {
             >
               {icon}
             </ListItemIcon>
-            <ListItemText
-              onClick={() => console.log('clicked', route)}
-              primary={label}
-              sx={{ opacity: open ? 1 : 0 }}
-            />
+            <ListItemText primary={label} sx={{ opacity: open ? 1 : 0 }} />
           </ListItemButton>
         </Link>
       </ListItem>
