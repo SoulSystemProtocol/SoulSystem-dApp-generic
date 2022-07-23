@@ -1,0 +1,260 @@
+[
+  {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "name_",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "uri_",
+        "type": "string"
+      },
+      {
+        "components": [
+          {
+            "internalType": "address",
+            "name": "game",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "ruleId",
+            "type": "uint256"
+          }
+        ],
+        "internalType": "struct DataTypes.RuleRef[]",
+        "name": "rules",
+        "type": "tuple[]"
+      },
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "tokenId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "role",
+            "type": "string"
+          }
+        ],
+        "internalType": "struct DataTypes.InputRoleToken[]",
+        "name": "assignRoles",
+        "type": "tuple[]"
+      },
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "tokenId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "entRole",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "uri",
+            "type": "string"
+          }
+        ],
+        "internalType": "struct DataTypes.PostInput[]",
+        "name": "posts",
+        "type": "tuple[]"
+      }
+    ],
+    "name": "caseMake",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "name_",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "uri_",
+        "type": "string"
+      },
+      {
+        "components": [
+          {
+            "internalType": "address",
+            "name": "game",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "ruleId",
+            "type": "uint256"
+          }
+        ],
+        "internalType": "struct DataTypes.RuleRef[]",
+        "name": "rules",
+        "type": "tuple[]"
+      },
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "tokenId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "role",
+            "type": "string"
+          }
+        ],
+        "internalType": "struct DataTypes.InputRoleToken[]",
+        "name": "assignRoles",
+        "type": "tuple[]"
+      },
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "tokenId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "entRole",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "uri",
+            "type": "string"
+          }
+        ],
+        "internalType": "struct DataTypes.PostInput[]",
+        "name": "posts",
+        "type": "tuple[]"
+      },
+      {
+        "internalType": "string",
+        "name": "decisionURI_",
+        "type": "string"
+      }
+    ],
+    "name": "caseMakeClosed",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "name_",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "uri_",
+        "type": "string"
+      },
+      {
+        "components": [
+          {
+            "internalType": "address",
+            "name": "game",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "ruleId",
+            "type": "uint256"
+          }
+        ],
+        "internalType": "struct DataTypes.RuleRef[]",
+        "name": "rules",
+        "type": "tuple[]"
+      },
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "tokenId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "role",
+            "type": "string"
+          }
+        ],
+        "internalType": "struct DataTypes.InputRoleToken[]",
+        "name": "assignRoles",
+        "type": "tuple[]"
+      },
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "tokenId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "entRole",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "uri",
+            "type": "string"
+          }
+        ],
+        "internalType": "struct DataTypes.PostInput[]",
+        "name": "posts",
+        "type": "tuple[]"
+      }
+    ],
+    "name": "caseMakeOpen",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getRepoAddr",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  }
+]
