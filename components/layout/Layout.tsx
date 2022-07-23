@@ -5,7 +5,7 @@ import {
 } from '@mui/icons-material';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import { Container, Toolbar } from '@mui/material';
+import { Container, Toolbar, Link as MuiLink, Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
 import Divider from '@mui/material/Divider';
@@ -138,6 +138,27 @@ export default function Layout({ children, title }: any) {
       <Header open={open} toggleDrawer={toggleDrawer} />
       <Drawer variant="permanent" open={open}>
         <DrawerHeader>
+          <Box sx={{ display: 'flex', flexGrow: 1, flexDirection: 'row' }}>
+            <Box sx={{ display: 'flex', flexGrow: 1 }}>
+              {/* Logo */}
+              &nbsp;
+            </Box>
+            <Box sx={{ display: 'flex', flexGrow: 1 }}>
+              <Link href="/" passHref>
+                <MuiLink underline="none">
+                  <Typography>MentorDAO</Typography>
+                </MuiLink>
+              </Link>
+              <Typography
+                sx={{
+                  color: 'text.secondary',
+                  pl: 1,
+                }}
+              >
+                {process.env.NEXT_PUBLIC_VERSION}
+              </Typography>
+            </Box>
+          </Box>
           <IconButton onClick={toggleDrawer}>
             {theme.direction === 'rtl' ? (
               <ChevronRightIcon />

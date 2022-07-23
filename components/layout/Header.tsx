@@ -75,9 +75,9 @@ export default function Header({ open, toggleDrawer }: IHeaderProps) {
         >
           <MenuIcon />
         </IconButton>
-        {/* Logo */}
+        {/* Left */}
         <Box sx={{ flexGrow: 1, display: 'flex', flexDirection: 'row' }}>
-          <Link href="/" passHref>
+          {/* <Link href="/" passHref>
             <MuiLink underline="none">
               <Typography>MentorDAO</Typography>
             </MuiLink>
@@ -89,7 +89,7 @@ export default function Header({ open, toggleDrawer }: IHeaderProps) {
             }}
           >
             {process.env.NEXT_PUBLIC_VERSION}
-          </Typography>
+          </Typography> */}
         </Box>
         {/* Account info */}
         {account && (
