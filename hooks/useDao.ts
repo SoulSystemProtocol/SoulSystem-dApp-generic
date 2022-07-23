@@ -7,6 +7,8 @@ import useSubgraph from './useSubgraph';
 
 /**
  * Hook for work with DAOs.
+ *
+ * TODO: Move neccessary functions to hook useGame().
  */
 export default function useDao() {
   const { gameMake } = useHubContract();

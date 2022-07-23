@@ -15,7 +15,7 @@ export default function GameSouls({ game, sx }: any) {
   const { handleError } = useError();
   const { getSoulsByRole } = useDao();
   const { getSouls } = useSoul();
-  const [souls, setSouls] = useState<Array<Soul>>([]);
+  const [souls, setSouls] = useState<Array<Soul> | null>(null);
   const [soulRoles, setSoulRoles] = useState<Object | {}>({});
 
   async function loadData() {
