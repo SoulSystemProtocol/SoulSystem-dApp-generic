@@ -41,7 +41,7 @@ export default function Layout({ children, title }: any) {
   const [isOpen, setOpen] = React.useState(true);
 
   const toggleDrawer = () => {
-    setOpen(!open);
+    setOpen(!isOpen);
   };
 
   return (
@@ -52,13 +52,7 @@ export default function Layout({ children, title }: any) {
         <meta name="viewport" content="initial-scale=1, width=device-width" />
       </Head>
       <Header open={isOpen} toggleDrawer={toggleDrawer} />
-      <Sidebar
-        links={menu_side_links}
-        toggler={() => {
-          setOpen(!open);
-        }}
-        isOpen={isOpen}
-      />
+      <Sidebar links={menu_side_links} toggler={toggleDrawer} isOpen={isOpen} />
       <Container maxWidth="md">
         <Toolbar />
         <Box sx={{ py: 4 }}>{children}</Box>
