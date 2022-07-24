@@ -23,6 +23,8 @@ export default function TaskDetailPage({ }: TaskProps) {
 
   async function loadData() {
     try {
+      let item = await getTaskById(slug as string);
+      // console.log('Load Data for Slug ', slug, item);
       setTask(await getTaskById(slug as string));
     } catch (error: any) {
       handleError(error, true);
@@ -38,7 +40,7 @@ export default function TaskDetailPage({ }: TaskProps) {
 
   return (
     <Layout title="MentorDAO — Bountiy">
-      <TaskDetail task={task} />
+      <TaskDetail item={task} />
     </Layout>
   );
 }

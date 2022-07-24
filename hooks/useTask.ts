@@ -19,7 +19,7 @@ export default function useTask() {
   };
 
   let getTaskById = async function (id: string): Promise<Task | null> {
-    const items = await getTasks([id]);
+    const items = await getTasks([id], undefined);
     return items.length > 0 ? items[0] : null;
   };
 

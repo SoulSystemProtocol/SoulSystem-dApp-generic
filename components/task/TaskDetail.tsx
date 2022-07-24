@@ -7,9 +7,7 @@ import EntityImage from '../entity/EntityImage';
  */
 export default function TaskDetail({ item, sx }: any) {
   if (item) {
-
     console.log('Page For Task: ', item);
-
     return (
       <Box
         sx={{
