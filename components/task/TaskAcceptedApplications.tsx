@@ -2,6 +2,7 @@ import { CheckOutlined } from '@mui/icons-material';
 import {
   Avatar,
   Box,
+  Grid,
   Divider,
   Link as MuiLink,
   List,
@@ -39,12 +40,12 @@ export default function TaskAcceptedApplications({ task, sx }: any) {
       <Box sx={{ ...sx }}>
         <Divider sx={{ mb: 1 }} />
         <Typography variant="h5">Accepted Applicants:</Typography>
-        <List>
+        <List sx={{ display: 'flex', flexWrap: 'wrap' }}>
           {acceptedSouls.map((soul: any, index: number) => (
             <TaskAcceptedApplication key={index} task={task} soul={soul} />
           ))}
         </List>
-      </Box>
+      </Box >
     );
   }
   return <></>;
@@ -66,7 +67,7 @@ function TaskAcceptedApplication({ soul }: any) {
   }, [soul]);
 
   return (
-    <ListItem>
+    <ListItem sx={{ flex: '1 0', minWidth: '200px' }}>
       <ListItemAvatar>
         <Avatar>
           <CheckOutlined />
