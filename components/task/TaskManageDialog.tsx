@@ -60,7 +60,7 @@ export default function TaskManageDialog({
     description: {
       'ui:widget': 'textarea',
       'ui:options': {
-        rows: 3,
+        rows: 5,
       },
     },
   };
@@ -96,7 +96,7 @@ export default function TaskManageDialog({
     <Dialog
       open={isOpen}
       onClose={isLoading ? () => {} : close}
-      maxWidth="xs"
+      maxWidth="sm"
       fullWidth
     >
       <DialogTitle sx={{ pb: 0 }}>

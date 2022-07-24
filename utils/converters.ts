@@ -1,3 +1,5 @@
+import Task from 'classes/Task';
+import { CLAIM_STAGE } from 'constants/contracts';
 import { truncate } from 'lodash';
 
 /**
@@ -44,4 +46,17 @@ export function soulToFirstLastNameString(soul: any, length = 36): string {
     firstLastName = (soul.uriFirstName || '') + ' ' + (soul.uriLastName || '');
   }
   return truncate(firstLastName, { length: length });
+}
+
+/**
+ * Convert task stage to readable string.
+ */
+export function taskStageToString(task: Task): string {
+  if (!task.stage || task.stage === CLAIM_STAGE.execution) {
+    return 'Task Open For Deliveries';
+  }
+  if (task.stage === CLAIM_STAGE.closed) {
+    return 'Task is Closed';
+  }
+  return 'Unknown Stage';
 }

@@ -37,6 +37,7 @@ import useTask from 'hooks/useTask';
 import useToast from 'hooks/useToast';
 import Link from 'next/link';
 import { useContext, useEffect, useState } from 'react';
+import { taskStageToString } from 'utils/converters';
 import TaskApplyDialog from './TaskApplyDialog';
 import TaskPostDeliveryDialog from './TaskPostDeliveryDialog';
 
@@ -61,9 +62,6 @@ export default function TaskCard({ task }: any) {
 }
 
 function TaskHeader({ task, sx }: any) {
-  const { accountSoul } = useContext(DataContext);
-  const { showDialog, closeDialog } = useContext(DialogContext);
-
   return (
     <Box
       sx={{
@@ -74,11 +72,11 @@ function TaskHeader({ task, sx }: any) {
         ...sx,
       }}
     >
-      {/* Task data */}
+      {/* Task name and description */}
       <Box>
         <Link href={`/tasks/${task.id}`} passHref>
           <MuiLink underline="none">
-            <Typography>{task.name}</Typography>
+            <Typography variant="h6">{task.name}</Typography>
           </MuiLink>
         </Link>
         {task.uriData.description && (
@@ -87,38 +85,69 @@ function TaskHeader({ task, sx }: any) {
           </Typography>
         )}
       </Box>
-      {/* Task actions */}
-      {accountSoul && (
-        <Box>
-          <Button
-            onClick={() =>
-              showDialog?.(
-                <TaskApplyDialog task={task} onClose={closeDialog} />,
-              )
-            }
-          >
-            Apply as DAO
-          </Button>
-        </Box>
-      )}
+      {/* Task stage */}
+      <Box>
+        <Typography variant="body2" color="text.secondary">
+          {taskStageToString(task)}
+        </Typography>
+      </Box>
     </Box>
   );
 }
 
 function TaskApplications({ task, sx }: any) {
-  if (task.nominations.length > 0) {
-    return (
-      <Box sx={{ ...sx }}>
-        <Divider sx={{ mb: 2 }} />
-        <List subheader={<ListSubheader>Applications:</ListSubheader>}>
-          {task.nominations.map((nomination: any, index: number) => (
-            <TaskApplication key={index} task={task} nomination={nomination} />
-          ))}
-        </List>
-      </Box>
-    );
-  }
-  return <></>;
+  const { accountSoul } = useContext(DataContext);
+  const { showDialog, closeDialog } = useContext(DialogContext);
+
+  return (
+    <Box sx={{ ...sx }}>
+      <Divider sx={{ mb: 1 }} />
+      <List
+        subheader={
+          <ListSubheader>
+            <Stack
+              direction="row"
+              alignItems="center"
+              justifyContent="space-between"
+              sx={{ py: 2 }}
+            >
+              <Typography variant="body2">Applications: </Typography>
+              {/* Button to apply as DAO */}
+              {task.stage !== CLAIM_STAGE.closed && accountSoul && (
+                <Button
+                  size="small"
+                  variant="outlined"
+                  onClick={() =>
+                    showDialog?.(
+                      <TaskApplyDialog task={task} onClose={closeDialog} />,
+                    )
+                  }
+                >
+                  Apply as DAO
+                </Button>
+              )}
+            </Stack>
+          </ListSubheader>
+        }
+      >
+        {task.nominations.length > 0 ? (
+          <>
+            {task.nominations.map((nomination: any, index: number) => (
+              <TaskApplication
+                key={index}
+                task={task}
+                nomination={nomination}
+              />
+            ))}
+          </>
+        ) : (
+          <ListItem>
+            <Typography variant="body2">No applications</Typography>
+          </ListItem>
+        )}
+      </List>
+    </Box>
+  );
 }
 
 function TaskApplication({ task, nomination }: any) {
@@ -170,7 +199,8 @@ function TaskApplication({ task, nomination }: any) {
             </MuiLink>
           </Link>
           {/* Application actions */}
-          {accountSoul &&
+          {task.stage !== CLAIM_STAGE.closed &&
+            accountSoul &&
             isSoulHasRole(task, accountSoul.id, CLAIM_ROLE.admin.id) && (
               <Box sx={{ mt: 0.5 }}>
                 {isProcessed ? (
@@ -223,7 +253,7 @@ function TaskAcceptedApplications({ task, sx }: any) {
   if (acceptedSouls.length > 0) {
     return (
       <Box sx={{ ...sx }}>
-        <Divider sx={{ mb: 2 }} />
+        <Divider sx={{ mb: 1 }} />
         <List subheader={<ListSubheader>Accepted applications:</ListSubheader>}>
           {acceptedSouls.map((soul: any, index: number) => (
             <TaskAcceptedApplication key={index} task={task} soul={soul} />
@@ -292,7 +322,7 @@ function TaskPostedDeliveries({ task, sx }: any) {
   if (getSoulsByRole(task, CLAIM_ROLE.applicant.id).length > 0) {
     return (
       <Box sx={{ ...sx }}>
-        <Divider sx={{ mb: 2 }} />
+        <Divider sx={{ mb: 1 }} />
         <List
           subheader={
             <ListSubheader>
@@ -300,9 +330,10 @@ function TaskPostedDeliveries({ task, sx }: any) {
                 direction="row"
                 alignItems="center"
                 justifyContent="space-between"
+                sx={{ py: 2 }}
               >
                 <Typography variant="body2">Posted Deliveries: </Typography>
-                {accountSoul && (
+                {task.stage !== CLAIM_STAGE.closed && accountSoul && (
                   <Button
                     size="small"
                     variant="outlined"
@@ -387,7 +418,8 @@ function TaskPostedDelivery({ task, post }: any) {
           <MuiLink href={post.uri} underline="none" target="_blank">
             Delivery
           </MuiLink>
-          {accountSoul &&
+          {task.stage !== CLAIM_STAGE.closed &&
+            accountSoul &&
             isSoulHasRole(task, accountSoul.id, CLAIM_ROLE.admin.id) && (
               <Box>
                 {isProcessed ? (
@@ -445,7 +477,7 @@ function TaskApprovedDeliveries({ task, sx }: any) {
   if (subjectSouls.length > 0) {
     return (
       <Box sx={{ ...sx }}>
-        <Divider sx={{ mb: 2 }} />
+        <Divider sx={{ mb: 1 }} />
         <List
           subheader={
             <ListSubheader>
@@ -453,6 +485,7 @@ function TaskApprovedDeliveries({ task, sx }: any) {
                 direction="row"
                 alignItems="center"
                 justifyContent="space-between"
+                sx={{ py: 2 }}
               >
                 <Typography variant="body2">Approved Deliveries:</Typography>
                 {/* Button to disburse funds */}
