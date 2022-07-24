@@ -1,4 +1,7 @@
 import Task from 'classes/Task';
+import { Web3Context } from 'contexts/web3';
+import { ethers } from 'ethers';
+import { useContext } from 'react';
 import { hexStringToJson } from 'utils/converters';
 import useDaoExtContract from './contracts/useDaoExtContract';
 import useProjectExtContract from './contracts/useProjectExtContract';
@@ -9,6 +12,7 @@ import useSubgraph from './useSubgraph';
  * Hook for work with task.
  */
 export default function useTask() {
+  const { defaultProvider } = useContext(Web3Context);
   const { taskMake } = useProjectExtContract();
   const { applyToTask, deliverTask } = useDaoExtContract();
   const { acceptApplicant, deliveryApprove, stageExecusion } =
@@ -79,6 +83,11 @@ export default function useTask() {
     return stageExecusion(taskId, []);
   };
 
+  let getFund = async function (taskId: string) {
+    const balance = await defaultProvider.getBalance(taskId);
+    return ethers.utils.formatEther(balance);
+  };
+
   return {
     createTask,
     getTaskById,
@@ -90,6 +99,7 @@ export default function useTask() {
     postTaskDeliveryAsDao,
     approveSoulDelivery,
     disburseFundsToWinners,
+    getFund,
   };
 }
 

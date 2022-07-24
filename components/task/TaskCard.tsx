@@ -5,7 +5,10 @@ import {
   Link as MuiLink,
   Typography,
 } from '@mui/material';
+import useError from 'hooks/useError';
+import useTask from 'hooks/useTask';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
 import { taskStageToString } from 'utils/converters';
 
 /**
@@ -25,6 +28,19 @@ export default function TaskCard({ task }: any) {
 }
 
 function TaskHeader({ task, sx }: any) {
+  const { getFund } = useTask();
+  const { handleError } = useError();
+  const [fund, setFund] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (task) {
+      getFund(task.id)
+        .then((fund) => setFund(fund))
+        .catch((error) => handleError(error, true));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [task]);
+
   return (
     <Box
       sx={{
@@ -51,7 +67,7 @@ function TaskHeader({ task, sx }: any) {
       {/* Task stage */}
       <Box>
         <Typography variant="body2" color="text.secondary">
-          {taskStageToString(task)}
+          {taskStageToString(task)} {fund ? ` / ${fund} ETH` : ''}
         </Typography>
       </Box>
     </Box>
