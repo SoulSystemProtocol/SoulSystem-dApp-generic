@@ -1,8 +1,5 @@
 import axios from 'axios';
-import {
-  IS_GAMES_CREATED_BY_NOT_HUB_DISABLED,
-  IS_SOULS_CREATED_BY_CONTRACTS_DISABLED,
-} from 'constants/features';
+import { IS_GAMES_CREATED_BY_NOT_HUB_DISABLED } from 'constants/features';
 
 /**
  * Hook to work with subgraph.
@@ -11,6 +8,7 @@ export default function useSubgraph() {
   let findSouls = async function (
     ids?: Array<string>,
     owners?: Array<string>,
+    type?: string,
     first?: number,
     skip?: number,
   ) {
@@ -18,7 +16,7 @@ export default function useSubgraph() {
       ? owners.map((owner) => owner.toLowerCase())
       : undefined;
     const response = await makeSubgraphQuery(
-      getFindSoulsQuery(ids, fixedOwners, first, skip),
+      getFindSoulsQuery(ids, fixedOwners, type, first, skip),
     );
     return response.souls;
   };
@@ -78,18 +76,20 @@ async function makeSubgraphQuery(query: string) {
 function getFindSoulsQuery(
   ids?: Array<string>,
   owners?: Array<string>,
+  type?: string,
   first?: number,
   skip?: number,
 ) {
   let idsFilter = ids ? `id_in: ["${ids.join('","')}"]` : '';
   let ownersFilter = owners ? `owner_in: ["${owners.join('","')}"]` : '';
-  let typeFilter = IS_SOULS_CREATED_BY_CONTRACTS_DISABLED ? 'type: ""' : '';
+  let typeFilter = type !== undefined ? `type: "${type}"` : '';
   let filterParams = `where: {${idsFilter}, ${ownersFilter}, ${typeFilter}}`;
   let paginationParams = `first: ${first}, skip: ${skip}`;
   return `{
       souls(${filterParams}, ${paginationParams}) {
         id
         owner
+        type
         uri
         uriData
         uriImage
@@ -160,12 +160,24 @@ function getFindClaimsQuery(
         name
         uriData
       }
+      roles {
+        id
+        roleId
+        souls
+        soulsCount
+      }
       nominations {
         id
         createdDate
+        nominator {
+          id
+          owner
+          type
+        }
         nominated {
           id
-          name
+          owner
+          type
         }
       }
     }

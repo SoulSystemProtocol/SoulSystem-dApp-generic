@@ -3,6 +3,7 @@ import Layout from '../../components/layout/Layout';
 
 import Soul from 'classes/Soul';
 import SoulList from 'components/soul/SoulList';
+import { SOUL_TYPE } from 'constants/contracts';
 import { DataContext } from 'contexts/data';
 import { Web3Context } from 'contexts/web3';
 import useError from 'hooks/useError';
@@ -33,6 +34,7 @@ export default function SoulsPage({}: any) {
       const souls = await getSouls(
         undefined,
         undefined,
+        SOUL_TYPE.created_by_not_contract,
         pageSize,
         (page - 1) * pageSize,
       );

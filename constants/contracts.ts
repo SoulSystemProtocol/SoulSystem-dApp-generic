@@ -1,3 +1,8 @@
+export const SOUL_TYPE = {
+  created_by_not_contract: '',
+  game: 'GAME',
+};
+
 export const GAME_TYPE = {
   mdao: 'MDAO',
   project: 'PROJECT',
@@ -26,5 +31,9 @@ export const CLAIM_ROLE = {
   admin: {
     id: '1',
     name: 'admin',
+  },
+  applicant: {
+    id: '5',
+    name: 'applicant',
   },
 };

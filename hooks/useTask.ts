@@ -2,6 +2,7 @@ import Task from 'classes/Task';
 import { hexStringToJson } from 'utils/converters';
 import useDaoExtContract from './contracts/useDaoExtContract';
 import useProjectExtContract from './contracts/useProjectExtContract';
+import useTaskContract from './contracts/useTaskContract';
 import useSubgraph from './useSubgraph';
 
 /**
@@ -10,6 +11,7 @@ import useSubgraph from './useSubgraph';
 export default function useTask() {
   const { taskMake } = useProjectExtContract();
   const { applyToTask } = useDaoExtContract();
+  const { acceptApplicant } = useTaskContract();
   const { findClaims } = useSubgraph();
 
   let createTask = function (
@@ -37,15 +39,37 @@ export default function useTask() {
     );
   };
 
+  let isSoulHasRole = function (
+    task: Task,
+    soul: string,
+    roleId: string,
+  ): boolean {
+    return getSoulsByRole(task, roleId).includes(soul);
+  };
+
+  let getSoulsByRole = function (task: Task, roleId: string): Array<string> {
+    const taskRole = task.roles?.find(
+      (element: any) => element?.roleId === roleId,
+    );
+    return taskRole?.souls || [];
+  };
+
   let applyForTaskAsDao = async function (taskId: string, daoId: string) {
     return applyToTask(daoId, taskId, '');
+  };
+
+  let acceptSoulForTask = async function (taskId: string, soulId: string) {
+    return acceptApplicant(taskId, soulId);
   };
 
   return {
     createTask,
     getTaskById,
     getTasks,
+    isSoulHasRole,
+    getSoulsByRole,
     applyForTaskAsDao,
+    acceptSoulForTask,
   };
 }
 
@@ -56,6 +80,7 @@ function convertSubgraphTaskToTask(subgraphTask: any) {
     subgraphTask.uri,
     hexStringToJson(subgraphTask.uriData),
     hexStringToJson(subgraphTask.game.uriData),
+    subgraphTask.roles,
     subgraphTask.nominations,
   );
 }

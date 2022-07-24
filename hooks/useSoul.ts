@@ -34,10 +34,11 @@ export default function useSoul() {
   let getSouls = async function (
     ids?: Array<string>,
     owners?: Array<string>,
+    type?: string,
     first = 10,
     skip = 0,
   ): Promise<Array<Soul>> {
-    const subgraphSouls = await findSouls(ids, owners, first, skip);
+    const subgraphSouls = await findSouls(ids, owners, type, first, skip);
     return subgraphSouls.map((subgraphSoul: any) =>
       convertSubgraphSoulToSoul(subgraphSoul),
     );
@@ -56,6 +57,7 @@ function convertSubgraphSoulToSoul(subgraphSoul: any) {
   return new Soul(
     subgraphSoul.id,
     subgraphSoul.owner,
+    subgraphSoul.type,
     subgraphSoul.uri,
     hexStringToJson(subgraphSoul.uriData),
     subgraphSoul.uriImage,

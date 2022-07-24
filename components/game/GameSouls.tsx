@@ -1,7 +1,7 @@
 import { Box } from '@mui/material';
 import Soul from 'classes/Soul';
 import SoulList from 'components/soul/SoulList';
-import { GAME_ROLE } from 'constants/contracts';
+import { GAME_ROLE, SOUL_TYPE } from 'constants/contracts';
 import useDao from 'hooks/useDao';
 import useError from 'hooks/useError';
 import useSoul from 'hooks/useSoul';
@@ -27,7 +27,15 @@ export default function GameSouls({ game, sx }: any) {
       const applicants = getSoulsByRole(game, GAME_ROLE.applicant.id);
       const allSouls = union(members, admins, authorities, applicants);
       // Load souls by ids
-      setSouls(await getSouls(allSouls, undefined, 25, 0));
+      setSouls(
+        await getSouls(
+          allSouls,
+          undefined,
+          SOUL_TYPE.created_by_not_contract,
+          25,
+          0,
+        ),
+      );
       // Define roles for each soul
       const roles: { [key: string]: Array<any> } = {};
       each(
