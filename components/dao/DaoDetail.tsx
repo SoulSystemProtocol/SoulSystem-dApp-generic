@@ -9,7 +9,6 @@ import useError from 'hooks/useError';
 import useToast from 'hooks/useToast';
 import { useContext, useEffect, useState } from 'react';
 import GameAdminActions from '../game/GameAdminActions';
-
 import EntityImage from '../entity/EntityImage';
 
 /**
