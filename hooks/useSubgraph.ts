@@ -157,6 +157,11 @@ function getFindClaimsQuery(
       name
       uri
       uriData
+      type
+      game {
+        name
+        uriData
+      }
     }
   }`;
 }
