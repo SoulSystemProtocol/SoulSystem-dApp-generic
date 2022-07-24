@@ -1,5 +1,6 @@
 import Task from 'classes/Task';
 import { hexStringToJson } from 'utils/converters';
+import useDaoExtContract from './contracts/useDaoExtContract';
 import useProjectExtContract from './contracts/useProjectExtContract';
 import useSubgraph from './useSubgraph';
 
@@ -8,6 +9,7 @@ import useSubgraph from './useSubgraph';
  */
 export default function useTask() {
   const { taskMake } = useProjectExtContract();
+  const { applyToTask } = useDaoExtContract();
   const { findClaims } = useSubgraph();
 
   let createTask = function (
@@ -35,23 +37,25 @@ export default function useTask() {
     );
   };
 
+  let applyForTaskAsDao = async function (taskId: string, daoId: string) {
+    return applyToTask(daoId, taskId, '');
+  };
+
   return {
     createTask,
     getTaskById,
     getTasks,
+    applyForTaskAsDao,
   };
 }
 
 function convertSubgraphTaskToTask(subgraphTask: any) {
-  //Get Game
-  let game = subgraphTask.game;
-  //Decode Data
-  if (game.uriData) game.uriData = hexStringToJson(game.uriData);
   return new Task(
     subgraphTask.id,
     subgraphTask.name,
     subgraphTask.uri,
     hexStringToJson(subgraphTask.uriData),
-    game,
+    hexStringToJson(subgraphTask.game.uriData),
+    subgraphTask.nominations,
   );
 }

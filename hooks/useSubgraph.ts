@@ -145,13 +145,12 @@ function getFindClaimsQuery(
   first?: number,
   skip?: number,
 ) {
-  let filters = [];
-  if (ids) filters.push(`id_in: ["${ids.join('","')}"]`);
-  if (game) filters.push(`game: "${game}"`);
-  let filterParams = filters.join(', ');
+  let idsFilter = ids ? `id_in: ["${ids.join('","')}"]` : '';
+  let gameFilter = game ? `game: "${game}"` : '';
+  let filterParams = `where: {${idsFilter}, ${gameFilter}}`;
   let paginationParams = `first: ${first}, skip: ${skip}`;
   return `{
-    claims(where: {${filterParams}}, ${paginationParams}) {
+    claims(${filterParams}, ${paginationParams}) {
       id
       name
       uri
@@ -160,6 +159,14 @@ function getFindClaimsQuery(
       game {
         name
         uriData
+      }
+      nominations {
+        id
+        createdDate
+        nominated {
+          id
+          name
+        }
       }
     }
   }`;
