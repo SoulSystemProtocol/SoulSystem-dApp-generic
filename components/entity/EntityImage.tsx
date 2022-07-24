@@ -14,7 +14,7 @@ export default function EntityImage({ item, sx }: any) {
           height: 164,
           borderRadius: '24px',
         }}
-        src={item?.uriData?.image}
+        src={item?.image || item?.uriData?.image}
       >
         <AutoAwesomeOutlined />
       </Avatar>
