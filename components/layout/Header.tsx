@@ -120,7 +120,7 @@ export default function Header({ open, toggleDrawer }: IHeaderProps) {
  * User Settings Menu
  * Source: https://mui.com/material-ui/react-app-bar/
  */
-function SettingsMenu({ profile }) {
+function SettingsMenu({ profile }: any): JSX.Element {
   const { account, connectWallet, disconnectWallet } = useContext(Web3Context);
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
