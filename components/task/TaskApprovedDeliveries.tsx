@@ -1,5 +1,7 @@
-import { StarBorderOutlined } from '@mui/icons-material';
+import { Save, StarBorderOutlined } from '@mui/icons-material';
+import { LoadingButton } from '@mui/lab';
 import {
+  Button,
   Avatar,
   Box,
   Divider,
@@ -11,24 +13,81 @@ import {
   Stack,
   Typography,
 } from '@mui/material';
+import { CLAIM_ROLE, CLAIM_STAGE } from 'constants/contracts';
 import Dao from 'classes/Dao';
-import { CLAIM_ROLE } from 'constants/contracts';
+import { DataContext } from 'contexts/data';
 import useDao from 'hooks/useDao';
 import useError from 'hooks/useError';
 import useSoul from 'hooks/useSoul';
 import useTask from 'hooks/useTask';
+import useToast from 'hooks/useToast';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 
 export default function TaskApprovedDeliveries({ task, sx }: any) {
-  const { getSoulsByRole } = useTask();
+  const { accountSoul } = useContext(DataContext);
+  const { handleError } = useError();
+  const { showToastSuccess } = useToast();
+  const { getSoulsByRole, disburseFundsToWinners } = useTask();
   const subjectSouls = getSoulsByRole(task, CLAIM_ROLE.subject.id);
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [isProcessed, setIsProcessed] = useState(false);
+
+  async function disburseFunds() {
+    try {
+      setIsProcessing(true);
+      await disburseFundsToWinners(task.id);
+      showToastSuccess('Success! Data will be updated soon');
+      setIsProcessed(true);
+    } catch (error: any) {
+      handleError(error, true);
+    } finally {
+      setIsProcessing(false);
+    }
+  }
 
   if (subjectSouls.length > 0) {
     return (
       <Box sx={{ ...sx }}>
         <Divider sx={{ mb: 2 }} />
-        <List subheader={<ListSubheader>Approved Deliveries:</ListSubheader>}>
+        <List
+          subheader={
+            <ListSubheader>
+              <Stack
+                direction="row"
+                alignItems="center"
+                justifyContent="space-between"
+              >
+                <Typography variant="body2">Approved Deliveries:</Typography>
+                {/* Button to disburse funds */}
+                {task.stage === CLAIM_STAGE.execution && accountSoul && (
+                  <>
+                    {isProcessed ? (
+                      <></>
+                    ) : isProcessing ? (
+                      <LoadingButton
+                        size="small"
+                        loading
+                        loadingPosition="start"
+                        startIcon={<Save />}
+                      >
+                        Processing
+                      </LoadingButton>
+                    ) : (
+                      <Button
+                        size="small"
+                        variant="outlined"
+                        onClick={() => disburseFunds()}
+                      >
+                        Disburse Funds To Winners
+                      </Button>
+                    )}
+                  </>
+                )}
+              </Stack>
+            </ListSubheader>
+          }
+        >
           {subjectSouls.map((soul: any, index: number) => (
             <TaskApprovedDelivery key={index} task={task} soulId={soul} />
           ))}
