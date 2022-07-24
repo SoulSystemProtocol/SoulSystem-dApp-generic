@@ -145,12 +145,14 @@ function getFindClaimsQuery(
   first?: number,
   skip?: number,
 ) {
-  let idsFilter = ids ? `id_in: ["${ids.join('","')}"]` : '';
-  let gameFilter = game ? `game: "${game}"` : '';
-  let filterParams = `where: {${idsFilter}, ${gameFilter}}`;
+  let filters = [];
+  if (ids) filters.push(`id_in: ["${ids.join('","')}"]`);
+  if (game) filters.push(`game: "${game}"`);
+  let filterParams = filters.join(', ');
   let paginationParams = `first: ${first}, skip: ${skip}`;
+  // console.log('Claim Query: ', filterParams);
   return `{
-    claims(${filterParams}, ${paginationParams}) {
+    claims(where: {${filterParams}}, ${paginationParams}) {
       id
       name
       uri
