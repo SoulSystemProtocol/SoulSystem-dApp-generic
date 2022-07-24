@@ -4,6 +4,7 @@
 export default class Task {
   id: string;
   name: string;
+  stage: number;
   uri: string | null;
   uriData: any;
   game: any;
@@ -14,6 +15,7 @@ export default class Task {
   constructor(
     id: string,
     name: string,
+    stage: number,
     uri: string | null,
     uriData: any,
     game: any,
@@ -23,6 +25,7 @@ export default class Task {
   ) {
     this.id = id;
     this.name = name;
+    this.stage = stage;
     this.uri = uri;
     this.uriData = uriData;
     this.game = game;

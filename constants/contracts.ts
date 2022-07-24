@@ -27,6 +27,11 @@ export const GAME_ROLE = {
   },
 };
 
+export const CLAIM_STAGE = {
+  execution: 5,
+  closed: 6,
+};
+
 export const CLAIM_ROLE = {
   admin: {
     id: '1',
