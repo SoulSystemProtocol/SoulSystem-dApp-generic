@@ -21,9 +21,9 @@ export default function TaskDetail({ item, sx }: any) {
         </Box>
         <Box sx={{ mt: { xs: 2, md: 0 }, ml: { md: 4 } }}>
           <Typography color="text.secondary" variant="body2">
-            {taskStageToString(item.stage)}
+            {taskStageToString(item)}
           </Typography>
-          <Typography variant="h4" sx={{ mt: 2.5 }}>
+          <Typography variant="h4" sx={{ mt: 1 }}>
             {item.name}
           </Typography>
           <Typography sx={{ mt: 1 }}>{item.uriData?.description}</Typography>
