@@ -1,7 +1,7 @@
 import { Button } from '@mui/material';
 import { Box } from '@mui/system';
 import TaskManageDialog from 'components/task/TaskManageDialog';
-import { CLAIM_ROLE } from 'constants/contracts';
+import { GAME_ROLE } from 'constants/contracts';
 import { DataContext } from 'contexts/data';
 import { DialogContext } from 'contexts/dialog';
 import useDao from 'hooks/useDao';
@@ -17,7 +17,7 @@ export default function ProjectAddTaskButton({ project, sx }: any) {
 
   if (
     accountSoul &&
-    isSoulHasRole(project, accountSoul.id, CLAIM_ROLE.admin.id)
+    isSoulHasRole(project, accountSoul.id, GAME_ROLE.admin.id)
   ) {
     return (
       <Box sx={{ ...sx }}>
