@@ -29,8 +29,14 @@ export const GAME_ROLE = {
 };
 
 export const CLAIM_STAGE = {
+  draft: 0,
+  open: 1,
+  decision: 2,
+  action: 3,
+  appeal: 4,
   execution: 5,
   closed: 6,
+  cancelled: 7,
 };
 
 export const CLAIM_ROLE = {
