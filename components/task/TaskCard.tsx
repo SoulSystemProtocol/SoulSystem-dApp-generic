@@ -39,7 +39,7 @@ function TaskHeader({ task, sx }: any) {
       <Box>
         <Link href={`/tasks/${task.id}`} passHref>
           <MuiLink underline="none">
-            <Typography variant="h6">{task.name}</Typography>
+            <Typography>{task.name}</Typography>
           </MuiLink>
         </Link>
         {task.uriData.description && (
