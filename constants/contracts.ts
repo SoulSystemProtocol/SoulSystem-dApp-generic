@@ -8,6 +8,7 @@ export const GAME_TYPE = {
   project: 'PROJECT',
 };
 
+/* TODO: Role Token IDs aren't static/predetermind. Should fetch them from the contract directly */
 export const GAME_ROLE = {
   admin: {
     id: '1',
