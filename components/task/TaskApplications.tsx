@@ -60,9 +60,11 @@ export default function TaskApplications({ task, sx }: any) {
                     Apply as DAO
                   </Button>
                 )}
-              <Button size="small" variant="outlined">
-                [Fund Task]
-              </Button>
+              {(task.stage === null || task.stage >= CLAIM_STAGE.open) && (
+                <Button size="small" variant="outlined">
+                  [Fund Task]
+                </Button>
+              )}
             </Stack>
           </ListSubheader>
         }
