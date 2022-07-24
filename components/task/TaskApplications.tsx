@@ -32,6 +32,7 @@ export default function TaskApplications({ task, sx }: any) {
   return (
     <Box sx={{ ...sx }}>
       <Divider sx={{ mb: 1 }} />
+      <Typography variant="h5">Applications:</Typography>
       <List
         subheader={
           <ListSubheader>
@@ -41,7 +42,6 @@ export default function TaskApplications({ task, sx }: any) {
               justifyContent="space-between"
               sx={{ py: 2 }}
             >
-              <Typography variant="body2">Applications: </Typography>
               {/* Button to apply as DAO */}
               {task.stage !== CLAIM_STAGE.closed && accountSoul && (
                 <Button

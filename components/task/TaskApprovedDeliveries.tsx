@@ -50,6 +50,7 @@ export default function TaskApprovedDeliveries({ task, sx }: any) {
     return (
       <Box sx={{ ...sx }}>
         <Divider sx={{ mb: 1 }} />
+        <Typography variant="h5">Approved Deliveries:</Typography>
         <List
           subheader={
             <ListSubheader>
@@ -59,7 +60,6 @@ export default function TaskApprovedDeliveries({ task, sx }: any) {
                 justifyContent="space-between"
                 sx={{ py: 2 }}
               >
-                <Typography variant="body2">Approved Deliveries:</Typography>
                 {/* Button to disburse funds */}
                 {task.stage === CLAIM_STAGE.execution && accountSoul && (
                   <>

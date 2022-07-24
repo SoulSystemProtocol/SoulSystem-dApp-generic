@@ -7,7 +7,6 @@ import {
   List,
   ListItem,
   ListItemAvatar,
-  ListSubheader,
   Typography,
 } from '@mui/material';
 import Dao from 'classes/Dao';
@@ -39,7 +38,8 @@ export default function TaskAcceptedApplications({ task, sx }: any) {
     return (
       <Box sx={{ ...sx }}>
         <Divider sx={{ mb: 1 }} />
-        <List subheader={<ListSubheader>Accepted applications:</ListSubheader>}>
+        <Typography variant="h5">Accepted Applicants:</Typography>
+        <List>
           {acceptedSouls.map((soul: any, index: number) => (
             <TaskAcceptedApplication key={index} task={task} soul={soul} />
           ))}
@@ -73,14 +73,11 @@ function TaskAcceptedApplication({ soul }: any) {
         </Avatar>
       </ListItemAvatar>
       {soulDao ? (
-        <Box>
-          {/* Application data */}
-          <Link href={`/daos/${soulDao.id}`} passHref>
-            <MuiLink underline="none">
-              <Typography>{soulDao.name}</Typography>
-            </MuiLink>
-          </Link>
-        </Box>
+        <Link href={`/daos/${soulDao.id}`} passHref>
+          <MuiLink underline="none">
+            <Typography>{soulDao.name}</Typography>
+          </MuiLink>
+        </Link>
       ) : (
         <Typography>...</Typography>
       )}

@@ -35,6 +35,7 @@ export default function TaskPostedDeliveries({ task, sx }: any) {
 
   useEffect(() => {
     if (task) {
+      console.log('Task Posts', task?.posts);
       setApplicantPosts(
         task.posts.filter(
           (post: any) => post.entityRole == CLAIM_POST_ENTITY_TYPE.applicant,
@@ -47,6 +48,7 @@ export default function TaskPostedDeliveries({ task, sx }: any) {
     return (
       <Box sx={{ ...sx }}>
         <Divider sx={{ mb: 1 }} />
+        <Typography variant="h5">Posted Deliveries: </Typography>
         <List
           subheader={
             <ListSubheader>
@@ -56,7 +58,6 @@ export default function TaskPostedDeliveries({ task, sx }: any) {
                 justifyContent="space-between"
                 sx={{ py: 2 }}
               >
-                <Typography variant="body2">Posted Deliveries: </Typography>
                 {task.stage !== CLAIM_STAGE.closed && accountSoul && (
                   <Button
                     size="small"
