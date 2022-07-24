@@ -18,6 +18,11 @@ export default function useTask() {
     return taskMake(projectId, name, metadataUrl);
   };
 
+  let getTaskById = async function (id: string): Promise<Task | null> {
+    const items = await getTasks([id]);
+    return items.length > 0 ? items[0] : null;
+  };
+
   let getTasks = async function (
     ids?: Array<string>,
     projectId?: string,
@@ -32,6 +37,7 @@ export default function useTask() {
 
   return {
     createTask,
+    getTaskById,
     getTasks,
   };
 }
