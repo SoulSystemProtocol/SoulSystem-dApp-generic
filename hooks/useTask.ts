@@ -43,10 +43,15 @@ export default function useTask() {
 }
 
 function convertSubgraphTaskToTask(subgraphTask: any) {
+  //Get Game
+  let game = subgraphTask.game;
+  //Decode Data
+  if (game.uriData) game.uriData = hexStringToJson(game.uriData);
   return new Task(
     subgraphTask.id,
     subgraphTask.name,
     subgraphTask.uri,
     hexStringToJson(subgraphTask.uriData),
+    game,
   );
 }
