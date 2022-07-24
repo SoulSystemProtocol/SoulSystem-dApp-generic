@@ -3,6 +3,7 @@ import {
   PersonOutlineOutlined,
   SchoolOutlined,
   WorkOutlineOutlined,
+  TaskAlt,
 } from '@mui/icons-material';
 import { Container, Toolbar } from '@mui/material';
 import Box from '@mui/material/Box';
@@ -27,6 +28,11 @@ const menu_side_links = [
     route: '/projects',
     label: 'Projects',
     icon: <WorkOutlineOutlined color="warning" />,
+  },
+  {
+    route: '/tasks',
+    label: 'Bounties',
+    icon: <TaskAlt color="warning" />,
   },
 ];
 
