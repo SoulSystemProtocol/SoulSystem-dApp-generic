@@ -12,11 +12,16 @@ import {
   ListItem,
   ListItemAvatar,
   ListSubheader,
+  Stack,
   Typography,
 } from '@mui/material';
 import Dao from 'classes/Dao';
 import Soul from 'classes/Soul';
-import { CLAIM_ROLE, SOUL_TYPE } from 'constants/contracts';
+import {
+  CLAIM_POST_ENTITY_TYPE,
+  CLAIM_ROLE,
+  SOUL_TYPE,
+} from 'constants/contracts';
 import { DataContext } from 'contexts/data';
 import { DialogContext } from 'contexts/dialog';
 import useDao from 'hooks/useDao';
@@ -27,6 +32,7 @@ import useToast from 'hooks/useToast';
 import Link from 'next/link';
 import { useContext, useEffect, useState } from 'react';
 import TaskApplyDialog from './TaskApplyDialog';
+import TaskPostDeliveryDialog from './TaskPostDeliveryDialog';
 
 /**
  * A component with a card with task.
@@ -39,6 +45,7 @@ export default function TaskCard({ task }: any) {
           <TaskHeader task={task} />
           <TaskApplications task={task} sx={{ mt: 2 }} />
           <TaskAcceptedApplications task={task} sx={{ mt: 2 }} />
+          <TaskPostedDeliveries task={task} sx={{ mt: 2 }} />
         </CardContent>
       </Card>
     );
@@ -252,6 +259,110 @@ function TaskAcceptedApplication({ soul }: any) {
             </MuiLink>
           </Link>
         </Box>
+      ) : (
+        <Typography>...</Typography>
+      )}
+    </ListItem>
+  );
+}
+
+function TaskPostedDeliveries({ task, sx }: any) {
+  const { accountSoul } = useContext(DataContext);
+  const { showDialog, closeDialog } = useContext(DialogContext);
+  const { getSoulsByRole } = useTask();
+  const [applicantPosts, setApplicantPosts] = useState([]);
+
+  useEffect(() => {
+    if (task) {
+      setApplicantPosts(
+        task.posts.filter(
+          (post: any) => post.entityRole == CLAIM_POST_ENTITY_TYPE.applicant,
+        ),
+      );
+    }
+  }, [task]);
+
+  if (getSoulsByRole(task, CLAIM_ROLE.applicant.id).length > 0) {
+    return (
+      <Box sx={{ ...sx }}>
+        <Divider sx={{ mb: 2 }} />
+        <List
+          subheader={
+            <ListSubheader>
+              <Stack
+                direction="row"
+                alignItems="center"
+                justifyContent="space-between"
+              >
+                <Typography variant="body2">Posted Deliveries: </Typography>
+                {accountSoul && (
+                  <Button
+                    size="small"
+                    variant="outlined"
+                    onClick={() =>
+                      showDialog?.(
+                        <TaskPostDeliveryDialog
+                          task={task}
+                          onClose={closeDialog}
+                        />,
+                      )
+                    }
+                  >
+                    Post Delivery as DAO
+                  </Button>
+                )}
+              </Stack>
+            </ListSubheader>
+          }
+        >
+          {applicantPosts.length > 0 ? (
+            <>
+              {task.posts.map((post: any, index: number) => (
+                <TaskPostedDelivery key={index} post={post} />
+              ))}
+            </>
+          ) : (
+            <ListItem>
+              <Typography variant="body2">No deliveries</Typography>
+            </ListItem>
+          )}
+        </List>
+      </Box>
+    );
+  }
+  return <></>;
+}
+
+function TaskPostedDelivery({ post }: any) {
+  const { handleError } = useError();
+  const { getDaoById } = useDao();
+  const [postDao, setPostDao] = useState<Dao | null>(null);
+
+  useEffect(() => {
+    // Try load post DAO
+    if (post) {
+      getDaoById(post.author.owner)
+        .then((dao) => setPostDao(dao))
+        .catch((error: any) => handleError(error, true));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [post]);
+
+  return (
+    <ListItem>
+      {postDao ? (
+        <Stack direction="row" spacing={1}>
+          <Typography>Applicant</Typography>
+          <Link href={`/daos/${postDao.id}`} passHref>
+            <MuiLink underline="none">
+              <Typography gutterBottom>{postDao.name}</Typography>
+            </MuiLink>
+          </Link>
+          <Typography>posted</Typography>
+          <MuiLink href={post.uri} underline="none" target="_blank">
+            Delivery
+          </MuiLink>
+        </Stack>
       ) : (
         <Typography>...</Typography>
       )}

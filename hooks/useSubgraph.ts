@@ -180,6 +180,15 @@ function getFindClaimsQuery(
           type
         }
       }
+      posts {
+        id
+        author {
+          id
+          owner
+        }
+        entityRole
+        uri
+      }
     }
   }`;
 }

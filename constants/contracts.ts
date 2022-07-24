@@ -37,3 +37,7 @@ export const CLAIM_ROLE = {
     name: 'applicant',
   },
 };
+
+export const CLAIM_POST_ENTITY_TYPE = {
+  applicant: 'applicant',
+};

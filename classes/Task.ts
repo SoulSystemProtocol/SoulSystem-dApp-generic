@@ -9,6 +9,7 @@ export default class Task {
   game: any;
   roles: any;
   nominations: any;
+  posts: any;
 
   constructor(
     id: string,
@@ -18,6 +19,7 @@ export default class Task {
     game: any,
     roles: any,
     nominations: any,
+    posts: any,
   ) {
     this.id = id;
     this.name = name;
@@ -26,5 +28,6 @@ export default class Task {
     this.game = game;
     this.roles = roles;
     this.nominations = nominations;
+    this.posts = posts;
   }
 }

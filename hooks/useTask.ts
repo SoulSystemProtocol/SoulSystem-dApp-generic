@@ -10,7 +10,7 @@ import useSubgraph from './useSubgraph';
  */
 export default function useTask() {
   const { taskMake } = useProjectExtContract();
-  const { applyToTask } = useDaoExtContract();
+  const { applyToTask, deliverTask } = useDaoExtContract();
   const { acceptApplicant } = useTaskContract();
   const { findClaims } = useSubgraph();
 
@@ -62,6 +62,14 @@ export default function useTask() {
     return acceptApplicant(taskId, soulId);
   };
 
+  let postTaskDeliveryAsDao = async function (
+    taskId: string,
+    daoId: string,
+    metadataUrl: string,
+  ) {
+    return deliverTask(daoId, taskId, metadataUrl);
+  };
+
   return {
     createTask,
     getTaskById,
@@ -70,6 +78,7 @@ export default function useTask() {
     getSoulsByRole,
     applyForTaskAsDao,
     acceptSoulForTask,
+    postTaskDeliveryAsDao,
   };
 }
 
@@ -82,5 +91,6 @@ function convertSubgraphTaskToTask(subgraphTask: any) {
     hexStringToJson(subgraphTask.game.uriData),
     subgraphTask.roles,
     subgraphTask.nominations,
+    subgraphTask.posts,
   );
 }
