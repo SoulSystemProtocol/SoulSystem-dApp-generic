@@ -1,5 +1,14 @@
 import MenuIcon from '@mui/icons-material/Menu';
-import { Button, Link as MuiLink, Toolbar, Typography } from '@mui/material';
+import {
+  Avatar,
+  Button,
+  Link as MuiLink,
+  Menu,
+  MenuItem,
+  Toolbar,
+  Tooltip,
+  Typography,
+} from '@mui/material';
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
 import IconButton from '@mui/material/IconButton';
 import { Box } from '@mui/system';
@@ -10,7 +19,9 @@ import { useContext } from 'react';
 import {
   addressToShortAddress,
   soulToFirstLastNameString,
+  soulImage,
 } from 'utils/converters';
+import { useState } from 'react';
 
 import { styled } from '@mui/material/styles';
 
@@ -42,6 +53,7 @@ interface IHeaderProps {
   open: boolean;
   toggleDrawer: () => void;
 }
+const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 /**
  * Component with a header.
@@ -76,44 +88,15 @@ export default function Header({ open, toggleDrawer }: IHeaderProps) {
           <MenuIcon />
         </IconButton>
         {/* Left */}
-        <Box sx={{ flexGrow: 1, display: 'flex', flexDirection: 'row' }}>
-          {/* <Link href="/" passHref>
+        <Box sx={{ flexGrow: 1, display: 'flex', flexDirection: 'row' }}></Box>
+        {accountSoul && (
+          <Link href={`/souls/${accountSoul.id}`} passHref>
             <MuiLink underline="none">
-              <Typography>MentorDAO</Typography>
+              <Typography sx={{ mr: 1 }}>
+                {soulToFirstLastNameString(accountSoul)}
+              </Typography>
             </MuiLink>
           </Link>
-          <Typography
-            sx={{
-              color: 'text.secondary',
-              pl: 1,
-            }}
-          >
-            {process.env.NEXT_PUBLIC_VERSION}
-          </Typography> */}
-        </Box>
-        {/* Account info */}
-        {account && (
-          <Box
-            sx={{
-              display: 'flex',
-              flexDirection: 'row',
-              alignItems: 'center',
-              mr: 2,
-            }}
-          >
-            {accountSoul && (
-              <Link href={`/souls/${accountSoul.id}`} passHref>
-                <MuiLink underline="none">
-                  <Typography sx={{ mr: 1 }}>
-                    {soulToFirstLastNameString(accountSoul)}
-                  </Typography>
-                </MuiLink>
-              </Link>
-            )}
-            <Typography variant="body2">
-              {addressToShortAddress(account)}
-            </Typography>
-          </Box>
         )}
         {/* Connect wallet button */}
         {!account && (
@@ -127,8 +110,69 @@ export default function Header({ open, toggleDrawer }: IHeaderProps) {
             Connect Wallet
           </Button>
         )}
-        {/* Disconnect wallet button */}
+        {account && <SettingsMenu profile={accountSoul} />}
+      </Toolbar>
+    </AppBar>
+  );
+}
+
+/**
+ * User Settings Menu
+ * Source: https://mui.com/material-ui/react-app-bar/
+ */
+function SettingsMenu({ profile }) {
+  const { account, connectWallet, disconnectWallet } = useContext(Web3Context);
+  const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
+  const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
+  const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorElUser(event.currentTarget);
+  };
+  const handleCloseUserMenu = () => {
+    setAnchorElUser(null);
+  };
+  return (
+    <Box sx={{ flexGrow: 0 }}>
+      <Tooltip title="Open settings">
+        <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+          <Avatar
+            alt={soulToFirstLastNameString(profile)}
+            src={soulImage(profile)}
+            sx={{ width: 48, height: 48 }}
+          />
+        </IconButton>
+      </Tooltip>
+      <Menu
+        sx={{ mt: '45px' }}
+        id="menu-appbar"
+        anchorEl={anchorElUser}
+        anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'right',
+        }}
+        keepMounted
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'right',
+        }}
+        open={Boolean(anchorElUser)}
+        onClose={handleCloseUserMenu}
+      >
+        {/* <ListSubheader>{soulToFirstLastNameString(profile)}</ListSubheader> */}
+        {/* Account info */}
         {account && (
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'center',
+              mr: 2,
+            }}
+          >
+            <Typography>{addressToShortAddress(account)}</Typography>
+          </Box>
+        )}
+        <MenuItem key={'disconnect'} onClick={handleCloseUserMenu}>
+          {/* Disconnect wallet button */}
           <Button
             variant="outlined"
             size="small"
@@ -136,8 +180,13 @@ export default function Header({ open, toggleDrawer }: IHeaderProps) {
           >
             Disconnect Wallet
           </Button>
-        )}
-      </Toolbar>
-    </AppBar>
+        </MenuItem>
+        {settings.map((setting) => (
+          <MenuItem key={setting} onClick={handleCloseUserMenu}>
+            <Typography textAlign="center">{setting}</Typography>
+          </MenuItem>
+        ))}
+      </Menu>
+    </Box>
   );
 }

@@ -1,4 +1,5 @@
 import Task from 'classes/Task';
+import SoulDetail from 'components/soul/SoulDetail';
 import { CLAIM_STAGE } from 'constants/contracts';
 import { truncate } from 'lodash';
 
@@ -46,6 +47,14 @@ export function soulToFirstLastNameString(soul: any, length = 36): string {
     firstLastName = (soul.uriFirstName || '') + ' ' + (soul.uriLastName || '');
   }
   return truncate(firstLastName, { length: length });
+}
+
+/**
+ * Get iamge of soul.
+ */
+export function soulImage(soul: any): string {
+  console.log('soul', soul);
+  return soul?.uriImage ? soul.uriImage : '';
 }
 
 /**
