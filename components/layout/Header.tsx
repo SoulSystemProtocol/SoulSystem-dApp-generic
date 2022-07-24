@@ -53,7 +53,7 @@ interface IHeaderProps {
   open: boolean;
   toggleDrawer: () => void;
 }
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const settings = ['Profile'/*, 'Account', 'Dashboard', 'Logout'*/];
 
 /**
  * Component with a header.
@@ -181,11 +181,11 @@ function SettingsMenu({ profile }) {
             Disconnect Wallet
           </Button>
         </MenuItem>
-        {settings.map((setting) => (
+        {/*settings.map((setting) => (
           <MenuItem key={setting} onClick={handleCloseUserMenu}>
             <Typography textAlign="center">{setting}</Typography>
           </MenuItem>
-        ))}
+        ))*/}
       </Menu>
     </Box>
   );
