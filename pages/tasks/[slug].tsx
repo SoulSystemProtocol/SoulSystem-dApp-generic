@@ -6,12 +6,17 @@ import useTask from 'hooks/useTask';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
-interface TaskProps {}
+import TaskApplications from 'components/task/TaskApplications';
+import TaskAcceptedApplications from 'components/task/TaskAcceptedApplications';
+
+// eslint-disable-next-line prettier/prettier
+interface TaskProps { }
 
 /**
  * Page with Task details.
  */
-export default function TaskDetailPage({}: TaskProps) {
+// eslint-disable-next-line prettier/prettier
+export default function TaskDetailPage({ }: TaskProps) {
   const router = useRouter();
   const { slug } = router.query;
   const { handleError } = useError();
@@ -34,8 +39,10 @@ export default function TaskDetailPage({}: TaskProps) {
   }, [slug]);
 
   return (
-    <Layout title="MentorDAO — Bountiy">
+    <Layout title="MentorDAO — Bounty">
       <TaskDetail item={task} />
+      {task && <TaskApplications task={task} sx={{ mt: 2 }} />}
+      {task && <TaskAcceptedApplications task={task} sx={{ mt: 2 }} />}
     </Layout>
   );
 }

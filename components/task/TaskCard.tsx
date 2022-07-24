@@ -38,8 +38,6 @@ import Link from 'next/link';
 import { useContext, useEffect, useState } from 'react';
 import TaskApplyDialog from './TaskApplyDialog';
 import TaskPostDeliveryDialog from './TaskPostDeliveryDialog';
-import TaskAcceptedApplications from './TaskAcceptedApplications';
-import TaskApplications from './TaskApplications';
 
 /**
  * A component with a card with task.
@@ -50,8 +48,6 @@ export default function TaskCard({ task }: any) {
       <Card variant="outlined">
         <CardContent sx={{ p: '16px !important' }}>
           <TaskHeader task={task} />
-          <TaskApplications task={task} sx={{ mt: 2 }} />
-          <TaskAcceptedApplications task={task} sx={{ mt: 2 }} />
           <TaskPostedDeliveries task={task} sx={{ mt: 2 }} />
           <TaskApprovedDeliveries task={task} sx={{ mt: 2 }} />
         </CardContent>
