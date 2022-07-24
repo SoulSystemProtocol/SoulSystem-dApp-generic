@@ -53,7 +53,7 @@ interface IHeaderProps {
   open: boolean;
   toggleDrawer: () => void;
 }
-const settings = ['Profile'/*, 'Account', 'Dashboard', 'Logout'*/];
+const settings = ['Profile' /*, 'Account', 'Dashboard', 'Logout'*/];
 
 /**
  * Component with a header.

@@ -38,10 +38,10 @@ const menu_side_links = [
 
 export default function Layout({ children, title }: any) {
   // const theme = useTheme();
-  const [isOpen, setOpen] = React.useState(true);
+  const [isOpen, setIsOpen] = React.useState(true);
 
   const toggleDrawer = () => {
-    setOpen(!isOpen);
+    setIsOpen(!isOpen);
   };
 
   return (
