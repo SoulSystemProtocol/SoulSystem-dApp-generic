@@ -9,7 +9,7 @@ export const GAME_TYPE: any = {
 };
 
 /* TODO: Role Token IDs aren't static/predetermind. Should fetch them from the contract directly */
-export const GAME_ROLE: any = {
+export const GAME_ROLE: object = {
   admin: {
     id: '1',
     name: 'admin',
