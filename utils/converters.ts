@@ -52,11 +52,9 @@ export function soulToFirstLastNameString(soul: any, length = 36): string {
  * Convert task stage to readable string.
  */
 export function taskStageToString(task: Task): string {
-  if (!task.stage || task.stage === CLAIM_STAGE.execution) {
-    return 'Task Open For Deliveries';
+  for (let stageName in CLAIM_STAGE) {
+    if (CLAIM_STAGE[stageName] == task.stage) return stageName;
   }
-  if (task.stage === CLAIM_STAGE.closed) {
-    return 'Task is Closed';
-  }
-  return 'Unknown Stage';
+  console.warn('Unhandled Task Stage:' + task.stage, task);
+  return 'Open For Deliveries';
 }

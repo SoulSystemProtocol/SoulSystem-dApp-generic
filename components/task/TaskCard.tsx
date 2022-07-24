@@ -66,7 +66,11 @@ function TaskHeader({ task, sx }: any) {
       </Box>
       {/* Task stage */}
       <Box>
-        <Typography variant="body2" color="text.secondary">
+        <Typography
+          variant="body2"
+          color="text.secondary"
+          sx={{ textTransform: 'capitalize' }}
+        >
           {taskStageToString(task)} {fund ? ` / ${fund} ETH` : ''}
         </Typography>
       </Box>
