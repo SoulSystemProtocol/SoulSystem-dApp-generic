@@ -24,7 +24,18 @@ export default function useTaskContract() {
     ).acceptApplicant(sbtId);
   }
 
+  async function deliveryApprove(contractAddress: string, sbtId: string) {
+    if (!isNetworkChainIdCorrect) {
+      throw new WrongNetworkError();
+    }
+    return await getContract(
+      contractAddress,
+      provider?.getSigner(),
+    ).deliveryApprove(sbtId);
+  }
+
   return {
     acceptApplicant,
+    deliveryApprove,
   };
 }

@@ -32,6 +32,10 @@ export const CLAIM_ROLE = {
     id: '1',
     name: 'admin',
   },
+  subject: {
+    id: '3',
+    name: 'subject',
+  },
   applicant: {
     id: '5',
     name: 'applicant',

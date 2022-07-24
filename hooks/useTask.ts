@@ -11,7 +11,7 @@ import useSubgraph from './useSubgraph';
 export default function useTask() {
   const { taskMake } = useProjectExtContract();
   const { applyToTask, deliverTask } = useDaoExtContract();
-  const { acceptApplicant } = useTaskContract();
+  const { acceptApplicant, deliveryApprove } = useTaskContract();
   const { findClaims } = useSubgraph();
 
   let createTask = function (
@@ -70,6 +70,10 @@ export default function useTask() {
     return deliverTask(daoId, taskId, metadataUrl);
   };
 
+  let approveSoulDelivery = async function (taskId: string, soulId: string) {
+    return deliveryApprove(taskId, soulId);
+  };
+
   return {
     createTask,
     getTaskById,
@@ -79,6 +83,7 @@ export default function useTask() {
     applyForTaskAsDao,
     acceptSoulForTask,
     postTaskDeliveryAsDao,
+    approveSoulDelivery,
   };
 }
 
