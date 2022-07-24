@@ -11,7 +11,8 @@ import useSubgraph from './useSubgraph';
 export default function useTask() {
   const { taskMake } = useProjectExtContract();
   const { applyToTask, deliverTask } = useDaoExtContract();
-  const { acceptApplicant, deliveryApprove } = useTaskContract();
+  const { acceptApplicant, deliveryApprove, stageExecusion } =
+    useTaskContract();
   const { findClaims } = useSubgraph();
 
   let createTask = function (
@@ -74,6 +75,10 @@ export default function useTask() {
     return deliveryApprove(taskId, soulId);
   };
 
+  let disburseFundsToWinners = async function (taskId: string) {
+    return stageExecusion(taskId, []);
+  };
+
   return {
     createTask,
     getTaskById,
@@ -84,6 +89,7 @@ export default function useTask() {
     acceptSoulForTask,
     postTaskDeliveryAsDao,
     approveSoulDelivery,
+    disburseFundsToWinners,
   };
 }
 
@@ -91,6 +97,7 @@ function convertSubgraphTaskToTask(subgraphTask: any) {
   return new Task(
     subgraphTask.id,
     subgraphTask.name,
+    subgraphTask.stage,
     subgraphTask.uri,
     hexStringToJson(subgraphTask.uriData),
     hexStringToJson(subgraphTask.game.uriData),

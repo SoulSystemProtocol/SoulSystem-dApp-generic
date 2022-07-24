@@ -153,6 +153,7 @@ function getFindClaimsQuery(
     claims(${filterParams}, ${paginationParams}) {
       id
       name
+      stage
       uri
       uriData
       type

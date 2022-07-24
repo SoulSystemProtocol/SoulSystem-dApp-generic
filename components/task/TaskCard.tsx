@@ -25,6 +25,7 @@ import Soul from 'classes/Soul';
 import {
   CLAIM_POST_ENTITY_TYPE,
   CLAIM_ROLE,
+  CLAIM_STAGE,
   SOUL_TYPE,
 } from 'constants/contracts';
 import { DataContext } from 'contexts/data';
@@ -420,14 +421,69 @@ function TaskPostedDelivery({ task, post }: any) {
 }
 
 function TaskApprovedDeliveries({ task, sx }: any) {
-  const { getSoulsByRole } = useTask();
+  const { accountSoul } = useContext(DataContext);
+  const { handleError } = useError();
+  const { showToastSuccess } = useToast();
+  const { getSoulsByRole, disburseFundsToWinners } = useTask();
   const subjectSouls = getSoulsByRole(task, CLAIM_ROLE.subject.id);
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [isProcessed, setIsProcessed] = useState(false);
+
+  async function disburseFunds() {
+    try {
+      setIsProcessing(true);
+      await disburseFundsToWinners(task.id);
+      showToastSuccess('Success! Data will be updated soon');
+      setIsProcessed(true);
+    } catch (error: any) {
+      handleError(error, true);
+    } finally {
+      setIsProcessing(false);
+    }
+  }
 
   if (subjectSouls.length > 0) {
     return (
       <Box sx={{ ...sx }}>
         <Divider sx={{ mb: 2 }} />
-        <List subheader={<ListSubheader>Approved Deliveries:</ListSubheader>}>
+        <List
+          subheader={
+            <ListSubheader>
+              <Stack
+                direction="row"
+                alignItems="center"
+                justifyContent="space-between"
+              >
+                <Typography variant="body2">Approved Deliveries:</Typography>
+                {/* Button to disburse funds */}
+                {task.stage === CLAIM_STAGE.execution && accountSoul && (
+                  <>
+                    {isProcessed ? (
+                      <></>
+                    ) : isProcessing ? (
+                      <LoadingButton
+                        size="small"
+                        loading
+                        loadingPosition="start"
+                        startIcon={<Save />}
+                      >
+                        Processing
+                      </LoadingButton>
+                    ) : (
+                      <Button
+                        size="small"
+                        variant="outlined"
+                        onClick={() => disburseFunds()}
+                      >
+                        Disburse Funds To Winners
+                      </Button>
+                    )}
+                  </>
+                )}
+              </Stack>
+            </ListSubheader>
+          }
+        >
           {subjectSouls.map((soul: any, index: number) => (
             <TaskApprovedDelivery key={index} task={task} soulId={soul} />
           ))}
