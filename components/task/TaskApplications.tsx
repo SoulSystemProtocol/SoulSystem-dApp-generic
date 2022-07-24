@@ -37,10 +37,11 @@ export default function TaskApplications({ task, sx }: any) {
         subheader={
           <ListSubheader>
             <Stack
-              direction="row"
+              direction="column"
               alignItems="center"
               justifyContent="space-between"
-              sx={{ py: 2 }}
+              spacing={1}
+              sx={{ py: 2, float: 'left' }}
             >
               {/* Button to apply as DAO */}
               {accountSoul &&
@@ -59,7 +60,9 @@ export default function TaskApplications({ task, sx }: any) {
                     Apply as DAO
                   </Button>
                 )}
-
+              <Button size="small" variant="outlined">
+                [Fund Task]
+              </Button>
             </Stack>
           </ListSubheader>
         }
