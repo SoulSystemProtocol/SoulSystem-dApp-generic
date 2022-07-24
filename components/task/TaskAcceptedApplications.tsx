@@ -45,7 +45,7 @@ export default function TaskAcceptedApplications({ task, sx }: any) {
             <TaskAcceptedApplication key={index} task={task} soul={soul} />
           ))}
         </List>
-      </Box >
+      </Box>
     );
   }
   return <></>;
