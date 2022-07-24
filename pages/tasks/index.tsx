@@ -1,20 +1,15 @@
-import { Box, Button, Pagination, Typography } from '@mui/material';
+import { Box, Pagination, Typography } from '@mui/material';
 import Task from 'classes/Task';
-import ProjectManageDialog from 'components/project/ProjectManageDialog';
 import TaskList from 'components/task/TaskList';
-import { DataContext } from 'contexts/data';
-import { DialogContext } from 'contexts/dialog';
 import useError from 'hooks/useError';
 import useTask from 'hooks/useTask';
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Layout from '../../components/layout/Layout';
 
 /**
  * Page for a list of Tasks
  */
 export default function TasksPage({}: any) {
-  const { accountSoul } = useContext(DataContext);
-  const { showDialog, closeDialog } = useContext(DialogContext);
   const { handleError } = useError();
   const { getTasks } = useTask();
   const [tasks, setTasks] = useState<Array<Task> | null>(null);
@@ -55,16 +50,6 @@ export default function TasksPage({}: any) {
     <Layout title="MentorDAO — Bounties">
       <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
         <Typography variant="h5">Bounties</Typography>
-        {accountSoul && (
-          <Button
-            onClick={() =>
-              showDialog?.(<ProjectManageDialog onClose={closeDialog} />)
-            }
-            variant="outlined"
-          >
-            Create Project
-          </Button>
-        )}
       </Box>
 
       <TaskList tasks={tasks} sx={{ mt: 1 }} />

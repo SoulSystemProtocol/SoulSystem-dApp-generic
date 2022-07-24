@@ -7,7 +7,6 @@ import EntityImage from '../entity/EntityImage';
  */
 export default function TaskDetail({ item, sx }: any) {
   if (item) {
-    console.log('Page For Task: ', item);
     return (
       <Box
         sx={{
@@ -18,7 +17,6 @@ export default function TaskDetail({ item, sx }: any) {
       >
         <Box>
           <EntityImage item={item.game} />
-          {/* <TaskAdminActions game={item} sx={{ mt: 2, width: 164 }} /> */}
         </Box>
         <Box sx={{ mt: { xs: 2, md: 0 }, ml: { md: 4 } }}>
           <Typography variant="h4">{item.name}</Typography>

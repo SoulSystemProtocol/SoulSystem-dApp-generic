@@ -150,7 +150,6 @@ function getFindClaimsQuery(
   if (game) filters.push(`game: "${game}"`);
   let filterParams = filters.join(', ');
   let paginationParams = `first: ${first}, skip: ${skip}`;
-  // console.log('Claim Query: ', filterParams);
   return `{
     claims(where: {${filterParams}}, ${paginationParams}) {
       id
