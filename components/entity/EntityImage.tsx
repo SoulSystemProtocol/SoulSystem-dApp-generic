@@ -1,9 +1,9 @@
-import { WorkOutlineOutlined } from '@mui/icons-material';
+import { AutoAwesomeOutlined } from '@mui/icons-material';
 import { Avatar } from '@mui/material';
 import { Box } from '@mui/system';
 
 /**
- * Genric Entity Image Component
+ * Generic entity image component.
  */
 export default function EntityImage({ item, sx }: any) {
   return (
@@ -16,7 +16,7 @@ export default function EntityImage({ item, sx }: any) {
         }}
         src={item?.uriData?.image}
       >
-        <WorkOutlineOutlined />
+        <AutoAwesomeOutlined />
       </Avatar>
     </Box>
   );
