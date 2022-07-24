@@ -12,7 +12,7 @@ import Layout from '../../components/layout/Layout';
 /**
  * Page for a list of mDAOs
  */
-export default function DaosPage({}: any) {
+export default function DaosPage({ }: any) {
   const { accountSoul } = useContext(DataContext);
   const { showDialog, closeDialog } = useContext(DialogContext);
   const { handleError } = useError();
@@ -46,9 +46,9 @@ export default function DaosPage({}: any) {
   }, []);
 
   return (
-    <Layout title="MentorDAO — Mentor DAOs">
+    <Layout title="MentorDAO — mDAOs">
       <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-        <Typography variant="h5">Mentor DAOs</Typography>
+        <Typography variant="h5">MicroDAOs</Typography>
         {accountSoul && (
           <Button
             onClick={() =>

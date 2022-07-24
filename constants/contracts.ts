@@ -6,7 +6,7 @@ export const GAME_TYPE = {
 export const GAME_ROLE = {
   admin: {
     id: '1',
-    name: 'admin',
+    name: 'mentor',
   },
   member: {
     id: '2',
@@ -25,6 +25,6 @@ export const GAME_ROLE = {
 export const CLAIM_ROLE = {
   admin: {
     id: '1',
-    name: 'admin',
+    name: 'mentor',
   },
 };
