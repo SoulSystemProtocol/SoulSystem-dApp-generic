@@ -1,46 +1,16 @@
 import {
-  AccessTimeOutlined,
-  CheckOutlined,
-  Save,
-  StarBorderOutlined,
-} from '@mui/icons-material';
-import { LoadingButton } from '@mui/lab';
-import {
-  Avatar,
   Box,
   Button,
   Card,
   CardContent,
-  Divider,
   Link as MuiLink,
-  List,
-  ListItem,
-  ListItemAvatar,
-  ListSubheader,
-  Stack,
   Typography,
 } from '@mui/material';
-import Dao from 'classes/Dao';
-import Soul from 'classes/Soul';
-import {
-  CLAIM_POST_ENTITY_TYPE,
-  CLAIM_ROLE,
-  SOUL_TYPE,
-} from 'constants/contracts';
 import { DataContext } from 'contexts/data';
 import { DialogContext } from 'contexts/dialog';
-import useDao from 'hooks/useDao';
-import useError from 'hooks/useError';
-import useSoul from 'hooks/useSoul';
-import useTask from 'hooks/useTask';
-import useToast from 'hooks/useToast';
 import Link from 'next/link';
-import { useContext, useEffect, useState } from 'react';
+import { useContext } from 'react';
 import TaskApplyDialog from './TaskApplyDialog';
-import TaskPostDeliveryDialog from './TaskPostDeliveryDialog';
-import TaskPostedDeliveries from './TaskPostedDeliveries';
-import TaskApprovedDeliveries from './TaskApprovedDeliveries';
-
 /**
  * A component with a card with task.
  */
@@ -50,8 +20,6 @@ export default function TaskCard({ task }: any) {
       <Card variant="outlined">
         <CardContent sx={{ p: '16px !important' }}>
           <TaskHeader task={task} />
-          <TaskPostedDeliveries task={task} sx={{ mt: 2 }} />
-          <TaskApprovedDeliveries task={task} sx={{ mt: 2 }} />
         </CardContent>
       </Card>
     );

@@ -8,6 +8,8 @@ import { useEffect, useState } from 'react';
 
 import TaskApplications from 'components/task/TaskApplications';
 import TaskAcceptedApplications from 'components/task/TaskAcceptedApplications';
+import TaskPostedDeliveries from 'components/task/TaskPostedDeliveries';
+import TaskApprovedDeliveries from 'components/task/TaskApprovedDeliveries';
 
 // eslint-disable-next-line prettier/prettier
 interface TaskProps { }
@@ -43,6 +45,8 @@ export default function TaskDetailPage({ }: TaskProps) {
       <TaskDetail item={task} />
       {task && <TaskApplications task={task} sx={{ mt: 2 }} />}
       {task && <TaskAcceptedApplications task={task} sx={{ mt: 2 }} />}
+      {task && <TaskPostedDeliveries task={task} sx={{ mt: 2 }} />}
+      {task && <TaskApprovedDeliveries task={task} sx={{ mt: 2 }} />}
     </Layout>
   );
 }
