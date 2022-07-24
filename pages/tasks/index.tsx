@@ -12,6 +12,7 @@ import Layout from '../../components/layout/Layout';
 /**
  * Page for a list of Tasks
  */
+// eslint-disable-next-line prettier/prettier
 export default function TasksPage({ }: any) {
   const { accountSoul } = useContext(DataContext);
   const { showDialog, closeDialog } = useContext(DialogContext);
