@@ -17,7 +17,7 @@ export default function TaskDetail({ item, sx }: any) {
         }}
       >
         <Box>
-          <EntityImage item={item} />
+          <EntityImage item={item.game} />
           {/* <TaskAdminActions game={item} sx={{ mt: 2, width: 164 }} /> */}
         </Box>
         <Box sx={{ mt: { xs: 2, md: 0 }, ml: { md: 4 } }}>
