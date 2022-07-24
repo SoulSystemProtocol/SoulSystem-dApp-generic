@@ -1,8 +1,8 @@
 import { WorkOutlineOutlined } from '@mui/icons-material';
 import { Avatar, Typography } from '@mui/material';
 import { Box } from '@mui/system';
-
 import GameAdminActions from '../game/GameAdminActions';
+import EntityImage from '../entity/EntityImage';
 
 /**
  * A component with project details.
@@ -18,7 +18,7 @@ export default function ProjectDetail({ project, sx }: any) {
         }}
       >
         <Box>
-          <ProjectImage project={project} />
+          <EntityImage item={project} />
           <GameAdminActions game={project} sx={{ mt: 2, width: 164 }} />
         </Box>
         <Box sx={{ mt: { xs: 2, md: 0 }, ml: { md: 4 } }}>
@@ -28,23 +28,5 @@ export default function ProjectDetail({ project, sx }: any) {
       </Box>
     );
   }
-
   return <></>;
-}
-
-function ProjectImage({ project, sx }: any) {
-  return (
-    <Box sx={{ ...sx }}>
-      <Avatar
-        sx={{
-          width: 164,
-          height: 164,
-          borderRadius: '24px',
-        }}
-        src={project?.uriData?.image}
-      >
-        <WorkOutlineOutlined />
-      </Avatar>
-    </Box>
-  );
 }

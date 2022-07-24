@@ -10,6 +10,8 @@ import useToast from 'hooks/useToast';
 import { useContext, useEffect, useState } from 'react';
 import GameAdminActions from '../game/GameAdminActions';
 
+import EntityImage from '../entity/EntityImage';
+
 /**
  * A component with DAO details.
  */
@@ -24,7 +26,7 @@ export default function DaoDetail({ dao, sx }: any) {
         }}
       >
         <Box>
-          <DaoImage dao={dao} />
+          <EntityImage item={dao} />
           <GameAdminActions game={dao} sx={{ mt: 2, width: 164 }} />
         </Box>
         <Box sx={{ mt: { xs: 2, md: 0 }, ml: { md: 4 } }}>
@@ -36,23 +38,6 @@ export default function DaoDetail({ dao, sx }: any) {
     );
   }
   return <></>;
-}
-
-function DaoImage({ dao, sx }: any) {
-  return (
-    <Box sx={{ ...sx }}>
-      <Avatar
-        sx={{
-          width: 164,
-          height: 164,
-          borderRadius: '24px',
-        }}
-        src={dao?.uriData?.image}
-      >
-        <SchoolOutlined />
-      </Avatar>
-    </Box>
-  );
 }
 
 function DaoMembershipActions({ dao, sx }: any) {
