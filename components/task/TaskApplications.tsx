@@ -43,19 +43,23 @@ export default function TaskApplications({ task, sx }: any) {
               sx={{ py: 2 }}
             >
               {/* Button to apply as DAO */}
-              {task.stage !== CLAIM_STAGE.closed && accountSoul && (
-                <Button
-                  size="small"
-                  variant="outlined"
-                  onClick={() =>
-                    showDialog?.(
-                      <TaskApplyDialog task={task} onClose={closeDialog} />,
-                    )
-                  }
-                >
-                  Apply as DAO
-                </Button>
-              )}
+              {accountSoul &&
+                (task.stage === null ||
+                  (task.stage >= CLAIM_STAGE.open &&
+                    task.stage < CLAIM_STAGE.closed)) && (
+                  <Button
+                    size="small"
+                    variant="outlined"
+                    onClick={() =>
+                      showDialog?.(
+                        <TaskApplyDialog task={task} onClose={closeDialog} />,
+                      )
+                    }
+                  >
+                    Apply as DAO
+                  </Button>
+                )}
+
             </Stack>
           </ListSubheader>
         }
