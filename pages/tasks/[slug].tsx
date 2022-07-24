@@ -1,20 +1,17 @@
 import Task from 'classes/Task';
-import TaskDetail from 'components/task/TaskDetail';
-// import TaskTabs from 'components/task/TaskTabs';
 import Layout from 'components/layout/Layout';
-import useTask from 'hooks/useTask';
+import TaskDetail from 'components/task/TaskDetail';
 import useError from 'hooks/useError';
+import useTask from 'hooks/useTask';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
-// eslint-disable-next-line prettier/prettier
-interface TaskProps { }
+interface TaskProps {}
 
 /**
  * Page with Task details.
  */
-// eslint-disable-next-line prettier/prettier
-export default function TaskDetailPage({ }: TaskProps) {
+export default function TaskDetailPage({}: TaskProps) {
   const router = useRouter();
   const { slug } = router.query;
   const { handleError } = useError();
@@ -23,8 +20,6 @@ export default function TaskDetailPage({ }: TaskProps) {
 
   async function loadData() {
     try {
-      let item = await getTaskById(slug as string);
-      // console.log('Load Data for Slug ', slug, item);
       setTask(await getTaskById(slug as string));
     } catch (error: any) {
       handleError(error, true);

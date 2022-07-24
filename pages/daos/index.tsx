@@ -12,7 +12,7 @@ import Layout from '../../components/layout/Layout';
 /**
  * Page for a list of mDAOs
  */
-export default function DaosPage({ }: any) {
+export default function DaosPage({}: any) {
   const { accountSoul } = useContext(DataContext);
   const { showDialog, closeDialog } = useContext(DialogContext);
   const { handleError } = useError();

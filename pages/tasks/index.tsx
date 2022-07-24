@@ -1,7 +1,7 @@
 import { Box, Button, Pagination, Typography } from '@mui/material';
 import Task from 'classes/Task';
-import TaskList from 'components/task/TaskList';
 import ProjectManageDialog from 'components/project/ProjectManageDialog';
+import TaskList from 'components/task/TaskList';
 import { DataContext } from 'contexts/data';
 import { DialogContext } from 'contexts/dialog';
 import useError from 'hooks/useError';
@@ -12,8 +12,7 @@ import Layout from '../../components/layout/Layout';
 /**
  * Page for a list of Tasks
  */
-// eslint-disable-next-line prettier/prettier
-export default function TasksPage({ }: any) {
+export default function TasksPage({}: any) {
   const { accountSoul } = useContext(DataContext);
   const { showDialog, closeDialog } = useContext(DialogContext);
   const { handleError } = useError();
@@ -28,7 +27,6 @@ export default function TasksPage({ }: any) {
       // Update states
       setCurrentPage(page);
       setCurrentPageCount(pageCount);
-
       // Update states
       setTasks(null);
       // Load tasks
@@ -39,7 +37,6 @@ export default function TasksPage({ }: any) {
         (page - 1) * pageSize,
       );
       setTasks(items);
-
       // Add next page to pagination if possible
       if (page == pageCount && items.length === pageSize) {
         setCurrentPageCount(pageCount + 1);
