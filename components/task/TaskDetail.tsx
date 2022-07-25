@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import { taskStageToString } from 'utils/converters';
 import EntityImage from '../entity/EntityImage';
 import { CLAIM_STAGE } from 'constants/contracts';
+import AddressHash from 'components/AddressHash';
 
 /**
  * A component with project details.
@@ -44,6 +45,7 @@ export default function TaskDetail({ item, sx }: any) {
           <Typography variant="h4" sx={{ mt: 1 }}>
             {item.name}
           </Typography>
+          <Typography variant="h6">{AddressHash(item.id)}</Typography>
           <Typography sx={{ mt: 1 }}>{item.uriData?.description}</Typography>
           <Box sx={{ mt: 2 }}>
             {(item.stage === null || item.stage >= CLAIM_STAGE.open) && (
