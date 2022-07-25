@@ -38,10 +38,12 @@ export default function TaskDetail({ item, sx }: any) {
 
   async function loadData() {
     try {
-      setIsSoulAdmin(isSoulHasRole(item, accountSoul.id, GAME_ROLE.admin.id));
-      setIsSoulAuthority(
-        isSoulHasRole(item, accountSoul.id, GAME_ROLE.authority.id),
-      );
+      if (accountSoul) {
+        setIsSoulAdmin(isSoulHasRole(item, accountSoul.id, GAME_ROLE.admin.id));
+        setIsSoulAuthority(
+          isSoulHasRole(item, accountSoul.id, GAME_ROLE.authority.id),
+        );
+      }
     } catch (error: any) {
       handleError(error, true);
     }
