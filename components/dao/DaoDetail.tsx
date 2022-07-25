@@ -1,6 +1,6 @@
 import { Save, SchoolOutlined } from '@mui/icons-material';
 import { LoadingButton } from '@mui/lab';
-import { Avatar, Button, Typography } from '@mui/material';
+import { Button, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import { GAME_ROLE } from 'constants/contracts';
 import { DataContext } from 'contexts/data';
@@ -10,6 +10,7 @@ import useToast from 'hooks/useToast';
 import { useContext, useEffect, useState } from 'react';
 import GameAdminActions from '../game/GameAdminActions';
 import EntityImage from '../entity/EntityImage';
+import AddressHash from 'components/AddressHash';
 
 /**
  * A component with DAO details.
@@ -30,6 +31,7 @@ export default function DaoDetail({ dao, sx }: any) {
         </Box>
         <Box sx={{ mt: { xs: 2, md: 0 }, ml: { md: 4 } }}>
           <Typography variant="h4">{dao.name}</Typography>
+          <Typography variant="h6">{AddressHash(dao.id)}</Typography>
           <Typography sx={{ mt: 1 }}>{dao.uriData?.description}</Typography>
           <DaoMembershipActions dao={dao} sx={{ mt: 2 }} />
         </Box>
@@ -38,6 +40,8 @@ export default function DaoDetail({ dao, sx }: any) {
   }
   return <></>;
 }
+
+
 
 function DaoMembershipActions({ dao, sx }: any) {
   const { accountSoul } = useContext(DataContext);

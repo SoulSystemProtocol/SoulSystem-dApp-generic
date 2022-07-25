@@ -65,6 +65,11 @@ export default function TaskApplications({ task, sx }: any) {
                   [Fund Task]
                 </Button>
               )}
+              {task.stage >= CLAIM_STAGE.execute && (
+                <Button size="small" variant="outlined">
+                  [Disburse Prize (Execute)]
+                </Button>
+              )}
             </Stack>
           </ListSubheader>
         }
