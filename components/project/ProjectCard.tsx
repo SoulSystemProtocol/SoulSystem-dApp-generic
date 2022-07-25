@@ -1,5 +1,11 @@
 import { WorkOutlineOutlined } from '@mui/icons-material';
-import { Avatar, Card, CardContent, Link as MuiLink, Typography } from '@mui/material';
+import {
+  Avatar,
+  Card,
+  CardContent,
+  Link as MuiLink,
+  Typography,
+} from '@mui/material';
 import { Box } from '@mui/system';
 import Link from 'next/link';
 
