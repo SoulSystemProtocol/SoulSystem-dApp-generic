@@ -2,12 +2,14 @@ import { Button, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import useError from 'hooks/useError';
 import useTask from 'hooks/useTask';
-import { useEffect, useState } from 'react';
+import useSoul from 'hooks/useSoul';
+import useDao from 'hooks/useDao';
 import { taskStageToString } from 'utils/converters';
 import EntityImage from '../entity/EntityImage';
-import { CLAIM_STAGE } from 'constants/contracts';
+import { CLAIM_STAGE, GAME_ROLE } from 'constants/contracts';
 import AddressHash from 'components/AddressHash';
-
+import { DataContext } from 'contexts/data';
+import { useContext, useEffect, useState } from 'react';
 /**
  * A component with project details.
  */
@@ -15,6 +17,10 @@ export default function TaskDetail({ item, sx }: any) {
   const { getFund } = useTask();
   const { handleError } = useError();
   const [fund, setFund] = useState<string | null>(null);
+  const { accountSoul } = useContext(DataContext);
+  const [isSoulAdmin, setIsSoulAdmin] = useState(false);
+  const [isSoulAuthority, setIsSoulAuthority] = useState(false);
+  const { isSoulHasRole } = useDao();
 
   useEffect(() => {
     if (item) {
@@ -24,6 +30,20 @@ export default function TaskDetail({ item, sx }: any) {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [item]);
+
+  useEffect(() => {
+    loadData();
+  }, [item]);
+
+  async function loadData() {
+    try {
+      setIsSoulAdmin(isSoulHasRole(item, accountSoul.id, GAME_ROLE.admin.id));
+      setIsSoulAuthority(isSoulHasRole(item, accountSoul.id, GAME_ROLE.authority.id));
+    } catch (error: any) {
+      handleError(error, true);
+    }
+  }
+
 
   if (item) {
     return (
@@ -55,9 +75,24 @@ export default function TaskDetail({ item, sx }: any) {
                 [Fund item]
               </Button>
             )}
-            {item.stage >= CLAIM_STAGE.execute && (
+            {((isSoulAdmin || isSoulAuthority) && item.stage > CLAIM_STAGE.decision) && (
               <Button size="small" variant="outlined">
-                [Disburse Prize (Execute)]
+                Cancel Case [cancel()]
+              </Button>
+            )}
+            {(isSoulAdmin && item.stage == CLAIM_STAGE.execute) && (
+              <Button size="small" variant="outlined">
+                Disburse Prize [stageExecusion()]
+              </Button>
+            )}
+            {item.stage > CLAIM_STAGE.execute && (
+              <Button size="small" variant="outlined">
+                Disburse Funds [disburse()]
+              </Button>
+            )}
+            {item.stage > CLAIM_STAGE.cancelled && (
+              <Button size="small" variant="outlined">
+                Refund [refund()]
               </Button>
             )}
           </Box>
