@@ -49,11 +49,12 @@ const AppBar = styled(MuiAppBar, {
   }),
 }));
 
+// const settings = ['Profile' /*, 'Account', 'Dashboard', 'Logout'*/];
+
 interface IHeaderProps {
   open: boolean;
   toggleDrawer: () => void;
 }
-const settings = ['Profile' /*, 'Account', 'Dashboard', 'Logout'*/];
 
 /**
  * Component with a header.
