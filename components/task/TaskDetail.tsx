@@ -7,7 +7,6 @@ import { taskStageToString } from 'utils/converters';
 import EntityImage from '../entity/EntityImage';
 import { CLAIM_STAGE } from 'constants/contracts';
 
-
 /**
  * A component with project details.
  */
@@ -36,6 +35,7 @@ export default function TaskDetail({ item, sx }: any) {
       >
         <Box>
           <EntityImage item={item.game} />
+          <Typography>By: {item.game.name}</Typography>
         </Box>
         <Box sx={{ mt: { xs: 2, md: 0 }, ml: { md: 4 } }}>
           <Typography color="text.secondary" variant="body2">

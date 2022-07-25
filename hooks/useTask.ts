@@ -110,7 +110,7 @@ function convertSubgraphTaskToTask(subgraphTask: any) {
     subgraphTask.stage,
     subgraphTask.uri,
     hexStringToJson(subgraphTask.uriData),
-    hexStringToJson(subgraphTask.game.uriData),
+    { name: subgraphTask.game.name, ...hexStringToJson(subgraphTask.game.uriData) },
     subgraphTask.roles,
     subgraphTask.nominations,
     subgraphTask.posts,
