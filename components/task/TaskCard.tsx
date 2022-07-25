@@ -5,6 +5,7 @@ import {
   Link as MuiLink,
   Typography,
 } from '@mui/material';
+import EntityImage from 'components/entity/EntityImage';
 import useError from 'hooks/useError';
 import useTask from 'hooks/useTask';
 import Link from 'next/link';
@@ -51,18 +52,25 @@ function TaskHeader({ task, sx }: any) {
         ...sx,
       }}
     >
-      {/* Task name and description */}
-      <Box>
-        <Link href={`/tasks/${task.id}`} passHref>
-          <MuiLink underline="none">
-            <Typography>{task.name}</Typography>
-          </MuiLink>
-        </Link>
-        {task.uriData.description && (
-          <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
-            {task.uriData.description}
-          </Typography>
-        )}
+      <Box sx={{ display: 'flex' }}>
+        <EntityImage
+          title={task.game.name}
+          item={task.game}
+          sx={{ width: '48px', height: '48px', mr: 2.5 }}
+        />
+        {/* Task name and description */}
+        <Box>
+          <Link href={`/tasks/${task.id}`} passHref>
+            <MuiLink underline="none" sx={{ color: '#f8f8f8' }}>
+              <Typography variant="body1">{task.name}</Typography>
+            </MuiLink>
+          </Link>
+          {task.uriData.description && (
+            <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
+              {task.uriData.description}
+            </Typography>
+          )}
+        </Box>
       </Box>
       {/* Task stage */}
       <Box sx={{ textAlign: 'center' }}>
