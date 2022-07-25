@@ -65,5 +65,5 @@ export function taskStageToString(task: Task): string {
     if (CLAIM_STAGE[stageName] == task.stage) return stageName;
   }
   console.warn('Unhandled Task Stage:' + task.stage, task);
-  return 'Open For Deliveries';
+  return 'Open';
 }
