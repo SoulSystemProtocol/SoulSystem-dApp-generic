@@ -8,8 +8,9 @@ import {
 // import { CSSObject, Theme, useTheme } from '@mui/material/styles';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import SlideshowIcon from '@mui/icons-material/Slideshow';
+import ArticleIcon from '@mui/icons-material/Article';
 import ArchitectureIcon from '@mui/icons-material/Architecture';
-import { Container, Toolbar, Typography } from '@mui/material';
+import { Container, Toolbar } from '@mui/material';
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
 import Head from 'next/head';
@@ -53,11 +54,19 @@ const footer_icons: { route: string; label: string; icon: JSX.Element }[] = [
     label: 'Architecture',
   },
   {
-    route: 'https://github.com/MentorDAO/',
-    icon: <SlideshowIcon sx={{}} />,
+    // eslint-disable-next-line prettier/prettier
+    route: 'https://www.notion.so/virtualbrick/MentorDAO-439a1e6ae646445bb4f3d60bfdaa882b',
+    icon: <ArticleIcon />,
+    label: 'Docs',
+  },
+  {
+    // eslint-disable-next-line prettier/prettier
+    route: 'https://docs.google.com/file/d/1jORzF6hSls2WxYLZeMizbK8pt1UB9RX-/edit?filetype=mspresentation',
+    icon: <SlideshowIcon />,
     label: 'Deck',
   },
 ];
+
 export default function Layout({ children, title }: any) {
   // const theme = useTheme();
   const [isOpen, setIsOpen] = React.useState(true);
@@ -74,7 +83,7 @@ export default function Layout({ children, title }: any) {
         <meta name="viewport" content="initial-scale=1, width=device-width" />
       </Head>
       <Sidebar links={menu_side_links} toggler={toggleDrawer} isOpen={isOpen} />
-      <Container maxWidth="md" sx={{ minHeight: '100vh' }}>
+      <Container sx={{ minHeight: '100vh', m: '0 auto' }} maxWidth="xl">
         <Header open={isOpen} toggleDrawer={toggleDrawer} />
         <Container
           sx={{
@@ -88,7 +97,7 @@ export default function Layout({ children, title }: any) {
             <Toolbar />
             {children}
           </Box>
-          <Box sx={{ pt: 4 }}>
+          <Box sx={{ pt: 2 }}>
             <Footer links={footer_links} icons={footer_icons} />
           </Box>
         </Container>
