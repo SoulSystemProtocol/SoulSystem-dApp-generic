@@ -84,6 +84,8 @@ function DaoApplicationGridItem({ dao, nomination }: any) {
       }
       showToastSuccess('Success! Data will be updated soon');
       setIsProcessed(true);
+      //Trigger Data Reload
+      loadData();
     } catch (error: any) {
       handleError(error, true);
     } finally {
@@ -94,7 +96,7 @@ function DaoApplicationGridItem({ dao, nomination }: any) {
   useEffect(() => {
     setIsSoulAdmin(false);
     setNominatedSoul(null);
-    setIsNominatedSoulMember(false);
+    // setIsNominatedSoulMember(false); //Seems Redundant
     if (dao && nomination) {
       loadData();
     }
@@ -139,7 +141,7 @@ function DaoApplicationGridItem({ dao, nomination }: any) {
                       Processing
                     </LoadingButton>
                   ) : (
-                    <Button onClick={() => addToDao()}>Add To DAO</Button>
+                    <Button onClick={() => addToDao()}>Accept Applicant</Button>
                   )}
                 </Box>
               )}
