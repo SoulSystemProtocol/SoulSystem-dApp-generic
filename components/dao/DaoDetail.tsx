@@ -41,8 +41,6 @@ export default function DaoDetail({ dao, sx }: any) {
   return <></>;
 }
 
-
-
 function DaoMembershipActions({ dao, sx }: any) {
   const { accountSoul } = useContext(DataContext);
   const { handleError } = useError();

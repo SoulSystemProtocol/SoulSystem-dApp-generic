@@ -33,17 +33,19 @@ export default function TaskDetail({ item, sx }: any) {
 
   useEffect(() => {
     if (item) loadData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [item]);
 
   async function loadData() {
     try {
       setIsSoulAdmin(isSoulHasRole(item, accountSoul.id, GAME_ROLE.admin.id));
-      setIsSoulAuthority(isSoulHasRole(item, accountSoul.id, GAME_ROLE.authority.id));
+      setIsSoulAuthority(
+        isSoulHasRole(item, accountSoul.id, GAME_ROLE.authority.id),
+      );
     } catch (error: any) {
       handleError(error, true);
     }
   }
-
 
   if (item) {
     return (
@@ -56,9 +58,13 @@ export default function TaskDetail({ item, sx }: any) {
       >
         <Box>
           <EntityImage item={item.game} />
-          <Typography sx={{
-            textAlign: 'center'
-          }}>By: {item.game.name}</Typography>
+          <Typography
+            sx={{
+              textAlign: 'center',
+            }}
+          >
+            By: {item.game.name}
+          </Typography>
         </Box>
         <Box sx={{ mt: { xs: 2, md: 0 }, ml: { md: 4 } }}>
           <Typography color="text.secondary" variant="body2">
@@ -75,12 +81,13 @@ export default function TaskDetail({ item, sx }: any) {
                 [Fund item]
               </Button>
             )}
-            {((isSoulAdmin || isSoulAuthority) && item.stage > CLAIM_STAGE.decision) && (
-              <Button size="small" variant="outlined">
-                Cancel Case [cancel()]
-              </Button>
-            )}
-            {(isSoulAdmin && item.stage == CLAIM_STAGE.execute) && (
+            {(isSoulAdmin || isSoulAuthority) &&
+              item.stage > CLAIM_STAGE.decision && (
+                <Button size="small" variant="outlined">
+                  Cancel Case [cancel()]
+                </Button>
+              )}
+            {isSoulAdmin && item.stage == CLAIM_STAGE.execute && (
               <Button size="small" variant="outlined">
                 Disburse Prize [stageExecusion()]
               </Button>
@@ -97,7 +104,6 @@ export default function TaskDetail({ item, sx }: any) {
             )}
           </Box>
         </Box>
-
       </Box>
     );
   }

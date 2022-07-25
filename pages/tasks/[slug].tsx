@@ -11,12 +11,12 @@ import TaskAcceptedApplications from 'components/task/TaskAcceptedApplications';
 import TaskPostedDeliveries from 'components/task/TaskPostedDeliveries';
 import TaskApprovedDeliveries from 'components/task/TaskApprovedDeliveries';
 
-interface TaskProps { }
+interface TaskProps {}
 
 /**
  * Page with Task details.
  */
-export default function TaskDetailPage({ }: TaskProps) {
+export default function TaskDetailPage({}: TaskProps) {
   const router = useRouter();
   const { slug } = router.query;
   const { handleError } = useError();
