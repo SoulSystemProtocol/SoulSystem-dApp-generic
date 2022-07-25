@@ -3,6 +3,7 @@ import { Avatar, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import GameAdminActions from '../game/GameAdminActions';
 import EntityImage from '../entity/EntityImage';
+import AddressHash from 'components/AddressHash';
 
 /**
  * A component with project details.
@@ -23,6 +24,7 @@ export default function ProjectDetail({ project, sx }: any) {
         </Box>
         <Box sx={{ mt: { xs: 2, md: 0 }, ml: { md: 4 } }}>
           <Typography variant="h4">{project.name}</Typography>
+          <Typography variant="h6">{AddressHash(project.id)}</Typography>
           <Typography sx={{ mt: 1 }}>{project.uriData?.description}</Typography>
         </Box>
       </Box>
