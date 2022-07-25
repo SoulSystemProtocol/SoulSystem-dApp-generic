@@ -1,5 +1,5 @@
 import { SchoolOutlined } from '@mui/icons-material';
-import { Avatar, Card, CardContent, Link as MuiLink } from '@mui/material';
+import { Avatar, Card, CardContent, Link as MuiLink, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import Link from 'next/link';
 
@@ -60,6 +60,11 @@ function DaoDetails({ dao, sx }: any) {
         <Link href={`/daos/${dao.id}`} passHref>
           <MuiLink underline="none">{dao.name}</MuiLink>
         </Link>
+        {dao.uriData.description && (
+          <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
+            {dao.uriData.description}
+          </Typography>
+        )}
       </Box>
     );
   }

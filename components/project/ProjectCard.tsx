@@ -1,5 +1,5 @@
 import { WorkOutlineOutlined } from '@mui/icons-material';
-import { Avatar, Card, CardContent, Link as MuiLink } from '@mui/material';
+import { Avatar, Card, CardContent, Link as MuiLink, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import Link from 'next/link';
 
@@ -60,6 +60,11 @@ function ProjectDetails({ project, sx }: any) {
         <Link href={`/projects/${project.id}`} passHref>
           <MuiLink underline="none">{project.name}</MuiLink>
         </Link>
+        {project.uriData.description && (
+          <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
+            {project.uriData.description}
+          </Typography>
+        )}
       </Box>
     );
   }
