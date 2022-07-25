@@ -13,7 +13,8 @@ export default function Home() {
           MentorDAO
         </Typography>
         <Typography variant="h5">
-          Where junior developers learn and earn
+          {/* Where junior developers learn and earn */}
+          The future of work
         </Typography>
       </Box>
     </Layout>
