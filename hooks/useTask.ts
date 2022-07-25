@@ -15,8 +15,7 @@ export default function useTask() {
   const { defaultProvider } = useContext(Web3Context);
   const { taskMake } = useProjectExtContract();
   const { applyToTask, deliverTask } = useDaoExtContract();
-  const { acceptApplicant, deliveryApprove, stageExecusion } =
-    useTaskContract();
+  const { acceptApplicant, deliveryApprove, stageExecusion } = useTaskContract();
   const { findClaims } = useSubgraph();
 
   let createTask = function (
