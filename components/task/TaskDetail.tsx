@@ -32,7 +32,7 @@ export default function TaskDetail({ item, sx }: any) {
   }, [item]);
 
   useEffect(() => {
-    loadData();
+    if (item) loadData();
   }, [item]);
 
   async function loadData() {
