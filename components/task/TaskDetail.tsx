@@ -1,10 +1,12 @@
-import { Typography } from '@mui/material';
+import { Button, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import useError from 'hooks/useError';
 import useTask from 'hooks/useTask';
 import { useEffect, useState } from 'react';
 import { taskStageToString } from 'utils/converters';
 import EntityImage from '../entity/EntityImage';
+import { CLAIM_STAGE } from 'constants/contracts';
+
 
 /**
  * A component with project details.
@@ -43,7 +45,20 @@ export default function TaskDetail({ item, sx }: any) {
             {item.name}
           </Typography>
           <Typography sx={{ mt: 1 }}>{item.uriData?.description}</Typography>
+          <Box sx={{ mt: 2 }}>
+            {(item.stage === null || item.stage >= CLAIM_STAGE.open) && (
+              <Button size="small" variant="outlined">
+                [Fund item]
+              </Button>
+            )}
+            {item.stage >= CLAIM_STAGE.execute && (
+              <Button size="small" variant="outlined">
+                [Disburse Prize (Execute)]
+              </Button>
+            )}
+          </Box>
         </Box>
+
       </Box>
     );
   }
