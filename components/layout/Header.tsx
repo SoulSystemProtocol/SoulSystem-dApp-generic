@@ -122,7 +122,6 @@ export default function Header({ open, toggleDrawer }: IHeaderProps) {
  */
 function SettingsMenu({ profile }: any): JSX.Element {
   const { account, connectWallet, disconnectWallet } = useContext(Web3Context);
-  const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
