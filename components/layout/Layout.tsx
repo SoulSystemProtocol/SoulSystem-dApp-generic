@@ -55,7 +55,7 @@ const footer_icons: { route: string; label: string; icon: JSX.Element }[] = [
   },
   {
     // eslint-disable-next-line prettier/prettier
-    route: 'https://www.notion.so/virtualbrick/MentorDAO-439a1e6ae646445bb4f3d60bfdaa882b',
+    route: 'https://virtualbrick.notion.site/Contracts-4e383eb032e34cd08d5f035dee2dd9bb',
     icon: <ArticleIcon />,
     label: 'Docs',
   },
