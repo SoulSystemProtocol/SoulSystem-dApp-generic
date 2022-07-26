@@ -12,8 +12,6 @@ import AddressHash from 'components/web3/AddressHash';
 import { DataContext } from 'contexts/data';
 import { DialogContext } from 'contexts/dialog';
 import { useContext, useEffect, useState } from 'react';
-import { transaction } from 'utils/transaction';
-import Dao from 'classes/Dao';
 import FundDialog from 'components/task/FundDialog';
 
 /**
