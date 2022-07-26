@@ -1,5 +1,4 @@
 import Task from 'classes/Task';
-import SoulDetail from 'components/soul/SoulDetail';
 import { CLAIM_STAGE } from 'constants/contracts';
 import { truncate } from 'lodash';
 
