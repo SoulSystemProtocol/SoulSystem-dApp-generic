@@ -69,13 +69,13 @@ export default function TaskDetail({ item, sx }: any) {
           </Typography>
         </Box>
         <Box sx={{ mt: { xs: 2, md: 0 }, ml: { md: 4 } }}>
-          <Typography color="text.secondary" variant="body2">
-            {taskStageToString(item)} {fund ? ` / ${fund} ETH` : ''}
-          </Typography>
           <Typography variant="h4" sx={{ mt: 1 }}>
             {item.name}
           </Typography>
           <Typography variant="h6">{AddressHash(item.id)}</Typography>
+          <Typography color="text.secondary" variant="body2">
+            {taskStageToString(item)} {fund ? ` / ${fund} ETH` : ''}
+          </Typography>
           <Typography sx={{ mt: 1 }}>{item.uriData?.description}</Typography>
           <Box sx={{ mt: 2 }}>
             {(item.stage === null || item.stage >= CLAIM_STAGE.open) && (
