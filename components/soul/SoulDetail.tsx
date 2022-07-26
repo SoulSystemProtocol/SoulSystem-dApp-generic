@@ -25,6 +25,7 @@ import {
   soulToFirstLastNameString,
 } from 'utils/converters';
 import { getTraitValue } from 'utils/metadata';
+import AddressHash from 'components/web3/AddressHash';
 
 /**
  * A component with soul details.
@@ -45,20 +46,12 @@ export default function SoulDetail({ soul, sx }: any) {
         </Box>
         <Box sx={{ mt: { xs: 2, md: 0 }, ml: { md: 4 } }}>
           <Chip label={`ID: ${soul.id}`} sx={{ height: '24px', mb: 1.5 }} />
-          <Box
-            sx={{
-              display: 'flex',
-              flexDirection: 'row',
-              alignItems: 'baseline',
-            }}
-          >
-            <Typography variant="h4">
-              {soulToFirstLastNameString(soul)}
-            </Typography>
-            <Typography color="text.secondary" sx={{ ml: 1 }}>
-              {addressToShortAddress(soul.owner)}
-            </Typography>
-          </Box>
+          <Typography variant="h4">
+            {soulToFirstLastNameString(soul)}
+          </Typography>
+          <Typography color="text.secondary" sx={{ ml: 1 }}>
+            <AddressHash address={soul.owner} />
+          </Typography>
           <SoulDescription soul={soul} sx={{ mt: 1 }} />
           <SoulLinks soul={soul} sx={{ mt: 2 }} />
         </Box>
