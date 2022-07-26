@@ -34,7 +34,9 @@ export default function DaoDetail({ dao, sx }: any) {
         </Box>
         <Box sx={{ mt: { xs: 2, md: 0 }, ml: { md: 4 } }}>
           <Typography variant="h4">{dao.name}</Typography>
-          <Typography variant="h6">{AddressHash(dao.id)}</Typography>
+          <Typography variant="body2">
+            <AddressHash address={dao.id} />
+          </Typography>
           <Typography color="text.secondary" variant="body2">
             Balance: <AccountBalance address={dao.id} />{' '}
             {process.env.NEXT_PUBLIC_NETWORK_CURRENCY_SYMBOL}

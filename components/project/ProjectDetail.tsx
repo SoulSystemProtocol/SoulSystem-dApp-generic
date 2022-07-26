@@ -24,7 +24,9 @@ export default function ProjectDetail({ project, sx }: any) {
         </Box>
         <Box sx={{ mt: { xs: 2, md: 0 }, ml: { md: 4 } }}>
           <Typography variant="h4">{project.name}</Typography>
-          <Typography variant="h6">{AddressHash(project.id)}</Typography>
+          <Typography variant="body2">
+            <AddressHash address={project.id} />
+          </Typography>
           <Typography sx={{ mt: 1 }}>{project.uriData?.description}</Typography>
         </Box>
       </Box>
