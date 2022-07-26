@@ -44,7 +44,7 @@ export default function SoulDetail({ soul, sx }: any) {
           <SoulImage soul={soul} />
           <SoulEditButton soul={soul} sx={{ mt: 2, width: 164 }} />
         </Box>
-        <Box sx={{ mt: { xs: 2, md: 0 }, ml: { md: 4 } }}>
+        <Box sx={{ flexGrow: 1, mt: { xs: 2, md: 0 }, ml: { md: 4 } }}>
           <Chip label={`ID: ${soul.id}`} sx={{ height: '24px', mb: 1.5 }} />
           <Typography variant="h4">
             {soulToFirstLastNameString(soul)}

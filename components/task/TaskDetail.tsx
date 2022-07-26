@@ -73,13 +73,14 @@ export default function TaskDetail({ item, sx }: any) {
             By: {item.game.name}
           </Typography>
         </Box>
-        <Box sx={{ mt: { xs: 2, md: 0 }, ml: { md: 4 } }}>
+        <Box sx={{ flexGrow: 1, mt: { xs: 2, md: 0 }, ml: { md: 4 } }}>
+          <Typography variant="body2" sx={{ float: 'right' }}>
+            <AddressHash address={item.id} />
+          </Typography>
           <Typography variant="h4" sx={{ mt: 1 }}>
             {item.name}
           </Typography>
-          <Typography variant="body2">
-            <AddressHash address={item.id} />
-          </Typography>
+
           <Typography color="text.secondary" variant="body2">
             {taskStageToString(item)} {fund ? ` | ${fund} ETH` : ''}
           </Typography>

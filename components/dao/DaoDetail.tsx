@@ -32,11 +32,11 @@ export default function DaoDetail({ dao, sx }: any) {
           <EntityImage item={dao} />
           <GameAdminActions game={dao} sx={{ mt: 2, width: 164 }} />
         </Box>
-        <Box sx={{ mt: { xs: 2, md: 0 }, ml: { md: 4 } }}>
-          <Typography variant="h4">{dao.name}</Typography>
-          <Typography variant="body2">
+        <Box sx={{ flexGrow: 1, mt: { xs: 2, md: 0 }, ml: { md: 4 } }}>
+          <Typography variant="body2" sx={{ float: 'right' }}>
             <AddressHash address={dao.id} />
           </Typography>
+          <Typography variant="h4">{dao.name}</Typography>
           <Typography color="text.secondary" variant="body2">
             Balance: <AccountBalance address={dao.id} />{' '}
             {process.env.NEXT_PUBLIC_NETWORK_CURRENCY_SYMBOL}
