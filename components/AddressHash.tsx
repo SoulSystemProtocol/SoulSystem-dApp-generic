@@ -8,7 +8,6 @@ export default function AddressHash(address: string) {
       <CopyIcon
         onClick={() => {
           navigator.clipboard.writeText(address);
-          // setIsClicked(true);
         }}
       />
     </>
