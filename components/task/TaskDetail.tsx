@@ -2,14 +2,16 @@ import { Button, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import useError from 'hooks/useError';
 import useTask from 'hooks/useTask';
-import useSoul from 'hooks/useSoul';
+// import useSoul from 'hooks/useSoul';
 import useDao from 'hooks/useDao';
 import { taskStageToString } from 'utils/converters';
 import EntityImage from '../entity/EntityImage';
 import { CLAIM_STAGE, GAME_ROLE } from 'constants/contracts';
-import AddressHash from 'components/AddressHash';
+import AddressHash from 'components/web3/AddressHash';
+// import AccountBalance from 'components/web3/AccountBalance';
 import { DataContext } from 'contexts/data';
 import { useContext, useEffect, useState } from 'react';
+
 /**
  * A component with project details.
  */
@@ -37,15 +39,15 @@ export default function TaskDetail({ item, sx }: any) {
   }, [item]);
 
   async function loadData() {
-    try {
-      if (accountSoul) {
+    if (accountSoul) {
+      try {
         setIsSoulAdmin(isSoulHasRole(item, accountSoul.id, GAME_ROLE.admin.id));
         setIsSoulAuthority(
           isSoulHasRole(item, accountSoul.id, GAME_ROLE.authority.id),
         );
+      } catch (error: any) {
+        handleError(error, true);
       }
-    } catch (error: any) {
-      handleError(error, true);
     }
   }
 
@@ -74,7 +76,7 @@ export default function TaskDetail({ item, sx }: any) {
           </Typography>
           <Typography variant="h6">{AddressHash(item.id)}</Typography>
           <Typography color="text.secondary" variant="body2">
-            {taskStageToString(item)} {fund ? ` / ${fund} ETH` : ''}
+            {taskStageToString(item)} {fund ? ` | ${fund} ETH` : ''}
           </Typography>
           <Typography sx={{ mt: 1 }}>{item.uriData?.description}</Typography>
           <Box sx={{ mt: 2 }}>

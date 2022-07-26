@@ -1,16 +1,19 @@
+import { ethers } from 'ethers';
 import { Save, SchoolOutlined } from '@mui/icons-material';
 import { LoadingButton } from '@mui/lab';
 import { Button, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import { GAME_ROLE } from 'constants/contracts';
 import { DataContext } from 'contexts/data';
+import { Web3Context } from 'contexts/web3';
 import useDao from 'hooks/useDao';
 import useError from 'hooks/useError';
 import useToast from 'hooks/useToast';
 import { useContext, useEffect, useState } from 'react';
 import GameAdminActions from '../game/GameAdminActions';
 import EntityImage from '../entity/EntityImage';
-import AddressHash from 'components/AddressHash';
+import AddressHash from 'components/web3/AddressHash';
+import AccountBalance from 'components/web3/AccountBalance';
 
 /**
  * A component with DAO details.
@@ -32,6 +35,10 @@ export default function DaoDetail({ dao, sx }: any) {
         <Box sx={{ mt: { xs: 2, md: 0 }, ml: { md: 4 } }}>
           <Typography variant="h4">{dao.name}</Typography>
           <Typography variant="h6">{AddressHash(dao.id)}</Typography>
+          <Typography color="text.secondary" variant="body2">
+            Balance: <AccountBalance address={dao.id} />{' '}
+            {process.env.NEXT_PUBLIC_NETWORK_CURRENCY_SYMBOL}
+          </Typography>
           <Typography sx={{ mt: 1 }}>{dao.uriData?.description}</Typography>
           <DaoMembershipActions dao={dao} sx={{ mt: 2 }} />
         </Box>

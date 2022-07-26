@@ -1,9 +1,9 @@
-import { WorkOutlineOutlined } from '@mui/icons-material';
-import { Avatar, Typography } from '@mui/material';
+// import { WorkOutlineOutlined } from '@mui/icons-material';
+import { Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import GameAdminActions from '../game/GameAdminActions';
 import EntityImage from '../entity/EntityImage';
-import AddressHash from 'components/AddressHash';
+import AddressHash from 'components/web3/AddressHash';
 
 /**
  * A component with project details.
