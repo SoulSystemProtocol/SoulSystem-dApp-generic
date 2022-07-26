@@ -10,7 +10,11 @@ import { CLAIM_STAGE, GAME_ROLE } from 'constants/contracts';
 import AddressHash from 'components/web3/AddressHash';
 // import AccountBalance from 'components/web3/AccountBalance';
 import { DataContext } from 'contexts/data';
+import { DialogContext } from 'contexts/dialog';
 import { useContext, useEffect, useState } from 'react';
+import { transaction } from 'utils/transaction';
+import Dao from 'classes/Dao';
+import FundDialog from 'components/task/FundDialog';
 
 /**
  * A component with project details.
@@ -22,6 +26,7 @@ export default function TaskDetail({ item, sx }: any) {
   const { accountSoul } = useContext(DataContext);
   const [isSoulAdmin, setIsSoulAdmin] = useState(false);
   const [isSoulAuthority, setIsSoulAuthority] = useState(false);
+  const { showDialog, closeDialog } = useContext(DialogContext);
   const { isSoulHasRole } = useDao();
 
   useEffect(() => {
@@ -74,17 +79,31 @@ export default function TaskDetail({ item, sx }: any) {
           <Typography variant="h4" sx={{ mt: 1 }}>
             {item.name}
           </Typography>
-          <Typography variant="h6">{AddressHash(item.id)}</Typography>
+          <Typography variant="body2">
+            <AddressHash address={item.id} />
+          </Typography>
           <Typography color="text.secondary" variant="body2">
             {taskStageToString(item)} {fund ? ` | ${fund} ETH` : ''}
           </Typography>
           <Typography sx={{ mt: 1 }}>{item.uriData?.description}</Typography>
           <Box sx={{ mt: 2 }}>
-            {(item.stage === null || item.stage >= CLAIM_STAGE.open) && (
-              <Button size="small" variant="outlined">
-                [Fund item]
+            {(item.stage === null || item.stage >= CLAIM_STAGE.draft) && (
+              <Button
+                size="small"
+                variant="outlined"
+                // onClick={(item) => {
+                //   transaction({ to: item.id, value: 1 });
+                // }}
+                onClick={() =>
+                  showDialog?.(
+                    <FundDialog address={item.id} onClose={closeDialog} />,
+                  )
+                }
+              >
+                Fund Entity
               </Button>
             )}
+
             {(isSoulAdmin || isSoulAuthority) &&
               item.stage > CLAIM_STAGE.decision && (
                 <Button size="small" variant="outlined">
