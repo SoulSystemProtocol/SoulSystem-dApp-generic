@@ -1,11 +1,11 @@
 import { ethers } from 'ethers';
 import { Save, SchoolOutlined } from '@mui/icons-material';
 import { LoadingButton } from '@mui/lab';
-import { Button, Typography } from '@mui/material';
+import { Button, Stack, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import { GAME_ROLE } from 'constants/contracts';
 import { DataContext } from 'contexts/data';
-import { Web3Context } from 'contexts/web3';
+// import { Web3Context } from 'contexts/web3';
 import useDao from 'hooks/useDao';
 import useError from 'hooks/useError';
 import useToast from 'hooks/useToast';
@@ -14,6 +14,7 @@ import GameAdminActions from '../game/GameAdminActions';
 import EntityImage from '../entity/EntityImage';
 import AddressHash from 'components/web3/AddressHash';
 import AccountBalance from 'components/web3/AccountBalance';
+import FundDialogButton from 'components/web3/FundDialogButton';
 
 /**
  * A component with DAO details.
@@ -42,7 +43,10 @@ export default function DaoDetail({ dao, sx }: any) {
             {process.env.NEXT_PUBLIC_NETWORK_CURRENCY_SYMBOL}
           </Typography>
           <Typography sx={{ mt: 1 }}>{dao.uriData?.description}</Typography>
-          <DaoMembershipActions dao={dao} sx={{ mt: 2 }} />
+          <Stack direction="row" spacing={2} sx={{ mt: 2 }}>
+            <DaoMembershipActions dao={dao} />
+            <FundDialogButton item={dao} />
+          </Stack>
         </Box>
       </Box>
     );

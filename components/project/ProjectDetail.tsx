@@ -1,9 +1,10 @@
 // import { WorkOutlineOutlined } from '@mui/icons-material';
-import { Typography } from '@mui/material';
+import { Stack, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import GameAdminActions from '../game/GameAdminActions';
 import EntityImage from '../entity/EntityImage';
 import AddressHash from 'components/web3/AddressHash';
+import FundDialogButton from 'components/web3/FundDialogButton';
 
 /**
  * A component with project details.
@@ -28,6 +29,9 @@ export default function ProjectDetail({ project, sx }: any) {
             <AddressHash address={project.id} />
           </Typography>
           <Typography sx={{ mt: 1 }}>{project.uriData?.description}</Typography>
+          <Stack direction="row" spacing={2} sx={{ mt: 2 }}>
+            <FundDialogButton item={project} />
+          </Stack>
         </Box>
       </Box>
     );

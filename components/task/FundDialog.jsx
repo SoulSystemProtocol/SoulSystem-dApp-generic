@@ -1,4 +1,4 @@
-import { BigNumber, ethers } from 'ethers';
+// import { BigNumber, ethers } from 'ethers';
 import { Web3Context } from 'contexts/web3';
 import { Save } from '@mui/icons-material';
 import { LoadingButton } from '@mui/lab';
@@ -17,11 +17,11 @@ import { JSONSchema7 } from 'json-schema';
 import { useContext, useState } from 'react';
 import AddressHash from 'components/web3/AddressHash';
 
-interface Params {
-  address: string;
-  isClose: boolean;
-  onClose: Function;
-}
+// interface Params {
+//   address: string;
+//   isClose: boolean;
+//   onClose: Function;
+// }
 
 /**
  * A dialog for apply for a task.
@@ -30,7 +30,8 @@ export default function FundDialog({
   address,
   isClose,
   onClose,
-}: Params): JSX.Element {
+  //} : Params): JSX.Element
+}) {
   const { showToastSuccess } = useToast();
   const { handleError } = useError();
   // const { applyForTaskAsDao } = useTask();
@@ -39,12 +40,13 @@ export default function FundDialog({
   const [formData, setFormData] = useState({});
   const { provider } = useContext(Web3Context);
 
-  const schema: JSONSchema7 = {
+  const schema = {
+    // : JSONSchema7
     type: 'object',
     required: ['amount'],
     properties: {
       amount: {
-        type: 'number',
+        type: 'string',
         title: 'Amount',
       },
     },
@@ -59,7 +61,7 @@ export default function FundDialog({
     onClose();
   }
 
-  async function submit({ formData }: any) {
+  async function submit({ formData }) {
     try {
       setFormData(formData);
       setIsLoading(true);
@@ -74,7 +76,7 @@ export default function FundDialog({
       let receipt = await provider.getSigner().sendTransaction(tx);
       showToastSuccess('Success! Funds are on their way');
       close();
-    } catch (error: any) {
+    } catch (error) {
       handleError(error, true);
       setIsLoading(false);
     }
