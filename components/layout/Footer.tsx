@@ -2,8 +2,8 @@ import { Box, Container, Link as MuiLink, IconButton } from '@mui/material';
 import Link from 'next/link';
 
 interface FooterProps {
-  links: any;
-  icons: any;
+  links: [{}];
+  icons: [{}];
 }
 
 /**
