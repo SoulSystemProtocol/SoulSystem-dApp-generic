@@ -10,7 +10,6 @@ import {
 import {
   Avatar,
   Button,
-  Chip,
   Stack,
   Typography,
   Link as MuiLink,
