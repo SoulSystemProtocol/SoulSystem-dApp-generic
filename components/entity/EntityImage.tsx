@@ -1,6 +1,5 @@
 import { AutoAwesomeOutlined } from '@mui/icons-material';
 import { Avatar } from '@mui/material';
-import { Box } from '@mui/system';
 
 /**
  * Generic entity image component.
