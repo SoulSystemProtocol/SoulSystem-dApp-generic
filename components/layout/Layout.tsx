@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState } from 'react';
 import {
   PersonOutlineOutlined,
   SchoolOutlined,
@@ -17,6 +17,7 @@ import Head from 'next/head';
 import Header from './Header';
 import Sidebar from './Sidebar';
 import Footer from './Footer';
+import useLocalStorage from 'hooks/useLocalStorage';
 
 //Define Sidemenu Links
 const menu_side_links = [
@@ -69,7 +70,7 @@ const footer_icons: { route: string; label: string; icon: JSX.Element }[] = [
 
 export default function Layout({ children, title }: any) {
   // const theme = useTheme();
-  const [isOpen, setIsOpen] = React.useState(true);
+  const [isOpen, setIsOpen] = useLocalStorage('isOpen', true);
 
   const toggleDrawer = () => {
     setIsOpen(!isOpen);
