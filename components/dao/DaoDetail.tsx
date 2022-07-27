@@ -45,7 +45,7 @@ export default function DaoDetail({ dao, sx }: any) {
           <Typography sx={{ mt: 1 }}>{dao.uriData?.description}</Typography>
           <Stack direction="row" spacing={2} sx={{ mt: 2 }}>
             <DaoMembershipActions dao={dao} />
-            <FundDialogButton item={dao} />
+            <FundDialogButton address={dao.id} />
           </Stack>
         </Box>
       </Box>

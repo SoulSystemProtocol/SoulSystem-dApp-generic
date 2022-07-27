@@ -20,12 +20,10 @@ import { PROFILE_TRAIT_TYPE } from 'constants/metadata';
 import { Web3Context } from 'contexts/web3';
 import Link from 'next/link';
 import { useContext } from 'react';
-import {
-  addressToShortAddress,
-  soulToFirstLastNameString,
-} from 'utils/converters';
+import { soulToFirstLastNameString } from 'utils/converters';
 import { getTraitValue } from 'utils/metadata';
 import AddressHash from 'components/web3/AddressHash';
+import FundDialogButton from 'components/web3/FundDialogButton';
 
 /**
  * A component with soul details.
@@ -45,7 +43,7 @@ export default function SoulDetail({ soul, sx }: any) {
           <SoulEditButton soul={soul} sx={{ mt: 2, width: 164 }} />
         </Box>
         <Box sx={{ flexGrow: 1, mt: { xs: 2, md: 0 }, ml: { md: 4 } }}>
-          <Chip label={`ID: ${soul.id}`} sx={{ height: '24px', mb: 1.5 }} />
+          {/* <Chip label={`ID: ${soul.id}`} sx={{ height: '24px', mb: 1.5 }} /> */}
           <Typography variant="h4">
             {soulToFirstLastNameString(soul)}
           </Typography>
@@ -54,6 +52,9 @@ export default function SoulDetail({ soul, sx }: any) {
           </Typography>
           <SoulDescription soul={soul} sx={{ mt: 1 }} />
           <SoulLinks soul={soul} sx={{ mt: 2 }} />
+          <Stack direction="row" spacing={2} sx={{ mt: 2 }}>
+            <FundDialogButton address={soul.owner} />
+          </Stack>
         </Box>
       </Box>
     );

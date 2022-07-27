@@ -30,7 +30,7 @@ export default function ProjectDetail({ project, sx }: any) {
           </Typography>
           <Typography sx={{ mt: 1 }}>{project.uriData?.description}</Typography>
           <Stack direction="row" spacing={2} sx={{ mt: 2 }}>
-            <FundDialogButton item={project} />
+            <FundDialogButton address={project.id} />
           </Stack>
         </Box>
       </Box>
