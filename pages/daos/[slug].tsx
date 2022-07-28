@@ -7,12 +7,14 @@ import useError from 'hooks/useError';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
-interface DaoProps {}
+// eslint-disable-next-line prettier/prettier
+interface DaoProps { }
 
 /**
  * Page with DAO details.
  */
-export default function DaoDetailPage({}: DaoProps) {
+// eslint-disable-next-line prettier/prettier
+export default function DaoDetailPage({ }: DaoProps) {
   const router = useRouter();
   const { slug } = router.query;
   const { handleError } = useError();
@@ -34,8 +36,10 @@ export default function DaoDetailPage({}: DaoProps) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [slug]);
 
+  let title = process.env.NEXT_PUBLIC_APP_NAME;
+  if (dao) title += ' | ' + dao.name;
   return (
-    <Layout title="MentorDAO — Mentor DAO">
+    <Layout title={title}>
       <DaoDetail dao={dao} />
       <DaoTabs dao={dao} sx={{ mt: 4 }} />
     </Layout>

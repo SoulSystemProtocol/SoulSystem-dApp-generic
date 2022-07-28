@@ -8,13 +8,15 @@ import useError from 'hooks/useError';
 import useSoul from 'hooks/useSoul';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-
-interface SoulProps {}
+import { soulToFirstLastNameString } from 'utils/converters';
+// eslint-disable-next-line prettier/prettier
+interface SoulProps { }
 
 /**
  * Page with soul details.
  */
-export default function SoulDetailPage({}: SoulProps) {
+// eslint-disable-next-line prettier/prettier
+export default function SoulDetailPage({ }: SoulProps) {
   const router = useRouter();
   const { slug } = router.query;
   const { handleError } = useError();
@@ -36,8 +38,10 @@ export default function SoulDetailPage({}: SoulProps) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [slug]);
 
+  let title = process.env.NEXT_PUBLIC_APP_NAME;
+  if (soul) title += ' | ' + soulToFirstLastNameString(soul);
   return (
-    <Layout title="MentorDAO — Soul">
+    <Layout title={title}>
       <SoulDetail soul={soul} />
     </Layout>
   );

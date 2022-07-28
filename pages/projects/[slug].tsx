@@ -7,12 +7,14 @@ import useProject from 'hooks/useProject';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
-interface ProjectProps {}
+// eslint-disable-next-line prettier/prettier
+interface ProjectProps { }
 
 /**
  * Page for a project detail.
  */
-export default function ProjectDetailPage({}: ProjectProps) {
+// eslint-disable-next-line prettier/prettier
+export default function ProjectDetailPage({ }: ProjectProps) {
   const router = useRouter();
   const { slug } = router.query;
   const { handleError } = useError();
@@ -34,8 +36,10 @@ export default function ProjectDetailPage({}: ProjectProps) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [slug]);
 
+  let title = process.env.NEXT_PUBLIC_APP_NAME;
+  if (project) title += ' | ' + project.name;
   return (
-    <Layout title="MentorDAO — Project">
+    <Layout title={title}>
       <ProjectDetail project={project} />
       <ProjectTabs project={project} sx={{ mt: 4 }} />
     </Layout>
