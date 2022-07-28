@@ -4,6 +4,7 @@ import { Box } from '@mui/system';
 import GameAdminActions from '../game/GameAdminActions';
 import EntityImage from '../entity/EntityImage';
 import AddressHash from 'components/web3/AddressHash';
+import AccountBalance from 'components/web3/AccountBalance';
 import FundDialogButton from 'components/web3/FundDialogButton';
 
 /**
@@ -23,10 +24,14 @@ export default function ProjectDetail({ project, sx }: any) {
           <EntityImage item={project} />
           <GameAdminActions game={project} sx={{ mt: 2, width: 164 }} />
         </Box>
-        <Box sx={{ mt: { xs: 2, md: 0 }, ml: { md: 4 } }}>
-          <Typography variant="h4">{project.name}</Typography>
-          <Typography variant="body2">
+        <Box sx={{ flexGrow: 1, mt: { xs: 2, md: 0 }, ml: { md: 4 } }}>
+          <Typography variant="body2" sx={{ float: 'right' }}>
             <AddressHash address={project.id} />
+          </Typography>
+          <Typography variant="h4">{project.name}</Typography>
+          <Typography color="text.secondary" variant="body2">
+            Balance: <AccountBalance address={project.id} />{' '}
+            {process.env.NEXT_PUBLIC_NETWORK_CURRENCY_SYMBOL}
           </Typography>
           <Typography sx={{ mt: 1 }}>{project.uriData?.description}</Typography>
           <Stack direction="row" spacing={2} sx={{ mt: 2 }}>
