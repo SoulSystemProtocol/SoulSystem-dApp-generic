@@ -20,7 +20,7 @@ export default function ProjectList({ projects, sx }: any) {
       {projects?.length > 0 && (
         <>
           {projects.map((project: any, index: number) => (
-            <Grid key={index} item xs={12}>
+            <Grid key={index} item xs={12} md={6} lg={4}>
               <ProjectCard project={project} />
             </Grid>
           ))}

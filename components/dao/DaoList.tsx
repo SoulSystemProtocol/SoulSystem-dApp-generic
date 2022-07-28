@@ -20,7 +20,7 @@ export default function DaoList({ daos: items, sx }: any) {
       {items?.length > 0 && (
         <>
           {items.map((dao: any, index: number) => (
-            <Grid key={index} item xs={12}>
+            <Grid key={index} item xs={12} md={6}>
               <DaoCard dao={dao} />
             </Grid>
           ))}
