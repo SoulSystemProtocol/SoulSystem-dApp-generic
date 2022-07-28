@@ -1,10 +1,12 @@
-import { useState } from 'react';
+// import { useState } from 'react';
 import {
   PersonOutlineOutlined,
   SchoolOutlined,
   WorkOutlineOutlined,
   TaskAlt,
   VolunteerActivism,
+  EmojiEmotions,
+  Festival,
 } from '@mui/icons-material';
 // import { CSSObject, Theme, useTheme } from '@mui/material/styles';
 import GitHubIcon from '@mui/icons-material/GitHub';
@@ -47,6 +49,16 @@ const menu_side_links = [
     label: 'Grants',
     icon: <VolunteerActivism color="warning" />,
   },
+  // {
+  //   route: '/events',
+  //   label: 'Events',
+  //   icon: <Festival color="warning" />,
+  // },
+  // {
+  //   route: '/sponsors',
+  //   label: 'Sponsors',
+  //   icon: <EmojiEmotions color="warning" />,
+  // },
 ];
 const footer_links: { route: string; label: string; icon: JSX.Element }[] = [];
 const footer_icons: { route: string; label: string; icon: JSX.Element }[] = [
