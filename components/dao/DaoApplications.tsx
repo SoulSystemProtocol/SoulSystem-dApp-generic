@@ -26,12 +26,12 @@ export default function DaoApplications({ dao, sx }: any) {
     <Grid container spacing={2} sx={{ ...sx }}>
       {!dao.nominations && (
         <Grid item xs={12}>
-          <Typography>DAOs are loading...</Typography>
+          <Typography>Loading...</Typography>
         </Grid>
       )}
       {dao.nominations?.length === 0 && (
         <Grid item xs={12}>
-          <Typography>No DAOs</Typography>
+          <Typography>No Results</Typography>
         </Grid>
       )}
       {dao.nominations?.length > 0 && (

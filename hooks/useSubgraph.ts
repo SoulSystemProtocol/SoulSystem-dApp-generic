@@ -35,12 +35,13 @@ export default function useSubgraph() {
 
   let findClaims = async function (
     ids?: Array<string>,
+    type?: string,
     game?: string,
     first?: number,
     skip?: number,
   ) {
     const response = await makeSubgraphQuery(
-      getFindClaimsQuery(ids, game, first, skip),
+      getFindClaimsQuery(ids, type, game, first, skip),
     );
     return response.claims;
   };
@@ -141,13 +142,15 @@ function getFindGamesQuery(
 
 function getFindClaimsQuery(
   ids?: Array<string>,
+  type?: string,
   game?: string,
   first?: number,
   skip?: number,
 ) {
   let idsFilter = ids ? `id_in: ["${ids.join('","')}"]` : '';
+  let typeFilter = type ? `type: "${type}"` : '';
   let gameFilter = game ? `game: "${game}"` : '';
-  let filterParams = `where: {${idsFilter}, ${gameFilter}}`;
+  let filterParams = `where: {${idsFilter}, ${typeFilter}, ${gameFilter}}`;
   let paginationParams = `first: ${first}, skip: ${skip}`;
   return `{
     claims(${filterParams}, ${paginationParams}) {

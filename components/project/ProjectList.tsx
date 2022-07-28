@@ -9,7 +9,7 @@ export default function ProjectList({ projects, sx }: any) {
     <Grid container spacing={2} sx={{ ...sx }}>
       {!projects && (
         <Grid item xs={12}>
-          <Typography>Projects are loading...</Typography>
+          <Typography>Loading...</Typography>
         </Grid>
       )}
       {projects?.length === 0 && (

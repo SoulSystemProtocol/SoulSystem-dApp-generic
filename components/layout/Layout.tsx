@@ -4,6 +4,7 @@ import {
   SchoolOutlined,
   WorkOutlineOutlined,
   TaskAlt,
+  VolunteerActivism,
 } from '@mui/icons-material';
 // import { CSSObject, Theme, useTheme } from '@mui/material/styles';
 import GitHubIcon from '@mui/icons-material/GitHub';
@@ -40,6 +41,11 @@ const menu_side_links = [
     route: '/tasks',
     label: 'Bounties',
     icon: <TaskAlt color="warning" />,
+  },
+  {
+    route: '/grants',
+    label: 'Grants',
+    icon: <VolunteerActivism color="warning" />,
   },
 ];
 const footer_links: { route: string; label: string; icon: JSX.Element }[] = [];

@@ -9,7 +9,7 @@ export default function SoulList({ souls, sx, roles }: any) {
     <Grid container spacing={2} sx={{ ...sx }}>
       {!souls && (
         <Grid item xs={12}>
-          <Typography>Souls are loading...</Typography>
+          <Typography>Loading...</Typography>
         </Grid>
       )}
       {souls?.length === 0 && (

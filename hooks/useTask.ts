@@ -15,7 +15,8 @@ export default function useTask() {
   const { defaultProvider } = useContext(Web3Context);
   const { taskMake } = useProjectExtContract();
   const { applyToTask, deliverTask } = useDaoExtContract();
-  const { acceptApplicant, deliveryApprove, stageExecusion } = useTaskContract();
+  const { acceptApplicant, deliveryApprove, stageExecusion } =
+    useTaskContract();
   const { findClaims } = useSubgraph();
 
   let createTask = function (
@@ -33,11 +34,12 @@ export default function useTask() {
 
   let getTasks = async function (
     ids?: Array<string>,
+    type?: string,
     projectId?: string,
     first = 10,
     skip = 0,
   ): Promise<Array<Task>> {
-    const subgraphTasks = await findClaims(ids, projectId, first, skip);
+    const subgraphTasks = await findClaims(ids, type, projectId, first, skip);
     return subgraphTasks.map((subgraphTask: any) =>
       convertSubgraphTaskToTask(subgraphTask),
     );
@@ -109,7 +111,10 @@ function convertSubgraphTaskToTask(subgraphTask: any) {
     subgraphTask.stage,
     subgraphTask.uri,
     hexStringToJson(subgraphTask.uriData),
-    { name: subgraphTask.game.name, ...hexStringToJson(subgraphTask.game.uriData) },
+    {
+      name: subgraphTask.game.name,
+      ...hexStringToJson(subgraphTask.game.uriData),
+    },
     subgraphTask.roles,
     subgraphTask.nominations,
     subgraphTask.posts,

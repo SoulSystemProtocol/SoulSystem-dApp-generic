@@ -4,22 +4,22 @@ import DaoCard from './DaoCard';
 /**
  * A component with a list of daos.
  */
-export default function DaoList({ daos, sx }: any) {
+export default function DaoList({ daos: items, sx }: any) {
   return (
     <Grid container spacing={2} sx={{ ...sx }}>
-      {!daos && (
+      {!items && (
         <Grid item xs={12}>
-          <Typography>DAOs are loading...</Typography>
+          <Typography>Loading...</Typography>
         </Grid>
       )}
-      {daos?.length === 0 && (
+      {items?.length === 0 && (
         <Grid item xs={12}>
-          <Typography>No DAOs</Typography>
+          <Typography>No Results</Typography>
         </Grid>
       )}
-      {daos?.length > 0 && (
+      {items?.length > 0 && (
         <>
-          {daos.map((dao: any, index: number) => (
+          {items.map((dao: any, index: number) => (
             <Grid key={index} item xs={12}>
               <DaoCard dao={dao} />
             </Grid>

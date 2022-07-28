@@ -7,10 +7,10 @@ import { useEffect, useState } from 'react';
 import Layout from '../../components/layout/Layout';
 
 /**
- * Page for a list of Tasks
+ * Page for a list of Grants
  */
 // eslint-disable-next-line prettier/prettier
-export default function TasksPage({ }: any) {
+export default function GrantsPage({ }: any) {
   const { handleError } = useError();
   const { getTasks } = useTask();
   const [tasks, setTasks] = useState<Array<Task> | null>(null);
@@ -28,7 +28,7 @@ export default function TasksPage({ }: any) {
       // Load tasks
       const items = await getTasks(
         undefined,
-        undefined,
+        'grant',
         undefined,
         pageSize,
         (page - 1) * pageSize,
@@ -48,11 +48,11 @@ export default function TasksPage({ }: any) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  let title = process.env.NEXT_PUBLIC_APP_NAME + ' — Bounties';
+  let title = process.env.NEXT_PUBLIC_APP_NAME + ' — Grants';
   return (
     <Layout title={title}>
       <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-        <Typography variant="h5">Bounties</Typography>
+        <Typography variant="h5">Grants</Typography>
       </Box>
 
       <TaskList tasks={tasks} sx={{ mt: 1 }} />

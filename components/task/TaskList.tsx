@@ -4,22 +4,22 @@ import TaskCard from './TaskCard';
 /**
  * A component with a list of tasks.
  */
-export default function TaskList({ tasks, sx }: any) {
+export default function TaskList({ tasks: items, sx }: any) {
   return (
     <Grid container spacing={2} sx={{ ...sx }}>
-      {!tasks && (
+      {!items && (
         <Grid item xs={12}>
-          <Typography>Tasks are loading...</Typography>
+          <Typography>Loading...</Typography>
         </Grid>
       )}
-      {tasks?.length === 0 && (
+      {items?.length === 0 && (
         <Grid item xs={12}>
-          <Typography>No tasks</Typography>
+          <Typography>No Results</Typography>
         </Grid>
       )}
-      {tasks?.length > 0 && (
+      {items?.length > 0 && (
         <>
-          {tasks.map((task: any, index: number) => (
+          {items.map((task: any, index: number) => (
             <Grid key={index} item xs={12}>
               <TaskCard task={task} />
             </Grid>
