@@ -84,7 +84,7 @@ export default function TaskDetail({ item, sx }: any) {
           </Typography>
           <Typography sx={{ mt: 1 }}>{item.uriData?.description}</Typography>
           <Stack direction="row" spacing={2} sx={{ mt: 2 }}>
-            {(item.stage === null || item.stage >= CLAIM_STAGE.draft) && (
+            {(item.stage === null || item.stage >= CLAIM_STAGE.pending) && (
               <FundDialogButton address={item.id} />
             )}
             {(isSoulAdmin || isSoulAuthority) &&

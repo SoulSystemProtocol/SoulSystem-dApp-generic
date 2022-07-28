@@ -29,7 +29,7 @@ export const GAME_ROLE = {
 };
 
 export const CLAIM_STAGE: any = {
-  draft: 0,
+  pending: 0,
   open: 1,
   decision: 2,
   action: 3,
