@@ -52,7 +52,12 @@ export default function TasksPage({ }: any) {
   return (
     <Layout title={title}>
       <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-        <Typography variant="h5">Bounties</Typography>
+        <Box>
+          <Typography variant="h5">Bounties</Typography>
+          <Typography variant="subtitle1">
+            Bounties are small tasks you can deliver for a prize.
+          </Typography>
+        </Box>
       </Box>
 
       <TaskList tasks={tasks} sx={{ mt: 1 }} />

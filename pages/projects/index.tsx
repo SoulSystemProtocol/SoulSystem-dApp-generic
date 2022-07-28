@@ -53,7 +53,12 @@ export default function ProjectsPage({ }: any) {
   return (
     <Layout title={title}>
       <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-        <Typography variant="h5">Projects</Typography>
+        <Box>
+          <Typography variant="h5">Projects</Typography>
+          <Typography variant="subtitle1">
+            Projects are companies and organizations that need some work done.
+          </Typography>
+        </Box>
         {accountSoul && (
           <Button
             onClick={() =>

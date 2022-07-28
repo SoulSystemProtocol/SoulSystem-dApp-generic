@@ -49,7 +49,13 @@ export default function DaosPage({ }: any) {
   return (
     <Layout title={title}>
       <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-        <Typography variant="h5">MicroDAOs</Typography>
+        <Box>
+          <Typography variant="h5">MentorDAOs</Typography>
+          <Typography variant="subtitle1">
+            Mentor DAOs consist of a mentor and mentees that work on bounties
+            together, as a team.
+          </Typography>
+        </Box>
         {accountSoul && (
           <Button
             onClick={() =>

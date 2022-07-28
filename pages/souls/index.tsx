@@ -14,7 +14,8 @@ import { useContext, useEffect, useState } from 'react';
 /**
  * Page for a list of souls
  */
-export default function SoulsPage({}: any) {
+// eslint-disable-next-line prettier/prettier
+export default function SoulsPage({ }: any) {
   const { account } = useContext(Web3Context);
   const { accountSoul } = useContext(DataContext);
   const { handleError } = useError();
@@ -52,11 +53,16 @@ export default function SoulsPage({}: any) {
     loadData(1, 1);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
+  let title = process.env.NEXT_PUBLIC_APP_NAME + ' — Souls';
   return (
-    <Layout title="MentorDAO — Souls">
+    <Layout title={title}>
       <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-        <Typography variant="h5">Souls</Typography>
+        <Box>
+          <Typography variant="h5">Souls</Typography>
+          <Typography variant="subtitle1">
+            Souls are your personal profile NFT.
+          </Typography>
+        </Box>
         {account && !accountSoul && (
           <Link href="/souls/create" passHref>
             <Button variant="outlined">Create Soul</Button>
