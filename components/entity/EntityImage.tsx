@@ -4,7 +4,7 @@ import { Avatar } from '@mui/material';
 /**
  * Generic entity image component.
  */
-export default function EntityImage({ item, title, alt, sx = {} }: any) {
+export default function EntityImage({ item, title, alt, icon, sx = {} }: any) {
   return (
     <Avatar
       title={title}
@@ -17,7 +17,7 @@ export default function EntityImage({ item, title, alt, sx = {} }: any) {
       }}
       src={item?.image || item?.uriData?.image}
     >
-      <AutoAwesomeOutlined />
+      {icon || <AutoAwesomeOutlined />}
     </Avatar>
   );
 }
