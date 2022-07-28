@@ -12,7 +12,8 @@ import Layout from '../../components/layout/Layout';
 /**
  * Page for a list of projects
  */
-export default function ProjectsPage({}: any) {
+// eslint-disable-next-line prettier/prettier
+export default function ProjectsPage({ }: any) {
   const { accountSoul } = useContext(DataContext);
   const { showDialog, closeDialog } = useContext(DialogContext);
   const { handleError } = useError();
@@ -48,9 +49,9 @@ export default function ProjectsPage({}: any) {
     loadData(1, 1);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
+  let title = process.env.NEXT_PUBLIC_APP_NAME + ' — Projects';
   return (
-    <Layout title="MentorDAO — Projects">
+    <Layout title={title}>
       <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
         <Typography variant="h5">Projects</Typography>
         {accountSoul && (

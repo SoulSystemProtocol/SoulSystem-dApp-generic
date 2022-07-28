@@ -12,7 +12,8 @@ import Layout from '../../components/layout/Layout';
 /**
  * Page for a list of mDAOs
  */
-export default function DaosPage({}: any) {
+// eslint-disable-next-line prettier/prettier
+export default function DaosPage({ }: any) {
   const { accountSoul } = useContext(DataContext);
   const { showDialog, closeDialog } = useContext(DialogContext);
   const { handleError } = useError();
@@ -44,9 +45,9 @@ export default function DaosPage({}: any) {
     loadData(1, 1);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
+  let title = process.env.NEXT_PUBLIC_APP_NAME + ' — mDAOs';
   return (
-    <Layout title="MentorDAO — mDAOs">
+    <Layout title={title}>
       <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
         <Typography variant="h5">MicroDAOs</Typography>
         {accountSoul && (
