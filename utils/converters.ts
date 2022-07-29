@@ -1,6 +1,7 @@
 import Task from 'classes/Task';
 import { CLAIM_STAGE } from 'constants/contracts';
 import { truncate } from 'lodash';
+import _ from 'lodash';
 
 /**
  * Convert hex string to json.
@@ -65,4 +66,25 @@ export function taskStageToString(task: Task): string {
   }
   console.warn('Unhandled Task Stage:' + task.stage, task);
   return 'Open';
+}
+
+/**
+ * Format action subject, verb, tool to string.
+ *
+ * @param {Action} action Action.
+ * @returns Formatted string with action name or "Unknown action";
+ */
+export function formatActionName(action: {
+  action: { subject: any; verb: any; object: any };
+}) {
+  if (action?.action) {
+    return (
+      _.capitalize(action.action.subject || '') +
+      ' ' +
+      (action.action.verb || '') +
+      ' ' +
+      (action.action.object || '')
+    );
+  }
+  return 'Unknown action';
 }
