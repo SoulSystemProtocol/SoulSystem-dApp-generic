@@ -3,6 +3,9 @@ import { DialogContext } from 'contexts/dialog';
 import { useContext } from 'react';
 import FundDialog from 'components/task/FundDialog';
 
+/**
+ * A component Fund Dialog Button
+ */
 export default function FundDialogButton({ address, sx = {} }) {
   const { showDialog, closeDialog } = useContext(DialogContext);
   return (
