@@ -3,13 +3,10 @@ import { addressToShortAddress } from 'utils/converters';
 import { CopyIcon } from 'components/icons';
 import useToast from 'hooks/useToast';
 
-export default function AddressHash({
-  address,
-  sx = {},
-}: {
-  address: string;
-  sx: {};
-}): JSX.Element {
+/**
+ * A component for Address Hash Display
+ */
+export default function AddressHash({ address, sx = {} }: any): JSX.Element {
   const { showToastSuccess } = useToast();
 
   if (!address) return <></>;
