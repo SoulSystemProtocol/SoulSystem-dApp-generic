@@ -10,6 +10,7 @@ export default class Soul {
   uriImage: string | null;
   uriFirstName: string | null;
   uriLastName: string | null;
+  // posts: any | null;
 
   constructor(
     id: string,
@@ -20,6 +21,7 @@ export default class Soul {
     uriImage: string | null,
     uriFirstName: string | null,
     uriLastName: string | null,
+    // posts: any | null,
   ) {
     this.id = id;
     this.owner = owner;
@@ -29,5 +31,6 @@ export default class Soul {
     this.uriImage = uriImage;
     this.uriFirstName = uriFirstName;
     this.uriLastName = uriLastName;
+    // this.posts = posts;
   }
 }

@@ -9,6 +9,7 @@ export default class Dao {
   uriData: any | null;
   roles: any | null;
   nominations: any | null;
+  posts: any | null;
 
   constructor(
     id: string,
@@ -18,6 +19,7 @@ export default class Dao {
     uriData: any | null,
     roles: any | null,
     nominations: any | null,
+    posts: any | null,
   ) {
     this.id = id;
     this.name = name;
@@ -26,5 +28,6 @@ export default class Dao {
     this.uriData = uriData;
     this.roles = roles;
     this.nominations = nominations;
+    this.posts = posts;
   }
 }

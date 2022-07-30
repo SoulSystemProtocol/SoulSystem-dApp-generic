@@ -136,8 +136,20 @@ function getFindGamesQuery(
           id
         }
       }
+      
     }
   }`;
+
+  //TODO: Add This
+  // posts {
+  //   id
+  //   author {
+  //     id
+  //     owner
+  //   }
+  //   entityRole
+  //   uri
+  // }
 }
 
 function getFindClaimsQuery(

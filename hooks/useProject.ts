@@ -73,5 +73,6 @@ function convertSubgraphGameToProject(subgraphGame: any) {
     subgraphGame.uri,
     hexStringToJson(subgraphGame.uriData),
     subgraphGame.roles,
+    subgraphGame.posts,
   );
 }

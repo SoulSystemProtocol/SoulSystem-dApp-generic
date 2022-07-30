@@ -10,25 +10,19 @@ import { useContext } from 'react';
 export default function useGameContract() {
   const { provider, isNetworkChainIdCorrect } = useContext(Web3Context);
 
-  function getContract(address: string, signerOrProvider: any) {
-    return new Contract(address, contractAbi, signerOrProvider);
+  function getGameContract(address: string) {
+    if (!isNetworkChainIdCorrect) {
+      throw new WrongNetworkError();
+    }
+    return new Contract(address, contractAbi, provider?.getSigner());
   }
 
   async function setUri(contractAddress: string, uri: string) {
-    if (!isNetworkChainIdCorrect) {
-      throw new WrongNetworkError();
-    }
-    return await getContract(
-      contractAddress,
-      provider?.getSigner(),
-    ).setContractURI(uri);
+    return await getGameContract(contractAddress).setContractURI(uri);
   }
 
   async function leave(contractAddress: string) {
-    if (!isNetworkChainIdCorrect) {
-      throw new WrongNetworkError();
-    }
-    return await getContract(contractAddress, provider?.getSigner()).leave();
+    return await getGameContract(contractAddress).leave();
   }
 
   async function nominate(
@@ -36,13 +30,7 @@ export default function useGameContract() {
     tokenId: string,
     uri: string,
   ) {
-    if (!isNetworkChainIdCorrect) {
-      throw new WrongNetworkError();
-    }
-    return await getContract(contractAddress, provider?.getSigner()).nominate(
-      tokenId,
-      uri,
-    );
+    return await getGameContract(contractAddress).nominate(tokenId, uri);
   }
 
   async function assignRole(
@@ -50,13 +38,10 @@ export default function useGameContract() {
     token: string,
     role: string,
   ) {
-    if (!isNetworkChainIdCorrect) {
-      throw new WrongNetworkError();
-    }
-    return await getContract(
-      contractAddress,
-      provider?.getSigner(),
-    ).roleAssignToToken(token, role);
+    return await getGameContract(contractAddress).roleAssignToToken(
+      token,
+      role,
+    );
   }
 
   async function removeRole(
@@ -64,16 +49,14 @@ export default function useGameContract() {
     token: string,
     role: string,
   ) {
-    if (!isNetworkChainIdCorrect) {
-      throw new WrongNetworkError();
-    }
-    return await getContract(
-      contractAddress,
-      provider?.getSigner(),
-    ).roleRemoveFromToken(token, role);
+    return await getGameContract(contractAddress).roleRemoveFromToken(
+      token,
+      role,
+    );
   }
 
   return {
+    getGameContract,
     setUri,
     leave,
     nominate,

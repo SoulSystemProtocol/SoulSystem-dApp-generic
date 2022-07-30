@@ -102,5 +102,6 @@ function convertSubgraphGameToDao(subgraphGame: any) {
     hexStringToJson(subgraphGame.uriData),
     subgraphGame.roles,
     subgraphGame.nominations,
+    subgraphGame.posts,
   );
 }

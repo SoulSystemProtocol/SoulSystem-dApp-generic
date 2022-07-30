@@ -8,6 +8,7 @@ export default class Project {
   uri: string | null;
   uriData: any | null;
   roles: any | null;
+  posts: any | null;
 
   constructor(
     id: string,
@@ -16,6 +17,7 @@ export default class Project {
     uri: string | null,
     uriData: any | null,
     roles: any | null,
+    posts: any | null,
   ) {
     this.id = id;
     this.name = name;
@@ -23,5 +25,6 @@ export default class Project {
     this.uri = uri;
     this.uriData = uriData;
     this.roles = roles;
+    this.posts = posts;
   }
 }

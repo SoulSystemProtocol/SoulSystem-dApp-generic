@@ -13,7 +13,7 @@ import { MuiForm5 as Form } from '@rjsf/material-ui';
 import useError from 'hooks/useError';
 // import useTask from 'hooks/useTask';
 import useToast from 'hooks/useToast';
-import { JSONSchema7 } from 'json-schema';
+// import { JSONSchema7 } from 'json-schema';
 import { useContext, useState } from 'react';
 import AddressHash from 'components/web3/AddressHash';
 

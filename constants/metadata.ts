@@ -10,3 +10,9 @@ export const PROFILE_TRAIT_TYPE = {
   instagram: 'Instagram',
   isEmailNotificationsEnabled: 'Is Email Notifications Enabled',
 };
+
+export const POST_TYPE = {
+  evidence: 'evidence',
+  comment: 'comment',
+  confirmation: 'confirmation',
+};
