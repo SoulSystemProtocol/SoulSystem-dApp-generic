@@ -46,9 +46,7 @@ export default function SoulDetail({ soul, sx }: any) {
           <Typography variant="h4">
             {soulToFirstLastNameString(soul)}
           </Typography>
-          <Typography color="text.secondary" sx={{ ml: 1 }}>
-            <AddressHash address={soul.owner} />
-          </Typography>
+          <AddressHash address={soul.owner} sx={{ ml: 1 }} />
           <SoulDescription soul={soul} sx={{ mt: 1 }} />
           <SoulLinks soul={soul} sx={{ mt: 2 }} />
           <Stack direction="row" spacing={2} sx={{ mt: 2 }}>

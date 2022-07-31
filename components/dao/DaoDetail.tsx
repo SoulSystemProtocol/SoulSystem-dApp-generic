@@ -10,7 +10,7 @@ import useDao from 'hooks/useDao';
 import useError from 'hooks/useError';
 import useToast from 'hooks/useToast';
 import { useContext, useEffect, useState } from 'react';
-import GameAdminActions from '../game/GameAdminActions';
+import GameAdminActions from 'components/game/GameAdminActions';
 import EntityImage from '../entity/EntityImage';
 import AddressHash from 'components/web3/AddressHash';
 import AccountBalance from 'components/web3/AccountBalance';
@@ -34,9 +34,7 @@ export default function DaoDetail({ dao, sx }: any) {
           <GameAdminActions game={dao} sx={{ mt: 2, width: 164 }} />
         </Box>
         <Box sx={{ flexGrow: 1, mt: { xs: 2, md: 0 }, ml: { md: 4 } }}>
-          <Typography variant="body2" sx={{ float: 'right' }}>
-            <AddressHash address={dao.id} />
-          </Typography>
+          <AddressHash address={dao.id} sx={{ float: 'right' }} />
           <Typography variant="h4">{dao.name}</Typography>
           <Typography color="text.secondary" variant="body2">
             Balance: <AccountBalance address={dao.id} />{' '}

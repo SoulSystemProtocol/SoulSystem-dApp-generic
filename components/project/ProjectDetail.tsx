@@ -25,9 +25,7 @@ export default function ProjectDetail({ project, sx }: any) {
           <GameAdminActions game={project} sx={{ mt: 2, width: 164 }} />
         </Box>
         <Box sx={{ flexGrow: 1, mt: { xs: 2, md: 0 }, ml: { md: 4 } }}>
-          <Typography variant="body2" sx={{ float: 'right' }}>
-            <AddressHash address={project.id} />
-          </Typography>
+          <AddressHash address={project.id} sx={{ float: 'right' }} />
           <Typography variant="h4">{project.name}</Typography>
           <Typography color="text.secondary" variant="body2">
             Balance: <AccountBalance address={project.id} />{' '}
