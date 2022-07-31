@@ -31,7 +31,7 @@ export default function DaoTabs({ dao, sx }: any) {
           >
             <Tab label="Posts" value="1" />
             <Tab label="Members" value="2" />
-            <Tab label="Applications" value="3" />
+            <Tab label="Applicants" value="3" />
           </TabList>
 
           <TabPanel value="1" sx={{ px: 0 }}>
