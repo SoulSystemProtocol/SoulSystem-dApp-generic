@@ -92,6 +92,6 @@ export function formatActionName(action: {
 /**
  * Fetch Role Name by ID
  */
-export function roleIdToName(role: string): string {
+export function roleIdToName(role: string): string | undefined {
   return Object.values(GAME_ROLE).find((element) => element.id == role)?.name;
 }
