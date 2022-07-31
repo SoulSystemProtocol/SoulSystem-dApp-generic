@@ -4,6 +4,7 @@ import useError from 'hooks/useError';
 import useTask from 'hooks/useTask';
 // import useSoul from 'hooks/useSoul';
 import useDao from 'hooks/useDao';
+import useContract from 'hooks/useContract';
 import { taskStageToString } from 'utils/converters';
 import EntityImage from '../entity/EntityImage';
 import { CLAIM_STAGE, GAME_ROLE } from 'constants/contracts';
@@ -16,15 +17,20 @@ import FundDialogButton from 'components/web3/FundDialogButton';
 
 /**
  * A component with project details.
+ *
+ * TODO: cancel() Should generate and send a cancelation URI
+ *
  */
 export default function TaskDetail({ item, sx }: any) {
   const { getFund } = useTask();
+  const { getContractTask } = useContract();
   const { handleError } = useError();
   const [fund, setFund] = useState<string | null>(null);
   const { accountSoul } = useContext(DataContext);
   const [isSoulAdmin, setIsSoulAdmin] = useState(false);
   const [isSoulAuthority, setIsSoulAuthority] = useState(false);
   const { isSoulHasRole } = useDao();
+  const tokens: [] = []; //Supported ERC20 Tokens
 
   useEffect(() => {
     if (item) {
@@ -87,23 +93,41 @@ export default function TaskDetail({ item, sx }: any) {
             )}
             {(isSoulAdmin || isSoulAuthority) &&
               item.stage > CLAIM_STAGE.decision && (
-                <Button size="small" variant="outlined">
-                  Cancel Case [cancel()]
+                <Button
+                  size="small"
+                  variant="outlined"
+                  onClick={() =>
+                    getContractTask(item.id).cancel('TEST_URI', tokens)
+                  }
+                >
+                  Cancel Case
                 </Button>
               )}
             {isSoulAdmin && item.stage == CLAIM_STAGE.execute && (
-              <Button size="small" variant="outlined">
-                Disburse Prize [stageExecusion()]
+              <Button
+                size="small"
+                variant="outlined"
+                onClick={() => getContractTask(item.id).stageExecusion(tokens)}
+              >
+                Disburse Prize
               </Button>
             )}
             {item.stage > CLAIM_STAGE.execute && (
-              <Button size="small" variant="outlined">
-                Disburse Funds [disburse()]
+              <Button
+                size="small"
+                variant="outlined"
+                onClick={() => getContractTask(item.id).disburse(tokens)}
+              >
+                Disburse Funds
               </Button>
             )}
             {item.stage > CLAIM_STAGE.cancelled && (
-              <Button size="small" variant="outlined">
-                Refund [refund()]
+              <Button
+                size="small"
+                variant="outlined"
+                onClick={() => getContractTask(item.id).refund(tokens)}
+              >
+                Refund
               </Button>
             )}
           </Stack>
