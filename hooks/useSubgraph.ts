@@ -96,6 +96,15 @@ function getFindSoulsQuery(
         uriImage
         uriFirstName
         uriLastName
+        participantGame {
+          id
+          roles
+        }
+        participantProc {
+          id
+          roles
+        }
+
       }
     }`;
 }
@@ -135,6 +144,17 @@ function getFindGamesQuery(
         nominated {
           id
         }
+      }
+      posts {
+        id
+        createdDate
+        entityRole
+        author {
+          id
+          owner
+        }
+        uri
+        metadata
       }
     }
   }`;
@@ -186,12 +206,14 @@ function getFindClaimsQuery(
       }
       posts {
         id
+        createdDate
+        entityRole
         author {
           id
           owner
         }
-        entityRole
         uri
+        metadata
       }
     }
   }`;

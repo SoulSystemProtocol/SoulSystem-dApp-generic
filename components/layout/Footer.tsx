@@ -32,7 +32,7 @@ export default function Footer({ links, icons }: FooterProps): JSX.Element {
       >
         {icons.map(({ label, route, icon }: any) => (
           // eslint-disable-next-line react/jsx-key
-          <Link href={route} passHref>
+          <Link key={route} href={route} passHref>
             <MuiLink
               underline="none"
               target="_blank"

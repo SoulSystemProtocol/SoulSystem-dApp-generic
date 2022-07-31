@@ -11,18 +11,16 @@ import {
 } from '@mui/material';
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
 import IconButton from '@mui/material/IconButton';
+import Link from 'next/link';
 import { Box } from '@mui/system';
 import { DataContext } from 'contexts/data';
 import { Web3Context } from 'contexts/web3';
-import Link from 'next/link';
-import { useContext } from 'react';
+import { useState, useContext } from 'react';
 import {
   addressToShortAddress,
   soulToFirstLastNameString,
   soulImage,
 } from 'utils/converters';
-import { useState } from 'react';
-
 import { styled } from '@mui/material/styles';
 
 const drawerWidth = 240;

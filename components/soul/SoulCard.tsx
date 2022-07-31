@@ -10,12 +10,13 @@ import {
   Stack,
   Typography,
 } from '@mui/material';
-import { GAME_ROLE } from 'constants/contracts';
+// import { GAME_ROLE } from 'constants/contracts';
 import { capitalize } from 'lodash';
 import Link from 'next/link';
 import {
   addressToShortAddress,
   soulToFirstLastNameString,
+  roleIdToName,
 } from 'utils/converters';
 
 /**
@@ -64,8 +65,8 @@ export function SoulRoles({ roles }: any) {
           <Chip
             key={index}
             label={capitalize(
-              Object.values(GAME_ROLE).find((element) => element.id == role)
-                ?.name,
+              roleIdToName(role),
+              // Object.values(GAME_ROLE).find((element) => element.id == role)?.name,
             )}
             // label={role}
             size="small"

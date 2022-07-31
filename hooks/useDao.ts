@@ -13,6 +13,7 @@ import useSubgraph from './useSubgraph';
 export default function useDao() {
   const { gameMake } = useHubContract();
   const {
+    // getGameContract,
     setUri,
     leave: leaveGame,
     nominate,
@@ -43,6 +44,7 @@ export default function useDao() {
     skip = 0,
   ): Promise<Array<Dao>> {
     const subgraphGames = await findGames(ids, GAME_TYPE.mdao, first, skip);
+    // console.log('DAO subgraphGames', subgraphGames, ids);
     return subgraphGames.map((subgraphGame: any) =>
       convertSubgraphGameToDao(subgraphGame),
     );
@@ -102,5 +104,6 @@ function convertSubgraphGameToDao(subgraphGame: any) {
     hexStringToJson(subgraphGame.uriData),
     subgraphGame.roles,
     subgraphGame.nominations,
+    subgraphGame.posts,
   );
 }

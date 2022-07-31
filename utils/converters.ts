@@ -1,5 +1,5 @@
 import Task from 'classes/Task';
-import { CLAIM_STAGE } from 'constants/contracts';
+import { CLAIM_STAGE, GAME_ROLE } from 'constants/contracts';
 import { truncate } from 'lodash';
 import _ from 'lodash';
 
@@ -87,4 +87,11 @@ export function formatActionName(action: {
     );
   }
   return 'Unknown action';
+}
+
+/**
+ * Fetch Role Name by ID
+ */
+export function roleIdToName(role: string): string | undefined {
+  return Object.values(GAME_ROLE).find((element) => element.id == role)?.name;
 }

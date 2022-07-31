@@ -73,9 +73,7 @@ export default function TaskDetail({ item, sx }: any) {
           </Typography>
         </Box>
         <Box sx={{ flexGrow: 1, mt: { xs: 2, md: 0 }, ml: { md: 4 } }}>
-          <Typography variant="body2" sx={{ float: 'right' }}>
-            <AddressHash address={item.id} />
-          </Typography>
+          <AddressHash address={item.id} sx={{ float: 'right' }} />
           <Typography variant="h4" sx={{ mt: 1 }}>
             {item.name}
           </Typography>

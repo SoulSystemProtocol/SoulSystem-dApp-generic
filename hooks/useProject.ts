@@ -10,7 +10,7 @@ import useSubgraph from './useSubgraph';
  */
 export default function useProject() {
   const { gameMake } = useHubContract();
-  const { setUri } = useGameContract();
+  const { getGameContract, setUri } = useGameContract();
   const { findGames } = useSubgraph();
 
   let createProject = async function (
@@ -73,5 +73,6 @@ function convertSubgraphGameToProject(subgraphGame: any) {
     subgraphGame.uri,
     hexStringToJson(subgraphGame.uriData),
     subgraphGame.roles,
+    subgraphGame.posts,
   );
 }
