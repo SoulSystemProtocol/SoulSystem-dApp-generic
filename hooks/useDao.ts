@@ -44,7 +44,7 @@ export default function useDao() {
     skip = 0,
   ): Promise<Array<Dao>> {
     const subgraphGames = await findGames(ids, GAME_TYPE.mdao, first, skip);
-    console.log('DAO subgraphGames', subgraphGames, ids);
+    // console.log('DAO subgraphGames', subgraphGames, ids);
     return subgraphGames.map((subgraphGame: any) =>
       convertSubgraphGameToDao(subgraphGame),
     );

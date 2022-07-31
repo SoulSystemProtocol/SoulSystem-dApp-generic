@@ -20,7 +20,7 @@ export default function GameComments({ item, sx = {} }) {
   const { accountSoul } = useContext(DataContext);
   const { showDialog, closeDialog } = useContext(DialogContext);
 
-  const [commentPosts, setCommentsPosts] = useState(null);
+  const [commentPosts, setCommentsPosts] = useState([]);
 
   // const { isProfileHasAnyCaseRole } = useCase();
   const isProfileHasAnyCaseRole = () => true; //Temporary
@@ -29,9 +29,8 @@ export default function GameComments({ item, sx = {} }) {
   useEffect(() => {
     if (item) {
       console.log('Item', item);
-      const commentPosts = item?.posts?.filter(
-        (post) => post.uriType === 'comment',
-      );
+      const commentPosts = item?.posts; //?.filter( (post) => post.uriType === 'comment', );
+      //Sort by Date
       const sortedCommentPosts = commentPosts?.sort((a, b) =>
         a?.createdDate?.localeCompare(b?.createdDate),
       );
@@ -43,13 +42,13 @@ export default function GameComments({ item, sx = {} }) {
   return (
     <Box sx={sx}>
       {/* Comments */}
-      {commentPosts && commentPosts.length > 0 ? (
+      {commentPosts.length > 0 ? (
         <Stack spacing={1}>
           {commentPosts.map((post, index) => (
             <Paper key={index} sx={{ p: 2 }}>
               {/* Author */}
               <Stack direction="row" spacing={1} alignItems="center">
-                <SoulCompactCard profileId={post.author} />
+                <SoulCompactCard profileId={post.author.id} />
                 <Typography variant="body2" color="text.secondary">
                   {roleIdToName(post.entityRole)}
                 </Typography>

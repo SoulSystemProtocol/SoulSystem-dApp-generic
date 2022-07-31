@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { Save } from '@mui/icons-material';
 import { LoadingButton } from '@mui/lab';
 import {
@@ -107,9 +107,9 @@ export default function GamePostAddDialog({
     },
   };
 
-  const widgets = {
-    CaseEvidencePostInput: CaseEvidencePostInput,
-  };
+  // const widgets = {
+  //   CaseEvidencePostInput: CaseEvidencePostInput,
+  // };
 
   async function close() {
     setFormData({});
@@ -174,7 +174,7 @@ export default function GamePostAddDialog({
         <Form
           schema={schema}
           uiSchema={uiSchema}
-          widgets={widgets}
+          // widgets={widgets}
           formData={formData}
           onSubmit={submit}
           disabled={isLoading}

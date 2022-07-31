@@ -20,13 +20,12 @@ export default function SoulCompactCard({
   disableId = true,
   disableAddress = true,
   disableLink = false,
-  disableRating = false,
+  disableRating = true,
   sx,
 }) {
   const { handleError } = useError();
   // const { getProfile } = useProfile();
   const { getSoulById, getSoulByOwner } = useSoul();
-
   const [isLoading, setIsLoading] = useState(true);
   const [profile, setProfile] = useState(null);
 
@@ -49,6 +48,7 @@ export default function SoulCompactCard({
         : getSoulByOwner(propsAccount);
       promise
         .then((profile) => {
+          console.log('Post: Retrived Profile: ', profile);
           if (isComponentActive && profile) {
             setProfile(profile);
           }
@@ -85,7 +85,7 @@ export default function SoulCompactCard({
             {disableLink ? (
               <>{soulToFirstLastNameString(profile)}</>
             ) : (
-              <Link href={`/profile/${profile.id}`} underline="none">
+              <Link href={`/souls/${profile.id}`} underline="none">
                 {soulToFirstLastNameString(profile)}
               </Link>
             )}
