@@ -66,9 +66,9 @@ function DaoMembershipActions({ dao, sx }: any) {
     try {
       setIsProcessing(true);
       if (isSoulMember) {
-        await leave(dao);
+        await leave(dao.id);
       } else {
-        await applyToJoin(dao, accountSoul.id);
+        await applyToJoin(dao.id, accountSoul.id, '');
       }
       showToastSuccess('Success! Data will be updated soon');
       setIsProcessed(true);

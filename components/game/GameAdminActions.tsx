@@ -23,7 +23,7 @@ export default function GameAdminActions({ game: dao, sx }: any) {
   useEffect(() => {
     setIsSoulAdmin(false);
     if (accountSoul && dao) {
-      setIsSoulAdmin(isSoulHasRole(dao, accountSoul.id, GAME_ROLE.admin.id));
+      setIsSoulAdmin(isSoulHasRole(dao, accountSoul?.id, GAME_ROLE.admin?.id));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [accountSoul, dao]);

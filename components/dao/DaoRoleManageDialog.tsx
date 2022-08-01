@@ -78,9 +78,9 @@ export default function DaoRoleManageDialog({ dao, isClose, onClose }: any) {
       setFormData(formData);
       setIsLoading(true);
       if (formData.action === 'assignRole') {
-        await assignRoleToSoul(dao, formData.soulId, formData.roleName);
+        await assignRoleToSoul(dao.id, formData.soulId, formData.roleName);
       } else {
-        await removeRoleToSoul(dao, formData.soulId, formData.roleName);
+        await removeRoleToSoul(dao.id, formData.soulId, formData.roleName);
       }
       showToastSuccess('Success! Data will be updated soon');
       close();

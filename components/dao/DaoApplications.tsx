@@ -63,7 +63,7 @@ function DaoApplicationGridItem({ dao, nomination }: any) {
 
   async function loadData() {
     try {
-      setIsSoulAdmin(isSoulHasRole(dao, accountSoul.id, GAME_ROLE.admin.id));
+      setIsSoulAdmin(isSoulHasRole(dao, accountSoul?.id, GAME_ROLE?.admin?.id));
       const soul = await getSoulById(nomination.nominated.id);
       if (soul) {
         setNominatedSoul(soul);
@@ -80,10 +80,9 @@ function DaoApplicationGridItem({ dao, nomination }: any) {
     try {
       setIsProcessing(true);
       if (nominatedSoul) {
-        await assignRoleToSoul(dao, nominatedSoul.id, GAME_ROLE.member.name);
+        await assignRoleToSoul(dao.id, nominatedSoul.id, GAME_ROLE.member.name);
       }
       showToastSuccess('Success! Data will be updated soon');
-      setIsProcessed(true);
       //Trigger Data Reload
       loadData();
     } catch (error: any) {

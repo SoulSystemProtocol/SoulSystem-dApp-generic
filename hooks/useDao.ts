@@ -4,6 +4,7 @@ import { hexStringToJson } from 'utils/converters';
 import useGameContract from './contracts/useGameContract';
 import useHubContract from './contracts/useHubContract';
 import useSubgraph from './useSubgraph';
+import { getById } from './utils';
 
 /**
  * Hook for work with DAOs.
@@ -15,30 +16,14 @@ export default function useDao() {
   const {
     // getGameContract,
     setUri,
-    leave: leaveGame,
-    nominate,
+    leave,
+    nominate: applyToJoin,
     assignRole,
     removeRole,
   } = useGameContract();
   const { findGames } = useSubgraph();
 
-  let createDao = async function (
-    name: string,
-    metadataUrl: string,
-  ): Promise<any> {
-    return gameMake(GAME_TYPE.mdao, name, metadataUrl);
-  };
-
-  let editDao = async function (id: string, metadataUrl: string) {
-    return setUri(id, metadataUrl);
-  };
-
-  let getDaoById = async function (id: string): Promise<Dao | null> {
-    const daos = await getDaos([id]);
-    return daos.length > 0 ? daos[0] : null;
-  };
-
-  let getDaos = async function (
+  async function getDaos(
     ids?: Array<string>,
     first = 10,
     skip = 0,
@@ -48,50 +33,27 @@ export default function useDao() {
     return subgraphGames.map((subgraphGame: any) =>
       convertSubgraphGameToDao(subgraphGame),
     );
-  };
+  }
 
-  let isSoulHasRole = function (
-    dao: Dao,
-    soul: string,
-    roleId: string,
-  ): boolean {
-    return getSoulsByRole(dao, roleId).includes(soul);
-  };
-
-  let getSoulsByRole = function (dao: Dao, roleId: string): Array<string> {
-    const daoRole = dao.roles?.find(
-      (element: any) => element?.roleId === roleId,
+  function getSoulsByRole(dao: Dao, roleId: string): Array<string> {
+    return (
+      dao.roles?.find((element: any) => element?.roleId === roleId)?.souls || []
     );
-    return daoRole?.souls || [];
-  };
-
-  let leave = function (dao: Dao) {
-    return leaveGame(dao.id);
-  };
-
-  let applyToJoin = function (dao: Dao, soul: string) {
-    return nominate(dao.id, soul, '');
-  };
-
-  let assignRoleToSoul = function (dao: Dao, soul: string, roleName: string) {
-    return assignRole(dao.id, soul, roleName);
-  };
-
-  let removeRoleToSoul = function (dao: Dao, soul: string, roleName: string) {
-    return removeRole(dao.id, soul, roleName);
-  };
+  }
 
   return {
-    createDao,
-    editDao,
-    getDaoById,
+    createDao: async (name: string, metadataUrl: string) =>
+      gameMake(GAME_TYPE.mdao, name, metadataUrl),
+    editDao: async (id: string, metadataUrl: string) => setUri(id, metadataUrl),
     getDaos,
-    isSoulHasRole,
+    getDaoById: (id: string) => getById(id, getDaos),
     getSoulsByRole,
+    isSoulHasRole: (dao: Dao, soul: string, roleId: string) =>
+      getSoulsByRole(dao, roleId).includes(soul),
     leave,
     applyToJoin,
-    assignRoleToSoul,
-    removeRoleToSoul,
+    assignRoleToSoul: assignRole,
+    removeRoleToSoul: removeRole,
   };
 }
 

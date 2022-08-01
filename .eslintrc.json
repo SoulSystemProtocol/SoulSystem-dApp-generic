@@ -3,5 +3,13 @@
   "plugins": ["prettier"],
   "rules": {
     "prettier/prettier": ["error"]
-  }
+  },
+  "overrides": [
+    {
+        "files": ["**/*.tsx"],
+        "rules": {
+            "react-hooks/exhaustive-deps": "off"
+        }
+    }
+  ]
 }
