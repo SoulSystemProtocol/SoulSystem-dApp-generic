@@ -63,7 +63,7 @@ function DaoApplicationGridItem({ dao, nomination }: any) {
 
   async function loadData() {
     try {
-      setIsSoulAdmin(isSoulHasRole(dao, accountSoul?.id, GAME_ROLE?.admin?.id));
+      setIsSoulAdmin(isSoulHasRole(dao, accountSoul.id, GAME_ROLE.admin.id));
       const soul = await getSoulById(nomination.nominated.id);
       if (soul) {
         setNominatedSoul(soul);
