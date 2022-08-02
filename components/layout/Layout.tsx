@@ -31,7 +31,7 @@ const menu_side_links = [
   },
   {
     route: '/daos',
-    label: 'mDAOs',
+    label: 'Teams',
     icon: <SchoolOutlined color="warning" />,
   },
   {

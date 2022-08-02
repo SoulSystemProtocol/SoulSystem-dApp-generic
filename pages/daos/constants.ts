@@ -1,5 +1,5 @@
 export const DAO_CONF = {
-  PAGE_TITLE: '— mDAOs',
+  PAGE_TITLE: 'Teams',
   TITLE: 'MentorDAOs',
   SUBTITLE: `Mentor DAOs consist of a mentor and mentees that work on bounties
   together, as a team.`,
