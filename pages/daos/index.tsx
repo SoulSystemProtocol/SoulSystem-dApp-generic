@@ -15,7 +15,7 @@ import { DAO_CONF, getCardContent } from './constants';
 import Dao from 'classes/Dao';
 
 /**
- * Page for a list of mDAOs
+ * Page for a list of mDAO Games
  */
 export default function DaosPage({}: any) {
   const { accountSoul } = useContext(DataContext);

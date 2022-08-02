@@ -1,7 +1,7 @@
 import { WorkOutlineOutlined } from '@mui/icons-material';
 
 export const GRANTS_CONF = {
-  PAGE_TITLE: '— Grants',
+  PAGE_TITLE: 'Grants',
   TITLE: 'Grants',
   SUBTITLE: ``,
   ROUTE: 'grants',

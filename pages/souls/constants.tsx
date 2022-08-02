@@ -7,7 +7,7 @@ import {
 } from 'utils/converters';
 
 export const SOUL_CONF = {
-  PAGE_TITLE: '— Souls',
+  PAGE_TITLE: 'Souls',
   TITLE: 'Souls',
   SUBTITLE: `Souls are your personal profile NFT.`,
   ROUTE: 'souls',
