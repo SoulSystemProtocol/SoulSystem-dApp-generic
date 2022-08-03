@@ -32,7 +32,7 @@ export default function TaskApplications({ task, sx }: any) {
   return (
     <Box sx={{ ...sx }}>
       <Divider sx={{ mb: 1 }} />
-      <Typography variant="h5">Applications:</Typography>
+      <Typography variant="h5">:</Typography>
       <List
         subheader={
           <ListSubheader>
