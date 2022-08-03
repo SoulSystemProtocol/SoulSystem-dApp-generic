@@ -11,7 +11,7 @@ type TPaginatedList = {
   loadData: any;
   subtitle: string;
   title: string;
-  renderActions: any;
+  renderActions: any | undefined;
   getCardContent: any;
 };
 
@@ -50,7 +50,7 @@ export default function PaginatedList({
           <Typography variant="h5">{title}</Typography>
           <Typography variant="subtitle1">{subtitle}</Typography>
         </Box>
-        {renderActions}
+        {!!renderActions && renderActions}
       </Box>
       <DashboardCardList
         baseRoute={baseRoute}
