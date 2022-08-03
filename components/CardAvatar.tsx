@@ -7,6 +7,7 @@ import Link from 'next/link';
  *  Component: Card Avatar Image
  */
 export default function CardAvatar({ imgSrc, avatarIcon, link, sx }: any) {
+  //Image
   const renderAvatar = (
     <Avatar
       sx={{
@@ -18,10 +19,11 @@ export default function CardAvatar({ imgSrc, avatarIcon, link, sx }: any) {
       }}
       src={imgSrc}
     >
-      {avatarIcon ? avatarIcon : <SchoolOutlined />}
+      {avatarIcon || <SchoolOutlined />}
     </Avatar>
   );
 
+  //Optinal Link
   const renderAvatarLink = link && (
     <Link href={link} passHref>
       {renderAvatar}
