@@ -1,10 +1,8 @@
 import { Button, Paper, Stack, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import { DataContext } from 'contexts/data';
-// import { useTranslation } from 'next-i18next';
 import { useEffect, useState, useContext } from 'react';
 import { hexStringToJson } from 'utils/converters';
-// import useCase from 'hooks/useCase';
 import GamePostAddDialog from './GamePostAddDialog';
 import SoulCompactCard from 'components/soul/SoulCompactCard';
 import { DialogContext } from 'contexts/dialog';
@@ -19,7 +17,6 @@ export default function GameComments({ item, sx = {} }) {
 
   const [commentPosts, setCommentsPosts] = useState([]);
 
-  // const { isProfileHasAnyCaseRole } = useCase();
   const isProfileHasAnyCaseRole = () => true; //Temporary
   // const { isSoulHasRole } = useTask();
 
