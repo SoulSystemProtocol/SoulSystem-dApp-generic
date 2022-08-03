@@ -11,9 +11,24 @@ import PaginatedList from 'components/PaginatedList';
 import Layout from '../../components/layout/Layout';
 import { APP_CONFIGS } from '../../constants';
 import { getPageTitle, getPagination } from '../../utils';
-import { PROJECT_CONF, getCardContent } from './constants';
 
 import Project from 'classes/Project';
+import { WorkOutlineOutlined } from '@mui/icons-material';
+
+const PROJECT_CONF = {
+  PAGE_TITLE: 'Projects',
+  TITLE: 'Projects',
+  SUBTITLE: `Projects are companies and organizations that need some work done.`,
+  ROUTE: 'projects',
+};
+
+const getCardContent: {} = (item: any) => ({
+  id: item.id,
+  imgSrc: item.uriData?.image,
+  avatarIcon: <WorkOutlineOutlined />,
+  label: item.uriData?.description,
+  title: item.name,
+});
 
 /**
  * Page for a list of projects

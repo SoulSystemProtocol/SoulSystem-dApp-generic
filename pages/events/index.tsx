@@ -5,7 +5,23 @@ import useTask from 'hooks/useTask';
 import { useEffect, useState } from 'react';
 import { getPageTitle } from 'utils';
 import Layout from '../../components/layout/Layout';
-import { CONF as PAGE_CONF, getCardContent } from './constants';
+// import { CONF as PAGE_CONF, getCardContent } from './constants';
+import { WorkOutlineOutlined } from '@mui/icons-material';
+
+const CONF = {
+  PAGE_TITLE: 'Hackathons',
+  TITLE: 'Hackathons',
+  SUBTITLE: ``,
+  ROUTE: 'events',
+};
+
+const getCardContent = (item: any) => ({
+  id: item.id,
+  imgSrc: item.uriData.image,
+  avatarIcon: <WorkOutlineOutlined />,
+  label: item.uriData.description,
+  title: item.name,
+});
 
 /**
  * Page for a list of Events

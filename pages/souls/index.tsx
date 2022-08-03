@@ -11,9 +11,30 @@ import Layout from '../../components/layout/Layout';
 import PaginatedList from 'components/PaginatedList';
 import { SOUL_TYPE } from 'constants/contracts';
 import { APP_CONFIGS } from '../../constants';
-import { SOUL_CONF, getCardContent } from './constants';
 import { getPageTitle, getPagination } from '../../utils';
 import Soul from 'classes/Soul';
+import { PersonOutlineOutlined } from '@mui/icons-material';
+
+import {
+  addressToShortAddress,
+  soulToFirstLastNameString,
+} from 'utils/converters';
+
+const SOUL_CONF = {
+  PAGE_TITLE: 'Souls',
+  TITLE: 'Souls',
+  SUBTITLE: `Souls are your personal profile NFT.`,
+  ROUTE: 'souls',
+};
+
+const getCardContent = (item: any) => ({
+  id: item.id,
+  imgSrc: item.uriImage,
+  avatarIcon: <PersonOutlineOutlined />,
+  label: addressToShortAddress(item.owner),
+  title: soulToFirstLastNameString(item),
+  roles: [], // TODO: add roles logic
+});
 
 /**
  * Page for a list of souls

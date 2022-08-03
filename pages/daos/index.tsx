@@ -11,8 +11,23 @@ import Layout from 'components/layout/Layout';
 import PaginatedList from 'components/PaginatedList';
 import { APP_CONFIGS } from '../../constants';
 import { getPageTitle, getPagination } from '../../utils';
-import { DAO_CONF, getCardContent } from './constants';
+// import { DAO_CONF, getCardContent } from './constants';
 import Dao from 'classes/Dao';
+
+const DAO_CONF = {
+  PAGE_TITLE: 'Teams',
+  TITLE: 'MentorDAOs',
+  SUBTITLE: `Mentor DAOs consist of a mentor and mentees that work on bounties
+  together, as a team.`,
+  ROUTE: 'daos',
+};
+
+const getCardContent = (item: any) => ({
+  id: item.id,
+  imgSrc: item.uriData.image,
+  label: item.uriData.description,
+  title: item.name,
+});
 
 /**
  * Page for a list of mDAO Games
