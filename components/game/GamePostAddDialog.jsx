@@ -10,7 +10,7 @@ import {
 } from '@mui/material';
 import { MuiForm5 as Form } from '@rjsf/material-ui';
 // import CaseEvidencePostInput from 'components/form/widget/CaseEvidencePostInput';
-import { CASE_ROLE } from 'constants/contracts';
+import { CLAIM_ROLE } from 'constants/contracts';
 import { POST_TYPE } from 'constants/metadata';
 import { DataContext } from 'contexts/data';
 import { roleIdToName } from 'utils/converters';
@@ -147,7 +147,7 @@ export default function GamePostAddDialog({
   useEffect(() => {
     // Define which roles the profile has
     if (accountSoul && caseObject) {
-      const caseRoleNames = Object.values(CASE_ROLE)
+      const caseRoleNames = Object.values(CLAIM_ROLE)
         .filter((caseRole) =>
           isSoulHasRole(caseObject, accountSoul.id, caseRole.id),
         )
