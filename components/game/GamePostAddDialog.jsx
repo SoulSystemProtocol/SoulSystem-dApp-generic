@@ -14,7 +14,7 @@ import { CLAIM_ROLE } from 'constants/contracts';
 import { POST_TYPE } from 'constants/metadata';
 import { DataContext } from 'contexts/data';
 import { roleIdToName } from 'utils/converters';
-import useGameContract from 'hooks/contracts/useGameContract';
+import getContractGame from 'hooks/useContract';
 import useTask from 'hooks/useTask';
 import useError from 'hooks/useError';
 import useIpfs from 'hooks/useIpfs';
@@ -37,7 +37,6 @@ export default function GamePostAddDialog({
   const { handleError } = useError();
   const { showToastSuccess } = useToast();
   const { uploadJsonToIPFS } = useIpfs();
-  const { getGameContract } = useGameContract();
   const { isSoulHasRole } = useTask();
   const [caseRoleNames, setCaseRoleNames] = useState([]);
   const [caseRoleStrings, setCaseRoleStrings] = useState([]);
@@ -127,8 +126,7 @@ export default function GamePostAddDialog({
           // new CommentPostMetadata(formData.message),
           { type: POST_TYPE.comment, text: formData.message },
         );
-        await getGameContract(caseObject.id).post(
-          // await post(
+        await getContractGame(caseObject.id).post(
           // caseObject.id,
           formData.role,
           accountSoul.id,
