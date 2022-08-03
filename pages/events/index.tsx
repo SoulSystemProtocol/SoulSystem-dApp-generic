@@ -5,7 +5,6 @@ import useTask from 'hooks/useTask';
 import { useEffect, useState } from 'react';
 import { getPageTitle } from 'utils';
 import Layout from '../../components/layout/Layout';
-// import { CONF as PAGE_CONF, getCardContent } from './constants';
 import { WorkOutlineOutlined } from '@mui/icons-material';
 
 const CONF = {
@@ -67,18 +66,18 @@ export default function EventsPage({ }: any) {
 
   // Props
   const listProps = {
-    baseRoute: PAGE_CONF.ROUTE,
+    baseRoute: CONF.ROUTE,
     data: items,
     loadData,
     // renderActions,
-    subtitle: PAGE_CONF.SUBTITLE,
-    title: PAGE_CONF.TITLE,
+    subtitle: CONF.SUBTITLE,
+    title: CONF.TITLE,
     // card config
     getCardContent,
   };
 
   return (
-    <Layout title={getPageTitle(PAGE_CONF.PAGE_TITLE)}>
+    <Layout title={getPageTitle(CONF.PAGE_TITLE)}>
       <PaginatedList {...listProps} />
     </Layout>
   );
