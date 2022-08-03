@@ -1,10 +1,10 @@
 import { WorkOutlineOutlined } from '@mui/icons-material';
 
-export const GRANTS_CONF = {
-  PAGE_TITLE: 'Grants',
-  TITLE: 'Grants',
+export const CONF = {
+  PAGE_TITLE: 'Hackathons',
+  TITLE: 'Hackathons',
   SUBTITLE: ``,
-  ROUTE: 'grants',
+  ROUTE: 'events',
 };
 
 export const getCardContent = (item: any) => ({

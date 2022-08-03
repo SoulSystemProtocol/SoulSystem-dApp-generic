@@ -63,8 +63,8 @@ export default function Header({ open, toggleDrawer, sx }: IHeaderProps) {
 
   const topLinks = [
     ...((account && [{ label: 'Dashboards', route: 'daos' }]) || []),
-    { label: 'Hackathons', route: 'hackathons' },
-    { label: 'Grants', route: 'grants' },
+    // { label: 'Hackathons', route: 'hackathons' },
+    // { label: 'Grants', route: 'grants' },
   ];
 
   return (

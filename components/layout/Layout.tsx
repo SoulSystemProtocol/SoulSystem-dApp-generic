@@ -44,16 +44,16 @@ const menu_side_links = [
     label: 'Bounties',
     icon: <TaskAlt color="warning" />,
   },
-  {
-    route: '/grants',
-    label: 'Grants',
-    icon: <VolunteerActivism color="warning" />,
-  },
   // {
-  //   route: '/events',
-  //   label: 'Events',
-  //   icon: <Festival color="warning" />,
+  //   route: '/grants',
+  //   label: 'Grants',
+  //   icon: <VolunteerActivism color="warning" />,
   // },
+  {
+    route: '/events',
+    label: 'Hackathons',
+    icon: <Festival color="warning" />,
+  },
   // {
   //   route: '/sponsors',
   //   label: 'Sponsors',
