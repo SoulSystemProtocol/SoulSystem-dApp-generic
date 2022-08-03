@@ -18,7 +18,7 @@ const wrapperStyle = {
   mt: 6,
   textAlign: 'center',
   px: { xs: 2, md: 4 },
-  py: { xs: 8, md: 12 },
+  pt: { xs: 2, md: 4 },
 };
 
 export default function Landing() {
@@ -42,7 +42,7 @@ export default function Landing() {
               </Typography>
             </Box>
           )}
-          <Box sx={{ mt: 42, display: 'flex', justifyContent: 'center' }}>
+          <Box sx={{ mt: 28, display: 'flex', justifyContent: 'center' }}>
             <Typography variant="h6" mr={2}>
               Need some test tokens?
             </Typography>
