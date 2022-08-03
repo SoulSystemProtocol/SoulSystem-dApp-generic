@@ -14,11 +14,12 @@ import { CLAIM_ROLE } from 'constants/contracts';
 import { POST_TYPE } from 'constants/metadata';
 import { DataContext } from 'contexts/data';
 import { roleIdToName } from 'utils/converters';
-import getContractGame from 'hooks/useContract';
+import { useContract } from 'hooks/useContract';
 import useTask from 'hooks/useTask';
 import useError from 'hooks/useError';
 import useIpfs from 'hooks/useIpfs';
 import useToast from 'hooks/useToast';
+import useGameContract from 'hooks/contracts/useGameContract';
 // import {
 //   handleAddCaseEvidenceEvent,
 //   handleCommentCaseEvent,
@@ -40,6 +41,7 @@ export default function GamePostAddDialog({
   const { isSoulHasRole } = useTask();
   const [caseRoleNames, setCaseRoleNames] = useState([]);
   const [caseRoleStrings, setCaseRoleStrings] = useState([]);
+  const { getContractGame } = useContract();
   const [formData, setFormData] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(!isClose);
