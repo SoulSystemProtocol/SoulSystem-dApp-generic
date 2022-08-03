@@ -1,17 +1,15 @@
 import { useContext, useEffect, useState } from 'react';
 import { Button } from '@mui/material';
-
-import useDao from 'hooks/useDao';
-import useError from 'hooks/useError';
 import { DialogContext } from 'contexts/dialog';
 import { DataContext } from 'contexts/data';
-
-import DaoManageDialog from 'components/dao/DaoManageDialog';
-import Layout from 'components/layout/Layout';
-import PaginatedList from 'components/PaginatedList';
 import { APP_CONFIGS } from '../../constants';
 import { getPageTitle, getPagination } from '../../utils';
 import Dao from 'classes/Dao';
+import useDao from 'hooks/useDao';
+import useError from 'hooks/useError';
+import DaoManageDialog from 'components/dao/DaoManageDialog';
+import Layout from 'components/layout/Layout';
+import PaginatedList from 'components/PaginatedList';
 
 const CONF = {
   PAGE_TITLE: 'Teams',
