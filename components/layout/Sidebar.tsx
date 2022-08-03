@@ -103,7 +103,7 @@ export default function Sidebar({ links = [], isOpen, toggler }: any) {
           <Box sx={{ display: 'flex', flexGrow: 1 }}>
             <Link href="/" passHref>
               <MuiLink underline="none">
-                <Typography>MentorDAO</Typography>
+                <Typography>{process.env.NEXT_PUBLIC_APP_NAME}</Typography>
               </MuiLink>
             </Link>
             <Typography

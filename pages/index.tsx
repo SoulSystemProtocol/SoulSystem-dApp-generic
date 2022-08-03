@@ -35,6 +35,9 @@ export default function Landing() {
             {/* Where junior developers learn and earn */}
             The future of work
           </Typography>
+          <Typography variant="h4" fontSize="1.5em" sx={{ mt: 1 }}>
+            And the uprising of the Gig Economy
+          </Typography>
           {!account && (
             <Box mt={2}>
               <Typography fontSize="1.2em" letterSpacing="0.08em">
@@ -42,7 +45,7 @@ export default function Landing() {
               </Typography>
             </Box>
           )}
-          <Box sx={{ mt: 28, display: 'flex', justifyContent: 'center' }}>
+          <Box sx={{ mt: 22, display: 'flex', justifyContent: 'center' }}>
             <Typography variant="h6" mr={2}>
               Need some test tokens?
             </Typography>
