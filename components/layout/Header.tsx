@@ -61,8 +61,8 @@ export default function Header({ open, toggleDrawer, sx }: IHeaderProps) {
   const { account, connectWallet, disconnectWallet } = useContext(Web3Context);
   const { accountSoul } = useContext(DataContext);
 
-  const topLinks = [
-    ...((account && [{ label: 'Dashboards', route: 'daos' }]) || []),
+  const topLinks: any[] = [
+    // ...((account && [{ label: 'Dashboards', route: 'daos' }]) || []),
     // { label: 'Hackathons', route: 'hackathons' },
     // { label: 'Grants', route: 'grants' },
   ];
