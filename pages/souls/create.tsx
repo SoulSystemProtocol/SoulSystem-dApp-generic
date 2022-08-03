@@ -6,7 +6,7 @@ import SoulManage from 'components/soul/SoulManage';
  */
 export default function SoulCreate() {
   return (
-    <Layout title="MentorDAO — Create Soul">
+    <Layout title={process.env.NEXT_PUBLIC_APP_NAME + ' — Create Soul'}>
       <SoulManage />
     </Layout>
   );

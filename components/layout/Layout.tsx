@@ -31,7 +31,7 @@ const menu_side_links = [
   },
   {
     route: '/daos',
-    label: 'mDAOs',
+    label: 'Teams',
     icon: <SchoolOutlined color="warning" />,
   },
   {
@@ -44,16 +44,16 @@ const menu_side_links = [
     label: 'Bounties',
     icon: <TaskAlt color="warning" />,
   },
-  {
-    route: '/grants',
-    label: 'Grants',
-    icon: <VolunteerActivism color="warning" />,
-  },
   // {
-  //   route: '/events',
-  //   label: 'Events',
-  //   icon: <Festival color="warning" />,
+  //   route: '/grants',
+  //   label: 'Grants',
+  //   icon: <VolunteerActivism color="warning" />,
   // },
+  {
+    route: '/events',
+    label: 'Hackathons',
+    icon: <Festival color="warning" />,
+  },
   // {
   //   route: '/sponsors',
   //   label: 'Sponsors',
@@ -98,7 +98,7 @@ export default function Layout({ children, title }: any) {
     <Box sx={{ display: 'flex', minHeight: '100vh' }}>
       <CssBaseline />
       <Head>
-        <title>{title || 'MentorDAO'}</title>
+        <title>{title || process.env.NEXT_PUBLIC_APP_NAME}</title>
         <meta name="viewport" content="initial-scale=1, width=device-width" />
       </Head>
       <Sidebar links={menu_side_links} toggler={toggleDrawer} isOpen={isOpen} />

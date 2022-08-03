@@ -2,6 +2,7 @@ import Soul from 'classes/Soul';
 import { hexStringToJson } from 'utils/converters';
 import useSoulContract from './contracts/useSoulContract';
 import useSubgraph from './useSubgraph';
+import { getById } from './utils';
 
 /**
  * Hook for work with souls.
@@ -10,28 +11,7 @@ export default function useSoul() {
   const { mint, update } = useSoulContract();
   const { findSouls } = useSubgraph();
 
-  let createSoul = async function (metadataUrl: string): Promise<any> {
-    return mint(metadataUrl);
-  };
-
-  let editSoul = async function (
-    id: string,
-    metadataUrl: string,
-  ): Promise<any> {
-    return update(id, metadataUrl);
-  };
-
-  let getSoulById = async function (id: string): Promise<Soul | null> {
-    const souls = await getSouls([id]);
-    return souls.length > 0 ? souls[0] : null;
-  };
-
-  let getSoulByOwner = async function (owner: string): Promise<Soul | null> {
-    const souls = await getSouls(undefined, [owner]);
-    return souls.length > 0 ? souls[0] : null;
-  };
-
-  let getSouls = async function (
+  async function getSouls(
     ids?: Array<string>,
     owners?: Array<string>,
     type?: string,
@@ -42,12 +22,18 @@ export default function useSoul() {
     return subgraphSouls.map((subgraphSoul: any) =>
       convertSubgraphSoulToSoul(subgraphSoul),
     );
-  };
+  }
+
+  async function getSoulByOwner(owner: string): Promise<Soul | null> {
+    const souls = await getSouls(undefined, [owner]);
+    return souls.length > 0 ? souls[0] : null;
+  }
 
   return {
-    createSoul,
-    editSoul,
-    getSoulById,
+    createSoul: async (metadataUrl: string) => mint(metadataUrl),
+    editSoul: async (id: string, metadataUrl: string) =>
+      update(id, metadataUrl),
+    getSoulById: (id: string) => getById(id, getSouls),
     getSoulByOwner,
     getSouls,
   };

@@ -18,58 +18,42 @@ export default function useContract() {
   const { provider, isNetworkChainIdCorrect } = useContext(Web3Context);
 
   function getContractHub(address: string) {
-    if (!isNetworkChainIdCorrect) {
-      throw new WrongNetworkError();
-    }
+    if (!isNetworkChainIdCorrect) throw new WrongNetworkError();
     return new Contract(address, ABI_Hub, provider?.getSigner());
   }
 
   function getContractGame(address: string) {
-    if (!isNetworkChainIdCorrect) {
-      throw new WrongNetworkError();
-    }
+    if (!isNetworkChainIdCorrect) throw new WrongNetworkError();
     return new Contract(address, ABI_Game, provider?.getSigner());
   }
 
   function getContractGameCourt(address: string) {
-    if (!isNetworkChainIdCorrect) {
-      throw new WrongNetworkError();
-    }
+    if (!isNetworkChainIdCorrect) throw new WrongNetworkError();
     return new Contract(address, ABI_extCourt, provider?.getSigner());
   }
 
   function getContractGameMDAO(address: string) {
-    if (!isNetworkChainIdCorrect) {
-      throw new WrongNetworkError();
-    }
+    if (!isNetworkChainIdCorrect) throw new WrongNetworkError();
     return new Contract(address, ABI_extMDAO, provider?.getSigner());
   }
 
   function getContractGameProject(address: string) {
-    if (!isNetworkChainIdCorrect) {
-      throw new WrongNetworkError();
-    }
+    if (!isNetworkChainIdCorrect) throw new WrongNetworkError();
     return new Contract(address, ABI_extProject, provider?.getSigner());
   }
 
   function getContractGameRules(address: string) {
-    if (!isNetworkChainIdCorrect) {
-      throw new WrongNetworkError();
-    }
+    if (!isNetworkChainIdCorrect) throw new WrongNetworkError();
     return new Contract(address, ABI_extRules, provider?.getSigner());
   }
 
   function getContractTask(address: string) {
-    if (!isNetworkChainIdCorrect) {
-      throw new WrongNetworkError();
-    }
+    if (!isNetworkChainIdCorrect) throw new WrongNetworkError();
     return new Contract(address, ABI_Task, provider?.getSigner());
   }
 
   function getContractSoul(address: string) {
-    if (!isNetworkChainIdCorrect) {
-      throw new WrongNetworkError();
-    }
+    if (!isNetworkChainIdCorrect) throw new WrongNetworkError();
     return new Contract(address, ABI_Soul, provider?.getSigner());
   }
 

@@ -47,6 +47,9 @@ export default function TaskDetailPage({ }: TaskProps) {
       <TaskDetail item={task} />
       {task && <GameComments item={task} />}
       {task && <TaskApplications task={task} sx={{ mt: 2 }} />}
+      {task && <TaskAcceptedApplications task={task} sx={{ mt: 2 }} />}
+      {task && <TaskPostedDeliveries task={task} sx={{ mt: 2 }} />}
+      {task && <TaskApprovedDeliveries task={task} sx={{ mt: 2 }} />}
     </Layout>
   );
 }

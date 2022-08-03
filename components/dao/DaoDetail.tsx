@@ -1,11 +1,9 @@
-// import { ethers } from 'ethers';
 import { Save, SchoolOutlined } from '@mui/icons-material';
 import { LoadingButton } from '@mui/lab';
 import { Button, Stack, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import { GAME_ROLE } from 'constants/contracts';
 import { DataContext } from 'contexts/data';
-// import { Web3Context } from 'contexts/web3';
 import useDao from 'hooks/useDao';
 import useError from 'hooks/useError';
 import useToast from 'hooks/useToast';
@@ -66,9 +64,9 @@ function DaoMembershipActions({ dao, sx }: any) {
     try {
       setIsProcessing(true);
       if (isSoulMember) {
-        await leave(dao);
+        await leave(dao.id);
       } else {
-        await applyToJoin(dao, accountSoul.id);
+        await applyToJoin(dao.id, accountSoul.id, '');
       }
       showToastSuccess('Success! Data will be updated soon');
       setIsProcessed(true);

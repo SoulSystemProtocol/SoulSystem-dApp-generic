@@ -1,3 +1,5 @@
+import { useState, useContext } from 'react';
+import Link from 'next/link';
 import MenuIcon from '@mui/icons-material/Menu';
 import {
   Avatar,
@@ -11,17 +13,16 @@ import {
 } from '@mui/material';
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
 import IconButton from '@mui/material/IconButton';
-import Link from 'next/link';
 import { Box } from '@mui/system';
+import { styled } from '@mui/material/styles';
+
 import { DataContext } from 'contexts/data';
 import { Web3Context } from 'contexts/web3';
-import { useState, useContext } from 'react';
 import {
   addressToShortAddress,
   soulToFirstLastNameString,
   soulImage,
 } from 'utils/converters';
-import { styled } from '@mui/material/styles';
 
 const drawerWidth = 240;
 
@@ -47,19 +48,24 @@ const AppBar = styled(MuiAppBar, {
   }),
 }));
 
-// const settings = ['Profile' /*, 'Account', 'Dashboard', 'Logout'*/];
-
 interface IHeaderProps {
   open: boolean;
   toggleDrawer: () => void;
+  sx?: any;
 }
 
 /**
  * Component with a header.
  */
-export default function Header({ open, toggleDrawer }: IHeaderProps) {
+export default function Header({ open, toggleDrawer, sx }: IHeaderProps) {
   const { account, connectWallet, disconnectWallet } = useContext(Web3Context);
   const { accountSoul } = useContext(DataContext);
+
+  const topLinks: any[] = [
+    // ...((account && [{ label: 'Dashboards', route: 'daos' }]) || []),
+    // { label: 'Hackathons', route: 'hackathons' },
+    // { label: 'Grants', route: 'grants' },
+  ];
 
   return (
     <AppBar
@@ -70,10 +76,10 @@ export default function Header({ open, toggleDrawer }: IHeaderProps) {
       sx={{
         zIndex: (theme) => theme.zIndex.drawer + 1,
         boxShadow: '0px 2px 6px rgba(118, 139, 160, 0.1)',
+        ...sx,
       }}
     >
       <Toolbar>
-        {/* Menu button */}
         <IconButton
           color="inherit"
           aria-label="open drawer"
@@ -86,8 +92,23 @@ export default function Header({ open, toggleDrawer }: IHeaderProps) {
         >
           <MenuIcon />
         </IconButton>
-        {/* Left */}
-        <Box sx={{ flexGrow: 1, display: 'flex', flexDirection: 'row' }}></Box>
+        <Box
+          sx={{
+            display: 'flex',
+            flexGrow: 1,
+            flexDirection: 'row',
+            justifyContent: 'flex-end',
+            marginRight: '40px',
+          }}
+        >
+          {topLinks.map(({ route, label }, index) => (
+            <Link key={index} href={`/${route}`}>
+              <Typography mr={4} textAlign="center">
+                {label}
+              </Typography>
+            </Link>
+          ))}
+        </Box>
         {accountSoul && (
           <Link href={`/souls/${accountSoul.id}`} passHref>
             <MuiLink underline="none">
@@ -97,7 +118,6 @@ export default function Header({ open, toggleDrawer }: IHeaderProps) {
             </MuiLink>
           </Link>
         )}
-        {/* Connect wallet button */}
         {!account && (
           <Button
             variant="outlined"
@@ -122,12 +142,14 @@ export default function Header({ open, toggleDrawer }: IHeaderProps) {
 function SettingsMenu({ profile }: any): JSX.Element {
   const { account, connectWallet, disconnectWallet } = useContext(Web3Context);
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
+
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
   };
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+
   return (
     <Box sx={{ flexGrow: 0 }}>
       <Tooltip title="Open settings">
@@ -155,8 +177,6 @@ function SettingsMenu({ profile }: any): JSX.Element {
         open={Boolean(anchorElUser)}
         onClose={handleCloseUserMenu}
       >
-        {/* <ListSubheader>{soulToFirstLastNameString(profile)}</ListSubheader> */}
-        {/* Account info */}
         {account && (
           <Box
             sx={{
@@ -169,8 +189,7 @@ function SettingsMenu({ profile }: any): JSX.Element {
             <Typography>{addressToShortAddress(account)}</Typography>
           </Box>
         )}
-        <MenuItem key={'disconnect'} onClick={handleCloseUserMenu}>
-          {/* Disconnect wallet button */}
+        <MenuItem key="disconnect" onClick={handleCloseUserMenu}>
           <Button
             variant="outlined"
             size="small"
@@ -179,11 +198,6 @@ function SettingsMenu({ profile }: any): JSX.Element {
             Disconnect Wallet
           </Button>
         </MenuItem>
-        {/*settings.map((setting) => (
-          <MenuItem key={setting} onClick={handleCloseUserMenu}>
-            <Typography textAlign="center">{setting}</Typography>
-          </MenuItem>
-        ))*/}
       </Menu>
     </Box>
   );

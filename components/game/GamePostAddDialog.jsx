@@ -10,16 +10,16 @@ import {
 } from '@mui/material';
 import { MuiForm5 as Form } from '@rjsf/material-ui';
 // import CaseEvidencePostInput from 'components/form/widget/CaseEvidencePostInput';
-import { CASE_ROLE } from 'constants/contracts';
-// import { CASE_ROLE_KEY } from 'constants/i18n';
+import { CLAIM_ROLE } from 'constants/contracts';
 import { POST_TYPE } from 'constants/metadata';
 import { DataContext } from 'contexts/data';
 import { roleIdToName } from 'utils/converters';
-import useGameContract from 'hooks/contracts/useGameContract';
+import { useContract } from 'hooks/useContract';
 import useTask from 'hooks/useTask';
 import useError from 'hooks/useError';
 import useIpfs from 'hooks/useIpfs';
 import useToast from 'hooks/useToast';
+import useGameContract from 'hooks/contracts/useGameContract';
 // import {
 //   handleAddCaseEvidenceEvent,
 //   handleCommentCaseEvent,
@@ -38,10 +38,10 @@ export default function GamePostAddDialog({
   const { handleError } = useError();
   const { showToastSuccess } = useToast();
   const { uploadJsonToIPFS } = useIpfs();
-  const { getGameContract } = useGameContract();
   const { isSoulHasRole } = useTask();
   const [caseRoleNames, setCaseRoleNames] = useState([]);
   const [caseRoleStrings, setCaseRoleStrings] = useState([]);
+  const { getContractGame } = useContract();
   const [formData, setFormData] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(!isClose);
@@ -128,8 +128,7 @@ export default function GamePostAddDialog({
           // new CommentPostMetadata(formData.message),
           { type: POST_TYPE.comment, text: formData.message },
         );
-        await getGameContract(caseObject.id).post(
-          // await post(
+        await getContractGame(caseObject.id).post(
           // caseObject.id,
           formData.role,
           accountSoul.id,
@@ -148,7 +147,7 @@ export default function GamePostAddDialog({
   useEffect(() => {
     // Define which roles the profile has
     if (accountSoul && caseObject) {
-      const caseRoleNames = Object.values(CASE_ROLE)
+      const caseRoleNames = Object.values(CLAIM_ROLE)
         .filter((caseRole) =>
           isSoulHasRole(caseObject, accountSoul.id, caseRole.id),
         )
@@ -169,7 +168,7 @@ export default function GamePostAddDialog({
       maxWidth="xs"
       fullWidth
     >
-      <DialogTitle sx={{ pb: 0 }}>Add Comment</DialogTitle>
+      <DialogTitle sx={{ pb: 0 }}>Add Post</DialogTitle>
       <DialogContent>
         <Form
           schema={schema}

@@ -10,7 +10,7 @@ export default function SoulEdit() {
   const { accountSoul } = useContext(DataContext);
 
   return (
-    <Layout title="MentorDAO — Edit Soul">
+    <Layout title={process.env.NEXT_PUBLIC_APP_NAME + ' — Edit Soul'}>
       <SoulManage soul={accountSoul} />
     </Layout>
   );

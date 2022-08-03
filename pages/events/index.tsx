@@ -1,19 +1,35 @@
-import { Box, Pagination, Typography } from '@mui/material';
 import Task from 'classes/Task';
-import TaskList from 'components/task/TaskList';
+import PaginatedList from 'components/PaginatedList';
 import useError from 'hooks/useError';
 import useTask from 'hooks/useTask';
 import { useEffect, useState } from 'react';
+import { getPageTitle } from 'utils';
 import Layout from '../../components/layout/Layout';
+import { WorkOutlineOutlined } from '@mui/icons-material';
+
+const CONF = {
+  PAGE_TITLE: 'Hackathons',
+  TITLE: 'Hackathons',
+  SUBTITLE: ``,
+  ROUTE: 'events',
+};
+
+const getCardContent = (item: any) => ({
+  id: item.id,
+  imgSrc: item.uriData.image,
+  avatarIcon: <WorkOutlineOutlined />,
+  label: item.uriData.description,
+  title: item.name,
+});
 
 /**
- * Page for a list of Grants
+ * Page for a list of Events
  */
 // eslint-disable-next-line prettier/prettier
-export default function GrantsPage({ }: any) {
+export default function EventsPage({ }: any) {
   const { handleError } = useError();
   const { getTasks } = useTask();
-  const [tasks, setTasks] = useState<Array<Task> | null>(null);
+  const [items, setItems] = useState<Array<Task> | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [currentPageCount, setCurrentPageCount] = useState(1);
   const pageSize = 16;
@@ -24,7 +40,7 @@ export default function GrantsPage({ }: any) {
       setCurrentPage(page);
       setCurrentPageCount(pageCount);
       // Update states
-      setTasks(null);
+      setItems(null);
       // Load tasks
       const items = await getTasks(
         undefined,
@@ -33,7 +49,7 @@ export default function GrantsPage({ }: any) {
         pageSize,
         (page - 1) * pageSize,
       );
-      setTasks(items);
+      setItems(items);
       // Add next page to pagination if possible
       if (page == pageCount && items.length === pageSize) {
         setCurrentPageCount(pageCount + 1);
@@ -48,32 +64,21 @@ export default function GrantsPage({ }: any) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  let title = process.env.NEXT_PUBLIC_APP_NAME + ' — Grants';
+  // Props
+  const listProps = {
+    baseRoute: CONF.ROUTE,
+    data: items,
+    loadData,
+    // renderActions,
+    subtitle: CONF.SUBTITLE,
+    title: CONF.TITLE,
+    // card config
+    getCardContent,
+  };
+
   return (
-    <Layout title={title}>
-      <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-        <Typography variant="h5">Grants</Typography>
-      </Box>
-
-      <TaskList tasks={tasks} sx={{ mt: 1 }} />
-
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: { xs: 'column', md: 'row' },
-          justifyContent: { md: 'space-between' },
-          alignItems: { md: 'center' },
-          mt: 3,
-        }}
-      >
-        <Pagination
-          color="primary"
-          sx={{ mt: { xs: 2, md: 0 } }}
-          count={currentPageCount}
-          page={currentPage}
-          onChange={(_, page) => loadData(page)}
-        />
-      </Box>
+    <Layout title={getPageTitle(CONF.PAGE_TITLE)}>
+      <PaginatedList {...listProps} />
     </Layout>
   );
 }

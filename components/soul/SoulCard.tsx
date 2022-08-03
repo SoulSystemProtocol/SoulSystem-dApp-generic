@@ -10,7 +10,6 @@ import {
   Stack,
   Typography,
 } from '@mui/material';
-// import { GAME_ROLE } from 'constants/contracts';
 import { capitalize } from 'lodash';
 import Link from 'next/link';
 import {

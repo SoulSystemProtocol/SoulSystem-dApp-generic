@@ -1,13 +1,8 @@
 import { Button, Paper, Stack, Typography } from '@mui/material';
 import { Box } from '@mui/system';
-// import { CLAIM_STAGE } from 'constants/contracts';
-// import { CASE_ROLE_KEY } from 'constants/i18n';
-// import { POST_TYPE } from 'constants/metadata';
 import { DataContext } from 'contexts/data';
-// import { useTranslation } from 'next-i18next';
 import { useEffect, useState, useContext } from 'react';
 import { hexStringToJson } from 'utils/converters';
-// import useCase from 'hooks/useCase';
 import GamePostAddDialog from './GamePostAddDialog';
 import SoulCompactCard from 'components/soul/SoulCompactCard';
 import { DialogContext } from 'contexts/dialog';
@@ -22,14 +17,13 @@ export default function GameComments({ item, sx = {} }) {
 
   const [commentPosts, setCommentsPosts] = useState([]);
 
-  // const { isProfileHasAnyCaseRole } = useCase();
   const isProfileHasAnyCaseRole = () => true; //Temporary
   // const { isSoulHasRole } = useTask();
 
   useEffect(() => {
     if (item) {
-      console.log('Item', item);
       const commentPosts = item?.posts; //?.filter( (post) => post.uriType === 'comment', );
+      commentPosts && console.log('commentPosts', commentPosts);
       //Sort by Date
       const sortedCommentPosts = commentPosts?.sort((a, b) =>
         a?.createdDate?.localeCompare(b?.createdDate),
@@ -72,7 +66,6 @@ export default function GameComments({ item, sx = {} }) {
       ) : (
         <Typography>No comments</Typography>
       )}
-      {/* Button to add comment */}
       {
         //item?.stage === CLAIM_STAGE.open &&    //TODO: Enable this on Protocol version 0.5.3
         isProfileHasAnyCaseRole(item, accountSoul?.id) && (
@@ -89,7 +82,7 @@ export default function GameComments({ item, sx = {} }) {
                 )
               }
             >
-              Add Comment
+              Add Post
             </Button>
           </Box>
         )

@@ -1,92 +1,94 @@
-import { Box, Button, Pagination, Typography } from '@mui/material';
-import Layout from '../../components/layout/Layout';
+import { useContext, useEffect, useState } from 'react';
+import Link from 'next/link';
+import { Button } from '@mui/material';
 
-import Soul from 'classes/Soul';
-import SoulList from 'components/soul/SoulList';
-import { SOUL_TYPE } from 'constants/contracts';
 import { DataContext } from 'contexts/data';
 import { Web3Context } from 'contexts/web3';
 import useError from 'hooks/useError';
 import useSoul from 'hooks/useSoul';
-import Link from 'next/link';
-import { useContext, useEffect, useState } from 'react';
+
+import Layout from '../../components/layout/Layout';
+import PaginatedList from 'components/PaginatedList';
+import { SOUL_TYPE } from 'constants/contracts';
+import { APP_CONFIGS } from '../../constants';
+import { getPageTitle, getPagination } from '../../utils';
+import Soul from 'classes/Soul';
+import { PersonOutlineOutlined } from '@mui/icons-material';
+
+import {
+  addressToShortAddress,
+  soulToFirstLastNameString,
+} from 'utils/converters';
+
+const CONF = {
+  PAGE_TITLE: 'Souls',
+  TITLE: 'Souls',
+  SUBTITLE: `Souls are your personal profile NFT.`,
+  ROUTE: 'souls',
+};
+
+const getCardContent = (item: any) => ({
+  id: item.id,
+  imgSrc: item.uriImage,
+  avatarIcon: <PersonOutlineOutlined />,
+  label: addressToShortAddress(item.owner),
+  title: soulToFirstLastNameString(item),
+  roles: [], // TODO: add roles logic
+});
 
 /**
  * Page for a list of souls
  */
-// eslint-disable-next-line prettier/prettier
-export default function SoulsPage({ }: any) {
+export default function SoulsPage({}: any) {
+  const [souls, setSouls] = useState<Array<Soul> | null>(null);
   const { account } = useContext(Web3Context);
   const { accountSoul } = useContext(DataContext);
-  const { handleError } = useError();
   const { getSouls } = useSoul();
-  const [souls, setSouls] = useState<Array<Soul> | null>(null);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [currentPageCount, setCurrentPageCount] = useState(1);
-  const pageSize = 16;
+  const { handleError } = useError();
 
-  async function loadData(page = currentPage, pageCount = currentPageCount) {
+  async function loadData(page: any) {
     try {
       // Update states
-      setCurrentPage(page);
-      setCurrentPageCount(pageCount);
       setSouls(null);
       // Load souls by page params
       const souls = await getSouls(
         undefined,
         undefined,
         SOUL_TYPE.created_by_not_contract,
-        pageSize,
-        (page - 1) * pageSize,
+        APP_CONFIGS.PAGE_SIZE,
+        getPagination(page),
       );
       setSouls(souls);
-      // Add next page to pagination if possible
-      if (page == pageCount && souls.length === pageSize) {
-        setCurrentPageCount(pageCount + 1);
-      }
     } catch (error: any) {
       handleError(error, true);
     }
   }
 
   useEffect(() => {
-    loadData(1, 1);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    loadData(1);
   }, []);
-  let title = process.env.NEXT_PUBLIC_APP_NAME + ' — Souls';
+
+  const renderActions = account && !accountSoul && (
+    <Link href={`/${CONF.ROUTE}/create`} passHref>
+      <Button variant="outlined">Create Soul</Button>
+    </Link>
+  );
+
+  // Props
+  const soulsListProps = {
+    baseRoute: CONF.ROUTE,
+    data: souls,
+    loadData,
+    renderActions,
+    subtitle: CONF.SUBTITLE,
+    title: CONF.TITLE,
+    // card config
+    getCardContent,
+  };
+
   return (
-    <Layout title={title}>
-      <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-        <Box>
-          <Typography variant="h5">Souls</Typography>
-          <Typography variant="subtitle1">
-            Souls are your personal profile NFT.
-          </Typography>
-        </Box>
-        {account && !accountSoul && (
-          <Link href="/souls/create" passHref>
-            <Button variant="outlined">Create Soul</Button>
-          </Link>
-        )}
-      </Box>
-      <SoulList souls={souls} sx={{ mt: 1 }} />
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: { xs: 'column', md: 'row' },
-          justifyContent: { md: 'space-between' },
-          alignItems: { md: 'center' },
-          mt: 3,
-        }}
-      >
-        <Pagination
-          color="primary"
-          sx={{ mt: { xs: 2, md: 0 } }}
-          count={currentPageCount}
-          page={currentPage}
-          onChange={(_, page) => loadData(page)}
-        />
-      </Box>
+    <Layout title={getPageTitle(CONF.PAGE_TITLE)}>
+      <PaginatedList {...soulsListProps} />
     </Layout>
   );
 }

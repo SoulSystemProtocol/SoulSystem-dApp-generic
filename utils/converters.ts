@@ -53,7 +53,6 @@ export function soulToFirstLastNameString(soul: any, length = 36): string {
  * Get iamge of soul.
  */
 export function soulImage(soul: any): string {
-  console.log('soul', soul);
   return soul?.uriImage ? soul.uriImage : '';
 }
 
@@ -68,15 +67,15 @@ export function taskStageToString(task: Task): string {
   return 'Open';
 }
 
-/**
+/** TBD
  * Format action subject, verb, tool to string.
  *
  * @param {Action} action Action.
  * @returns Formatted string with action name or "Unknown action";
- */
+ 
 export function formatActionName(action: {
   action: { subject: any; verb: any; object: any };
-}) {
+}): string {
   if (action?.action) {
     return (
       _.capitalize(action.action.subject || '') +
@@ -88,6 +87,7 @@ export function formatActionName(action: {
   }
   return 'Unknown action';
 }
+*/
 
 /**
  * Fetch Role Name by ID
