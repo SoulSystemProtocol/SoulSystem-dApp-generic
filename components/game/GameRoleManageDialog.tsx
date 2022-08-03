@@ -56,8 +56,8 @@ export default function GameRoleManageDialog({ dao, isClose, onClose }: any) {
       roleName: {
         type: 'string',
         title: 'Role',
-        default: GAME_ROLE.member.name,
-        enum: [GAME_ROLE.member.name, GAME_ROLE.admin.name],
+        default: 'member',
+        enum: ['member', 'admin'],
         enumNames: [
           capitalize(GAME_ROLE.member.name),
           capitalize(GAME_ROLE.admin.name),
