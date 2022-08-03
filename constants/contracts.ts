@@ -12,7 +12,7 @@ export const GAME_TYPE: any = {
 export const GAME_ROLE = {
   admin: {
     id: '1',
-    name: 'admin',
+    name: 'lead',
   },
   member: {
     id: '2',
