@@ -7,25 +7,23 @@ import { useContext, useState, useEffect } from 'react';
  * A component Account's Balance
  */
 export default function AccountBalance({ address }: any) {
-  const [balance, setBalance] = useState('');
-  const { provider } = useContext(Web3Context);
+  const [balance, setBalance] = useState('_');
+  const { provider, isNetworkChainIdCorrect } = useContext(Web3Context);
   const { handleError } = useError();
 
   useEffect(() => {
-    if (address && provider) {
+    if (!!address && !!provider && isNetworkChainIdCorrect) {
       provider
         .getBalance(address)
-        .then((balance: any) => {
+        .then((result: ethers.BigNumberish) => {
           // convert a currency unit from wei to ether
-          const balanceInEth = ethers?.utils.formatEther(balance);
-          // console.log(`balance: ${balanceInEth} ETH`);
+          const balanceInEth = ethers.utils.formatEther(result);
+          // console.log(`balance for account:${address} is ${balanceInEth} ETH`);
           setBalance(balanceInEth);
         })
         .catch((error: Error) => handleError(error, true));
     } else setBalance('?');
-  }, [address, provider]);
-
-  console.log(`get balance:`, address);
+  }, [address, provider, isNetworkChainIdCorrect]);
 
   return <>{balance}</>;
 }
