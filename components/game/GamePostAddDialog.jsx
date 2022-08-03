@@ -168,7 +168,7 @@ export default function GamePostAddDialog({
       maxWidth="xs"
       fullWidth
     >
-      <DialogTitle sx={{ pb: 0 }}>Add Comment</DialogTitle>
+      <DialogTitle sx={{ pb: 0 }}>Add Post</DialogTitle>
       <DialogContent>
         <Form
           schema={schema}

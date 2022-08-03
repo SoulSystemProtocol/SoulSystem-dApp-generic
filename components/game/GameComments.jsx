@@ -69,7 +69,6 @@ export default function GameComments({ item, sx = {} }) {
       ) : (
         <Typography>No comments</Typography>
       )}
-      {/* Button to add comment */}
       {
         //item?.stage === CLAIM_STAGE.open &&    //TODO: Enable this on Protocol version 0.5.3
         isProfileHasAnyCaseRole(item, accountSoul?.id) && (
@@ -86,7 +85,7 @@ export default function GameComments({ item, sx = {} }) {
                 )
               }
             >
-              Add Comment
+              Add Post
             </Button>
           </Box>
         )
