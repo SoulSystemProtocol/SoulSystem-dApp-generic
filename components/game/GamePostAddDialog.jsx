@@ -133,7 +133,7 @@ export default function GamePostAddDialog({
       //[MVP] Use a single role for now : 'member'
       if (item instanceof Task)
         formData.role = 'creator'; //or Creator for Procedures
-      else formData.role = 'member'; //TODO: Implement the role select if entity holds more than 1 role & default to something else... 
+      else formData.role = 'member'; //TODO: Implement the role select if entity holds more than 1 role & default to something else...
       // console.log('Send post: ', item, formData.role, accountSoul);
 
       setFormData(formData);
