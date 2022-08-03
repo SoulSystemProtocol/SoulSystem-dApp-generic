@@ -20,7 +20,6 @@ import useTask from 'hooks/useTask';
 import useError from 'hooks/useError';
 import useIpfs from 'hooks/useIpfs';
 import useToast from 'hooks/useToast';
-import useGameContract from 'hooks/contracts/useGameContract';
 // import {
 //   handleAddCaseEvidenceEvent,
 //   handleCommentCaseEvent,
@@ -135,8 +134,7 @@ export default function GamePostAddDialog({
       if (item instanceof Task)
         formData.role = 'creator'; //or Creator for Procedures
       else formData.role = 'member'; //TODO: Implement the role select if entity holds more than 1 role & default to something else... 
-
-      console.log('Send post: ', item, formData.role, accountSoul);
+      // console.log('Send post: ', item, formData.role, accountSoul);
 
       setFormData(formData);
       setIsLoading(true);
@@ -149,7 +147,6 @@ export default function GamePostAddDialog({
         await getContractGame(item.id).post(formData.role, accountSoul.id, url);
         // handleCommentCaseEvent(item.id); //MVP - No Analytics
       }
-
       showToastSuccess('Success! Data will be updated soon');
       close();
     } catch (error) {

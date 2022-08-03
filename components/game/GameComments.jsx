@@ -45,7 +45,7 @@ export default function GameComments({ item, sx = {} }) {
           {commentPosts.map((post, index) => {
             //Process Data
             post = processGraphPost(post);
-            console.log('Post:', post);
+            // console.log('Post:', post);
             return (
               <Paper key={index} sx={{ p: 2 }}>
                 {/* Author */}

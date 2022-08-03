@@ -81,7 +81,7 @@ export default function SoulCompactCard({
           <Avatar src={profile.uriImage} sx={{ width: 24, height: 24 }}>
             <PersonOutlineOutlined width="24" heigth="24" />
           </Avatar>
-          <Typography variant="body2" sx={{ fontWeight: 'bold', ml: 1 }}>
+          <Typography variant="body2" sx={{ fontWeight: 'normal', ml: 1 }}>
             {disableLink ? (
               <>{soulToFirstLastNameString(profile)}</>
             ) : (
