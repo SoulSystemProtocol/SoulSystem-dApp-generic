@@ -55,13 +55,8 @@ export default function DashboardCard({
       <Card variant="outlined">
         <CardContent sx={{ p: '10px !important' }}>
           <Box sx={wrappStyles}>
-            <CardAvatar
-              imgSrc={imgSrc}
-              avatarIcon={avatarIcon}
-              link={id}
-              sx={{ mr: 2 }}
-            />
-            <Box>
+            <CardAvatar imgSrc={imgSrc} avatarIcon={avatarIcon} link={id} />
+            <Box sx={{ ml: 2 }}>
               <Link href={`/${baseRoute}/${id}`} passHref>
                 <MuiLink underline="none">{title}</MuiLink>
               </Link>

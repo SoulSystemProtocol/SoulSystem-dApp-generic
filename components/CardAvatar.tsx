@@ -13,7 +13,8 @@ export default function CardAvatar({ imgSrc, avatarIcon, link, sx }: any) {
         cursor: 'pointer',
         width: 82,
         height: 82,
-        borderRadius: '16px',
+        borderRadius: '12%',
+        ...sx,
       }}
       src={imgSrc}
     >
@@ -27,5 +28,5 @@ export default function CardAvatar({ imgSrc, avatarIcon, link, sx }: any) {
     </Link>
   );
 
-  return <Box sx={{ ...sx }}>{renderAvatarLink || renderAvatar}</Box>;
+  return <Box>{renderAvatarLink || renderAvatar}</Box>;
 }
