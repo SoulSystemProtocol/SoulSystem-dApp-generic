@@ -11,10 +11,9 @@ import Layout from 'components/layout/Layout';
 import PaginatedList from 'components/PaginatedList';
 import { APP_CONFIGS } from '../../constants';
 import { getPageTitle, getPagination } from '../../utils';
-// import { DAO_CONF, getCardContent } from './constants';
 import Dao from 'classes/Dao';
 
-const DAO_CONF = {
+const CONF = {
   PAGE_TITLE: 'Teams',
   TITLE: 'MentorDAOs',
   SUBTITLE: `Mentor DAOs consist of a mentor and mentees that work on bounties
@@ -69,18 +68,18 @@ export default function DaosPage({}: any) {
 
   // Props
   const daosListProps = {
-    baseRoute: DAO_CONF.ROUTE,
+    baseRoute: CONF.ROUTE,
     data: daos,
     loadData,
     renderActions,
-    subtitle: DAO_CONF.SUBTITLE,
-    title: DAO_CONF.TITLE,
+    subtitle: CONF.SUBTITLE,
+    title: CONF.TITLE,
     // card config
     getCardContent,
   };
 
   return (
-    <Layout title={getPageTitle(DAO_CONF.PAGE_TITLE)}>
+    <Layout title={getPageTitle(CONF.PAGE_TITLE)}>
       <PaginatedList {...daosListProps} />
     </Layout>
   );

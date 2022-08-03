@@ -15,7 +15,7 @@ import { getPageTitle, getPagination } from '../../utils';
 import Project from 'classes/Project';
 import { WorkOutlineOutlined } from '@mui/icons-material';
 
-const PROJECT_CONF = {
+const CONF = {
   PAGE_TITLE: 'Projects',
   TITLE: 'Projects',
   SUBTITLE: `Projects are companies and organizations that need some work done.`,
@@ -74,18 +74,18 @@ export default function ProjectsPage({}: any) {
 
   // Props
   const projectsListProps = {
-    baseRoute: PROJECT_CONF.ROUTE,
+    baseRoute: CONF.ROUTE,
     data: projects,
     loadData,
     renderActions,
-    subtitle: PROJECT_CONF.SUBTITLE,
-    title: PROJECT_CONF.TITLE,
+    subtitle: CONF.SUBTITLE,
+    title: CONF.TITLE,
     // card config
     getCardContent,
   };
 
   return (
-    <Layout title={getPageTitle(PROJECT_CONF.PAGE_TITLE)}>
+    <Layout title={getPageTitle(CONF.PAGE_TITLE)}>
       <PaginatedList {...projectsListProps} />
     </Layout>
   );

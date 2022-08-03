@@ -20,7 +20,7 @@ import {
   soulToFirstLastNameString,
 } from 'utils/converters';
 
-const SOUL_CONF = {
+const CONF = {
   PAGE_TITLE: 'Souls',
   TITLE: 'Souls',
   SUBTITLE: `Souls are your personal profile NFT.`,
@@ -69,25 +69,25 @@ export default function SoulsPage({}: any) {
   }, []);
 
   const renderActions = account && !accountSoul && (
-    <Link href={`/${SOUL_CONF.ROUTE}/create`} passHref>
+    <Link href={`/${CONF.ROUTE}/create`} passHref>
       <Button variant="outlined">Create Soul</Button>
     </Link>
   );
 
   // Props
   const soulsListProps = {
-    baseRoute: SOUL_CONF.ROUTE,
+    baseRoute: CONF.ROUTE,
     data: souls,
     loadData,
     renderActions,
-    subtitle: SOUL_CONF.SUBTITLE,
-    title: SOUL_CONF.TITLE,
+    subtitle: CONF.SUBTITLE,
+    title: CONF.TITLE,
     // card config
     getCardContent,
   };
 
   return (
-    <Layout title={getPageTitle(SOUL_CONF.PAGE_TITLE)}>
+    <Layout title={getPageTitle(CONF.PAGE_TITLE)}>
       <PaginatedList {...soulsListProps} />
     </Layout>
   );
