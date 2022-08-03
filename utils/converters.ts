@@ -67,7 +67,7 @@ export function taskStageToString(task: Task): string {
   return 'Open';
 }
 
-/**
+/** TBD
  * Format action subject, verb, tool to string.
  *
  * @param {Action} action Action.
