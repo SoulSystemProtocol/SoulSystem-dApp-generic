@@ -11,7 +11,6 @@ import {
 import { MuiForm5 as Form } from '@rjsf/material-ui';
 // import CaseEvidencePostInput from 'components/form/widget/CaseEvidencePostInput';
 import { CASE_ROLE } from 'constants/contracts';
-// import { CASE_ROLE_KEY } from 'constants/i18n';
 import { POST_TYPE } from 'constants/metadata';
 import { DataContext } from 'contexts/data';
 import { roleIdToName } from 'utils/converters';

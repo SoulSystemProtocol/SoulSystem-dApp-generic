@@ -1,8 +1,5 @@
 import { Button, Paper, Stack, Typography } from '@mui/material';
 import { Box } from '@mui/system';
-// import { CLAIM_STAGE } from 'constants/contracts';
-// import { CASE_ROLE_KEY } from 'constants/i18n';
-// import { POST_TYPE } from 'constants/metadata';
 import { DataContext } from 'contexts/data';
 // import { useTranslation } from 'next-i18next';
 import { useEffect, useState, useContext } from 'react';
