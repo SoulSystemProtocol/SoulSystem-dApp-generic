@@ -14,7 +14,7 @@ import { CLAIM_ROLE } from 'constants/contracts';
 import { POST_TYPE } from 'constants/metadata';
 import { DataContext } from 'contexts/data';
 import { roleIdToName } from 'utils/converters';
-import { useContract } from 'hooks/useContract';
+import useContract from 'hooks/useContract';
 import useTask from 'hooks/useTask';
 import useError from 'hooks/useError';
 import useIpfs from 'hooks/useIpfs';
@@ -25,11 +25,18 @@ import useGameContract from 'hooks/contracts/useGameContract';
 //   handleCommentCaseEvent,
 // } from 'utils/analytics';
 
+// interface Props {
+//   item: object;
+//   postType: string;
+//   isClose: Boolean;
+//   onClose: Boolean;
+// };
+
 /**
  * A component with dialog for add case post (comment, confirmation).
  */
 export default function GamePostAddDialog({
-  caseObject,
+  item,
   postType = POST_TYPE.comment,
   isClose,
   onClose,
@@ -52,12 +59,14 @@ export default function GamePostAddDialog({
     //   required: ['role', 'evidencePostUri'],
     // }),
     ...(postType === POST_TYPE.comment && {
-      required: ['role', 'message'],
+      // required: ['role', 'message'],
+      required: ['message'],
     }),
     ...(postType === POST_TYPE.confirmation && {
       required: ['confirmationType'],
     }),
     properties: {
+      /*
       // Role input
       ...((postType === POST_TYPE.evidence ||
         postType === POST_TYPE.comment) && {
@@ -69,6 +78,7 @@ export default function GamePostAddDialog({
           default: caseRoleNames?.[0],
         },
       }),
+      */
       // Evidence input
       // ...(postType === POST_TYPE.evidence && {
       //   evidencePostUri: {
@@ -120,6 +130,9 @@ export default function GamePostAddDialog({
 
   async function submit({ formData }) {
     try {
+      //[MVP] Use a single role for now : 'member'
+      formData.role = 'member'; //TODO: Implement the role select if entity holds more than 1 role & default to something else... 
+
       setFormData(formData);
       setIsLoading(true);
       // If post is comment
@@ -128,13 +141,8 @@ export default function GamePostAddDialog({
           // new CommentPostMetadata(formData.message),
           { type: POST_TYPE.comment, text: formData.message },
         );
-        await getContractGame(caseObject.id).post(
-          // caseObject.id,
-          formData.role,
-          accountSoul.id,
-          url,
-        );
-        handleCommentCaseEvent(caseObject.id);
+        await getContractGame(item.id).post(formData.role, accountSoul.id, url);
+        // handleCommentCaseEvent(item.id); //MVP - No Analytics
       }
       showToastSuccess('Success! Data will be updated soon');
       close();
@@ -146,11 +154,9 @@ export default function GamePostAddDialog({
 
   useEffect(() => {
     // Define which roles the profile has
-    if (accountSoul && caseObject) {
+    if (accountSoul && item) {
       const caseRoleNames = Object.values(CLAIM_ROLE)
-        .filter((caseRole) =>
-          isSoulHasRole(caseObject, accountSoul.id, caseRole.id),
-        )
+        .filter((caseRole) => isSoulHasRole(item, accountSoul.id, caseRole.id))
         .map((caseRole) => caseRole.name);
       const caseRoleStrings = caseRoleNames.map((caseRoleName) =>
         roleIdToName(caseRoleName),
@@ -159,7 +165,7 @@ export default function GamePostAddDialog({
       setCaseRoleStrings(caseRoleStrings);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [accountSoul, caseObject]);
+  }, [accountSoul, item]);
 
   return (
     <Dialog
@@ -192,7 +198,7 @@ export default function GamePostAddDialog({
             ) : (
               <>
                 <Button variant="contained" type="submit">
-                  Add
+                  Send
                 </Button>
                 <Button variant="outlined" onClick={onClose}>
                   Cancel
