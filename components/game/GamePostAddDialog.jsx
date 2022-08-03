@@ -15,6 +15,7 @@ import { POST_TYPE } from 'constants/metadata';
 import { DataContext } from 'contexts/data';
 import { roleIdToName } from 'utils/converters';
 import useContract from 'hooks/useContract';
+import Task from 'classes/Task';
 import useTask from 'hooks/useTask';
 import useError from 'hooks/useError';
 import useIpfs from 'hooks/useIpfs';
@@ -131,7 +132,11 @@ export default function GamePostAddDialog({
   async function submit({ formData }) {
     try {
       //[MVP] Use a single role for now : 'member'
-      formData.role = 'member'; //TODO: Implement the role select if entity holds more than 1 role & default to something else... 
+      if (item instanceof Task)
+        formData.role = 'creator'; //or Creator for Procedures
+      else formData.role = 'member'; //TODO: Implement the role select if entity holds more than 1 role & default to something else... 
+
+      console.log('Send post: ', item, formData.role, accountSoul);
 
       setFormData(formData);
       setIsLoading(true);
@@ -144,6 +149,7 @@ export default function GamePostAddDialog({
         await getContractGame(item.id).post(formData.role, accountSoul.id, url);
         // handleCommentCaseEvent(item.id); //MVP - No Analytics
       }
+
       showToastSuccess('Success! Data will be updated soon');
       close();
     } catch (error) {

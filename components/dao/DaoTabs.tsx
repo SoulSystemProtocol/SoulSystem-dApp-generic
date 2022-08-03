@@ -30,14 +30,12 @@ export default function DaoTabs({ dao, sx }: any) {
             }}
           >
             <Tab label="Posts" value="1" />
-            <Tab label="Members" value="2" />
+            <Tab label="Players" value="2" />
             <Tab label="Applicants" value="3" />
           </TabList>
-
           <TabPanel value="1" sx={{ px: 0 }}>
             <GameComments item={dao} />
           </TabPanel>
-
           <TabPanel value="2" sx={{ px: 0 }}>
             <GameSouls game={dao} />
           </TabPanel>

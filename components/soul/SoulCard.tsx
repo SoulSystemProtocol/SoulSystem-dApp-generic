@@ -32,7 +32,7 @@ export default function SoulCard({ soul, roles }: any) {
                 display: 'flex',
                 flexDirection: 'row',
                 alignItems: 'center',
-                justifyContent: 'space-between',
+                // justifyContent: 'space-between',
               }}
             >
               <Box
@@ -43,9 +43,11 @@ export default function SoulCard({ soul, roles }: any) {
                 }}
               >
                 <SoulImage soul={soul} sx={{ mr: 2 }} />
-                <SoulDetails soul={soul} />
+                <SoulDetails soul={soul} sx={{ mr: 2 }} />
               </Box>
-              <SoulRoles roles={roles} />
+              <Box>
+                <SoulRoles roles={roles} />
+              </Box>
             </Box>
           </CardContent>
         </Card>
@@ -63,10 +65,7 @@ export function SoulRoles({ roles }: any) {
         {roles.map((role: string, index: number) => (
           <Chip
             key={index}
-            label={capitalize(
-              roleIdToName(role),
-              // Object.values(GAME_ROLE).find((element) => element.id == role)?.name,
-            )}
+            label={capitalize(roleIdToName(role))}
             // label={role}
             size="small"
           />

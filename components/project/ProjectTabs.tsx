@@ -30,7 +30,7 @@ export default function ProjectTabs({ project, sx }: any) {
             }}
           >
             <Tab label="Tasks" value="1" />
-            <Tab label="Members" value="2" />
+            <Tab label="Players" value="2" />
           </TabList>
           <TabPanel value="1" sx={{ px: 0 }}>
             <ProjectAddTaskButton project={project} sx={{ mb: 4 }} />
