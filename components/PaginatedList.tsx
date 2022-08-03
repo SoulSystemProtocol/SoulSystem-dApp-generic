@@ -37,10 +37,7 @@ export default function PaginatedList({
 
   function loadWithPagination(page: number) {
     loadData(page);
-
-    if (data) {
-      setCurrentPage(page);
-    }
+    data && setCurrentPage(page);
   }
 
   return (

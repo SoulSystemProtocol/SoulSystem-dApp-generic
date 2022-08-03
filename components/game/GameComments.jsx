@@ -25,8 +25,8 @@ export default function GameComments({ item, sx = {} }) {
 
   useEffect(() => {
     if (item) {
-      console.log('Item', item);
       const commentPosts = item?.posts; //?.filter( (post) => post.uriType === 'comment', );
+      commentPosts && console.log('commentPosts', commentPosts);
       //Sort by Date
       const sortedCommentPosts = commentPosts?.sort((a, b) =>
         a?.createdDate?.localeCompare(b?.createdDate),
