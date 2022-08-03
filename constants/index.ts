@@ -1,5 +1,5 @@
 export const APP_CONFIGS = {
-  NAME: 'MENTOR PROTOCOL',
+  NAME: 'The Hunter Protocol',
   PAGE_SIZE: 16,
   TITLE_SEP: '—',
 };
