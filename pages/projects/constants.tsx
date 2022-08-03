@@ -7,7 +7,7 @@ export const PROJECT_CONF = {
   ROUTE: 'projects',
 };
 
-export const getCardContent: any = (item: any) => ({
+export const getCardContent: {} = (item: any) => ({
   id: item.id,
   imgSrc: item.uriData?.image,
   avatarIcon: <WorkOutlineOutlined />,

@@ -1,7 +1,5 @@
-import { Box, Pagination, Typography } from '@mui/material';
 import Task from 'classes/Task';
 import PaginatedList from 'components/PaginatedList';
-import TaskList from 'components/task/TaskList';
 import useError from 'hooks/useError';
 import useTask from 'hooks/useTask';
 import { useEffect, useState } from 'react';
@@ -68,27 +66,4 @@ export default function EventsPage({ }: any) {
       <PaginatedList {...listProps} />
     </Layout>
   );
-
-  /*
-
-      <TaskList tasks={tasks} sx={{ mt: 1 }} />
-
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: { xs: 'column', md: 'row' },
-          justifyContent: { md: 'space-between' },
-          alignItems: { md: 'center' },
-          mt: 3,
-        }}
-      >
-        <Pagination
-          color="primary"
-          sx={{ mt: { xs: 2, md: 0 } }}
-          count={currentPageCount}
-          page={currentPage}
-          onChange={(_, page) => loadData(page)}
-        />
-      </Box>
-    */
 }

@@ -11,8 +11,8 @@ type TPaginatedList = {
   loadData: any;
   subtitle: string;
   title: string;
-  renderActions: any | undefined;
-  getCardContent: any;
+  getCardContent: {};
+  renderActions?: JSX.Element;
 };
 
 const wrapperStyle = {
