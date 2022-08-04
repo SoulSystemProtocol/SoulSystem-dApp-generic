@@ -7,6 +7,7 @@ import {
   VolunteerActivism,
   EmojiEmotions,
   Festival,
+  AcUnit,
 } from '@mui/icons-material';
 // import { CSSObject, Theme, useTheme } from '@mui/material/styles';
 import GitHubIcon from '@mui/icons-material/GitHub';
@@ -83,6 +84,12 @@ const footer_icons: { route: string; label: string; icon: JSX.Element }[] = [
     route: 'https://docs.google.com/file/d/1jORzF6hSls2WxYLZeMizbK8pt1UB9RX-/edit?filetype=mspresentation',
     icon: <SlideshowIcon />,
     label: 'Deck',
+  },
+  {
+    // eslint-disable-next-line prettier/prettier
+    route: 'https://thegraph.com/hosted-service/subgraph/toledoroy/mdao',
+    icon: <AcUnit />,
+    label: 'SubGraph',
   },
 ];
 
