@@ -20,6 +20,7 @@ const CONF = {
   together, as a team.`,
 };
 
+// Item Processing Function
 const getCardContent = (item: any) => {
   let metadata = hexStringToJson(item.uriData);
   let ret = {

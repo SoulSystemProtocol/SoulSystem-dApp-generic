@@ -23,14 +23,20 @@ const CONF = {
   ROUTE: 'souls',
 };
 
+// Item Processing Function
 const getCardContent = (item: any) => {
+  let metadata = hexStringToJson(item.uriData);
+
   let ret = {
     id: item.id,
     imgSrc: item.uriImage,
     avatarIcon: <PersonOutlineOutlined />,
     label: addressToShortAddress(item.owner),
-    title: soulToFirstLastNameString(item),
-    metadata: hexStringToJson(item.uriData),
+
+    //DEPRECATE soulToFirstLastNameString() Usage here. That should be stored in  metadata.name
+    title: metadata?.name || soulToFirstLastNameString(item),
+
+    metadata,
     link: `/${CONF.ROUTE}/${item.id}`,
     // roles: [], // TODO: add roles logic
   };
