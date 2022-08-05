@@ -27,7 +27,8 @@ export default function useDao() {
     ids?: Array<string>,
     first = 10,
     skip = 0,
-  ): Promise<Array<Dao>> {
+  // ): Promise<Array<Dao>> {
+    ): Promise<Array<object>> {
     const subgraphGames = await findGames(ids, GAME_TYPE.mdao, first, skip);
     // console.log('DAO subgraphGames', subgraphGames, ids);
     return subgraphGames.map((subgraphGame: any) =>
@@ -58,14 +59,18 @@ export default function useDao() {
 }
 
 function convertSubgraphGameToDao(subgraphGame: any) {
-  return new Dao(
-    subgraphGame.id,
-    subgraphGame.name,
-    subgraphGame.type,
-    subgraphGame.uri,
-    hexStringToJson(subgraphGame.uriData),
-    subgraphGame.roles,
-    subgraphGame.nominations,
-    subgraphGame.posts,
-  );
+  return {
+    ...subgraphGame,
+    uriData: hexStringToJson(subgraphGame.uriData),
+  };
+  // return new Dao(
+  //   subgraphGame.id,
+  //   subgraphGame.name,
+  //   subgraphGame.type,
+  //   subgraphGame.uri,
+  //   hexStringToJson(subgraphGame.uriData),
+  //   subgraphGame.roles,
+  //   subgraphGame.nominations,
+  //   subgraphGame.posts,
+  // );
 }
