@@ -32,11 +32,18 @@ export default function Landing() {
             {APP_CONFIGS.NAME}
           </Typography>
           <Typography variant="h4" fontSize="2em" letterSpacing="0.25em">
-            {/* Where junior developers learn and earn */}
+            On-chain bounties
+          </Typography>
+          <Typography
+            variant="h4"
+            fontSize="1.85em"
+            letterSpacing="0.3em"
+            sx={{ mt: 4, mb: 4 }}
+          >
             The future of work
           </Typography>
-          <Typography variant="h4" fontSize="1.5em" sx={{ mt: 1 }}>
-            And the uprising of the Gig Economy
+          <Typography variant="h4" fontSize="1.6em" sx={{ mt: 1 }}>
+            The uprising of the Gig Economy
           </Typography>
           {!account && (
             <Box mt={2}>
@@ -45,7 +52,7 @@ export default function Landing() {
               </Typography>
             </Box>
           )}
-          <Box sx={{ mt: 22, display: 'flex', justifyContent: 'center' }}>
+          <Box sx={{ mt: 18, display: 'flex', justifyContent: 'center' }}>
             <Typography variant="h6" mr={2}>
               Need some test tokens?
             </Typography>
