@@ -10,3 +10,14 @@ export function getTraitValue(
   );
   return attribute?.value || null;
 }
+
+/**
+ * Resolve IPFS Links
+ */
+// export const resolveLink = (url: any) => (!url || !url.includes("ipfs://")) ? url : url.replace("ipfs://", "https://gateway.ipfs.io/ipfs/");
+// export const resolveLink = (url: any) => (!url || !url.includes("ipfs://")) ? url : url.replace("ipfs://", "https://ipfs.moralis.io:2053/ipfs/");
+// export const resolveLink = (url: any) => (!url || !url.includes("ipfs://")) ? url : url.replace("ipfs://", "https://cloudflare-ipfs.com/ipfs/");
+export const resolveLink = (url: any) =>
+  !url || !url.includes('ipfs://')
+    ? url
+    : url.replace('ipfs://', 'https://ipfs.infura.io/ipfs/');
