@@ -48,7 +48,6 @@ export default function SoulCompactCard({
         : getSoulByOwner(propsAccount);
       promise
         .then((profile) => {
-          console.log('Post: Retrived Profile: ', profile);
           if (isComponentActive && profile) {
             setProfile(profile);
           }
