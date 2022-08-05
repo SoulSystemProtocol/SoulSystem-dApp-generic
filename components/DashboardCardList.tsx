@@ -10,21 +10,22 @@ export default function DashboardCardList({
   data,
   dataAccessor,
   sx,
+  loading = false,
 }: any) {
-  if (!data) return <Loader />;
+  if (!data || loading) return <Loader />;
 
   return (
     <Grid container spacing={2} sx={{ ...sx }}>
-      {!data?.length && (
+      {!data?.length ? (
         <Grid item xs={12}>
           <Typography>No Results</Typography>
         </Grid>
-      )}
-      {!!data?.length && (
+      ) : (
         <>
           {data.map((dataItem: any, index: number) => {
             //Process Data
             const data = dataAccessor(dataItem);
+            console.log('Processed Item:', { data, dataItem });
             return (
               <Grid key={index} item xs={12} md={6}>
                 <DashboardCard baseRoute={baseRoute} data={data} />

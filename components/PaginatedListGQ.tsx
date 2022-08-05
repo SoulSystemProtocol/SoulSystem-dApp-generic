@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { Box, Pagination, Typography } from '@mui/material';
 import DashboardCardList from './DashboardCardList';
 
-type TPaginatedList = {
+type TPaginatedListGQ = {
   query: any;
   variables?: any;
   baseRoute: string;
@@ -32,12 +32,12 @@ export default function PaginatedListGQ({
   title,
   renderActions,
   getCardContent,
-}: TPaginatedList) {
+}: TPaginatedListGQ) {
   const [currentPage, setCurrentPage] = useState(1);
   // const [currentPageCount, setCurrentPageCount] = useState(2); //Unknown End
   const [items, setItems] = useState([]);
   const [first, setFirst] = useState(10);
-  const [skip, setSkip] = useState(2);
+  const [skip, setSkip] = useState(0);
 
   //TODO: Use Order
   const [orderBy, setOrderBy] = useState({ createdAt: 'desc' });
@@ -49,7 +49,10 @@ export default function PaginatedListGQ({
 
   useEffect(() => {
     if (error) console.error('Soul query failed', { data, error });
+    else console.error('Soul query ', { data });
     setItems(data?.souls);
+
+    console.log('Souls:', data?.souls);
   }, [data, error]);
 
   function pageChanged(page: number) {
@@ -68,6 +71,7 @@ export default function PaginatedListGQ({
         {!!renderActions && renderActions}
       </Box>
       <DashboardCardList
+        loading={loading}
         baseRoute={baseRoute}
         dataAccessor={getCardContent}
         data={items}

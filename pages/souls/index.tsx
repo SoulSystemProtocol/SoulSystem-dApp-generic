@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+// import { gql } from '@apollo/client';
 import { useContext } from 'react';
 import { Button } from '@mui/material';
 import { DataContext } from 'contexts/data';
@@ -11,11 +11,13 @@ import Link from 'next/link';
 // import { SOUL_TYPE } from 'constants/contracts';
 // import { APP_CONFIGS } from '../../constants';
 import Layout from '../../components/layout/Layout';
-import PaginatedListGQ from 'components/PaginatedListGQ';
-import { getPageTitle, getPagination } from '../../utils';
+// import PaginatedListGQ from 'components/PaginatedListGQ';
+import SoulListGQ from 'components/soul/SoulListGQ';
+import { getPageTitle } from '../../utils';
 import { PersonOutlineOutlined } from '@mui/icons-material';
 import {
   addressToShortAddress,
+  hexStringToJson,
   soulToFirstLastNameString,
 } from 'utils/converters';
 
@@ -26,37 +28,26 @@ const CONF = {
   ROUTE: 'souls',
 };
 
-const getCardContent = (item: any) => ({
-  id: item.id,
-  imgSrc: item.uriImage,
-  avatarIcon: <PersonOutlineOutlined />,
-  label: addressToShortAddress(item.owner),
-  title: soulToFirstLastNameString(item),
-  roles: [], // TODO: add roles logic
-});
+// const getCardContent = (item: any) => ({
+//   id: item.id,
+//   imgSrc: item.uriImage,
+//   avatarIcon: <PersonOutlineOutlined />,
+//   label: addressToShortAddress(item.owner),
+//   title: soulToFirstLastNameString(item),
+//   roles: [], // TODO: add roles logic
+// });
 
-const QUERY = gql`
-  query GetSouls($type: String!, $first: Int, $skip: Int) {
-    souls(first: $first, skip: $skip, where: { type: $type }) {
-      id
-      owner
-      type
-      uri
-      uriData
-      uriImage
-      uriFirstName
-      uriLastName
-      participantGame {
-        id
-        roles
-      }
-      participantProc {
-        id
-        roles
-      }
-    }
-  }
-`;
+const getCardContent = (item: any) => {
+  let ret = {
+    id: item.id,
+    imgSrc: item.uriImage,
+    avatarIcon: <PersonOutlineOutlined />,
+    label: addressToShortAddress(item.owner),
+    title: soulToFirstLastNameString(item),
+    uriData: hexStringToJson(item.uriData),
+  };
+  return ret;
+};
 
 /**
  * Page for a list of souls
@@ -73,12 +64,11 @@ export default function SoulsPage({ type = '' }: any) {
 
   // Props for GQL List
   const soulsListPropsGQ = {
-    query: QUERY,
+    // query: QUERY,
     variables: {
       type,
     },
     getCardContent,
-    // card config
     baseRoute: CONF.ROUTE,
     renderActions,
     subtitle: CONF.SUBTITLE,
@@ -87,7 +77,7 @@ export default function SoulsPage({ type = '' }: any) {
 
   return (
     <Layout title={getPageTitle(CONF.PAGE_TITLE)}>
-      <PaginatedListGQ {...soulsListPropsGQ} />
+      <SoulListGQ {...soulsListPropsGQ} />
     </Layout>
   );
 }

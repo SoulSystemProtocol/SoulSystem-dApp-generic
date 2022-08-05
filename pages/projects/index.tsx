@@ -52,6 +52,8 @@ export default function ProjectsPage({}: any) {
       );
 
       setProjects(projects);
+
+      console.log('Projects', projects);
     } catch (error: any) {
       handleError(error, true);
     }
