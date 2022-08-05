@@ -2,6 +2,7 @@ import { useQuery } from '@apollo/client';
 import { useEffect, useState } from 'react';
 import { Box, Pagination, Typography } from '@mui/material';
 import DashboardCardList from './DashboardCardList';
+import { APP_CONFIGS } from 'constants';
 
 type TPaginatedListGQ = {
   query: any;
@@ -33,10 +34,11 @@ export default function PaginatedListGQ({
   renderActions,
   getCardContent,
 }: TPaginatedListGQ) {
+  const pageSize = APP_CONFIGS.PAGE_SIZE;
   const [currentPage, setCurrentPage] = useState(1);
   // const [currentPageCount, setCurrentPageCount] = useState(2); //Unknown End
   const [items, setItems] = useState([]);
-  const [first, setFirst] = useState(10);
+  const [first, setFirst] = useState(pageSize);
   const [skip, setSkip] = useState(0);
 
   //TODO: Use Order
@@ -55,7 +57,7 @@ export default function PaginatedListGQ({
 
   function pageChanged(page: number) {
     // console.log('Set Page', page);
-    setSkip(page == 1 ? 0 : (page - 1) * first);
+    setSkip(page == 1 ? 0 : (page - 1) * pageSize);
     data && setCurrentPage(page);
   }
 
