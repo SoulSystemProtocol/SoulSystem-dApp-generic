@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { create } from 'ipfs-http-client';
 
-/**
+/** DEPRECATE - If it doesn't keep a state it doesn't need to be a hook
  * Hook for work with IPFS.
  */
 export default function useIpfs() {
@@ -19,16 +19,18 @@ export default function useIpfs() {
     });
     const cid = created.path;
     const url = `https://ipfs.infura.io/ipfs/${cid}`;
+    // const url = `ipfs://${cid}`;  //TODO: Shoul be like so
     return { cid, url };
   };
 
   let uploadJsonToIPFS = async function (json: any) {
     // Upload to the graph for usage in graph queries
     await theGraphClient.add(JSON.stringify(json));
-    // Upload to infura
+    // Upload to IPFS via infura
     const created = await infuraClient.add(JSON.stringify(json));
     const cid = created.path;
     const url = `https://ipfs.infura.io/ipfs/${cid}`;
+    // const url = `ipfs://${cid}`;  //TODO: Shoul be like so
     return { cid, url };
   };
 
