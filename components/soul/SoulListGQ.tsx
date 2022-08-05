@@ -9,6 +9,8 @@ const query = gql`
       type
       uri
       uriData
+      metadata
+      name
       uriImage
       uriFirstName
       uriLastName
