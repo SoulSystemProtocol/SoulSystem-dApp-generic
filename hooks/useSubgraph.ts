@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { DocumentNode, gql, useQuery } from '@apollo/client';
 import { IS_GAMES_CREATED_BY_NOT_HUB_DISABLED } from 'constants/features';
 
 /**
@@ -46,20 +47,35 @@ export default function useSubgraph() {
     return response.claims;
   };
 
+  let isGamePart = async (gameId: string, sbt: string) => {
+    const queryGQL = `
+      query GetPart($sbt: ID!, $gameId: ID!) {
+        gameParticipants(where: { sbt: $sbt, entity: $gameId }) {
+          id
+        }
+      }
+    `;
+    const response = await makeSubgraphQuery(queryGQL, { sbt, gameId });
+    console.log('Response:', response, response.gameParticipants, {
+      sbt,
+      gameId,
+    });
+    return response.gameParticipants.length > 0;
+  };
+
   return {
+    isGamePart,
     findSouls,
     findGames,
     findClaims,
   };
 }
 
-async function makeSubgraphQuery(query: string) {
+async function makeSubgraphQuery(query: string, variables = {}) {
   try {
     const response = await axios.post(
       process.env.NEXT_PUBLIC_SUBGRAPH_API || '',
-      {
-        query: query,
-      },
+      { query, variables },
     );
     if (response.data.errors) {
       throw new Error(
@@ -104,7 +120,6 @@ function getFindSoulsQuery(
           id
           roles
         }
-
       }
     }`;
 }

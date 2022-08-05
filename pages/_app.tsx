@@ -6,6 +6,12 @@ import type { AppProps } from 'next/app';
 import NextNProgress from 'nextjs-progressbar';
 import { SnackbarProvider } from 'notistack';
 import '../styles/globals.css';
+import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
+
+const client = new ApolloClient({
+  uri: process.env.NEXT_PUBLIC_SUBGRAPH_API,
+  cache: new InMemoryCache(),
+});
 
 const darkTheme = createTheme({
   palette: {
@@ -29,17 +35,19 @@ const darkTheme = createTheme({
  */
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <ThemeProvider theme={darkTheme}>
-      <SnackbarProvider maxSnack={3}>
-        <Web3Provider>
-          <DataProvider>
-            <DialogProvider>
-              <NextNProgress height={4} />
-              <Component {...pageProps} />
-            </DialogProvider>
-          </DataProvider>
-        </Web3Provider>
-      </SnackbarProvider>
-    </ThemeProvider>
+    <ApolloProvider client={client}>
+      <ThemeProvider theme={darkTheme}>
+        <SnackbarProvider maxSnack={3}>
+          <Web3Provider>
+            <DataProvider>
+              <DialogProvider>
+                <NextNProgress height={4} />
+                <Component {...pageProps} />
+              </DialogProvider>
+            </DataProvider>
+          </Web3Provider>
+        </SnackbarProvider>
+      </ThemeProvider>
+    </ApolloProvider>
   );
 }
