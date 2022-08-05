@@ -77,7 +77,8 @@ export default function TaskManageDialog({
       setFormData(formData);
       setIsLoading(true);
       const { url: metadataUrl } = await uploadJsonToIPFS(
-        new TaskMetadata(formData.description),
+        // new TaskMetadata(formData.description),
+        formData,
       );
       if (task) {
         // TODO: Implement this feature

@@ -89,7 +89,8 @@ export default function ProjectManageDialog({
       setFormData(formData);
       setIsLoading(true);
       const { url: metadataUrl } = await uploadJsonToIPFS(
-        new ProjectMetadata(formData.image, formData.description),
+        // new ProjectMetadata(formData.image, formData.description),
+        formData,
       );
       if (project) {
         await editProject(project.id, metadataUrl);

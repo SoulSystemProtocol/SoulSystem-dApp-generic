@@ -68,7 +68,8 @@ export default function TaskPostDeliveryDialog({
       setFormData(formData);
       setIsLoading(true);
       const { url: metadataUrl } = await uploadJsonToIPFS(
-        new TaskPostDeliveryMetadata(formData.message),
+        // new TaskPostDeliveryMetadata(formData.message),
+        formData,
       );
       await postTaskDeliveryAsDao(task.id, formData.daoId, metadataUrl);
       showToastSuccess('Success! Data will be updated soon');

@@ -67,7 +67,8 @@ export default function SoulManage({ soul }: any) {
       // Upload json with form data to IPFS
       setStatus(STATUS.isUploadingToIpfs);
       const { url: metadataUrl } = await uploadJsonToIPFS(
-        new SoulMetadata(formData.image, formData.attributes),
+        // new SoulMetadata(formData.image, formData.attributes),
+        formData,
       );
       // Use contract
       setStatus(STATUS.isUsingContract);
