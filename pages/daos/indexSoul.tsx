@@ -11,18 +11,13 @@ import DaoManageDialog from 'components/dao/DaoManageDialog';
 import Layout from 'components/layout/Layout';
 // import PaginatedList from 'components/PaginatedList';
 import SoulListGQ from 'components/soul/SoulListGQ';
-import {
-  addressToShortAddress,
-  hexStringToJson,
-  soulToFirstLastNameString,
-} from 'utils/converters';
+import { hexStringToJson } from 'utils/converters';
 
 const CONF = {
   PAGE_TITLE: 'Teams',
   TITLE: 'Teams',
   SUBTITLE: `Mentor DAOs consist of a mentor and mentees that work on bounties
   together, as a team.`,
-  ROUTE: 'daos',
 };
 
 const getCardContent = (item: any) => {
@@ -30,9 +25,10 @@ const getCardContent = (item: any) => {
   let ret = {
     id: item.id,
     imgSrc: item.uriImage,
-    metadata: metadata,
     label: metadata?.description,
     title: metadata?.name,
+    metadata: metadata,
+    link: `/daos/${item.id}`,
   };
   return ret;
 };
@@ -59,7 +55,6 @@ export default function DaosPage({}: any) {
       type: 'GAME',
     },
     getCardContent,
-    baseRoute: CONF.ROUTE,
     renderActions,
     subtitle: CONF.SUBTITLE,
     title: CONF.TITLE,
