@@ -1,10 +1,10 @@
-/**
- * Dashboard Card List component.
- */
 import { Grid, Typography } from '@mui/material';
 import Loader from './Loader';
 import DashboardCard from './DashboardCard';
 
+/**
+ * Dashboard Card List component.
+ */
 export default function DashboardCardList({
   baseRoute,
   data,
@@ -22,15 +22,15 @@ export default function DashboardCardList({
       )}
       {!!data?.length && (
         <>
-          {data.map((dataItem: any, index: number) => (
-            <Grid key={index} item xs={12} md={6}>
-              <DashboardCard
-                baseRoute={baseRoute}
-                dataItem={dataItem}
-                dataAccessor={dataAccessor}
-              />
-            </Grid>
-          ))}
+          {data.map((dataItem: any, index: number) => {
+            //Process Data
+            const data = dataAccessor(dataItem);
+            return (
+              <Grid key={index} item xs={12} md={6}>
+                <DashboardCard baseRoute={baseRoute} data={data} />
+              </Grid>
+            );
+          })}
         </>
       )}
     </Grid>

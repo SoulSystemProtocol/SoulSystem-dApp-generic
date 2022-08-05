@@ -1,6 +1,3 @@
-/**
- * Dashboard card component.
- */
 import Link from 'next/link';
 import {
   Chip,
@@ -17,9 +14,7 @@ import { roleIdToName } from 'utils/converters';
 
 type TDashboardCard = {
   baseRoute: string;
-  dataAccessor: any;
-  dataItem: any;
-  roles?: any;
+  data: any;
 };
 
 const wrappStyles = {
@@ -28,20 +23,11 @@ const wrappStyles = {
   flexDirection: 'row',
 };
 
-export default function DashboardCard({
-  baseRoute,
-  dataItem,
-  dataAccessor,
-}: TDashboardCard) {
-  const {
-    id,
-    title,
-    label,
-    imgSrc,
-    avatarIcon,
-    roles = [],
-  } = dataAccessor(dataItem);
-
+/**
+ * Dashboard card component.
+ */
+export default function DashboardCard({ baseRoute, data }: TDashboardCard) {
+  const { id, title, label, imgSrc, avatarIcon, roles = [] } = data;
   const renderChip = !!roles?.length && (
     <Stack spacing={1}>
       {roles.map((role: string, index: number) => (
