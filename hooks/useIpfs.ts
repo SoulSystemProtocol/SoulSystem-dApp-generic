@@ -18,8 +18,8 @@ export default function useIpfs() {
       content: file,
     });
     const cid = created.path;
-    const url = `https://ipfs.infura.io/ipfs/${cid}`;
-    // const url = `ipfs://${cid}`;  //TODO: Shoul be like so
+    // const url = `https://ipfs.infura.io/ipfs/${cid}`;
+    const url = `ipfs://${cid}`;
     return { cid, url };
   };
 
@@ -29,8 +29,8 @@ export default function useIpfs() {
     // Upload to IPFS via infura
     const created = await infuraClient.add(JSON.stringify(json));
     const cid = created.path;
-    const url = `https://ipfs.infura.io/ipfs/${cid}`;
-    // const url = `ipfs://${cid}`;  //TODO: Shoul be like so
+    // const url = `https://ipfs.infura.io/ipfs/${cid}`;
+    const url = `ipfs://${cid}`;
     return { cid, url };
   };
 
