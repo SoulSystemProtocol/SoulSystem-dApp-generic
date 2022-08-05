@@ -37,13 +37,15 @@ export default function DashboardCard({ baseRoute, data }: TDashboardCard) {
   );
 
   if (id) {
+    const link = data.link || `/${baseRoute}/${id}`;
+    if (!data.link) console.error('data has no link', data);
     return (
       <Card variant="outlined">
         <CardContent sx={{ p: '10px !important' }}>
           <Box sx={wrappStyles}>
             <CardAvatar imgSrc={imgSrc} avatarIcon={avatarIcon} link={id} />
             <Box sx={{ ml: 2 }}>
-              <Link href={`/${baseRoute}/${id}`} passHref>
+              <Link href={link} passHref>
                 <MuiLink underline="none">{title}</MuiLink>
               </Link>
               {label && (

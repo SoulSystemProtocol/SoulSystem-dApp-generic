@@ -31,6 +31,7 @@ const getCardContent = (item: any) => {
     label: addressToShortAddress(item.owner),
     title: soulToFirstLastNameString(item),
     metadata: hexStringToJson(item.uriData),
+    link: `/${CONF.ROUTE}/${item.id}`,
     // roles: [], // TODO: add roles logic
   };
   return ret;
@@ -53,7 +54,7 @@ export default function SoulsPage({ type = '' }: any) {
   const soulsListPropsGQ = {
     variables: { type },
     getCardContent,
-    baseRoute: CONF.ROUTE,
+    // baseRoute: CONF.ROUTE,   REDUNDANT - just use the link element on the getCardContent function
     renderActions,
     subtitle: CONF.SUBTITLE,
     title: CONF.TITLE,
