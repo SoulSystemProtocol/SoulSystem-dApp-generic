@@ -1,11 +1,12 @@
-import { useState } from 'react';
+import { useQuery } from '@apollo/client';
+import { useEffect, useState } from 'react';
 import { Box, Pagination, Typography } from '@mui/material';
 import DashboardCardList from './DashboardCardList';
 
 type TPaginatedList = {
+  query: any;
+  variables?: any;
   baseRoute: string;
-  data: any;
-  loadData: any;
   subtitle: string;
   title: string;
   getCardContent: {};
@@ -23,20 +24,37 @@ const wrapperStyle = {
 /**
  * Component for a paginated list
  */
-export default function PaginatedList({
+export default function PaginatedListGQ({
+  query,
+  variables,
   baseRoute,
-  data,
-  loadData,
   subtitle,
   title,
   renderActions,
   getCardContent,
 }: TPaginatedList) {
   const [currentPage, setCurrentPage] = useState(1);
-  const [currentPageCount, setCurrentPageCount] = useState(1); // TODO: update pagination
+  // const [currentPageCount, setCurrentPageCount] = useState(2); //Unknown End
+  const [items, setItems] = useState([]);
+  const [first, setFirst] = useState(10);
+  const [skip, setSkip] = useState(2);
 
-  function loadWithPagination(page: number) {
-    loadData(page);
+  //TODO: Use Order
+  const [orderBy, setOrderBy] = useState({ createdAt: 'desc' });
+
+  //TODO: Maybe handle the 'loading' state
+  const { data, loading, error } = useQuery(query, {
+    variables: { ...variables, first, skip },
+  });
+
+  useEffect(() => {
+    if (error) console.error('Soul query failed', { data, error });
+    setItems(data?.souls);
+  }, [data, error]);
+
+  function pageChanged(page: number) {
+    // console.log('Set Page', page);
+    setSkip(page == 1 ? 0 : (page - 1) * first);
     data && setCurrentPage(page);
   }
 
@@ -52,13 +70,14 @@ export default function PaginatedList({
       <DashboardCardList
         baseRoute={baseRoute}
         dataAccessor={getCardContent}
-        data={data}
+        data={items}
       />
       <Box sx={wrapperStyle}>
         <Pagination
           color="primary"
-          count={currentPageCount}
-          onChange={(_, page) => loadWithPagination(page)}
+          // count={currentPageCount}
+          count={items?.length < first ? currentPage : currentPage + 1}
+          onChange={(_, page) => pageChanged(page)}
           page={currentPage}
           sx={{ mt: { xs: 2, md: 0 } }}
         />

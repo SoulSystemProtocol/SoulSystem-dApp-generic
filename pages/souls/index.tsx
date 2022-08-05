@@ -1,20 +1,19 @@
-import { useContext, useEffect, useState } from 'react';
-import Link from 'next/link';
+import { gql } from '@apollo/client';
+import { useContext } from 'react';
 import { Button } from '@mui/material';
-
 import { DataContext } from 'contexts/data';
 import { Web3Context } from 'contexts/web3';
-import useError from 'hooks/useError';
-import useSoul from 'hooks/useSoul';
-
+import Link from 'next/link';
+// import useError from 'hooks/useError';
+// import useSoul from 'hooks/useSoul';
+// import useSouls from 'hooks/graph/useSouls';
+// import Soul from 'classes/Soul';
+// import { SOUL_TYPE } from 'constants/contracts';
+// import { APP_CONFIGS } from '../../constants';
 import Layout from '../../components/layout/Layout';
-import PaginatedList from 'components/PaginatedList';
-import { SOUL_TYPE } from 'constants/contracts';
-import { APP_CONFIGS } from '../../constants';
+import PaginatedListGQ from 'components/PaginatedListGQ';
 import { getPageTitle, getPagination } from '../../utils';
-import Soul from 'classes/Soul';
 import { PersonOutlineOutlined } from '@mui/icons-material';
-
 import {
   addressToShortAddress,
   soulToFirstLastNameString,
@@ -36,37 +35,35 @@ const getCardContent = (item: any) => ({
   roles: [], // TODO: add roles logic
 });
 
+const QUERY = gql`
+  query GetSouls($type: String!, $first: Int, $skip: Int) {
+    souls(first: $first, skip: $skip, where: { type: $type }) {
+      id
+      owner
+      type
+      uri
+      uriData
+      uriImage
+      uriFirstName
+      uriLastName
+      participantGame {
+        id
+        roles
+      }
+      participantProc {
+        id
+        roles
+      }
+    }
+  }
+`;
+
 /**
  * Page for a list of souls
  */
-export default function SoulsPage({}: any) {
-  const [souls, setSouls] = useState<Array<Soul> | null>(null);
+export default function SoulsPage({ type = '' }: any) {
   const { account } = useContext(Web3Context);
   const { accountSoul } = useContext(DataContext);
-  const { getSouls } = useSoul();
-  const { handleError } = useError();
-
-  async function loadData(page: any) {
-    try {
-      // Update states
-      setSouls(null);
-      // Load souls by page params
-      const souls = await getSouls(
-        undefined,
-        undefined,
-        SOUL_TYPE.created_by_not_contract,
-        APP_CONFIGS.PAGE_SIZE,
-        getPagination(page),
-      );
-      setSouls(souls);
-    } catch (error: any) {
-      handleError(error, true);
-    }
-  }
-
-  useEffect(() => {
-    loadData(1);
-  }, []);
 
   const renderActions = account && !accountSoul && (
     <Link href={`/${CONF.ROUTE}/create`} passHref>
@@ -74,21 +71,23 @@ export default function SoulsPage({}: any) {
     </Link>
   );
 
-  // Props
-  const soulsListProps = {
+  // Props for GQL List
+  const soulsListPropsGQ = {
+    query: QUERY,
+    variables: {
+      type,
+    },
+    getCardContent,
+    // card config
     baseRoute: CONF.ROUTE,
-    data: souls,
-    loadData,
     renderActions,
     subtitle: CONF.SUBTITLE,
     title: CONF.TITLE,
-    // card config
-    getCardContent,
   };
 
   return (
     <Layout title={getPageTitle(CONF.PAGE_TITLE)}>
-      <PaginatedList {...soulsListProps} />
+      <PaginatedListGQ {...soulsListPropsGQ} />
     </Layout>
   );
 }
