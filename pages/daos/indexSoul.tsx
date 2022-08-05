@@ -26,15 +26,14 @@ const CONF = {
 };
 
 const getCardContent = (item: any) => {
+  let metadata = hexStringToJson(item.uriData);
   let ret = {
     id: item.id,
     imgSrc: item.uriImage,
-    title: item.name,
-    metadata: hexStringToJson(item.uriData),
-    label: '',
+    metadata: metadata,
+    label: metadata?.description,
+    title: metadata?.name,
   };
-  ret.label = ret?.metadata?.description;
-  // ret.title = ret?.metadata?.name;
   return ret;
 };
 

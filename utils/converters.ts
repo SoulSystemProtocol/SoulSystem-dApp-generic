@@ -6,7 +6,7 @@ import _ from 'lodash';
 /**
  * Convert hex string to json.
  */
-export function hexStringToJson(hexString: string): object | null {
+export function hexStringToJson(hexString: string): any {
   if (!hexString || hexString.length === 0) {
     return null;
   }
