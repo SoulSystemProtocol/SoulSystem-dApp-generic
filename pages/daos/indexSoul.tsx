@@ -12,6 +12,7 @@ import Layout from 'components/layout/Layout';
 // import PaginatedList from 'components/PaginatedList';
 import SoulListGQ from 'components/soul/SoulListGQ';
 import { hexStringToJson } from 'utils/converters';
+import { resolveLink } from 'utils/metadata';
 
 const CONF = {
   PAGE_TITLE: 'Teams',
@@ -25,7 +26,7 @@ const getCardContent = (item: any) => {
   let metadata = hexStringToJson(item.uriData);
   let ret = {
     id: item.id,
-    imgSrc: item.uriImage,
+    imgSrc: resolveLink(metadata.image),
     label: metadata?.description,
     title: metadata?.name,
     metadata: metadata,

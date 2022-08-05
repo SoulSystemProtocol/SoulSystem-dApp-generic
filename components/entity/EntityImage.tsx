@@ -1,5 +1,6 @@
 import { AutoAwesomeOutlined } from '@mui/icons-material';
 import { Avatar } from '@mui/material';
+import { resolveLink } from 'utils/metadata';
 
 /**
  * Generic entity image component.
@@ -15,7 +16,7 @@ export default function EntityImage({ item, title, alt, icon, sx = {} }: any) {
         borderRadius: '12%',
         ...sx,
       }}
-      src={item?.image || item?.uriData?.image}
+      src={resolveLink(item?.image || item?.uriData?.image)}
     >
       {icon || <AutoAwesomeOutlined />}
     </Avatar>

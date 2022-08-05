@@ -15,6 +15,7 @@ import {
   hexStringToJson,
   soulToFirstLastNameString,
 } from 'utils/converters';
+import { resolveLink } from 'utils/metadata';
 
 const CONF = {
   PAGE_TITLE: 'Souls',
@@ -29,7 +30,7 @@ const getCardContent = (item: any) => {
 
   let ret = {
     id: item.id,
-    imgSrc: item.uriImage,
+    imgSrc: resolveLink(metadata.image),
     avatarIcon: <PersonOutlineOutlined />,
     label: addressToShortAddress(item.owner),
 
