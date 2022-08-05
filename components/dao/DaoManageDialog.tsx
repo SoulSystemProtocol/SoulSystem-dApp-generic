@@ -85,7 +85,8 @@ export default function DaoManageDialog({ dao, isClose, onClose }: any) {
       setFormData(formData);
       setIsLoading(true);
       const { url: metadataUrl } = await uploadJsonToIPFS(
-        new DaoMetadata(formData.image, formData.description),
+        // new DaoMetadata(formData.image, formData.description),
+        formData,
       );
       if (dao) {
         await editDao(dao.id, metadataUrl);
