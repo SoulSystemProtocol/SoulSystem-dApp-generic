@@ -5,6 +5,7 @@ import { WidgetProps } from '@rjsf/core';
 import useError from 'hooks/useError';
 import useIpfs from 'hooks/useIpfs';
 import { ReactNode, useState } from 'react';
+import { resolveLink } from 'utils/metadata';
 
 /**
  * A widget to input an image, upload it to IPFS, and get URI.
@@ -20,22 +21,20 @@ export default function ImageInput(props: WidgetProps) {
   const [isLoading, setIsLoading] = useState(false);
   const size = 164;
 
+  /// Input File Validation
   function isFileValid(file: any) {
-    if (!file) {
-      return false;
-    }
+    if (!file) return false;
+    //Validate Type
     const isJpgOrPng =
       file.type === 'image/jpeg' ||
       file.type === 'image/png' ||
       file.type === 'image/gif' ||
       file.type === 'image/svg+xml';
-    if (!isJpgOrPng) {
-      return false;
-    }
+    if (!isJpgOrPng) return false;
+    //Validate Size
     const isLt2M = file.size / 1024 / 1024 < 2;
-    if (!isLt2M) {
-      return false;
-    }
+    if (!isLt2M) return false;
+    //Pass
     return true;
   }
 
@@ -43,14 +42,12 @@ export default function ImageInput(props: WidgetProps) {
     // Get file
     const file = event.target.files[0];
     // Ignore not existing file
-    if (!file) {
-      return;
-    }
+    if (!file) return;
     // Upload file to IPFS
     try {
       if (!isFileValid(file)) {
         throw new Error(
-          'Only JPG/PNG/GIF files with size smaller than 2MB are currently supported!',
+          'Sorry, Only JPG/PNG/GIF files with size smaller than 2MB are currently supported',
         );
       }
       setIsLoading(true);
@@ -74,7 +71,7 @@ export default function ImageInput(props: WidgetProps) {
             height: size,
             borderRadius: '24px',
           }}
-          src={!isLoading ? propsImage : null}
+          src={!isLoading ? resolveLink(propsImage) : null}
         >
           {isLoading ? <CircularProgress /> : <AddOutlined />}
         </Avatar>
