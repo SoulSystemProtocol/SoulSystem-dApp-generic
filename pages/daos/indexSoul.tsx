@@ -64,7 +64,6 @@ export default function DaosPage({}: any) {
 
   return (
     <Layout title={getPageTitle(CONF.PAGE_TITLE)}>
-      SOUL OF A GAME
       <SoulListGQ {...daosListProps} />
     </Layout>
   );
