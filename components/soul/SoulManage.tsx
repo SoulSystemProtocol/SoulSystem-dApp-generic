@@ -5,6 +5,7 @@ import { MuiForm5 as Form } from '@rjsf/material-ui';
 import SoulMetadata from 'classes/metadata/SoulMetadata';
 import ImageInput from 'components/form/widgets/ImageInput';
 import SoulAttributesInput from 'components/form/widgets/soul/SoulAttributesInput';
+import { PROFILE_TRAIT_TYPE } from 'constants/metadata';
 import useError from 'hooks/useError';
 import useIpfs from 'hooks/useIpfs';
 import useSoul from 'hooks/useSoul';
@@ -12,6 +13,8 @@ import useToast from 'hooks/useToast';
 import { JSONSchema7 } from 'json-schema';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
+import { soulToFirstLastNameString } from 'utils/converters';
+import { getTraitValue } from 'utils/metadata';
 
 /**
  * A component for create or edit own soul.
@@ -66,10 +69,21 @@ export default function SoulManage({ soul }: any) {
       setFormData(formData);
       // Upload json with form data to IPFS
       setStatus(STATUS.isUploadingToIpfs);
-      const { url: metadataUrl } = await uploadJsonToIPFS(
-        // new SoulMetadata(formData.image, formData.attributes),
-        formData,
+
+      // let metadata = new SoulMetadata(formData.image, formData.attributes);  //Why??
+      let metadata = formData;
+      let uriFirstName = getTraitValue(
+        metadata?.attributes,
+        PROFILE_TRAIT_TYPE.firstName,
       );
+      let uriLastName = getTraitValue(
+        metadata?.attributes,
+        PROFILE_TRAIT_TYPE.lastName,
+      );
+      metadata.name = soulToFirstLastNameString({ uriFirstName, uriLastName });
+      metadata.description = getTraitValue(metadata?.attributes, 'description');
+      console.log("Saving Soul's Metadata", metadata);
+      const { url: metadataUrl } = await uploadJsonToIPFS(metadata);
       // Use contract
       setStatus(STATUS.isUsingContract);
       if (soul) {
