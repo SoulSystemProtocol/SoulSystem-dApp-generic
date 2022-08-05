@@ -34,7 +34,7 @@ export default function DaosPage({}: any) {
   const { showDialog, closeDialog } = useContext(DialogContext);
   const { handleError } = useError();
   const { getDaos } = useDao();
-  const [daos, setDaos] = useState<Array<object> | null>(null);
+  const [daos, setDaos] = useState<Array<Dao> | null>(null);
 
   async function loadData(page: any) {
     try {
