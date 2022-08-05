@@ -1,18 +1,13 @@
-// import { gql } from '@apollo/client';
 import { useContext } from 'react';
 import { Button } from '@mui/material';
 import { DataContext } from 'contexts/data';
 import { Web3Context } from 'contexts/web3';
 import Link from 'next/link';
 // import useError from 'hooks/useError';
-// import useSoul from 'hooks/useSoul';
-// import useSouls from 'hooks/graph/useSouls';
-// import Soul from 'classes/Soul';
-// import { SOUL_TYPE } from 'constants/contracts';
 // import { APP_CONFIGS } from '../../constants';
-import Layout from '../../components/layout/Layout';
 // import PaginatedListGQ from 'components/PaginatedListGQ';
-import SoulListGQ from 'components/soul/SoulListGQ';
+import Layout from '../../components/layout/Layout';
+import SoulListGQ from '../../components/soul/SoulListGQ';
 import { getPageTitle } from '../../utils';
 import { PersonOutlineOutlined } from '@mui/icons-material';
 import {
@@ -28,15 +23,6 @@ const CONF = {
   ROUTE: 'souls',
 };
 
-// const getCardContent = (item: any) => ({
-//   id: item.id,
-//   imgSrc: item.uriImage,
-//   avatarIcon: <PersonOutlineOutlined />,
-//   label: addressToShortAddress(item.owner),
-//   title: soulToFirstLastNameString(item),
-//   roles: [], // TODO: add roles logic
-// });
-
 const getCardContent = (item: any) => {
   let ret = {
     id: item.id,
@@ -44,7 +30,8 @@ const getCardContent = (item: any) => {
     avatarIcon: <PersonOutlineOutlined />,
     label: addressToShortAddress(item.owner),
     title: soulToFirstLastNameString(item),
-    uriData: hexStringToJson(item.uriData),
+    metadata: hexStringToJson(item.uriData),
+    // roles: [], // TODO: add roles logic
   };
   return ret;
 };
@@ -64,10 +51,7 @@ export default function SoulsPage({ type = '' }: any) {
 
   // Props for GQL List
   const soulsListPropsGQ = {
-    // query: QUERY,
-    variables: {
-      type,
-    },
+    variables: { type },
     getCardContent,
     baseRoute: CONF.ROUTE,
     renderActions,
