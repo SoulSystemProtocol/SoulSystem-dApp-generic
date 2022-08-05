@@ -29,7 +29,7 @@ const getCardContent = (item: any) => {
     label: metadata?.description,
     title: metadata?.name,
     metadata: metadata,
-    link: `/daos/${item.id}`,
+    link: `/daos/${item.owner}`,
   };
   return ret;
 };
