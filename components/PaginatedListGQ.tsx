@@ -49,10 +49,8 @@ export default function PaginatedListGQ({
 
   useEffect(() => {
     if (error) console.error('Soul query failed', { data, error });
-    else console.error('Soul query ', { data });
+    else console.log('Soul query ', data?.souls);
     setItems(data?.souls);
-
-    console.log('Souls:', data?.souls);
   }, [data, error]);
 
   function pageChanged(page: number) {

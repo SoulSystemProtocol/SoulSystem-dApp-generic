@@ -1,18 +1,15 @@
 import { useContext, useEffect, useState } from 'react';
 import { Button } from '@mui/material';
-
 import { DataContext } from 'contexts/data';
 import { DialogContext } from 'contexts/dialog';
 import useError from 'hooks/useError';
 import useProject from 'hooks/useProject';
-
+import Project from 'classes/Project';
 import ProjectManageDialog from 'components/project/ProjectManageDialog';
 import PaginatedList from 'components/PaginatedList';
 import Layout from '../../components/layout/Layout';
 import { APP_CONFIGS } from '../../constants';
 import { getPageTitle, getPagination } from '../../utils';
-
-import Project from 'classes/Project';
 import { WorkOutlineOutlined } from '@mui/icons-material';
 
 const CONF = {

@@ -74,10 +74,10 @@ export default function SoulManage({ soul }: any) {
       setStatus(STATUS.isUsingContract);
       if (soul) {
         await editSoul(soul.id, metadataUrl);
-        showToastSuccess('Your soul will be transformed momentarily');
+        showToastSuccess('Your new soul is on its way');
       } else {
         await createSoul(metadataUrl);
-        showToastSuccess('Your soul will arrive shortly');
+        showToastSuccess('Your soul will be updated shortly');
       }
       router.push('/');
     } catch (error: any) {
