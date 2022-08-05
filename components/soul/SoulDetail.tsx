@@ -28,8 +28,9 @@ import FundDialogButton from 'components/web3/FundDialogButton';
  * A component with soul details.
  */
 export default function SoulDetail({ soul, sx }: any) {
-  if (soul) {
-    return (
+  if (!soul) return <></>;
+  return (
+    <Box>
       <Box
         sx={{
           display: 'flex',
@@ -43,10 +44,10 @@ export default function SoulDetail({ soul, sx }: any) {
         </Box>
         <Box sx={{ flexGrow: 1, mt: { xs: 2, md: 0 }, ml: { md: 4 } }}>
           {/* <Chip label={`ID: ${soul.id}`} sx={{ height: '24px', mb: 1.5 }} /> */}
-          <Typography variant="h4">
+          <Typography variant="h1" sx={{ fontSize: '2.25rem' }}>
             {soulToFirstLastNameString(soul)}
           </Typography>
-          <AddressHash address={soul.owner} sx={{ ml: 1 }} />
+          <AddressHash address={soul.owner} sx={{ mt: 1 }} />
           <SoulDescription soul={soul} sx={{ mt: 1 }} />
           <SoulLinks soul={soul} sx={{ mt: 2 }} />
           <Stack direction="row" spacing={2} sx={{ mt: 2 }}>
@@ -54,10 +55,17 @@ export default function SoulDetail({ soul, sx }: any) {
           </Stack>
         </Box>
       </Box>
-    );
-  }
 
-  return <></>;
+      <Box sx={{ my: 2 }}>
+        <Typography variant="h5">Teams</Typography>
+        <Typography variant="body1">[TBD]</Typography>
+      </Box>
+      <Box sx={{ my: 2 }}>
+        <Typography variant="h5">Bounties</Typography>
+        <Typography variant="body1">[TBD]</Typography>
+      </Box>
+    </Box>
+  );
 }
 
 function SoulImage({ soul, sx }: any) {
