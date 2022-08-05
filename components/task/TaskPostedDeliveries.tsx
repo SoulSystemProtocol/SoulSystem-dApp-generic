@@ -35,7 +35,7 @@ export default function TaskPostedDeliveries({ task, sx }: any) {
 
   useEffect(() => {
     if (task) {
-      console.log('Task Posts', task?.posts);
+      // console.log('Task Posts', task?.posts);
       setApplicantPosts(
         task.posts.filter(
           (post: any) => post.entityRole == CLAIM_POST_ENTITY_TYPE.applicant,
