@@ -79,7 +79,6 @@ export default function PaginatedListGQ({
       <Box sx={wrapperStyle}>
         <Pagination
           color="primary"
-          // count={currentPageCount}
           count={items?.length < first ? currentPage : currentPage + 1}
           onChange={(_, page) => pageChanged(page)}
           page={currentPage}
