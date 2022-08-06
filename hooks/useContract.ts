@@ -1,4 +1,7 @@
+import { Contract } from 'ethers';
+import { useContext } from 'react';
 import { Web3Context } from 'contexts/web3';
+//ABIs
 import ABI_Game from 'contracts/abi/Game.json';
 import ABI_Task from 'contracts/abi/Task.json';
 import ABI_Hub from 'contracts/abi/Hub.json';
@@ -8,8 +11,6 @@ import ABI_extProject from 'contracts/abi/extProject.json';
 import ABI_extRules from 'contracts/abi/extRules.json';
 import ABI_Soul from 'contracts/abi/Soul.json';
 import WrongNetworkError from 'errors/WrongNetworkError';
-import { Contract } from 'ethers';
-import { useContext } from 'react';
 
 /**
  * Hook for workin with contracts.

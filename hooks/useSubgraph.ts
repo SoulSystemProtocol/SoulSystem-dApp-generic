@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { DocumentNode, gql, useQuery } from '@apollo/client';
+// import { DocumentNode, gql, useQuery } from '@apollo/client';
 import { IS_GAMES_CREATED_BY_NOT_HUB_DISABLED } from 'constants/features';
 
 /**
