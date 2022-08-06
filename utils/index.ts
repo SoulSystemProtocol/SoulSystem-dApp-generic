@@ -9,7 +9,11 @@ export const getPageTitle = (pageName: string) =>
 /// Pagination Helper
 export const getPagination = (page: any) => (page - 1) * APP_CONFIGS.PAGE_SIZE;
 
-///
+/**
+ * Get Soul ID by Account Address
+ * @param address 
+ * @returns 
+ */
 export const getSBTForAccount = async (
   address: string,
 ): Promise<string | undefined> => {
@@ -27,6 +31,11 @@ export const getSBTForAccount = async (
   return response?.account?.sbt?.id;
 };
 
+/**
+ * Runs a subgraph query
+ * @param query 
+ * @param variables 
+ */
 export async function runSubgraphQuery(query: string, variables = {}) {
   try {
     const response = await axios.post(
