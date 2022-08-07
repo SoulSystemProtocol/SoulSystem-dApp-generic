@@ -2,6 +2,7 @@ import { SchoolOutlined } from '@mui/icons-material';
 import { Avatar } from '@mui/material';
 import { Box } from '@mui/system';
 import Link from 'next/link';
+import { resolveLink } from 'utils/metadata';
 
 /**
  *  Component: Card Avatar Image
@@ -17,7 +18,7 @@ export default function CardAvatar({ imgSrc, avatarIcon, link, sx }: any) {
         borderRadius: '12%',
         ...sx,
       }}
-      src={imgSrc}
+      src={resolveLink(imgSrc)}
     >
       {avatarIcon || <SchoolOutlined />}
     </Avatar>
