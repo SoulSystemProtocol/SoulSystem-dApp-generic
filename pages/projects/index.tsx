@@ -25,6 +25,7 @@ const getCardContent: {} = (item: any) => ({
   avatarIcon: <WorkOutlineOutlined />,
   label: item.uriData?.description,
   title: item.name,
+  link: `/${CONF.ROUTE}/${item.id}`,
 });
 
 /**
@@ -73,7 +74,6 @@ export default function ProjectsPage({}: any) {
 
   // Props
   const projectsListProps = {
-    baseRoute: CONF.ROUTE,
     data: projects,
     loadData,
     renderActions,

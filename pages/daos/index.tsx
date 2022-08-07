@@ -24,6 +24,7 @@ const getCardContent = (item: any) => ({
   imgSrc: item.uriData.image,
   label: item.uriData.description,
   title: item.name,
+  link: `/${CONF.ROUTE}/${item.id}`,
 });
 
 /**
@@ -66,7 +67,6 @@ export default function DaosPage({}: any) {
 
   // Props
   const daosListProps = {
-    baseRoute: CONF.ROUTE,
     data: daos,
     loadData,
     renderActions,
