@@ -3,7 +3,7 @@ import { Box, Pagination, Typography } from '@mui/material';
 import DashboardCardList from './DashboardCardList';
 
 type TPaginatedList = {
-  baseRoute: string;
+  baseRoute?: string;
   data: any;
   loadData: any;
   subtitle: string;
