@@ -23,6 +23,7 @@ import { soulToFirstLastNameString } from 'utils/converters';
 import { getTraitValue } from 'utils/metadata';
 import AddressHash from 'components/web3/AddressHash';
 import FundDialogButton from 'components/web3/FundDialogButton';
+import EntityImage from 'components/entity/EntityImage';
 
 /**
  * A component with soul details.
@@ -39,7 +40,7 @@ export default function SoulDetail({ soul, sx }: any) {
         }}
       >
         <Box>
-          <SoulImage soul={soul} />
+          <EntityImage item={soul} icon={PersonOutlineOutlined} />
           <SoulEditButton soul={soul} sx={{ mt: 2, width: 164 }} />
         </Box>
         <Box sx={{ flexGrow: 1, mt: { xs: 2, md: 0 }, ml: { md: 4 } }}>
@@ -64,23 +65,6 @@ export default function SoulDetail({ soul, sx }: any) {
         <Typography variant="h5">Bounties</Typography>
         <Typography variant="body1">[TBD]</Typography>
       </Box>
-    </Box>
-  );
-}
-
-function SoulImage({ soul, sx }: any) {
-  return (
-    <Box sx={{ ...sx }}>
-      <Avatar
-        sx={{
-          width: 164,
-          height: 164,
-          borderRadius: '24px',
-        }}
-        src={soul?.uriData?.image}
-      >
-        <PersonOutlineOutlined />
-      </Avatar>
     </Box>
   );
 }
