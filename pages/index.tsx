@@ -53,15 +53,21 @@ export default function Landing() {
             </Box>
           )}
           <Box sx={{ mt: 18, display: 'flex', justifyContent: 'center' }}>
-            <Typography variant="h6" mr={2}>
+            <Typography variant="h6" mr={1}>
               Need some test tokens?
             </Typography>
-            <Typography sx={{ textDecoration: 'underline', marginTop: '5px' }}>
-              <Link href={`https://optimismfaucet.xyz/`} passHref>
+            <Typography sx={{ marginTop: '5px' }}>
+              Request some from the{' '}
+              <Link href={`https://faucet.polygon.technology/`} passHref>
+                <MuiLink underline="none" target="_blank">
+                  Mumbai Testnet Faucet
+                </MuiLink>
+              </Link>
+              {/* <Link href={`https://optimismfaucet.xyz/`} passHref>
                 <MuiLink underline="none" target="_blank">
                   Optimistic Kovan Faucet
                 </MuiLink>
-              </Link>
+              </Link> */}
             </Typography>
           </Box>
         </Box>
