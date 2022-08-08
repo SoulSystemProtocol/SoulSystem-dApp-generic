@@ -4,7 +4,7 @@ import { DialogContext } from 'contexts/dialog';
 import { DataContext } from 'contexts/data';
 import { APP_CONFIGS } from '../../constants';
 import { getPageTitle, getPagination } from '../../utils';
-import Dao from 'classes/Dao';
+// import Dao from 'classes/Dao';
 import useDao from 'hooks/useDao';
 import useError from 'hooks/useError';
 import DaoManageDialog from 'components/dao/DaoManageDialog';
