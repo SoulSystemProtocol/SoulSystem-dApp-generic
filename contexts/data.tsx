@@ -19,22 +19,21 @@ export function DataProvider({ children }: any) {
   const [accountSoul, setAccountSoul] = useState<Soul | null>(null);
 
   async function updateContext() {
-    // Clear context if account not connected
     if (!account) {
+      // Clear context
       clearContext();
-    }
-    // Load data if account connected
-    else {
+    } else {
+      // Load account data
       try {
         // Define data
         const accountSoul = await getSoulByOwner(account);
         // Clear context if account does not have soul
-        if (!accountSoul) {
+        if (accountSoul) {
+          // Update states
+          setAccountSoul(accountSoul);
+        } else {
           clearContext();
-          return;
         }
-        // Update states
-        setAccountSoul(accountSoul);
       } catch (error: any) {
         handleError(error, false);
       }
@@ -53,8 +52,7 @@ export function DataProvider({ children }: any) {
     if (isWebContextReady) {
       updateContext().then(() => setIsReady(true));
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isWebContextReady]);
+  }, [isWebContextReady, account]);
 
   /**
    * Update context if context is ready and account is changed.
