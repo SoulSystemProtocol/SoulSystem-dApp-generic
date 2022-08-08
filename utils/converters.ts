@@ -2,6 +2,7 @@ import Task from 'classes/Task';
 import { CLAIM_STAGE, GAME_ROLE } from 'constants/contracts';
 import { truncate } from 'lodash';
 import _ from 'lodash';
+import { resolveLink } from './metadata';
 
 /**
  * Convert hex string to json.
@@ -53,7 +54,7 @@ export function soulToFirstLastNameString(soul: any, length = 36): string {
  * Get iamge of soul.
  */
 export function soulImage(soul: any): string {
-  return soul?.uriImage ? soul.uriImage : '';
+  return soul?.uriImage ? resolveLink(soul.uriImage) : '';
 }
 
 /**
