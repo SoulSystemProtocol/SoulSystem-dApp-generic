@@ -52,15 +52,13 @@ export function DataProvider({ children }: any) {
     if (isWebContextReady) {
       updateContext().then(() => setIsReady(true));
     }
-  }, [isWebContextReady, account]);
+  }, [isWebContextReady]);
 
   /**
    * Update context if context is ready and account is changed.
    */
   useEffect(() => {
-    if (isReady) {
-      updateContext();
-    }
+    if (isReady) updateContext();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [account]);
 
