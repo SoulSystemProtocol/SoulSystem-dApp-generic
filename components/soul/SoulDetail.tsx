@@ -20,7 +20,7 @@ import { Web3Context } from 'contexts/web3';
 import Link from 'next/link';
 import { useContext } from 'react';
 import { soulToFirstLastNameString } from 'utils/converters';
-import { getTraitValue } from 'utils/metadata';
+// import { getTraitValue } from 'utils/metadata';
 import AddressHash from 'components/web3/AddressHash';
 import FundDialogButton from 'components/web3/FundDialogButton';
 import EntityImage from 'components/entity/EntityImage';
@@ -70,10 +70,7 @@ export default function SoulDetail({ soul, sx }: any) {
 }
 
 function SoulDescription({ soul, sx }: any) {
-  const description = getTraitValue(
-    soul.uriData?.attributes,
-    PROFILE_TRAIT_TYPE.description,
-  );
+  const description = soul.getTraitValue(PROFILE_TRAIT_TYPE.description);
   if (description) {
     return <Typography sx={{ ...sx }}>{description}</Typography>;
   }
@@ -81,30 +78,13 @@ function SoulDescription({ soul, sx }: any) {
 }
 
 function SoulLinks({ soul, sx }: any) {
-  const email = getTraitValue(
-    soul?.uriData?.attributes,
-    PROFILE_TRAIT_TYPE.email,
-  );
-  const site = getTraitValue(
-    soul?.uriData?.attributes,
-    PROFILE_TRAIT_TYPE.site,
-  );
-  const twitter = getTraitValue(
-    soul?.uriData?.attributes,
-    PROFILE_TRAIT_TYPE.twitter,
-  );
-  const telegram = getTraitValue(
-    soul?.uriData?.attributes,
-    PROFILE_TRAIT_TYPE.telegram,
-  );
-  const facebook = getTraitValue(
-    soul?.uriData?.attributes,
-    PROFILE_TRAIT_TYPE.facebook,
-  );
-  const instagram = getTraitValue(
-    soul?.uriData?.attributes,
-    PROFILE_TRAIT_TYPE.instagram,
-  );
+  // Fetch Traits
+  const email = soul.getTraitValue(PROFILE_TRAIT_TYPE.email);
+  const site = soul.getTraitValue(PROFILE_TRAIT_TYPE.site);
+  const twitter = soul.getTraitValue(PROFILE_TRAIT_TYPE.twitter);
+  const telegram = soul.getTraitValue(PROFILE_TRAIT_TYPE.telegram);
+  const facebook = soul.getTraitValue(PROFILE_TRAIT_TYPE.facebook);
+  const instagram = soul.getTraitValue(PROFILE_TRAIT_TYPE.instagram);
 
   return (
     <Stack direction="row" spacing={2} sx={{ ...sx }}>

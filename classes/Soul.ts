@@ -1,3 +1,5 @@
+import { getTraitValue } from 'utils/metadata';
+
 /**
  * Class for soul.
  */
@@ -11,6 +13,7 @@ export default class Soul {
   uriFirstName: string | null;
   uriLastName: string | null;
   // posts: any | null;
+  // getTraitValue: function;
 
   constructor(
     id: string,
@@ -32,5 +35,10 @@ export default class Soul {
     this.uriFirstName = uriFirstName;
     this.uriLastName = uriLastName;
     // this.posts = posts;
+  }
+
+  //Get Trait Value by Key
+  getTraitValue(key: string){
+    return getTraitValue(this?.uriData?.attributes, key);
   }
 }
