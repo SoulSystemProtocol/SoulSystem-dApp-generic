@@ -32,7 +32,7 @@ export default function TaskApplications({ task, sx }: any) {
   return (
     <Box sx={{ ...sx }}>
       <Divider sx={{ mb: 1 }} />
-      <Typography variant="h5">:</Typography>
+      <Typography variant="h5">Applicants:</Typography>
       <List
         subheader={
           <ListSubheader>
@@ -57,7 +57,7 @@ export default function TaskApplications({ task, sx }: any) {
                       )
                     }
                   >
-                    Apply as DAO
+                    Apply as a Team
                   </Button>
                 )}
             </Stack>
@@ -122,6 +122,7 @@ function TaskApplication({ task, nomination }: any) {
       <ListItemAvatar>
         <Avatar>
           <AccessTimeOutlined />
+          {/* TODO: Add Image nominatedDao?.uriData.image */}
         </Avatar>
       </ListItemAvatar>
       {nominatedDao ? (
