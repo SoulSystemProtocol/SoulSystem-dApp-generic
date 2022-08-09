@@ -56,10 +56,10 @@ export default function useSubgraph() {
       }
     `;
     const response = await makeSubgraphQuery(queryGQL, { sbt, gameId });
-    console.log('Response:', response, response.gameParticipants, {
-      sbt,
-      gameId,
-    });
+    // console.log('Response:', response, response.gameParticipants, {
+    //   sbt,
+    //   gameId,
+    // });
     return response.gameParticipants.length > 0;
   };
 
