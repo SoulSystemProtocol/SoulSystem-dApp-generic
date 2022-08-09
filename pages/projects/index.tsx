@@ -1,65 +1,41 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext } from 'react';
 import { Button } from '@mui/material';
-import { DataContext } from 'contexts/data';
 import { DialogContext } from 'contexts/dialog';
-import useError from 'hooks/useError';
-import useProject from 'hooks/useProject';
-import Project from 'classes/Project';
+import { DataContext } from 'contexts/data';
+import { getPageTitle } from '../../utils';
 import ProjectManageDialog from 'components/project/ProjectManageDialog';
-import PaginatedList from 'components/PaginatedList';
-import Layout from '../../components/layout/Layout';
-import { APP_CONFIGS } from '../../constants';
-import { getPageTitle, getPagination } from '../../utils';
-import { WorkOutlineOutlined } from '@mui/icons-material';
+import Layout from 'components/layout/Layout';
+import SoulListGQ from 'components/soul/SoulListGQ';
+import { hexStringToJson } from 'utils/converters';
+import { resolveLink } from 'utils/metadata';
 
 const CONF = {
   PAGE_TITLE: 'Projects',
   TITLE: 'Projects',
   SUBTITLE: `Projects are companies and organizations that need some work done.`,
-  ROUTE: 'projects',
 };
 
-const getCardContent: {} = (item: any) => ({
-  id: item.id,
-  imgSrc: item.uriData?.image,
-  avatarIcon: <WorkOutlineOutlined />,
-  label: item.uriData?.description,
-  title: item.name,
-  link: `/${CONF.ROUTE}/${item.id}`,
-});
+// Item Processing Function
+const getCardContent = (item: any) => {
+  let metadata = hexStringToJson(item.uriData);
+  let ret = {
+    id: item.id,
+    imgSrc: resolveLink(metadata.image),
+    label: metadata?.description,
+    title: metadata?.name,
+    metadata: metadata,
+    link: `/projects/${item.owner}`,
+  };
+  return ret;
+};
 
 /**
  * Page for a list of projects
  */
 export default function ProjectsPage({}: any) {
-  const [projects, setProjects] = useState<Array<Project> | null>(null);
   const { accountSoul } = useContext(DataContext);
   const { showDialog, closeDialog } = useContext(DialogContext);
-  const { handleError } = useError();
-  const { getProjects } = useProject();
-
-  async function loadData(page: any) {
-    try {
-      // Update states
-      setProjects(null);
-      // Load projects by page params
-      const projects = await getProjects(
-        undefined,
-        APP_CONFIGS.PAGE_SIZE,
-        getPagination(page),
-      );
-
-      setProjects(projects);
-
-      console.log('Projects', projects);
-    } catch (error: any) {
-      handleError(error, true);
-    }
-  }
-
-  useEffect(() => {
-    loadData(1);
-  }, []);
+  // const { handleError } = useError();
 
   const renderActions = accountSoul && (
     <Button
@@ -72,20 +48,20 @@ export default function ProjectsPage({}: any) {
     </Button>
   );
 
-  // Props
-  const projectsListProps = {
-    data: projects,
-    loadData,
+  const listProps = {
+    variables: {
+      type: 'GAME',
+      role: 'PROJECT',
+    },
+    getCardContent,
     renderActions,
     subtitle: CONF.SUBTITLE,
     title: CONF.TITLE,
-    // card config
-    getCardContent,
   };
 
   return (
     <Layout title={getPageTitle(CONF.PAGE_TITLE)}>
-      <PaginatedList {...projectsListProps} />
+      <SoulListGQ {...listProps} />
     </Layout>
   );
 }

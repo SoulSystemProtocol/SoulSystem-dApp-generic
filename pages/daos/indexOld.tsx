@@ -66,7 +66,7 @@ export default function DaosPage({}: any) {
   );
 
   // Props
-  const daosListProps = {
+  const listProps = {
     data: daos,
     loadData,
     renderActions,
@@ -78,7 +78,7 @@ export default function DaosPage({}: any) {
 
   return (
     <Layout title={getPageTitle(CONF.PAGE_TITLE)}>
-      <PaginatedList {...daosListProps} />
+      <PaginatedList {...listProps} />
     </Layout>
   );
 }
