@@ -14,8 +14,8 @@ import { Save } from '@mui/icons-material';
 import { JSONSchema7 } from 'json-schema';
 import useToast from 'hooks/useToast';
 import useIpfs from 'hooks/useIpfs';
-import DaoMetadata from 'classes/metadata/DaoMetadata';
-import useDao from 'hooks/useDao';
+// import DaoMetadata from 'classes/metadata/DaoMetadata';
+// import useDao from 'hooks/useDao';
 import useContract from 'hooks/useContract';
 import { GAME_TYPE } from 'constants/contracts';
 
@@ -26,7 +26,6 @@ export default function DaoManageDialog({ dao, isClose, onClose }: any) {
   const { showToastSuccess } = useToast();
   const { uploadJsonToIPFS } = useIpfs();
   const { handleError } = useError();
-  const { createDao, editDao } = useDao();
   const { getContractHub, getContractGameMDAO } = useContract();
   const [isLoading, setIsLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(!isClose);
@@ -93,11 +92,9 @@ export default function DaoManageDialog({ dao, isClose, onClose }: any) {
       );
       if (dao) {
         //Edit MDAO's URI   //TODO!! Change this to Soul Edit
-        // await editDao(dao.id, metadataUrl);
         await getContractGameMDAO(dao.id).setContractURI(metadataUrl);
       } else {
         //Create a new MDAO
-        // await createDao(formData.name, metadataUrl);
         await getContractHub().gameMake(
           GAME_TYPE.mdao,
           formData.name,

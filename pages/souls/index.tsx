@@ -59,9 +59,8 @@ export default function SoulsPage({ type = '' }: any) {
 
   // Props for GQL List
   const soulsListPropsGQ = {
-    variables: { type },
+    variables: { type, where: { type } },
     getCardContent,
-    // baseRoute: CONF.ROUTE,   REDUNDANT - just use the link element on the getCardContent function
     renderActions,
     subtitle: CONF.SUBTITLE,
     title: CONF.TITLE,
