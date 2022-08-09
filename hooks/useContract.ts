@@ -24,6 +24,12 @@ export default function useContract() {
     return new Contract(String(address), ABI_Hub, provider?.getSigner());
   }
 
+  function getContractSoul() {
+    if (!isNetworkChainIdCorrect) throw new WrongNetworkError();
+    const address = process.env.NEXT_PUBLIC_SOUL_CONTRACT_ADDRESS;
+    return new Contract(String(address), ABI_Soul, provider?.getSigner());
+  }
+
   function getContractGame(address: string) {
     if (!isNetworkChainIdCorrect) throw new WrongNetworkError();
     return new Contract(address, ABI_Game, provider?.getSigner());
@@ -52,11 +58,6 @@ export default function useContract() {
   function getContractTask(address: string) {
     if (!isNetworkChainIdCorrect) throw new WrongNetworkError();
     return new Contract(address, ABI_Task, provider?.getSigner());
-  }
-
-  function getContractSoul(address: string) {
-    if (!isNetworkChainIdCorrect) throw new WrongNetworkError();
-    return new Contract(address, ABI_Soul, provider?.getSigner());
   }
 
   return {
