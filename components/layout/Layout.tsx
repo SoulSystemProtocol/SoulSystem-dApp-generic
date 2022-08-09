@@ -87,7 +87,7 @@ const footer_icons: { route: string; label: string; icon: JSX.Element }[] = [
   },
   {
     // eslint-disable-next-line prettier/prettier
-    route: 'https://thegraph.com/hosted-service/subgraph/toledoroy/mdao',
+    route: 'https://thegraph.com/hosted-service/subgraph/toledoroy/bountyprotocol',
     icon: <AcUnit />,
     label: 'SubGraph',
   },
