@@ -35,13 +35,13 @@ export default function TaskPostDeliveryDialog({
 
   const schema: JSONSchema7 = {
     type: 'object',
-    required: ['daoId', 'message'],
+    required: ['daoId', 'text'],
     properties: {
       daoId: {
         type: 'string',
         title: 'Address of your DAO',
       },
-      message: {
+      text: {
         type: 'string',
         title: 'Message',
       },
@@ -49,7 +49,7 @@ export default function TaskPostDeliveryDialog({
   };
 
   const uiSchema = {
-    message: {
+    text: {
       'ui:widget': 'textarea',
       'ui:options': {
         rows: 5,
@@ -69,7 +69,7 @@ export default function TaskPostDeliveryDialog({
       setFormData(formData);
       setIsLoading(true);
       const { url: metadataUrl } = await uploadJsonToIPFS(
-        // new TaskPostDeliveryMetadata(formData.message),
+        // new TaskPostDeliveryMetadata(formData.text),
         formData,
       );
       await getContractGameMDAO(formData.daoId).deliverTask(

@@ -2,9 +2,9 @@
  * Class for metadata of task delivery post.
  */
 export default class TaskPostDeliveryMetadata {
-  message: string;
+  text: string;
 
-  constructor(message: string) {
-    this.message = message;
+  constructor(text: string) {
+    this.text = text;
   }
 }
