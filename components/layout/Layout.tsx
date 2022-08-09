@@ -64,7 +64,7 @@ const menu_side_links = [
 const footer_links: { route: string; label: string; icon: JSX.Element }[] = [];
 const footer_icons: { route: string; label: string; icon: JSX.Element }[] = [
   {
-    route: 'https://github.com/MentorDAO/',
+    route: 'https://github.com/BountyProtocol',
     icon: <GitHubIcon />,
     label: 'Code',
   },
