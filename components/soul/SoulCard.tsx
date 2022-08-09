@@ -17,6 +17,7 @@ import {
   soulToFirstLastNameString,
   roleIdToName,
 } from 'utils/converters';
+import { resolveLink } from 'utils/metadata';
 
 /**
  * A component with a card with soul.
@@ -88,7 +89,7 @@ export function SoulImage({ soul, sx }: any) {
               height: 82,
               borderRadius: '16px',
             }}
-            src={soul.uriImage}
+            src={resolveLink(soul.uriImage)}
           >
             <PersonOutlineOutlined />
           </Avatar>
