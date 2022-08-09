@@ -91,9 +91,6 @@ export default function DaoManageDialog({ dao, isClose, onClose }: any) {
         // new DaoMetadata(formData.image, formData.description),
         formData,
       );
-
-      console.log('Run', { id: dao?.id, formData, metadataUrl });
-      
       if (dao) {
         //Edit MDAO's URI   //TODO!! Change this to Soul Edit
         // await editDao(dao.id, metadataUrl);
@@ -101,14 +98,6 @@ export default function DaoManageDialog({ dao, isClose, onClose }: any) {
       } else {
         //Create a new MDAO
         // await createDao(formData.name, metadataUrl);
-        let hubAddr = process.env.NEXT_PUBLIC_HUB_CONTRACT_ADDRESS;//await getContractHub().getAddress();
-        console.log('[DEBUG] gameMake', [
-          GAME_TYPE.mdao,
-          formData.name,
-          metadataUrl,
-          hubAddr,
-        ]);
-
         await getContractHub().gameMake(
           GAME_TYPE.mdao,
           formData.name,
