@@ -16,6 +16,8 @@ import useToast from 'hooks/useToast';
 import useIpfs from 'hooks/useIpfs';
 import DaoMetadata from 'classes/metadata/DaoMetadata';
 import useDao from 'hooks/useDao';
+import useContract from 'hooks/useContract';
+import { GAME_TYPE } from 'constants/contracts';
 
 /**
  * A dialog for creating or editing DAO.
@@ -25,6 +27,7 @@ export default function DaoManageDialog({ dao, isClose, onClose }: any) {
   const { uploadJsonToIPFS } = useIpfs();
   const { handleError } = useError();
   const { createDao, editDao } = useDao();
+  const { getContractHub, getContractGameMDAO } = useContract();
   const [isLoading, setIsLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(!isClose);
   const [formData, setFormData] = useState({
@@ -88,11 +91,31 @@ export default function DaoManageDialog({ dao, isClose, onClose }: any) {
         // new DaoMetadata(formData.image, formData.description),
         formData,
       );
+
+      console.log('Run', { id: dao?.id, formData, metadataUrl });
+      
       if (dao) {
-        await editDao(dao.id, metadataUrl);
+        //Edit MDAO's URI   //TODO!! Change this to Soul Edit
+        // await editDao(dao.id, metadataUrl);
+        await getContractGameMDAO(dao.id).setContractURI(metadataUrl);
       } else {
-        await createDao(formData.name, metadataUrl);
+        //Create a new MDAO
+        // await createDao(formData.name, metadataUrl);
+        let hubAddr = process.env.NEXT_PUBLIC_HUB_CONTRACT_ADDRESS;//await getContractHub().getAddress();
+        console.log('[DEBUG] gameMake', [
+          GAME_TYPE.mdao,
+          formData.name,
+          metadataUrl,
+          hubAddr,
+        ]);
+
+        await getContractHub().gameMake(
+          GAME_TYPE.mdao,
+          formData.name,
+          metadataUrl,
+        );
       }
+
       showToastSuccess('Success! Data will be updated soon');
       close();
     } catch (error: any) {

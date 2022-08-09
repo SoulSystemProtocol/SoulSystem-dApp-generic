@@ -18,9 +18,10 @@ import WrongNetworkError from 'errors/WrongNetworkError';
 export default function useContract() {
   const { provider, isNetworkChainIdCorrect } = useContext(Web3Context);
 
-  function getContractHub(address: string) {
+  function getContractHub() {
     if (!isNetworkChainIdCorrect) throw new WrongNetworkError();
-    return new Contract(address, ABI_Hub, provider?.getSigner());
+    const address = process.env.NEXT_PUBLIC_HUB_CONTRACT_ADDRESS;
+    return new Contract(String(address), ABI_Hub, provider?.getSigner());
   }
 
   function getContractGame(address: string) {
@@ -59,6 +60,7 @@ export default function useContract() {
   }
 
   return {
+    getContractHub,
     getContractGame,
     getContractGameCourt,
     getContractGameMDAO,
