@@ -18,9 +18,9 @@ import {
 import { resolveLink } from 'utils/metadata';
 
 const CONF = {
-  PAGE_TITLE: 'Souls',
-  TITLE: 'Souls',
-  SUBTITLE: `Souls are your personal profile NFT.`,
+  PAGE_TITLE: 'People',
+  TITLE: 'People',
+  SUBTITLE: `Everyone can now be an NFT!`,
   ROUTE: 'souls',
 };
 

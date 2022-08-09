@@ -27,7 +27,7 @@ import useLocalStorage from 'hooks/useLocalStorage';
 const menu_side_links = [
   {
     route: '/souls',
-    label: 'Souls',
+    label: 'People',
     icon: <PersonOutlineOutlined color="warning" />,
   },
   {
