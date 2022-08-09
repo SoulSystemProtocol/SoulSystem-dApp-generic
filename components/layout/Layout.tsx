@@ -81,12 +81,6 @@ const footer_icons: { route: string; label: string; icon: JSX.Element }[] = [
   },
   {
     // eslint-disable-next-line prettier/prettier
-    route: 'https://docs.google.com/file/d/1jORzF6hSls2WxYLZeMizbK8pt1UB9RX-/edit?filetype=mspresentation',
-    icon: <SlideshowIcon />,
-    label: 'Deck',
-  },
-  {
-    // eslint-disable-next-line prettier/prettier
     route: 'https://thegraph.com/hosted-service/subgraph/toledoroy/bountyprotocol',
     icon: <AcUnit />,
     label: 'SubGraph',
