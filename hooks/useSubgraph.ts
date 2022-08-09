@@ -187,7 +187,6 @@ function getFindClaimsQuery(
   let gameFilter = game ? `game: "${game}"` : '';
   let filterParams = `where: {${idsFilter}, ${typeFilter}, ${gameFilter}}`;
   let paginationParams = `first: ${first}, skip: ${skip}`;
-  console.warn('[DEBUG] Claim/Task list', { filterParams, paginationParams });
   return `{
     claims(${filterParams}, ${paginationParams}) {
       id
