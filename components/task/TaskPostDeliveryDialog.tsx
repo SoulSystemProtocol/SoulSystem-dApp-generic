@@ -8,10 +8,11 @@ import {
   Stack,
 } from '@mui/material';
 import { MuiForm5 as Form } from '@rjsf/material-ui';
-import TaskPostDeliveryMetadata from 'classes/metadata/TaskPostDeliveryMetadata';
+// import TaskPostDeliveryMetadata from 'classes/metadata/TaskPostDeliveryMetadata';
 import useError from 'hooks/useError';
 import useIpfs from 'hooks/useIpfs';
 import useTask from 'hooks/useTask';
+import useContract from 'hooks/useContract';
 import useToast from 'hooks/useToast';
 import { JSONSchema7 } from 'json-schema';
 import { useState } from 'react';
@@ -27,7 +28,7 @@ export default function TaskPostDeliveryDialog({
   const { showToastSuccess } = useToast();
   const { uploadJsonToIPFS } = useIpfs();
   const { handleError } = useError();
-  const { postTaskDeliveryAsDao } = useTask();
+  const { getContractGameMDAO } = useContract();
   const [isLoading, setIsLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(!isClose);
   const [formData, setFormData] = useState({});
@@ -71,7 +72,10 @@ export default function TaskPostDeliveryDialog({
         // new TaskPostDeliveryMetadata(formData.message),
         formData,
       );
-      await postTaskDeliveryAsDao(task.id, formData.daoId, metadataUrl);
+      await getContractGameMDAO(formData.daoId).deliverTask(
+        task.id,
+        metadataUrl,
+      );
       showToastSuccess('Success! Data will be updated soon');
       close();
     } catch (error: any) {

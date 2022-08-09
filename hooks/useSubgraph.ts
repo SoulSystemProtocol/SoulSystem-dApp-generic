@@ -147,6 +147,7 @@ function getFindGamesQuery(
       roles {
         id
         roleId
+        name
         souls
         soulsCount
       }
@@ -201,6 +202,7 @@ function getFindClaimsQuery(
       }
       roles {
         id
+        name
         roleId
         souls
         soulsCount

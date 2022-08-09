@@ -28,22 +28,7 @@ export default function useDaoExtContract() {
     ).applyToTask(taskAddr, uri);
   }
 
-  async function deliverTask(
-    contractAddress: string,
-    taskAddr: string,
-    uri: string,
-  ) {
-    if (!isNetworkChainIdCorrect) {
-      throw new WrongNetworkError();
-    }
-    return await getContract(
-      contractAddress,
-      provider?.getSigner(),
-    ).deliverTask(taskAddr, uri);
-  }
-
   return {
     applyToTask,
-    deliverTask,
   };
 }

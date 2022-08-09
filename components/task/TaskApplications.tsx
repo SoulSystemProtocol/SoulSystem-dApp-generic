@@ -14,13 +14,14 @@ import {
   Typography,
 } from '@mui/material';
 import Dao from 'classes/Dao';
-import { CLAIM_ROLE, CLAIM_STAGE, SOUL_TYPE } from 'constants/contracts';
+import { CLAIM_ROLE, CLAIM_STAGE, ENTITY, SOUL_TYPE } from 'constants/contracts';
 import { DataContext } from 'contexts/data';
 import { DialogContext } from 'contexts/dialog';
-import useDao from 'hooks/useDao';
 import useError from 'hooks/useError';
-import useTask from 'hooks/useTask';
 import useToast from 'hooks/useToast';
+import useTask from 'hooks/useTask';
+import useSoul from 'hooks/useSoul';
+import useDao from 'hooks/useDao';
 import Link from 'next/link';
 import { useContext, useEffect, useState } from 'react';
 import TaskApplyDialog from './TaskApplyDialog';
@@ -33,37 +34,7 @@ export default function TaskApplications({ task, sx }: any) {
     <Box sx={{ ...sx }}>
       <Divider sx={{ mb: 1 }} />
       <Typography variant="h5">Applicants:</Typography>
-      <List
-        subheader={
-          <ListSubheader>
-            <Stack
-              direction="column"
-              alignItems="center"
-              justifyContent="space-between"
-              spacing={1}
-              sx={{ py: 2, float: 'left' }}
-            >
-              {/* Button to apply as DAO */}
-              {accountSoul &&
-                (task.stage === null ||
-                  (task.stage >= CLAIM_STAGE.open &&
-                    task.stage < CLAIM_STAGE.closed)) && (
-                  <Button
-                    size="small"
-                    variant="outlined"
-                    onClick={() =>
-                      showDialog?.(
-                        <TaskApplyDialog task={task} onClose={closeDialog} />,
-                      )
-                    }
-                  >
-                    Apply as a Team
-                  </Button>
-                )}
-            </Stack>
-          </ListSubheader>
-        }
-      >
+      <List>
         {task.nominations.length > 0 ? (
           <>
             {task.nominations.map((nomination: any, index: number) => (
@@ -80,10 +51,29 @@ export default function TaskApplications({ task, sx }: any) {
           </ListItem>
         )}
       </List>
+      {/* Button to apply as DAO */}
+      {accountSoul &&
+        (task.stage === null ||
+          (task.stage >= CLAIM_STAGE.open &&
+            task.stage < CLAIM_STAGE.closed)) && (
+          <Button
+            size="small"
+            variant="outlined"
+            onClick={() =>
+              showDialog?.(
+                <TaskApplyDialog task={task} onClose={closeDialog} />,
+              )
+            }
+          >
+            Apply as a {ENTITY.mdao}
+          </Button>
+        )}
     </Box>
   );
 }
-
+/**
+ * Component: Task Application
+ */
 function TaskApplication({ task, nomination }: any) {
   const { accountSoul } = useContext(DataContext);
   const { handleError } = useError();
@@ -93,6 +83,7 @@ function TaskApplication({ task, nomination }: any) {
   const [nominatedDao, setNominatedDao] = useState<Dao | null>(null);
   const [isProcessing, setIsProcessing] = useState(false);
   const [isProcessed, setIsProcessed] = useState(false);
+  const { getSoulById } = useSoul();
 
   async function acceptAplicant(soulId: string) {
     try {
@@ -106,7 +97,6 @@ function TaskApplication({ task, nomination }: any) {
       setIsProcessing(false);
     }
   }
-
   useEffect(() => {
     // Load nominated DAO if type is game
     if (nomination.nominated.type === SOUL_TYPE.game) {
@@ -116,7 +106,8 @@ function TaskApplication({ task, nomination }: any) {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [nomination]);
-
+  if (isSoulHasRole(task, nomination.nominated.id, CLAIM_ROLE.applicant.id))
+    return <></>;
   return (
     <ListItem>
       <ListItemAvatar>
@@ -157,7 +148,7 @@ function TaskApplication({ task, nomination }: any) {
                       acceptAplicant(nomination.nominated.id);
                     }}
                   >
-                    Accept as Applicant
+                    Accept Application
                   </Button>
                 )}
               </Box>

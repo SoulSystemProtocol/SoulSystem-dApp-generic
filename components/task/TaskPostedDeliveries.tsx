@@ -7,7 +7,6 @@ import {
   Link as MuiLink,
   List,
   ListItem,
-  ListSubheader,
   Stack,
   Typography,
 } from '@mui/material';
@@ -16,6 +15,7 @@ import {
   CLAIM_POST_ENTITY_TYPE,
   CLAIM_ROLE,
   CLAIM_STAGE,
+  ENTITY,
 } from 'constants/contracts';
 import { DataContext } from 'contexts/data';
 import { DialogContext } from 'contexts/dialog';
@@ -35,7 +35,6 @@ export default function TaskPostedDeliveries({ task, sx }: any) {
 
   useEffect(() => {
     if (task) {
-      // console.log('Task Posts', task?.posts);
       setApplicantPosts(
         task.posts.filter(
           (post: any) => post.entityRole == CLAIM_POST_ENTITY_TYPE.applicant,
@@ -49,35 +48,7 @@ export default function TaskPostedDeliveries({ task, sx }: any) {
       <Box sx={{ ...sx }}>
         <Divider sx={{ mb: 1 }} />
         <Typography variant="h5">Posted Deliveries: </Typography>
-        <List
-          subheader={
-            <ListSubheader>
-              <Stack
-                direction="row"
-                alignItems="center"
-                justifyContent="space-between"
-                sx={{ py: 2 }}
-              >
-                {task.stage !== CLAIM_STAGE.closed && accountSoul && (
-                  <Button
-                    size="small"
-                    variant="outlined"
-                    onClick={() =>
-                      showDialog?.(
-                        <TaskPostDeliveryDialog
-                          task={task}
-                          onClose={closeDialog}
-                        />,
-                      )
-                    }
-                  >
-                    Post Delivery as DAO
-                  </Button>
-                )}
-              </Stack>
-            </ListSubheader>
-          }
-        >
+        <List>
           {applicantPosts.length > 0 ? (
             <>
               {task.posts.map((post: any, index: number) => (
@@ -90,6 +61,19 @@ export default function TaskPostedDeliveries({ task, sx }: any) {
             </ListItem>
           )}
         </List>
+        {task.stage !== CLAIM_STAGE.closed && accountSoul && (
+          <Button
+            size="small"
+            variant="outlined"
+            onClick={() =>
+              showDialog?.(
+                <TaskPostDeliveryDialog task={task} onClose={closeDialog} />,
+              )
+            }
+          >
+            Post Delivery as a {ENTITY.mdao}
+          </Button>
+        )}
       </Box>
     );
   }

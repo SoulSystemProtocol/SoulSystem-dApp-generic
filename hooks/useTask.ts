@@ -12,7 +12,7 @@ import useSubgraph from './useSubgraph';
  */
 export default function useTask() {
   const { defaultProvider } = useContext(Web3Context);
-  const { applyToTask, deliverTask } = useDaoExtContract();
+  const { applyToTask } = useDaoExtContract();
   const { acceptApplicant, deliveryApprove, stageExecusion } =
     useTaskContract();
   const { findClaims } = useSubgraph();
@@ -40,6 +40,7 @@ export default function useTask() {
     soul: string,
     roleId: string,
   ): boolean {
+    // console.log('[DEBUG] isSoulHasRole', {roleId, soul, soulsInRole:getSoulsByRole(task, roleId), ret:getSoulsByRole(task, roleId).includes(soul)})
     return getSoulsByRole(task, roleId).includes(soul);
   };
 
@@ -47,6 +48,7 @@ export default function useTask() {
     const taskRole = task.roles?.find(
       (element: any) => element?.roleId === roleId,
     );
+    // console.log('[DEBUG] Souls for Role', {souls:taskRole?.souls, taskRoles:task?.roles, roleId, })
     return taskRole?.souls || [];
   };
 
@@ -56,14 +58,6 @@ export default function useTask() {
 
   let acceptSoulForTask = async function (taskId: string, soulId: string) {
     return acceptApplicant(taskId, soulId);
-  };
-
-  let postTaskDeliveryAsDao = async function (
-    taskId: string,
-    daoId: string,
-    metadataUrl: string,
-  ) {
-    return deliverTask(daoId, taskId, metadataUrl);
   };
 
   let approveSoulDelivery = async function (taskId: string, soulId: string) {
@@ -86,7 +80,6 @@ export default function useTask() {
     getSoulsByRole,
     applyForTaskAsDao,
     acceptSoulForTask,
-    postTaskDeliveryAsDao,
     approveSoulDelivery,
     disburseFundsToWinners,
     getFund,
