@@ -50,11 +50,11 @@ const menu_side_links = [
   //   label: 'Grants',
   //   icon: <VolunteerActivism color="warning" />,
   // },
-  {
-    route: '/events',
-    label: 'Hackathons',
-    icon: <Festival color="warning" />,
-  },
+  // {
+  //   route: '/events',
+  //   label: 'Hackathons',
+  //   icon: <Festival color="warning" />,
+  // },
   // {
   //   route: '/sponsors',
   //   label: 'Sponsors',
