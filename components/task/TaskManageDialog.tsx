@@ -11,7 +11,7 @@ import { MuiForm5 as Form } from '@rjsf/material-ui';
 import TaskMetadata from 'classes/metadata/TaskMetadata';
 import useError from 'hooks/useError';
 import useIpfs from 'hooks/useIpfs';
-import useTask from 'hooks/useTask';
+import useContract from 'hooks/useContract';
 import useToast from 'hooks/useToast';
 import { JSONSchema7 } from 'json-schema';
 import { useState } from 'react';
@@ -28,7 +28,7 @@ export default function TaskManageDialog({
   const { showToastSuccess } = useToast();
   const { uploadJsonToIPFS } = useIpfs();
   const { handleError } = useError();
-  const { createTask } = useTask();
+  const { getContractGameProject } = useContract();
   const [isLoading, setIsLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(!isClose);
   const [formData, setFormData] = useState({
@@ -82,8 +82,17 @@ export default function TaskManageDialog({
       );
       if (task) {
         // TODO: Implement this feature
+        console.warn('[TODO] Implement Task Edit');
       } else {
-        await createTask(project.id, formData.name, metadataUrl);
+        console.log('[DEBUG] Creating a new task for project: ' + project.id, {
+          name: formData.name,
+          metadataUrl,
+        });
+        await getContractGameProject(project.id).taskMake(
+          'BOUNTY',
+          formData.name,
+          metadataUrl,
+        );
       }
       showToastSuccess('Success! Data will be updated soon');
       close();

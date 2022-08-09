@@ -17,7 +17,7 @@ export default function ProjectTaskList({ project, sx }: any) {
       // Update states
       setTasks(null);
       // Load tasks
-      const tasks = await getTasks(undefined, project.id, undefined, undefined);
+      const tasks = await getTasks(undefined, undefined, project.id);
       setTasks(tasks);
     } catch (error: any) {
       handleError(error, true);
@@ -25,9 +25,7 @@ export default function ProjectTaskList({ project, sx }: any) {
   }
 
   useEffect(() => {
-    if (project) {
-      loadData();
-    }
+    if (project) loadData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [project]);
 

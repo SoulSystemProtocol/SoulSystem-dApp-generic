@@ -5,7 +5,7 @@ import { DataContext } from 'contexts/data';
 import { getPageTitle } from '../../utils';
 import ProjectManageDialog from 'components/project/ProjectManageDialog';
 import Layout from 'components/layout/Layout';
-import SoulListGQ from 'components/soul/SoulListGQ';
+import DAOListGQ from 'components/soul/DAOListGQ';
 import { hexStringToJson } from 'utils/converters';
 import { resolveLink } from 'utils/metadata';
 
@@ -35,8 +35,6 @@ const getCardContent = (item: any) => {
 export default function ProjectsPage({}: any) {
   const { accountSoul } = useContext(DataContext);
   const { showDialog, closeDialog } = useContext(DialogContext);
-  // const { handleError } = useError();
-
   const renderActions = accountSoul && (
     <Button
       onClick={() =>
@@ -61,7 +59,7 @@ export default function ProjectsPage({}: any) {
 
   return (
     <Layout title={getPageTitle(CONF.PAGE_TITLE)}>
-      <SoulListGQ {...listProps} />
+      <DAOListGQ {...listProps} />
     </Layout>
   );
 }

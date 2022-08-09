@@ -4,7 +4,6 @@ import { ethers } from 'ethers';
 import { useContext } from 'react';
 import { hexStringToJson } from 'utils/converters';
 import useDaoExtContract from './contracts/useDaoExtContract';
-import useProjectExtContract from './contracts/useProjectExtContract';
 import useTaskContract from './contracts/useTaskContract';
 import useSubgraph from './useSubgraph';
 
@@ -13,19 +12,10 @@ import useSubgraph from './useSubgraph';
  */
 export default function useTask() {
   const { defaultProvider } = useContext(Web3Context);
-  const { taskMake } = useProjectExtContract();
   const { applyToTask, deliverTask } = useDaoExtContract();
   const { acceptApplicant, deliveryApprove, stageExecusion } =
     useTaskContract();
   const { findClaims } = useSubgraph();
-
-  let createTask = function (
-    projectId: string,
-    name: string,
-    metadataUrl: string,
-  ): Promise<any> {
-    return taskMake(projectId, name, metadataUrl);
-  };
 
   let getTaskById = async function (id: string): Promise<Task | null> {
     const items = await getTasks([id], undefined);
@@ -90,7 +80,6 @@ export default function useTask() {
   };
 
   return {
-    createTask,
     getTaskById,
     getTasks,
     isSoulHasRole,

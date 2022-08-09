@@ -6,6 +6,7 @@ import useError from 'hooks/useError';
 import useProject from 'hooks/useProject';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import { getPageTitle } from 'utils';
 
 // eslint-disable-next-line prettier/prettier
 interface ProjectProps { }
@@ -30,16 +31,12 @@ export default function ProjectDetailPage({ }: ProjectProps) {
   }
 
   useEffect(() => {
-    if (slug) {
-      loadData();
-    }
+    if (slug) loadData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [slug]);
 
-  let title = process.env.NEXT_PUBLIC_APP_NAME;
-  if (project) title += ' | ' + project.name;
   return (
-    <Layout title={title}>
+    <Layout title={project === null ? '' : getPageTitle(project.name)}>
       <ProjectDetail project={project} />
       <ProjectTabs project={project} sx={{ mt: 4 }} />
     </Layout>
