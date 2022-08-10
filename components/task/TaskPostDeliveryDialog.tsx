@@ -16,6 +16,7 @@ import useContract from 'hooks/useContract';
 import useToast from 'hooks/useToast';
 import { JSONSchema7 } from 'json-schema';
 import { useState } from 'react';
+import { CLAIM_POST_TYPE } from 'constants/contracts';
 
 /**
  * A dialog for post a task delivery.
@@ -70,7 +71,7 @@ export default function TaskPostDeliveryDialog({
       setIsLoading(true);
       const { url: metadataUrl } = await uploadJsonToIPFS(
         // new TaskPostDeliveryMetadata(formData.text),
-        formData,
+        { ...formData, type: CLAIM_POST_TYPE.application },
       );
       await getContractGameMDAO(formData.daoId).deliverTask(
         task.id,

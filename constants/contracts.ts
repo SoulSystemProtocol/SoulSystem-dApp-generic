@@ -62,6 +62,11 @@ export const CLAIM_ROLE: any = {
   },
 };
 
+export const CLAIM_POST_TYPE: any = {
+  message: 'message',
+  application: 'application',
+};
+
 export const CLAIM_POST_ENTITY_TYPE: any = {
   applicant: 'applicant',
 };
