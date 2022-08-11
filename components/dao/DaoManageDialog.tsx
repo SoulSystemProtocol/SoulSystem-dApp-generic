@@ -118,7 +118,7 @@ export default function DaoManageDialog({ dao, isClose, onClose }: any) {
       fullWidth
     >
       <DialogTitle sx={{ pb: 0 }}>
-        {dao ? 'Edit DAO' : 'Create DAO'}
+        {dao ? 'Edit Team' : 'Create Team'}
       </DialogTitle>
       <DialogContent>
         <Form
