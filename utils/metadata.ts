@@ -20,4 +20,5 @@ export function getTraitValue(
 export const resolveLink = (url: any) =>
   !url || !url.includes('ipfs://')
     ? url
-    : url.replace('ipfs://', 'https://ipfs.infura.io/ipfs/');
+    : url.replace('ipfs://', 'https://cloudflare-ipfs.com/ipfs/');
+// : url.replace('ipfs://', 'https://ipfs.infura.io/ipfs/'); //Error: "Public Gateway Is Not Supported Anymore - Setup a Dedicated Gatewa"
