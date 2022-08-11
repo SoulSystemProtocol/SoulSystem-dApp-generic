@@ -55,6 +55,8 @@ export function soulToFirstLastNameString(soul: any, length = 36): string {
  * Get iamge of soul.
  */
 export function soulImage(soul: any): string {
+  if (soul?.uriData?.image) return resolveLink(soul.uriData.image);
+  if (soul?.metadata?.image) return resolveLink(soul.metadata.image);
   return soul?.uriImage ? resolveLink(soul.uriImage) : '';
 }
 
