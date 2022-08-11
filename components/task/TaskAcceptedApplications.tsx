@@ -19,6 +19,7 @@ import useSoul from 'hooks/useSoul';
 import useTask from 'hooks/useTask';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
+import { soulImage } from 'utils/converters';
 
 export default function TaskAcceptedApplications({ task, sx }: any) {
   const { handleError } = useError();
@@ -66,21 +67,29 @@ function TaskAcceptedApplication({ soul }: any) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [soul]);
 
+  console.log('stuff img:', { img: soulImage(soulDao), soul, soulDao });
   return (
     <ListItem sx={{ flex: '1 0', minWidth: '200px' }}>
-      <ListItemAvatar>
-        <Avatar>
-          <CheckOutlined />
-        </Avatar>
-      </ListItemAvatar>
       {soulDao ? (
-        <Link href={`/daos/${soulDao.id}`} passHref>
-          <MuiLink underline="none">
-            <Typography>{soulDao.name}</Typography>
-          </MuiLink>
-        </Link>
+        <>
+          <ListItemAvatar>
+            <Avatar src={soulImage(soulDao)}>
+              <CheckOutlined />
+            </Avatar>
+          </ListItemAvatar>
+          <Link href={`/daos/${soulDao.id}`} passHref>
+            <MuiLink underline="none">
+              <Typography>{soulDao.name}</Typography>
+            </MuiLink>
+          </Link>
+        </>
       ) : (
-        <Typography>...</Typography>
+        <>
+          <Avatar>
+            <CheckOutlined />
+          </Avatar>
+          <Typography>...</Typography>
+        </>
       )}
     </ListItem>
   );
