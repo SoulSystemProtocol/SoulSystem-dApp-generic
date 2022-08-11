@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react';
 import {
   addressToShortAddress,
   soulToFirstLastNameString,
+  soulImage,
 } from 'utils/converters';
 
 /**
@@ -57,9 +58,11 @@ export default function SoulCompactCard({
     } else {
       setIsLoading(false);
     }
+    /* REMOVED - useEffect doesn't return anything.
     return () => {
       isComponentActive = false;
     };
+    */
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [propsProfile, propsProfileId, propsAccount]);
 
@@ -77,7 +80,7 @@ export default function SoulCompactCard({
       {/* If profile is loaded successfully */}
       {!isLoading && profile && (
         <>
-          <Avatar src={profile.uriImage} sx={{ width: 24, height: 24 }}>
+          <Avatar src={soulImage(profile)} sx={{ width: 24, height: 24 }}>
             <PersonOutlineOutlined width="24" heigth="24" />
           </Avatar>
           <Typography variant="body2" sx={{ fontWeight: 'normal', ml: 1 }}>
