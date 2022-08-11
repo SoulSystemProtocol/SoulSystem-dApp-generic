@@ -59,7 +59,7 @@ export default function SoulsPage({ type = '' }: any) {
 
   // Props for GQL List
   const soulsListPropsGQ = {
-    variables: { type, where: { type } },
+    variables: { type },
     getCardContent,
     renderActions,
     subtitle: CONF.SUBTITLE,
