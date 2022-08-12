@@ -92,7 +92,8 @@ export default function TaskDetail({ item, sx }: any) {
               <FundDialogButton address={item.id} />
             )}
             {(isSoulAdmin || isSoulAuthority) &&
-              item.stage > CLAIM_STAGE.decision && (
+              item.stage > CLAIM_STAGE.decision &&
+              item.stage < CLAIM_STAGE.closed && (
                 <Button
                   size="small"
                   variant="outlined"
