@@ -23,6 +23,7 @@ import useTask from 'hooks/useTask';
 import useToast from 'hooks/useToast';
 import Link from 'next/link';
 import { useContext, useEffect, useState } from 'react';
+import { soulImage } from 'utils/converters';
 
 export default function TaskApprovedDeliveries({ task, sx }: any) {
   const { accountSoul } = useContext(DataContext);
@@ -50,49 +51,37 @@ export default function TaskApprovedDeliveries({ task, sx }: any) {
     return (
       <Box sx={{ ...sx }}>
         <Divider sx={{ mb: 1 }} />
-        <Typography variant="h5">Approved Deliveries:</Typography>
-        <List
-          subheader={
-            <ListSubheader>
-              <Stack
-                direction="row"
-                alignItems="center"
-                justifyContent="space-between"
-                sx={{ py: 2 }}
-              >
-                {/* Button to disburse funds */}
-                {task.stage === CLAIM_STAGE.execution && accountSoul && (
-                  <>
-                    {isProcessed ? (
-                      <></>
-                    ) : isProcessing ? (
-                      <LoadingButton
-                        size="small"
-                        loading
-                        loadingPosition="start"
-                        startIcon={<Save />}
-                      >
-                        Processing
-                      </LoadingButton>
-                    ) : (
-                      <Button
-                        size="small"
-                        variant="outlined"
-                        onClick={() => disburseFunds()}
-                      >
-                        Disburse Funds To Winners
-                      </Button>
-                    )}
-                  </>
-                )}
-              </Stack>
-            </ListSubheader>
-          }
-        >
+        <Typography variant="h5">Winners:</Typography>
+        <List>
           {subjectSouls.map((soul: any, index: number) => (
             <TaskApprovedDelivery key={index} task={task} soulId={soul} />
           ))}
         </List>
+        {/* Button to disburse funds */}
+        {task.stage === CLAIM_STAGE.execution && accountSoul && (
+          <>
+            {isProcessed ? (
+              <></>
+            ) : isProcessing ? (
+              <LoadingButton
+                size="small"
+                loading
+                loadingPosition="start"
+                startIcon={<Save />}
+              >
+                Processing
+              </LoadingButton>
+            ) : (
+              <Button
+                size="small"
+                variant="outlined"
+                onClick={() => disburseFunds()}
+              >
+                Disburse Funds To Winners
+              </Button>
+            )}
+          </>
+        )}
       </Box>
     );
   }
@@ -121,7 +110,7 @@ function TaskApprovedDelivery({ soulId }: any) {
       {soulDao ? (
         <>
           <ListItemAvatar>
-            <Avatar>
+            <Avatar src={soulImage(soulDao)}>
               <StarBorderOutlined />
             </Avatar>
           </ListItemAvatar>
