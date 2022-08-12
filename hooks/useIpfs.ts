@@ -35,7 +35,7 @@ export default function useIpfs() {
   let uploadJsonToIPFS = async function (json: any) {
     const jsonString = JSON.stringify(json);
     // Upload to the graph for usage in graph queries
-    await theGraphClient
+    theGraphClient
       .add(jsonString)
       .catch((error) => console.error('Failed to save file to Graph IPFS'));
     // Upload to IPFS via infura
