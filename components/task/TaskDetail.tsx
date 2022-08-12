@@ -100,7 +100,7 @@ export default function TaskDetail({ item, sx }: any) {
                     getContractTask(item.id).cancel('TEST_URI', tokens)
                   }
                 >
-                  Cancel Case
+                  Cancel Bounty
                 </Button>
               )}
             {isSoulAdmin && item.stage == CLAIM_STAGE.execute && (
