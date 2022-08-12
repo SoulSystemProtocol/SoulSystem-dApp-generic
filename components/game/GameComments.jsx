@@ -47,7 +47,7 @@ export default function GameComments({ item, sx = {} }) {
     <Box sx={sx}>
       {/* Comments */}
       {commentPosts.length == 0 ? (
-        <Typography>No comments</Typography>
+        <Typography></Typography>
       ) : (
         <Stack spacing={1}>
           {commentPosts.map((post, index) => {
