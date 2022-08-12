@@ -5,8 +5,17 @@ import { create } from 'ipfs-http-client';
  * Hook for work with IPFS.
  */
 export default function useIpfs() {
+  // eslint-disable-next-line prettier/prettier
+  const auth = 'Basic ' + Buffer.from(process.env.NEXT_PUBLIC_INFURA_PROJECT_ID + ':' + process.env.NEXT_PUBLIC_INFURA_SECRET).toString('base64');
+
   const infuraClient = create({
-    url: process.env.NEXT_PUBLIC_INFURA_IPFS_API,
+    // url: process.env.NEXT_PUBLIC_INFURA_IPFS_API,
+    host: 'ipfs.infura.io',
+    port: 5001,
+    protocol: 'https',
+    headers: {
+      authorization: auth,
+    },
   });
   const theGraphClient = create({
     url: process.env.NEXT_PUBLIC_THE_GRAPH_IPFS_API,
@@ -24,10 +33,13 @@ export default function useIpfs() {
   };
 
   let uploadJsonToIPFS = async function (json: any) {
+    const jsonString = JSON.stringify(json);
     // Upload to the graph for usage in graph queries
-    await theGraphClient.add(JSON.stringify(json));
+    await theGraphClient
+      .add(jsonString)
+      .catch((error) => console.error('Failed to save file to Graph IPFS'));
     // Upload to IPFS via infura
-    const created = await infuraClient.add(JSON.stringify(json));
+    const created = await infuraClient.add(jsonString);
     const cid = created.path;
     // const url = `https://ipfs.infura.io/ipfs/${cid}`;
     const url = `ipfs://${cid}`;
