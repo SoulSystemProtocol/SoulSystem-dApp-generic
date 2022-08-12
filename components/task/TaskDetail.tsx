@@ -81,7 +81,10 @@ export default function TaskDetail({ item, sx }: any) {
             {item.name}
           </Typography>
           <Typography color="text.secondary" variant="body2">
-            {taskStageToString(item)} {fund ? ` | ${fund} ETH` : ''}
+            {taskStageToString(item)}{' '}
+            {fund
+              ? ` | ${fund} ${process.env.NEXT_PUBLIC_NETWORK_CURRENCY_NAME}`
+              : ''}
           </Typography>
           <Typography sx={{ mt: 1 }}>{item.uriData?.description}</Typography>
           <Stack direction="row" spacing={2} sx={{ mt: 2 }}>

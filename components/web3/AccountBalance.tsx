@@ -18,7 +18,7 @@ export default function AccountBalance({ address }: any) {
         .then((result: ethers.BigNumberish) => {
           // convert a currency unit from wei to ether
           const balanceInEth = ethers.utils.formatEther(result);
-          // console.log(`balance for account:${address} is ${balanceInEth} ETH`);
+          // console.log(`balance for account:${address} is ${balanceInEth} ${process.env.NEXT_PUBLIC_NETWORK_CURRENCY_NAME}`);
           setBalance(balanceInEth);
         })
         .catch((error: Error) => handleError(error, true));

@@ -86,7 +86,7 @@ function TaskHeader({ task, sx }: any) {
           color="text.secondary"
           sx={{ textTransform: 'capitalize' }}
         >
-          {fund} ETH
+          {fund} {process.env.NEXT_PUBLIC_NETWORK_CURRENCY_NAME}
         </Typography>
       </Box>
     </Box>
