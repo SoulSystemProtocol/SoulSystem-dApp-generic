@@ -43,7 +43,7 @@ export default function DaosPage({}: any) {
       onClick={() => showDialog?.(<DaoManageDialog onClose={closeDialog} />)}
       variant="outlined"
     >
-      Create DAOs
+      New Team
     </Button>
   );
 
