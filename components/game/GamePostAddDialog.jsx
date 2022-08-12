@@ -55,9 +55,6 @@ export default function GamePostAddDialog({
 
   const schema = {
     type: 'object',
-    // ...(postType === POST_TYPE.evidence && {
-    //   required: ['role', 'evidencePostUri'],
-    // }),
     ...(postType === POST_TYPE.comment && {
       // required: ['role', 'message'],
       required: ['message'],
@@ -66,26 +63,6 @@ export default function GamePostAddDialog({
       required: ['confirmationType'],
     }),
     properties: {
-      /*
-      // Role input
-      ...((postType === POST_TYPE.evidence ||
-        postType === POST_TYPE.comment) && {
-        role: {
-          type: 'string',
-          title: 'Your Role',
-          enum: caseRoleNames,
-          enumNames: caseRoleStrings,
-          default: caseRoleNames?.[0],
-        },
-      }),
-      */
-      // Evidence input
-      // ...(postType === POST_TYPE.evidence && {
-      //   evidencePostUri: {
-      //     type: 'string',
-      //     title: '',
-      //   },
-      // }),
       // Message input
       ...((postType === POST_TYPE.comment ||
         postType === POST_TYPE.confirmation) && {
@@ -134,10 +111,9 @@ export default function GamePostAddDialog({
       if (item instanceof Task)
         formData.role = 'creator'; //or Creator for Procedures
       else formData.role = 'member'; //TODO: Implement the role select if entity holds more than 1 role & default to something else...
-      // console.log('Send post: ', item, formData.role, accountSoul);
-
       setFormData(formData);
       setIsLoading(true);
+      // console.log('Send post: ', { item, role: formData.role, accountSoul });
       // If post is comment
       if (postType === POST_TYPE.comment) {
         const { url } = await uploadJsonToIPFS(
@@ -146,7 +122,7 @@ export default function GamePostAddDialog({
         );
         await getContractGame(item.id).post(formData.role, accountSoul.id, url);
         // handleCommentCaseEvent(item.id); //MVP - No Analytics
-      }
+      } else console.error('Post Type Not Supported');
       showToastSuccess('Success! Data will be updated soon');
       close();
     } catch (error) {
