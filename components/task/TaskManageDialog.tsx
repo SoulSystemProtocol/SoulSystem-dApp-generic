@@ -8,7 +8,7 @@ import {
   Stack,
 } from '@mui/material';
 import { MuiForm5 as Form } from '@rjsf/material-ui';
-import TaskMetadata from 'classes/metadata/TaskMetadata';
+// import TaskMetadata from 'classes/metadata/TaskMetadata';
 import useError from 'hooks/useError';
 import useIpfs from 'hooks/useIpfs';
 import useContract from 'hooks/useContract';
@@ -84,10 +84,10 @@ export default function TaskManageDialog({
         // TODO: Implement this feature
         console.warn('[TODO] Implement Task Edit');
       } else {
-        console.log('[DEBUG] Creating a new task for project: ' + project.id, {
-          name: formData.name,
-          metadataUrl,
-        });
+        // console.log('[DEBUG] Creating a new task for project: ' + project.id, {
+        //   name: formData.name,
+        //   metadataUrl,
+        // });
         await getContractGameProject(project.id).taskMake(
           'BOUNTY',
           formData.name,
