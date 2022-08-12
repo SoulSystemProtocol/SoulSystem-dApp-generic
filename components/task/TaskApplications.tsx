@@ -14,7 +14,12 @@ import {
   Typography,
 } from '@mui/material';
 import Dao from 'classes/Dao';
-import { CLAIM_ROLE, CLAIM_STAGE, ENTITY, SOUL_TYPE } from 'constants/contracts';
+import {
+  CLAIM_ROLE,
+  CLAIM_STAGE,
+  ENTITY,
+  SOUL_TYPE,
+} from 'constants/contracts';
 import { DataContext } from 'contexts/data';
 import { DialogContext } from 'contexts/dialog';
 import useError from 'hooks/useError';
