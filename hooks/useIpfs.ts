@@ -7,7 +7,6 @@ import { create } from 'ipfs-http-client';
 export default function useIpfs() {
   // eslint-disable-next-line prettier/prettier
   const auth = 'Basic ' + Buffer.from(process.env.NEXT_PUBLIC_INFURA_PROJECT_ID + ':' + process.env.NEXT_PUBLIC_INFURA_SECRET).toString('base64');
-
   const infuraClient = create({
     // url: process.env.NEXT_PUBLIC_INFURA_IPFS_API,
     host: 'ipfs.infura.io',
@@ -27,7 +26,6 @@ export default function useIpfs() {
       content: file,
     });
     const cid = created.path;
-    // const url = `https://ipfs.infura.io/ipfs/${cid}`;
     const url = `ipfs://${cid}`;
     return { cid, url };
   };
