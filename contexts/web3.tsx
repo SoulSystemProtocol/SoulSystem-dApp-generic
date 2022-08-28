@@ -27,7 +27,7 @@ export function Web3Provider({ children }: any) {
   const [provider, setProvider] = useState<any>(null);
   const [defaultProvider, setDefaultProvider] = useState<any>(null);
   const [account, setAccount] = useState<any>(null);
-  const [networkChainId, setNetworkChainId] = useState<any>(null);
+  const [networkChainId, setNetworkChainId] = useState<number | null>(null);
   const [isNetworkChainIdCorrect, setIsNetworkChainCorrect] =
     useState<any>(null);
 
@@ -45,21 +45,22 @@ export function Web3Provider({ children }: any) {
       const network = await provider.getNetwork();
       const networkChainId = network?.chainId;
       // Add listeners if the user has changed the chain or account
-      instance.addListener('chainChanged', (chainId: any) =>
-        setNetworkChainId(chainId),
+      instance.addListener('chainChanged', async (chainId: any) =>
+        setNetworkChainId(Number(chainId)),
       );
       instance.addListener('accountsChanged', (accounts: any) => {
         if (accounts && accounts.length > 0) {
           setAccount(accounts[0]);
         }
       });
+
       // Update states
       setInstance(instance);
       setProvider(provider);
       if (accounts && accounts.length > 0) {
         setAccount(accounts[0]);
       }
-      setNetworkChainId(networkChainId);
+      setNetworkChainId(Number(networkChainId));
     } catch (error: any) {
       console.error(error);
     } finally {
@@ -183,12 +184,7 @@ export function Web3Provider({ children }: any) {
   }, []);
 
   useEffect(() => {
-    const isChainIdCorrect =
-      networkChainId?.toString() === process.env.NEXT_PUBLIC_NETWORK_CHAIN_ID;
-    const isChainIdHexCorrect =
-      networkChainId?.toString() ===
-      process.env.NEXT_PUBLIC_NETWORK_CHAIN_ID_HEX;
-    setIsNetworkChainCorrect(isChainIdCorrect || isChainIdHexCorrect);
+    setIsNetworkChainCorrect(networkChainId?.toString() === process.env.NEXT_PUBLIC_NETWORK_CHAIN_ID);
   }, [networkChainId]);
 
   return (
