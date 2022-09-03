@@ -13,10 +13,10 @@ import { getPageTitle, getPagination } from '../../utils';
 import { WorkOutlineOutlined } from '@mui/icons-material';
 
 const CONF = {
-  PAGE_TITLE: 'Projects',
-  TITLE: 'Projects',
-  SUBTITLE: `Projects are companies and organizations that need some work done.`,
-  ROUTE: 'projects',
+  PAGE_TITLE: 'Project DAO',
+  TITLE: 'Project DAO',
+  SUBTITLE: `Project DAO are companies and organizations that need some work done.`,
+  ROUTE: 'Project DAO',
 };
 
 const getCardContent: {} = (item: any) => ({

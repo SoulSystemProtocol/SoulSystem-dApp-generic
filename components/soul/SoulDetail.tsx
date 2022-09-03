@@ -58,7 +58,7 @@ export default function SoulDetail({ soul, sx }: any) {
       </Box>
 
       <Box sx={{ my: 2 }}>
-        <Typography variant="h5">Teams</Typography>
+        <Typography variant="h5">Provider DAO</Typography>
         <Typography variant="body1">[TBD]</Typography>
       </Box>
       <Box sx={{ my: 2 }}>

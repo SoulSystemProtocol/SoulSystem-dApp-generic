@@ -10,9 +10,9 @@ import { hexStringToJson } from 'utils/converters';
 import { resolveLink } from 'utils/metadata';
 
 const CONF = {
-  PAGE_TITLE: 'Projects',
-  TITLE: 'Projects',
-  SUBTITLE: `Projects are companies and organizations that need some work done.`,
+  PAGE_TITLE: 'Project DAO',
+  TITLE: 'Project DAO',
+  SUBTITLE: `Project DAO are companies and organizations that need some work done.`,
 };
 
 // Item Processing Function

@@ -12,8 +12,8 @@ import Layout from 'components/layout/Layout';
 import PaginatedList from 'components/PaginatedList';
 
 const CONF = {
-  PAGE_TITLE: 'Teams',
-  TITLE: 'Teams',
+  PAGE_TITLE: 'Provider DAO',
+  TITLE: 'Provider DAO',
   SUBTITLE: `Mentor DAOs consist of a mentor and mentees that work on bounties
   together, as a team.`,
   ROUTE: 'daos',
