@@ -63,34 +63,49 @@ const Drawer = styled(MuiDrawer, {
   }),
 }));
 
-export default function Sidebar({ links = [], isOpen, toggler }: any) {
+//Menu Item Interface
+interface MenuItem {
+  label: string;
+  route: string;
+  icon: JSX.Element;
+  hide: Boolean | undefined;
+}
+
+export default function Sidebar({
+  links = [],
+  isOpen,
+  toggler,
+}: any): JSX.Element {
   const theme = useTheme();
-  const renderMenu = links.map(({ label, route, icon }: any) => {
-    return (
-      <ListItem key={label} disablePadding sx={{ display: 'block' }}>
-        <Link href={route} passHref>
-          <ListItemButton
-            sx={{
-              minHeight: 48,
-              justifyContent: isOpen ? 'initial' : 'center',
-              px: 2.5,
-            }}
-          >
-            <ListItemIcon
+  const renderMenu = links.map(
+    ({ label, route, icon, hide }: MenuItem): JSX.Element =>
+      !hide ? (
+        <ListItem key={label} disablePadding sx={{ display: 'block' }}>
+          <Link href={route} passHref>
+            <ListItemButton
               sx={{
-                minWidth: 0,
-                mr: isOpen ? 3 : 'auto',
-                justifyContent: 'center',
+                minHeight: 48,
+                justifyContent: isOpen ? 'initial' : 'center',
+                px: 2.5,
               }}
             >
-              {icon}
-            </ListItemIcon>
-            <ListItemText primary={label} sx={{ opacity: isOpen ? 1 : 0 }} />
-          </ListItemButton>
-        </Link>
-      </ListItem>
-    );
-  });
+              <ListItemIcon
+                sx={{
+                  minWidth: 0,
+                  mr: isOpen ? 3 : 'auto',
+                  justifyContent: 'center',
+                }}
+              >
+                {icon}
+              </ListItemIcon>
+              <ListItemText primary={label} sx={{ opacity: isOpen ? 1 : 0 }} />
+            </ListItemButton>
+          </Link>
+        </ListItem>
+      ) : (
+        <></>
+      ),
+  );
 
   return (
     <Drawer variant="permanent" open={isOpen}>

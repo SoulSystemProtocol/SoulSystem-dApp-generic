@@ -29,21 +29,24 @@ const menu_side_links = [
     route: '/souls',
     label: 'People',
     icon: <PersonOutlineOutlined color="warning" />,
+    hide: process.env.NEXT_PUBLIC_FEATURE_SOUL == 'false',
   },
   {
     route: '/daos',
-    label: 'Teams',
+    label: 'Provider DAO',
     icon: <SchoolOutlined color="warning" />,
   },
   {
-    route: '/projects',
-    label: 'Projects',
+    route: '/Project DAO',
+    label: 'Project DAO',
     icon: <WorkOutlineOutlined color="warning" />,
+    hide: process.env.NEXT_PUBLIC_FEATURE_PROJECT == 'false',
   },
   {
     route: '/tasks',
     label: 'Bounties',
     icon: <TaskAlt color="warning" />,
+    hide: process.env.NEXT_PUBLIC_FEATURE_SOUL == 'false',
   },
   // {
   //   route: '/grants',
