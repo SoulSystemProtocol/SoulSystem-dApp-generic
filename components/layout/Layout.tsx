@@ -37,7 +37,7 @@ const menu_side_links = [
     icon: <SchoolOutlined color="warning" />,
   },
   {
-    route: '/Project DAO',
+    route: '/projects',
     label: 'Project DAO',
     icon: <WorkOutlineOutlined color="warning" />,
     hide: process.env.NEXT_PUBLIC_FEATURE_PROJECT == 'false',
