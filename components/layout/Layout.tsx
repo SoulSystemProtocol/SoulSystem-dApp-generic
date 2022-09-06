@@ -67,7 +67,7 @@ const menu_side_links = [
 const footer_links: { route: string; label: string; icon: JSX.Element }[] = [];
 const footer_icons: { route: string; label: string; icon: JSX.Element }[] = [
   {
-    route: 'https://github.com/BountyProtocol',
+    route: 'https://github.com/SolidifyETH',
     icon: <GitHubIcon />,
     label: 'Code',
   },
