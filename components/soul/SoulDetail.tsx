@@ -24,6 +24,7 @@ import { soulToFirstLastNameString } from 'utils/converters';
 import AddressHash from 'components/web3/AddressHash';
 import FundDialogButton from 'components/web3/FundDialogButton';
 import EntityImage from 'components/entity/EntityImage';
+import { GAME_NAME } from 'constants/contracts';
 
 /**
  * A component with soul details.
@@ -58,7 +59,7 @@ export default function SoulDetail({ soul, sx }: any) {
       </Box>
 
       <Box sx={{ my: 2 }}>
-        <Typography variant="h5">Provider DAO</Typography>
+        <Typography variant="h5">{GAME_NAME.mdao}</Typography>
         <Typography variant="body1">[TBD]</Typography>
       </Box>
       <Box sx={{ my: 2 }}>

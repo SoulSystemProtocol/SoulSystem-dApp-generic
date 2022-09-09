@@ -1,3 +1,8 @@
+export const GAME_NAME: any = {
+  mdao: 'Provider',
+  project: 'Project',
+};
+
 export const SOUL_TYPE: any = {
   created_by_not_contract: '',
   game: 'GAME',

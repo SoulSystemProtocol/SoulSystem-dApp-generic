@@ -10,10 +10,11 @@ import useError from 'hooks/useError';
 import DaoManageDialog from 'components/dao/DaoManageDialog';
 import Layout from 'components/layout/Layout';
 import PaginatedList from 'components/PaginatedList';
+import { GAME_NAME } from 'constants/contracts';
 
 const CONF = {
-  PAGE_TITLE: 'Provider DAO',
-  TITLE: 'Provider DAO',
+  PAGE_TITLE: GAME_NAME.mdao,
+  TITLE: GAME_NAME.mdao,
   SUBTITLE: `Mentor DAOs consist of a mentor and mentees that work on bounties
   together, as a team.`,
   ROUTE: 'daos',

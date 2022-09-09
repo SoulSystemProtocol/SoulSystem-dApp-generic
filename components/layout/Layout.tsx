@@ -22,6 +22,7 @@ import Header from './Header';
 import Sidebar from './Sidebar';
 import Footer from './Footer';
 import useLocalStorage from 'hooks/useLocalStorage';
+import { GAME_NAME } from 'constants/contracts';
 
 
 const top_links: any = [
@@ -41,12 +42,12 @@ const menu_side_links = [
   },
   {
     route: '/daos',
-    label: 'Provider DAO',
+    label: GAME_NAME.mdao,
     icon: <SchoolOutlined color="warning" />,
   },
   {
     route: '/projects',
-    label: 'Project DAO',
+    label: GAME_NAME.project,
     icon: <WorkOutlineOutlined color="warning" />,
     hide: process.env.NEXT_PUBLIC_FEATURE_PROJECT == 'false',
   },
