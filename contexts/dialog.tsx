@@ -21,8 +21,8 @@ export function DialogProvider({ children }: any) {
   return (
     <DialogContext.Provider
       value={{
-        showDialog: showDialog,
-        closeDialog: closeDialog,
+        showDialog,
+        closeDialog,
       }}
     >
       {children}

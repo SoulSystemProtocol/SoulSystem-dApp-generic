@@ -67,7 +67,7 @@ function TaskAcceptedApplication({ soul }: any) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [soul]);
 
-  console.log('stuff img:', { img: soulImage(soulDao), soul, soulDao });
+  // console.log('stuff img:', { img: soulImage(soulDao), soul, soulDao });
   return (
     <ListItem sx={{ flex: '1 0', minWidth: '200px' }}>
       {soulDao ? (
