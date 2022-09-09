@@ -11,7 +11,7 @@ import {
 } from '@mui/icons-material';
 // import { CSSObject, Theme, useTheme } from '@mui/material/styles';
 import GitHubIcon from '@mui/icons-material/GitHub';
-import SlideshowIcon from '@mui/icons-material/Slideshow';
+// import SlideshowIcon from '@mui/icons-material/Slideshow';
 import ArticleIcon from '@mui/icons-material/Article';
 import ArchitectureIcon from '@mui/icons-material/Architecture';
 import { Container, Toolbar } from '@mui/material';
@@ -22,6 +22,14 @@ import Header from './Header';
 import Sidebar from './Sidebar';
 import Footer from './Footer';
 import useLocalStorage from 'hooks/useLocalStorage';
+
+
+const top_links: any = [
+  // ...((account && [{ label: 'Dashboards', route: 'daos' }]) || []),
+  // { label: 'Hackathons', route: 'hackathons' },
+  // { label: 'Grants', route: 'grants' },
+  { label: 'SafeNFT', route: 'erc' },
+];
 
 //Define Sidemenu Links
 const menu_side_links = [
@@ -107,7 +115,7 @@ export default function Layout({ children, title }: any) {
       </Head>
       <Sidebar links={menu_side_links} toggler={toggleDrawer} isOpen={isOpen} />
       <Container sx={{ minHeight: '100vh', m: '0 auto' }} maxWidth="xl">
-        <Header open={isOpen} toggleDrawer={toggleDrawer} />
+        <Header open={isOpen} toggleDrawer={toggleDrawer} links={top_links} />
         <Container
           sx={{
             display: 'flex',

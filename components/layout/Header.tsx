@@ -52,20 +52,15 @@ interface IHeaderProps {
   open: boolean;
   toggleDrawer: () => void;
   sx?: any;
+  links?: [];
 }
 
 /**
  * Component with a header.
  */
-export default function Header({ open, toggleDrawer, sx }: IHeaderProps) {
+export default function Header({ open, toggleDrawer, links = [], sx }: IHeaderProps): JSX.Element {
   const { account, connectWallet, disconnectWallet } = useContext(Web3Context);
   const { accountSoul } = useContext(DataContext);
-
-  const topLinks: any[] = [
-    // ...((account && [{ label: 'Dashboards', route: 'daos' }]) || []),
-    // { label: 'Hackathons', route: 'hackathons' },
-    // { label: 'Grants', route: 'grants' },
-  ];
 
   return (
     <AppBar
@@ -74,7 +69,7 @@ export default function Header({ open, toggleDrawer, sx }: IHeaderProps) {
       elevation={1}
       open={open}
       sx={{
-        zIndex: (theme) => theme.zIndex.drawer + 1,
+        zIndex: (theme: any) => theme.zIndex.drawer + 1,
         boxShadow: '0px 2px 6px rgba(118, 139, 160, 0.1)',
         ...sx,
       }}
@@ -97,15 +92,17 @@ export default function Header({ open, toggleDrawer, sx }: IHeaderProps) {
             display: 'flex',
             flexGrow: 1,
             flexDirection: 'row',
-            justifyContent: 'flex-end',
+            justifyContent: 'flex-start',
             marginRight: '40px',
           }}
         >
-          {topLinks.map(({ route, label }, index) => (
-            <Link key={index} href={`/${route}`}>
-              <Typography mr={4} textAlign="center">
-                {label}
-              </Typography>
+          {links.map(({ route, label }, index) => (
+            <Link key={index} href={`/${route}`} passHref>
+              <MuiLink underline="none">
+                <Typography mr={4} textAlign="center">
+                  {label}
+                </Typography>
+              </MuiLink>
             </Link>
           ))}
         </Box>
