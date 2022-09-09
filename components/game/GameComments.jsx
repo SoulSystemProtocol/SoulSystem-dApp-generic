@@ -35,12 +35,14 @@ export default function GameComments({ item, sx = {} }) {
 
   useEffect(() => {
     //Check if Souls is part of this game
-    isGamePart(item.id.toString(), accountSoul.id.toString())
+    (!item?.id || !accountSoul?.id) 
+    ? setHasAnyRole(false) 
+    : isGamePart(item.id.toString(), accountSoul.id.toString())
       .then((res) => setHasAnyRole(res))
       .catch((error) => handleError(error, true));
     // console.log('isGamePart', item.id, accountSoul.id, { hasAnyRole });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [item.id, accountSoul.id]);
+  }, [item, accountSoul]);
 
   // console.log('Comments:', commentPosts);
   return (
