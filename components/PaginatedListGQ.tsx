@@ -66,7 +66,7 @@ export default function PaginatedListGQ({
     <>
       <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
         <Box>
-          <Typography variant="h5">{title}</Typography>
+          <Typography variant="h1">{title}</Typography>
           <Typography variant="subtitle1">{subtitle}</Typography>
         </Box>
         {!!renderActions && renderActions}
