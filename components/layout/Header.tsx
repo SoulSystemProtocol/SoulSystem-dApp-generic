@@ -58,7 +58,12 @@ interface IHeaderProps {
 /**
  * Component with a header.
  */
-export default function Header({ open, toggleDrawer, links = [], sx }: IHeaderProps): JSX.Element {
+export default function Header({ 
+  open, 
+  toggleDrawer, 
+  links = [], 
+  sx 
+}: IHeaderProps): JSX.Element {
   const { account, connectWallet, disconnectWallet } = useContext(Web3Context);
   const { accountSoul } = useContext(DataContext);
 

@@ -24,7 +24,6 @@ import Footer from './Footer';
 import useLocalStorage from 'hooks/useLocalStorage';
 import { GAME_NAME } from 'constants/contracts';
 
-
 const top_links: any = [
   // ...((account && [{ label: 'Dashboards', route: 'daos' }]) || []),
   // { label: 'Hackathons', route: 'hackathons' },
