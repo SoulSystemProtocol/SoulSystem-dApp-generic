@@ -29,18 +29,20 @@ export default function Deploy({ sx }: any) {
 
   return (
     <Box>
-      <Typography variant="h1">
-        Choose Type    
+      <Typography variant="h1">Choose Type</Typography>
+      <Typography variant="subtitle1">
+        What kind of a SafeNFT contract do you with to deploy?
       </Typography>
-      <Typography variant="subtitle1">Which kind of a SafeNFT contract do you with to deploy?</Typography>
       <Stack direction="row" spacing={2} sx={{ mt: 2 }}>
         <Box sx={sxBox}>
-        <SquareRoundedIcon fontSize="large" sx={{ mt:3, mb:2 }} />
+        <SquareRoundedIcon fontSize="large" sx={{ mt: 3, mb: 2 }} />
           <Typography variant="h6">Single</Typography>
-          <Typography variant="subtitle1">One of a kind unique items</Typography>
+          <Typography variant="subtitle1">
+            One of a kind unique items
+          </Typography>
         </Box>
         <Box sx={sxBox}>
-          <AutoAwesomeMotionIcon fontSize="large" sx={{ mt:3, mb:2 }} />
+          <AutoAwesomeMotionIcon fontSize="large" sx={{ mt: 3, mb: 2 }} />
           <Typography variant="h6">Multi</Typography>
           <Typography variant="subtitle1">Series of identical items</Typography>
         </Box>
