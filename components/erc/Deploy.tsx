@@ -35,7 +35,7 @@ export default function Deploy({ sx }: any) {
       </Typography>
       <Stack direction="row" spacing={2} sx={{ mt: 2 }}>
         <Box sx={sxBox}>
-        <SquareRoundedIcon fontSize="large" sx={{ mt: 3, mb: 2 }} />
+          <SquareRoundedIcon fontSize="large" sx={{ mt: 3, mb: 2 }} />
           <Typography variant="h6">Single</Typography>
           <Typography variant="subtitle1">
             One of a kind unique items
