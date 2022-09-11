@@ -35,7 +35,8 @@ export default function GameComments({ item, sx = {} }) {
 
   useEffect(() => {
     //Check if Souls is part of this game
-    (!item?.id || !accountSoul?.id) 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    (!item?.id || !accountSoul?.id)
     ? setHasAnyRole(false) 
     : isGamePart(item.id.toString(), accountSoul.id.toString())
       .then((res) => setHasAnyRole(res))

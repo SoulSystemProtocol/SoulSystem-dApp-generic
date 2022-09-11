@@ -15,7 +15,6 @@ import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
 import IconButton from '@mui/material/IconButton';
 import { Box } from '@mui/system';
 import { styled } from '@mui/material/styles';
-
 import { DataContext } from 'contexts/data';
 import { Web3Context } from 'contexts/web3';
 import {
@@ -59,10 +58,10 @@ interface IHeaderProps {
  * Component with a header.
  */
 export default function Header({ 
-  open, 
-  toggleDrawer, 
-  links = [], 
-  sx 
+  open,
+  toggleDrawer,
+  links = [],
+  sx,
 }: IHeaderProps): JSX.Element {
   const { account, connectWallet, disconnectWallet } = useContext(Web3Context);
   const { accountSoul } = useContext(DataContext);
