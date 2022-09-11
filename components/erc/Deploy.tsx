@@ -6,10 +6,10 @@
 // import useError from 'hooks/useError';
 // import useToast from 'hooks/useToast';
 
-import { Box, Typography, Stack, Grid } from "@mui/material";
+import { Box, Typography, Stack, Grid } from '@mui/material';
 import AutoAwesomeMotionIcon from '@mui/icons-material/AutoAwesomeMotion';
 import SquareRoundedIcon from '@mui/icons-material/SquareRounded';
-import { useState } from "react";
+import { useState } from 'react';
 
 /**
  * Deploy ERC Page
