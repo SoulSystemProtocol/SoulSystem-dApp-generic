@@ -14,20 +14,18 @@ import { useState } from 'react';
 /**
  * Deploy ERC Page
  */
- export default function Deploy({ sx }: any) {
+export default function Deploy({ sx }: any) {
   const [type, setType] = useState(null);
 
   const sxBox = {
     textAlign: 'center',
     border: '1px solid darkgray',
     flex: 1,
-    py:5,
+    py: 5,
     borderRadius: 3,
   };
-  
-  const typeSelect = () => {
 
-  }
+  // const typeSelect = () => { }
 
   return (
     <Box>
