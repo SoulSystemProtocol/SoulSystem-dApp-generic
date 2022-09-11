@@ -57,7 +57,7 @@ interface IHeaderProps {
 /**
  * Component with a header.
  */
-export default function Header({ 
+export default function Header({
   open,
   toggleDrawer,
   links = [],

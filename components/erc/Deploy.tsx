@@ -37,18 +37,18 @@ export default function Deploy({ sx }: any) {
       <Stack direction="row" spacing={2} sx={{ mt: 2 }}>
 
         <Box sx={sxBox}>
-        <SquareRoundedIcon fontSize="large" sx={{mt:3, mb:2}} />
+        <SquareRoundedIcon fontSize="large" sx={{ mt:3, mb:2 }} />
           <Typography variant="h6">Single</Typography>
           <Typography variant="subtitle1">One of a kind unique items</Typography>
         </Box>
 
         <Box sx={sxBox}>
-          <AutoAwesomeMotionIcon fontSize="large" sx={{mt:3, mb:2}} />
+          <AutoAwesomeMotionIcon fontSize="large" sx={{ mt:3, mb:2 }} />
           <Typography variant="h6">Multi</Typography>
           <Typography variant="subtitle1">Series of identical items</Typography>
         </Box>
 
-      </Stack>  
+      </Stack>
     </Box>
   );
 }
