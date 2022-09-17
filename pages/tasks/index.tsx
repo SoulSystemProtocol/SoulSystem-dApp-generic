@@ -4,7 +4,15 @@ import TaskList from 'components/task/TaskList';
 import useError from 'hooks/useError';
 import useTask from 'hooks/useTask';
 import { useEffect, useState } from 'react';
+import { getPageTitle } from 'utils';
 import Layout from '../../components/layout/Layout';
+import { GAME_NAME, GAME_DESC } from 'constants/contracts';
+
+const CONF = {
+  PAGE_TITLE: GAME_NAME.tasks,
+  TITLE: GAME_NAME.tasks,
+  SUBTITLE: GAME_DESC.tasks,
+};
 
 /**
  * Page for a list of Tasks
@@ -48,15 +56,12 @@ export default function TasksPage({ }: any) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  let title = process.env.NEXT_PUBLIC_APP_NAME + ' — Bounties';
   return (
-    <Layout title={title}>
+    <Layout title={getPageTitle(CONF.PAGE_TITLE)}>
       <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
         <Box>
-          <Typography variant="h5">Bounties</Typography>
-          <Typography variant="subtitle1">
-            Bounties are small tasks you can deliver for a prize.
-          </Typography>
+          <Typography variant="h5">CONF.PAGE_TITLE</Typography>
+          <Typography variant="subtitle1">CONF.SUBTITLE</Typography>
         </Box>
       </Box>
 

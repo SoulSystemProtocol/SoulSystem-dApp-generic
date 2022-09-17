@@ -1,7 +1,16 @@
 export const GAME_NAME: any = {
-  mdao: 'Provider',
-  project: 'Project',
+  mdao: 'Service Pods',
+  project: 'Product Pods',
+  tasks: 'Quests',
 };
+
+export const GAME_DESC: any = {
+  mdao: `Mentor DAOs consist of a mentor and mentees that work on bounties
+  together, as a team.`,
+  project: '',
+  tasks: 'Quests are small tasks that can earn you a prize.',
+};
+
 
 export const SOUL_TYPE: any = {
   created_by_not_contract: '',

@@ -35,7 +35,7 @@ const top_links: any = [
 const menu_side_links = [
   {
     route: '/souls',
-    label: 'People',
+    label: 'Free Agents',
     icon: <PersonOutlineOutlined color="warning" />,
     hide: process.env.NEXT_PUBLIC_FEATURE_SOUL == 'false',
   },
@@ -52,7 +52,7 @@ const menu_side_links = [
   },
   {
     route: '/tasks',
-    label: 'Bounties',
+    label: GAME_NAME.tasks,
     icon: <TaskAlt color="warning" />,
     hide: process.env.NEXT_PUBLIC_FEATURE_SOUL == 'false',
   },

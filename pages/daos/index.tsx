@@ -8,13 +8,12 @@ import Layout from 'components/layout/Layout';
 import DAOListGQ from 'components/soul/DAOListGQ';
 import { hexStringToJson } from 'utils/converters';
 import { resolveLink } from 'utils/metadata';
-import { GAME_NAME } from 'constants/contracts';
+import { GAME_NAME, GAME_DESC } from 'constants/contracts';
 
 const CONF = {
   PAGE_TITLE: GAME_NAME.mdao,
   TITLE: GAME_NAME.mdao,
-  SUBTITLE: `Mentor DAOs consist of a mentor and mentees that work on bounties
-  together, as a team.`,
+  SUBTITLE: GAME_DESC.mdao,
 };
 
 // Item Processing Function

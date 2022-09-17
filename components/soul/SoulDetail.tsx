@@ -63,7 +63,7 @@ export default function SoulDetail({ soul, sx }: any) {
         <Typography variant="body1">[TBD]</Typography>
       </Box>
       <Box sx={{ my: 2 }}>
-        <Typography variant="h5">Bounties</Typography>
+        <Typography variant="h5">{GAME_NAME.tasks}</Typography>
         <Typography variant="body1">[TBD]</Typography>
       </Box>
     </Box>
