@@ -28,9 +28,17 @@ const top_links: any = [
   // ...((account && [{ label: 'Dashboards', route: 'daos' }]) || []),
   // { label: 'Hackathons', route: 'hackathons' },
   // { label: 'Grants', route: 'grants' },
-  { label: 'SafeNFT', route: 'erc',
+  { 
+    label: 'SafeNFT', 
+    route: 'erc',
     hide: process.env.NEXT_PUBLIC_FEATURE_NFT == 'false',
     //TODO: Support Hiding
+ },
+ {
+  label: 'Event Explorer', 
+  route: 'explorer',
+  hide: process.env.NEXT_PUBLIC_FEATURE_EXPLORER == 'false',
+  //TODO: Support Hiding
  },
 ];
 
