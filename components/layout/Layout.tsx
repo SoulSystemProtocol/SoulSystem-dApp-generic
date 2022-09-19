@@ -33,13 +33,13 @@ const top_links: any = [
     route: 'erc',
     hide: process.env.NEXT_PUBLIC_FEATURE_NFT == 'false',
     //TODO: Support Hiding
- },
- {
-    label: 'Event Explorer', 
+  },
+  {
+    label: 'Event Explorer',
     route: 'explorer',
     hide: process.env.NEXT_PUBLIC_FEATURE_EXPLORER == 'false',
     //TODO: Support Hiding
- },
+  },
 ];
 
 //Define Sidemenu Links
