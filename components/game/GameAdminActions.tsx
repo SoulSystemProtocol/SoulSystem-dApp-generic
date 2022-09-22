@@ -14,7 +14,7 @@ import GameRoleManageDialog from './GameRoleManageDialog';
 /**
  * Genric Game Admin Actions
  */
-export default function GameAdminActions({ game: dao, sx }: any) {
+export default function GameAdminActions({ game: dao, sx }: any): JSX.Element {
   const { accountSoul } = useContext(DataContext);
   const { showDialog, closeDialog } = useContext(DialogContext);
   const { isSoulHasRole } = useDao();

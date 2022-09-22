@@ -13,15 +13,15 @@ import { MuiForm5 as Form } from '@rjsf/material-ui';
 import useError from 'hooks/useError';
 // import useTask from 'hooks/useTask';
 import useToast from 'hooks/useToast';
-// import { JSONSchema7 } from 'json-schema';
+import { JSONSchema7 } from 'json-schema';
 import { useContext, useState } from 'react';
 import AddressHash from 'components/web3/AddressHash';
 
-// interface Params {
-//   address: string;
-//   isClose: boolean;
-//   onClose: Function;
-// }
+interface FundParams {
+  address: string;
+  onClose?: Function;
+  isClose?: boolean;
+}
 
 /**
  * A dialog for apply for a task.
@@ -30,8 +30,7 @@ export default function FundDialog({
   address,
   isClose,
   onClose,
-  //} : Params): JSX.Element
-}) {
+}: FundParams): JSX.Element {
   const { showToastSuccess } = useToast();
   const { handleError } = useError();
   // const { applyForTaskAsDao } = useTask();
@@ -40,8 +39,7 @@ export default function FundDialog({
   const [formData, setFormData] = useState({});
   const { provider } = useContext(Web3Context);
 
-  const schema = {
-    // : JSONSchema7
+  const schema: JSONSchema7 = {
     type: 'object',
     required: ['amount'],
     properties: {
@@ -54,14 +52,14 @@ export default function FundDialog({
 
   // console.warn('Funds Dialog', { address, isClose, onClose });
 
-  async function close() {
+  const close = async () => {
     setFormData({});
     setIsLoading(false);
     setIsOpen(false);
     onClose();
-  }
+  };
 
-  async function submit({ formData }) {
+  const submit = async ({ formData }: any) => {
     try {
       setFormData(formData);
       setIsLoading(true);
@@ -76,11 +74,11 @@ export default function FundDialog({
       let receipt = await provider.getSigner().sendTransaction(tx);
       showToastSuccess('Success! Funds are on their way');
       close();
-    } catch (error) {
+    } catch (error: any) {
       handleError(error, true);
       setIsLoading(false);
     }
-  }
+  };
 
   return (
     <Dialog
@@ -115,7 +113,7 @@ export default function FundDialog({
                 <Button variant="contained" type="submit">
                   Send
                 </Button>
-                <Button variant="outlined" onClick={onClose}>
+                <Button variant="outlined" onClick={(e) => onClose(e)}>
                   Cancel
                 </Button>
               </>
