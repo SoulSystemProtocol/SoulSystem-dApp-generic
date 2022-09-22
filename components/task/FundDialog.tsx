@@ -50,13 +50,11 @@ export default function FundDialog({
     },
   };
 
-  // console.warn('Funds Dialog', { address, isClose, onClose });
-
   const close = async () => {
     setFormData({});
     setIsLoading(false);
     setIsOpen(false);
-    onClose();
+    onClose && onClose();
   };
 
   const submit = async ({ formData }: any) => {
@@ -113,7 +111,10 @@ export default function FundDialog({
                 <Button variant="contained" type="submit">
                   Send
                 </Button>
-                <Button variant="outlined" onClick={(e) => onClose(e)}>
+                <Button
+                  variant="outlined"
+                  onClick={(e) => onClose && onClose(e)}
+                >
                   Cancel
                 </Button>
               </>
