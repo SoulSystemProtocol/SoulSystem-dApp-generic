@@ -68,11 +68,11 @@ export default function ActionSelect(props: any) {
           disabled={actions.length === 0}
         >
           {actions.map((action: any, index: number) => (
-            <MenuItem key={index} value={action.guid}>
+            <MenuItem key={index} value={action.id}>
               <Stack direction="row" alignItems="center" spacing={1.5}>
                 <Typography>{formatActionName(action)}</Typography>
                 <Typography sx={{ color: 'text.secondary' }}>
-                  ({addressToShortAddress(action.guid)})
+                  ({addressToShortAddress(action.id)})
                 </Typography>
               </Stack>
             </MenuItem>

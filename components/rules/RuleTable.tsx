@@ -83,14 +83,14 @@ export default function RuleTable({ jurisdiction, sx }: any) {
       field: 'action',
       headerName: 'Action',
       width: 320,
-      valueGetter: (params: any) => `${params.row.action.guid}`,
+      valueGetter: (params: any) => `${params.row.action.id}`,
       renderCell: (params: any) => (
         <Box>
           <Stack direction="row" alignItems="center" spacing={1}>
             <Typography>{formatActionName(params.row.action)}</Typography>
           </Stack>
           <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
-            {params.row.action.guid}
+            {params.row.action.id}
           </Typography>
         </Box>
       ),
@@ -210,7 +210,7 @@ export default function RuleTable({ jurisdiction, sx }: any) {
       const actions = await getActions(Array.from(actionGuids));
       for (const rule of rules) {
         const action = actions.find(
-          (action) => action.guid === rule.rule.about,
+          (action) => action.id === rule.rule.about,
         );
         rows.push({ action: action, rule: rule });
       }
