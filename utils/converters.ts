@@ -36,7 +36,7 @@ export function addressToShortAddress(address: string): string {
       address.length - 4,
     )}`;
   }
-  return shortAddress?.toLowerCase();
+  return shortAddress.toLowerCase();
 }
 
 /**
@@ -72,24 +72,20 @@ export function taskStageToString(task: Task): string {
 }
 
 /**
- * Format action subject, verb, tool to string.
- *
- * @param {Action} action Action.
- * @returns Formatted string with action name or "Unknown action";
+ * Format Action Name (subject, verb, object, tool)
  */
 export function formatActionName(action: {
-  action: { subject: any; verb: any; object: any };
+  subject: any;
+  verb: any;
+  object: any;
+  tool: any;
 }): string {
-  if (action?.action) {
-    return (
-      _.capitalize(action.action.subject || '') +
-      ' ' +
-      (action.action.verb || '') +
-      ' ' +
-      (action.action.object || '')
-    );
-  }
-  return 'Unknown action';
+  let ret = '';
+  if (action.subject) ret += action.subject;
+  if (action.verb) ret += ' ' + action.verb;
+  if (action.object) ret += ' ' + action.object;
+  if (action.tool) ret += ' using a ' + action.tool;
+  return _.capitalize(ret);
 }
 
 /**
