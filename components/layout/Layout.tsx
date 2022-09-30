@@ -41,7 +41,7 @@ const top_links: any = [
     //TODO: Support Hiding
   },
   {
-    label: 'Action Management',
+    label: 'Action Repo',
     route: 'actions',
     //TODO: Support Hiding
   },
