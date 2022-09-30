@@ -18,11 +18,12 @@ import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 import { useContext, useEffect, useState } from 'react';
 import Dao from 'classes/Dao';
+import ActionsDisplay from 'components/rules/ActionsDisplay';
 
 /**
  * Component: Rule Managment
  */
-export default function LawManager(): JSX.Element {
+export default function RuleManage(): JSX.Element {
   const router = useRouter();
   const { slug } = router.query;
 
@@ -82,25 +83,7 @@ export default function LawManager(): JSX.Element {
             <RuleTable jurisdiction={game} sx={{ mt: 2.5 }} />
           </Box>
           {/* Actions */}
-          <Box sx={{ mt: 12 }}>
-            <Typography variant="h2" gutterBottom>
-              Actions
-            </Typography>
-            <Typography gutterBottom>
-              {`General actions that a game admin can use to create the game's rules`}
-            </Typography>
-            <Divider />
-            <Button
-              variant="outlined"
-              onClick={() =>
-                showDialog?.(<ActionAddDialog onClose={closeDialog} />)
-              }
-              sx={{ mt: 2.5 }}
-            >
-              Add Action
-            </Button>
-            <ActionTable sx={{ mt: 2.5 }} />
-          </Box>
+          <ActionsDisplay />
         </Box>
       )}
     </Layout>
