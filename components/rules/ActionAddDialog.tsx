@@ -40,12 +40,12 @@ export default function ActionAddDialog({
     properties: {
       subject: {
         type: 'string',
-        title: 'Acted',
+        title: 'Acting Role',
         default: '',
       },
       verb: {
         type: 'string',
-        title: 'Verb',
+        title: 'Action',
         default: '',
       },
       object: {
@@ -64,19 +64,20 @@ export default function ActionAddDialog({
   const uiSchema = {
     subject: {
       'ui:emptyValue': '',
-      'ui:placeholder': 'founder',
+      'ui:placeholder': 'who',
     },
     verb: {
       'ui:emptyValue': '',
-      'ui:placeholder': 'breached',
+      'ui:placeholder': 'did',
     },
     object: {
       'ui:emptyValue': '',
-      'ui:placeholder': 'contract',
+      'ui:placeholder': 'what',
     },
     tool: {
       'ui:emptyValue': '',
-      'ui:widget': 'hidden',
+      'ui:placeholder': 'using',
+      // 'ui:widget': 'hidden',
     },
   };
 
@@ -91,7 +92,7 @@ export default function ActionAddDialog({
     try {
       setFormData(formData);
       setIsLoading(true);
-      await getContractActions().addAction(
+      await getContractActions().actionAdd(
         {
           subject: formData.subject,
           verb: formData.verb,

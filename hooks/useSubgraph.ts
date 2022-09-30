@@ -67,14 +67,6 @@ export default function useSubgraph() {
 
   /**
    * Find the jurisdiction rule entities.
-   *
-   * @param {Array.<string>} ids A list with jurisdiction rule ids
-   * @param {string} jurisdiction Jurisdiction id (address)
-   * @param {string} actionGuid Action id (guid)
-   * @param {bool} isPositive get only positive rules
-   * @param {bool} isNegative get only negative rules
-   * @param {bool} isEnabled get only enabled rules
-   * @returns {Promise.<Array.<{object}>>} Array with rule entities
    */
   const findJurisdictionRuleEntities = async function (
     ids: string[],
@@ -83,7 +75,7 @@ export default function useSubgraph() {
     isPositive?: boolean,
     isNegative?: boolean,
     isEnabled?: boolean,
-  ) {
+  ): Promise<Array<any>> {
     const fixedIds = !!ids.length ? ids.map((id) => id.toLowerCase()) : [];
     const fixedJurisdiction = jurisdiction ? jurisdiction.toLowerCase() : null;
     const response = await makeSubgraphQuery(
@@ -96,29 +88,22 @@ export default function useSubgraph() {
         isEnabled,
       ),
     );
-    return response.jurisdictionRuleEntities;
+    return response.gameRules;
   };
 
   /**
    * Get jurisdiction rule entities by search query.
-   *
-   * @param {string} jurisdiction Jurisdiction id (address).
-   * @param {bool} isPositive get only positive rules.
-   * @param {bool} isNegative get only negative rules.
-   * @param {bool} isEnabled get only enabled rules.
-   * @param {string} searchQuery Search query.
-   * @returns {Promise.<Array.<{object}>>} Array with rule entities.
    */
   let findJurisdictionRuleEntitiesBySearchQuery = async function (
-    jurisdiction: string,
+    containerId: string,
     isPositive?: boolean,
     isNegative?: boolean,
     isEnabled?: boolean,
     searchQuery?: any,
-  ) {
+  ): Promise<Array<any>> {
     const response = await makeSubgraphQuery(
       getFindJurisdictionRuleEntitiesBySearchQueryQuery(
-        jurisdiction,
+        containerId,
         isPositive,
         isNegative,
         isEnabled,
@@ -135,27 +120,19 @@ export default function useSubgraph() {
   };
 
   /**
-   * Get jurisdiction rules.
-   *
-   * @param {Array.<string>} ids A list with jurisdiction rule ids
-   * @param {string} jurisdiction Jurisdiction id (address)
-   * @param {string} actionGuid Action id (guid)
-   * @param {bool} isPositive get only positive rules
-   * @param {bool} isNegative get only negative rules
-   * @param {bool} isEnabled get only enabled rules
-   * @returns {Promise.<Array.<{JurisdictionRule}>>} Array with rules
+   * Get Game Rules
    */
-  const getJurisdictionRules = async function (
+  const getGameRules = async function (
     ids: string[],
-    jurisdiction: string,
+    containerId: string,
     actionGuid?: any,
     isPositive?: boolean,
     isNegative?: boolean,
     isEnabled?: boolean,
-  ) {
+  ): Promise<Array<any>> {
     const jurisdictionRuleEntities = await findJurisdictionRuleEntities(
       ids,
-      jurisdiction,
+      containerId,
       actionGuid,
       isPositive,
       isNegative,
@@ -168,14 +145,13 @@ export default function useSubgraph() {
   };
 
   /**
-   * Find the action entities.
-   *
-   * @param {Array.<string>} guids If not null, then the function returns the action entities for the specified guids.
-   * @returns {Promise.<Array.<{object}>>} Array with action entities.
+   * Find Action entities
    */
-  const findActionEntities = async function (guids: string[]) {
+  const findActionEntities = async function (
+    guids: string[],
+  ): Promise<Array<any>> {
     const response = await makeSubgraphQuery(getFindActionEntitiesQuery(guids));
-    return response.actionEntities;
+    return response.actions;
   };
 
   return {
@@ -184,7 +160,7 @@ export default function useSubgraph() {
     findGames,
     findClaims,
     findActionEntities,
-    getJurisdictionRules,
+    getGameRules,
   };
 }
 
@@ -242,7 +218,7 @@ function getFindSoulsQuery(
 }
 
 function getFindGamesQuery(
-  ids?: Array<string>,
+  ids?: string[],
   type?: string,
   first?: number,
   skip?: number,
@@ -355,22 +331,20 @@ function getFindClaimsQuery(
 
 ///
 function getFindJurisdictionRuleEntitiesBySearchQueryQuery(
-  jurisdiction: string,
+  containerId: string,
   isPositive?: boolean,
   isNegative?: boolean,
   isEnabled?: boolean,
   searchQuery?: string,
 ) {
-  let jurisdictionFilter = jurisdiction
-    ? `jurisdiction: "${jurisdiction}"`
-    : '';
+  let gameFilter = containerId ? `game: "${containerId}"` : '';
   let isPositiveFilter = isPositive === true ? 'isPositive: true' : '';
   let isNegativeFilter = isNegative === true ? 'isPositive: false' : '';
   let isEnabledFilter = isEnabled === true ? 'isDisabled: false' : '';
   let searchQueryFilter1 = `aboutSubject_contains_nocase: "${searchQuery}"`;
   let searchQueryFilter2 = `affected_contains_nocase: "${searchQuery}"`;
-  let filterParams1 = `where: {${jurisdictionFilter}, ${isPositiveFilter},  ${isNegativeFilter}, ${isEnabledFilter}, ${searchQueryFilter1}}`;
-  let filterParams2 = `where: {${jurisdictionFilter}, ${isPositiveFilter}, ${isNegativeFilter}, ${isEnabledFilter},  ${searchQueryFilter2}}`;
+  let filterParams1 = `where: {${gameFilter}, ${isPositiveFilter},  ${isNegativeFilter}, ${isEnabledFilter}, ${searchQueryFilter1}}`;
+  let filterParams2 = `where: {${gameFilter}, ${isPositiveFilter}, ${isNegativeFilter}, ${isEnabledFilter},  ${searchQueryFilter2}}`;
   let paginationParams = `first: 20`;
   let fields = `
     id
@@ -392,28 +366,28 @@ function getFindJurisdictionRuleEntitiesBySearchQueryQuery(
     }
   `;
   return `{
-    result1: jurisdictionRuleEntities(${filterParams1}, ${paginationParams}) {
+    result1: gameRule(${filterParams1}, ${paginationParams}) {
       ${fields}
     }
-    result2: jurisdictionRuleEntities(${filterParams2}, ${paginationParams}) {
+    result2: gameRule(${filterParams2}, ${paginationParams}) {
       ${fields}
     }
   }`;
 }
 
-function getFindActionEntitiesQuery(guids: string[] = []) {
+function getFindActionEntitiesQuery(guids: string[]) {
   let queryParams = `first: 100`;
-  if (guids && guids.length == 0) {
-    queryParams = `where: {id: ""}`;
-  }
-  if (guids && guids.length == 1) {
-    queryParams = `where: {id: "${guids[0]}"}`;
-  }
-  if (guids && guids.length > 1) {
-    queryParams = `first: 100, where: {id_in: ["${guids.join('","')}"]}`;
+  if (guids !== undefined && guids.length > 0) {
+    //   queryParams = `where: {id: ""}`;
+    // }
+    if (guids.length == 1) {
+      queryParams = `where: {id: "${guids[0]}"}`;
+    } else if (guids.length > 1) {
+      queryParams = `first: 100, where: {id_in: ["${guids.join('","')}"]}`;
+    }
   }
   return `{
-    actionEntities(${queryParams}) {
+    actions(${queryParams}) {
       id
       subject
       verb
@@ -442,20 +416,14 @@ function getFindActionEntitiesQuery(guids: string[] = []) {
 ///
 function getFindJurisdictionRuleEntitiesQuery(
   ids: string[],
-  jurisdiction?: string,
+  containerId?: string,
   actionGuid?: string,
   isPositive?: boolean,
   isNegative?: boolean,
   isEnabled?: boolean,
 ) {
   let idsFilter = !!ids.length ? `id_in: ["${ids.join('","')}"]` : '';
-  console.log('[TEST] idsFilter should be empty if no ids ', {
-    ids,
-    idsFilter,
-  });
-  let jurisdictionFilter = jurisdiction
-    ? `jurisdiction: "${jurisdiction}"`
-    : '';
+  let jurisdictionFilter = containerId ? `game: "${containerId}"` : '';
   let actionGuidFilter = actionGuid ? `about: "${actionGuid}"` : '';
   let isPositiveFilter = isPositive === true ? 'isPositive: true' : '';
   let isNegativeFilter = isNegative === true ? 'isPositive: false' : '';
@@ -463,7 +431,7 @@ function getFindJurisdictionRuleEntitiesQuery(
   let filterParams = `where: {${idsFilter}, ${jurisdictionFilter}, ${actionGuidFilter}, ${isPositiveFilter}, ${isNegativeFilter}, ${isEnabledFilter}}`;
   let paginationParams = `first: 100`;
   return `{
-    jurisdictionRuleEntities(${filterParams}, ${paginationParams}) {
+    gameRules(${filterParams}, ${paginationParams}) {
       id
       about {
         id

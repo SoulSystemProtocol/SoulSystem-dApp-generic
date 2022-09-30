@@ -31,6 +31,7 @@ export default function useAction() {
     //   return action;
     // })}
     let actions = [];
+    console.log('[DEBUG] actionEntities', actionEntities);
     for (const action of actionEntities) {
       try {
         action.metadata = hexStringToJson(action.uriData);

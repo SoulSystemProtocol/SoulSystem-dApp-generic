@@ -35,6 +35,18 @@ export default function RuleAddDialog({ item, isClose, onClose }: any) {
     type: 'object',
     required: ['about', 'affected', 'name'],
     properties: {
+      // icon: {
+      //   type: 'string',
+      //   title: 'Icon',
+      // },
+      name: {
+        type: 'string',
+        title: 'Title',
+      },
+      description: {
+        type: 'string',
+        title: 'Description',
+      },
       about: {
         type: 'string',
         title: 'Action',
@@ -47,18 +59,6 @@ export default function RuleAddDialog({ item, isClose, onClose }: any) {
         type: 'boolean',
         title: 'Negation',
         default: false,
-      },
-      name: {
-        type: 'string',
-        title: 'Name to display',
-      },
-      description: {
-        type: 'string',
-        title: 'Description to display',
-      },
-      icon: {
-        type: 'string',
-        title: 'Icon to display',
       },
       evidenceDescription: {
         type: 'string',
@@ -126,14 +126,14 @@ export default function RuleAddDialog({ item, isClose, onClose }: any) {
       'ui:widget': 'ActionSelect',
     },
     affected: {
-      'ui:placeholder': 'investor',
+      'ui:placeholder': 'Affected Role',
     },
     negation: {
       'ui:disabled': true,
       'ui:widget': 'hidden',
     },
     name: {
-      'ui:placeholder': 'Investor lost all investments',
+      'ui:placeholder': 'client received product',
     },
     // icon: {
     //   'ui:widget': 'IconSelect',

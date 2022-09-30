@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { Button } from '@mui/material';
-import { DialogContext, IDialogContext } from 'contexts/dialog';
+import { DialogContext, IDialogParams } from 'contexts/dialog';
 import { DataContext } from 'contexts/data';
 import { getPageTitle } from '../../utils';
 import DaoManageDialog from 'components/dao/DaoManageDialog';

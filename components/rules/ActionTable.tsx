@@ -2,18 +2,16 @@ import { DataObjectOutlined } from '@mui/icons-material';
 import { Box } from '@mui/system';
 import { DataGrid, GridActionsCellItem, GridToolbar } from '@mui/x-data-grid';
 import JsonViewDialog from 'components/json/JsonViewDialog';
-import { DialogContext, IDialogContext } from 'contexts/dialog';
+import { DialogContext, IDialogParams } from 'contexts/dialog';
 import useAction from 'hooks/useAction';
 import useError from 'hooks/useError';
 import { useContext, useEffect, useState } from 'react';
 
 /**
  * A component with a table with actions.
- *
-
  */
 export default function ActionTable({ sx }: any): JSX.Element {
-  const { showDialog, closeDialog }: Partial<IDialogContext> =
+  const { showDialog, closeDialog }: Partial<IDialogParams> =
     useContext(DialogContext);
   const { handleError } = useError();
   const { getActions } = useAction();
@@ -27,6 +25,7 @@ export default function ActionTable({ sx }: any): JSX.Element {
       headerName: '',
       width: 60,
       getActions: (params: any) => {
+        console.log('[DEBUG] params', params);
         const actions = [
           <GridActionsCellItem
             key="viewJson"
@@ -47,25 +46,25 @@ export default function ActionTable({ sx }: any): JSX.Element {
       field: 'guid',
       headerName: 'GUID (ID)',
       width: 200,
-      valueGetter: (params: any) => `${params.row.guid}`,
+      valueGetter: (params: any) => `${params.row.id}`,
     },
     {
       field: 'subject',
       headerName: 'Acted',
       width: 400,
-      valueGetter: (params: any) => `${params.row.action.subject || ''}`,
+      valueGetter: (params: any) => `${params.row.subject || ''}`,
     },
     {
       field: 'verb',
       headerName: 'Verb',
       width: 400,
-      valueGetter: (params: any) => `${params.row.action.verb || ''}`,
+      valueGetter: (params: any) => `${params.row.verb || ''}`,
     },
     {
       field: 'object',
       headerName: 'Object',
       width: 400,
-      valueGetter: (params: any) => `${params.row.action.object || ''}`,
+      valueGetter: (params: any) => `${params.row.object || ''}`,
     },
   ];
 
@@ -99,7 +98,7 @@ export default function ActionTable({ sx }: any): JSX.Element {
         pageSize={50}
         rowsPerPageOptions={[50]}
         rowHeight={84}
-        getRowId={(row: any) => row.guid}
+        getRowId={(row: any) => row.id}
         components={{
           Toolbar: GridToolbar,
         }}

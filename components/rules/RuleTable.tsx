@@ -2,7 +2,7 @@ import { BlockOutlined, DataObjectOutlined } from '@mui/icons-material';
 import { Stack, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import { DataGrid, GridActionsCellItem, GridToolbar } from '@mui/x-data-grid';
-import { DialogContext, IDialogContext } from 'contexts/dialog';
+import { DialogContext, IDialogParams } from 'contexts/dialog';
 import useAction from 'hooks/useAction';
 import useError from 'hooks/useError';
 import useSubgraph from 'hooks/useSubgraph';
@@ -17,10 +17,10 @@ import JsonViewDialog from 'components/json/JsonViewDialog';
  */
 export default function RuleTable({ jurisdiction, sx }: any) {
   // eslint-disable-next-line prettier/prettier
-  const { showDialog, closeDialog }: Partial<IDialogContext> = useContext(DialogContext);
+  const { showDialog, closeDialog }: Partial<IDialogParams> = useContext(DialogContext);
   const { handleError } = useError();
   const { getActions } = useAction();
-  const { getJurisdictionRules } = useSubgraph();
+  const { getGameRules } = useSubgraph();
   const [isLoading, setIsLoading] = useState(true);
   const [rows, setRows] = useState<Array<any>>([]);
 
@@ -200,7 +200,7 @@ export default function RuleTable({ jurisdiction, sx }: any) {
       setRows([]);
       setIsLoading(true);
       const rows = [];
-      const rules = await getJurisdictionRules([], jurisdiction.id);
+      const rules = await getGameRules([], jurisdiction.id);
       // const actionGuids = new Set();
       const actionGuids = new Array();
       for (const rule of rules) {

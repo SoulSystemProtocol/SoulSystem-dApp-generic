@@ -6,7 +6,7 @@ import {
   Link,
   Typography,
 } from '@mui/material';
-import { DialogContext, IDialogContext } from 'contexts/dialog';
+import { DialogContext, IDialogParams } from 'contexts/dialog';
 import Layout from 'components/layout/Layout';
 import ActionAddDialog from 'components/rules/ActionAddDialog';
 import ActionTable from 'components/rules/ActionTable';
@@ -20,7 +20,7 @@ import { useContext, useEffect, useState } from 'react';
 import Dao from 'classes/Dao';
 
 /**
- * Component: Rule Manager
+ * Component: Rule Managment
  */
 export default function LawManager(): JSX.Element {
   const router = useRouter();
@@ -57,7 +57,7 @@ export default function LawManager(): JSX.Element {
                 {game.name || 'DAO'}
               </Link>
             </NextLink>
-            <Typography color="text.primary">{'Rule Manager'}</Typography>
+            <Typography color="text.primary">{'Rule Managment'}</Typography>
           </Breadcrumbs>
           {/* Rules */}
           <Box>
