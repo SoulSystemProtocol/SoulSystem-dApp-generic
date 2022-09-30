@@ -9,7 +9,7 @@ import {
 } from '@mui/material';
 import { MuiForm5 as Form } from '@rjsf/material-ui';
 import ProjectMetadata from 'classes/metadata/ProjectMetadata';
-import ImageInput from 'components/form/widgets/ImageInput';
+import ImageInput from 'components/form/widget/ImageInput';
 import useError from 'hooks/useError';
 import useIpfs from 'hooks/useIpfs';
 import useProject from 'hooks/useProject';

@@ -2,7 +2,7 @@
 // import { Button, Stack } from '@mui/material';
 // import { GAME_ROLE } from 'constants/contracts';
 // import { DataContext } from 'contexts/data';
-// import { DialogContext } from 'contexts/dialog';
+// import { DialogContext, IDialogContext } from 'contexts/dialog';
 // import useError from 'hooks/useError';
 // import useToast from 'hooks/useToast';
 

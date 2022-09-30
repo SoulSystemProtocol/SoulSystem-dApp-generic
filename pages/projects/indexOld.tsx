@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import { Button } from '@mui/material';
 import { DataContext } from 'contexts/data';
-import { DialogContext } from 'contexts/dialog';
+import { DialogContext, IDialogContext } from 'contexts/dialog';
 import useError from 'hooks/useError';
 import useProject from 'hooks/useProject';
 import Project from 'classes/Project';

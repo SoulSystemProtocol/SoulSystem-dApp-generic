@@ -71,12 +71,12 @@ export function taskStageToString(task: Task): string {
   return 'Open';
 }
 
-/** TBD
+/**
  * Format action subject, verb, tool to string.
  *
  * @param {Action} action Action.
  * @returns Formatted string with action name or "Unknown action";
- 
+ */
 export function formatActionName(action: {
   action: { subject: any; verb: any; object: any };
 }): string {
@@ -91,7 +91,6 @@ export function formatActionName(action: {
   }
   return 'Unknown action';
 }
-*/
 
 /**
  * Fetch Role Name by ID

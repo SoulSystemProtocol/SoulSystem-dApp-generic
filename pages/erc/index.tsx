@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { Box, Button } from '@mui/material';
-import { DialogContext } from 'contexts/dialog';
+import { DialogContext, IDialogContext } from 'contexts/dialog';
 import { DataContext } from 'contexts/data';
 import { getPageTitle } from '../../utils';
 // import { hexStringToJson } from 'utils/converters';

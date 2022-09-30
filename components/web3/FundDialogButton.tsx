@@ -1,12 +1,7 @@
 import { Button } from '@mui/material';
-import { DialogContext } from 'contexts/dialog';
+import { DialogContext, IDialogContext } from 'contexts/dialog';
 import { useContext } from 'react';
 import FundDialog from 'components/task/FundDialog';
-
-interface IDialogContext {
-  showDialog: Function;
-  closeDialog: Function;
-}
 
 /**
  * A component Fund Dialog Button
@@ -15,7 +10,7 @@ export default function FundDialogButton({
   address,
   sx = {},
 }: any): JSX.Element {
-  const { showDialog, closeDialog }: Partial<IDialogContext> =
+  const { showDialog, closeDialog }: Partial<DialogContext> =
     useContext(DialogContext);
   return (
     <Button

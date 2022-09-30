@@ -1,7 +1,7 @@
 import { Box, Button, Paper, Stack, Typography, Chip } from '@mui/material';
 import { DataContext } from 'contexts/data';
 import { useEffect, useState, useContext } from 'react';
-import { DialogContext } from 'contexts/dialog';
+import { DialogContext, IDialogContext } from 'contexts/dialog';
 import GamePostAddDialog from './GamePostAddDialog';
 import SoulCompactCard from 'components/soul/SoulCompactCard';
 import useError from 'hooks/useError';
@@ -94,7 +94,7 @@ export default function GameComments({ item, sx = {} }) {
             <Button
               variant="outlined"
               onClick={() =>
-                showDialog(
+                showDialog?.(
                   <GamePostAddDialog
                     item={item}
                     postType={'comment'}

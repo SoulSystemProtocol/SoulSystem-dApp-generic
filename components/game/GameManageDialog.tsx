@@ -5,7 +5,7 @@ import {
   DialogTitle,
   Stack,
 } from '@mui/material';
-import ImageInput from 'components/form/widgets/ImageInput';
+import ImageInput from 'components/form/widget/ImageInput';
 import useError from 'hooks/useError';
 import { useState } from 'react';
 import { MuiForm5 as Form } from '@rjsf/material-ui';

@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
 import { Button } from '@mui/material';
-import { DialogContext } from 'contexts/dialog';
+import { DialogContext, IDialogContext } from 'contexts/dialog';
 import { DataContext } from 'contexts/data';
 import { APP_CONFIGS } from '../../constants';
 import { getPageTitle, getPagination } from '../../utils';

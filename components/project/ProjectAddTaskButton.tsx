@@ -3,7 +3,7 @@ import { Box } from '@mui/system';
 import TaskManageDialog from 'components/task/TaskManageDialog';
 import { GAME_ROLE } from 'constants/contracts';
 import { DataContext } from 'contexts/data';
-import { DialogContext } from 'contexts/dialog';
+import { DialogContext, IDialogContext } from 'contexts/dialog';
 import useDao from 'hooks/useDao';
 import { useContext } from 'react';
 
