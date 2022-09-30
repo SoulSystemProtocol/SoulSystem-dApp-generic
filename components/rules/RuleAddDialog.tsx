@@ -9,7 +9,7 @@ import {
 } from '@mui/material';
 import { MuiForm5 as Form } from '@rjsf/material-ui';
 import ActionSelect from 'components/form/widget/ActionSelect';
-import IconSelect from 'components/form/widget/IconSelect';
+// import IconSelect from 'components/form/widget/IconSelect';
 import { REPUTATION_DOMAIN } from 'constants/contracts';
 import { JSONSchema7 } from 'json-schema';
 import useContract from 'hooks/useContract';
@@ -135,9 +135,9 @@ export default function RuleAddDialog({ item, isClose, onClose }: any) {
     name: {
       'ui:placeholder': 'Investor lost all investments',
     },
-    icon: {
-      'ui:widget': 'IconSelect',
-    },
+    // icon: {
+    //   'ui:widget': 'IconSelect',
+    // },
     evidenceDescription: {
       'ui:placeholder': 'Copy of contract',
     },
@@ -152,7 +152,7 @@ export default function RuleAddDialog({ item, isClose, onClose }: any) {
 
   const widgets = {
     ActionSelect: ActionSelect,
-    IconSelect: IconSelect,
+    // IconSelect: IconSelect,
   };
 
   function close() {

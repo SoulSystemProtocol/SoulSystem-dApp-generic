@@ -9,7 +9,7 @@ import {
 } from '@mui/material';
 import { MuiForm5 as Form } from '@rjsf/material-ui';
 import { JSONSchema7 } from 'json-schema';
-import useActionRepoContract from 'hooks/contracts/useActionRepoContract';
+import useContract from 'hooks/useContract';
 import useError from 'hooks/useError';
 import useToast from 'hooks/useToast';
 import { useState } from 'react';
@@ -29,7 +29,7 @@ export default function ActionAddDialog({
 }: DialogParams): JSX.Element {
   const { handleError } = useError();
   const { showToastSuccess } = useToast();
-  const { addAction } = useActionRepoContract();
+  const { getContractActions } = useContract();
   const [formData, setFormData] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(!isClose);
@@ -91,7 +91,7 @@ export default function ActionAddDialog({
     try {
       setFormData(formData);
       setIsLoading(true);
-      await addAction(
+      await getContractActions().addAction(
         {
           subject: formData.subject,
           verb: formData.verb,

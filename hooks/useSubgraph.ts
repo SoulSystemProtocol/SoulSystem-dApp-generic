@@ -68,13 +68,13 @@ export default function useSubgraph() {
   /**
    * Find the jurisdiction rule entities.
    *
-   * @param {Array.<string>} ids A list with jurisdiction rule ids.
-   * @param {string} jurisdiction Jurisdiction id (address).
-   * @param {string} actionGuid Action id (guid).
-   * @param {bool} isPositive If required to get only positive rules.
-   * @param {bool} isNegative If required to get only negative rules.
-   * @param {bool} isEnabled If required to get only enabled rules.
-   * @returns {Promise.<Array.<{object}>>} Array with rule entities.
+   * @param {Array.<string>} ids A list with jurisdiction rule ids
+   * @param {string} jurisdiction Jurisdiction id (address)
+   * @param {string} actionGuid Action id (guid)
+   * @param {bool} isPositive get only positive rules
+   * @param {bool} isNegative get only negative rules
+   * @param {bool} isEnabled get only enabled rules
+   * @returns {Promise.<Array.<{object}>>} Array with rule entities
    */
   const findJurisdictionRuleEntities = async function (
     ids: string[],
@@ -103,9 +103,9 @@ export default function useSubgraph() {
    * Get jurisdiction rule entities by search query.
    *
    * @param {string} jurisdiction Jurisdiction id (address).
-   * @param {bool} isPositive If required to get only positive rules.
-   * @param {bool} isNegative If required to get only negative rules.
-   * @param {bool} isEnabled If required to get only enabled rules.
+   * @param {bool} isPositive get only positive rules.
+   * @param {bool} isNegative get only negative rules.
+   * @param {bool} isEnabled get only enabled rules.
    * @param {string} searchQuery Search query.
    * @returns {Promise.<Array.<{object}>>} Array with rule entities.
    */
@@ -137,13 +137,13 @@ export default function useSubgraph() {
   /**
    * Get jurisdiction rules.
    *
-   * @param {Array.<string>} ids A list with jurisdiction rule ids.
-   * @param {string} jurisdiction Jurisdiction id (address).
-   * @param {string} actionGuid Action id (guid).
-   * @param {bool} isPositive If required to get only positive rules.
-   * @param {bool} isNegative If required to get only negative rules.
-   * @param {bool} isEnabled If required to get only enabled rules.
-   * @returns {Promise.<Array.<{JurisdictionRule}>>} Array with rules.
+   * @param {Array.<string>} ids A list with jurisdiction rule ids
+   * @param {string} jurisdiction Jurisdiction id (address)
+   * @param {string} actionGuid Action id (guid)
+   * @param {bool} isPositive get only positive rules
+   * @param {bool} isNegative get only negative rules
+   * @param {bool} isEnabled get only enabled rules
+   * @returns {Promise.<Array.<{JurisdictionRule}>>} Array with rules
    */
   const getJurisdictionRules = async function (
     ids: string[],

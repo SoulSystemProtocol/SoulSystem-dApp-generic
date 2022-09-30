@@ -52,6 +52,11 @@ const menu_side_links = [
   },
   {
     route: '/daos',
+    label: GAME_NAME.dao,
+    icon: <SchoolOutlined color="warning" />,
+  },
+  {
+    route: '/mdaos',
     label: GAME_NAME.mdao,
     icon: <SchoolOutlined color="warning" />,
   },
