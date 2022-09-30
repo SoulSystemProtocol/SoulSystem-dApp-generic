@@ -209,9 +209,7 @@ export default function RuleTable({ jurisdiction, sx }: any) {
       }
       const actions = await getActions(Array.from(actionGuids));
       for (const rule of rules) {
-        const action = actions.find(
-          (action) => action.id === rule.rule.about,
-        );
+        const action = actions.find((action) => action.id === rule.rule.about);
         rows.push({ action: action, rule: rule });
       }
       setRows(rows);

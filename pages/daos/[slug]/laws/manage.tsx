@@ -6,10 +6,8 @@ import {
   Link,
   Typography,
 } from '@mui/material';
-import { DialogContext, IDialogParams } from 'contexts/dialog';
+import { DialogContext } from 'contexts/dialog';
 import Layout from 'components/layout/Layout';
-import ActionAddDialog from 'components/rules/ActionAddDialog';
-import ActionTable from 'components/rules/ActionTable';
 import RuleAddDialog from 'components/rules/RuleAddDialog';
 import RuleTable from 'components/rules/RuleTable';
 import useError from 'hooks/useError';
@@ -61,7 +59,7 @@ export default function RuleManage(): JSX.Element {
             <Typography color="text.primary">{'Rule Managment'}</Typography>
           </Breadcrumbs>
           {/* Rules */}
-          <Box>
+          <Box sx={{ mb: 12 }}>
             <Typography variant="h2" gutterBottom>
               {'Rules'}
             </Typography>

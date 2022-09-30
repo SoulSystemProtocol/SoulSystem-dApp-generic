@@ -62,7 +62,7 @@ export default function LawManager(): JSX.Element {
           </Breadcrumbs>
 
           {/* Rules */}
-          <Box>
+          <Box sx={{ mb: 12 }}>
             <Typography variant="h2" gutterBottom>
               {'Rules'}
             </Typography>

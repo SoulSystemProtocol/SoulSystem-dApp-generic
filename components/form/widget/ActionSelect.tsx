@@ -17,7 +17,7 @@ import { formatActionName, addressToShortAddress } from 'utils/converters';
  *
  * TODO: Replace with "CaseActionSelect" and use name "ActionSelect".
  */
-export default function ActionSelect(props: any) {
+export default function ActionSelect(props: any): JSX.Element {
   const propsValue = props.value;
   const propsRequired = props.required;
   const propsOnChange = props.onChange;

@@ -25,7 +25,7 @@ export default function ActionTable({ sx }: any): JSX.Element {
       headerName: '',
       width: 60,
       getActions: (params: any) => {
-        console.log('[DEBUG] params', params);
+        // console.log('[DEBUG] params', params);
         const actions = [
           <GridActionsCellItem
             key="viewJson"

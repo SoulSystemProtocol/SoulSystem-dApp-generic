@@ -40,6 +40,11 @@ const top_links: any = [
     hide: process.env.NEXT_PUBLIC_FEATURE_EXPLORER == 'false',
     //TODO: Support Hiding
   },
+  {
+    label: 'Action Management',
+    route: 'actions',
+    //TODO: Support Hiding
+  },
 ];
 
 //Define Sidemenu Links

@@ -37,7 +37,7 @@ export default function ActionDisplay(): JSX.Element {
   }, [slug]);
 
   return (
-    <Box sx={{ mt: 12 }}>
+    <Box>
       <Typography variant="h2" gutterBottom>
         Actions
       </Typography>
