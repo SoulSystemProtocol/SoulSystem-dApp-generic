@@ -11,8 +11,8 @@ import { useContext, useEffect, useState } from 'react';
  * A component with a table with actions.
  */
 export default function ActionTable({ sx }: any): JSX.Element {
-  const { showDialog, closeDialog }: Partial<IDialogParams> =
-    useContext(DialogContext);
+  // eslint-disable-next-line prettier/prettier
+  const { showDialog, closeDialog }: Partial<IDialogParams> = useContext(DialogContext);
   const { handleError } = useError();
   const { getActions } = useAction();
   const [isLoading, setIsLoading] = useState(true);
