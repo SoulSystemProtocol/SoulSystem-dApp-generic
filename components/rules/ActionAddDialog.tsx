@@ -8,91 +8,100 @@ import {
   Stack,
 } from '@mui/material';
 import { MuiForm5 as Form } from '@rjsf/material-ui';
-import { GAME_ROLE } from 'constants/contracts';
-import useDao from 'hooks/useDao';
+import { JSONSchema7 } from 'json-schema';
+import useContract from 'hooks/useContract';
 import useError from 'hooks/useError';
 import useToast from 'hooks/useToast';
-import { JSONSchema7 } from 'json-schema';
-import { capitalize } from 'lodash';
 import { useState } from 'react';
 
-/**
- * Fix to support enum names in the schema.
- *
- * Details - https://github.com/rjsf-team/react-jsonschema-form/issues/2663#issuecomment-1106698186
- */
-declare module 'json-schema' {
-  export interface JSONSchema7 {
-    enumNames?: Array<string>;
-  }
-}
-
 interface DialogParams {
-  dao: any;
   onClose: any;
   isClose?: boolean;
 }
 
 /**
- * A dialog for assign or remove DAO role for a specified soul.
+ * A dialog for adding an action.
+ *
  */
-export default function GameRoleManageDialog({
-  dao,
+export default function ActionAddDialog({
   isClose,
   onClose,
 }: DialogParams): JSX.Element {
   const { handleError } = useError();
   const { showToastSuccess } = useToast();
-  const { assignRoleToSoul, removeRoleToSoul } = useDao();
+  const { getContractActions } = useContract();
   const [formData, setFormData] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(!isClose);
 
   const schema: JSONSchema7 = {
     type: 'object',
-    required: ['soulId', 'action', 'roleName'],
+    required: ['subject', 'verb'],
     properties: {
-      soulId: {
+      subject: {
         type: 'string',
-        title: 'Soul ID',
+        title: 'Acting Role',
+        default: '',
       },
-      action: {
+      verb: {
         type: 'string',
         title: 'Action',
-        default: 'assignRole',
-        enum: ['assignRole', 'removeRole'],
-        enumNames: ['Assign Role', 'Remove Role'],
+        default: '',
       },
-      roleName: {
+      object: {
         type: 'string',
-        title: 'Role',
-        default: 'member',
-        enum: ['member', 'admin'],
-        enumNames: [
-          capitalize(GAME_ROLE.member.name),
-          capitalize(GAME_ROLE.admin.name),
-        ],
+        title: 'Object',
+        default: '',
+      },
+      tool: {
+        type: 'string',
+        title: 'Tool',
+        default: '',
       },
     },
   };
 
-  async function close() {
+  const uiSchema = {
+    subject: {
+      'ui:emptyValue': '',
+      'ui:placeholder': 'who',
+    },
+    verb: {
+      'ui:emptyValue': '',
+      'ui:placeholder': 'did',
+    },
+    object: {
+      'ui:emptyValue': '',
+      'ui:placeholder': 'what',
+    },
+    tool: {
+      'ui:emptyValue': '',
+      'ui:placeholder': 'using',
+      // 'ui:widget': 'hidden',
+    },
+  };
+
+  async function close(): Promise<void> {
     setFormData({});
     setIsLoading(false);
     setIsOpen(false);
-    onClose();
+    return onClose();
   }
 
-  async function submit({ formData }: any) {
+  async function submit({ formData }: any): Promise<void> {
     try {
       setFormData(formData);
       setIsLoading(true);
-      if (formData.action === 'assignRole') {
-        await assignRoleToSoul(dao.id, formData.soulId, formData.roleName);
-      } else {
-        await removeRoleToSoul(dao.id, formData.soulId, formData.roleName);
-      }
-      showToastSuccess('Success! Data will be updated soon');
+      await getContractActions().actionAdd(
+        {
+          subject: formData.subject.toLowerCase(),
+          verb: formData.verb.toLowerCase(),
+          object: formData.object.toLowerCase(),
+          tool: formData.tool.toLowerCase(),
+        },
+        '', //uri
+      );
+      showToastSuccess('Success! Data will be updated soon.');
       close();
     } catch (error: any) {
       handleError(error, true);
@@ -103,17 +112,19 @@ export default function GameRoleManageDialog({
   return (
     <Dialog
       open={isOpen}
-      onClose={isLoading ? null : onClose}
-      maxWidth="xs"
+      onClose={() => isLoading && close()}
+      maxWidth="md"
       fullWidth
     >
-      <DialogTitle sx={{ pb: 0 }}>Manage Roles</DialogTitle>
+      <DialogTitle sx={{ pb: 0 }}>Add Action</DialogTitle>
       <DialogContent>
         <Form
           schema={schema}
           formData={formData}
+          uiSchema={uiSchema}
           onSubmit={submit}
           disabled={isLoading}
+          showErrorList={false}
         >
           <Stack direction="row" spacing={1} sx={{ mt: 2 }}>
             {isLoading ? (
@@ -128,7 +139,7 @@ export default function GameRoleManageDialog({
             ) : (
               <>
                 <Button variant="contained" type="submit">
-                  Submit
+                  Add
                 </Button>
                 <Button variant="outlined" onClick={onClose}>
                   Cancel

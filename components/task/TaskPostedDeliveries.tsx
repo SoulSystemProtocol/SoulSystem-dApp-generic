@@ -18,7 +18,7 @@ import {
   ENTITY,
 } from 'constants/contracts';
 import { DataContext } from 'contexts/data';
-import { DialogContext } from 'contexts/dialog';
+import { DialogContext, IDialogParams } from 'contexts/dialog';
 import useDao from 'hooks/useDao';
 import useError from 'hooks/useError';
 import useTask from 'hooks/useTask';

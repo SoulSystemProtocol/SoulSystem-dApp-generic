@@ -3,7 +3,7 @@
 import { Button, Stack } from '@mui/material';
 import { GAME_ROLE } from 'constants/contracts';
 import { DataContext } from 'contexts/data';
-import { DialogContext } from 'contexts/dialog';
+import { DialogContext, IDialogParams } from 'contexts/dialog';
 import useDao from 'hooks/useDao';
 // import useError from 'hooks/useError';
 // import useToast from 'hooks/useToast';

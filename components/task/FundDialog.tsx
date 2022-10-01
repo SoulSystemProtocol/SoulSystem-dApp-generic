@@ -1,3 +1,4 @@
+import { useContext, useState } from 'react';
 // import { BigNumber, ethers } from 'ethers';
 import { Web3Context } from 'contexts/web3';
 import { Save } from '@mui/icons-material';
@@ -14,13 +15,15 @@ import useError from 'hooks/useError';
 // import useTask from 'hooks/useTask';
 import useToast from 'hooks/useToast';
 import { JSONSchema7 } from 'json-schema';
-import { useContext, useState } from 'react';
 import AddressHash from 'components/web3/AddressHash';
 
-interface FundParams {
-  address: string;
-  onClose?: Function;
+interface DialogParams {
+  onClose: Function;
   isClose?: boolean;
+}
+
+interface FundParams extends DialogParams {
+  address: string;
 }
 
 /**

@@ -1,12 +1,14 @@
 import axios from 'axios';
 // import { DocumentNode, gql, useQuery } from '@apollo/client';
 import { IS_GAMES_CREATED_BY_NOT_HUB_DISABLED } from 'constants/features';
+import { unionWith } from 'lodash';
+import { hexStringToJson } from 'utils/converters';
 
 /**
  * Hook to work with subgraph.
  */
 export default function useSubgraph() {
-  let findSouls = async function (
+  const findSouls = async function (
     ids?: Array<string>,
     owners?: Array<string>,
     type?: string,
@@ -22,7 +24,7 @@ export default function useSubgraph() {
     return response.souls;
   };
 
-  let findGames = async function (
+  const findGames = async function (
     ids?: Array<string>,
     type?: string,
     first?: number,
@@ -34,7 +36,7 @@ export default function useSubgraph() {
     return response.games;
   };
 
-  let findClaims = async function (
+  const findClaims = async function (
     ids?: Array<string>,
     type?: string,
     game?: string,
@@ -47,7 +49,7 @@ export default function useSubgraph() {
     return response.claims;
   };
 
-  let isGamePart = async (gameId: string, sbt: string) => {
+  const isGamePart = async (gameId: string, sbt: string) => {
     const queryGQL = `
       query GetPart($sbt: ID!, $gameId: ID!) {
         gameParticipants(where: { sbt: $sbt, entity: $gameId }) {
@@ -63,11 +65,102 @@ export default function useSubgraph() {
     return response.gameParticipants.length > 0;
   };
 
+  /**
+   * Find the jurisdiction rule entities.
+   */
+  const findJurisdictionRuleEntities = async function (
+    ids: string[],
+    jurisdiction?: any,
+    actionGuid?: string,
+    isPositive?: boolean,
+    isNegative?: boolean,
+    isEnabled?: boolean,
+  ): Promise<Array<any>> {
+    const fixedIds = !!ids.length ? ids.map((id) => id.toLowerCase()) : [];
+    const fixedJurisdiction = jurisdiction ? jurisdiction.toLowerCase() : null;
+    const response = await makeSubgraphQuery(
+      getFindJurisdictionRuleEntitiesQuery(
+        fixedIds,
+        fixedJurisdiction,
+        actionGuid,
+        isPositive,
+        isNegative,
+        isEnabled,
+      ),
+    );
+    return response.gameRules;
+  };
+
+  /**
+   * Get jurisdiction rule entities by search query.
+   */
+  let findJurisdictionRuleEntitiesBySearchQuery = async function (
+    containerId: string,
+    isPositive?: boolean,
+    isNegative?: boolean,
+    isEnabled?: boolean,
+    searchQuery?: any,
+  ): Promise<Array<any>> {
+    const response = await makeSubgraphQuery(
+      getFindJurisdictionRuleEntitiesBySearchQueryQuery(
+        containerId,
+        isPositive,
+        isNegative,
+        isEnabled,
+        searchQuery,
+      ),
+    );
+    const unitedResults = unionWith(
+      response.result1,
+      response.result2,
+      response.result3,
+      (entity1: any, entity2: any) => entity1.id === entity2.id,
+    );
+    return unitedResults;
+  };
+
+  /**
+   * Get Game Rules
+   */
+  const getGameRules = async function (
+    ids: string[],
+    containerId: string,
+    actionGuid?: any,
+    isPositive?: boolean,
+    isNegative?: boolean,
+    isEnabled?: boolean,
+  ): Promise<Array<any>> {
+    const jurisdictionRuleEntities = await findJurisdictionRuleEntities(
+      ids,
+      containerId,
+      actionGuid,
+      isPositive,
+      isNegative,
+      isEnabled,
+    );
+    return jurisdictionRuleEntities.map((ruleEntity: any) => ({
+      ...ruleEntity,
+      metadata: hexStringToJson(ruleEntity.uriData),
+    }));
+  };
+
+  /**
+   * Find Action entities
+   */
+  const findActionEntities = async function (
+    guids: string[],
+  ): Promise<Array<any>> {
+    const response = await makeSubgraphQuery(getFindActionEntitiesQuery(guids));
+    return response.actions;
+  };
+
   return {
     isGamePart,
     findSouls,
     findGames,
     findClaims,
+    findActionEntities,
+    getGameRules,
   };
 }
 
@@ -125,7 +218,7 @@ function getFindSoulsQuery(
 }
 
 function getFindGamesQuery(
-  ids?: Array<string>,
+  ids?: string[],
   type?: string,
   first?: number,
   skip?: number,
@@ -232,6 +325,132 @@ function getFindClaimsQuery(
         uri
         metadata
       }
+    }
+  }`;
+}
+
+///
+function getFindJurisdictionRuleEntitiesBySearchQueryQuery(
+  containerId: string,
+  isPositive?: boolean,
+  isNegative?: boolean,
+  isEnabled?: boolean,
+  searchQuery?: string,
+) {
+  let gameFilter = containerId ? `game: "${containerId}"` : '';
+  let isPositiveFilter = isPositive === true ? 'isPositive: true' : '';
+  let isNegativeFilter = isNegative === true ? 'isPositive: false' : '';
+  let isEnabledFilter = isEnabled === true ? 'isDisabled: false' : '';
+  let searchQueryFilter1 = `aboutSubject_contains_nocase: "${searchQuery}"`;
+  let searchQueryFilter2 = `affected_contains_nocase: "${searchQuery}"`;
+  let filterParams1 = `where: {${gameFilter}, ${isPositiveFilter},  ${isNegativeFilter}, ${isEnabledFilter}, ${searchQueryFilter1}}`;
+  let filterParams2 = `where: {${gameFilter}, ${isPositiveFilter}, ${isNegativeFilter}, ${isEnabledFilter},  ${searchQueryFilter2}}`;
+  let paginationParams = `first: 20`;
+  let fields = `
+    id
+    about {
+      id
+    }
+    ruleId
+    affected
+    uri
+    uriData
+    negation
+    confirmationRuling
+    confirmationEvidence
+    confirmationWitness
+    effects {
+      name
+      direction
+      value
+    }
+  `;
+  return `{
+    result1: gameRule(${filterParams1}, ${paginationParams}) {
+      ${fields}
+    }
+    result2: gameRule(${filterParams2}, ${paginationParams}) {
+      ${fields}
+    }
+  }`;
+}
+
+function getFindActionEntitiesQuery(guids: string[]) {
+  let queryParams = `first: 100`;
+  if (guids !== undefined && guids.length > 0) {
+    //   queryParams = `where: {id: ""}`;
+    // }
+    if (guids.length == 1) {
+      queryParams = `where: {id: "${guids[0]}"}`;
+    } else if (guids.length > 1) {
+      queryParams = `first: 100, where: {id_in: ["${guids.join('","')}"]}`;
+    }
+  }
+  return `{
+    actions(${queryParams}) {
+      id
+      subject
+      verb
+      object
+      tool
+      uri
+      uriData
+      rules {
+        id
+        affected
+        uri
+        negation
+        confirmationRuling
+        confirmationEvidence
+        confirmationWitness
+        effects {
+          name
+          direction
+          value
+        }
+      }
+    }
+  }`;
+}
+
+///
+function getFindJurisdictionRuleEntitiesQuery(
+  ids: string[],
+  containerId?: string,
+  actionGuid?: string,
+  isPositive?: boolean,
+  isNegative?: boolean,
+  isEnabled?: boolean,
+) {
+  let idsFilter = !!ids.length ? `id_in: ["${ids.join('","')}"]` : '';
+  let jurisdictionFilter = containerId ? `game: "${containerId}"` : '';
+  let actionGuidFilter = actionGuid ? `about: "${actionGuid}"` : '';
+  let isPositiveFilter = isPositive === true ? 'isPositive: true' : '';
+  let isNegativeFilter = isNegative === true ? 'isPositive: false' : '';
+  let isEnabledFilter = isEnabled === true ? 'isDisabled: false' : '';
+  let filterParams = `where: {${idsFilter}, ${jurisdictionFilter}, ${actionGuidFilter}, ${isPositiveFilter}, ${isNegativeFilter}, ${isEnabledFilter}}`;
+  let paginationParams = `first: 100`;
+  return `{
+    gameRules(${filterParams}, ${paginationParams}) {
+      id
+      about {
+        id
+      }
+      ruleId
+      affected
+      uri
+      uriData
+      negation
+      confirmationRuling
+      confirmationEvidence
+      confirmationWitness
+      effects {
+        name
+        direction
+        value
+      }
+      isPositive
+      isDisabled
     }
   }`;
 }

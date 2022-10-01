@@ -40,6 +40,11 @@ const top_links: any = [
     hide: process.env.NEXT_PUBLIC_FEATURE_EXPLORER == 'false',
     //TODO: Support Hiding
   },
+  {
+    label: 'Action Repo',
+    route: 'actions',
+    //TODO: Support Hiding
+  },
 ];
 
 //Define Sidemenu Links
@@ -52,6 +57,11 @@ const menu_side_links = [
   },
   {
     route: '/daos',
+    label: GAME_NAME.dao,
+    icon: <SchoolOutlined color="warning" />,
+  },
+  {
+    route: '/mdaos',
     label: GAME_NAME.mdao,
     icon: <SchoolOutlined color="warning" />,
   },

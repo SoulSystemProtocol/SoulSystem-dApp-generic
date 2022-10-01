@@ -4,7 +4,7 @@ import useError from 'hooks/useError';
 import useSoul from 'hooks/useSoul';
 import { PersonOutlineOutlined } from '@mui/icons-material';
 import { useEffect, useState } from 'react';
-// import { formatAddress, formatProfileFirstLastName } from 'utils/formatters';
+// import { formatAddress, formatProfileFirstLastName } from 'utils/converters';
 import {
   addressToShortAddress,
   soulToFirstLastNameString,

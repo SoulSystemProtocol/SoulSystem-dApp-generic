@@ -1,4 +1,5 @@
 export const GAME_NAME: any = {
+  dao: 'Funding DAOs',
   mdao: 'Service Pods',
   project: 'Product Pods',
   tasks: 'Quests',
@@ -11,10 +12,10 @@ export const GAME_DESC: any = {
   tasks: 'Quests are small tasks that can earn you a prize.',
 };
 
-
 export const SOUL_TYPE: any = {
   created_by_not_contract: '',
   game: 'GAME',
+  process: 'PROCESS',
 };
 
 export const GAME_TYPE: any = {
@@ -83,4 +84,21 @@ export const CLAIM_POST_TYPE: any = {
 
 export const CLAIM_POST_ENTITY_TYPE: any = {
   applicant: 'applicant',
+};
+
+//--- DEPRECATE
+
+export const REPUTATION_DOMAIN = {
+  environment: {
+    name: 'environment',
+  },
+  personal: {
+    name: 'personal',
+  },
+  community: {
+    name: 'community',
+  },
+  professional: {
+    name: 'professional',
+  },
 };

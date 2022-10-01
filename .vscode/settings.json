@@ -7,5 +7,6 @@
   },
   "javascript.format.insertSpaceAfterOpeningAndBeforeClosingEmptyBraces": false,
   "javascript.format.insertSpaceAfterOpeningAndBeforeClosingJsxExpressionBraces": false,
-  "typescript.format.insertSpaceAfterOpeningAndBeforeClosingEmptyBraces": false
+  "typescript.format.insertSpaceAfterOpeningAndBeforeClosingEmptyBraces": false,
+  "editor.minimap.showSlider": "always"
 }
