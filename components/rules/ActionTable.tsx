@@ -5,6 +5,7 @@ import JsonViewDialog from 'components/json/JsonViewDialog';
 import { DialogContext, IDialogParams } from 'contexts/dialog';
 import useAction from 'hooks/useAction';
 import useError from 'hooks/useError';
+import { capitalize } from 'lodash';
 import { useContext, useEffect, useState } from 'react';
 
 /**
@@ -45,26 +46,26 @@ export default function ActionTable({ sx }: any): JSX.Element {
     {
       field: 'guid',
       headerName: 'GUID (ID)',
-      width: 200,
+      width: 150,
       valueGetter: (params: any) => `${params.row.id}`,
     },
     {
       field: 'subject',
       headerName: 'Acted',
-      width: 400,
-      valueGetter: (params: any) => `${params.row.subject || ''}`,
+      width: 200,
+      valueGetter: (params: any) => `${capitalize(params.row.subject) || ''}`,
     },
     {
       field: 'verb',
       headerName: 'Verb',
-      width: 400,
-      valueGetter: (params: any) => `${params.row.verb || ''}`,
+      width: 200,
+      valueGetter: (params: any) => `${capitalize(params.row.verb) || ''}`,
     },
     {
       field: 'object',
       headerName: 'Object',
-      width: 400,
-      valueGetter: (params: any) => `${params.row.object || ''}`,
+      width: 200,
+      valueGetter: (params: any) => `${capitalize(params.row.object) || ''}`,
     },
   ];
 

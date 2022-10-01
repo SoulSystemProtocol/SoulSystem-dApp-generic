@@ -94,12 +94,12 @@ export default function ActionAddDialog({
       setIsLoading(true);
       await getContractActions().actionAdd(
         {
-          subject: formData.subject,
-          verb: formData.verb,
-          object: formData.object,
-          tool: formData.tool,
+          subject: formData.subject.toLowerCase(),
+          verb: formData.verb.toLowerCase(),
+          object: formData.object.toLowerCase(),
+          tool: formData.tool.toLowerCase(),
         },
-        '',
+        '', //uri
       );
       showToastSuccess('Success! Data will be updated soon.');
       close();
