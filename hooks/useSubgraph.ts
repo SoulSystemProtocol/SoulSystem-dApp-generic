@@ -102,7 +102,7 @@ export default function useSubgraph() {
     searchQuery?: any,
   ): Promise<Array<any>> {
     const response = await makeSubgraphQuery(
-      searchFindGameRulesQueryQuery(
+      findGameRulesQueryMulti(
         containerId,
         isPositive,
         isNegative,
@@ -330,51 +330,6 @@ function getFindClaimsQuery(
 }
 
 ///
-function searchFindGameRulesQueryQuery(
-  containerId: string,
-  isPositive?: boolean,
-  isNegative?: boolean,
-  isEnabled?: boolean,
-  searchQuery?: string,
-) {
-  let gameFilter = containerId ? `game: "${containerId}"` : '';
-  let isPositiveFilter = isPositive === true ? 'isPositive: true' : '';
-  let isNegativeFilter = isNegative === true ? 'isPositive: false' : '';
-  let isEnabledFilter = isEnabled === true ? 'isDisabled: false' : '';
-  let searchQueryFilter1 = `aboutSubject_contains_nocase: "${searchQuery}"`;
-  let searchQueryFilter2 = `affected_contains_nocase: "${searchQuery}"`;
-  let filterParams1 = `where: {${gameFilter}, ${isPositiveFilter},  ${isNegativeFilter}, ${isEnabledFilter}, ${searchQueryFilter1}}`;
-  let filterParams2 = `where: {${gameFilter}, ${isPositiveFilter}, ${isNegativeFilter}, ${isEnabledFilter},  ${searchQueryFilter2}}`;
-  let paginationParams = `first: 20`;
-  let fields = `
-    id
-    about {
-      id
-    }
-    ruleId
-    affected
-    uri
-    uriData
-    negation
-    confirmationRuling
-    confirmationEvidence
-    confirmationWitness
-    effects {
-      name
-      direction
-      value
-    }
-  `;
-  return `{
-    result1: gameRule(${filterParams1}, ${paginationParams}) {
-      ${fields}
-    }
-    result2: gameRule(${filterParams2}, ${paginationParams}) {
-      ${fields}
-    }
-  }`;
-}
-
 function getFindActionEntitiesQuery(guids: string[]) {
   let queryParams = `first: 100`;
   if (guids !== undefined && guids.length > 0) {
@@ -451,6 +406,52 @@ function findGameRulesQuery(
       }
       isPositive
       isDisabled
+    }
+  }`;
+}
+
+///
+function findGameRulesQueryMulti(
+  containerId: string,
+  isPositive?: boolean,
+  isNegative?: boolean,
+  isEnabled?: boolean,
+  searchQuery?: string,
+) {
+  let gameFilter = containerId ? `game: "${containerId}"` : '';
+  let isPositiveFilter = isPositive === true ? 'isPositive: true' : '';
+  let isNegativeFilter = isNegative === true ? 'isPositive: false' : '';
+  let isEnabledFilter = isEnabled === true ? 'isDisabled: false' : '';
+  let searchQueryFilter1 = `aboutSubject_contains_nocase: "${searchQuery}"`;
+  let searchQueryFilter2 = `affected_contains_nocase: "${searchQuery}"`;
+  let filterParams1 = `where: {${gameFilter}, ${isPositiveFilter},  ${isNegativeFilter}, ${isEnabledFilter}, ${searchQueryFilter1}}`;
+  let filterParams2 = `where: {${gameFilter}, ${isPositiveFilter}, ${isNegativeFilter}, ${isEnabledFilter},  ${searchQueryFilter2}}`;
+  let paginationParams = `first: 20`;
+  let fields = `
+    id
+    about {
+      id
+    }
+    ruleId
+    affected
+    uri
+    uriData
+    negation
+    confirmationRuling
+    confirmationEvidence
+    confirmationWitness
+    effects {
+      name
+      direction
+      value
+    }
+  `;
+  return `{
+    result1: gameRule(${filterParams1}, ${paginationParams}) {
+      ${fields}
+    }
+    result2: gameRule(${filterParams2}, ${paginationParams}) {
+      ${fields}
     }
   }`;
 }
