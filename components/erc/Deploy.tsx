@@ -29,10 +29,9 @@ export default function Deploy({ sx }: any) {
 
   return (
     <Box>
-      <Typography variant="h1">Choose Type</Typography>
-      <Typography variant="subtitle1">
-        What kind of a SafeNFT contract do you with to deploy?
-      </Typography>
+      <Typography variant="h1">[WIP] Safe NFT</Typography>
+      <Typography variant="subtitle1">Deploy a SafeNFT contract</Typography>
+      <Typography variant="h2">Choose Type</Typography>
       <Stack direction="row" spacing={2} sx={{ mt: 2 }}>
         <Box sx={sxBox}>
           <SquareRoundedIcon fontSize="large" sx={{ mt: 3, mb: 2 }} />
