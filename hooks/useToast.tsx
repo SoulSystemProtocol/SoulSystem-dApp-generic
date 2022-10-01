@@ -13,18 +13,18 @@ export default function useToast() {
   const { switchNetwork } = useContext(Web3Context);
   const autoHideDuration = 10000;
 
-  let showToast = function (message: string) {
+  const showToast = function (message: string) {
     enqueueSnackbar(message, { autoHideDuration: autoHideDuration });
   };
 
-  let showToastSuccess = function (message: string) {
+  const showToastSuccess = function (message: string) {
     enqueueSnackbar(message, {
       variant: 'success',
       autoHideDuration: autoHideDuration,
     });
   };
 
-  let showToastSuccessLink = function (message: string, link: string) {
+  const showToastSuccessLink = function (message: string, link: string) {
     enqueueSnackbar(message, {
       action: (
         <Button
@@ -39,7 +39,8 @@ export default function useToast() {
     });
   };
 
-  let showToastError = function (error: any) {
+  const showToastError = function (error: any) {
+    //Error Message Overrides
     if (error instanceof WrongNetworkError) {
       const message = `You are connected to the wrong network. Please switch to ${process.env.NEXT_PUBLIC_NETWORK_NAME}`;
       const action = (
