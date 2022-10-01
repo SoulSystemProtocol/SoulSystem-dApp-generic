@@ -61,7 +61,7 @@ const menu_side_links = [
     icon: <SchoolOutlined color="warning" />,
   },
   {
-    route: '/mdaos',
+    route: '/mdao',
     label: GAME_NAME.mdao,
     icon: <SchoolOutlined color="warning" />,
   },

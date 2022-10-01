@@ -85,7 +85,6 @@ export default function GameManageDialog({ dao, isClose, onClose }: any) {
       setFormData(formData);
       setIsLoading(true);
       const { url: metadataUrl } = await uploadJsonToIPFS(
-        // new DaoMetadata(formData.image, formData.description),
         formData, //All Data
       );
       if (dao) {

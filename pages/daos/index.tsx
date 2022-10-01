@@ -11,9 +11,9 @@ import { resolveLink } from 'utils/metadata';
 import { GAME_NAME, GAME_DESC } from 'constants/contracts';
 
 const CONF = {
-  PAGE_TITLE: GAME_NAME.mdao,
-  TITLE: GAME_NAME.mdao,
-  SUBTITLE: GAME_DESC.mdao,
+  PAGE_TITLE: GAME_NAME.dao,
+  TITLE: GAME_NAME.dao,
+  SUBTITLE: GAME_DESC.dao,
 };
 
 // Item Processing Function
@@ -43,14 +43,14 @@ export default function DaosPage({}: any) {
       onClick={() => showDialog?.(<DaoManageDialog onClose={closeDialog} />)}
       variant="outlined"
     >
-      New Team
+      Create DAO
     </Button>
   );
 
   const daosListProps = {
     variables: {
       type: 'GAME',
-      role: 'MDAO',
+      role: 'DAO',
     },
     getCardContent,
     renderActions,

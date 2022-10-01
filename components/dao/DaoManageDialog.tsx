@@ -86,10 +86,7 @@ export default function DaoManageDialog({ dao, isClose, onClose }: any) {
     try {
       setFormData(formData);
       setIsLoading(true);
-      const { url: metadataUrl } = await uploadJsonToIPFS(
-        // new DaoMetadata(formData.image, formData.description),
-        formData,
-      );
+      const { url: metadataUrl } = await uploadJsonToIPFS(formData);
       if (dao) {
         //Edit MDAO's URI   //TODO!! Change this to Soul Edit
         await getContractGameMDAO(dao.id).setContractURI(metadataUrl);

@@ -62,14 +62,4 @@ function convertSubgraphGameToDao(subgraphGame: any) {
     ...subgraphGame,
     uriData: hexStringToJson(subgraphGame.uriData),
   };
-  // return new Dao(
-  //   subgraphGame.id,
-  //   subgraphGame.name,
-  //   subgraphGame.type,
-  //   subgraphGame.uri,
-  //   hexStringToJson(subgraphGame.uriData),
-  //   subgraphGame.roles,
-  //   subgraphGame.nominations,
-  //   subgraphGame.posts,
-  // );
 }
