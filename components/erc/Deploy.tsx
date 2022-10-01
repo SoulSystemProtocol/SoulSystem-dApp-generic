@@ -14,7 +14,7 @@ import { useState } from 'react';
 /**
  * Deploy ERC Page
  */
-export default function Deploy({ sx }: any) {
+export default function Deploy({ sx }: any): JSX.Element {
   const [type, setType] = useState(null);
 
   const sxBox = {
