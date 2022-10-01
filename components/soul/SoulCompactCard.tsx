@@ -4,7 +4,6 @@ import useError from 'hooks/useError';
 import useSoul from 'hooks/useSoul';
 import { PersonOutlineOutlined } from '@mui/icons-material';
 import { useEffect, useState } from 'react';
-// import { formatAddress, formatProfileFirstLastName } from 'utils/converters';
 import {
   addressToShortAddress,
   soulToFirstLastNameString,
@@ -23,12 +22,12 @@ export default function SoulCompactCard({
   disableLink = false,
   disableRating = true,
   sx,
-}) {
+}: any): JSX.Element {
   const { handleError } = useError();
   // const { getProfile } = useProfile();
   const { getSoulById, getSoulByOwner } = useSoul();
   const [isLoading, setIsLoading] = useState(true);
-  const [profile, setProfile] = useState(null);
+  const [profile, setProfile] = useState<any>(null);
 
   useEffect(() => {
     let isComponentActive = true;
@@ -81,7 +80,7 @@ export default function SoulCompactCard({
       {!isLoading && profile && (
         <>
           <Avatar src={soulImage(profile)} sx={{ width: 24, height: 24 }}>
-            <PersonOutlineOutlined width="24" heigth="24" />
+            <PersonOutlineOutlined sx={{ width: '24', heigth: '24' }} />
           </Avatar>
           <Typography variant="body2" sx={{ fontWeight: 'normal', ml: 1 }}>
             {disableLink ? (
@@ -120,7 +119,7 @@ export default function SoulCompactCard({
       {!isLoading && !profile && (
         <>
           <Avatar sx={{ width: 24, height: 24 }}>
-            <PersonOutlineOutlined width="24" heigth="24" />
+            <PersonOutlineOutlined sx={{ width: 24, height: 24 }} />
           </Avatar>
           <Typography variant="body2" sx={{ fontWeight: 'bold', ml: 1 }}>
             Profile not found
