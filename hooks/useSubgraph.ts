@@ -66,22 +66,22 @@ export default function useSubgraph() {
   };
 
   /**
-   * Find the jurisdiction rule entities.
+   * Find the Game's rule entities.
    */
-  const findJurisdictionRuleEntities = async function (
+  const findGameRules = async function (
     ids: string[],
-    jurisdiction?: any,
+    containerId?: string,
     actionGuid?: string,
     isPositive?: boolean,
     isNegative?: boolean,
     isEnabled?: boolean,
   ): Promise<Array<any>> {
-    const fixedIds = !!ids.length ? ids.map((id) => id.toLowerCase()) : [];
-    const fixedJurisdiction = jurisdiction ? jurisdiction.toLowerCase() : null;
+    const adjustedIds = !!ids.length ? ids.map((id) => id.toLowerCase()) : [];
+    const adjustedContainerId = containerId && containerId.toLowerCase(); //TODO: Maybe Don't save game ids as lowercase
     const response = await makeSubgraphQuery(
-      getFindJurisdictionRuleEntitiesQuery(
-        fixedIds,
-        fixedJurisdiction,
+      findGameRulesQuery(
+        adjustedIds,
+        adjustedContainerId,
         actionGuid,
         isPositive,
         isNegative,
@@ -92,9 +92,9 @@ export default function useSubgraph() {
   };
 
   /**
-   * Get jurisdiction rule entities by search query.
+   * Search for Game's Rules
    */
-  let findJurisdictionRuleEntitiesBySearchQuery = async function (
+  let searchGameRulesByQuery = async function (
     containerId: string,
     isPositive?: boolean,
     isNegative?: boolean,
@@ -102,7 +102,7 @@ export default function useSubgraph() {
     searchQuery?: any,
   ): Promise<Array<any>> {
     const response = await makeSubgraphQuery(
-      getFindJurisdictionRuleEntitiesBySearchQueryQuery(
+      searchFindGameRulesQueryQuery(
         containerId,
         isPositive,
         isNegative,
@@ -130,7 +130,7 @@ export default function useSubgraph() {
     isNegative?: boolean,
     isEnabled?: boolean,
   ): Promise<Array<any>> {
-    const jurisdictionRuleEntities = await findJurisdictionRuleEntities(
+    const gameRules = await findGameRules(
       ids,
       containerId,
       actionGuid,
@@ -138,7 +138,7 @@ export default function useSubgraph() {
       isNegative,
       isEnabled,
     );
-    return jurisdictionRuleEntities.map((ruleEntity: any) => ({
+    return gameRules.map((ruleEntity: any) => ({
       ...ruleEntity,
       metadata: hexStringToJson(ruleEntity.uriData),
     }));
@@ -330,7 +330,7 @@ function getFindClaimsQuery(
 }
 
 ///
-function getFindJurisdictionRuleEntitiesBySearchQueryQuery(
+function searchFindGameRulesQueryQuery(
   containerId: string,
   isPositive?: boolean,
   isNegative?: boolean,
@@ -414,7 +414,7 @@ function getFindActionEntitiesQuery(guids: string[]) {
 }
 
 ///
-function getFindJurisdictionRuleEntitiesQuery(
+function findGameRulesQuery(
   ids: string[],
   containerId?: string,
   actionGuid?: string,
@@ -423,12 +423,12 @@ function getFindJurisdictionRuleEntitiesQuery(
   isEnabled?: boolean,
 ) {
   let idsFilter = !!ids.length ? `id_in: ["${ids.join('","')}"]` : '';
-  let jurisdictionFilter = containerId ? `game: "${containerId}"` : '';
+  let gameFilter = containerId ? `game: "${containerId}"` : '';
   let actionGuidFilter = actionGuid ? `about: "${actionGuid}"` : '';
   let isPositiveFilter = isPositive === true ? 'isPositive: true' : '';
   let isNegativeFilter = isNegative === true ? 'isPositive: false' : '';
   let isEnabledFilter = isEnabled === true ? 'isDisabled: false' : '';
-  let filterParams = `where: {${idsFilter}, ${jurisdictionFilter}, ${actionGuidFilter}, ${isPositiveFilter}, ${isNegativeFilter}, ${isEnabledFilter}}`;
+  let filterParams = `where: {${idsFilter}, ${gameFilter}, ${actionGuidFilter}, ${isPositiveFilter}, ${isNegativeFilter}, ${isEnabledFilter}}`;
   let paginationParams = `first: 100`;
   return `{
     gameRules(${filterParams}, ${paginationParams}) {
