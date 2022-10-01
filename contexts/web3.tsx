@@ -28,8 +28,9 @@ export function Web3Provider({ children }: any) {
   const [defaultProvider, setDefaultProvider] = useState<any>(null);
   const [account, setAccount] = useState<any>(null);
   const [networkChainId, setNetworkChainId] = useState<number | null>(null);
-  const [isNetworkChainIdCorrect, setIsNetworkChainCorrect] =
-    useState<any>(null);
+  const [isNetworkChainIdCorrect, setIsNetworkChainCorrect] = useState<
+    boolean | null
+  >(null);
 
   async function initContext() {
     if (!web3ModalRef.current) {
@@ -184,21 +185,26 @@ export function Web3Provider({ children }: any) {
   }, []);
 
   useEffect(() => {
-    setIsNetworkChainCorrect(networkChainId?.toString() === process.env.NEXT_PUBLIC_NETWORK_CHAIN_ID);
+    if (networkChainId === null) {
+      setIsNetworkChainCorrect(null);
+    } else
+      setIsNetworkChainCorrect(
+        networkChainId?.toString() === process.env.NEXT_PUBLIC_NETWORK_CHAIN_ID,
+      );
   }, [networkChainId]);
 
   return (
     <Web3Context.Provider
       value={{
-        isReady: isReady,
-        defaultProvider: defaultProvider,
-        provider: provider,
-        account: account,
-        networkChainId: networkChainId,
-        isNetworkChainIdCorrect: isNetworkChainIdCorrect,
-        connectWallet: connectWallet,
-        disconnectWallet: disconnectWallet,
-        switchNetwork: switchNetwork,
+        isReady,
+        defaultProvider,
+        provider,
+        account,
+        networkChainId,
+        isNetworkChainIdCorrect,
+        connectWallet,
+        disconnectWallet,
+        switchNetwork,
       }}
     >
       {children}
