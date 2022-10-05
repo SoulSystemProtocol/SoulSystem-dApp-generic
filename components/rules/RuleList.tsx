@@ -1,10 +1,10 @@
 import { Box, Skeleton, Stack, Typography } from '@mui/material';
-import LawCard from './LawCard';
+import RuleCard from './RuleCard';
 
 /**
  * A component with a list of laws.
  */
-export default function LawList({
+export default function RuleList({
   laws,
   isCollapseEnabled,
   isCommentsEnabled,
@@ -27,7 +27,7 @@ export default function LawList({
       {laws && laws.size > 0 && (
         <>
           {[...laws.keys()].map((key) => (
-            <LawCard
+            <RuleCard
               key={key}
               law={laws.get(key)}
               isCollapseEnabled={isCollapseEnabled}

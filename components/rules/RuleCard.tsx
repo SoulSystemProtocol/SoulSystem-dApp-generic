@@ -25,7 +25,7 @@ interface Props {
 /**
  * A component with a card with law (action + rules).
  */
-export default function LawCard({
+export default function RuleCard({
   law,
   isCollapseEnabled = false,
   isCommentsEnabled = false,
