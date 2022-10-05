@@ -1,4 +1,5 @@
 import Project from 'classes/Project';
+import DaoTabs from 'components/dao/DaoTabs';
 import Layout from 'components/layout/Layout';
 import ProjectDetail from 'components/project/ProjectDetail';
 import ProjectTabs from 'components/project/ProjectTabs';
@@ -37,8 +38,8 @@ export default function ProjectDetailPage({ }: ProjectProps) {
 
   return (
     <Layout title={project === null ? '' : getPageTitle(project.name)}>
-      <ProjectDetail project={project} />
-      <ProjectTabs project={project} sx={{ mt: 4 }} />
+      <ProjectDetail item={project} />
+      <ProjectTabs item={project} sx={{ mt: 4 }} />
     </Layout>
   );
 }

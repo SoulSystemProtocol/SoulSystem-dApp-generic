@@ -17,7 +17,7 @@ import FundDialogButton from 'components/web3/FundDialogButton';
 /**
  * A component with DAO details.
  */
-export default function DaoDetail({ dao, sx }: any) {
+export default function DaoDetail({ item: dao, sx }: any) {
   if (dao) {
     return (
       <Box

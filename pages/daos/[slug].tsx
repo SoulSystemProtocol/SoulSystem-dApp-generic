@@ -40,8 +40,8 @@ export default function DaoDetailPage({ }: DaoProps) {
   if (dao) title += ' | ' + dao.name;
   return (
     <Layout title={title}>
-      <DaoDetail dao={dao} />
-      <DaoTabs dao={dao} sx={{ mt: 4 }} />
+      <DaoDetail item={dao} />
+      <DaoTabs item={dao} sx={{ mt: 4 }} />
     </Layout>
   );
 }

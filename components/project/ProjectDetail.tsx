@@ -10,7 +10,7 @@ import FundDialogButton from 'components/web3/FundDialogButton';
 /**
  * A component with project details.
  */
-export default function ProjectDetail({ project, sx }: any) {
+export default function ProjectDetail({ item: project, sx }: any) {
   if (project) {
     return (
       <Box

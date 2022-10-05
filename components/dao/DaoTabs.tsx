@@ -8,7 +8,7 @@ import DaoApplications from './DaoApplications';
 /**
  * A component with DAO tabs.
  */
-export default function DaoTabs({ dao, sx }: any) {
+export default function DaoTabs({ item: dao, sx }: any) {
   const [tabValue, setTabValue] = useState('1');
 
   function handleChange(_: any, newTabValue: any) {

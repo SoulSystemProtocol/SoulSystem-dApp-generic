@@ -1,5 +1,6 @@
 import { TabContext, TabList, TabPanel } from '@mui/lab';
 import { Box, Tab } from '@mui/material';
+import GameComments from 'components/game/GameComments';
 import GameSouls from 'components/game/GameSouls';
 import { useState } from 'react';
 import ProjectAddTaskButton from './ProjectAddTaskButton';
@@ -8,7 +9,7 @@ import ProjectTaskList from './ProjectTaskList';
 /**
  * A component with project tabs.
  */
-export default function ProjectTabs({ project, sx }: any) {
+export default function ProjectTabs({ item: project, sx }: any) {
   const [tabValue, setTabValue] = useState('1');
 
   function handleChange(_: any, newTabValue: any) {
@@ -29,14 +30,18 @@ export default function ProjectTabs({ project, sx }: any) {
               maxWidth: 'calc(100vw - 32px)',
             }}
           >
-            <Tab label="Tasks" value="1" />
-            <Tab label="Players" value="2" />
+            <Tab label="Posts" value="1" />
+            <Tab label="Tasks" value="2" />
+            <Tab label="Players" value="3" />
           </TabList>
           <TabPanel value="1" sx={{ px: 0 }}>
+            <GameComments item={project} />
+          </TabPanel>
+          <TabPanel value="2" sx={{ px: 0 }}>
             <ProjectAddTaskButton project={project} sx={{ mb: 4 }} />
             <ProjectTaskList project={project} />
           </TabPanel>
-          <TabPanel value="2" sx={{ px: 0 }}>
+          <TabPanel value="3" sx={{ px: 0 }}>
             <GameSouls game={project} />
           </TabPanel>
         </TabContext>
