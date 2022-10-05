@@ -7,7 +7,7 @@ import AddressHash from 'components/web3/AddressHash';
 import AccountBalance from 'components/web3/AccountBalance';
 import FundDialogButton from 'components/web3/FundDialogButton';
 
-/**
+/** DEPRECATE
  * Component: project details.
  */
 export default function ProjectDetail({ item: project, sx }: any) {
