@@ -1,5 +1,4 @@
 import Project from 'classes/Project';
-import DaoTabs from 'components/dao/DaoTabs';
 import Layout from 'components/layout/Layout';
 import ProjectDetail from 'components/project/ProjectDetail';
 import ProjectTabs from 'components/project/ProjectTabs';
