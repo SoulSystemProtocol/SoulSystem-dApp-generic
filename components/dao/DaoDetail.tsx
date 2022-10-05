@@ -1,24 +1,22 @@
-import { Save, SchoolOutlined } from '@mui/icons-material';
-import { LoadingButton } from '@mui/lab';
-import { Button, Stack, Typography } from '@mui/material';
+// import { Save, SchoolOutlined } from '@mui/icons-material';
+// import { LoadingButton } from '@mui/lab';
+import { Stack, Typography, Link as MuiLink } from '@mui/material';
 import { Box } from '@mui/system';
-import { GAME_ROLE } from 'constants/contracts';
-import { DataContext } from 'contexts/data';
-import useDao from 'hooks/useDao';
-import useError from 'hooks/useError';
-import useToast from 'hooks/useToast';
-import { useContext, useEffect, useState } from 'react';
+import Link from 'next/link';
 import GameAdminActions from 'components/game/GameAdminActions';
 import EntityImage from '../entity/EntityImage';
 import AddressHash from 'components/web3/AddressHash';
 import AccountBalance from 'components/web3/AccountBalance';
 import FundDialogButton from 'components/web3/FundDialogButton';
+import GameMembershipActions from 'components/game/GameMembershipActions';
+import { GAME_TYPE } from 'constants/contracts';
 
 /**
  * Component: DAO details.
  */
-export default function DaoDetail({ item: dao, sx }: any) {
-  if (dao) {
+export default function DaoDetail({ item, sx }: any) {
+  if (item) {
+    console.log('DAO Item:', item);
     return (
       <Box
         sx={{
@@ -28,94 +26,31 @@ export default function DaoDetail({ item: dao, sx }: any) {
         }}
       >
         <Box>
-          <EntityImage item={dao} />
-          <GameAdminActions game={dao} sx={{ mt: 2, width: 164 }} />
+          <EntityImage item={item} />
+          <GameAdminActions game={item} sx={{ mt: 2, width: 164 }} />
         </Box>
         <Box sx={{ flexGrow: 1, mt: { xs: 2, md: 0 }, ml: { md: 4 } }}>
-          <AddressHash address={dao.id} sx={{ float: 'right' }} />
-          <Typography variant="h4">{dao.name}</Typography>
+          <AddressHash address={item.id} sx={{ float: 'right' }} />
+          <Typography variant="h4">
+            {item.name} ({item.role})
+          </Typography>
           <Typography color="text.secondary" variant="body2">
-            Balance: <AccountBalance address={dao.id} />{' '}
+            Balance: <AccountBalance address={item.id} />{' '}
             {process.env.NEXT_PUBLIC_NETWORK_CURRENCY_SYMBOL}
           </Typography>
-          <Typography sx={{ mt: 1 }}>{dao.uriData?.description}</Typography>
+          <Typography sx={{ mt: 1 }}>{item.uriData?.description}</Typography>
           <Stack direction="row" spacing={2} sx={{ mt: 2 }}>
-            <DaoMembershipActions dao={dao} />
-            <FundDialogButton address={dao.id} />
+            {item.role == GAME_TYPE.mdao && (
+              <GameMembershipActions dao={item} />
+            )}
+            <FundDialogButton address={item.id} />
+            <Link href={`/game/${item.id}/rules/manage`} passHref>
+              <MuiLink underline="none">Rules</MuiLink>
+            </Link>
           </Stack>
         </Box>
       </Box>
     );
   }
   return <></>;
-}
-
-function DaoMembershipActions({ dao, sx }: any) {
-  const { accountSoul } = useContext(DataContext);
-  const { handleError } = useError();
-  const { showToastSuccess } = useToast();
-  const { leave, applyToJoin, isSoulHasRole } = useDao();
-  const [isSoulMember, setIsSoulMember] = useState(false);
-  const [isSoulSentApplication, setIsSoulSentApplication] = useState(false);
-  const [isProcessing, setIsProcessing] = useState(false);
-  const [isProcessed, setIsProcessed] = useState(false);
-
-  async function submit() {
-    try {
-      setIsProcessing(true);
-      if (isSoulMember) {
-        await leave(dao.id);
-      } else {
-        await applyToJoin(dao.id, accountSoul.id, '');
-      }
-      showToastSuccess('Success! Data will be updated soon');
-      setIsProcessed(true);
-    } catch (error: any) {
-      handleError(error, true);
-    } finally {
-      setIsProcessing(false);
-    }
-  }
-
-  useEffect(() => {
-    setIsSoulMember(false);
-    setIsSoulSentApplication(false);
-    if (accountSoul && dao) {
-      setIsSoulMember(isSoulHasRole(dao, accountSoul.id, GAME_ROLE.member.id));
-      const nominatedSouls = dao.nominations.map(
-        (nomination: any) => nomination.nominated.id,
-      );
-      setIsSoulSentApplication(nominatedSouls.includes(accountSoul.id));
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [accountSoul, dao]);
-
-  return (
-    <Box sx={{ ...sx }}>
-      {!accountSoul || isProcessed ? (
-        <></>
-      ) : isProcessing ? (
-        <LoadingButton
-          loading
-          loadingPosition="start"
-          startIcon={<Save />}
-          variant="outlined"
-        >
-          Processing
-        </LoadingButton>
-      ) : isSoulMember ? (
-        <Button variant="outlined" onClick={() => submit()}>
-          Leave
-        </Button>
-      ) : isSoulSentApplication ? (
-        <Button variant="outlined" disabled>
-          Application is pending
-        </Button>
-      ) : (
-        <Button variant="outlined" onClick={() => submit()}>
-          Apply to Join
-        </Button>
-      )}
-    </Box>
-  );
 }
