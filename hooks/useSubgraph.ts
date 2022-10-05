@@ -235,6 +235,7 @@ function getFindGamesQuery(
       id
       name
       type
+      role
       uri
       uriData
       roles {
