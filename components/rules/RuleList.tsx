@@ -2,7 +2,7 @@ import { Box, Skeleton, Stack, Typography } from '@mui/material';
 import RuleCard from './RuleCard';
 
 /**
- * A component with a list of laws.
+ * Component: a list of laws
  */
 export default function RuleList({
   laws,

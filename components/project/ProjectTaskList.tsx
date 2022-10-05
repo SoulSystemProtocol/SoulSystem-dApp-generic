@@ -5,7 +5,7 @@ import useTask from 'hooks/useTask';
 import { useEffect, useState } from 'react';
 
 /**
- * A component with a list of project tasks.
+ * Component: a list of project tasks.
  */
 export default function ProjectTaskList({ project, sx }: any) {
   const { handleError } = useError();

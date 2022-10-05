@@ -15,7 +15,7 @@ import AccountBalance from 'components/web3/AccountBalance';
 import FundDialogButton from 'components/web3/FundDialogButton';
 
 /**
- * A component with DAO details.
+ * Component: DAO details.
  */
 export default function DaoDetail({ item: dao, sx }: any) {
   if (dao) {

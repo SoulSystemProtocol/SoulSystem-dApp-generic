@@ -10,7 +10,7 @@ import { Box } from '@mui/system';
 import Link from 'next/link';
 
 /**
- * A component with a card with project.
+ * Component: a card with project.
  */
 export default function ProjectCard({ project }: any) {
   if (project) {

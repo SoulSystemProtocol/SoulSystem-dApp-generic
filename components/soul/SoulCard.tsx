@@ -20,7 +20,7 @@ import {
 import { resolveLink } from 'utils/metadata';
 
 /**
- * A component with a card with soul.
+ * Component: a card with soul.
  */
 export default function SoulCard({ soul, roles }: any) {
   if (soul) {

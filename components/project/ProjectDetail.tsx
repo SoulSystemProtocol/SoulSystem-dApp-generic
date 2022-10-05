@@ -8,7 +8,7 @@ import AccountBalance from 'components/web3/AccountBalance';
 import FundDialogButton from 'components/web3/FundDialogButton';
 
 /**
- * A component with project details.
+ * Component: project details.
  */
 export default function ProjectDetail({ item: project, sx }: any) {
   if (project) {

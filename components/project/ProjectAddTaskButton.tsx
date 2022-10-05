@@ -8,7 +8,7 @@ import useDao from 'hooks/useDao';
 import { useContext } from 'react';
 
 /**
- * A component with button to add a project task.
+ * Component: button to add a project task.
  */
 export default function ProjectAddTaskButton({ project, sx }: any) {
   const { accountSoul } = useContext(DataContext);

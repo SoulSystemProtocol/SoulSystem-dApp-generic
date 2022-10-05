@@ -33,7 +33,7 @@ import useToast from 'hooks/useToast';
 // };
 
 /**
- * A component with dialog for add case post (comment, confirmation).
+ * Component: dialog for add case post (comment, confirmation).
  */
 export default function GamePostAddDialog({
   item,

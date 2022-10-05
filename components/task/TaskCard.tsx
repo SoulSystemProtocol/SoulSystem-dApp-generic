@@ -13,7 +13,7 @@ import { useEffect, useState } from 'react';
 import { taskStageToString } from 'utils/converters';
 
 /**
- * A component with a card with task.
+ * Component: a card with task.
  */
 export default function TaskCard({ task }: any) {
   if (task) {

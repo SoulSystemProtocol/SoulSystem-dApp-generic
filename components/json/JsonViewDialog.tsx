@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Dialog, DialogContent, DialogTitle } from '@mui/material';
 
 /**
- * A component with dialog to view json data.
+ * Component: dialog to view json data.
  */
 export default function JsonViewDialog({
   json,

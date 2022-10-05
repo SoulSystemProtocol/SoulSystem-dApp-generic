@@ -6,7 +6,7 @@ import { useState } from 'react';
 import DaoApplications from './DaoApplications';
 
 /**
- * A component with DAO tabs.
+ * Component: DAO tabs.
  */
 export default function DaoTabs({ item: dao, sx }: any) {
   const [tabValue, setTabValue] = useState('1');

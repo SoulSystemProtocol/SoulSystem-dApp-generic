@@ -2,7 +2,7 @@ import { Grid, Typography } from '@mui/material';
 import TaskCard from './TaskCard';
 
 /**
- * A component with a list of tasks.
+ * Component: a list of tasks.
  */
 export default function TaskList({ tasks: items, sx }: any) {
   return (

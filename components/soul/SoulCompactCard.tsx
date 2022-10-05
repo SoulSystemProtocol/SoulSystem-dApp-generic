@@ -11,7 +11,7 @@ import {
 } from 'utils/converters';
 
 /**
- * A component with a compact profile card.
+ * Component: a compact profile card.
  */
 export default function SoulCompactCard({
   profile: propsProfile,

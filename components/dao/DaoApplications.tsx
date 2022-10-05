@@ -19,7 +19,7 @@ import useToast from 'hooks/useToast';
 import { useContext, useEffect, useState } from 'react';
 
 /**
- * A component with a list of dao applications.
+ * Component: a list of dao applications.
  */
 export default function DaoApplications({ dao, sx }: any) {
   return (

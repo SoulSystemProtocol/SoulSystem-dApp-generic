@@ -9,7 +9,7 @@ import { each, union } from 'lodash';
 import { useEffect, useState } from 'react';
 
 /**
- * A component with game members.
+ * Component: game members.
  */
 export default function GameSouls({ game, sx }: any) {
   const { handleError } = useError();

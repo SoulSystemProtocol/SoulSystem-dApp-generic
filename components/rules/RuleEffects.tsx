@@ -2,7 +2,7 @@ import { Box, Typography } from '@mui/material';
 import { capitalize } from 'lodash';
 
 /**
- * A component with rule effects.
+ * Component: rule effects.
  */
 export default function RuleEffects({ rule, sx }: any): JSX.Element {
   return (

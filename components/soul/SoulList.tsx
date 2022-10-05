@@ -2,7 +2,7 @@ import { Grid, Typography } from '@mui/material';
 import SoulCard from './SoulCard';
 
 /**
- * A component with a list of souls.
+ * Component: a list of souls.
  */
 export default function SoulList({ souls, sx, roles }: any) {
   return (

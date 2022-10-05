@@ -9,7 +9,7 @@ import { capitalize } from 'lodash';
 import { useContext, useEffect, useState } from 'react';
 
 /**
- * A component with a table with actions.
+ * Component: a table with actions.
  */
 export default function ActionTable({ sx }: any): JSX.Element {
   // eslint-disable-next-line prettier/prettier

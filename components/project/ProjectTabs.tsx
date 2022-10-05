@@ -7,7 +7,7 @@ import ProjectAddTaskButton from './ProjectAddTaskButton';
 import ProjectTaskList from './ProjectTaskList';
 
 /**
- * A component with project tabs.
+ * Component: project tabs.
  */
 export default function ProjectTabs({ item: project, sx }: any) {
   const [tabValue, setTabValue] = useState('1');

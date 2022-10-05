@@ -23,7 +23,7 @@ interface Props {
 }
 
 /**
- * A component with a card with law (action + rules).
+ * Component: a card with law (action + rules).
  */
 export default function RuleCard({
   law,

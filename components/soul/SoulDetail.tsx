@@ -27,7 +27,7 @@ import EntityImage from 'components/entity/EntityImage';
 import { GAME_NAME } from 'constants/contracts';
 
 /**
- * A component with soul details.
+ * Component: soul details.
  */
 export default function SoulDetail({ soul, sx }: any) {
   if (!soul) return <></>;
@@ -60,7 +60,10 @@ export default function SoulDetail({ soul, sx }: any) {
 
       <Box sx={{ my: 2 }}>
         <Typography variant="h5">{GAME_NAME.mdao}</Typography>
-        <Typography variant="body1">[TBD]</Typography>
+        <Typography variant="body1">
+          
+
+        </Typography>
       </Box>
       <Box sx={{ my: 2 }}>
         <Typography variant="h5">{GAME_NAME.tasks}</Typography>

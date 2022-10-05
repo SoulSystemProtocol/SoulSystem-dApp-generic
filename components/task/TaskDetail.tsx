@@ -13,7 +13,7 @@ import { useContext, useEffect, useState } from 'react';
 import FundDialogButton from 'components/web3/FundDialogButton';
 
 /**
- * A component with project details.
+ * Component: project details.
  *
  * TODO: cancel() Should generate and send a cancelation URI
  *

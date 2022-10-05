@@ -2,7 +2,7 @@ import { Grid, Typography } from '@mui/material';
 import ProjectCard from './ProjectCard';
 
 /**
- * A component with a list of projects.
+ * Component: a list of projects.
  */
 export default function ProjectList({ projects, sx }: any) {
   return (
