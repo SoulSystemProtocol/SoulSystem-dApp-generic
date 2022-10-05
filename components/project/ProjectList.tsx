@@ -1,7 +1,7 @@
 import { Grid, Typography } from '@mui/material';
 import ProjectCard from './ProjectCard';
 
-/**
+/** DEPRECATED
  * Component: a list of projects.
  */
 export default function ProjectList({ projects, sx }: any) {

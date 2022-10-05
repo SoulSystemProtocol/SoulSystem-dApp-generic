@@ -9,7 +9,7 @@ import {
 import { Box } from '@mui/system';
 import Link from 'next/link';
 
-/**
+/** DEPRECATED
  * Component: a card with project.
  */
 export default function ProjectCard({ project }: any) {
