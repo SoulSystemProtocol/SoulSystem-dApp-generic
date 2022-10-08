@@ -41,3 +41,20 @@ export const soulCardContent = (item: any) => {
   // console.log('soul', ret);
   return ret;
 };
+
+// Item Processing Function
+export const daoPartCardContent = (item: any) => {
+  let metadata = hexStringToJson(item.uriData);
+  let ret = {
+    id: item.id,
+    imgSrc: resolveLink(metadata.image),
+    label: metadata?.description,
+    title: metadata?.name,
+    metadata: metadata,
+    link: `/game/${item.owner}`,
+  };
+  
+  console.log('[DEV] daoPartCardContent() item', { item, ret });
+  
+  return ret;
+};

@@ -15,7 +15,8 @@ import {
   hexStringToJson,
   soulToFirstLastNameString,
 } from 'utils/converters';
-import { resolveLink } from 'utils/metadata';
+// import { resolveLink } from 'utils/metadata';
+import { soulCardContent } from 'utils/cardContents';
 
 const CONF = {
   PAGE_TITLE: 'Free Agents',
@@ -24,6 +25,7 @@ const CONF = {
   ROUTE: 'souls',
 };
 
+/*
 // Item Processing Function
 const getCardContent = (item: any) => {
   let metadata = hexStringToJson(item.uriData);
@@ -41,8 +43,11 @@ const getCardContent = (item: any) => {
     link: `/${CONF.ROUTE}/${item.id}`,
     // roles: [], // TODO: add roles logic
   };
+
+  console.log('soul', ret);
   return ret;
 };
+*/
 
 /**
  * Page for a list of souls
@@ -60,7 +65,7 @@ export default function SoulsPage({ type = '' }: any) {
   // Props for GQL List
   const soulsListPropsGQ = {
     variables: { type },
-    getCardContent,
+    getCardContent: soulCardContent,
     renderActions,
     subtitle: CONF.SUBTITLE,
     title: CONF.TITLE,

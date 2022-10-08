@@ -14,6 +14,7 @@ const query = gql`
         name
         type
         role
+        metadata
       }
       sbt {
         id

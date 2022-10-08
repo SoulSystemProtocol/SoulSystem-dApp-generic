@@ -24,7 +24,7 @@ const getCardContent = (item: any) => {
     label: metadata?.description,
     title: metadata?.name,
     metadata: metadata,
-    link: `/projects/${item.owner}`,
+    link: `/game/${item.owner}`,
   };
   return ret;
 };

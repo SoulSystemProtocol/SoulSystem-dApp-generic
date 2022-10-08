@@ -13,7 +13,6 @@ type TPaginatedListGQ = {
   title: string;
   getCardContent: {};
   renderActions?: JSX.Element;
-  entityName?: string;
 };
 
 const wrapperStyle = {
@@ -35,7 +34,6 @@ export default function PaginatedListGQ({
   title,
   renderActions,
   getCardContent,
-  entityName = 'souls',
 }: TPaginatedListGQ) {
   const pageSize = APP_CONFIGS.PAGE_SIZE;
   const [currentPage, setCurrentPage] = useState(1);
@@ -54,13 +52,8 @@ export default function PaginatedListGQ({
 
   useEffect(() => {
     if (error) console.error('PaginatedListGQ() query failed', { data, error });
-    else
-      console.log('PaginatedListGQ() query ', {
-        data,
-        entityName,
-        entities: data?.[entityName],
-      });
-    setItems(data?.[entityName]);
+    else console.log('PaginatedListGQ() query ', data, data?.souls);
+    setItems(data?.souls);
   }, [data, error]);
 
   function pageChanged(page: number) {
@@ -72,14 +65,10 @@ export default function PaginatedListGQ({
   return (
     <>
       <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-        {(title || subtitle) && (
-          <Box>
-            {title && <Typography variant="h1">{title}</Typography>}
-            {subtitle && (
-              <Typography variant="subtitle1">{subtitle}</Typography>
-            )}
-          </Box>
-        )}
+        <Box>
+          <Typography variant="h1">{title}</Typography>
+          <Typography variant="subtitle1">{subtitle}</Typography>
+        </Box>
         {!!renderActions && renderActions}
       </Box>
       <DashboardCardList
@@ -89,15 +78,13 @@ export default function PaginatedListGQ({
         data={items}
       />
       <Box sx={wrapperStyle}>
-        {items?.length > first && (
-          <Pagination
-            color="primary"
-            count={items?.length < first ? currentPage : currentPage + 1}
-            onChange={(_, page) => pageChanged(page)}
-            page={currentPage}
-            sx={{ mt: { xs: 2, md: 0 } }}
-          />
-        )}
+        <Pagination
+          color="primary"
+          count={items?.length < first ? currentPage : currentPage + 1}
+          onChange={(_, page) => pageChanged(page)}
+          page={currentPage}
+          sx={{ mt: { xs: 2, md: 0 } }}
+        />
       </Box>
     </>
   );
