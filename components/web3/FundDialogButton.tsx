@@ -20,7 +20,7 @@ export default function FundDialogButton({
         showDialog?.(<FundDialog address={address} onClose={closeDialog} />)
       }
     >
-      Fund
+      Fund Entity
     </Button>
   );
 }
