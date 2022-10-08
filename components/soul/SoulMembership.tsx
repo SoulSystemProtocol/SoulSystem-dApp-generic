@@ -1,6 +1,6 @@
 // import { gql } from '@apollo/client';
 import PaginatedListGQ from 'components/PaginatedListGQ';
-import querySoulMembership from 'queries/SoulMembershipQuery';
+import querySoulToGame from 'queries/SoulGameQuery';
 
 /**
  * Component: Soul list filtered by type & role & Stage
@@ -10,7 +10,7 @@ export default function SoulMembership(props: any) {
     <PaginatedListGQ
       {...props}
       entityName="gameParticipants"
-      query={querySoulMembership}
+      query={querySoulToGame}
     />
   );
 }
