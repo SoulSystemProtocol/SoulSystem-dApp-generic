@@ -13,7 +13,7 @@ import SoulMembership from 'components/soul/SoulMembership';
 import { getPageTitle } from 'utils';
 // import { resolveLink } from 'utils/metadata';
 import { GAME_DESC, GAME_NAME, GAME_TYPE } from 'constants/contracts';
-// import { daoPartCardContent } from 'utils/cardContents';
+import { gamePartCardContent } from 'utils/cardContents';
 import { resolveLink } from 'utils/metadata';
 import { Box, Typography } from '@mui/material';
 
@@ -31,22 +31,6 @@ export default function SoulDetailPage({ }: SoulProps) {
   const { getSoulById } = useSoul();
   const [soul, setSoul] = useState<Soul | null>(null);
 
-  // Item Processing Function
-  const daoPartCardContent = (item: any) => {
-    let metadata = hexStringToJson(item.entity.metadata);
-    let ret = {
-      id: item.entity.id,
-      imgSrc: resolveLink(metadata.image),
-      label: metadata?.description,
-      title: metadata?.name,
-      metadata: metadata,
-      link: `/game/${item.entity.id}`,
-    };
-
-    console.log('[DEV] daoPartCardContent() item', { item, ret });
-
-    return ret;
-  };
 
   const CONF = {
     PAGE_TITLE: soulToFirstLastNameString(soul),
@@ -74,7 +58,7 @@ export default function SoulDetailPage({ }: SoulProps) {
       id: soul?.id,
       gameRole: GAME_TYPE.mdao,
     },
-    getCardContent: daoPartCardContent,
+    getCardContent: gamePartCardContent,
     // renderActions,
     // subtitle: CONF.SUBTITLE,
     // title: CONF.TITLE,
@@ -85,7 +69,7 @@ export default function SoulDetailPage({ }: SoulProps) {
       id: soul?.id,
       gameRole: GAME_TYPE.project,
     },
-    getCardContent: daoPartCardContent,
+    getCardContent: gamePartCardContent,
   };
 
   return (
@@ -110,7 +94,7 @@ export default function SoulDetailPage({ }: SoulProps) {
         <Typography variant="h5">{GAME_NAME.tasks}</Typography>
         <Typography variant="body1">[TBD]</Typography>
       </Box>
-      
+
     </Layout>
   );
 }

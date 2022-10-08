@@ -54,12 +54,12 @@ export default function PaginatedListGQ({
 
   useEffect(() => {
     if (error) console.error('PaginatedListGQ() query failed', { data, error });
-    else
-      console.log('PaginatedListGQ() query ', {
-        data,
-        entityName,
-        entities: data?.[entityName],
-      });
+    // else
+    //   console.log('PaginatedListGQ() query ', {
+    //     data,
+    //     entityName,
+    //     entities: data?.[entityName],
+    //   });
     setItems(data?.[entityName]);
   }, [data, error]);
 

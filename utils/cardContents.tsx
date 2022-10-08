@@ -42,19 +42,17 @@ export const soulCardContent = (item: any) => {
   return ret;
 };
 
-// Item Processing Function
-export const daoPartCardContent = (item: any) => {
-  let metadata = hexStringToJson(item.uriData);
+// Game Participant
+export const gamePartCardContent = (item: any) => {
+  let metadata = hexStringToJson(item.entity.metadata);
   let ret = {
-    id: item.id,
+    id: item.entity.id,
     imgSrc: resolveLink(metadata.image),
     label: metadata?.description,
     title: metadata?.name,
     metadata: metadata,
-    link: `/game/${item.owner}`,
+    link: `/game/${item.entity.id}`,
   };
-  
-  console.log('[DEV] daoPartCardContent() item', { item, ret });
-  
+  // console.log('[DEV] daoPartCardContent() item', { item, ret });
   return ret;
 };
