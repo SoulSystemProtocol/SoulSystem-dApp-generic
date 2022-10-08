@@ -49,7 +49,7 @@ export default function SoulDetailPage(): JSX.Element {
   const soulMemberMDAOs = {
     variables: {
       id: soul?.id,
-      gameRole: GAME_TYPE.mdao,
+      entRole: GAME_TYPE.mdao,
     },
     getCardContent: gamePartCardContent,
     // renderActions,
@@ -60,7 +60,15 @@ export default function SoulDetailPage(): JSX.Element {
   const soulMemberProjects = {
     variables: {
       id: soul?.id,
-      gameRole: GAME_TYPE.project,
+      entRole: GAME_TYPE.project,
+    },
+    getCardContent: gamePartCardContent,
+  };
+
+  const soulMemberTasks = {
+    variables: {
+      id: soul?.id,
+      // entRole: GAME_TYPE.??,
     },
     getCardContent: gamePartCardContent,
   };

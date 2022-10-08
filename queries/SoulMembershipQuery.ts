@@ -2,11 +2,11 @@ import { gql } from '@apollo/client';
 
 //Soul Query - Role Optional
 const query = gql`
-  query SoulGamesQuery($id: ID!, $gameRole: String, $first: Int, $skip: Int) {
+  query SoulGamesQuery($id: ID!, $entRole: String, $first: Int, $skip: Int) {
     gameParticipants(
       first: $first
       skip: $skip
-      where: { sbt_: { id: $id }, entity_: { role: $gameRole } }
+      where: { sbt_: { id: $id }, entity_: { role: $entRole } }
     ) {
       id
       entity {
