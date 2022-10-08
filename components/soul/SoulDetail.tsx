@@ -57,7 +57,6 @@ export default function SoulDetail({ soul, sx }: any) {
           </Stack>
         </Box>
       </Box>
-
     </Box>
   );
 }

@@ -8,29 +8,22 @@ import useError from 'hooks/useError';
 import useSoul from 'hooks/useSoul';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { hexStringToJson, soulToFirstLastNameString } from 'utils/converters';
+import { soulToFirstLastNameString } from 'utils/converters';
 import SoulMembership from 'components/soul/SoulMembership';
 import { getPageTitle } from 'utils';
-// import { resolveLink } from 'utils/metadata';
 import { GAME_DESC, GAME_NAME, GAME_TYPE } from 'constants/contracts';
 import { gamePartCardContent } from 'utils/cardContents';
-import { resolveLink } from 'utils/metadata';
 import { Box, Typography } from '@mui/material';
 
-// eslint-disable-next-line prettier/prettier
-interface SoulProps { }
-
 /**
- * Page with soul details.
+ * Component: Single Soul Page
  */
-// eslint-disable-next-line prettier/prettier
-export default function SoulDetailPage({ }: SoulProps) {
+export default function SoulDetailPage(): JSX.Element {
   const router = useRouter();
   const { slug } = router.query;
   const { handleError } = useError();
   const { getSoulById } = useSoul();
   const [soul, setSoul] = useState<Soul | null>(null);
-
 
   const CONF = {
     PAGE_TITLE: soulToFirstLastNameString(soul),
@@ -76,7 +69,6 @@ export default function SoulDetailPage({ }: SoulProps) {
     <Layout title={getPageTitle(CONF.PAGE_TITLE)}>
       <SoulDetail soul={soul} />
 
-
       <Box sx={{ my: 2 }}>
         <Typography variant="h3" sx={{ mb: 1 }}>
           {GAME_NAME.mdao}
@@ -94,7 +86,6 @@ export default function SoulDetailPage({ }: SoulProps) {
         <Typography variant="h5">{GAME_NAME.tasks}</Typography>
         <Typography variant="body1">[TBD]</Typography>
       </Box>
-
     </Layout>
   );
 }
