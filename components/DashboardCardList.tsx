@@ -3,7 +3,7 @@ import Loader from './Loader';
 import DashboardCard from './DashboardCard';
 
 /**
- * Dashboard Card List component.
+ * COmponent: Dashboard List Card.
  */
 export default function DashboardCardList({
   baseRoute,
@@ -25,7 +25,7 @@ export default function DashboardCardList({
           {data.map((dataItem: any, index: number) => {
             //Process Data
             const data = dataAccessor(dataItem);
-            console.log('Processed Item: ' + data.id, { data, dataItem });
+            // console.log('Processed Item: ' + data.id, { data, dataItem });
             return (
               <Grid key={index} item xs={12} md={6}>
                 <DashboardCard baseRoute={baseRoute} data={data} />
