@@ -1,0 +1,28 @@
+import { gql } from '@apollo/client';
+
+//Soul Query - Role Optional
+const query = gql`
+  query SoulProcQuery($id: ID!, $entRole: String, $first: Int, $skip: Int) {
+    procParticipants(
+      first: $first
+      skip: $skip
+      where: { sbt_: { id: $id }, entity_: { role: $entRole } }
+    ) {
+      id
+      entity {
+        id
+        name
+        type
+        role
+        metadata
+      }
+      sbt {
+        id
+        name
+        type
+      }
+    }
+  }
+`;
+
+export default query;
