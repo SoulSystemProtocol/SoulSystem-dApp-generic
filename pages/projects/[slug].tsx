@@ -11,7 +11,7 @@ import { getPageTitle } from 'utils';
 // eslint-disable-next-line prettier/prettier
 interface ProjectProps { }
 
-/**
+/** DEPRECATED: Use Game
  * Page for a project detail.
  */
 // eslint-disable-next-line prettier/prettier
