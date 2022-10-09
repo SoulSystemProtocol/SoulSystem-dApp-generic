@@ -19,7 +19,7 @@ const CONF = {
   ROUTE: 'projects',
 };
 
-const getCardContent: {} = (item: any) => ({
+const getCardContent = (item: any) => ({
   id: item.id,
   imgSrc: item.uriData?.image,
   avatarIcon: <WorkOutlineOutlined />,
