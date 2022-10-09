@@ -19,6 +19,10 @@ export interface ChainData {
   decimals?: any;
 }
 
+//Fetch Chain Data Function
+export const getChainData = (chainId: string | undefined): any =>
+  chainId ? ChainsData[chainId] : {};
+
 //Chain Data Object
 export const ChainsData: { [key: string]: ChainData } = {
   '0x1': {
