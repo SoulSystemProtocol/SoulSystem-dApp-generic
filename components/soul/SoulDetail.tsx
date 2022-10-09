@@ -24,7 +24,7 @@ import { soulToFirstLastNameString } from 'utils/converters';
 import AddressHash from 'components/web3/AddressHash';
 import FundDialogButton from 'components/web3/FundDialogButton';
 import EntityImage from 'components/entity/EntityImage';
-import { GAME_NAME } from 'constants/contracts';
+// import { GAME_NAME } from 'constants/contracts';
 
 /**
  * Component:  soul details.
