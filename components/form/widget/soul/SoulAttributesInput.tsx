@@ -10,7 +10,7 @@ import { Box } from '@mui/system';
 import { WidgetProps } from '@rjsf/core';
 import { PROFILE_TRAIT_TYPE } from 'constants/metadata';
 import { useEffect, useState } from 'react';
-import { getTraitValue } from 'utils/metadata';
+import { getTraitValue } from 'helpers/metadata';
 
 /**
  * A widget to input an soul attributes.

@@ -14,7 +14,7 @@ import { JSONSchema7 } from 'json-schema';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { soulToFirstLastNameString } from 'utils/converters';
-import { getTraitValue } from 'utils/metadata';
+import { getTraitValue } from 'helpers/metadata';
 
 /**
  * A component for create or edit own soul.

@@ -2,7 +2,7 @@ import Task from 'classes/Task';
 import { CLAIM_STAGE, GAME_ROLE } from 'constants/contracts';
 import { truncate } from 'lodash';
 import _ from 'lodash';
-import { resolveLink } from './metadata';
+import { resolveLink } from 'helpers/IPFS';
 
 /**
  * Convert hex string to json.

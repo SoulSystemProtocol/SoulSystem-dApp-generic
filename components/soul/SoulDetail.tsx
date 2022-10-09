@@ -20,7 +20,7 @@ import { Web3Context } from 'contexts/web3';
 import Link from 'next/link';
 import { useContext } from 'react';
 import { soulToFirstLastNameString } from 'utils/converters';
-import { getTraitValue } from 'utils/metadata';
+import { getTraitValue } from 'helpers/metadata';
 import AddressHash from 'components/web3/AddressHash';
 import FundDialogButton from 'components/web3/FundDialogButton';
 import EntityImage from 'components/entity/EntityImage';

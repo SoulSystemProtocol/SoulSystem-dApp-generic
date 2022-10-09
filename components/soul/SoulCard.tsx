@@ -17,7 +17,7 @@ import {
   soulToFirstLastNameString,
   roleIdToName,
 } from 'utils/converters';
-import { resolveLink } from 'utils/metadata';
+import { resolveLink } from 'helpers/IPFS';
 
 /**
  * Component: a card with soul.

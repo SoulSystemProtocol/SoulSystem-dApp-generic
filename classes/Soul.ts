@@ -1,4 +1,4 @@
-// import { getTraitValue } from 'utils/metadata';
+// import { getTraitValue } from 'helpers/metadata';
 
 /** DEPRECATE
  * Class for soul.

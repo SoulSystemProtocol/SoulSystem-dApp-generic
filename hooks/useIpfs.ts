@@ -1,4 +1,4 @@
-import axios from 'axios';
+// import axios from 'axios';
 import { create } from 'ipfs-http-client';
 
 /** DEPRECATE - If it doesn't keep a state it doesn't need to be a hook
@@ -43,7 +43,7 @@ export default function useIpfs() {
     const url = `ipfs://${cid}`;
     return { cid, url };
   };
-
+  /* MOVED TO Helper
   let loadJsonFromIPFS = async function (url: any) {
     const response = await axios.get(url);
     if (response.data.errors) {
@@ -51,6 +51,7 @@ export default function useIpfs() {
     }
     return response.data;
   };
-
-  return { uploadFileToIPFS, uploadJsonToIPFS, loadJsonFromIPFS };
+  //, loadJsonFromIPFS
+  */
+  return { uploadFileToIPFS, uploadJsonToIPFS };
 }

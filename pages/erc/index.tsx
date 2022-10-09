@@ -4,7 +4,7 @@ import { DialogContext, IDialogParams } from 'contexts/dialog';
 import { DataContext } from 'contexts/data';
 import { getPageTitle } from '../../utils';
 // import { hexStringToJson } from 'utils/converters';
-// import { resolveLink } from 'utils/metadata';
+// import { resolveLink } from 'helpers/IPFS';
 import Layout from 'components/layout/Layout';
 import Deploy from 'components/erc/Deploy';
 

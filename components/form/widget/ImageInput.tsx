@@ -5,7 +5,7 @@ import { WidgetProps } from '@rjsf/core';
 import useError from 'hooks/useError';
 import useIpfs from 'hooks/useIpfs';
 import { ReactNode, useState } from 'react';
-import { resolveLink } from 'utils/metadata';
+import { resolveLink } from 'helpers/IPFS';
 
 /**
  * A widget to input an image, upload it to IPFS, and get URI.

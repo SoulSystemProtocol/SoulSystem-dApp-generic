@@ -15,7 +15,7 @@ import {
   hexStringToJson,
   soulToFirstLastNameString,
 } from 'utils/converters';
-// import { resolveLink } from 'utils/metadata';
+// import { resolveLink } from 'helpers/IPFS';
 import { soulCardContent } from 'utils/cardContents';
 
 const CONF = {

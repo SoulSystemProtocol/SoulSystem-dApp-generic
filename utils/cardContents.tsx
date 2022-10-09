@@ -7,7 +7,7 @@ import {
   hexStringToJson,
   soulToFirstLastNameString,
 } from './converters';
-import { resolveLink } from './metadata';
+import { resolveLink } from 'helpers/IPFS';
 
 // Item Processing Function
 export const soulCardContent = (item: any) => {

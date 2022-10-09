@@ -1,6 +1,6 @@
 import { AutoAwesomeOutlined } from '@mui/icons-material';
 import { Avatar } from '@mui/material';
-import { resolveLink } from 'utils/metadata';
+import { resolveLink } from 'helpers/IPFS';
 
 /**
  * Generic entity image component.
