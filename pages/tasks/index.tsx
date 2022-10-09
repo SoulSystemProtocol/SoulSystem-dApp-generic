@@ -18,7 +18,7 @@ const CONF = {
  * Page for a list of Tasks
  */
 // eslint-disable-next-line prettier/prettier
-export default function TasksPage({ }: any) {
+export default function TasksPage({}: any) {
   const { handleError } = useError();
   const { getTasks } = useTask();
   const [tasks, setTasks] = useState<Array<Task> | null>(null);
@@ -60,8 +60,8 @@ export default function TasksPage({ }: any) {
     <Layout title={getPageTitle(CONF.PAGE_TITLE)}>
       <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
         <Box>
-          <Typography variant="h5">CONF.PAGE_TITLE</Typography>
-          <Typography variant="subtitle1">CONF.SUBTITLE</Typography>
+          <Typography variant="h5">{CONF.PAGE_TITLE}</Typography>
+          <Typography variant="subtitle1">{CONF.SUBTITLE}</Typography>
         </Box>
       </Box>
 
