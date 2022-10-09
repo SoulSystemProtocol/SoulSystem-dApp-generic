@@ -5,19 +5,21 @@ import { DataContext } from 'contexts/data';
 import { getPageTitle } from '../../utils';
 import ProjectManageDialog from 'components/project/ProjectManageDialog';
 import Layout from 'components/layout/Layout';
-import SoulListGQ from 'components/soul/DAOListGQ';
-import { gameCardContent } from 'utils/cardContents';
+// import SoulListGQ from 'components/soul/ProcessListGQ';
+// import SoulListGQ from 'components/soul/DAOListGQ';
+import SoulListGQ from 'components/soul/SoulListGQ';
+import { processCardContent } from 'utils/cardContents';
 
 const CONF = {
-  PAGE_TITLE: 'Project Pods',
-  TITLE: 'Project Pods',
-  SUBTITLE: `Project Pods are companies and organizations that need some work done.`,
+  PAGE_TITLE: 'Quests',
+  TITLE: 'Quests',
+  SUBTITLE: `Quests are tasks that need to be explored.`,
 };
 
 /**
  * Page for a list of projects
  */
-export default function ProjectsPage({}: any) {
+export default function TaskPage({}: any) {
   const { accountSoul } = useContext(DataContext);
   const { showDialog, closeDialog } = useContext(DialogContext);
   const renderActions = accountSoul && (
@@ -27,16 +29,16 @@ export default function ProjectsPage({}: any) {
       }
       variant="outlined"
     >
-      Create Project
+      Create Task
     </Button>
   );
 
   const listProps = {
     variables: {
-      type: 'GAME',
-      role: 'PROJECT',
+      type: 'TASK',
+      role: 'BOUNTY',
     },
-    getCardContent: gameCardContent,
+    getCardContent: processCardContent,
     renderActions,
     subtitle: CONF.SUBTITLE,
     title: CONF.TITLE,

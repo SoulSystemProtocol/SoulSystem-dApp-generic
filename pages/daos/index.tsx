@@ -5,9 +5,7 @@ import { DataContext } from 'contexts/data';
 import { getPageTitle } from '../../utils';
 import DaoManageDialog from 'components/dao/DaoManageDialog';
 import Layout from 'components/layout/Layout';
-import DAOListGQ from 'components/soul/DAOListGQ';
-import { hexStringToJson } from 'utils/converters';
-import { resolveLink } from 'utils/metadata';
+import SoulListGQ from 'components/soul/DAOListGQ';
 import { GAME_NAME, GAME_DESC } from 'constants/contracts';
 import { gameCardContent } from 'utils/cardContents';
 
@@ -47,7 +45,7 @@ export default function DaosPage({}: any) {
 
   return (
     <Layout title={getPageTitle(CONF.PAGE_TITLE)}>
-      <DAOListGQ {...daosListProps} />
+      <SoulListGQ {...daosListProps} />
     </Layout>
   );
 }
