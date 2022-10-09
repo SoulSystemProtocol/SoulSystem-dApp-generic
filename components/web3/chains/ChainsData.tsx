@@ -1,7 +1,26 @@
 import React from 'react';
 import { AvaxLogo, PolygonLogo, BSCLogo, ETHLogo } from './Logos';
 
-export const ChainsData: { [key: string]: any } = {
+//Chain Data Interface
+export interface ChainData {
+  key: string;
+  name: string;
+  icon: JSX.Element;
+  native: string;
+  nId: string;
+  live?: boolean;
+  supported: boolean;
+  blockExplorerUrl?: any;
+  chain_id?: any;
+  chain_id_hex?: any;
+  rpc?: any;
+  currency_name?: any;
+  currency_symbol?: any;
+  decimals?: any;
+}
+
+//Chain Data Object
+export const ChainsData: { [key: string]: ChainData } = {
   '0x1': {
     key: '0x1',
     name: 'Ethereum',
@@ -93,6 +112,12 @@ export const ChainsData: { [key: string]: any } = {
     live: false,
     supported: false,
     blockExplorerUrl: 'https://mumbai.polygonscan.com/',
+    chain_id: 80001,
+    chain_id_hex: 0x13881,
+    rpc: 'https://rpc-mumbai.maticvigil.com/',
+    currency_name: 'MATIC',
+    currency_symbol: 'MATIC',
+    decimals: 18,
   },
   '0xa86a': {
     key: '0xa86a',
@@ -107,6 +132,7 @@ export const ChainsData: { [key: string]: any } = {
     key: '0xa869',
     name: 'Avalanche Testnet',
     icon: <AvaxLogo />,
+    native: 'AVAX',
     nId: '',
     live: false,
     supported: true,
