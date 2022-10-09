@@ -40,14 +40,16 @@ export default function useSoul() {
 }
 
 function convertSubgraphSoulToSoul(subgraphSoul: any) {
-  return new Soul(
-    subgraphSoul.id,
-    subgraphSoul.owner,
-    subgraphSoul.type,
-    subgraphSoul.uri,
-    hexStringToJson(subgraphSoul.uriData),
-    subgraphSoul.uriImage,
-    subgraphSoul.uriFirstName,
-    subgraphSoul.uriLastName,
-  );
+  const metadata = hexStringToJson(subgraphSoul.uriData);
+  return { ...subgraphSoul, metadata, uriData: metadata };
+  // return new Soul(
+  //   subgraphSoul.id,
+  //   subgraphSoul.owner,
+  //   subgraphSoul.type,
+  //   subgraphSoul.uri,
+  //   hexStringToJson(subgraphSoul.uriData),
+  //   subgraphSoul.uriImage,
+  //   subgraphSoul.uriFirstName,
+  //   subgraphSoul.uriLastName,
+  // );
 }

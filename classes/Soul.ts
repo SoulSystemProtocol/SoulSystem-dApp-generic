@@ -1,6 +1,6 @@
-import { getTraitValue } from 'utils/metadata';
+// import { getTraitValue } from 'utils/metadata';
 
-/**
+/** DEPRECATE
  * Class for soul.
  */
 export default class Soul {
@@ -38,7 +38,7 @@ export default class Soul {
   }
 
   //Get Trait Value by Key
-  getTraitValue(key: string){
-    return getTraitValue(this?.uriData?.attributes, key);
-  }
+  // getTraitValue(key: string) {
+  //   return getTraitValue(this?.uriData?.attributes, key);
+  // }
 }

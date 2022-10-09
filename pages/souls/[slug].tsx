@@ -23,7 +23,7 @@ export default function SoulDetailPage(): JSX.Element {
   const { slug } = router.query;
   const { handleError } = useError();
   const { getSoulById } = useSoul();
-  const [soul, setSoul] = useState<Soul | null>(null);
+  const [soul, setSoul] = useState<any | null>(null);
 
   const CONF = {
     PAGE_TITLE: soulToFirstLastNameString(soul),
@@ -76,6 +76,8 @@ export default function SoulDetailPage(): JSX.Element {
   return (
     <Layout title={getPageTitle(CONF.PAGE_TITLE)}>
       <SoulDetail soul={soul} />
+
+      {/* {soul?.role == GAME_TYPE.mdao && <DaoTabs item={game} sx={{ mt: 4 }} />} */}
 
       <Box sx={{ my: 2 }}>
         <Typography variant="h3" sx={{ mb: 1 }}>

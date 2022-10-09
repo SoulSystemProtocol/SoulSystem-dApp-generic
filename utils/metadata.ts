@@ -29,3 +29,9 @@ export const resolveLink = (url: any) => {
   // : url.replace('ipfs://', 'https://cloudflare-ipfs.com/ipfs/');
   // : url.replace('ipfs://', 'https://ipfs.infura.io/ipfs/'); //Error: "Public Gateway Is Not Supported Anymore - Setup a Dedicated Gateway"
 };
+
+//Get Trait Value by Key
+export const getMetadataTraitValue = (metadata: any, key: string) => {
+  // return getTraitValue(item?.uriData?.attributes, key);
+  return getTraitValue(metadata?.attributes, key);
+};
