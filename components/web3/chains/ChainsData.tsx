@@ -119,8 +119,7 @@ export const ChainsData: { [key: string]: ChainData } = {
     chain_id: 80001,
     chain_id_hex: 0x13881,
     rpc: 'https://rpc-mumbai.maticvigil.com/',
-    currency_name: 'MATIC',
-    currency_symbol: 'MATIC',
+    // currency_symbol: 'MATIC',
     decimals: 18,
   },
   '0xa86a': {

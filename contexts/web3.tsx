@@ -5,6 +5,7 @@ import {
 import { ethers } from 'ethers';
 import { createContext, useEffect, useRef, useState } from 'react';
 import Web3Modal from 'web3modal';
+import { getChainData } from 'components/web3/chains/ChainsData';
 
 interface IWeb3Context {
   isReady: any;
@@ -120,25 +121,37 @@ export function Web3Provider({ children }: any) {
     }
   }
 
-  // TODO: Check if this function works
+  // TODO: Finish & Test
+  //Network Add
   async function addNetwork() {
+    const chainData = getChainData(
+      process.env.NEXT_PUBLIC_NETWORK_CHAIN_ID_HEX,
+    );
+    console.log('[TEST] Current Chain Data', chainData);
     try {
       await instance.request({
         method: 'wallet_addEthereumChain',
         params: [
           {
             chainId: process.env.NEXT_PUBLIC_NETWORK_CHAIN_ID_HEX,
-            rpcUrls: [process.env.NEXT_PUBLIC_NETWORK_RPC_URL],
-            chainName: process.env.NEXT_PUBLIC_NETWORK_NAME,
+            // chainId: chainData?.key,
+            // rpcUrls: [process.env.NEXT_PUBLIC_NETWORK_RPC_URL],
+            rpcUrls: [chainData.rpc],
+            // chainName: process.env.NEXT_PUBLIC_NETWORK_NAME,
+            chainName: chainData.name,
             nativeCurrency: {
-              name: process.env.NEXT_PUBLIC_NETWORK_CURRENCY_NAME,
-              symbol: process.env.NEXT_PUBLIC_NETWORK_CURRENCY_SYMBOL,
+              // name: process.env.NEXT_PUBLIC_NETWORK_CURRENCY_NAME,
+              name: chainData.native,
+              // symbol: process.env.NEXT_PUBLIC_NETWORK_CURRENCY_SYMBOL,
+              symbol: chainData.native,
               decimals: parseInt(
-                process.env.NEXT_PUBLIC_NETWORK_CURRENCY_DECIMALS || '',
+                // process.env.NEXT_PUBLIC_NETWORK_CURRENCY_DECIMALS || '',
+                chainData.decimals,
               ),
             },
             blockExplorerUrls: [
-              process.env.NEXT_PUBLIC_NETWORK_BLOCK_EXPLORER_URL,
+              // process.env.NEXT_PUBLIC_NETWORK_BLOCK_EXPLORER_URL,
+              chainData.blockExplorerUrl,
             ],
           },
         ],
