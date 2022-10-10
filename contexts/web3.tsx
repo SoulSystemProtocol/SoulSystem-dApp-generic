@@ -121,7 +121,7 @@ export function Web3Provider({ children }: any) {
     }
   }
 
-  // TODO: Finish & Test
+  // TODO: Test this
   //Network Add
   async function addNetwork() {
     const chainData = getChainData(
