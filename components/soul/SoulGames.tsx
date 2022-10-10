@@ -5,7 +5,7 @@ import querySoulToGame from 'queries/SoulGameQuery';
 /**
  * Component: Soul list filtered by type & role & Stage
  */
-export default function SoulMembership(props: any) {
+export default function SoulGames(props: any) {
   return (
     <PaginatedListGQ
       {...props}

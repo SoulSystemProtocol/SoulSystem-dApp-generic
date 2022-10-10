@@ -17,7 +17,7 @@ import { soulToFirstLastNameString } from 'utils/converters';
 import { getTraitValue } from 'helpers/metadata';
 
 /**
- * A component for create or edit own soul.
+ * Component: create or edit Soul.
  */
 export default function SoulManage({ soul }: any) {
   const STATUS = {

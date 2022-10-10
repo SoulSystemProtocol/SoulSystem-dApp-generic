@@ -2,7 +2,6 @@ import { useQuery } from '@apollo/client';
 import { useEffect, useState } from 'react';
 import { Box, Pagination, Typography } from '@mui/material';
 import DashboardCardList from './DashboardCardList';
-// import { APP_CONFIGS } from 'constants';
 import { APP_CONFIGS } from '../constants';
 
 type TPaginatedListGQ = {

@@ -77,3 +77,18 @@ export const gamePartCardContent = (item: any) => {
   // console.log('[DEV] daoPartCardContent() item', { item, ret });
   return ret;
 };
+
+// Task Participant
+export const taskPartCardContent = (item: any) => {
+  let metadata = hexStringToJson(item.entity.metadata);
+  let ret = {
+    id: item.entity.id,
+    imgSrc: resolveLink(metadata.image),
+    label: metadata?.description,
+    title: metadata?.name,
+    metadata,
+    link: `/tasks/${item.entity.id}`,
+  };
+  // console.log('[DEV] daoPartCardContent() item', { item, ret });
+  return ret;
+};

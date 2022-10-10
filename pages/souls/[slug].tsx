@@ -1,7 +1,3 @@
-/**
- * Page for a soul detail
- */
-import Soul from 'classes/Soul';
 import Layout from 'components/layout/Layout';
 import SoulDetail from 'components/soul/SoulDetail';
 import useError from 'hooks/useError';
@@ -9,10 +5,11 @@ import useSoul from 'hooks/useSoul';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { soulToFirstLastNameString } from 'utils/converters';
-import SoulMembership from 'components/soul/SoulMembership';
+import SoulGames from 'components/soul/SoulGames';
+import SoulProcs from 'components/soul/SoulProcs';
 import { getPageTitle } from 'utils';
 import { GAME_DESC, GAME_NAME, GAME_TYPE } from 'constants/contracts';
-import { gamePartCardContent } from 'utils/cardContents';
+import { gamePartCardContent, taskPartCardContent } from 'utils/cardContents';
 import { Box, Typography } from '@mui/material';
 
 /**
@@ -68,9 +65,9 @@ export default function SoulDetailPage(): JSX.Element {
   const soulMemberTasks = {
     variables: {
       id: soul?.id,
-      // entRole: GAME_TYPE.??,
+      entRole: 'BOUNTY',
     },
-    getCardContent: gamePartCardContent,
+    getCardContent: taskPartCardContent,
   };
 
   return (
@@ -83,18 +80,18 @@ export default function SoulDetailPage(): JSX.Element {
         <Typography variant="h3" sx={{ mb: 1 }}>
           {GAME_NAME.mdao}
         </Typography>
-        <SoulMembership {...soulMemberMDAOs} />
+        <SoulGames {...soulMemberMDAOs} />
       </Box>
       <Box sx={{ my: 2 }}>
         <Typography variant="h3" sx={{ mb: 1 }}>
           {GAME_NAME.project}
         </Typography>
-        <SoulMembership {...soulMemberProjects} />
+        <SoulGames {...soulMemberProjects} />
       </Box>
 
       <Box sx={{ my: 2 }}>
-        <Typography variant="h5">{GAME_NAME.tasks}</Typography>
-        <Typography variant="body1">[TBD]</Typography>
+        <Typography variant="h3">{GAME_NAME.tasks}</Typography>
+        <SoulProcs {...soulMemberTasks} />
       </Box>
     </Layout>
   );
