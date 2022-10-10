@@ -47,7 +47,6 @@ export default function PaginatedListGQ({
   //TODO: Use Order
   const [orderBy, setOrderBy] = useState({ createdAt: 'desc' });
 
-  //TODO: Maybe handle the 'loading' state
   const { data, loading, error } = useQuery(query, {
     variables: { ...variables, first, skip },
   });
