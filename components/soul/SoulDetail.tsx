@@ -8,7 +8,7 @@ import {
   Twitter,
 } from '@mui/icons-material';
 import {
-  Avatar,
+  // Avatar,
   Button,
   Stack,
   Typography,
@@ -41,7 +41,7 @@ export default function SoulDetail({ soul, sx }: any) {
         }}
       >
         <Box>
-          <EntityImage item={soul} icon={PersonOutlineOutlined} />
+          <EntityImage item={soul} icon={<PersonOutlineOutlined />} />
           <SoulEditButton soul={soul} sx={{ mt: 2, width: 164 }} />
         </Box>
         <Box sx={{ flexGrow: 1, mt: { xs: 2, md: 0 }, ml: { md: 4 } }}>

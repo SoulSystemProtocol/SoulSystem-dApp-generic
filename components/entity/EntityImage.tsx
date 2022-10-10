@@ -5,7 +5,14 @@ import { resolveLink } from 'helpers/IPFS';
 /**
  * Generic entity image component.
  */
-export default function EntityImage({ item, title, alt, icon, sx = {} }: any) {
+export default function EntityImage({
+  item,
+  title,
+  alt,
+  icon,
+  sx = {},
+}: any): JSX.Element {
+  const url = item?.image || item?.metadata?.image;
   return (
     <Avatar
       title={title}
@@ -16,7 +23,7 @@ export default function EntityImage({ item, title, alt, icon, sx = {} }: any) {
         borderRadius: '12%',
         ...sx,
       }}
-      src={resolveLink(item?.image || item?.uriData?.image)}
+      src={resolveLink(url)}
     >
       {icon || <AutoAwesomeOutlined />}
     </Avatar>

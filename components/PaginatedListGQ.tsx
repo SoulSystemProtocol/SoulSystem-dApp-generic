@@ -60,7 +60,7 @@ export default function PaginatedListGQ({
     //     entityName,
     //     entities: data?.[entityName],
     //   });
-    setItems(data?.[entityName]);
+    setItems(data ? data?.[entityName] : []);
   }, [data, error]);
 
   function pageChanged(page: number) {
