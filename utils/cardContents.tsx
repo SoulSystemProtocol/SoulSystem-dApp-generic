@@ -74,7 +74,6 @@ export const gamePartCardContent = (item: any) => {
     metadata,
     link: `/game/${item.entity.id}`,
   };
-  // console.log('[DEV] daoPartCardContent() item', { item, ret });
   return ret;
 };
 
@@ -89,6 +88,5 @@ export const taskPartCardContent = (item: any) => {
     metadata,
     link: `/tasks/${item.entity.id}`,
   };
-  // console.log('[DEV] daoPartCardContent() item', { item, ret });
   return ret;
 };
