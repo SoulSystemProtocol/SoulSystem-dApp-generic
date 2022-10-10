@@ -73,7 +73,11 @@ export default function PaginatedListGQ({
       <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
         {(title || subtitle) && (
           <Box>
-            {title && <Typography variant="h1">{title}</Typography>}
+            {title && (
+              <Typography variant="h1" gutterBottom>
+                {title}
+              </Typography>
+            )}
             {subtitle && (
               <Typography variant="subtitle1">{subtitle}</Typography>
             )}

@@ -38,7 +38,7 @@ export default function ActionDisplay(): JSX.Element {
 
   return (
     <Box>
-      <Typography variant="h2" gutterBottom>
+      <Typography variant="h1" gutterBottom>
         Actions
       </Typography>
       <Typography gutterBottom>
