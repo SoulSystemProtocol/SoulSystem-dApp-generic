@@ -15,7 +15,7 @@ import queryGameSingle from 'queries/GameSingleQuery';
 function normalizeGraphEntity(subgraphEntity: any) {
   return {
     ...subgraphEntity,
-    uriData: hexStringToJson(subgraphEntity.uriData),
+    metadata: hexStringToJson(subgraphEntity.uriData),
   };
 }
 
@@ -36,7 +36,7 @@ export default function GameDetailPage() {
 
   useEffect(() => {
     if (error) console.error('Game query failed', { data, error });
-    else console.log('[DEV] Game query ', data?.game);
+    else console.log('[DEV] Game query Return:', data);
     setGame(data?.game ? normalizeGraphEntity(data.game) : null);
   }, [data, error]);
 
