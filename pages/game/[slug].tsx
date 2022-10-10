@@ -1,9 +1,8 @@
-import { gql, useQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import DaoDetail from 'components/dao/DaoDetail';
 import DaoTabs from 'components/dao/DaoTabs';
 import ProjectTabs from 'components/project/ProjectTabs';
 import Layout from 'components/layout/Layout';
-// import useDao from 'hooks/useDao';
 // import useError from 'hooks/useError';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
@@ -27,7 +26,6 @@ export default function GameDetailPage() {
   const router = useRouter();
   const { slug } = router.query;
   // const { handleError } = useError();
-  // const { getDaoById } = useDao();
   const [game, setGame] = useState<any | null>(null);
 
   const { data, loading, error } = useQuery(queryGameSingle, {
