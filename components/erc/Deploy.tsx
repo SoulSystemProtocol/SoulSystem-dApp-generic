@@ -29,7 +29,9 @@ export default function Deploy({ sx }: any): JSX.Element {
 
   return (
     <Box>
-      <Typography variant="h1" gutterBottom>[WIP] Safe NFT</Typography>
+      <Typography variant="h1" gutterBottom>
+        [WIP] Safe NFT
+      </Typography>
       <Typography variant="subtitle1">Deploy a SafeNFT contract</Typography>
       <Typography variant="h2">Choose Type</Typography>
       <Stack direction="row" spacing={2} sx={{ mt: 2 }}>
