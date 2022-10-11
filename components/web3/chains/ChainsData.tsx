@@ -89,7 +89,6 @@ export const ChainsData: { [key: string]: ChainData } = {
   //   supported: false,
   //   rpcUrl: 'http://127.0.0.1:7545',
   // },
-
   '0x38': {
     key: '0x38',
     name: 'Binance',
