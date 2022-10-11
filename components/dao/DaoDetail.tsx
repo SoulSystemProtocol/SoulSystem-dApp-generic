@@ -31,7 +31,7 @@ export default function DaoDetail({ item, sx }: any) {
         </Box>
         <Box sx={{ flexGrow: 1, mt: { xs: 2, md: 0 }, ml: { md: 4 } }}>
           <AddressHash address={item.id} sx={{ float: 'right' }} />
-          <Typography variant="h4">
+          <Typography variant="h1">
             {item.name} ({item.role})
           </Typography>
           <Typography color="text.secondary" variant="body2">
