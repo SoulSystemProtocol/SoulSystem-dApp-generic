@@ -71,7 +71,7 @@ export default function ImageInput(props: WidgetProps) {
             height: size,
             borderRadius: '24px',
           }}
-          src={!isLoading ? resolveLink(propsImage) : null}
+          src={!isLoading ? resolveLink(propsImage) : undefined}
         >
           {isLoading ? <CircularProgress /> : <AddOutlined />}
         </Avatar>
