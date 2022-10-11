@@ -1,7 +1,7 @@
 export const GAME_NAME: any = {
   dao: 'DAOs',
   mdao: 'Service Pods',
-  project: 'Product Pods',
+  project: 'Projects',
   tasks: 'Quests',
 };
 

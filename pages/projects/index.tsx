@@ -7,11 +7,18 @@ import ProjectManageDialog from 'components/project/ProjectManageDialog';
 import Layout from 'components/layout/Layout';
 import SoulListGQ from 'components/soul/DAOListGQ';
 import { gameCardContent } from 'utils/cardContents';
+import { GAME_NAME } from 'constants/contracts';
+import Link from 'components/utils/Link';
 
 const CONF = {
-  PAGE_TITLE: 'Project Pods',
-  TITLE: 'Project Pods',
-  SUBTITLE: `Project Pods are companies and organizations that need some work done.`,
+  PAGE_TITLE: 'Projects',
+  TITLE: 'Projects',
+  SUBTITLE: (
+    <>
+      Projects consume work to produce a product. Cordinating effort via{' '}
+      <Link href="/tasks/">{GAME_NAME.tasks}</Link>.
+    </>
+  ),
 };
 
 /**
