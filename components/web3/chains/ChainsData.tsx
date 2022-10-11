@@ -17,6 +17,8 @@ export interface ChainData {
   currency_name?: any;
   currency_symbol?: any;
   decimals?: any;
+  openSeaUrl?: string;
+  wrapped?: string;
 }
 
 //Fetch Chain Data Function
@@ -27,21 +29,16 @@ export const getChainData = (chainId: string | undefined): any =>
 export const ChainsData: { [key: string]: ChainData } = {
   '0x1': {
     key: '0x1',
-    name: 'Ethereum',
+    name: 'Ethereum Mainnet',
     icon: <ETHLogo />,
     native: 'ETH',
     nId: 'ND-2H0ETHMainNet',
     live: true,
     supported: false,
+    blockExplorerUrl: 'https://etherscan.io/',
+    openSeaUrl: 'https://opensea.io/assets/',
+    wrapped: '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2',
   },
-  // {
-  //   key: "0x539",
-  //   name: "Local Chain",
-  //   icon: <ETHLogo />,
-  //   native: 'ETH',
-  // live: false,
-  // supported: false,
-  // },
   '0x3': {
     key: '0x3',
     name: 'Ropsten Testnet',
@@ -50,6 +47,7 @@ export const ChainsData: { [key: string]: ChainData } = {
     nId: '',
     live: false,
     supported: false,
+    blockExplorerUrl: 'https://ropsten.etherscan.io/',
   },
   '0x4': {
     key: '0x4',
@@ -59,6 +57,8 @@ export const ChainsData: { [key: string]: ChainData } = {
     nId: '',
     live: false,
     supported: true,
+    blockExplorerUrl: 'https://rinkeby.etherscan.io/',
+    openSeaUrl: 'https://testnets.opensea.io/assets/',
   },
   '0x2a': {
     key: '0x2a',
@@ -68,6 +68,7 @@ export const ChainsData: { [key: string]: ChainData } = {
     nId: '',
     live: false,
     supported: false,
+    blockExplorerUrl: 'https://kovan.etherscan.io/',
   },
   '0x5': {
     key: '0x5',
@@ -77,7 +78,18 @@ export const ChainsData: { [key: string]: ChainData } = {
     nId: '',
     live: false,
     supported: false,
+    blockExplorerUrl: 'https://goerli.etherscan.io/',
   },
+  // '0x539': {
+  //   key: '0x539',
+  //   name: 'Local Chain',
+  //   icon: <ETHLogo />,
+  //   native: 'ETH',
+  //   live: false,
+  //   supported: false,
+  //   rpcUrl: 'http://127.0.0.1:7545',
+  // },
+
   '0x38': {
     key: '0x38',
     name: 'Binance',
@@ -86,16 +98,20 @@ export const ChainsData: { [key: string]: ChainData } = {
     nId: 'ND-2H0BSCMainNet',
     live: true,
     supported: false,
-    blockExplorerUrl: 'https://testnet.bscscan.com/',
+    rpc: 'https://bsc-dataseed.binance.org/',
+    blockExplorerUrl: 'https://bscscan.com/',
+    wrapped: '0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c',
   },
   '0x61': {
     key: '0x61',
-    name: 'Smart Chain Testnet',
+    name: 'Binance Smart Chain Testnet',
     icon: <BSCLogo />,
     native: 'BNB',
     nId: 'ND-2H0BSCTestNet',
     live: false,
     supported: false,
+    rpc: 'https://data-seed-prebsc-1-s1.binance.org:8545/',
+    blockExplorerUrl: 'https://testnet.bscscan.com/',
   },
   '0x89': {
     key: '0x89',
@@ -106,6 +122,9 @@ export const ChainsData: { [key: string]: ChainData } = {
     live: true,
     supported: false,
     blockExplorerUrl: 'https://explorer-mainnet.maticvigil.com/',
+    rpc: 'https://rpc-mainnet.maticvigil.com/',
+    wrapped: '0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270',
+    openSeaUrl: 'https://opensea.io/assets/matic/',
   },
   '0x13881': {
     key: '0x13881',
@@ -119,7 +138,7 @@ export const ChainsData: { [key: string]: ChainData } = {
     chain_id: 80001,
     chain_id_hex: 0x13881,
     rpc: 'https://rpc-mumbai.maticvigil.com/',
-    // currency_symbol: 'MATIC',
+    // rpc: 'https://rpc-mumbai.matic.today/',
     decimals: 18,
   },
   '0xa86a': {
@@ -130,6 +149,8 @@ export const ChainsData: { [key: string]: ChainData } = {
     nId: '',
     live: true,
     supported: false,
+    rpc: 'https://api.avax.network/ext/bc/C/rpc',
+    blockExplorerUrl: 'https://cchain.explorer.avax.network/',
   },
   '0xa869': {
     key: '0xa869',
