@@ -22,7 +22,7 @@ function normalizeGraphEntity(subgraphEntity: any) {
  * Component: Single Game Page
  */
 // eslint-disable-next-line prettier/prettier
-export default function GameDetailPage() {
+export default function GameDetailPage(): JSX.Element {
   const router = useRouter();
   const { slug } = router.query;
   // const { handleError } = useError();
