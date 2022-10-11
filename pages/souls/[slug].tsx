@@ -4,13 +4,23 @@ import useError from 'hooks/useError';
 import useSoul from 'hooks/useSoul';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { soulToFirstLastNameString } from 'utils/converters';
+import { hexStringToJson, soulToFirstLastNameString } from 'utils/converters';
 import SoulGames from 'components/soul/SoulGames';
 import SoulProcs from 'components/soul/SoulProcs';
+import GameView from 'components/game/GameView';
 import { getPageTitle } from 'utils';
 import { GAME_DESC, GAME_NAME, GAME_TYPE } from 'constants/contracts';
 import { gamePartCardContent, taskPartCardContent } from 'utils/cardContents';
 import { Box, Typography } from '@mui/material';
+import querySoulSingle from 'queries/SoulSingleQuery';
+import { useQuery } from '@apollo/client';
+
+function normalizeGraphEntity(subgraphEntity: any) {
+  return {
+    ...subgraphEntity,
+    metadata: hexStringToJson(subgraphEntity.uriData),
+  };
+}
 
 /**
  * Component: Single Soul Page
@@ -22,11 +32,22 @@ export default function SoulDetailPage(): JSX.Element {
   const { getSoulById } = useSoul();
   const [soul, setSoul] = useState<any | null>(null);
 
+  console.log('Soul', soul);
   const CONF = {
     PAGE_TITLE: soulToFirstLastNameString(soul),
     TITLE: soulToFirstLastNameString(soul),
     SUBTITLE: GAME_DESC.dao,
   };
+
+  const { data, loading, error } = useQuery(querySoulSingle, {
+    variables: { id: slug },
+  });
+
+  useEffect(() => {
+    if (error) console.error('Soul query failed', { data, error });
+    else console.log('[DEV] Soul query Return:', data);
+    setSoul(data?.soul ? normalizeGraphEntity(data.soul) : null);
+  }, [data, error]);
 
   async function loadData() {
     try {
@@ -36,12 +57,12 @@ export default function SoulDetailPage(): JSX.Element {
     }
   }
 
-  useEffect(() => {
-    if (slug) {
-      loadData();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [slug]);
+  // useEffect(() => {
+  //   if (slug) {
+  //     loadData();
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [slug]);
 
   const soulMemberMDAOs = {
     variables: {
@@ -72,9 +93,8 @@ export default function SoulDetailPage(): JSX.Element {
 
   return (
     <Layout title={getPageTitle(CONF.PAGE_TITLE)}>
-      <SoulDetail soul={soul} />
-
-      {/* {soul?.role == GAME_TYPE.mdao && <DaoTabs item={game} sx={{ mt: 4 }} />} */}
+      {soul?.type == '' && <SoulDetail soul={soul} />}
+      {soul?.type == 'GAME' && <GameView id={soul.owner} sx={{ mt: 4 }} />}
 
       <Box sx={{ my: 2 }}>
         <Typography variant="h3" sx={{ mb: 1 }}>
