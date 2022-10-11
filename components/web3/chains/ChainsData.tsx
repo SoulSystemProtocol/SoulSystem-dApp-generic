@@ -22,8 +22,16 @@ export interface ChainData {
 }
 
 //Fetch Chain Data Function
-export const getChainData = (chainId: string | undefined): any =>
-  chainId ? ChainsData[chainId] : {};
+export const getChainData = (chainId: string | undefined): any => {
+  if (!!chainId) return ChainsData[chainId];
+  if (!!process.env.NEXT_PUBLIC_NETWORK_CHAIN_ID_HEX)
+    return ChainsData[process.env.NEXT_PUBLIC_NETWORK_CHAIN_ID_HEX];
+  console.error('Chain Data Missing', {
+    chainId,
+    envChain: process.env.NEXT_PUBLIC_NETWORK_CHAIN_ID_HEX,
+  });
+  return {};
+};
 
 //Chain Data Object
 export const ChainsData: { [key: string]: ChainData } = {
