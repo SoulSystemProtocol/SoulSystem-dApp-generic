@@ -1,8 +1,10 @@
 import { useQuery } from '@apollo/client';
 import { useEffect, useState } from 'react';
-import { Box, Pagination, Typography } from '@mui/material';
-import DashboardCardList from './DashboardCardList';
+import { Box, Grid, Pagination, Typography } from '@mui/material';
+// import DashboardCardList from './DashboardCardList';
 import { APP_CONFIGS } from '../constants';
+import Loader from './Loader';
+import DashboardCard from './DashboardCard';
 
 type TPaginatedListGQ = {
   query: any;
@@ -10,9 +12,11 @@ type TPaginatedListGQ = {
   baseRoute: string;
   subtitle: string;
   title: string;
-  getCardContent: {};
+  getCardContent: (dataItem: any) => any;
   renderActions?: JSX.Element;
   entityName?: string;
+  gridMD?: number;
+  gridLG?: number;
 };
 
 const wrapperStyle = {
@@ -35,12 +39,14 @@ export default function PaginatedListGQ({
   renderActions,
   getCardContent,
   entityName = 'souls',
+  gridMD = 6,
+  gridLG = 6,
 }: TPaginatedListGQ) {
   const pageSize = APP_CONFIGS.PAGE_SIZE;
   const [currentPage, setCurrentPage] = useState(1);
   // const [currentPageCount, setCurrentPageCount] = useState(2); //Unknown End
   const [items, setItems] = useState([]);
-  const [first, setFirst] = useState(pageSize);
+  const [first] = useState(pageSize);
   const [skip, setSkip] = useState(0);
 
   //TODO: Use Order
@@ -84,12 +90,29 @@ export default function PaginatedListGQ({
         )}
         {!!renderActions && renderActions}
       </Box>
-      <DashboardCardList
-        loading={loading}
-        baseRoute={baseRoute}
-        dataAccessor={getCardContent}
-        data={items}
-      />
+      {loading ? (
+        <Loader />
+      ) : (
+        <Grid container spacing={2}>
+          {!data?.length ? (
+            <Grid item xs={12}>
+              <Typography>No Results</Typography>
+            </Grid>
+          ) : (
+            <>
+              {data.map((dataItem: any, index: number) => {
+                //Process Data
+                const data = getCardContent(dataItem);
+                return (
+                  <Grid key={index} item xs={12} md={gridMD} lg={gridLG}>
+                    <DashboardCard baseRoute={baseRoute} data={data} />
+                  </Grid>
+                );
+              })}
+            </>
+          )}
+        </Grid>
+      )}
       <Box sx={wrapperStyle}>
         {items?.length > first && (
           <Pagination
