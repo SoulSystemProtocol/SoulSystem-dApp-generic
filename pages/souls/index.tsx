@@ -5,7 +5,7 @@ import { Web3Context } from 'contexts/web3';
 import Link from 'next/link';
 // import useError from 'hooks/useError';
 // import { APP_CONFIGS } from '../../constants';
-// import PaginatedListGQ from 'components/PaginatedListGQ';
+// import PaginatedList from 'components/PaginatedList';
 import Layout from '../../components/layout/Layout';
 import SoulListGQ from '../../components/soul/SoulListGQ';
 import { getPageTitle } from '../../utils';

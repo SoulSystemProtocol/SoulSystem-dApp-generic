@@ -1,5 +1,5 @@
 import { gql } from '@apollo/client';
-import PaginatedListGQ from 'components/PaginatedListGQ';
+import PaginatedList from 'components/PaginatedList';
 
 /**
  * Component: Soul list filtered by type & role & Stage
@@ -40,5 +40,5 @@ export default function ProcessListGQ(props: any) {
       }
     }
   `;
-  return <PaginatedListGQ {...props} query={query} />;
+  return <PaginatedList {...props} query={query} />;
 }

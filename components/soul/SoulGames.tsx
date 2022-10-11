@@ -1,5 +1,5 @@
 // import { gql } from '@apollo/client';
-import PaginatedListGQ from 'components/PaginatedListGQ';
+import PaginatedList from 'components/PaginatedList';
 import querySoulToGame from 'queries/SoulGameQuery';
 
 /**
@@ -7,7 +7,7 @@ import querySoulToGame from 'queries/SoulGameQuery';
  */
 export default function SoulGames(props: any) {
   return (
-    <PaginatedListGQ
+    <PaginatedList
       {...props}
       entityName="gameParticipants"
       query={querySoulToGame}

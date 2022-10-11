@@ -1,12 +1,11 @@
 import { useQuery } from '@apollo/client';
 import { useEffect, useState } from 'react';
 import { Box, Grid, Pagination, Typography } from '@mui/material';
-// import DashboardCardList from './DashboardCardList';
 import { APP_CONFIGS } from '../constants';
 import Loader from './Loader';
 import DashboardCard from './DashboardCard';
 
-type TPaginatedListGQ = {
+type TPaginatedList = {
   query: any;
   variables?: any;
   baseRoute: string;
@@ -30,7 +29,7 @@ const wrapperStyle = {
 /**
  * Component for a paginated list
  */
-export default function PaginatedListGQ({
+export default function PaginatedList({
   query,
   variables,
   baseRoute,
@@ -41,7 +40,7 @@ export default function PaginatedListGQ({
   entityName = 'souls',
   gridMD = 6,
   gridLG = 6,
-}: TPaginatedListGQ) {
+}: TPaginatedList) {
   const pageSize = APP_CONFIGS.PAGE_SIZE;
   const [currentPage, setCurrentPage] = useState(1);
   // const [currentPageCount, setCurrentPageCount] = useState(2); //Unknown End
@@ -57,9 +56,9 @@ export default function PaginatedListGQ({
   });
 
   useEffect(() => {
-    if (error) console.error('PaginatedListGQ() query failed', { data, error });
+    if (error) console.error('PaginatedList() query failed', { data, error });
     // else
-    //   console.log('PaginatedListGQ() query ', {
+    //   console.log('PaginatedList() query ', {
     //     data,
     //     entityName,
     //     entities: data?.[entityName],
@@ -94,18 +93,17 @@ export default function PaginatedListGQ({
         <Loader />
       ) : (
         <Grid container spacing={2}>
-          {!data?.length ? (
+          {!items?.length ? (
             <Grid item xs={12}>
               <Typography>No Results</Typography>
             </Grid>
           ) : (
             <>
-              {data.map((dataItem: any, index: number) => {
-                //Process Data
-                const data = getCardContent(dataItem);
+              {items.map((dataItem: any, index: number) => {
+                const cardData = getCardContent(dataItem);
                 return (
                   <Grid key={index} item xs={12} md={gridMD} lg={gridLG}>
-                    <DashboardCard baseRoute={baseRoute} data={data} />
+                    <DashboardCard baseRoute={baseRoute} data={cardData} />
                   </Grid>
                 );
               })}
