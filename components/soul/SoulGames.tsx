@@ -11,6 +11,8 @@ export default function SoulGames(props: any) {
       {...props}
       entityName="gameParticipants"
       query={querySoulToGame}
+      gridMD={4}
+      gridLG={4}
     />
   );
 }

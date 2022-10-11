@@ -1,16 +1,17 @@
-// import { gql } from '@apollo/client';
 import PaginatedList from 'components/PaginatedList';
 import querySoulToProc from 'queries/SoulProcQuery';
 
 /**
- * Component: Soul list filtered by type & role & Stage
+ * Component: Soul to Process Relation
  */
-export default function SoulGames(props: any) {
+export default function SoulProcs(props: any) {
   return (
     <PaginatedList
       {...props}
       entityName="procParticipants"
       query={querySoulToProc}
+      gridMD={12}
+      gridLG={12}
     />
   );
 }
