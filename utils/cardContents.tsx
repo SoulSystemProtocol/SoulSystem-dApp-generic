@@ -79,10 +79,11 @@ export const gamePartCardContent = (item: any) => {
 
 // Task Participant
 export const taskPartCardContent = (item: any) => {
+  let gameMetadata = hexStringToJson(item.entity.game.metadata);
   let metadata = hexStringToJson(item.entity.metadata);
   let ret = {
     id: item.entity.id,
-    imgSrc: resolveLink(metadata.image),
+    imgSrc: resolveLink(gameMetadata.image),
     label: metadata?.description,
     title: metadata?.name,
     metadata,

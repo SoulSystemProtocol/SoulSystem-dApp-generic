@@ -15,11 +15,15 @@ const query = gql`
         type
         role
         metadata
+        game {
+          metadata
+        }
       }
       sbt {
         id
         name
         type
+        role
       }
     }
   }
