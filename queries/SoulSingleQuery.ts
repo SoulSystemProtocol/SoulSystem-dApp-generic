@@ -6,21 +6,22 @@ const query = gql`
       id
       owner
       type
+      role
       uri
       uriData
       uriImage
       uriFirstName
       uriLastName
-      participantGame {
-        id
-        roles
-      }
-      participantProc {
-        id
-        roles
-      }
     }
   }
 `;
-
+/// REMOVED
+// participantGame {
+//   id
+//   roles
+// }
+// participantProc {
+//   id
+//   roles
+// }
 export default query;
