@@ -14,6 +14,7 @@ import { gamePartCardContent, taskPartCardContent } from 'utils/cardContents';
 import { Box, Typography } from '@mui/material';
 import querySoulSingle from 'queries/SoulSingleQuery';
 import { useQuery } from '@apollo/client';
+import DisplayPOAP from 'components/web3/DisplayPOAP';
 
 function normalizeGraphEntity(subgraphEntity: any) {
   return {
@@ -97,6 +98,11 @@ export default function SoulDetailPage(): JSX.Element {
       {soul?.type == 'GAME' && <GameView id={soul.owner} sx={{ mt: 4 }} />}
 
       <Box sx={{ my: 2 }}>
+        <Typography variant="h3">POAP</Typography>
+        <DisplayPOAP account={soul?.owner} />
+      </Box>
+
+      <Box sx={{ my: 2 }}>
         <Typography variant="h3" sx={{ mb: 1 }}>
           {GAME_NAME.mdao}
         </Typography>
@@ -113,6 +119,7 @@ export default function SoulDetailPage(): JSX.Element {
         <Typography variant="h3">{GAME_NAME.tasks}</Typography>
         <SoulProcs {...soulMemberTasks} />
       </Box>
+
     </Layout>
   );
 }
