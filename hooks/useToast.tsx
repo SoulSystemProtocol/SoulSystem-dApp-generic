@@ -59,7 +59,7 @@ export default function useToast() {
       });
     } else {
       const message = truncate(`Error: ${error.message}`, {
-        length: 256,
+        length: 88,
       });
       enqueueSnackbar(message, {
         variant: 'error',
