@@ -119,7 +119,6 @@ export default function SoulDetailPage(): JSX.Element {
         <Typography variant="h3">{GAME_NAME.tasks}</Typography>
         <SoulProcs {...soulMemberTasks} />
       </Box>
-
     </Layout>
   );
 }
