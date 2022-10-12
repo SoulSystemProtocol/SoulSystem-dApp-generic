@@ -98,7 +98,7 @@ export default function SoulDetailPage(): JSX.Element {
       {soul?.type == 'GAME' && <GameView id={soul.owner} sx={{ mt: 4 }} />}
 
       <Box sx={{ my: 2 }}>
-        <Typography variant="h3">POAP</Typography>
+        <Typography variant="h3">POAPs</Typography>
         <DisplayPOAP account={soul?.owner} />
       </Box>
 
