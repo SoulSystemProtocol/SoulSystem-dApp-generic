@@ -1,17 +1,7 @@
 import { useEffect, useState } from 'react';
-import {
-  Avatar,
-  Box,
-  Button,
-  Grid,
-  Stack,
-  Tooltip,
-  Typography,
-} from '@mui/material';
+import { Box, Button, Grid, Typography } from '@mui/material';
 import useError from 'hooks/useError';
-import { SupervisedUserCircle } from '@mui/icons-material';
-// import Link from 'components/utils/Link';
-// import { addressToShortAddress } from 'utils/converters';
+import DisplayGridItem1 from './DisplayGridItem1';
 
 /**
  * Component: Display POAP
@@ -90,31 +80,12 @@ export default function DisplayPOAP({
               index >= displayCount && !isShowMore ? (
                 <></>
               ) : (
-                <Grid key={item.event.id.toString()} item xs={12} md={1}>
-                  <Tooltip
-                    title={`${item.event.name} - ${item.event.description}`}
-                  >
-                    <Stack direction="column" spacing={1} sx={{ ...sx }}>
-                      <Avatar
-                        alt={item.event.name}
-                        sx={{
-                          width: '96%',
-                          height: '96%',
-                          borderRadius: '12%',
-                          ...sx,
-                        }}
-                        src={item?.event?.image_url}
-                      >
-                        <SupervisedUserCircle />
-                      </Avatar>
-                      <Box>
-                        {/* <Link href={`/POAP/${item.id}`}> */}
-                        <Typography variant="body1">{item.name}</Typography>
-                        {/* </Link> */}
-                      </Box>
-                    </Stack>
-                  </Tooltip>
-                </Grid>
+                <DisplayGridItem1
+                  props={{ key: item.event.id.toString(), xs: 12, md: 1 }}
+                  image_url={item?.event?.image_url}
+                  name={item.event.name}
+                  title={`${item.event.name} - ${item.event.description}`}
+                />
               ),
             )}
             {items.length > displayCount && !isShowMore && (
