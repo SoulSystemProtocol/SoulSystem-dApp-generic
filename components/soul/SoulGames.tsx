@@ -1,4 +1,3 @@
-// import { gql } from '@apollo/client';
 import PaginatedList from 'components/PaginatedList';
 import querySoulToGame from 'queries/SoulGameQuery';
 
