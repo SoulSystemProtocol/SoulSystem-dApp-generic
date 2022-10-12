@@ -71,9 +71,6 @@ export default function SoulDetailPage(): JSX.Element {
       entRole: GAME_TYPE.mdao,
     },
     getCardContent: gamePartCardContent,
-    // renderActions,
-    // subtitle: CONF.SUBTITLE,
-    // title: CONF.TITLE,
   };
 
   const soulMemberProjects = {
@@ -99,25 +96,25 @@ export default function SoulDetailPage(): JSX.Element {
 
       <Box sx={{ my: 2 }}>
         <Typography variant="h3">POAPs</Typography>
-        <DisplayPOAP account={soul?.owner} />
+        {soul?.owner && <DisplayPOAP account={soul.owner} />}
       </Box>
 
       <Box sx={{ my: 2 }}>
         <Typography variant="h3" sx={{ mb: 1 }}>
           {GAME_NAME.mdao}
         </Typography>
-        <SoulGames {...soulMemberMDAOs} />
+        {soul?.id && <SoulGames {...soulMemberMDAOs} />}
       </Box>
       <Box sx={{ my: 2 }}>
         <Typography variant="h3" sx={{ mb: 1 }}>
           {GAME_NAME.project}
         </Typography>
-        <SoulGames {...soulMemberProjects} />
+        {soul?.id && <SoulGames {...soulMemberProjects} />}
       </Box>
 
       <Box sx={{ my: 2 }}>
         <Typography variant="h3">{GAME_NAME.tasks}</Typography>
-        <SoulProcs {...soulMemberTasks} />
+        {soul?.id && <SoulProcs {...soulMemberTasks} />}
       </Box>
     </Layout>
   );

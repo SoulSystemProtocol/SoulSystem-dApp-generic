@@ -1,17 +1,6 @@
-import {
-  FacebookRounded,
-  GitHub,
-  Instagram,
-  Language,
-  LinkedIn,
-  MailOutlineRounded,
-  PersonOutlineOutlined,
-  Telegram,
-  Twitter,
-} from '@mui/icons-material';
+import { MailOutlineRounded, PersonOutlineOutlined } from '@mui/icons-material';
 import { Button, Stack, Typography, Link as MuiLink } from '@mui/material';
 import { Box } from '@mui/system';
-import { PROFILE_TRAIT_TYPE } from 'constants/metadata';
 import { Web3Context } from 'contexts/web3';
 import Link from 'next/link';
 import { useContext } from 'react';
@@ -23,7 +12,7 @@ import EntityImage from 'components/entity/EntityImage';
 import { PROFILE_TRAITS } from 'components/soul/ProfileTraits';
 
 /**
- * Component:  soul details.
+ * Component: Soul details
  */
 export default function SoulDetail({ soul, sx }: any) {
   if (!soul) return <></>;
@@ -52,7 +41,7 @@ export default function SoulDetail({ soul, sx }: any) {
           <AddressHash address={soul.owner} sx={{ mt: 1 }} />
           <SoulDescription soul={soul} sx={{ mt: 1 }} />
           <SocialLinks soul={soul} sx={{ mt: 2 }} />
-          <Stack direction="row" spacing={2} sx={{ mt: 2 }}>
+          <Stack key="buttons" direction="row" spacing={2} sx={{ mt: 2 }}>
             <FundDialogButton address={soul.owner} />
           </Stack>
         </Box>
@@ -63,20 +52,24 @@ export default function SoulDetail({ soul, sx }: any) {
 
 function SoulDescription({ soul, sx }: any) {
   const description = getAttribute(soul?.metadata?.attributes, 'Description');
-  console.log("Soul's Description", soul, description);
   if (description) {
     return <Typography sx={{ ...sx }}>{description}</Typography>;
   }
   return <></>;
 }
 
-function SocialLinks({ soul, sx }: any) {
+function SocialLinks({ soul, sx }: any): JSX.Element {
   const email = getAttribute(soul?.metadata?.attributes, 'email');
 
   return (
-    <Stack direction="row" spacing={2} sx={{ ...sx }}>
+    <Stack key="SocialLinks" direction="row" spacing={2} sx={{ ...sx }}>
       {email && (
-        <MuiLink href={`mailto:${email}`} target="_blank">
+        <MuiLink
+          key="email"
+          href={`mailto:${email}`}
+          title="Email"
+          target="_blank"
+        >
           <MailOutlineRounded />
         </MuiLink>
       )}
@@ -85,7 +78,12 @@ function SocialLinks({ soul, sx }: any) {
         return !value ? (
           <></>
         ) : (
-          <MuiLink href={item.baseURL + value} target="_blank">
+          <MuiLink
+            key={item.name}
+            href={item.baseURL ? item.baseURL + value : value}
+            title={item.label}
+            target="_blank"
+          >
             {item.icon}
           </MuiLink>
         );
@@ -94,6 +92,9 @@ function SocialLinks({ soul, sx }: any) {
   );
 }
 
+/**
+ * Component: Soul Edit Button
+ */
 function SoulEditButton({ soul, sx }: any) {
   const { account } = useContext(Web3Context);
 

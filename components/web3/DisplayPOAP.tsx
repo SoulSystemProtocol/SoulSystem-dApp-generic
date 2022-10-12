@@ -29,9 +29,7 @@ export default function DisplayPOAP({
         `https://api.poap.tech/actions/scan/${address}`,
         options,
       ).then((response) => response.json());
-      // .then((response) => console.log(response))
-      // .catch((err) => console.error(err));
-      console.log('POAP Res:', { account, response });
+      // console.log('POAP Res:', { account, response });
       setItems(response);
     } catch (error: any) {
       setItems([]);

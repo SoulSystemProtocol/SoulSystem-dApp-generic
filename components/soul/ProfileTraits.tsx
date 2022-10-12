@@ -19,10 +19,10 @@ export interface Trait {
 
 export const PROFILE_TRAITS: Trait[] = [
   {
-    name: 'site',
-    label: 'Site',
+    name: 'website',
+    label: 'Webite',
     type: 'url',
-    placeholder: 'https://site.com',
+    placeholder: 'https://example.com',
     icon: <Language color="primary" />,
   },
   {
