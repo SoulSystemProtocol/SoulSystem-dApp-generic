@@ -7,6 +7,11 @@ import { create } from 'ipfs-http-client';
 export default function useIpfs() {
   // eslint-disable-next-line prettier/prettier
   const auth = 'Basic ' + Buffer.from(process.env.NEXT_PUBLIC_INFURA_PROJECT_ID + ':' + process.env.NEXT_PUBLIC_INFURA_SECRET).toString('base64');
+  if (
+    !process.env.NEXT_PUBLIC_INFURA_PROJECT_ID ||
+    !process.env.NEXT_PUBLIC_INFURA_SECRET
+  )
+    console.error('Missing Infura API Data');
   const infuraClient = create({
     // url: process.env.NEXT_PUBLIC_INFURA_IPFS_API,
     host: 'ipfs.infura.io',
