@@ -1,5 +1,13 @@
 import { useEffect, useState } from 'react';
-import { Avatar, Box, Grid, Stack, Tooltip, Typography } from '@mui/material';
+import {
+  Avatar,
+  Box,
+  Button,
+  Grid,
+  Stack,
+  Tooltip,
+  Typography,
+} from '@mui/material';
 import useError from 'hooks/useError';
 import { SupervisedUserCircle } from '@mui/icons-material';
 // import Link from 'components/utils/Link';
@@ -8,7 +16,11 @@ import { SupervisedUserCircle } from '@mui/icons-material';
 /**
  * Component: Display POAP
  */
-export default function DisplayPOAP({ account, sx = {} }: any): JSX.Element {
+export default function DisplayPOAP({
+  account,
+  displayCount = 12,
+  sx = {},
+}: any): JSX.Element {
   const { handleError } = useError();
   const [items, setItems] = useState<Array<any>>([]);
   const [isShowMore, setIsShowMore] = useState<boolean>(false);
@@ -34,7 +46,6 @@ export default function DisplayPOAP({ account, sx = {} }: any): JSX.Element {
     } catch (error: any) {
       setItems([]);
       console.error('POAP Fetch Failed:', { error, address });
-      // throw new Error(`POAP Fetch Failed: ${error}`);
       handleError(
         {
           message: `POAP Fetch Failed: ${error}`,
@@ -67,7 +78,7 @@ export default function DisplayPOAP({ account, sx = {} }: any): JSX.Element {
           </Grid>
         )}
         {items?.length === 0 && (
-          <Grid item xs={12}>
+          <Grid key="none" item xs={12}>
             <Typography>
               {/* No POAPs for {addressToShortAddress(account)} */}
             </Typography>
@@ -75,33 +86,42 @@ export default function DisplayPOAP({ account, sx = {} }: any): JSX.Element {
         )}
         {items?.length > 0 && (
           <>
-            {items.map((item: any) => (
-              <Grid key={item.event.id} item xs={12} md={1}>
-                <Tooltip
-                  title={`${item.event.name} - ${item.event.description}`}
-                >
-                  <Stack direction="column" spacing={1} sx={{ ...sx }}>
-                    <Avatar
-                      alt={item.event.name}
-                      sx={{
-                        width: '96%',
-                        height: '96%',
-                        borderRadius: '12%',
-                        ...sx,
-                      }}
-                      src={item?.event?.image_url}
-                    >
-                      <SupervisedUserCircle />
-                    </Avatar>
-                    <Box>
-                      {/* <Link href={`/POAP/${item.id}`}> */}
-                      <Typography variant="body1">{item.name}</Typography>
-                      {/* </Link> */}
-                    </Box>
-                  </Stack>
-                </Tooltip>
-              </Grid>
-            ))}
+            {items.map((item: any, index: number) =>
+              index >= displayCount && !isShowMore ? (
+                <></>
+              ) : (
+                <Grid key={item.event.id.toString()} item xs={12} md={1}>
+                  <Tooltip
+                    title={`${item.event.name} - ${item.event.description}`}
+                  >
+                    <Stack direction="column" spacing={1} sx={{ ...sx }}>
+                      <Avatar
+                        alt={item.event.name}
+                        sx={{
+                          width: '96%',
+                          height: '96%',
+                          borderRadius: '12%',
+                          ...sx,
+                        }}
+                        src={item?.event?.image_url}
+                      >
+                        <SupervisedUserCircle />
+                      </Avatar>
+                      <Box>
+                        {/* <Link href={`/POAP/${item.id}`}> */}
+                        <Typography variant="body1">{item.name}</Typography>
+                        {/* </Link> */}
+                      </Box>
+                    </Stack>
+                  </Tooltip>
+                </Grid>
+              ),
+            )}
+            {items.length > displayCount && !isShowMore && (
+              <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                <Button onClick={() => setIsShowMore(true)}>Show All</Button>
+              </Box>
+            )}
           </>
         )}
       </Grid>
