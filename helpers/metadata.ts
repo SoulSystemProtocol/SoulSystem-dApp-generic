@@ -16,7 +16,6 @@ export function getAttribute(
 
 //Get Trait Value by Key
 export const getMetadataTraitValue = (metadata: any, key: string) => {
-  // return getAttribute(item?.uriData?.attributes, key);
   return getAttribute(metadata?.attributes, key);
 };
 
@@ -29,11 +28,6 @@ export const attributeSet = (
   value: { [key: string]: any },
 ) => {
   let index = _.findIndex(attributes, { trait_type: key });
-  // console.log('[DEBUG] Index of Attribute ' + index, {
-  //   attributes,
-  //   eventTargetName,
-  //   find: { trait_type: eventTargetName },
-  // });
   if (index == -1) {
     //Add
     attributes.push(value);
