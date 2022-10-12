@@ -33,7 +33,7 @@ export default function SoulDetailPage(): JSX.Element {
   const { getSoulById } = useSoul();
   const [soul, setSoul] = useState<any | null>(null);
 
-  console.log('Soul', soul);
+  console.log('SoulDetailPage() Soul:', soul);
   const CONF = {
     PAGE_TITLE: soulToFirstLastNameString(soul),
     TITLE: soulToFirstLastNameString(soul),
@@ -46,7 +46,7 @@ export default function SoulDetailPage(): JSX.Element {
 
   useEffect(() => {
     if (error) console.error('Soul query failed', { data, error });
-    else console.log('[DEV] Soul query Return:', data);
+    // else console.log('[DEV] Soul query Return:', data);
     setSoul(data?.soul ? normalizeGraphEntity(data.soul) : null);
   }, [data, error]);
 
@@ -57,13 +57,6 @@ export default function SoulDetailPage(): JSX.Element {
       handleError(error, true);
     }
   }
-
-  // useEffect(() => {
-  //   if (slug) {
-  //     loadData();
-  //   }
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [slug]);
 
   const soulMemberMDAOs = {
     variables: {
