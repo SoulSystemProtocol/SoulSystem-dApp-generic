@@ -1,5 +1,3 @@
-// import { getTraitValue } from 'helpers/metadata';
-
 /** DEPRECATE
  * Class for soul.
  */
@@ -13,7 +11,6 @@ export default class Soul {
   uriFirstName: string | null;
   uriLastName: string | null;
   // posts: any | null;
-  // getTraitValue: function;
 
   constructor(
     id: string,
@@ -37,8 +34,4 @@ export default class Soul {
     // this.posts = posts;
   }
 
-  //Get Trait Value by Key
-  // getTraitValue(key: string) {
-  //   return getTraitValue(this?.uriData?.attributes, key);
-  // }
 }
