@@ -115,7 +115,7 @@ const footer_icons: { route: string; label: string; icon: JSX.Element }[] = [
 
 export default function Layout({ children, title }: any) {
   // const theme = useTheme();
-  const [isOpen, setIsOpen] = useLocalStorage('isOpen', true);
+  const [isOpen, setIsOpen] = useLocalStorage('isOpen', false);
 
   const toggleDrawer = () => {
     setIsOpen(!isOpen);
