@@ -1,26 +1,22 @@
 import {
   FacebookRounded,
+  GitHub,
   Instagram,
   Language,
+  LinkedIn,
   MailOutlineRounded,
   PersonOutlineOutlined,
   Telegram,
   Twitter,
 } from '@mui/icons-material';
-import {
-  // Avatar,
-  Button,
-  Stack,
-  Typography,
-  Link as MuiLink,
-} from '@mui/material';
+import { Button, Stack, Typography, Link as MuiLink } from '@mui/material';
 import { Box } from '@mui/system';
 import { PROFILE_TRAIT_TYPE } from 'constants/metadata';
 import { Web3Context } from 'contexts/web3';
 import Link from 'next/link';
 import { useContext } from 'react';
 import { soulToFirstLastNameString } from 'utils/converters';
-import { getTraitValue } from 'helpers/metadata';
+import { getAttribute } from 'helpers/metadata';
 import AddressHash from 'components/web3/AddressHash';
 import FundDialogButton from 'components/web3/FundDialogButton';
 import EntityImage from 'components/entity/EntityImage';
@@ -41,7 +37,11 @@ export default function SoulDetail({ soul, sx }: any) {
         }}
       >
         <Box>
-          <EntityImage item={soul} icon={<PersonOutlineOutlined />} sx={{ borderRadius: '50%' }} />
+          <EntityImage
+            item={soul}
+            icon={<PersonOutlineOutlined />}
+            sx={{ borderRadius: '50%' }}
+          />
           <SoulEditButton soul={soul} sx={{ mt: 2, width: 164 }} />
         </Box>
         <Box sx={{ flexGrow: 1, mt: { xs: 2, md: 0 }, ml: { md: 4 } }}>
@@ -51,7 +51,7 @@ export default function SoulDetail({ soul, sx }: any) {
           </Typography>
           <AddressHash address={soul.owner} sx={{ mt: 1 }} />
           <SoulDescription soul={soul} sx={{ mt: 1 }} />
-          <SoulLinks soul={soul} sx={{ mt: 2 }} />
+          <SocialLinks soul={soul} sx={{ mt: 2 }} />
           <Stack direction="row" spacing={2} sx={{ mt: 2 }}>
             <FundDialogButton address={soul.owner} />
           </Stack>
@@ -62,7 +62,7 @@ export default function SoulDetail({ soul, sx }: any) {
 }
 
 function SoulDescription({ soul, sx }: any) {
-  const description = getTraitValue(
+  const description = getAttribute(
     soul?.metadata?.attributes,
     PROFILE_TRAIT_TYPE.description,
   );
@@ -72,31 +72,39 @@ function SoulDescription({ soul, sx }: any) {
   return <></>;
 }
 
-function SoulLinks({ soul, sx }: any) {
+function SocialLinks({ soul, sx }: any) {
   // Fetch Traits
-  const email = getTraitValue(
+  const email = getAttribute(
     soul?.metadata?.attributes,
     PROFILE_TRAIT_TYPE.email,
   );
-  const site = getTraitValue(
+  const site = getAttribute(
     soul?.metadata?.attributes,
     PROFILE_TRAIT_TYPE.site,
   );
-  const twitter = getTraitValue(
+  const twitter = getAttribute(
     soul?.metadata?.attributes,
     PROFILE_TRAIT_TYPE.twitter,
   );
-  const telegram = getTraitValue(
+  const telegram = getAttribute(
     soul?.metadata?.attributes,
     PROFILE_TRAIT_TYPE.telegram,
   );
-  const facebook = getTraitValue(
+  const facebook = getAttribute(
     soul?.metadata?.attributes,
     PROFILE_TRAIT_TYPE.facebook,
   );
-  const instagram = getTraitValue(
+  const instagram = getAttribute(
     soul?.metadata?.attributes,
     PROFILE_TRAIT_TYPE.instagram,
+  );
+  const github = getAttribute(
+    soul?.metadata?.attributes,
+    PROFILE_TRAIT_TYPE.github,
+  );
+  const linkedin = getAttribute(
+    soul?.metadata?.attributes,
+    PROFILE_TRAIT_TYPE.linkedin,
   );
 
   return (
@@ -119,6 +127,16 @@ function SoulLinks({ soul, sx }: any) {
       {telegram && (
         <MuiLink href={`https://t.me/${telegram}`} target="_blank">
           <Telegram />
+        </MuiLink>
+      )}
+      {github && (
+        <MuiLink href={`https://github.com/${github}`} target="_blank">
+          <GitHub />
+        </MuiLink>
+      )}
+      {linkedin && (
+        <MuiLink href={`https://linkedin.com/in/${linkedin}`} target="_blank">
+          <LinkedIn />
         </MuiLink>
       )}
       {facebook && (

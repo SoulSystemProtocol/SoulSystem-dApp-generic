@@ -1,18 +1,45 @@
+import { EditAttributesOutlined } from '@mui/icons-material';
+import _ from 'lodash';
+
 /**
  * Get a trait value from metadata attributes.
  */
-export function getTraitValue(
+export function getAttribute(
   attributes: Array<object> | null,
   traitType: string,
-): string | null {
+): string {
   const attribute: any = attributes?.find(
     (attribute: any) => attribute?.trait_type === traitType,
   );
-  return attribute?.value || null;
+  return attribute?.value || '';
 }
 
 //Get Trait Value by Key
 export const getMetadataTraitValue = (metadata: any, key: string) => {
-  // return getTraitValue(item?.uriData?.attributes, key);
-  return getTraitValue(metadata?.attributes, key);
+  // return getAttribute(item?.uriData?.attributes, key);
+  return getAttribute(metadata?.attributes, key);
+};
+
+/**
+ * Set the value of an attribute
+ */
+export const attributeSet = (
+  attributes: any[],
+  key: string,
+  value: { [key: string]: any },
+) => {
+  let index = _.findIndex(attributes, { trait_type: key });
+  // console.log('[DEBUG] Index of Attribute ' + index, {
+  //   attributes,
+  //   eventTargetName,
+  //   find: { trait_type: eventTargetName },
+  // });
+  if (index == -1) {
+    //Add
+    attributes.push(value);
+  } else {
+    //Update
+    attributes[index] = value;
+  }
+  return attributes;
 };

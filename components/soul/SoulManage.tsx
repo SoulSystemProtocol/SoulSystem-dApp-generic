@@ -2,7 +2,6 @@ import { Save } from '@mui/icons-material';
 import { LoadingButton } from '@mui/lab';
 import { Box, Button, Divider, Typography } from '@mui/material';
 import { MuiForm5 as Form } from '@rjsf/material-ui';
-import SoulMetadata from 'classes/metadata/SoulMetadata';
 import ImageInput from 'components/form/widget/ImageInput';
 import SoulAttributesInput from 'components/form/widget/soul/SoulAttributesInput';
 import { PROFILE_TRAIT_TYPE } from 'constants/metadata';
@@ -14,7 +13,7 @@ import { JSONSchema7 } from 'json-schema';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { soulToFirstLastNameString } from 'utils/converters';
-import { getTraitValue } from 'helpers/metadata';
+import { getAttribute } from 'helpers/metadata';
 
 /**
  * Component: create or edit Soul.
@@ -70,20 +69,20 @@ export default function SoulManage({ soul }: any) {
       // Upload json with form data to IPFS
       setStatus(STATUS.isUploadingToIpfs);
 
-      // let metadata = new SoulMetadata(formData.image, formData.attributes);  //Why??
       let metadata = formData;
-      let uriFirstName = getTraitValue(
+      let uriFirstName = getAttribute(
         metadata?.attributes,
         PROFILE_TRAIT_TYPE.firstName,
       );
-      let uriLastName = getTraitValue(
+      let uriLastName = getAttribute(
         metadata?.attributes,
         PROFILE_TRAIT_TYPE.lastName,
       );
       metadata.name = soulToFirstLastNameString({ uriFirstName, uriLastName });
-      metadata.description = getTraitValue(metadata?.attributes, 'description');
-      console.log("Saving Soul's Metadata", metadata);
+      metadata.description = getAttribute(metadata?.attributes, 'description');
       const { url: metadataUrl } = await uploadJsonToIPFS(metadata);
+      // eslint-disable-next-line prettier/prettier
+      console.log("Saving Soul's Metadata", { formData, metadata, metadataUrl });
       // Use contract
       setStatus(STATUS.isUsingContract);
       if (soul) {
@@ -102,10 +101,10 @@ export default function SoulManage({ soul }: any) {
 
   return (
     <Box>
-      <Typography variant="h5" gutterBottom>
+      {/* <Typography variant="h5" gutterBottom>
         {soul ? 'Edit Soul' : 'Create Soul'}
-      </Typography>
-      <Divider />
+      </Typography> */}
+      {/* <Divider /> */}
       <Form
         schema={schema}
         uiSchema={uiSchema}
