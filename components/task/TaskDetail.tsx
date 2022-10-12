@@ -11,6 +11,7 @@ import AddressHash from 'components/web3/AddressHash';
 import { DataContext } from 'contexts/data';
 import { useContext, useEffect, useState } from 'react';
 import FundDialogButton from 'components/web3/FundDialogButton';
+import Link from 'components/utils/Link';
 
 /**
  * Component: project details.
@@ -67,17 +68,19 @@ export default function TaskDetail({ item, sx }: any) {
       >
         <Box>
           <EntityImage item={item.game} />
-          <Typography
-            sx={{
-              textAlign: 'center',
-            }}
-          >
-            By: {item.game.name}
-          </Typography>
+          <Link href={`/game/${item.game.id}`}>
+            <Typography
+              sx={{
+                textAlign: 'center',
+              }}
+            >
+              By: {item.game.name}
+            </Typography>
+          </Link>
         </Box>
         <Box sx={{ flexGrow: 1, mt: { xs: 2, md: 0 }, ml: { md: 4 } }}>
           <AddressHash address={item.id} sx={{ float: 'right' }} />
-          <Typography variant="h4" sx={{ mt: 1 }}>
+          <Typography variant="h1" sx={{ mt: 1 }}>
             {item.name}
           </Typography>
           <Typography color="text.secondary" variant="body2">

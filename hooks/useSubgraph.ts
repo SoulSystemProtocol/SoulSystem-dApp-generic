@@ -291,6 +291,7 @@ function getFindClaimsQuery(
       uriData
       type
       game {
+        id
         name
         uriData
       }

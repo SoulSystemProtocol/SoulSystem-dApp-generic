@@ -11,15 +11,17 @@ import TaskAcceptedApplications from 'components/task/TaskAcceptedApplications';
 import TaskPostedDeliveries from 'components/task/TaskPostedDeliveries';
 import TaskApprovedDeliveries from 'components/task/TaskApprovedDeliveries';
 import GameComments from 'components/game/GameComments';
+import { getPageTitle } from 'utils';
+import { GAME_NAME } from 'constants/contracts';
 
 // eslint-disable-next-line prettier/prettier
-interface TaskProps { }
+interface TaskProps {}
 
 /**
  * Page with Task details.
  */
 // eslint-disable-next-line prettier/prettier
-export default function TaskDetailPage({ }: TaskProps) {
+export default function TaskDetailPage({}: TaskProps) {
   const router = useRouter();
   const { slug } = router.query;
   const { handleError } = useError();
@@ -41,9 +43,10 @@ export default function TaskDetailPage({ }: TaskProps) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [slug]);
 
-  console.log('task', task);
+  console.log('Loaded task: ', task);
+
   return (
-    <Layout title="MentorDAO — Bounty">
+    <Layout title={getPageTitle(GAME_NAME.tasks)}>
       <TaskDetail item={task} />
       {task && <GameComments item={task} />}
       {task && <TaskApplications task={task} sx={{ mt: 2 }} />}

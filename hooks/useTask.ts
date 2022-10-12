@@ -94,6 +94,7 @@ function convertSubgraphTaskToTask(subgraphTask: any) {
     subgraphTask.uri,
     hexStringToJson(subgraphTask.uriData),
     {
+      id: subgraphTask.game.id,
       name: subgraphTask.game.name,
       ...hexStringToJson(subgraphTask.game.uriData),
     },
