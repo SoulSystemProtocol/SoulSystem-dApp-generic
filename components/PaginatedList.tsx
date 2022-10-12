@@ -44,9 +44,9 @@ export default function PaginatedList({
   const pageSize = APP_CONFIGS.PAGE_SIZE;
   const [currentPage, setCurrentPage] = useState(1);
   // const [currentPageCount, setCurrentPageCount] = useState(2); //Unknown End
-  const [items, setItems] = useState([]);
-  const [first] = useState(pageSize);
-  const [skip, setSkip] = useState(0);
+  const [items, setItems] = useState<Array<any>>([]);
+  const [first] = useState<number>(pageSize);
+  const [skip, setSkip] = useState<number>(0);
 
   //TODO: Use Order
   const [orderBy, setOrderBy] = useState({ createdAt: 'desc' });
