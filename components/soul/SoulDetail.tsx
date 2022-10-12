@@ -20,7 +20,7 @@ import { getAttribute } from 'helpers/metadata';
 import AddressHash from 'components/web3/AddressHash';
 import FundDialogButton from 'components/web3/FundDialogButton';
 import EntityImage from 'components/entity/EntityImage';
-// import { GAME_NAME } from 'constants/contracts';
+import { PROFILE_TRAITS } from 'components/soul/ProfileTraits';
 
 /**
  * Component:  soul details.
@@ -62,10 +62,8 @@ export default function SoulDetail({ soul, sx }: any) {
 }
 
 function SoulDescription({ soul, sx }: any) {
-  const description = getAttribute(
-    soul?.metadata?.attributes,
-    PROFILE_TRAIT_TYPE.description,
-  );
+  const description = getAttribute(soul?.metadata?.attributes, 'Description');
+  console.log("Soul's Description", soul, description);
   if (description) {
     return <Typography sx={{ ...sx }}>{description}</Typography>;
   }
@@ -73,39 +71,7 @@ function SoulDescription({ soul, sx }: any) {
 }
 
 function SocialLinks({ soul, sx }: any) {
-  // Fetch Traits
-  const email = getAttribute(
-    soul?.metadata?.attributes,
-    PROFILE_TRAIT_TYPE.email,
-  );
-  const site = getAttribute(
-    soul?.metadata?.attributes,
-    PROFILE_TRAIT_TYPE.site,
-  );
-  const twitter = getAttribute(
-    soul?.metadata?.attributes,
-    PROFILE_TRAIT_TYPE.twitter,
-  );
-  const telegram = getAttribute(
-    soul?.metadata?.attributes,
-    PROFILE_TRAIT_TYPE.telegram,
-  );
-  const facebook = getAttribute(
-    soul?.metadata?.attributes,
-    PROFILE_TRAIT_TYPE.facebook,
-  );
-  const instagram = getAttribute(
-    soul?.metadata?.attributes,
-    PROFILE_TRAIT_TYPE.instagram,
-  );
-  const github = getAttribute(
-    soul?.metadata?.attributes,
-    PROFILE_TRAIT_TYPE.github,
-  );
-  const linkedin = getAttribute(
-    soul?.metadata?.attributes,
-    PROFILE_TRAIT_TYPE.linkedin,
-  );
+  const email = getAttribute(soul?.metadata?.attributes, 'email');
 
   return (
     <Stack direction="row" spacing={2} sx={{ ...sx }}>
@@ -114,41 +80,16 @@ function SocialLinks({ soul, sx }: any) {
           <MailOutlineRounded />
         </MuiLink>
       )}
-      {site && (
-        <Link href={site} target="_blank">
-          <Language />
-        </Link>
-      )}
-      {twitter && (
-        <MuiLink href={`https://twitter.com/${twitter}`} target="_blank">
-          <Twitter />
-        </MuiLink>
-      )}
-      {telegram && (
-        <MuiLink href={`https://t.me/${telegram}`} target="_blank">
-          <Telegram />
-        </MuiLink>
-      )}
-      {github && (
-        <MuiLink href={`https://github.com/${github}`} target="_blank">
-          <GitHub />
-        </MuiLink>
-      )}
-      {linkedin && (
-        <MuiLink href={`https://linkedin.com/in/${linkedin}`} target="_blank">
-          <LinkedIn />
-        </MuiLink>
-      )}
-      {facebook && (
-        <MuiLink href={`https://facebook.com/${facebook}`} target="_blank">
-          <FacebookRounded />
-        </MuiLink>
-      )}
-      {instagram && (
-        <MuiLink href={`https://instagram.com/${instagram}`} target="_blank">
-          <Instagram />
-        </MuiLink>
-      )}
+      {PROFILE_TRAITS.map((item: any, index: number) => {
+        const value = getAttribute(soul?.metadata?.attributes, item.label);
+        return !value ? (
+          <></>
+        ) : (
+          <MuiLink href={item.baseURL + value} target="_blank">
+            {item.icon}
+          </MuiLink>
+        );
+      })}
     </Stack>
   );
 }

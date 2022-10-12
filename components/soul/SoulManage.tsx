@@ -1,6 +1,6 @@
 import { Save } from '@mui/icons-material';
 import { LoadingButton } from '@mui/lab';
-import { Box, Button, Divider, Typography } from '@mui/material';
+import { Box, Button } from '@mui/material';
 import { MuiForm5 as Form } from '@rjsf/material-ui';
 import ImageInput from 'components/form/widget/ImageInput';
 import SoulAttributesInput from 'components/form/widget/soul/SoulAttributesInput';
@@ -79,7 +79,7 @@ export default function SoulManage({ soul }: any) {
         PROFILE_TRAIT_TYPE.lastName,
       );
       metadata.name = soulToFirstLastNameString({ uriFirstName, uriLastName });
-      metadata.description = getAttribute(metadata?.attributes, 'description');
+      metadata.description = getAttribute(metadata?.attributes, 'Description');
       const { url: metadataUrl } = await uploadJsonToIPFS(metadata);
       // eslint-disable-next-line prettier/prettier
       console.log("Saving Soul's Metadata", { formData, metadata, metadataUrl });
@@ -87,12 +87,15 @@ export default function SoulManage({ soul }: any) {
       setStatus(STATUS.isUsingContract);
       if (soul) {
         await editSoul(soul.id, metadataUrl);
-        showToastSuccess('Your new soul is on its way');
+        showToastSuccess(
+          'Update has been sent to chain and will be processed shortly',
+        );
+        router.push('/souls/' + soul.id);
       } else {
         await createSoul(metadataUrl);
-        showToastSuccess('Your soul will be updated shortly');
+        showToastSuccess('Your new soul is on its way');
+        router.push('/');
       }
-      router.push('/');
     } catch (error: any) {
       handleError(error, true);
       setStatus(STATUS.isAvailable);
