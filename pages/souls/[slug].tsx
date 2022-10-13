@@ -81,32 +81,43 @@ export default function SoulDetailPage(): JSX.Element {
     },
     getCardContent: taskPartCardContent,
   };
+  const sidewaySX = {
+    writingMode: 'vertical-lr',
+    textOrientation: 'upright',
+    letterSpacing: '-0.15em',
+    fontSize: '0.8em',
+    marginRight: '0.7em',
+  };
 
   return (
     <Layout title={getPageTitle(CONF.PAGE_TITLE)}>
       {soul?.type == '' && <SoulDetail soul={soul} />}
       {soul?.type == 'GAME' && <GameView id={soul.owner} sx={{ mt: 4 }} />}
 
-      <Box sx={{ my: 2 }}>
-        <Typography variant="h3">POAPs</Typography>
+      <Box sx={{ my: 2, display: 'flex' }}>
+        <Typography variant="h3" sx={sidewaySX}>
+          POAPs
+        </Typography>
         {soul?.owner && <DisplayPOAP account={soul.owner} />}
       </Box>
 
-      <Box sx={{ my: 2 }}>
-        <Typography variant="h3" sx={{ mb: 1 }}>
-          {GAME_NAME.mdao}
+      <Box sx={{ my: 2, display: 'flex' }}>
+        <Typography variant="h3" sx={{ ...sidewaySX, mb: 1 }}>
+          Services
         </Typography>
         {soul?.id && <SoulGames {...soulMemberMDAOs} />}
       </Box>
-      <Box sx={{ my: 2 }}>
-        <Typography variant="h3" sx={{ mb: 1 }}>
+      <Box sx={{ my: 2, display: 'flex' }}>
+        <Typography variant="h3" sx={{ ...sidewaySX, mb: 1 }}>
           {GAME_NAME.project}
         </Typography>
         {soul?.id && <SoulGames {...soulMemberProjects} />}
       </Box>
 
-      <Box sx={{ my: 2 }}>
-        <Typography variant="h3">{GAME_NAME.tasks}</Typography>
+      <Box sx={{ my: 2, display: 'flex' }}>
+        <Typography variant="h3" sx={sidewaySX}>
+          {GAME_NAME.tasks}
+        </Typography>
         {soul?.id && <SoulProcs {...soulMemberTasks} />}
       </Box>
     </Layout>
