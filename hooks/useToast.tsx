@@ -58,9 +58,15 @@ export default function useToast() {
         autoHideDuration: autoHideDuration,
       });
     } else {
-      const message = truncate(`Error: ${error.message}`, {
+      let message = truncate(`Error: ${error.message}`, {
         length: 88,
       });
+
+      if (error?.message == 'Internal JSON-RPC error.') {
+        if (error?.data?.message) message = error.data.message;
+        else console.warn('[DEV] Check this error', error);
+      }
+
       enqueueSnackbar(message, {
         variant: 'error',
         autoHideDuration: autoHideDuration,
