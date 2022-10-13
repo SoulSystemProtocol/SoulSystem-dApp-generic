@@ -3,7 +3,7 @@ import SoulDetail from 'components/soul/SoulDetail';
 import useError from 'hooks/useError';
 import useSoul from 'hooks/useSoul';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { hexStringToJson, soulToFirstLastNameString } from 'utils/converters';
 import SoulGames from 'components/soul/SoulGames';
 import SoulProcs from 'components/soul/SoulProcs';
@@ -11,10 +11,13 @@ import GameView from 'components/game/GameView';
 import { getPageTitle } from 'utils';
 import { GAME_DESC, GAME_NAME, GAME_TYPE } from 'constants/contracts';
 import { gamePartCardContent, taskPartCardContent } from 'utils/cardContents';
-import { Box, Typography } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
 import querySoulSingle from 'queries/SoulSingleQuery';
 import { useQuery } from '@apollo/client';
 import DisplayPOAP from 'components/web3/DisplayPOAP';
+
+import { DialogContext } from 'contexts/dialog';
+import SoulPostDialog from 'components/soul/SoulPostDialog';
 
 function normalizeGraphEntity(subgraphEntity: any) {
   return {
@@ -87,6 +90,8 @@ export default function SoulDetailPage(): JSX.Element {
       {soul?.type == '' && <SoulDetail soul={soul} />}
       {soul?.type == 'GAME' && <GameView id={soul.owner} sx={{ mt: 4 }} />}
 
+      <SoulPost soul={soul} />
+
       <Box sx={{ my: 2 }}>
         <Typography variant="h3">POAPs</Typography>
         {soul?.owner && <DisplayPOAP account={soul.owner} />}
@@ -110,5 +115,28 @@ export default function SoulDetailPage(): JSX.Element {
         {soul?.id && <SoulProcs {...soulMemberTasks} />}
       </Box>
     </Layout>
+  );
+}
+
+/**
+ * Component: Soul Post
+ */
+function SoulPost({ soul }: any): JSX.Element {
+  const { showDialog, closeDialog } = useContext(DialogContext);
+
+  return (
+    <Box>
+      <Typography variant="h3"> Immutable Posts</Typography>
+      <Box>Write something on-chain</Box>
+      <Button
+        size="small"
+        variant="outlined"
+        onClick={() =>
+          showDialog?.(<SoulPostDialog item={soul} onClose={closeDialog} />)
+        }
+      >
+        Post
+      </Button>
+    </Box>
   );
 }
