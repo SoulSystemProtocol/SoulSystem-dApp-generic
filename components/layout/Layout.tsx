@@ -11,6 +11,7 @@ import {
 } from '@mui/icons-material';
 // import { CSSObject, Theme, useTheme } from '@mui/material/styles';
 import GitHubIcon from '@mui/icons-material/GitHub';
+import PanoramaFishEyeIcon from '@mui/icons-material/PanoramaFishEye';
 // import SlideshowIcon from '@mui/icons-material/Slideshow';
 import ArticleIcon from '@mui/icons-material/Article';
 import ArchitectureIcon from '@mui/icons-material/Architecture';
@@ -52,7 +53,7 @@ const menu_side_links = [
   {
     route: '/daos',
     label: GAME_NAME.dao,
-    icon: <SchoolOutlined color="warning" />,
+    icon: <PanoramaFishEyeIcon color="warning" />,
   },
   {
     route: '/mdao',
