@@ -11,7 +11,6 @@ import { MuiForm5 as Form } from '@rjsf/material-ui';
 // import TaskPostDeliveryMetadata from 'classes/metadata/TaskPostDeliveryMetadata';
 import useError from 'hooks/useError';
 import useIpfs from 'hooks/useIpfs';
-import useTask from 'hooks/useTask';
 import useContract from 'hooks/useContract';
 import useToast from 'hooks/useToast';
 import { JSONSchema7 } from 'json-schema';
@@ -22,10 +21,10 @@ import { CLAIM_POST_TYPE } from 'constants/contracts';
  * A dialog for post a task delivery.
  */
 export default function TaskPostDeliveryDialog({
-  task,
+  item,
   isClose,
   onClose,
-}: any) {
+}: any): JSX.Element {
   const { showToastSuccess } = useToast();
   const { uploadJsonToIPFS } = useIpfs();
   const { handleError } = useError();
@@ -74,7 +73,7 @@ export default function TaskPostDeliveryDialog({
         { ...formData, type: CLAIM_POST_TYPE.application },
       );
       await getContractGameMDAO(formData.daoId).deliverTask(
-        task.id,
+        item.id,
         metadataUrl,
       );
       showToastSuccess('Success! Data will be updated soon');

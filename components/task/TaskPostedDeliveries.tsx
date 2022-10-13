@@ -18,7 +18,7 @@ import {
   ENTITY,
 } from 'constants/contracts';
 import { DataContext } from 'contexts/data';
-import { DialogContext, IDialogParams } from 'contexts/dialog';
+import { DialogContext } from 'contexts/dialog';
 import useDao from 'hooks/useDao';
 import useError from 'hooks/useError';
 import useTask from 'hooks/useTask';
@@ -67,7 +67,7 @@ export default function TaskPostedDeliveries({ task, sx }: any) {
             variant="outlined"
             onClick={() =>
               showDialog?.(
-                <TaskPostDeliveryDialog task={task} onClose={closeDialog} />,
+                <TaskPostDeliveryDialog item={task} onClose={closeDialog} />,
               )
             }
           >

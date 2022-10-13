@@ -14,14 +14,11 @@ import GameComments from 'components/game/GameComments';
 import { getPageTitle } from 'utils';
 import { GAME_NAME } from 'constants/contracts';
 
-// eslint-disable-next-line prettier/prettier
-interface TaskProps {}
-
 /**
  * Page with Task details.
  */
 // eslint-disable-next-line prettier/prettier
-export default function TaskDetailPage({}: TaskProps) {
+export default function TaskDetailPage() {
   const router = useRouter();
   const { slug } = router.query;
   const { handleError } = useError();
