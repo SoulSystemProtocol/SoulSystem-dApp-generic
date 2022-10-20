@@ -95,10 +95,16 @@ export default function SoulDetailPage(): JSX.Element {
       {soul?.type == 'GAME' && <GameView id={soul.owner} sx={{ mt: 4 }} />}
 
       <Box sx={{ my: 2, display: 'flex' }}>
-        <Typography variant="h3" sx={sidewaySX}>
-          POAPs
-        </Typography>
-        {soul?.owner && <DisplayPOAP account={soul.owner} />}
+        {soul?.owner && (
+          <DisplayPOAP
+            account={soul.owner}
+            title={
+              <Typography variant="h3" sx={sidewaySX}>
+                POAP
+              </Typography>
+            }
+          />
+        )}
       </Box>
 
       <Box sx={{ my: 2, display: 'flex' }}>
@@ -107,6 +113,7 @@ export default function SoulDetailPage(): JSX.Element {
         </Typography>
         {soul?.id && <SoulGames {...soulMemberMDAOs} />}
       </Box>
+
       <Box sx={{ my: 2, display: 'flex' }}>
         <Typography variant="h3" sx={{ ...sidewaySX, mb: 1 }}>
           {GAME_NAME.project}

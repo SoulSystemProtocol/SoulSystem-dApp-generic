@@ -9,6 +9,7 @@ import DisplayGridItem1 from './DisplayGridItem1';
 export default function DisplayPOAP({
   account,
   displayCount = 12,
+  title,
   sx = {},
 }: any): JSX.Element {
   const { handleError } = useError();
@@ -45,55 +46,58 @@ export default function DisplayPOAP({
   }
 
   useEffect(() => {
-    //Load POAPs
+    //Load POAP Badges
     account ? getPOAP(account) : setItems([]);
   }, [account]);
 
-  if (!account) return <></>;
+  if (!account || items?.length == 0) return <></>;
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        flexDirection: 'row',
-        alignItems: 'center',
-        ...sx,
-      }}
-    >
-      <Grid container spacing={2} sx={{ ...sx }}>
-        {!items && (
-          <Grid item xs={12}>
-            <Typography>Loading...</Typography>
-          </Grid>
-        )}
-        {items?.length === 0 && (
-          <Grid key="none" item xs={12}>
-            <Typography>
-              {/* No POAPs for {addressToShortAddress(account)} */}
-            </Typography>
-          </Grid>
-        )}
-        {items?.length > 0 && (
-          <>
-            {items.map((item: any, index: number) =>
-              index >= displayCount && !isShowMore ? (
-                <></>
-              ) : (
-                <DisplayGridItem1
-                  props={{ key: item.event.id.toString(), xs: 12, md: 1 }}
-                  image_url={item?.event?.image_url}
-                  name={item.event.name}
-                  title={`${item.event.name} - ${item.event.description}`}
-                />
-              ),
-            )}
-            {items.length > displayCount && !isShowMore && (
-              <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                <Button onClick={() => setIsShowMore(true)}>Show All</Button>
-              </Box>
-            )}
-          </>
-        )}
-      </Grid>
-    </Box>
+    <>
+      {title}
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'row',
+          alignItems: 'center',
+          ...sx,
+        }}
+      >
+        <Grid container spacing={2} sx={{ ...sx }}>
+          {!items && (
+            <Grid item xs={12}>
+              <Typography>Loading...</Typography>
+            </Grid>
+          )}
+          {/*items?.length === 0 && (
+            <Grid key="none" item xs={12}>
+              <Typography>
+                No POAPs for {addressToShortAddress(account)}
+              </Typography>
+            </Grid>
+          )*/}
+          {items?.length > 0 && (
+            <>
+              {items.map((item: any, index: number) =>
+                index >= displayCount && !isShowMore ? (
+                  <></>
+                ) : (
+                  <DisplayGridItem1
+                    props={{ key: item.event.id.toString(), xs: 12, md: 1 }}
+                    image_url={item?.event?.image_url}
+                    name={item.event.name}
+                    title={`${item.event.name} - ${item.event.description}`}
+                  />
+                ),
+              )}
+              {items.length > displayCount && !isShowMore && (
+                <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                  <Button onClick={() => setIsShowMore(true)}>Show All</Button>
+                </Box>
+              )}
+            </>
+          )}
+        </Grid>
+      </Box>
+    </>
   );
 }

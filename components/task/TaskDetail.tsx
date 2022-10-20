@@ -68,7 +68,7 @@ export default function TaskDetail({ item, sx }: any) {
       >
         <Box>
           <EntityImage item={item.game} />
-          <Link href={`/game/${item.game.id}`}>
+          <Link href={`/game/${item.game.id}`} sx={{ color: '#f8f8f8' }}>
             <Typography
               sx={{
                 textAlign: 'center',

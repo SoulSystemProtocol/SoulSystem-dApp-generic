@@ -1,16 +1,9 @@
-import Link from 'next/link';
-import {
-  Chip,
-  Card,
-  CardContent,
-  Link as MuiLink,
-  Stack,
-  Typography,
-} from '@mui/material';
+import { Chip, Card, CardContent, Stack, Typography } from '@mui/material';
+import Link from 'components/utils/Link';
 import { Box } from '@mui/system';
 import { capitalize } from 'lodash';
 import CardAvatar from './CardAvatar';
-import { roleIdToName } from 'utils/converters';
+import { cutoff, roleIdToName } from 'utils/converters';
 
 type TDashboardCard = {
   baseRoute: string;
@@ -29,7 +22,7 @@ const wrappStyles = {
 export default function DashboardCard({ baseRoute, data }: TDashboardCard) {
   const { id, title, label, imgSrc, avatarIcon, roles = [] } = data;
   const renderChip = !!roles?.length && (
-    <Stack spacing={1}>
+    <Stack spacing={1} sx={{ ml: 1, alignSelf: 'flex-start' }}>
       {roles.map((role: string, index: number) => (
         <Chip key={index} label={capitalize(roleIdToName(role))} size="small" />
       ))}
@@ -42,24 +35,38 @@ export default function DashboardCard({ baseRoute, data }: TDashboardCard) {
     return (
       <Card variant="outlined">
         <CardContent sx={{ p: '10px !important' }}>
-          <Box sx={wrappStyles}>
+          <Stack direction="row" sx={wrappStyles}>
             <CardAvatar imgSrc={imgSrc} avatarIcon={avatarIcon} link={link} />
-            <Box sx={{ ml: 2 }}>
-              <Link href={link} passHref>
-                <MuiLink underline="none">{title}</MuiLink>
+            <Box sx={{ ml: 2, flex: 1, alignSelf: 'flex-start' }}>
+              <Link href={link} underline="none">
+                {title}
               </Link>
               {label && (
                 <Typography
                   variant="body2"
                   color="text.secondary"
-                  sx={{ mt: 1 }}
+                  sx={{ mt: '1px' }}
                 >
-                  {label}
+                  <Link
+                    href={link}
+                    underline="none"
+                    sx={{
+                      color: 'inherit',
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis',
+                      display: '-webkit-box',
+                      lineClamp: 3,
+                      WebkitLineClamp: 3,
+                      WebkitBoxOrient: 'vertical',
+                    }}
+                  >
+                    {label}
+                  </Link>
                 </Typography>
               )}
             </Box>
             {renderChip}
-          </Box>
+          </Stack>
         </CardContent>
       </Card>
     );

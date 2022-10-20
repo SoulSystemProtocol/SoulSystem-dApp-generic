@@ -9,6 +9,7 @@ const query = gql`
       where: { sbt_: { id: $id }, entity_: { role: $entRole } }
     ) {
       id
+      roles
       entity {
         id
         name

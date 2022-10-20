@@ -27,6 +27,13 @@ export function hexStringToJson(hexString: string): any {
 }
 
 /**
+ * Trim string
+ */
+export function cutoff(str: string, n: number): string {
+  return str.length > n ? str.slice(0, n - 1).trim() + '…' : str;
+}
+
+/**
  * Convert "0x4306D7a79265D2cb85Db0c5a55ea5F4f6F73C4B1" to "0x430...c4b1".
  */
 export function addressToShortAddress(address: string): string {

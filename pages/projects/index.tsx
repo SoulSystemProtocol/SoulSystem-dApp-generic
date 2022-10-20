@@ -16,7 +16,10 @@ const CONF = {
   SUBTITLE: (
     <>
       Projects consume work to produce a product. Cordinating effort via{' '}
-      <Link href="/tasks/">{GAME_NAME.tasks}</Link>.
+      <Link href="/tasks/" sx={{ color: '#f8f8f8' }}>
+        {GAME_NAME.tasks}
+      </Link>
+      .
     </>
   ),
 };

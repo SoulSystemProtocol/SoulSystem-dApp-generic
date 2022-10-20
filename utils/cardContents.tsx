@@ -73,6 +73,7 @@ export const gamePartCardContent = (item: any) => {
     title: metadata?.name,
     metadata,
     link: `/game/${item.entity.id}`,
+    roles: item?.roles,
   };
   return ret;
 };
@@ -88,6 +89,7 @@ export const taskPartCardContent = (item: any) => {
     title: metadata?.name,
     metadata,
     link: `/tasks/${item.entity.id}`,
+    roles: item?.roles,
   };
   return ret;
 };
