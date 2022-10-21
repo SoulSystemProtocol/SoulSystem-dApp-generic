@@ -1,6 +1,7 @@
+import { useRouter } from 'next/router';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import { Link as MuiLink, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import MuiDrawer from '@mui/material/Drawer';
@@ -11,7 +12,7 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import { CSSObject, styled, Theme, useTheme } from '@mui/material/styles';
-import Link from 'next/link';
+import Link from 'components/utils/Link';
 import * as React from 'react';
 
 const drawerWidth = 240;
@@ -77,9 +78,13 @@ export default function Sidebar({
   toggler,
 }: any): JSX.Element {
   const theme = useTheme();
+  const router = useRouter();
   const renderMenu = links.map(
-    ({ label, route, icon, hide }: MenuItem): JSX.Element =>
-      !hide ? (
+    ({ label, route, icon, hide }: MenuItem): JSX.Element => {
+      if (hide) return <></>;
+      const isActive = router.pathname.startsWith(route);
+      console.log('router.asPath', router.asPath, isActive);
+      return (
         <ListItem
           key={label}
           disablePadding
@@ -87,7 +92,19 @@ export default function Sidebar({
             display: 'block',
           }}
         >
-          <Link href={route} passHref>
+          <Link
+            href={route}
+            sx={{
+              display: 'block',
+              background: isActive ? 'rgba(255, 255, 255, 0.1)' : '',
+              borderRadius: '6%',
+              color: 'inherit',
+              '&:hover': {
+                overflow: 'visible',
+                backgroundColor: 'lightblue',
+              },
+            }}
+          >
             <ListItemButton
               title={isOpen ? '' : label}
               sx={{
@@ -109,9 +126,8 @@ export default function Sidebar({
             </ListItemButton>
           </Link>
         </ListItem>
-      ) : (
-        <></>
-      ),
+      );
+    }
   );
 
   return (
@@ -123,10 +139,8 @@ export default function Sidebar({
             &nbsp;
           </Box>
           <Box sx={{ display: 'flex', flexGrow: 1 }}>
-            <Link href="/" passHref>
-              <MuiLink underline="none">
-                <Typography>{process.env.NEXT_PUBLIC_APP_NAME}</Typography>
-              </MuiLink>
+            <Link href="/">
+              <Typography>{process.env.NEXT_PUBLIC_APP_NAME}</Typography>
             </Link>
             <Typography
               sx={{
