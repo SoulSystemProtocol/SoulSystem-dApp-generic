@@ -80,9 +80,16 @@ export default function Sidebar({
   const renderMenu = links.map(
     ({ label, route, icon, hide }: MenuItem): JSX.Element =>
       !hide ? (
-        <ListItem key={label} disablePadding sx={{ display: 'block' }}>
+        <ListItem
+          key={label}
+          disablePadding
+          sx={{
+            display: 'block',
+          }}
+        >
           <Link href={route} passHref>
             <ListItemButton
+              title={isOpen ? '' : label}
               sx={{
                 minHeight: 48,
                 justifyContent: isOpen ? 'initial' : 'center',
