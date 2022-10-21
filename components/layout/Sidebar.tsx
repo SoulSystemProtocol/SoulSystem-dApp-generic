@@ -83,7 +83,6 @@ export default function Sidebar({
     ({ label, route, icon, hide }: MenuItem): JSX.Element => {
       if (hide) return <></>;
       const isActive = router.pathname.startsWith(route);
-      console.log('router.asPath', router.asPath, isActive);
       return (
         <ListItem
           key={label}
@@ -100,8 +99,7 @@ export default function Sidebar({
               borderRadius: '6%',
               color: 'inherit',
               '&:hover': {
-                overflow: 'visible',
-                backgroundColor: 'lightblue',
+                background: 'rgba(255, 255, 255, 0.2)',
               },
             }}
           >
@@ -127,7 +125,7 @@ export default function Sidebar({
           </Link>
         </ListItem>
       );
-    }
+    },
   );
 
   return (
