@@ -22,6 +22,7 @@ import {
   soulToFirstLastNameString,
   soulImage,
 } from 'utils/converters';
+import ConnectButton from 'components/web3/connect/ConnectButton';
 
 const drawerWidth = 240;
 
@@ -119,17 +120,7 @@ export default function Header({
             </MuiLink>
           </Link>
         )}
-        {!account && (
-          <Button
-            variant="outlined"
-            size="small"
-            onClick={() => {
-              connectWallet?.();
-            }}
-          >
-            Connect Wallet
-          </Button>
-        )}
+        {!account && <ConnectButton />}
         {account && <SettingsMenu profile={accountSoul} />}
       </Toolbar>
     </AppBar>
@@ -141,7 +132,7 @@ export default function Header({
  * Source: https://mui.com/material-ui/react-app-bar/
  */
 function SettingsMenu({ profile }: any): JSX.Element {
-  const { account, connectWallet, disconnectWallet } = useContext(Web3Context);
+  const { account } = useContext(Web3Context);
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -191,13 +182,7 @@ function SettingsMenu({ profile }: any): JSX.Element {
           </Box>
         )}
         <MenuItem key="disconnect" onClick={handleCloseUserMenu}>
-          <Button
-            variant="outlined"
-            size="small"
-            onClick={() => disconnectWallet?.()}
-          >
-            Disconnect Wallet
-          </Button>
+          <ConnectButton />
         </MenuItem>
       </Menu>
     </Box>
