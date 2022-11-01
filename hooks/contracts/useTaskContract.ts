@@ -1,4 +1,4 @@
-import { Web3Context } from 'contexts/web3';
+import { Web3Context } from 'contexts/Web3Context';
 import contractAbi from 'contracts/abi/Task.json';
 import WrongNetworkError from 'errors/WrongNetworkError';
 import { Contract } from 'ethers';

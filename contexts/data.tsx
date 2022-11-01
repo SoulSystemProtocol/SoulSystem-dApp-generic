@@ -3,7 +3,7 @@ import LoadingBackdrop from 'components/backdrop/LoadingBackdrop';
 import useError from 'hooks/useError';
 import useSoul from 'hooks/useSoul';
 import { createContext, useContext, useEffect, useState } from 'react';
-import { Web3Context } from './web3';
+import { Web3Context } from './Web3Context';
 
 interface IDataContext {
   accountSoul: any;

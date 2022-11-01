@@ -5,7 +5,7 @@ import { useContext } from 'react';
 import Link from 'next/link';
 // import Router from 'next/router';
 import { Box, Typography, Link as MuiLink } from '@mui/material';
-import { Web3Context } from 'contexts/web3';
+import { Web3Context } from 'contexts/Web3Context';
 import { APP_CONFIGS } from '../constants';
 import { getPageTitle } from '../utils';
 import Layout from 'components/layout/Layout';

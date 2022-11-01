@@ -1,5 +1,5 @@
 import { ethers } from 'ethers';
-import { Web3Context } from 'contexts/web3';
+import { Web3Context } from 'contexts/Web3Context';
 import useError from 'hooks/useError';
 import { useContext, useState, useEffect } from 'react';
 

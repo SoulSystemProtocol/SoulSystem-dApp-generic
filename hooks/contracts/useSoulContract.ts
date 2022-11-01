@@ -1,4 +1,4 @@
-import { Web3Context } from 'contexts/web3';
+import { Web3Context } from 'contexts/Web3Context';
 import WrongNetworkError from 'errors/WrongNetworkError';
 import { Contract } from 'ethers';
 import { useContext } from 'react';

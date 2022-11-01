@@ -2,7 +2,7 @@ import { Button } from '@mui/material';
 import { truncate } from 'lodash';
 import { useSnackbar } from 'notistack';
 import { useContext } from 'react';
-import { Web3Context } from 'contexts/web3';
+import { Web3Context } from 'contexts/Web3Context';
 import WrongNetworkError from 'errors/WrongNetworkError';
 
 /**

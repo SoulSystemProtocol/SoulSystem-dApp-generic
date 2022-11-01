@@ -1,5 +1,5 @@
 import Task from 'classes/Task';
-import { Web3Context } from 'contexts/web3';
+import { Web3Context } from 'contexts/Web3Context';
 import { ethers } from 'ethers';
 import { useContext } from 'react';
 import { hexStringToJson } from 'utils/converters';

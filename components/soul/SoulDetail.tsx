@@ -1,7 +1,7 @@
 import { MailOutlineRounded, PersonOutlineOutlined } from '@mui/icons-material';
 import { Button, Stack, Typography, Link as MuiLink } from '@mui/material';
 import { Box } from '@mui/system';
-import { Web3Context } from 'contexts/web3';
+import { Web3Context } from 'contexts/Web3Context';
 import Link from 'next/link';
 import { useContext } from 'react';
 import { soulToFirstLastNameString } from 'utils/converters';

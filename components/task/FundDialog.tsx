@@ -1,6 +1,6 @@
 import { useContext, useState } from 'react';
 // import { BigNumber, ethers } from 'ethers';
-import { Web3Context } from 'contexts/web3';
+import { Web3Context } from 'contexts/Web3Context';
 import { Save } from '@mui/icons-material';
 import { LoadingButton } from '@mui/lab';
 import {
@@ -85,7 +85,7 @@ export default function FundDialog({
     <Dialog
       open={isOpen}
       // eslint-disable-next-line prettier/prettier
-      onClose={isLoading ? () => { } : close}
+      onClose={isLoading ? () => {} : close}
       maxWidth="xs"
       fullWidth
     >

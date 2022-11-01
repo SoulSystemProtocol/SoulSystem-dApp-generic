@@ -16,7 +16,7 @@ import IconButton from '@mui/material/IconButton';
 import { Box } from '@mui/system';
 import { styled } from '@mui/material/styles';
 import { DataContext } from 'contexts/data';
-import { Web3Context } from 'contexts/web3';
+import { Web3Context } from 'contexts/Web3Context';
 import {
   addressToShortAddress,
   soulToFirstLastNameString,
@@ -64,7 +64,7 @@ export default function Header({
   links = [],
   sx,
 }: IHeaderProps): JSX.Element {
-  const { account, connectWallet, disconnectWallet } = useContext(Web3Context);
+  const { account } = useContext(Web3Context);
   const { accountSoul } = useContext(DataContext);
 
   return (

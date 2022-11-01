@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { Button } from '@mui/material';
 import { DataContext } from 'contexts/data';
-import { Web3Context } from 'contexts/web3';
+import { Web3Context } from 'contexts/Web3Context';
 import Link from 'next/link';
 // import useError from 'hooks/useError';
 // import { APP_CONFIGS } from '../../constants';

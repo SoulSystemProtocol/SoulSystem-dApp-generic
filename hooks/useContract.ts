@@ -1,6 +1,6 @@
 import { Contract } from 'ethers';
 import { useContext } from 'react';
-import { Web3Context } from 'contexts/web3';
+import { Web3Context } from 'contexts/Web3Context';
 //ABIs
 import ABI_Game from 'contracts/abi/Game.json';
 import ABI_Task from 'contracts/abi/Task.json';
