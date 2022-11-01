@@ -49,6 +49,7 @@ export default function Footer({ links, icons }: FooterProps): JSX.Element {
               <IconButton aria-label="delete" sx={{ p: '0.5rem' }}>
                 {icon}
               </IconButton>
+              {label}
             </MuiLink>
           </Link>
         ))}
