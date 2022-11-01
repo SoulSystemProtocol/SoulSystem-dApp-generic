@@ -44,7 +44,7 @@ const top_links: any = [
 const menu_side_links = [
   {
     route: '/souls',
-    label: 'Free Agents',
+    label: 'SBT Profiles',
     icon: <PersonOutlineOutlined color="warning" />,
     hide: process.env.NEXT_PUBLIC_FEATURE_SOUL == 'false',
   },

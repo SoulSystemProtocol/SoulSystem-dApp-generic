@@ -19,9 +19,9 @@ import {
 import { soulCardContent } from 'utils/cardContents';
 
 const CONF = {
-  PAGE_TITLE: 'Free Agents',
-  TITLE: 'Free Agents',
-  SUBTITLE: `Anyone can now be an NFT!`,
+  PAGE_TITLE: 'SBT Profiles',
+  TITLE: 'SBT Profiles',
+  SUBTITLE: `You can now be an NFT!`,
   ROUTE: 'souls',
 };
 
