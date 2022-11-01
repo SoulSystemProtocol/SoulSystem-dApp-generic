@@ -100,7 +100,7 @@ export default function SoulDetailPage(): JSX.Element {
           <DisplayPOAP
             account={soul.owner}
             title={
-              <Typography variant="h3" sx={sidewaySX}>
+              <Typography variant="h4" sx={sidewaySX}>
                 POAP
               </Typography>
             }
@@ -109,17 +109,17 @@ export default function SoulDetailPage(): JSX.Element {
       </Box>
 
       <Box sx={{ my: 2 }}>
-        <Typography variant="h3">Services</Typography>
+        <Typography variant="h4">Services</Typography>
         {soul?.id && <SoulGames {...soulMemberMDAOs} />}
       </Box>
 
       <Box sx={{ my: 2 }}>
-        <Typography variant="h3">{GAME_NAME.project}</Typography>
+        <Typography variant="h4">{GAME_NAME.project}</Typography>
         {soul?.id && <SoulGames {...soulMemberProjects} />}
       </Box>
 
       <Box sx={{ my: 2 }}>
-        <Typography variant="h3">{GAME_NAME.tasks}</Typography>
+        <Typography variant="h4">{GAME_NAME.tasks}</Typography>
         {soul?.id && <SoulProcs {...soulMemberTasks} />}
       </Box>
     </Layout>
