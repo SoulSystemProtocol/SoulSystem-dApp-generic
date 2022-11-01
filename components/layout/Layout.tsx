@@ -48,11 +48,11 @@ const menu_side_links = [
     icon: <PersonOutlineOutlined color="warning" />,
     hide: process.env.NEXT_PUBLIC_FEATURE_SOUL == 'false',
   },
-  {
-    route: '/daos',
-    label: GAME_NAME.dao,
-    icon: <GroupWork color="warning" />,
-  },
+  // {
+  //   route: '/daos',
+  //   label: GAME_NAME.dao,
+  //   icon: <GroupWork color="warning" />,
+  // },
   {
     route: '/mdao',
     label: GAME_NAME.mdao,
