@@ -6,6 +6,7 @@ import {
   LinkedIn,
   Twitter,
   GitHub,
+  InsertLink,
 } from '@mui/icons-material';
 
 export interface Trait {
@@ -66,6 +67,13 @@ export const PROFILE_TRAITS: Trait[] = [
     placeholder: 'username',
     icon: <LinkedIn color="primary" />,
     baseURL: 'https://linkedin.com/in/',
+  },
+  {
+    name: 'devpost',
+    label: 'Devpost',
+    placeholder: 'username',
+    icon: <InsertLink color="primary" />,
+    baseURL: 'https://devpost.com/',
   },
   // {
   //   name: 'isEmailNotificationsEnabled',
