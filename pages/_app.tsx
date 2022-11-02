@@ -35,6 +35,9 @@ const darkTheme = createTheme({
       fontSize: '1.4rem',
       fontFamily: '"Montserrat", Open Sans',
     },
+    h5: {
+      fontSize: '1.2rem',
+    },
     subtitle1: {
       opacity: 0.75,
       fontWeight: 400,
