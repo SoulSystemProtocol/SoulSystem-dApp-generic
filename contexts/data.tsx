@@ -3,7 +3,7 @@ import LoadingBackdrop from 'components/backdrop/LoadingBackdrop';
 import useError from 'hooks/useError';
 import useSoul from 'hooks/useSoul';
 import { createContext, useContext, useEffect, useState } from 'react';
-import { Web3Context } from './Web3Context';
+import { Web3Context } from 'contexts/Web3Context';
 
 interface IDataContext {
   accountSoul: any;
@@ -64,7 +64,9 @@ export function DataProvider({ children }: any) {
 
   return (
     <DataContext.Provider value={{ accountSoul: accountSoul }}>
-      {isReady ? <>{children}</> : <LoadingBackdrop />}
+      {/* This waits untill metamask connects */}
+      {/* {isReady ? <>{children}</> : <LoadingBackdrop />} */}
+      {children}
     </DataContext.Provider>
   );
 }
