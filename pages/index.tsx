@@ -2,14 +2,15 @@
  * Landing page with souls.
  */
 import { useContext } from 'react';
-import Link from 'next/link';
-// import Router from 'next/router';
-import { Box, Typography, Link as MuiLink } from '@mui/material';
-import { Web3Context } from 'contexts/Web3Context';
-import { APP_CONFIGS } from '../constants';
-import { getPageTitle } from '../utils';
+// import Link from 'next/link';
+import Link from 'components/utils/Link';
 import Layout from 'components/layout/Layout';
 import ConnectButton from 'components/web3/connect/ConnectButton';
+// import Router from 'next/router';
+import { Box, Typography } from '@mui/material';
+import { Web3Context } from '../contexts/Web3Context';
+import { APP_CONFIGS } from '../constants';
+import { getPageTitle } from '../utils';
 
 const wrapperStyle = {
   // background: 'black',
@@ -63,10 +64,8 @@ export default function Landing() {
             <br />
             <Typography sx={{ marginTop: '5px' }}>
               Request some from the{' '}
-              <Link href={`https://faucet.polygon.technology/`} passHref>
-                <MuiLink underline="none" target="_blank">
-                  Mumbai Testnet Faucet
-                </MuiLink>
+              <Link href={`https://faucet.polygon.technology/`} target="_blank">
+                Mumbai Testnet Faucet
               </Link>
               {/* <Link href={`https://optimismfaucet.xyz/`} passHref>
                 <MuiLink underline="none" target="_blank">

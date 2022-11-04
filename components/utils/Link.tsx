@@ -4,10 +4,15 @@ import NextLink from 'next/link';
 /**
  * Component: Link (MUI + Next)
  */
-export default function Link({ children, href, sx = {} }: any): JSX.Element {
+export default function Link({
+  children,
+  href,
+  target,
+  sx = {},
+}: any): JSX.Element {
   return (
     <NextLink href={href} passHref>
-      <MuiLink underline="none" sx={sx}>
+      <MuiLink underline="none" target={target} sx={sx}>
         {children}
       </MuiLink>
     </NextLink>
