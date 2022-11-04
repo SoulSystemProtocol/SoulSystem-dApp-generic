@@ -1,12 +1,7 @@
-/**
- * Landing page with souls.
- */
 import { useContext } from 'react';
-// import Link from 'next/link';
 import Link from 'components/utils/Link';
 import Layout from 'components/layout/Layout';
 import ConnectButton from 'components/web3/connect/ConnectButton';
-// import Router from 'next/router';
 import { Box, Typography } from '@mui/material';
 import { Web3Context } from '../contexts/Web3Context';
 import { APP_CONFIGS } from '../constants';
@@ -20,6 +15,9 @@ const wrapperStyle = {
   pt: { xs: 2, md: 4 },
 };
 
+/**
+ * Home Page
+ */
 export default function Landing() {
   const { account } = useContext(Web3Context);
 
