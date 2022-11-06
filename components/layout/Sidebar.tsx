@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import { Typography } from '@mui/material';
+import { ListSubheader, Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import MuiDrawer from '@mui/material/Drawer';
@@ -64,7 +64,7 @@ const Drawer = styled(MuiDrawer, {
   }),
 }));
 
-//Menu Item Interface
+//Menu Item Type
 interface MenuItem {
   label: string;
   route: string;
@@ -84,46 +84,61 @@ export default function Sidebar({
       if (hide) return <></>;
       const isActive = router.pathname.startsWith(route);
       return (
-        <ListItem
-          key={label}
-          disablePadding
-          sx={{
-            display: 'block',
-          }}
-        >
-          <Link
-            href={route}
-            sx={{
-              display: 'block',
-              background: isActive ? 'rgba(255, 255, 255, 0.1)' : '',
-              borderRadius: '6%',
-              color: 'inherit',
-              '&:hover': {
-                background: 'rgba(255, 255, 255, 0.2)',
-              },
-            }}
-          >
-            <ListItemButton
-              title={isOpen ? '' : label}
+        <>
+          {route ? (
+            <ListItem
+              key={label}
+              disablePadding
               sx={{
-                minHeight: 48,
-                justifyContent: isOpen ? 'initial' : 'center',
-                px: 2.5,
+                display: 'block',
               }}
             >
-              <ListItemIcon
+              <Link
+                href={route}
                 sx={{
-                  minWidth: 0,
-                  mr: isOpen ? 3 : 'auto',
-                  justifyContent: 'center',
+                  display: 'block',
+                  background: isActive ? 'rgba(255, 255, 255, 0.1)' : '',
+                  borderRadius: '6%',
+                  color: 'inherit',
+                  '&:hover': {
+                    background: 'rgba(255, 255, 255, 0.2)',
+                  },
                 }}
               >
-                {icon}
-              </ListItemIcon>
-              <ListItemText primary={label} sx={{ opacity: isOpen ? 1 : 0 }} />
-            </ListItemButton>
-          </Link>
-        </ListItem>
+                <ListItemButton
+                  title={isOpen ? '' : label}
+                  sx={{
+                    minHeight: 48,
+                    justifyContent: isOpen ? 'initial' : 'center',
+                    px: 2.5,
+                  }}
+                >
+                  <ListItemIcon
+                    sx={{
+                      minWidth: 0,
+                      mr: isOpen ? 3 : 'auto',
+                      justifyContent: 'center',
+                    }}
+                  >
+                    {icon}
+                  </ListItemIcon>
+                  <ListItemText
+                    primary={label}
+                    sx={{ opacity: isOpen ? 1 : 0 }}
+                  />
+                </ListItemButton>
+              </Link>
+            </ListItem>
+          ) : (
+            <ListSubheader
+              sx={{
+                textAlign: 'center',
+              }}
+            >
+              {label}
+            </ListSubheader>
+          )}
+        </>
       );
     },
   );

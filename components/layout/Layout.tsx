@@ -48,6 +48,9 @@ const menu_side_links = [
     icon: <PersonOutlineOutlined color="warning" />,
     hide: process.env.NEXT_PUBLIC_FEATURE_SOUL == 'false',
   },
+  {
+    label: 'dOrgs',
+  },
   // {
   //   route: '/daos',
   //   label: GAME_NAME.dao,

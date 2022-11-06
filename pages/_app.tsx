@@ -2,7 +2,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { DataProvider } from 'contexts/data';
 import { DialogProvider } from 'contexts/dialog';
 import { Web3Provider } from 'contexts/Web3Context';
-import type { AppProps } from 'next/app';
+import { AppProps } from 'next/app';
 import NextNProgress from 'nextjs-progressbar';
 import { SnackbarProvider } from 'notistack';
 import '../styles/globals.css';
@@ -48,7 +48,7 @@ const darkTheme = createTheme({
 /**
  * Component with an app.
  */
-export default function App({ Component, pageProps }: AppProps) {
+export default function App({ Component, pageProps }: AppProps): JSX.Element {
   return (
     <ApolloProvider client={client}>
       <ThemeProvider theme={darkTheme}>
