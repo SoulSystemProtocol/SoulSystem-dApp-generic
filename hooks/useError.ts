@@ -8,11 +8,14 @@ export default function useError() {
 
   let handleError = function (error: any, isErrorToastRequired: boolean) {
     //To Console
-    console.error(error);
+    console.error('Error Encountered:', { error });
     //** Custom Exceptions
-    // eslint-disable-next-line prettier/prettier
-    if (typeof error == 'object' && error?.code == "ACTION_REJECTED") {
+    if (typeof error == 'object' && error?.code == 'ACTION_REJECTED') {
       isErrorToastRequired = false;
+    }
+    if (typeof error == 'object' && error?.code == 'UNPREDICTABLE_GAS_LIMIT') {
+      isErrorToastRequired = false;
+      showToastError({ message: 'Contract/Chain Error' });
     }
     //For User
     if (isErrorToastRequired) showToastError(error);
