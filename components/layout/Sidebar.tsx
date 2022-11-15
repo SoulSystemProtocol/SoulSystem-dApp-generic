@@ -131,6 +131,7 @@ export default function Sidebar({
             </ListItem>
           ) : (
             <ListSubheader
+              key={label}
               sx={{
                 textAlign: 'center',
               }}
