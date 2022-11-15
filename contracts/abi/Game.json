@@ -28,19 +28,6 @@
     "anonymous": false,
     "inputs": [
       {
-        "indexed": false,
-        "internalType": "string",
-        "name": "",
-        "type": "string"
-      }
-    ],
-    "name": "ContractURI",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
         "indexed": true,
         "internalType": "uint256",
         "name": "targetTokenId",
@@ -60,6 +47,25 @@
       }
     ],
     "name": "EffectsExecuted",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "ruleId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "uri",
+        "type": "string"
+      }
+    ],
+    "name": "EventConfirmed",
     "type": "event"
   },
   {
@@ -136,49 +142,6 @@
       }
     ],
     "name": "Nominate",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "chainId",
-        "type": "uint256"
-      },
-      {
-        "indexed": true,
-        "internalType": "address",
-        "name": "contractAddr",
-        "type": "address"
-      },
-      {
-        "indexed": true,
-        "internalType": "uint256",
-        "name": "tokenId",
-        "type": "uint256"
-      },
-      {
-        "indexed": false,
-        "internalType": "string",
-        "name": "domain",
-        "type": "string"
-      },
-      {
-        "indexed": false,
-        "internalType": "bool",
-        "name": "rating",
-        "type": "bool"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "score",
-        "type": "uint256"
-      }
-    ],
-    "name": "OpinionChange",
     "type": "event"
   },
   {
@@ -559,7 +522,7 @@
     "inputs": [
       {
         "internalType": "uint256",
-        "name": "extTokenId",
+        "name": "sbt",
         "type": "uint256"
       },
       {
@@ -701,30 +664,7 @@
     "inputs": [
       {
         "internalType": "uint256",
-        "name": "ruleId",
-        "type": "uint256"
-      },
-      {
-        "internalType": "address",
-        "name": "targetContract",
-        "type": "address"
-      },
-      {
-        "internalType": "uint256",
-        "name": "targetTokenId",
-        "type": "uint256"
-      }
-    ],
-    "name": "effectsExecute",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "id",
+        "name": "effectId",
         "type": "uint256"
       }
     ],
@@ -734,23 +674,36 @@
         "components": [
           {
             "internalType": "string",
-            "name": "name",
+            "name": "domain",
             "type": "string"
           },
           {
-            "internalType": "uint8",
+            "internalType": "int256",
             "name": "value",
-            "type": "uint8"
+            "type": "int256"
           },
           {
             "internalType": "bool",
-            "name": "direction",
+            "name": "disabled",
             "type": "bool"
           }
         ],
-        "internalType": "struct DataTypes.Effect[]",
+        "internalType": "struct DataTypes.RepChange[]",
         "name": "",
         "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getCurrentSBT",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
       }
     ],
     "stateMutability": "view",
@@ -789,108 +742,6 @@
     "type": "function"
   },
   {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "contractAddr",
-        "type": "address"
-      },
-      {
-        "internalType": "uint256",
-        "name": "tokenId",
-        "type": "uint256"
-      },
-      {
-        "internalType": "string",
-        "name": "domain",
-        "type": "string"
-      },
-      {
-        "internalType": "bool",
-        "name": "rating",
-        "type": "bool"
-      }
-    ],
-    "name": "getRepForDomain",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "chainId",
-        "type": "uint256"
-      },
-      {
-        "internalType": "address",
-        "name": "contractAddr",
-        "type": "address"
-      },
-      {
-        "internalType": "uint256",
-        "name": "tokenId",
-        "type": "uint256"
-      },
-      {
-        "internalType": "string",
-        "name": "domain",
-        "type": "string"
-      },
-      {
-        "internalType": "bool",
-        "name": "rating",
-        "type": "bool"
-      }
-    ],
-    "name": "getRepForDomain",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "tokenId",
-        "type": "uint256"
-      },
-      {
-        "internalType": "string",
-        "name": "domain",
-        "type": "string"
-      },
-      {
-        "internalType": "bool",
-        "name": "rating",
-        "type": "bool"
-      }
-    ],
-    "name": "getRepForDomain",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
     "inputs": [],
     "name": "getRepoAddr",
     "outputs": [
@@ -919,19 +770,9 @@
   {
     "inputs": [
       {
-        "internalType": "string",
-        "name": "gameType_",
-        "type": "string"
-      },
-      {
-        "internalType": "string",
-        "name": "name_",
-        "type": "string"
-      },
-      {
-        "internalType": "string",
-        "name": "uri_",
-        "type": "string"
+        "internalType": "address",
+        "name": "sbtAddress",
+        "type": "address"
       }
     ],
     "name": "initialize",
@@ -942,9 +783,9 @@
   {
     "inputs": [
       {
-        "internalType": "address",
-        "name": "sbtAddress",
-        "type": "address"
+        "internalType": "string",
+        "name": "name_",
+        "type": "string"
       }
     ],
     "name": "initialize",
@@ -1034,6 +875,29 @@
     "type": "function"
   },
   {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "ruleId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "targetContract",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "targetTokenId",
+        "type": "uint256"
+      }
+    ],
+    "name": "onClaimConfirmed",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
     "inputs": [],
     "name": "owner",
     "outputs": [
@@ -1090,7 +954,7 @@
       },
       {
         "internalType": "string",
-        "name": "detailsURI_",
+        "name": "detailsURI",
         "type": "string"
       }
     ],
@@ -1121,7 +985,7 @@
     "inputs": [
       {
         "internalType": "uint256",
-        "name": "ownerToken",
+        "name": "sbt",
         "type": "uint256"
       },
       {
@@ -1154,6 +1018,19 @@
       }
     ],
     "name": "roleChange",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "role",
+        "type": "string"
+      }
+    ],
+    "name": "roleCreate",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -1247,7 +1124,7 @@
     "inputs": [
       {
         "internalType": "uint256",
-        "name": "ownerToken",
+        "name": "sbt",
         "type": "uint256"
       },
       {
@@ -1259,6 +1136,25 @@
     "name": "roleRemoveFromToken",
     "outputs": [],
     "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "role",
+        "type": "string"
+      }
+    ],
+    "name": "roleToId",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
     "type": "function"
   },
   {
@@ -1364,21 +1260,21 @@
         "components": [
           {
             "internalType": "string",
-            "name": "name",
+            "name": "domain",
             "type": "string"
           },
           {
-            "internalType": "uint8",
+            "internalType": "int256",
             "name": "value",
-            "type": "uint8"
+            "type": "int256"
           },
           {
             "internalType": "bool",
-            "name": "direction",
+            "name": "disabled",
             "type": "bool"
           }
         ],
-        "internalType": "struct DataTypes.Effect[]",
+        "internalType": "struct DataTypes.RepChange[]",
         "name": "effects",
         "type": "tuple[]"
       }
@@ -1451,7 +1347,7 @@
     "inputs": [
       {
         "internalType": "uint256",
-        "name": "id",
+        "name": "ruleId",
         "type": "uint256"
       }
     ],
@@ -1536,21 +1432,21 @@
         "components": [
           {
             "internalType": "string",
-            "name": "name",
+            "name": "domain",
             "type": "string"
           },
           {
-            "internalType": "uint8",
+            "internalType": "int256",
             "name": "value",
-            "type": "uint8"
+            "type": "int256"
           },
           {
             "internalType": "bool",
-            "name": "direction",
+            "name": "disabled",
             "type": "bool"
           }
         ],
-        "internalType": "struct DataTypes.Effect[]",
+        "internalType": "struct DataTypes.RepChange[]",
         "name": "effects",
         "type": "tuple[]"
       }
