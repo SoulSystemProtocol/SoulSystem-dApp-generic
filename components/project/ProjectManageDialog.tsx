@@ -8,17 +8,17 @@ import {
   Stack,
 } from '@mui/material';
 import { MuiForm5 as Form } from '@rjsf/material-ui';
-import ProjectMetadata from 'classes/metadata/ProjectMetadata';
 import ImageInput from 'components/form/widget/ImageInput';
+import { GAME_TYPE } from 'constants/contracts';
 import useError from 'hooks/useError';
 import useIpfs from 'hooks/useIpfs';
-import useProject from 'hooks/useProject';
 import useToast from 'hooks/useToast';
 import { JSONSchema7 } from 'json-schema';
 import { useState } from 'react';
+import useContract from 'hooks/useContract';
 
 /**
- * A dialog for creating or editing project.
+ * A dialog for creating a new project
  */
 export default function ProjectManageDialog({
   project,
@@ -28,14 +28,14 @@ export default function ProjectManageDialog({
   const { showToastSuccess } = useToast();
   const { uploadJsonToIPFS } = useIpfs();
   const { handleError } = useError();
-  const { createProject, editProject } = useProject();
+  const { getContractHub } = useContract();
   const [isLoading, setIsLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(!isClose);
   const [formData, setFormData] = useState({
     ...(project && {
-      image: project.uriData?.image,
+      image: project?.metadata?.image,
       name: project.name,
-      description: project.uriData?.description,
+      description: project?.metadata?.description,
     }),
   });
 
@@ -93,9 +93,15 @@ export default function ProjectManageDialog({
         formData,
       );
       if (project) {
-        await editProject(project.id, metadataUrl);
+        // await editProject(project.id, meadataUrl);
+        //TODO: Use Soul Edit Functionality for this
+        console.error('No Mapped Function. Should Use Soul Edit');
       } else {
-        await createProject(formData.name, metadataUrl);
+        await getContractHub().makeGame(
+          GAME_TYPE.project,
+          formData.name,
+          metadataUrl,
+        );
       }
       showToastSuccess('Success! Data will be updated soon');
       close();

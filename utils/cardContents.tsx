@@ -11,11 +11,11 @@ import { resolveLink } from 'helpers/IPFS';
 
 // Item Processing Function
 export const soulCardContent = (item: any) => {
-  let metadata = hexStringToJson(item.uriData);
+  let metadata = hexStringToJson(item.metadata);
 
   let ret = {
     id: item.id,
-    imgSrc: resolveLink(metadata.image),
+    imgSrc: resolveLink(metadata?.image),
     avatarIcon: <PersonOutlineOutlined />,
     label: addressToShortAddress(item.owner),
 
@@ -33,10 +33,10 @@ export const soulCardContent = (item: any) => {
 
 // Game Card Processing
 export const gameCardContent = (item: any) => {
-  let metadata = hexStringToJson(item.uriData);
+  let metadata = hexStringToJson(item.metadata);
   let ret = {
     id: item.id,
-    imgSrc: resolveLink(metadata.image),
+    imgSrc: resolveLink(metadata?.image),
     label: metadata?.description,
     title: metadata?.name,
     metadata,
@@ -49,10 +49,10 @@ export const gameCardContent = (item: any) => {
 
 // Process Card Processing
 export const processCardContent = (item: any) => {
-  let metadata = hexStringToJson(item.uriData);
+  let metadata = hexStringToJson(item.metadata);
   let ret = {
     id: item.id,
-    imgSrc: resolveLink(metadata.image),
+    imgSrc: resolveLink(metadata?.image),
     avatarIcon: <WorkOutlineOutlined />,
     label: metadata?.description,
     title: metadata?.name,
@@ -66,9 +66,10 @@ export const processCardContent = (item: any) => {
 // Game Participant
 export const gamePartCardContent = (item: any) => {
   let metadata = hexStringToJson(item.entity.metadata);
+  console.log('Game Participant', { metadata, item });
   let ret = {
     id: item.entity.id,
-    imgSrc: resolveLink(metadata.image),
+    imgSrc: resolveLink(metadata?.image),
     label: metadata?.description,
     title: metadata?.name,
     metadata,

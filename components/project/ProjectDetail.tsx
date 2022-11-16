@@ -1,4 +1,3 @@
-// import { WorkOutlineOutlined } from '@mui/icons-material';
 import { Stack, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import GameAdminActions from '../game/GameAdminActions';
@@ -31,7 +30,9 @@ export default function ProjectDetail({ item: project, sx }: any) {
             Balance: <AccountBalance address={project.id} />{' '}
             {process.env.NEXT_PUBLIC_NETWORK_CURRENCY_SYMBOL}
           </Typography>
-          <Typography sx={{ mt: 1 }}>{project.uriData?.description}</Typography>
+          <Typography sx={{ mt: 1 }}>
+            {project?.metadata?.description}
+          </Typography>
           <Stack direction="row" spacing={2} sx={{ mt: 2 }}>
             <FundDialogButton address={project.id} />
           </Stack>

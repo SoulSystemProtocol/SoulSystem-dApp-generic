@@ -65,9 +65,9 @@ function TaskHeader({ task, sx }: any) {
               <Typography variant="body1">{task.name}</Typography>
             </MuiLink>
           </Link>
-          {task.uriData.description && (
+          {task?.metadata?.description && (
             <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
-              {task.uriData.description}
+              {task.metadata.description}
             </Typography>
           )}
         </Box>

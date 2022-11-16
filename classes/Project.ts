@@ -7,6 +7,7 @@ export default class Project {
   type: string | null;
   uri: string | null;
   uriData: any | null;
+  metadata: any | null;
   roles: any | null;
   posts: any | null;
 
@@ -24,6 +25,7 @@ export default class Project {
     this.type = type;
     this.uri = uri;
     this.uriData = uriData;
+    this.metadata = uriData;
     this.roles = roles;
     this.posts = posts;
   }

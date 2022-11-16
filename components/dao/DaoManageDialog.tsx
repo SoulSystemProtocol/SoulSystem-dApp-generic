@@ -14,8 +14,6 @@ import { Save } from '@mui/icons-material';
 import { JSONSchema7 } from 'json-schema';
 import useToast from 'hooks/useToast';
 import useIpfs from 'hooks/useIpfs';
-// import DaoMetadata from 'classes/metadata/DaoMetadata';
-// import useDao from 'hooks/useDao';
 import useContract from 'hooks/useContract';
 import { GAME_TYPE } from 'constants/contracts';
 
@@ -31,9 +29,9 @@ export default function DaoManageDialog({ dao, isClose, onClose }: any) {
   const [isOpen, setIsOpen] = useState(!isClose);
   const [formData, setFormData] = useState({
     ...(dao && {
-      image: dao.uriData?.image,
+      image: dao.metadata?.image,
       name: dao.name,
-      description: dao.uriData?.description,
+      description: dao.metadata?.description,
     }),
   });
 
@@ -92,7 +90,7 @@ export default function DaoManageDialog({ dao, isClose, onClose }: any) {
         await getContractGameMDAO(dao.id).setContractURI(metadataUrl);
       } else {
         //Create a new MDAO
-        await getContractHub().gameMake(
+        await getContractHub().makeGame(
           GAME_TYPE.mdao,
           formData.name,
           metadataUrl,

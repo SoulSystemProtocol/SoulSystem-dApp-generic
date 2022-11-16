@@ -13,6 +13,7 @@ import { SoulDetails, SoulImage } from 'components/soul/SoulCard';
 import { GAME_ROLE } from 'constants/contracts';
 import { DataContext } from 'contexts/data';
 import useDao from 'hooks/useDao';
+// import useContract from 'hooks/useContract';
 import useError from 'hooks/useError';
 import useSoul from 'hooks/useSoul';
 import useToast from 'hooks/useToast';

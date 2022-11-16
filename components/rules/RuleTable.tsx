@@ -17,7 +17,8 @@ import JsonViewDialog from 'components/json/JsonViewDialog';
  */
 export default function RuleTable({ jurisdiction, sx }: any) {
   // eslint-disable-next-line prettier/prettier
-  const { showDialog, closeDialog }: Partial<IDialogParams> = useContext(DialogContext);
+  const { showDialog, closeDialog }: Partial<IDialogParams> =
+    useContext(DialogContext);
   const { handleError } = useError();
   const { getActions } = useAction();
   const { getGameRules } = useSubgraph();
@@ -100,21 +101,21 @@ export default function RuleTable({ jurisdiction, sx }: any) {
       headerName: 'Name to display',
       width: 320,
       valueGetter: (params: any) =>
-        `${params.row.rule.rule.uriData?.name || ''}`,
+        `${params.row.rule.rule?.metadata?.name || ''}`,
     },
     {
       field: 'description',
       headerName: 'Description to display',
       width: 320,
       valueGetter: (params: any) =>
-        `${params.row.rule.rule.uriData?.description || ''}`,
+        `${params.row.rule.rule?.metadata?.description || ''}`,
     },
     {
       field: 'icon',
       headerName: 'Icon to display',
       width: 120,
       valueGetter: (params: any) =>
-        `${params.row.rule.rule.uriData?.icon || ''}`,
+        `${params.row.rule.rule?.metadata?.icon || ''}`,
       renderCell: (params: any) => '[RuleIcon]',
     },
     {
@@ -122,7 +123,7 @@ export default function RuleTable({ jurisdiction, sx }: any) {
       headerName: 'Evidence description',
       width: 320,
       valueGetter: (params: any) =>
-        `${params.row.rule.rule.uriData?.evidenceDescription || ''}`,
+        `${params.row.rule.rule?.metadata?.evidenceDescription || ''}`,
     },
     {
       field: 'affected',

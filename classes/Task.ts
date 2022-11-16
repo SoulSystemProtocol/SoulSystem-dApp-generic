@@ -7,6 +7,7 @@ export default class Task {
   stage: number;
   uri: string | null;
   uriData: any;
+  metadata: any;
   game: any;
   roles: any;
   nominations: any;
@@ -28,6 +29,7 @@ export default class Task {
     this.stage = stage;
     this.uri = uri;
     this.uriData = uriData;
+    this.metadata = uriData;
     this.game = game;
     this.roles = roles;
     this.nominations = nominations;

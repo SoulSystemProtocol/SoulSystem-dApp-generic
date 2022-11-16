@@ -17,10 +17,6 @@ export default function useGameContract() {
     return new Contract(address, contractAbi, provider?.getSigner());
   }
 
-  async function setUri(contractAddress: string, uri: string) {
-    return await getGameContract(contractAddress).setContractURI(uri);
-  }
-
   async function leave(contractAddress: string) {
     return await getGameContract(contractAddress).leave();
   }
@@ -55,9 +51,15 @@ export default function useGameContract() {
     );
   }
 
+  /* DEPRECATED
+  async function setUri(contractAddress: string, uri: string) {
+    return await getGameContract(contractAddress).setContractURI(uri);
+  }
+  */
+ 
   return {
     getGameContract,
-    setUri,
+    // setUri,
     leave,
     nominate,
     assignRole,

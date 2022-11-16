@@ -3,19 +3,9 @@ import { Button } from '@mui/material';
 import { DataContext } from 'contexts/data';
 import { Web3Context } from 'contexts/Web3Context';
 import Link from 'next/link';
-// import useError from 'hooks/useError';
-// import { APP_CONFIGS } from '../../constants';
-// import PaginatedList from 'components/PaginatedList';
 import Layout from '../../components/layout/Layout';
 import SoulListGQ from '../../components/soul/SoulListGQ';
 import { getPageTitle } from '../../utils';
-import { PersonOutlineOutlined } from '@mui/icons-material';
-import {
-  addressToShortAddress,
-  hexStringToJson,
-  soulToFirstLastNameString,
-} from 'utils/converters';
-// import { resolveLink } from 'helpers/IPFS';
 import { soulCardContent } from 'utils/cardContents';
 
 const CONF = {
@@ -24,30 +14,6 @@ const CONF = {
   SUBTITLE: `You can now be an NFT!`,
   ROUTE: 'souls',
 };
-
-/*
-// Item Processing Function
-const getCardContent = (item: any) => {
-  let metadata = hexStringToJson(item.uriData);
-
-  let ret = {
-    id: item.id,
-    imgSrc: resolveLink(metadata.image),
-    avatarIcon: <PersonOutlineOutlined />,
-    label: addressToShortAddress(item.owner),
-
-    //DEPRECATE soulToFirstLastNameString() Usage here. That should be stored in  metadata.name
-    title: metadata?.name || soulToFirstLastNameString(item),
-
-    metadata,
-    link: `/${CONF.ROUTE}/${item.id}`,
-    // roles: [], // TODO: add roles logic
-  };
-
-  console.log('soul', ret);
-  return ret;
-};
-*/
 
 /**
  * Page for a list of souls

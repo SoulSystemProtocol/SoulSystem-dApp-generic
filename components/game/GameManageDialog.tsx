@@ -14,9 +14,8 @@ import { Save } from '@mui/icons-material';
 import { JSONSchema7 } from 'json-schema';
 import useToast from 'hooks/useToast';
 import useIpfs from 'hooks/useIpfs';
-import DaoMetadata from 'classes/metadata/DaoMetadata';
-import useDao from 'hooks/useDao';
-
+import useContract from 'hooks/useContract';
+import { GAME_TYPE } from 'constants/contracts';
 /**
  * A dialog for creating or editing DAO.
  */
@@ -24,14 +23,14 @@ export default function GameManageDialog({ dao, isClose, onClose }: any) {
   const { showToastSuccess } = useToast();
   const { uploadJsonToIPFS } = useIpfs();
   const { handleError } = useError();
-  const { createDao, editDao } = useDao();
   const [isLoading, setIsLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(!isClose);
+  const { getContractHub } = useContract();
   const [formData, setFormData] = useState({
     ...(dao && {
-      image: dao.uriData?.image,
+      image: dao.metadata?.image,
       name: dao.name,
-      description: dao.uriData?.description,
+      description: dao.metadata?.description,
     }),
   });
 
@@ -88,9 +87,14 @@ export default function GameManageDialog({ dao, isClose, onClose }: any) {
         formData, //All Data
       );
       if (dao) {
-        await editDao(dao.id, metadataUrl);
+        // await editDao(dao.id, metadataUrl);
+        console.error('No Mapped Function. Should Use Soul Edit');
       } else {
-        await createDao(formData.name, metadataUrl);
+        await getContractHub().makeGame(
+          GAME_TYPE.mdao,
+          formData.name,
+          metadataUrl,
+        );
       }
       showToastSuccess('Success! Data will be updated soon');
       close();

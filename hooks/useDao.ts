@@ -2,7 +2,6 @@ import Dao from 'classes/Dao';
 import { GAME_TYPE } from 'constants/contracts';
 import { hexStringToJson } from 'utils/converters';
 import useGameContract from './contracts/useGameContract';
-import useHubContract from './contracts/useHubContract';
 import useSubgraph from './useSubgraph';
 import { getById } from './utils';
 
@@ -12,10 +11,9 @@ import { getById } from './utils';
  * TODO: Move neccessary functions to hook useGame().
  */
 export default function useDao() {
-  const { gameMake } = useHubContract();
   const {
     // getGameContract,
-    setUri,
+    // setUri,
     leave,
     nominate: applyToJoin,
     assignRole,
@@ -42,9 +40,9 @@ export default function useDao() {
   }
 
   return {
-    createDao: async (name: string, metadataUrl: string) =>
-      gameMake(GAME_TYPE.mdao, name, metadataUrl),
-    editDao: async (id: string, metadataUrl: string) => setUri(id, metadataUrl),
+    // createDao: async (name: string, metadataUrl: string) =>
+    // makeGame(GAME_TYPE.mdao, name, metadataUrl),
+    // editDao: async (id: string, metadataUrl: string) => setUri(id, metadataUrl),
     getDaos,
     getDaoById: (id: string) => getById(id, getDaos),
     getSoulsByRole,
@@ -58,8 +56,6 @@ export default function useDao() {
 }
 
 function convertSubgraphGameToDao(subgraphGame: any) {
-  return {
-    ...subgraphGame,
-    uriData: hexStringToJson(subgraphGame.uriData),
-  };
+  const metadata = hexStringToJson(subgraphGame.metadata);
+  return { ...subgraphGame, uriData: metadata, metadata };
 }

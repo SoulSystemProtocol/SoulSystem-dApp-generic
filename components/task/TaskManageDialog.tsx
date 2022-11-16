@@ -34,7 +34,7 @@ export default function TaskManageDialog({
   const [formData, setFormData] = useState({
     ...(task && {
       name: task.name,
-      description: task.uriData?.description,
+      description: task?.metadata?.description,
     }),
   });
 
@@ -88,8 +88,9 @@ export default function TaskManageDialog({
         //   name: formData.name,
         //   metadataUrl,
         // });
-        await getContractGameProject(project.id).taskMake(
-          'BOUNTY',
+        await getContractGameProject(project.id).makeTask(
+          // 'BOUNTY',
+          'bounty',
           formData.name,
           metadataUrl,
         );

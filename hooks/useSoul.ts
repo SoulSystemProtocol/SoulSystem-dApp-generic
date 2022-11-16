@@ -40,16 +40,6 @@ export default function useSoul() {
 }
 
 function convertSubgraphSoulToSoul(subgraphSoul: any) {
-  const metadata = hexStringToJson(subgraphSoul.uriData);
+  const metadata = hexStringToJson(subgraphSoul.metadata);
   return { ...subgraphSoul, metadata, uriData: metadata };
-  // return new Soul(
-  //   subgraphSoul.id,
-  //   subgraphSoul.owner,
-  //   subgraphSoul.type,
-  //   subgraphSoul.uri,
-  //   hexStringToJson(subgraphSoul.uriData),
-  //   subgraphSoul.uriImage,
-  //   subgraphSoul.uriFirstName,
-  //   subgraphSoul.uriLastName,
-  // );
 }

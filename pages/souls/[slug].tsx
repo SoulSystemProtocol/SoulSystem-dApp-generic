@@ -4,7 +4,7 @@ import useError from 'hooks/useError';
 import useSoul from 'hooks/useSoul';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { hexStringToJson, soulToFirstLastNameString } from 'utils/converters';
+import { soulToFirstLastNameString } from 'utils/converters';
 import SoulGames from 'components/soul/SoulGames';
 import SoulProcs from 'components/soul/SoulProcs';
 import GameView from 'components/game/GameView';
@@ -12,16 +12,10 @@ import { getPageTitle } from 'utils';
 import { GAME_DESC, GAME_NAME, GAME_TYPE } from 'constants/contracts';
 import { gamePartCardContent, taskPartCardContent } from 'utils/cardContents';
 import { Box, Typography } from '@mui/material';
-import querySoulSingle from 'queries/SoulSingleQuery';
+import SoulByIdQuery from 'queries/SoulByIdQuery';
 import { useQuery } from '@apollo/client';
 import DisplayPOAP from 'components/web3/DisplayPOAP';
-
-function normalizeGraphEntity(subgraphEntity: any) {
-  return {
-    ...subgraphEntity,
-    metadata: hexStringToJson(subgraphEntity.uriData),
-  };
-}
+import { normalizeGraphEntity } from 'helpers/metadata';
 
 /**
  * Component: Single Soul Page
@@ -33,14 +27,13 @@ export default function SoulDetailPage(): JSX.Element {
   const { getSoulById } = useSoul();
   const [soul, setSoul] = useState<any | null>(null);
 
-  console.log('SoulDetailPage() Soul:', soul);
   const CONF = {
     PAGE_TITLE: soulToFirstLastNameString(soul),
     TITLE: soulToFirstLastNameString(soul),
     SUBTITLE: GAME_DESC.dao,
   };
 
-  const { data, loading, error } = useQuery(querySoulSingle, {
+  const { data, loading, error } = useQuery(SoulByIdQuery, {
     variables: { id: slug },
   });
 
@@ -58,13 +51,13 @@ export default function SoulDetailPage(): JSX.Element {
     }
   }
 
-  const soulMemberMDAOs = {
-    variables: {
-      id: soul?.id,
-      entRole: GAME_TYPE.mdao,
-    },
-    getCardContent: gamePartCardContent,
-  };
+  // const soulMemberMDAOs = {
+  //   variables: {
+  //     id: soul?.id,
+  //     entRole: GAME_TYPE.mdao,
+  //   },
+  //   getCardContent: gamePartCardContent,
+  // };
 
   const soulMemberProjects = {
     variables: {
@@ -74,13 +67,14 @@ export default function SoulDetailPage(): JSX.Element {
     getCardContent: gamePartCardContent,
   };
 
-  const soulMemberTasks = {
-    variables: {
-      id: soul?.id,
-      entRole: 'BOUNTY',
-    },
-    getCardContent: taskPartCardContent,
-  };
+  // const soulMemberTasks = {
+  //   variables: {
+  //     id: soul?.id,
+  //     entRole: 'bounty',
+  //   },
+  //   getCardContent: taskPartCardContent,
+  // };
+
   const sidewaySX = {
     writingMode: 'vertical-lr',
     letterSpacing: '0.15em',
@@ -110,7 +104,15 @@ export default function SoulDetailPage(): JSX.Element {
 
       <Box sx={{ my: 2 }}>
         <Typography variant="h4">Services</Typography>
-        {soul?.id && <SoulGames {...soulMemberMDAOs} />}
+        {soul?.id && (
+          <SoulGames
+            variables={{
+              id: soul?.id,
+              entRole: GAME_TYPE.mdao,
+            }}
+            getCardContent={gamePartCardContent}
+          />
+        )}
       </Box>
 
       <Box sx={{ my: 2 }}>
@@ -120,7 +122,15 @@ export default function SoulDetailPage(): JSX.Element {
 
       <Box sx={{ my: 2 }}>
         <Typography variant="h4">{GAME_NAME.tasks}</Typography>
-        {soul?.id && <SoulProcs {...soulMemberTasks} />}
+        {soul?.id && (
+          <SoulProcs
+            variables={{
+              id: soul?.id,
+              entRole: 'bounty',
+            }}
+            getCardContent={taskPartCardContent}
+          />
+        )}
       </Box>
     </Layout>
   );

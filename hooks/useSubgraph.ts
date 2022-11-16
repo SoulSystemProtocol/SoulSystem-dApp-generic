@@ -140,7 +140,7 @@ export default function useSubgraph() {
     );
     return gameRules.map((ruleEntity: any) => ({
       ...ruleEntity,
-      metadata: hexStringToJson(ruleEntity.uriData),
+      metadata: hexStringToJson(ruleEntity.metadata),
     }));
   };
 
@@ -202,6 +202,7 @@ function getFindSoulsQuery(
         type
         uri
         uriData
+        metadata
         uriImage
         uriFirstName
         uriLastName
@@ -238,6 +239,7 @@ function getFindGamesQuery(
       role
       uri
       uriData
+      metadata
       roles {
         id
         roleId
@@ -289,11 +291,13 @@ function getFindClaimsQuery(
       stage
       uri
       uriData
+      metadata
       type
       game {
         id
         name
         uriData
+        metadata
       }
       roles {
         id
@@ -352,6 +356,7 @@ function getFindActionEntitiesQuery(guids: string[]) {
       tool
       uri
       uriData
+      metadata
       rules {
         id
         affected
@@ -397,6 +402,7 @@ function findGameRulesQuery(
       affected
       uri
       uriData
+      metadata
       negation
       confirmationRuling
       confirmationEvidence
@@ -438,6 +444,7 @@ function findGameRulesQueryMulti(
     affected
     uri
     uriData
+    metadata
     negation
     confirmationRuling
     confirmationEvidence

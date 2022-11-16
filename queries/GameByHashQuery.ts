@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 
 const query = gql`
-  query GameSingleQuery($id: ID!) {
+  query GameByHashQuery($id: ID!) {
     game(id: $id) {
       id
       name
@@ -9,6 +9,7 @@ const query = gql`
       role
       uri
       uriData
+      metadata
       roles {
         id
         roleId

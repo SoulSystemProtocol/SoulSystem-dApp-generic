@@ -1,27 +1,20 @@
 import { gql } from '@apollo/client';
 
 const query = gql`
-  query SoulSingle($id: ID!) {
-    soul(id: $id) {
+  query SoulByHashQuery($hash: String!) {
+    # soul(owner: $hash) {
+    souls(where: { owner: $hash }) {
       id
       owner
       type
       role
       uri
-      uriData
+      metadata
       uriImage
       uriFirstName
       uriLastName
     }
   }
 `;
-/// REMOVED
-// participantGame {
-//   id
-//   roles
-// }
-// participantProc {
-//   id
-//   roles
-// }
+
 export default query;

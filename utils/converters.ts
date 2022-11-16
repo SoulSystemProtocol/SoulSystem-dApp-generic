@@ -50,7 +50,7 @@ export function addressToShortAddress(address: string): string {
  * Get first name and last name of soul.
  */
 export function soulToFirstLastNameString(soul: any, length = 36): string {
-  if (soul?.uriData?.name) return soul.uriData.name;
+  if (soul?.metadata?.name) return soul.metadata.name;
   let firstLastName = 'Anonymous';
   if (soul?.uriFirstName || soul?.uriLastName) {
     firstLastName = (soul.uriFirstName || '') + ' ' + (soul.uriLastName || '');
@@ -62,7 +62,7 @@ export function soulToFirstLastNameString(soul: any, length = 36): string {
  * Get iamge of soul.
  */
 export function soulImage(soul: any): string {
-  if (soul?.uriData?.image) return resolveLink(soul.uriData.image);
+  if (soul?.metadata?.image) return resolveLink(soul.metadata.image);
   if (soul?.metadata?.image) return resolveLink(soul.metadata.image);
   return soul?.uriImage ? resolveLink(soul.uriImage) : '';
 }

@@ -7,6 +7,7 @@ export default class Soul {
   type: string;
   uri: string | null;
   uriData: any | null;
+  metadata: any | null;
   uriImage: string | null;
   uriFirstName: string | null;
   uriLastName: string | null;
@@ -28,10 +29,10 @@ export default class Soul {
     this.type = type;
     this.uri = uri;
     this.uriData = uriData;
+    this.metadata = uriData;
     this.uriImage = uriImage;
     this.uriFirstName = uriFirstName;
     this.uriLastName = uriLastName;
     // this.posts = posts;
   }
-
 }

@@ -47,7 +47,7 @@ function ProjectImage({ project, sx }: any) {
               height: 82,
               borderRadius: '16px',
             }}
-            src={project.uriData?.image}
+            src={project.metadata?.image}
           >
             <WorkOutlineOutlined />
           </Avatar>
@@ -66,9 +66,9 @@ function ProjectDetails({ project, sx }: any) {
         <Link href={`/projects/${project.id}`} passHref>
           <MuiLink underline="none">{project.name}</MuiLink>
         </Link>
-        {project.uriData.description && (
+        {project?.metadata?.description && (
           <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
-            {project.uriData.description}
+            {project?.metadata?.description}
           </Typography>
         )}
       </Box>

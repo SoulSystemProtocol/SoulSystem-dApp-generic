@@ -3,19 +3,28 @@ import { Button, Stack, Typography, Link as MuiLink } from '@mui/material';
 import { Box } from '@mui/system';
 import { Web3Context } from 'contexts/Web3Context';
 import Link from 'next/link';
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { soulToFirstLastNameString } from 'utils/converters';
-import { getAttribute } from 'helpers/metadata';
 import AddressHash from 'components/web3/AddressHash';
 import FundDialogButton from 'components/web3/FundDialogButton';
 import EntityImage from 'components/entity/EntityImage';
-import { PROFILE_TRAITS } from 'components/soul/ProfileTraits';
+import SoulDescription from './SoulDescription';
+import SocialLinks from './SocialLinks';
+import Loading from 'components/layout/Loading';
 
 /**
- * Component: Soul details
+ * Soul details
  */
 export default function SoulDetail({ soul, sx }: any) {
-  if (!soul) return <></>;
+  const { account } = useContext(Web3Context);
+  const [isOwned, setIsOwned] = useState<boolean>(false);
+  useEffect(() => {
+    setIsOwned(
+      !!account && soul?.owner?.toLowerCase() === account?.toLowerCase(),
+    );
+  }, [soul, account]);
+
+  if (!soul) return <Loading />;
   return (
     <Box>
       <Box
@@ -31,7 +40,17 @@ export default function SoulDetail({ soul, sx }: any) {
             icon={<PersonOutlineOutlined />}
             sx={{ borderRadius: '50%' }}
           />
-          <SoulEditButton soul={soul} sx={{ mt: 2, width: 164 }} />
+          {isOwned && (
+            <Link href={`/souls/edit`} passHref>
+              <Button
+                size="small"
+                variant="outlined"
+                sx={{ mt: 2, width: 164 }}
+              >
+                Edit
+              </Button>
+            </Link>
+          )}
         </Box>
         <Box sx={{ flexGrow: 1, mt: { xs: 2, md: 0 }, ml: { md: 4 } }}>
           {/* <Chip label={`ID: ${soul.id}`} sx={{ height: '24px', mb: 1.5 }} /> */}
@@ -40,7 +59,7 @@ export default function SoulDetail({ soul, sx }: any) {
           </Typography>
           <AddressHash address={soul.owner} sx={{ mt: 1 }} />
           <SoulDescription soul={soul} sx={{ mt: 1 }} />
-          <SocialLinks soul={soul} sx={{ mt: 2 }} />
+          <SocialLinks key="SocialLinks" soul={soul} sx={{ mt: 2 }} />
           <Stack key="buttons" direction="row" spacing={2} sx={{ mt: 2 }}>
             <FundDialogButton address={soul.owner} />
           </Stack>
@@ -48,65 +67,4 @@ export default function SoulDetail({ soul, sx }: any) {
       </Box>
     </Box>
   );
-}
-
-function SoulDescription({ soul, sx }: any) {
-  const description = getAttribute(soul?.metadata?.attributes, 'Description');
-  if (description) {
-    return <Typography sx={{ ...sx }}>{description}</Typography>;
-  }
-  return <></>;
-}
-
-function SocialLinks({ soul, sx }: any): JSX.Element {
-  const email = getAttribute(soul?.metadata?.attributes, 'email');
-
-  return (
-    <Stack key="SocialLinks" direction="row" spacing={2} sx={{ ...sx }}>
-      {email && (
-        <MuiLink
-          key="email"
-          href={`mailto:${email}`}
-          title="Email"
-          target="_blank"
-        >
-          <MailOutlineRounded />
-        </MuiLink>
-      )}
-      {PROFILE_TRAITS.map((item: any, index: number) => {
-        const value = getAttribute(soul?.metadata?.attributes, item.label);
-        return !value ? (
-          <></>
-        ) : (
-          <MuiLink
-            key={item.name}
-            href={item.baseURL ? item.baseURL + value : value}
-            title={item.label}
-            target="_blank"
-          >
-            {item.icon}
-          </MuiLink>
-        );
-      })}
-    </Stack>
-  );
-}
-
-/**
- * Component: Soul Edit Button
- */
-function SoulEditButton({ soul, sx }: any) {
-  const { account } = useContext(Web3Context);
-
-  if (soul?.owner?.toLowerCase() === account?.toLowerCase()) {
-    return (
-      <Link href={`/souls/edit`} passHref>
-        <Button size="small" variant="outlined" sx={{ ...sx }}>
-          Edit
-        </Button>
-      </Link>
-    );
-  } else {
-    return <></>;
-  }
 }

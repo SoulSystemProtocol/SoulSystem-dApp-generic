@@ -141,13 +141,13 @@ function LawRules({ law, isCommentsEnabled, sx }: any): JSX.Element {
                       </Typography>
                     )}
                     <Typography sx={{ fontWeight: 'bold', mr: 1 }}>
-                      {rule?.rule?.uriData?.name || 'None Name'}
+                      {rule?.rule?.metadata?.name || 'None Name'}
                     </Typography>
                   </Box>
                   {/* Description */}
-                  {rule?.rule?.uriData?.description && (
+                  {rule?.rule?.metadata?.description && (
                     <Typography variant="body2" sx={{ mt: 0.3 }}>
-                      {rule.rule.uriData.description}
+                      {rule.rule.metadata.description}
                     </Typography>
                   )}
                 </Box>

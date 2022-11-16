@@ -27,14 +27,14 @@ export default function useAction() {
   let getActions = async function (guids: string[] = []) {
     const actionEntities = await findActionEntities(guids);
     // return actionEntities.map((action: any) => {
-    //   action.metadata = hexStringToJson(action.uriData);
+    //   action.metadata = hexStringToJson(action.metadata);
     //   return action;
     // })}
     let actions = [];
     console.log('[DEBUG] actionEntities', actionEntities);
     for (const action of actionEntities) {
       try {
-        action.metadata = hexStringToJson(action.uriData);
+        action.metadata = hexStringToJson(action.metadata);
         actions.push(action);
       } catch (error) {
         continue;

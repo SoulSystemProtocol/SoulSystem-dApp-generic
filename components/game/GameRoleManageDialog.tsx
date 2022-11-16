@@ -89,6 +89,10 @@ export default function GameRoleManageDialog({
       setIsLoading(true);
       if (formData.action === 'assignRole') {
         await assignRoleToSoul(dao.id, formData.soulId, formData.roleName);
+        // return await getGameContract(dao.id).roleAssignToToken(
+        //   token,
+        //   role,
+        // );
       } else {
         await removeRoleToSoul(dao.id, formData.soulId, formData.roleName);
       }

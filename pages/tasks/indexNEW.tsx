@@ -36,7 +36,7 @@ export default function TaskPage({}: any) {
   const listProps = {
     variables: {
       type: 'TASK',
-      role: 'BOUNTY',
+      role: 'bounty',
     },
     getCardContent: processCardContent,
     renderActions,

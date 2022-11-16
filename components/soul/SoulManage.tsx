@@ -31,7 +31,7 @@ export default function SoulManage({ soul }: any) {
   const { handleError } = useError();
   const { createSoul, editSoul } = useSoul();
   const [status, setStatus] = useState(STATUS.isAvailable);
-  const [formData, setFormData] = useState(soul?.uriData || {});
+  const [formData, setFormData] = useState(soul?.metadata || {});
 
   const schema: JSONSchema7 = {
     type: 'object',
@@ -82,7 +82,11 @@ export default function SoulManage({ soul }: any) {
       metadata.description = getAttribute(metadata?.attributes, 'Description');
       const { url: metadataUrl } = await uploadJsonToIPFS(metadata);
       // eslint-disable-next-line prettier/prettier
-      console.log("Saving Soul's Metadata", { formData, metadata, metadataUrl });
+      console.log("Saving Soul's Metadata", {
+        formData,
+        metadata,
+        metadataUrl,
+      });
       // Use contract
       setStatus(STATUS.isUsingContract);
       if (soul) {

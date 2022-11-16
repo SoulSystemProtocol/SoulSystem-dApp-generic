@@ -57,7 +57,7 @@ export default function RuleDisableDialog({
       <DialogContent>
         <Typography gutterBottom>
           Are you sure you want to mark as obsolete the rule &quot;
-          <b>{rule.rule?.uriData?.name || 'Unnamed rule'}</b>&quot;?
+          <b>{rule.rule?.metadata?.name || 'Unnamed rule'}</b>&quot;?
         </Typography>
         <Typography gutterBottom>This action cannot be undone.</Typography>
         <Stack direction="row" spacing={1} sx={{ mt: 3 }}>

@@ -11,7 +11,7 @@ export default function ProjectTaskListGQ(props: any) {
       claims(
         first: $first
         skip: $skip
-        where: { role: "BOUNTY", game: $game }
+        where: { role: "bounty", game: $game }
       ) {
         id
         name

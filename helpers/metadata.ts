@@ -1,5 +1,6 @@
 import { EditAttributesOutlined } from '@mui/icons-material';
 import _ from 'lodash';
+import { hexStringToJson } from 'utils/converters';
 
 /**
  * Get a trait value from metadata attributes.
@@ -36,4 +37,14 @@ export const attributeSet = (
     attributes[index] = value;
   }
   return attributes;
+};
+
+/**
+ * Normalize graph entity before use
+ */
+export const normalizeGraphEntity = (subgraphEntity: any): any => {
+  return {
+    ...subgraphEntity,
+    metadata: hexStringToJson(subgraphEntity.metadata),
+  };
 };
