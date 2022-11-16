@@ -1,13 +1,8 @@
-// import { useState } from 'react';
 import {
   PersonOutlineOutlined,
   SchoolOutlined,
   WorkOutlineOutlined,
   TaskAlt,
-  VolunteerActivism,
-  EmojiEmotions,
-  Festival,
-  GroupWork,
   AcUnit,
 } from '@mui/icons-material';
 import GitHubIcon from '@mui/icons-material/GitHub';
@@ -103,13 +98,15 @@ const footer_icons: { route: string; label: string; icon: JSX.Element }[] = [
   },
   {
     // eslint-disable-next-line prettier/prettier
-    route: 'https://virtualbrick.notion.site/Contracts-4e383eb032e34cd08d5f035dee2dd9bb',
+    route:
+      'https://virtualbrick.notion.site/Contracts-4e383eb032e34cd08d5f035dee2dd9bb',
     icon: <ArticleIcon />,
     label: 'Docs',
   },
   {
     // eslint-disable-next-line prettier/prettier
-    route: 'https://thegraph.com/hosted-service/subgraph/toledoroy/bountyprotocol',
+    route:
+      'https://thegraph.com/hosted-service/subgraph/toledoroy/solidify_mumbai',
     icon: <AcUnit />,
     label: 'SubGraph',
   },
