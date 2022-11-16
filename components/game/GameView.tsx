@@ -2,7 +2,7 @@ import { GAME_TYPE } from 'constants/contracts';
 import GameDetail from 'components/dao/GameDetail';
 import DaoTabs from 'components/dao/DaoTabs';
 import ProjectTabs from 'components/project/ProjectTabs';
-import useSoulByHash from 'hooks/UseSoulByHash';
+import useSoulByHash from 'hooks/useSoulByHash';
 // import useError from 'hooks/useError';
 
 /**
