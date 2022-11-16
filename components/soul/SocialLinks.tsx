@@ -21,11 +21,8 @@ export default function SocialLinks({ soul, sx }: any): JSX.Element {
       )}
       {PROFILE_TRAITS.map((item: any, index: number) => {
         const value = getAttribute(soul?.metadata?.attributes, item.label);
-        return !value ? (
-          <></>
-        ) : (
+        return !value ? null : (
           <Link
-            key={item.name}
             href={item.baseURL ? item.baseURL + value : value}
             title={item.label}
             target="_blank"
