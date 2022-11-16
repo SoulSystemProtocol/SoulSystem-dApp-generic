@@ -80,7 +80,7 @@ export default function Landing() {
         <Box>
           <Typography variant="h4" sx={{ mt: 4 }}>
             Featuring soul-systems - a cluster of composible primitives
-            structured around a soulbound contract that allows you to
+            structured around an SBT contract that allows you to
           </Typography>
           <ul>
             <li>Mint SBT profiles as wallet abstraction</li>
