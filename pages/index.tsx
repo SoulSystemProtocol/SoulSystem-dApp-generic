@@ -23,7 +23,7 @@ export default function Landing() {
 
   return (
     <Layout title={getPageTitle('Home')}>
-      <Box sx={{ width: '100%', minHeight: '100vh' }}>
+      <Box sx={{ width: '100%' }}>
         <Box sx={wrapperStyle}>
           <Typography
             gutterBottom
