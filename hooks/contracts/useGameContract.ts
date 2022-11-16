@@ -56,7 +56,7 @@ export default function useGameContract() {
     return await getGameContract(contractAddress).setContractURI(uri);
   }
   */
- 
+
   return {
     getGameContract,
     // setUri,
