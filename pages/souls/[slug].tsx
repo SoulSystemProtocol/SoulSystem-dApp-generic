@@ -109,7 +109,7 @@ export default function SoulDetailPage(): JSX.Element {
       </Box>
 
       <Box sx={{ my: 2 }}>
-        <Typography variant="h4">Services</Typography>
+        <Typography variant="h4">Works at</Typography>
         {soul?.id && (
           <SoulParts
             variables={{
@@ -141,7 +141,7 @@ export default function SoulDetailPage(): JSX.Element {
       </Box>
 
       <Box sx={{ my: 2 }}>
-        <Typography variant="h4">{GAME_NAME.project}</Typography>
+        <Typography variant="h4">Works on</Typography>
         {soul?.id && (
           // <SoulGames
           //   variables={{
