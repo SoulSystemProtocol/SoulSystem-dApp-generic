@@ -9,8 +9,18 @@ import {
 } from './converters';
 import { resolveLink } from 'helpers/IPFS';
 
+export interface CardItem {
+  id: string;
+  title: string;
+  label: string;
+  link: string;
+  imgSrc: string;
+  roles?: any[];
+  avatarIcon?: any;
+}
+
 // Item Processing Function
-export const soulCardContent = (item: any) => {
+export const soulCardContent = (item: any): CardItem => {
   let metadata = hexStringToJson(item.metadata);
 
   let ret = {
@@ -32,7 +42,7 @@ export const soulCardContent = (item: any) => {
 };
 
 // Game Card Processing
-export const gameCardContent = (item: any) => {
+export const gameCardContent = (item: any): CardItem => {
   let metadata = hexStringToJson(item.metadata);
   let ret = {
     id: item.id,
@@ -48,7 +58,7 @@ export const gameCardContent = (item: any) => {
 };
 
 // Process Card Processing
-export const processCardContent = (item: any) => {
+export const processCardContent = (item: any): CardItem => {
   let metadata = hexStringToJson(item.metadata);
   let ret = {
     id: item.id,
@@ -64,9 +74,9 @@ export const processCardContent = (item: any) => {
 };
 
 // Game Participant
-export const gamePartCardContent = (item: any) => {
+export const gamePartCardContent = (item: any): CardItem => {
   let metadata = hexStringToJson(item.entity.metadata);
-  console.log('Game Participant', { metadata, item });
+  // console.log('Game Participant', { metadata, item });
   let ret = {
     id: item.entity.id,
     imgSrc: resolveLink(metadata?.image),
@@ -79,8 +89,24 @@ export const gamePartCardContent = (item: any) => {
   return ret;
 };
 
+// Soul Part
+export const soulPartCardContent = (item: any): CardItem => {
+  let metadata = hexStringToJson(item.aEnd.metadata);
+  let ret = {
+    id: item.aEnd.id,
+    imgSrc: resolveLink(metadata?.image),
+    label: metadata?.description,
+    title: metadata?.name,
+    metadata,
+    link: `/game/${item.aEnd.owner}`,
+    roles: item?.roles,
+  };
+  // console.log('soulPartCardContent() Soul Part', { metadata, item, ret });
+  return ret;
+};
+
 // Task Participant
-export const taskPartCardContent = (item: any) => {
+export const taskPartCardContent = (item: any): CardItem => {
   let gameMetadata = hexStringToJson(item.entity.game.metadata);
   let metadata = hexStringToJson(item.entity.metadata);
   let ret = {

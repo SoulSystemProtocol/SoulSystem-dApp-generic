@@ -4,6 +4,7 @@ import { Box, Grid, Pagination, Typography } from '@mui/material';
 import { APP_CONFIGS } from '../constants';
 import Loader from './Loader';
 import DashboardCard from './DashboardCard';
+import { CardItem } from 'utils/cardContents';
 
 type TPaginatedList = {
   query: any;
@@ -11,7 +12,8 @@ type TPaginatedList = {
   baseRoute: string;
   subtitle: string;
   title: string;
-  getCardContent: (dataItem: any) => any;
+  getCardContent: (dataItem: any) => CardItem;
+  itemsProcessing: (items: any[]) => CardItem[];
   renderActions?: JSX.Element;
   entityName?: string;
   gridMD?: number;
@@ -27,7 +29,7 @@ const wrapperStyle = {
 };
 
 /**
- * Component for a paginated list
+ * Paginated list by GQL Query
  */
 export default function PaginatedList({
   query,
@@ -36,7 +38,8 @@ export default function PaginatedList({
   subtitle,
   title,
   renderActions,
-  getCardContent,
+  getCardContent = (item) => item,
+  itemsProcessing = (items) => items,
   entityName = 'souls',
   gridMD = 6,
   gridLG = 6,
@@ -44,30 +47,37 @@ export default function PaginatedList({
   const pageSize = APP_CONFIGS.PAGE_SIZE;
   const [currentPage, setCurrentPage] = useState(1);
   // const [currentPageCount, setCurrentPageCount] = useState(2); //Unknown End
-  const [items, setItems] = useState<Array<any>>([]);
+  const [items, setItems] = useState<Array<CardItem>>([]);
   const [first] = useState<number>(pageSize);
   const [skip, setSkip] = useState<number>(0);
 
   //TODO: Use Order
   const [orderBy, setOrderBy] = useState({ createdAt: 'desc' });
-
   const { data, loading, error } = useQuery(query, {
     variables: { ...variables, first, skip },
   });
 
   useEffect(() => {
-    if (error) console.error('PaginatedList() query failed', { data, error });
-    // else
-    //   console.log('PaginatedList() query ', {
-    //     data,
-    //     entityName,
-    //     entities: data?.[entityName],
-    //   });
-    setItems(data ? data?.[entityName] : []);
+    if (error) {
+      console.error('PaginatedList() query failed', { data, error, variables });
+      //Clear Items
+      setItems([]);
+    } else {
+      // console.log('PaginatedList() query ', {
+      //   data,
+      //   entityName,
+      //   variables,
+      //   entities: data?.[entityName],
+      // });
+      //Extract Items
+      let items = data ? data?.[entityName] : [];
+      //Process Items & Set
+      setItems(itemsProcessing(items));
+    }
   }, [data, error]);
 
   function pageChanged(page: number) {
-    // console.log('Set Page', page);
+    // console.log('[WIP] Set Page', page);
     setSkip(page == 1 ? 0 : (page - 1) * pageSize);
     data && setCurrentPage(page);
   }
@@ -100,7 +110,7 @@ export default function PaginatedList({
           ) : (
             <>
               {items.map((dataItem: any, index: number) => {
-                const cardData = getCardContent(dataItem);
+                const cardData: CardItem = getCardContent(dataItem);
                 return (
                   <Grid key={index} item xs={12} md={gridMD} lg={gridLG}>
                     <DashboardCard baseRoute={baseRoute} data={cardData} />
@@ -116,7 +126,7 @@ export default function PaginatedList({
           <Pagination
             color="primary"
             count={items?.length < first ? currentPage : currentPage + 1}
-            onChange={(_, page) => pageChanged(page)}
+            onChange={(_: any, page: number) => pageChanged(page)}
             page={currentPage}
             sx={{ mt: { xs: 2, md: 0 } }}
           />

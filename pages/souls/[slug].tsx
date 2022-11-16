@@ -10,12 +10,18 @@ import SoulProcs from 'components/soul/SoulProcs';
 import GameView from 'components/game/GameView';
 import { getPageTitle } from 'utils';
 import { GAME_DESC, GAME_NAME, GAME_TYPE } from 'constants/contracts';
-import { gamePartCardContent, taskPartCardContent } from 'utils/cardContents';
+import {
+  CardItem,
+  gamePartCardContent,
+  soulPartCardContent,
+  taskPartCardContent,
+} from 'utils/cardContents';
 import { Box, Typography } from '@mui/material';
 import SoulByIdQuery from 'queries/SoulByIdQuery';
 import { useQuery } from '@apollo/client';
 import DisplayPOAP from 'components/web3/DisplayPOAP';
 import { normalizeGraphEntity } from 'helpers/metadata';
+import SoulParts from 'components/soul/SoulParts';
 
 /**
  * Component: Single Soul Page
@@ -43,13 +49,13 @@ export default function SoulDetailPage(): JSX.Element {
     setSoul(data?.soul ? normalizeGraphEntity(data.soul) : null);
   }, [data, error]);
 
-  async function loadData() {
-    try {
-      setSoul(await getSoulById(slug as string));
-    } catch (error: any) {
-      handleError(error, true);
-    }
-  }
+  // async function loadData() {
+  //   try {
+  //     setSoul(await getSoulById(slug as string));
+  //   } catch (error: any) {
+  //     handleError(error, true);
+  //   }
+  // }
 
   // const soulMemberMDAOs = {
   //   variables: {
@@ -59,13 +65,13 @@ export default function SoulDetailPage(): JSX.Element {
   //   getCardContent: gamePartCardContent,
   // };
 
-  const soulMemberProjects = {
-    variables: {
-      id: soul?.id,
-      entRole: GAME_TYPE.project,
-    },
-    getCardContent: gamePartCardContent,
-  };
+  // const soulMemberProjects = {
+  //   variables: {
+  //     id: soul?.id,
+  //     entRole: GAME_TYPE.project,
+  //   },
+  //   getCardContent: gamePartCardContent,
+  // };
 
   // const soulMemberTasks = {
   //   variables: {
@@ -80,7 +86,7 @@ export default function SoulDetailPage(): JSX.Element {
     letterSpacing: '0.15em',
     fontSize: '0.8em',
     // marginRight: '0.7em',
-    margin: 'auto',
+    margin: 'auto 0',
     transform: 'rotate(180deg)',
   };
 
@@ -105,19 +111,73 @@ export default function SoulDetailPage(): JSX.Element {
       <Box sx={{ my: 2 }}>
         <Typography variant="h4">Services</Typography>
         {soul?.id && (
-          <SoulGames
+          <SoulParts
             variables={{
               id: soul?.id,
-              entRole: GAME_TYPE.mdao,
+              role: GAME_TYPE.mdao,
             }}
-            getCardContent={gamePartCardContent}
+            itemsProcessing={(items: any): CardItem[] => {
+              //Merge Participant Roles (SoulPartsQuery)
+              let outputs: any = {};
+              for (let item of items) {
+                //By Container
+                let elId = item.aEnd.id;
+                /* Role Names Only */
+                if (!outputs[elId]) {
+                  outputs[elId] = {
+                    id: item.id,
+                    aEnd: item.aEnd,
+                    roles: [],
+                  };
+                }
+                //Add Role
+                outputs[elId].roles.push(item.role);
+              }
+              return Object.values(outputs);
+            }}
+            getCardContent={soulPartCardContent}
           />
         )}
       </Box>
 
       <Box sx={{ my: 2 }}>
         <Typography variant="h4">{GAME_NAME.project}</Typography>
-        {soul?.id && <SoulGames {...soulMemberProjects} />}
+        {soul?.id && (
+          // <SoulGames
+          //   variables={{
+          //     id: soul?.id,
+          //     entRole: GAME_TYPE.project,
+          //     // role: GAME_TYPE.project,
+          //   }}
+          //   getCardContent={gamePartCardContent}
+          // />
+          <SoulParts
+            variables={{
+              id: soul?.id,
+              role: GAME_TYPE.project,
+            }}
+            itemsProcessing={(items: any): CardItem[] => {
+              //Merge Participant Roles (SoulPartsQuery)
+              let outputs: any = {};
+              for (let item of items) {
+                //By Container
+                let elId = item.aEnd.id;
+                /* Role Names Only */
+                if (!outputs[elId]) {
+                  outputs[elId] = {
+                    id: item.id,
+                    aEnd: item.aEnd,
+                    roles: [],
+                  };
+                }
+                //Add Role
+                outputs[elId].roles.push(item.role);
+              }
+              return Object.values(outputs);
+            }}
+            getCardContent={soulPartCardContent}
+          />
+        )}
       </Box>
 
       <Box sx={{ my: 2 }}>

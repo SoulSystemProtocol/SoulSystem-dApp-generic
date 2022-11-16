@@ -87,13 +87,14 @@ export default function Sidebar({
         <>
           {route ? (
             <ListItem
-              key={label}
+              key={'item' + label}
               disablePadding
               sx={{
                 display: 'block',
               }}
             >
               <Link
+                key={'link' + label}
                 href={route}
                 sx={{
                   display: 'block',
@@ -106,6 +107,7 @@ export default function Sidebar({
                 }}
               >
                 <ListItemButton
+                  key={'button' + label}
                   title={isOpen ? '' : label}
                   sx={{
                     minHeight: 48,
@@ -131,7 +133,7 @@ export default function Sidebar({
             </ListItem>
           ) : (
             <ListSubheader
-              key={label}
+              key={'sub' + label}
               sx={{
                 textAlign: 'center',
               }}

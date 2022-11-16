@@ -3,17 +3,12 @@ import Link from 'components/utils/Link';
 import { Box } from '@mui/system';
 import { capitalize } from 'lodash';
 import CardAvatar from './CardAvatar';
-import { cutoff, roleIdToName } from 'utils/converters';
+import { roleIdToName } from 'utils/converters';
+import { CardItem } from 'utils/cardContents';
 
 type TDashboardCard = {
   baseRoute: string;
-  data: any;
-};
-
-const wrappStyles = {
-  alignItems: 'center',
-  display: 'flex',
-  flexDirection: 'row',
+  data: CardItem;
 };
 
 /**
@@ -35,7 +30,10 @@ export default function DashboardCard({ baseRoute, data }: TDashboardCard) {
     return (
       <Card variant="outlined">
         <CardContent sx={{ p: '10px !important' }}>
-          <Stack direction="row" sx={wrappStyles}>
+          <Stack
+            direction="row"
+            sx={{ alignItems: 'center', display: 'flex', flexDirection: 'row' }}
+          >
             <CardAvatar imgSrc={imgSrc} avatarIcon={avatarIcon} link={link} />
             <Box sx={{ ml: 2, flex: 1, alignSelf: 'flex-start' }}>
               <Link href={link} underline="none">

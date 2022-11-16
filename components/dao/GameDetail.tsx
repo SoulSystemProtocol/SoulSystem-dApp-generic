@@ -16,7 +16,7 @@ import Link from 'components/utils/Link';
  */
 export default function GameDetail({ item: game, soul, sx }: any): JSX.Element {
   if (game) {
-    console.log('Game game:', game, soul);
+    // console.log('Game game:', game, soul);
     return (
       <Box
         sx={{
