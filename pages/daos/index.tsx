@@ -1,18 +1,19 @@
 import { useContext } from 'react';
 import { Button } from '@mui/material';
-import { DialogContext, IDialogParams } from 'contexts/dialog';
+import { DialogContext } from 'contexts/dialog';
 import { DataContext } from 'contexts/data';
 import { getPageTitle } from '../../utils';
 import DaoManageDialog from 'components/dao/DaoManageDialog';
 import Layout from 'components/layout/Layout';
 import SoulListGQ from 'components/soul/DAOListGQ';
-import { GAME_NAME, GAME_DESC } from 'constants/contracts';
+import { GAME_DESC } from 'constants/contracts';
 import { gameCardContent } from 'utils/cardContents';
+import { nameEntity } from 'hooks/utils';
 
 const CONF = {
-  PAGE_TITLE: GAME_NAME.dao,
-  TITLE: GAME_NAME.dao,
-  SUBTITLE: GAME_DESC.dao,
+  PAGE_TITLE: nameEntity('dao', true),
+  TITLE: nameEntity('dao', true),
+  SUBTITLE: "",
 };
 
 /**
@@ -20,7 +21,7 @@ const CONF = {
  */
 export default function DaosPage({}: any) {
   const { accountSoul } = useContext(DataContext);
-  const { showDialog, closeDialog } = useContext(DialogContext);
+  const { showDialog, closeDialog }: = useContext(DialogContext);
   // const { handleError } = useError();
 
   const renderActions = accountSoul && (

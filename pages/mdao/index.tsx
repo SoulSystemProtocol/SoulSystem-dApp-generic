@@ -6,12 +6,13 @@ import { getPageTitle } from '../../utils';
 import DaoManageDialog from 'components/dao/DaoManageDialog';
 import Layout from 'components/layout/Layout';
 import SoulListGQ from 'components/soul/DAOListGQ';
-import { GAME_NAME, GAME_DESC } from 'constants/contracts';
 import { gameCardContent } from 'utils/cardContents';
+import { nameEntity } from 'hooks/utils';
+import { GAME_DESC } from 'constants/contracts';
 
 const CONF = {
-  PAGE_TITLE: GAME_NAME.mdao,
-  TITLE: GAME_NAME.mdao,
+  PAGE_TITLE: nameEntity('mdao', true),
+  TITLE: nameEntity('mdao', true),
   SUBTITLE: GAME_DESC.mdao,
 };
 

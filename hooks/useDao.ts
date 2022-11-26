@@ -46,7 +46,7 @@ export default function useDao() {
     getDaos,
     getDaoById: (id: string) => getById(id, getDaos),
     getSoulsByRole,
-    isSoulHasRole: (dao: Dao, soul: string, roleId: string) =>
+    isSoulHasRole: (dao: Dao, soul: string, roleId: string): boolean =>
       getSoulsByRole(dao, roleId).includes(soul),
     leave,
     applyToJoin,

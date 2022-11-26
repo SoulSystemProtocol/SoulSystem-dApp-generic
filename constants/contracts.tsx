@@ -1,15 +1,20 @@
-export const GAME_NAME: any = {
-  dao: 'DAOs',
-  mdao: 'Service Pods',
-  project: 'Projects',
-  tasks: 'Quests',
-};
+import Link from 'components/utils/Link';
+import { nameEntity } from 'hooks/utils';
 
 export const GAME_DESC: any = {
   mdao: `Mentor DAOs consist of a mentor and mentees that work on bounties
   together, as a team.`,
-  project: '',
+  project: (
+    <>
+      Projects consume work to produce a product. Cordinating effort via{' '}
+      <Link href="/tasks/" sx={{ color: '#f8f8f8' }}>
+        {nameEntity('task', true)}
+      </Link>
+      .
+    </>
+  ),
   tasks: 'Quests are small tasks that can earn you a prize.',
+  dao: '',
 };
 
 export const SOUL_TYPE: any = {

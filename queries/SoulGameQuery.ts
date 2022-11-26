@@ -1,6 +1,8 @@
 import { gql } from '@apollo/client';
 
-//Soul Query - Role Optional
+/** [DEPRECATED]
+ * Soul Query - Role Optional
+ */
 const query = gql`
   query SoulGamesQuery($id: ID!, $entRole: String, $first: Int, $skip: Int) {
     gameParticipants(

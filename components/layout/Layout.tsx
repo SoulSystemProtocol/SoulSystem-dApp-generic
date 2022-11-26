@@ -16,7 +16,7 @@ import Header from './Header';
 import Sidebar from './Sidebar';
 import Footer from './Footer';
 import useLocalStorage from 'hooks/useLocalStorage';
-import { GAME_NAME } from 'constants/contracts';
+import { nameEntity } from 'hooks/utils';
 
 const top_links: any = [
   // ...((account && [{ label: 'Dashboards', route: 'daos' }]) || []),
@@ -39,7 +39,7 @@ const top_links: any = [
 const menu_side_links = [
   {
     route: '/souls',
-    label: 'SBT Profiles',
+    label: nameEntity('', true),
     icon: <PersonOutlineOutlined color="warning" />,
     hide: process.env.NEXT_PUBLIC_FEATURE_SOUL == 'false',
   },
@@ -48,23 +48,23 @@ const menu_side_links = [
   },
   // {
   //   route: '/daos',
-  //   label: GAME_NAME.dao,
+  //   label: nameEntity('DAO', true),
   //   icon: <GroupWork color="warning" />,
   // },
   {
     route: '/mdao',
-    label: GAME_NAME.mdao,
+    label: nameEntity('mdao', true),
     icon: <SchoolOutlined color="warning" />,
   },
   {
     route: '/projects',
-    label: GAME_NAME.project,
+    label: nameEntity('project', true),
     icon: <WorkOutlineOutlined color="warning" />,
     hide: process.env.NEXT_PUBLIC_FEATURE_PROJECT == 'false',
   },
   {
     route: '/tasks',
-    label: GAME_NAME.tasks,
+    label: nameEntity('task', true),
     icon: <TaskAlt color="warning" />,
     hide: process.env.NEXT_PUBLIC_FEATURE_SOUL == 'false',
   },

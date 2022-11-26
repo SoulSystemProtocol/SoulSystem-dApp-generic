@@ -13,6 +13,7 @@ import TaskApprovedDeliveries from 'components/task/TaskApprovedDeliveries';
 import GameComments from 'components/game/GameComments';
 import { getPageTitle } from 'utils';
 import { GAME_NAME } from 'constants/contracts';
+import { nameEntity } from 'hooks/utils';
 
 /**
  * Page with Task details.
@@ -43,7 +44,7 @@ export default function TaskDetailPage() {
   console.log('Loaded task: ', task);
 
   return (
-    <Layout title={getPageTitle(GAME_NAME.tasks)}>
+    <Layout title={getPageTitle(nameEntity('task', true))}>
       <TaskDetail item={task} />
       {task && <GameComments item={task} />}
       {task && <TaskApplications task={task} sx={{ mt: 2 }} />}

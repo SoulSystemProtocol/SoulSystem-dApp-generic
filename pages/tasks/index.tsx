@@ -6,16 +6,18 @@ import useTask from 'hooks/useTask';
 import { useEffect, useState } from 'react';
 import { getPageTitle } from 'utils';
 import Layout from '../../components/layout/Layout';
-import { GAME_NAME, GAME_DESC } from 'constants/contracts';
+import { nameEntity } from 'hooks/utils';
+import { GAME_DESC } from 'constants/contracts';
 
 const CONF = {
-  PAGE_TITLE: GAME_NAME.tasks,
-  TITLE: GAME_NAME.tasks,
-  SUBTITLE: GAME_DESC.tasks,
+  PAGE_TITLE: nameEntity('task', true),
+  TITLE: nameEntity('task', true),
+  SUBTITLE: GAME_DESC.task,
 };
 
 /**
  * Page for a list of Tasks
+ * @todo: Add pagination. Maybe use the SQL list component...
  */
 // eslint-disable-next-line prettier/prettier
 export default function TasksPage({}: any) {
@@ -53,14 +55,13 @@ export default function TasksPage({}: any) {
 
   useEffect(() => {
     loadData(1, 1);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <Layout title={getPageTitle(CONF.PAGE_TITLE)}>
       <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
         <Box>
-          <Typography variant="h5">{CONF.PAGE_TITLE}</Typography>
+          <Typography variant="h1">{CONF.PAGE_TITLE}</Typography>
           <Typography variant="subtitle1">{CONF.SUBTITLE}</Typography>
         </Box>
       </Box>

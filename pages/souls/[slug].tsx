@@ -5,14 +5,13 @@ import useSoul from 'hooks/useSoul';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { soulToFirstLastNameString } from 'utils/converters';
-import SoulGames from 'components/soul/SoulGames';
+// import SoulGames from 'components/soul/SoulGames';
 import SoulProcs from 'components/soul/SoulProcs';
 import GameView from 'components/game/GameView';
 import { getPageTitle } from 'utils';
-import { GAME_DESC, GAME_NAME, GAME_TYPE } from 'constants/contracts';
+import { GAME_DESC, GAME_TYPE } from 'constants/contracts';
 import {
   CardItem,
-  gamePartCardContent,
   soulPartCardContent,
   taskPartCardContent,
 } from 'utils/cardContents';
@@ -22,6 +21,7 @@ import { useQuery } from '@apollo/client';
 import DisplayPOAP from 'components/web3/DisplayPOAP';
 import { normalizeGraphEntity } from 'helpers/metadata';
 import SoulParts from 'components/soul/SoulParts';
+import { nameEntity } from 'hooks/utils';
 
 /**
  * Component: Single Soul Page
@@ -181,7 +181,7 @@ export default function SoulDetailPage(): JSX.Element {
       </Box>
 
       <Box sx={{ my: 2 }}>
-        <Typography variant="h4">{GAME_NAME.tasks}</Typography>
+        <Typography variant="h4">{nameEntity('task', true)}</Typography>
         {soul?.id && (
           <SoulProcs
             variables={{

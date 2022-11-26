@@ -11,6 +11,7 @@ import EntityImage from 'components/entity/EntityImage';
 import SoulDescription from './SoulDescription';
 import SocialLinks from './SocialLinks';
 import Loading from 'components/layout/Loading';
+import { nameEntity } from 'hooks/utils';
 
 /**
  * Soul details
@@ -64,7 +65,7 @@ export default function SoulDetail({ soul, sx }: any) {
           <Stack key="buttons" direction="row" spacing={2} sx={{ mt: 2 }}>
             <FundDialogButton
               address={soul.owner}
-              text={soul.role == '' ? 'Fund Buidler' : undefined}
+              text={'Fund ' + nameEntity(soul.role)}
             />
           </Stack>
         </Box>
