@@ -64,7 +64,11 @@ function DaoApplicationGridItem({ dao, nomination }: any) {
 
   async function loadData() {
     try {
-      setIsSoulAdmin(isSoulHasRole(dao, accountSoul.id, GAME_ROLE.admin.id));
+      setIsSoulAdmin(
+        dao && accountSoul
+          ? isSoulHasRole(dao, accountSoul.id, GAME_ROLE.admin.id)
+          : false,
+      );
       const soul = await getSoulById(nomination.nominated.id);
       if (soul) {
         setNominatedSoul(soul);
@@ -97,10 +101,7 @@ function DaoApplicationGridItem({ dao, nomination }: any) {
     setIsSoulAdmin(false);
     setNominatedSoul(null);
     // setIsNominatedSoulMember(false); //Seems Redundant
-    if (dao && nomination) {
-      loadData();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    if (dao && nomination) loadData();
   }, [accountSoul, dao, nomination]);
 
   if (nominatedSoul && !isNominatedSoulMember) {
