@@ -1,6 +1,7 @@
-import { POST_HOG_EVENT, POST_HOG_PROPERTY } from 'constants/analytics';
-import { IS_LOCALHOST_ANALYTICS_DISABLED } from 'constants/features';
 import posthog from 'posthog-js';
+import { POST_HOG_EVENT, POST_HOG_PROPERTY } from 'constants/analytics';
+// import { IS_LOCALHOST_ANALYTICS_DISABLED } from 'constants/features';
+const IS_LOCALHOST_ANALYTICS_DISABLED = false;
 
 export function isAnalyticsEnabled() {
   const isLocalhost =
@@ -37,7 +38,7 @@ export function handlePageViewEvent() {
  *
  * @param {string} account Account address.
  */
-export function handleConnectAccountEvent(account) {
+export function handleConnectAccountEvent(account: string) {
   if (isAnalyticsEnabled()) {
     posthog.capture(POST_HOG_EVENT.connectedAccount, {
       [POST_HOG_PROPERTY.account]: account.toLowerCase(),
@@ -48,10 +49,8 @@ export function handleConnectAccountEvent(account) {
 
 /**
  * Handle error.
- *
- * @param {Error} error Error object.
  */
-export function handleCatchErrorEvent(error, additional = {}) {
+export function handleCatchErrorEvent(error: Error, additional = {}) {
   if (isAnalyticsEnabled()) {
     posthog.capture(POST_HOG_EVENT.catchedError, {
       [POST_HOG_PROPERTY.errorMessage]: error?.message,
@@ -91,7 +90,11 @@ export function handleCreateCaseEvent() {
 /**
  * Handle nominate to case event.
  */
-export function handleNominateToCaseEvent(caseId, nominated, role) {
+export function handleNominateToCaseEvent(
+  caseId: string,
+  nominated: string,
+  role: string,
+) {
   if (isAnalyticsEnabled()) {
     posthog.capture(POST_HOG_EVENT.nominatedToCase, {
       [POST_HOG_PROPERTY.case]: caseId,
@@ -106,7 +109,7 @@ export function handleNominateToCaseEvent(caseId, nominated, role) {
  *
  * @param {string} caseId Case id (address).
  */
-export function handleAddCaseEvidenceEvent(caseId) {
+export function handleAddCaseEvidenceEvent(caseId: string) {
   if (isAnalyticsEnabled()) {
     posthog.capture(POST_HOG_EVENT.addedCaseEvidence, {
       [POST_HOG_PROPERTY.case]: caseId,
@@ -119,7 +122,7 @@ export function handleAddCaseEvidenceEvent(caseId) {
  *
  * @param {string} caseId Case id (address).
  */
-export function handleCommentCaseEvent(caseId) {
+export function handleCommentCaseEvent(caseId: string) {
   if (isAnalyticsEnabled()) {
     posthog.capture(POST_HOG_EVENT.commentedCase, {
       [POST_HOG_PROPERTY.case]: caseId,
@@ -132,7 +135,7 @@ export function handleCommentCaseEvent(caseId) {
  *
  * @param {string} caseId Case id (address).
  */
-export function handleConfirmCaseEvent(caseId) {
+export function handleConfirmCaseEvent(caseId: string) {
   if (isAnalyticsEnabled()) {
     posthog.capture(POST_HOG_EVENT.confirmedCase, {
       [POST_HOG_PROPERTY.case]: caseId,
@@ -145,7 +148,7 @@ export function handleConfirmCaseEvent(caseId) {
  *
  * @param {string} caseId Case id (address).
  */
-export function handleMakeCaseVerdictEvent(caseId) {
+export function handleMakeCaseVerdictEvent(caseId: string) {
   if (isAnalyticsEnabled()) {
     posthog.capture(POST_HOG_EVENT.madeCaseVerdict, {
       [POST_HOG_PROPERTY.case]: caseId,
@@ -155,10 +158,8 @@ export function handleMakeCaseVerdictEvent(caseId) {
 
 /**
  * Handle cancel case event.
- *
- * @param {string} caseId Case id (address).
  */
-export function handleCancelCaseEvent(caseId) {
+export function handleCancelCaseEvent(caseId: string) {
   if (isAnalyticsEnabled()) {
     posthog.capture(POST_HOG_EVENT.canceledCase, {
       [POST_HOG_PROPERTY.case]: caseId,
@@ -168,10 +169,8 @@ export function handleCancelCaseEvent(caseId) {
 
 /**
  * Handle join jurisdiction event.
- *
- * @param {string} jurisdiction Jurisdiction address.
  */
-export function handleJoinJurisdictionEvent(jurisdiction) {
+export function handleJoinJurisdictionEvent(jurisdiction: string) {
   if (isAnalyticsEnabled()) {
     posthog.capture(POST_HOG_EVENT.joinedJurisdiction, {
       [POST_HOG_PROPERTY.jurisdiction]: jurisdiction,
@@ -181,10 +180,8 @@ export function handleJoinJurisdictionEvent(jurisdiction) {
 
 /**
  * Handle leave jurisdiction event.
- *
- * @param {string} jurisdiction Jurisdiction address.
  */
-export function handleLeaveJurisdictionEvent(jurisdiction) {
+export function handleLeaveJurisdictionEvent(jurisdiction: string) {
   if (isAnalyticsEnabled()) {
     posthog.capture(POST_HOG_EVENT.leftJurisdiction, {
       [POST_HOG_PROPERTY.jurisdiction]: jurisdiction,
@@ -203,10 +200,8 @@ export function handleMakeJurisdiction() {
 
 /**
  * Handle set jurisdiction uri event.
- *
- * @param {string} jurisdiction Jurisdiction address.
  */
-export function handleSetJurisdictionUri(jurisdiction) {
+export function handleSetJurisdictionUri(jurisdiction: string) {
   if (isAnalyticsEnabled()) {
     posthog.capture(POST_HOG_EVENT.setJurisdictionUri, {
       [POST_HOG_PROPERTY.jurisdiction]: jurisdiction,
