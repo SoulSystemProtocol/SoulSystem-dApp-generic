@@ -1,3 +1,7 @@
+interface CTXEntity {
+  roles: [{ id: string; roleId: string; name: string; souls: string[] }];
+}
+
 /**
  * Helper method to get item by id
  */
@@ -28,3 +32,24 @@ export const nameEntity = function (
   console.log('[DEV] Naming Entity: ', entName);
   return plural ? 'Entities' : 'Entity';
 };
+
+/**
+ * Get all the roles a soul is assigned to
+ */
+export const getSoulsByRole = (
+  ctx: CTXEntity,
+  roleName: string,
+): Array<string> => {
+  return (
+    ctx.roles?.find((element: any) => element?.name === roleName)?.souls || []
+  );
+};
+
+/**
+ * Check if a Soul Has a Role in a certain Context
+ */
+export const isSoulHasRole = (
+  ctx: CTXEntity,
+  soulId: string,
+  roleName: string,
+): boolean => getSoulsByRole(ctx, roleName).includes(soulId);

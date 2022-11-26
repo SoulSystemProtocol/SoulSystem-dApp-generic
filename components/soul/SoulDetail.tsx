@@ -1,5 +1,5 @@
-import { MailOutlineRounded, PersonOutlineOutlined } from '@mui/icons-material';
-import { Button, Stack, Typography, Link as MuiLink } from '@mui/material';
+import { PersonOutlineOutlined } from '@mui/icons-material';
+import { Button, Stack, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import { Web3Context } from 'contexts/Web3Context';
 import Link from 'next/link';

@@ -23,6 +23,7 @@ import useDao from 'hooks/useDao';
 import useError from 'hooks/useError';
 import useTask from 'hooks/useTask';
 import useToast from 'hooks/useToast';
+import { isSoulHasRole } from 'hooks/utils';
 import Link from 'next/link';
 import { useContext, useEffect, useState } from 'react';
 import TaskPostDeliveryDialog from './TaskPostDeliveryDialog';
@@ -85,7 +86,7 @@ function TaskPostedDelivery({ task, post }: any) {
   const { handleError } = useError();
   const { showToastSuccess } = useToast();
   const { getDaoById } = useDao();
-  const { isSoulHasRole, approveSoulDelivery } = useTask();
+  const { approveSoulDelivery } = useTask();
   const [postDao, setPostDao] = useState<Dao | null>(null);
   const [isProcessing, setIsProcessing] = useState(false);
   const [isProcessed, setIsProcessed] = useState(false);
@@ -129,7 +130,8 @@ function TaskPostedDelivery({ task, post }: any) {
           </MuiLink>
           {task.stage !== CLAIM_STAGE.closed &&
             accountSoul &&
-            isSoulHasRole(task, accountSoul.id, CLAIM_ROLE.admin.id) && (
+            // isSoulHasRole(task, accountSoul.id, CLAIM_ROLE.admin.id) && (
+            isSoulHasRole(task, accountSoul.id, 'admin') && (
               <Box>
                 {isProcessed ? (
                   <></>

@@ -2,24 +2,29 @@ import { Web3Context } from 'contexts/Web3Context';
 import contractAbi from 'contracts/abi/Game.json';
 import WrongNetworkError from 'errors/WrongNetworkError';
 import { Contract } from 'ethers';
+import useContract from 'hooks/useContract';
 import { useContext } from 'react';
 
 /**
  * Hook for work with game contract.
  */
 export default function useGameContract() {
-  const { provider, isNetworkChainIdCorrect } = useContext(Web3Context);
+  // const { provider, isNetworkChainIdCorrect } = useContext(Web3Context);
+  const { getContractGame } = useContract();
 
   function getGameContract(address: string) {
+    /*
     if (!isNetworkChainIdCorrect) {
       throw new WrongNetworkError();
     }
     return new Contract(address, contractAbi, provider?.getSigner());
+    */
+    return getContractGame(address);
   }
 
-  async function leave(contractAddress: string) {
-    return await getGameContract(contractAddress).leave();
-  }
+  // async function leave(contractAddress: string) {
+  //   return await getGameContract(contractAddress).leave();
+  // }
 
   async function nominate(
     contractAddress: string,
@@ -60,7 +65,7 @@ export default function useGameContract() {
   return {
     getGameContract,
     // setUri,
-    leave,
+    // leave,
     nominate,
     assignRole,
     removeRole,

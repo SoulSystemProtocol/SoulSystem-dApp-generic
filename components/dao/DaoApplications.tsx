@@ -13,7 +13,7 @@ import { SoulDetails, SoulImage } from 'components/soul/SoulCard';
 import { GAME_ROLE } from 'constants/contracts';
 import { DataContext } from 'contexts/data';
 import useDao from 'hooks/useDao';
-// import useContract from 'hooks/useContract';
+import useContract from 'hooks/useContract';
 import useError from 'hooks/useError';
 import useSoul from 'hooks/useSoul';
 import useToast from 'hooks/useToast';
@@ -55,7 +55,10 @@ function DaoApplicationGridItem({ dao, nomination }: any) {
   const { handleError } = useError();
   const { showToastSuccess } = useToast();
   const { getSoulById } = useSoul();
-  const { isSoulHasRole, assignRoleToSoul } = useDao();
+
+  const { isSoulHasRole } = useDao();
+  const { getContractGame } = useContract();
+
   const [isSoulAdmin, setIsSoulAdmin] = useState(false);
   const [nominatedSoul, setNominatedSoul] = useState<Soul | null>(null);
   const [isNominatedSoulMember, setIsNominatedSoulMember] = useState(false);
@@ -85,7 +88,12 @@ function DaoApplicationGridItem({ dao, nomination }: any) {
     try {
       setIsProcessing(true);
       if (nominatedSoul) {
-        await assignRoleToSoul(dao.id, nominatedSoul.id, GAME_ROLE.member.name);
+        // await assignRoleToSoul(dao.id, nominatedSoul.id, GAME_ROLE.member.name);
+        await getContractGame(dao.id).roleAssignToToken(
+          nominatedSoul.id,
+          'member',
+        );
+        setIsProcessed(true);
       }
       showToastSuccess('Success! Data will be updated soon');
       //Trigger Data Reload

@@ -14,8 +14,8 @@ export default function useDao() {
   const {
     // getGameContract,
     // setUri,
-    leave,
-    nominate: applyToJoin,
+    // leave,
+    // nominate: applyToJoin,
     assignRole,
     removeRole,
   } = useGameContract();
@@ -48,8 +48,8 @@ export default function useDao() {
     getSoulsByRole,
     isSoulHasRole: (dao: Dao, soul: string, roleId: string): boolean =>
       getSoulsByRole(dao, roleId).includes(soul),
-    leave,
-    applyToJoin,
+    // leave,
+    // applyToJoin,
     assignRoleToSoul: assignRole,
     removeRoleToSoul: removeRole,
   };

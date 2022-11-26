@@ -35,16 +35,15 @@ export default function useTask() {
     );
   };
 
-  let isSoulHasRole = function (
+  const isSoulHasRole = function (
     task: Task,
     soul: string,
     roleId: string,
   ): boolean {
-    // console.log('[DEBUG] isSoulHasRole', {roleId, soul, soulsInRole:getSoulsByRole(task, roleId), ret:getSoulsByRole(task, roleId).includes(soul)})
     return getSoulsByRole(task, roleId).includes(soul);
   };
 
-  let getSoulsByRole = function (task: Task, roleId: string): Array<string> {
+  const getSoulsByRole = function (task: Task, roleId: string): Array<string> {
     const taskRole = task.roles?.find(
       (element: any) => element?.roleId === roleId,
     );
@@ -52,23 +51,23 @@ export default function useTask() {
     return taskRole?.souls || [];
   };
 
-  let applyForTaskAsDao = async function (taskId: string, daoId: string) {
+  const applyForTaskAsDao = async function (taskId: string, daoId: string) {
     return applyToTask(daoId, taskId, '');
   };
 
-  let acceptSoulForTask = async function (taskId: string, soulId: string) {
+  const acceptSoulForTask = async function (taskId: string, soulId: string) {
     return acceptApplicant(taskId, soulId);
   };
 
-  let approveSoulDelivery = async function (taskId: string, soulId: string) {
+  const approveSoulDelivery = async function (taskId: string, soulId: string) {
     return deliveryApprove(taskId, soulId);
   };
 
-  let disburseFundsToWinners = async function (taskId: string) {
+  const disburseFundsToWinners = async function (taskId: string) {
     return stageExecusion(taskId, []);
   };
 
-  let getFund = async function (taskId: string) {
+  const getFund = async function (taskId: string) {
     const balance = await defaultProvider.getBalance(taskId);
     return ethers.utils.formatEther(balance);
   };

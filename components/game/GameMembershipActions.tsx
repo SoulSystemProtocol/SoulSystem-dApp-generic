@@ -4,7 +4,9 @@ import { Button, Stack, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import { GAME_ROLE } from 'constants/contracts';
 import { DataContext } from 'contexts/data';
-import useDao from 'hooks/useDao';
+import useContract from 'hooks/useContract';
+// import useDao from 'hooks/useDao';
+import { isSoulHasRole } from 'hooks/utils';
 import useError from 'hooks/useError';
 import useToast from 'hooks/useToast';
 import { useContext, useEffect, useState } from 'react';
@@ -13,7 +15,8 @@ export default function GameMembershipActions({ dao, sx }: any) {
   const { accountSoul } = useContext(DataContext);
   const { handleError } = useError();
   const { showToastSuccess } = useToast();
-  const { leave, applyToJoin, isSoulHasRole } = useDao();
+  // const { isSoulHasRole } = useDao();
+  const { getContractGame } = useContract();
   const [isSoulMember, setIsSoulMember] = useState(false);
   const [isSoulSentApplication, setIsSoulSentApplication] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
@@ -23,9 +26,9 @@ export default function GameMembershipActions({ dao, sx }: any) {
     try {
       setIsProcessing(true);
       if (isSoulMember) {
-        await leave(dao.id);
+        await getContractGame(dao.id).leave();
       } else {
-        await applyToJoin(dao.id, accountSoul.id, '');
+        await getContractGame(dao.id).nominate(accountSoul.id, '');
       }
       showToastSuccess('Success! Data will be updated soon');
       setIsProcessed(true);
@@ -40,7 +43,10 @@ export default function GameMembershipActions({ dao, sx }: any) {
     setIsSoulMember(false);
     setIsSoulSentApplication(false);
     if (accountSoul && dao) {
-      setIsSoulMember(isSoulHasRole(dao, accountSoul.id, GAME_ROLE.member.id));
+      setIsSoulMember(
+        // isSoulHasRole(dao, accountSoul.id, GAME_ROLE.member.id)
+        isSoulHasRole(dao, accountSoul.id, 'member'),
+      );
       const nominatedSouls = dao.nominations.map(
         (nomination: any) => nomination.nominated.id,
       );
