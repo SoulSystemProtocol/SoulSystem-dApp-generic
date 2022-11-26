@@ -1,4 +1,6 @@
-//Export General Helper
+/**
+ * General Helper Functions
+ */
 export const __ = {
   sanitize: (str: string) => {
     try {
