@@ -1,19 +1,19 @@
 import { useContext } from 'react';
 import { Button } from '@mui/material';
-import { DialogContext, IDialogParams } from 'contexts/dialog';
+import { DialogContext } from 'contexts/dialog';
 import { DataContext } from 'contexts/data';
 import { getPageTitle } from '../../utils';
 import ProjectManageDialog from 'components/project/ProjectManageDialog';
 import Layout from 'components/layout/Layout';
-// import SoulListGQ from 'components/soul/ProcessListGQ';
-// import SoulListGQ from 'components/soul/DAOListGQ';
 import SoulListGQ from 'components/soul/SoulListGQ';
 import { processCardContent } from 'utils/cardContents';
+import { GAME_DESC } from 'constants/contracts';
+import { nameEntity } from 'hooks/utils';
 
 const CONF = {
-  PAGE_TITLE: 'Quests',
-  TITLE: 'Quests',
-  SUBTITLE: `Quests are tasks that need to be explored.`,
+  PAGE_TITLE: nameEntity('task', true),
+  TITLE: nameEntity('task', true),
+  SUBTITLE: GAME_DESC.task,
 };
 
 /**

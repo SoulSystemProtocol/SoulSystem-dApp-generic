@@ -13,7 +13,7 @@ import { nameEntity } from 'hooks/utils';
 const CONF = {
   PAGE_TITLE: nameEntity('dao', true),
   TITLE: nameEntity('dao', true),
-  SUBTITLE: "",
+  SUBTITLE: GAME_DESC.dao,
 };
 
 /**
@@ -21,7 +21,7 @@ const CONF = {
  */
 export default function DaosPage({}: any) {
   const { accountSoul } = useContext(DataContext);
-  const { showDialog, closeDialog }: = useContext(DialogContext);
+  const { showDialog, closeDialog } = useContext(DialogContext);
   // const { handleError } = useError();
 
   const renderActions = accountSoul && (

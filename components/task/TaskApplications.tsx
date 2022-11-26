@@ -9,8 +9,6 @@ import {
   List,
   ListItem,
   ListItemAvatar,
-  ListSubheader,
-  Stack,
   Typography,
 } from '@mui/material';
 import Dao from 'classes/Dao';
@@ -21,7 +19,7 @@ import {
   SOUL_TYPE,
 } from 'constants/contracts';
 import { DataContext } from 'contexts/data';
-import { DialogContext, IDialogParams } from 'contexts/dialog';
+import { DialogContext } from 'contexts/dialog';
 import useError from 'hooks/useError';
 import useToast from 'hooks/useToast';
 import useTask from 'hooks/useTask';

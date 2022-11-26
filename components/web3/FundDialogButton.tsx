@@ -1,5 +1,5 @@
 import { Button } from '@mui/material';
-import { DialogContext, IDialogParams } from 'contexts/dialog';
+import { DialogContext } from 'contexts/dialog';
 import { useContext } from 'react';
 import FundDialog from 'components/task/FundDialog';
 
