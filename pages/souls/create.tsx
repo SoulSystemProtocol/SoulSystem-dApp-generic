@@ -1,5 +1,5 @@
 import Layout from 'components/layout/Layout';
-import SoulManage from 'components/soul/SoulManage';
+import SoulManage from 'components/entity/soul/SoulManage';
 
 /**
  * Page where account can create soul.

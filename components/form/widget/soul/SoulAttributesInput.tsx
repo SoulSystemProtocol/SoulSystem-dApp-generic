@@ -8,7 +8,7 @@ import {
 import { Box } from '@mui/system';
 import { WidgetProps } from '@rjsf/core';
 import { PROFILE_TRAIT_TYPE } from 'constants/metadata';
-import { PROFILE_TRAITS } from 'components/soul/ProfileTraits';
+import { PROFILE_TRAITS } from 'components/entity/soul/ProfileTraits';
 import { useEffect, useState } from 'react';
 import { getAttribute, attributeSet } from 'helpers/metadata';
 import _ from 'lodash';

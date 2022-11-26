@@ -7,8 +7,8 @@ import AccountBalance from 'components/web3/AccountBalance';
 import FundDialogButton from 'components/web3/FundDialogButton';
 import GameMembershipActions from 'components/entity/game/GameMembershipActions';
 import { GAME_TYPE } from 'constants/contracts';
-import SoulDescription from 'components/soul/SoulDescription';
-import SocialLinks from 'components/soul/SocialLinks';
+import SoulDescription from 'components/entity/soul/SoulDescription';
+import SocialLinks from 'components/entity/soul/SocialLinks';
 import Link from 'components/utils/Link';
 
 /**

@@ -1,12 +1,12 @@
 import Layout from 'components/layout/Layout';
-import SoulDetail from 'components/soul/SoulDetail';
+import SoulDetail from 'components/entity/soul/SoulDetail';
 import useError from 'hooks/useError';
 import useSoul from 'hooks/useSoul';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { soulToFirstLastNameString } from 'utils/converters';
 // import SoulGames from 'components/soul/SoulGames';
-import SoulProcs from 'components/soul/SoulProcs';
+import SoulProcs from 'components/entity/soul/SoulProcs';
 import GameView from 'components/entity/game/GameView';
 import { getPageTitle } from 'utils';
 import { GAME_DESC, GAME_TYPE } from 'constants/contracts';
@@ -20,7 +20,7 @@ import SoulByIdQuery from 'queries/SoulByIdQuery';
 import { useQuery } from '@apollo/client';
 import DisplayPOAP from 'components/web3/DisplayPOAP';
 import { normalizeGraphEntity } from 'helpers/metadata';
-import SoulParts from 'components/soul/SoulParts';
+import SoulParts from 'components/entity/soul/SoulParts';
 import { nameEntity } from 'hooks/utils';
 
 /**

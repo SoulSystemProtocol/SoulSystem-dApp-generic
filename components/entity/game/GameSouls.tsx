@@ -1,6 +1,6 @@
 import { Box } from '@mui/material';
 import Soul from 'classes/Soul';
-import SoulList from 'components/soul/SoulList';
+import SoulList from 'components/entity/soul/SoulList';
 import { GAME_ROLE, SOUL_TYPE } from 'constants/contracts';
 import useDao from 'hooks/useDao';
 import useError from 'hooks/useError';

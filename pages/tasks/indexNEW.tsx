@@ -5,7 +5,7 @@ import { DataContext } from 'contexts/data';
 import { getPageTitle } from '../../utils';
 import ProjectManageDialog from 'components/project/ProjectManageDialog';
 import Layout from 'components/layout/Layout';
-import SoulListGQ from 'components/soul/SoulListGQ';
+import SoulListGQ from 'components/entity/soul/SoulListGQ';
 import { processCardContent } from 'utils/cardContents';
 import { GAME_DESC } from 'constants/contracts';
 import { nameEntity } from 'hooks/utils';

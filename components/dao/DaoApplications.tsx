@@ -9,7 +9,7 @@ import {
   Typography,
 } from '@mui/material';
 import Soul from 'classes/Soul';
-import { SoulDetails, SoulImage } from 'components/soul/SoulCard';
+import { SoulDetails, SoulImage } from 'components/entity/soul/SoulCard';
 import { GAME_ROLE } from 'constants/contracts';
 import { DataContext } from 'contexts/data';
 import useDao from 'hooks/useDao';
