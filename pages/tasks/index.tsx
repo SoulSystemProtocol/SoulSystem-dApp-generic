@@ -1,6 +1,6 @@
 import { Box, Pagination, Typography } from '@mui/material';
 import Task from 'classes/Task';
-import TaskList from 'components/task/TaskList';
+import TaskList from 'components/entity/task/TaskList';
 import useError from 'hooks/useError';
 import useTask from 'hooks/useTask';
 import { useEffect, useState } from 'react';

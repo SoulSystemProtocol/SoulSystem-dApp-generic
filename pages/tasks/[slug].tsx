@@ -1,15 +1,15 @@
 import Task from 'classes/Task';
 import Layout from 'components/layout/Layout';
-import TaskDetail from 'components/task/TaskDetail';
+import TaskDetail from 'components/entity/task/TaskDetail';
 import useError from 'hooks/useError';
 import useTask from 'hooks/useTask';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
-import TaskApplications from 'components/task/TaskApplications';
-import TaskAcceptedApplications from 'components/task/TaskAcceptedApplications';
-import TaskPostedDeliveries from 'components/task/TaskPostedDeliveries';
-import TaskApprovedDeliveries from 'components/task/TaskApprovedDeliveries';
+import TaskApplications from 'components/entity/task/TaskApplications';
+import TaskAcceptedApplications from 'components/entity/task/TaskAcceptedApplications';
+import TaskPostedDeliveries from 'components/entity/task/TaskPostedDeliveries';
+import TaskApprovedDeliveries from 'components/entity/task/TaskApprovedDeliveries';
 import GameComments from 'components/entity/game/GameComments';
 import { getPageTitle } from 'utils';
 import { GAME_NAME } from 'constants/contracts';

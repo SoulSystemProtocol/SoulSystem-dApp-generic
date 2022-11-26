@@ -1,6 +1,6 @@
 import { Button } from '@mui/material';
 import { Box } from '@mui/system';
-import TaskManageDialog from 'components/task/TaskManageDialog';
+import TaskManageDialog from 'components/entity/task/TaskManageDialog';
 import { GAME_ROLE } from 'constants/contracts';
 import { DataContext } from 'contexts/data';
 import { DialogContext } from 'contexts/dialog';

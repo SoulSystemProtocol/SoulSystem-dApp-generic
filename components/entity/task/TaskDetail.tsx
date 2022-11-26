@@ -5,7 +5,7 @@ import useTask from 'hooks/useTask';
 import useDao from 'hooks/useDao';
 import useContract from 'hooks/useContract';
 import { taskStageToString } from 'utils/converters';
-import EntityImage from '../entity/EntityImage';
+import EntityImage from '../EntityImage';
 import { CLAIM_STAGE, GAME_ROLE } from 'constants/contracts';
 import AddressHash from 'components/web3/AddressHash';
 import { DataContext } from 'contexts/data';
