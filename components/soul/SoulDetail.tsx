@@ -25,6 +25,7 @@ export default function SoulDetail({ soul, sx }: any) {
   }, [soul, account]);
 
   if (!soul) return <Loading />;
+
   return (
     <Box>
       <Box
@@ -61,7 +62,10 @@ export default function SoulDetail({ soul, sx }: any) {
           <SoulDescription soul={soul} sx={{ mt: 1 }} />
           <SocialLinks key="SocialLinks" soul={soul} sx={{ mt: 2 }} />
           <Stack key="buttons" direction="row" spacing={2} sx={{ mt: 2 }}>
-            <FundDialogButton address={soul.owner} />
+            <FundDialogButton
+              address={soul.owner}
+              text={soul.role == '' ? 'Fund Buidler' : undefined}
+            />
           </Stack>
         </Box>
       </Box>

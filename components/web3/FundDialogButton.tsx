@@ -9,6 +9,7 @@ import FundDialog from 'components/task/FundDialog';
 export default function FundDialogButton({
   address,
   sx = {},
+  text = 'Fund Entity',
 }: any): JSX.Element {
   const { showDialog, closeDialog }: Partial<IDialogParams> =
     useContext(DialogContext);
@@ -20,7 +21,7 @@ export default function FundDialogButton({
         showDialog?.(<FundDialog address={address} onClose={closeDialog} />)
       }
     >
-      Fund Entity
+      {text}
     </Button>
   );
 }
