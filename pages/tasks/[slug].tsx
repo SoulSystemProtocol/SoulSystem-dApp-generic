@@ -10,7 +10,7 @@ import TaskApplications from 'components/task/TaskApplications';
 import TaskAcceptedApplications from 'components/task/TaskAcceptedApplications';
 import TaskPostedDeliveries from 'components/task/TaskPostedDeliveries';
 import TaskApprovedDeliveries from 'components/task/TaskApprovedDeliveries';
-import GameComments from 'components/game/GameComments';
+import GameComments from 'components/entity/game/GameComments';
 import { getPageTitle } from 'utils';
 import { GAME_NAME } from 'constants/contracts';
 import { nameEntity } from 'hooks/utils';

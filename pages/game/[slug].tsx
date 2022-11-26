@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { getPageTitle } from 'utils';
 import queryGameSingle from 'queries/GameByHashQuery';
-import GameView from 'components/game/GameView';
+import GameView from 'components/entity/game/GameView';
 import { normalizeGraphEntity } from 'helpers/metadata';
 import Loading from 'components/layout/Loading';
 import Error from 'components/layout/Error';

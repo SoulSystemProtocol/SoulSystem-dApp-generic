@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react';
 import { soulToFirstLastNameString } from 'utils/converters';
 // import SoulGames from 'components/soul/SoulGames';
 import SoulProcs from 'components/soul/SoulProcs';
-import GameView from 'components/game/GameView';
+import GameView from 'components/entity/game/GameView';
 import { getPageTitle } from 'utils';
 import { GAME_DESC, GAME_TYPE } from 'constants/contracts';
 import {

@@ -1,11 +1,11 @@
 import { Stack, Typography, Button } from '@mui/material';
 import { Box } from '@mui/system';
-import GameAdminActions from 'components/game/GameAdminActions';
+import GameAdminActions from 'components/entity/game/GameAdminActions';
 import EntityImage from '../entity/EntityImage';
 import AddressHash from 'components/web3/AddressHash';
 import AccountBalance from 'components/web3/AccountBalance';
 import FundDialogButton from 'components/web3/FundDialogButton';
-import GameMembershipActions from 'components/game/GameMembershipActions';
+import GameMembershipActions from 'components/entity/game/GameMembershipActions';
 import { GAME_TYPE } from 'constants/contracts';
 import SoulDescription from 'components/soul/SoulDescription';
 import SocialLinks from 'components/soul/SocialLinks';

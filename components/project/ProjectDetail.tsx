@@ -1,6 +1,6 @@
 import { Stack, Typography } from '@mui/material';
 import { Box } from '@mui/system';
-import GameAdminActions from '../game/GameAdminActions';
+import GameAdminActions from '../entity/game/GameAdminActions';
 import EntityImage from '../entity/EntityImage';
 import AddressHash from 'components/web3/AddressHash';
 import AccountBalance from 'components/web3/AccountBalance';

@@ -1,7 +1,7 @@
 import { TabContext, TabList, TabPanel } from '@mui/lab';
 import { Box, Tab } from '@mui/material';
-import GameComments from 'components/game/GameComments';
-import GameSouls from 'components/game/GameSouls';
+import GameComments from 'components/entity/game/GameComments';
+import GameSouls from 'components/entity/game/GameSouls';
 import { useState } from 'react';
 import ProjectAddTaskButton from './ProjectAddTaskButton';
 import ProjectTaskList from './ProjectTaskList';
@@ -32,7 +32,7 @@ export default function ProjectTabs({ item: project, sx }: any) {
           >
             <Tab label="Posts" value="1" />
             <Tab label="Tasks" value="2" />
-            <Tab label="Players" value="3" />
+            <Tab label="Members" value="3" />
           </TabList>
           <TabPanel value="1" sx={{ px: 0 }}>
             <GameComments item={project} />
