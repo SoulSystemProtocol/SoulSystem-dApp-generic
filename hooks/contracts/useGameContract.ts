@@ -1,9 +1,9 @@
-import { Web3Context } from 'contexts/Web3Context';
-import contractAbi from 'contracts/abi/Game.json';
-import WrongNetworkError from 'errors/WrongNetworkError';
-import { Contract } from 'ethers';
+// import { Web3Context } from 'contexts/Web3Context';
+// import contractAbi from 'contracts/abi/Game.json';
+// import WrongNetworkError from 'errors/WrongNetworkError';
+// import { Contract } from 'ethers';
 import useContract from 'hooks/useContract';
-import { useContext } from 'react';
+// import { useContext } from 'react';
 
 /**
  * Hook for work with game contract.

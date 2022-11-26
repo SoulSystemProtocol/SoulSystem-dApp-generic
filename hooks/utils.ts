@@ -27,7 +27,8 @@ export const nameEntity = function (
     return plural ? 'Service Pods' : 'Service Pod';
   if (entName.toLocaleLowerCase() == 'project')
     return plural ? 'Projects' : 'Project';
-  if (entName.toLocaleLowerCase() == 'task') return plural ? 'Quests' : 'Quest';
+  if (entName.toLocaleLowerCase() == 'task')
+    return plural ? 'Bounties' : 'Bounty';
 
   console.log('[DEV] Naming Entity: ', entName);
   return plural ? 'Entities' : 'Entity';

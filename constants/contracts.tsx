@@ -13,7 +13,7 @@ export const GAME_DESC: any = {
       .
     </>
   ),
-  task: 'Quests are small tasks that can earn you a prize.',
+  task: 'Bounties are tasks you can do for a reward.',
   dao: '',
 };
 
