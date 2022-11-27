@@ -9,9 +9,11 @@ import { Box, Typography } from '@mui/material';
 import DisplayPOAP from 'components/web3/DisplayPOAP';
 import SoulGameView from 'components/entity/soul/SoulGameView';
 import SoulAffiliations from 'components/entity/soul/SoulAffiliations';
-import useSoulById from 'hooks/useSoulById';
-import useSoulByHash from 'hooks/useSoulByOwner';
-import { isNumber } from 'hooks/utils';
+import {
+  SelectedSoulContext,
+  SelectedSoulProvider,
+} from 'contexts/SelectedSoul';
+import { useContext } from 'react';
 
 /**
  * Component: Single Soul Page
@@ -20,33 +22,20 @@ export default function SoulSinglePage(): JSX.Element {
   const router = useRouter();
   const { slug } = router.query;
   const { handleError } = useError();
-  return isNumber(slug as string) ? (
-    <SoulSingleById id={slug} />
-  ) : (
-    <SoulSingleByHash hash={slug} />
+
+  return (
+    <SelectedSoulProvider slug={slug}>
+      <SoulSinglePageContent />
+    </SelectedSoulProvider>
   );
-}
-
-/**
- * Component: Single Soul By Id
- */
-function SoulSingleById({ id }: any): JSX.Element {
-  const { soul, loading, error } = useSoulById(id as string);
-  return <SoulSinglePageContent soul={soul} />;
-}
-
-/**
- * Component: Single Soul By Hash
- */
-function SoulSingleByHash({ hash }: any): JSX.Element {
-  const { soul, loading, error } = useSoulByHash(hash as string);
-  return <SoulSinglePageContent soul={soul} />;
 }
 
 /**
  * Component: Single Soul Page Content
  */
-function SoulSinglePageContent({ soul }: any): JSX.Element {
+function SoulSinglePageContent(): JSX.Element {
+  const { soul, loading, error } = useContext(SelectedSoulContext);
+
   const CONF = {
     PAGE_TITLE: soulToFirstLastNameString(soul),
     TITLE: soulToFirstLastNameString(soul),

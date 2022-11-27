@@ -24,7 +24,6 @@ export default function useSoulById(id: string): any {
       setIsOwned(false);
       console.error('Soul query failed', { data, error });
     } else {
-      // console.log('[DEV] Soul query Return:', { id, data });
       setSoul(data?.soul ? normalizeGraphEntity(data.soul) : null);
       setIsOwned(
         !!account && data?.soul?.owner?.toLowerCase() == account.toLowerCase(),
