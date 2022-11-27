@@ -7,7 +7,7 @@ import { Web3Context } from 'contexts/Web3Context';
 /**
  * Fetch Single Soul by Hash
  */
-export default function useSoulByHash(hash: string): any {
+export default function useSoulByOwner(hash: string): any {
   const [soul, setSoul] = useState<any | null>(null);
   const [isOwned, setIsOwned] = useState<boolean>(false);
   const { account } = useContext(Web3Context);
@@ -24,13 +24,18 @@ export default function useSoulByHash(hash: string): any {
       setIsOwned(false);
       console.error('Soul query failed', { data, error });
     } else {
-      // console.log('[DEV] Soul query Return:', data);
-      setSoul(data?.souls ? normalizeGraphEntity(data.souls[0]) : null);
-      setIsOwned(
-        !!account &&
-          data?.souls?.[0]?.owner?.toLowerCase() == account.toLowerCase(),
-      );
+      try {
+        console.log('[DEV] Soul query Return:', { hash, data });
+        setSoul(data?.souls ? normalizeGraphEntity(data.souls[0]) : null);
+        setIsOwned(
+          !!account &&
+            data?.souls?.[0]?.owner?.toLowerCase() == account.toLowerCase(),
+        );
+      } catch (e) {
+        console.error(e);
+      }
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data, error, loading, account]);
 
   return {

@@ -43,8 +43,12 @@ export const attributeSet = (
  * Normalize graph entity before use
  */
 export const normalizeGraphEntity = (subgraphEntity: any): any => {
-  return {
-    ...subgraphEntity,
-    metadata: hexStringToJson(subgraphEntity.metadata),
-  };
+  if (!subgraphEntity?.metadata)
+    console.error('Entity missing Metadata', subgraphEntity);
+  return subgraphEntity
+    ? {
+        ...subgraphEntity,
+        metadata: hexStringToJson(subgraphEntity?.metadata),
+      }
+    : null;
 };

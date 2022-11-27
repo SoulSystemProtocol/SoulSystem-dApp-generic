@@ -15,7 +15,9 @@ const CONF = {
   SUBTITLE: GAME_DESC.task,
 };
 
-/**
+/** TODO: DEPRECATE & Use indexNew (SoulList)
+ *
+ *
  * Page for a list of Tasks
  * @todo: Add pagination. Maybe use the SQL list component...
  */

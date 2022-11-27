@@ -5,20 +5,17 @@ import useError from 'hooks/useError';
 import useTask from 'hooks/useTask';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-
 import TaskApplications from 'components/entity/task/TaskApplications';
 import TaskAcceptedApplications from 'components/entity/task/TaskAcceptedApplications';
 import TaskPostedDeliveries from 'components/entity/task/TaskPostedDeliveries';
 import TaskApprovedDeliveries from 'components/entity/task/TaskApprovedDeliveries';
 import GameComments from 'components/entity/game/GameComments';
 import { getPageTitle } from 'utils';
-import { GAME_NAME } from 'constants/contracts';
 import { nameEntity } from 'hooks/utils';
 
 /**
  * Page with Task details.
  */
-// eslint-disable-next-line prettier/prettier
 export default function TaskDetailPage() {
   const router = useRouter();
   const { slug } = router.query;
@@ -27,18 +24,17 @@ export default function TaskDetailPage() {
   const [task, setTask] = useState<Task | null>(null);
 
   async function loadData() {
+    if (!slug) setTask(null);
     try {
       setTask(await getTaskById(slug as string));
     } catch (error: any) {
+      setTask(null);
       handleError(error, true);
     }
   }
 
   useEffect(() => {
-    if (slug) {
-      loadData();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    loadData();
   }, [slug]);
 
   console.log('Loaded task: ', task);

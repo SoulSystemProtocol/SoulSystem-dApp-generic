@@ -39,7 +39,7 @@ export default function GameDetailPage(): JSX.Element {
       ) : !!error ? (
         <Error error={error} />
       ) : (
-        <GameView id={slug} item={game} sx={{ mt: 4 }} />
+        <GameView item={game} sx={{ mt: 4 }} />
       )}
     </Layout>
   );
