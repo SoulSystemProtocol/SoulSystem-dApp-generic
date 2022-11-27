@@ -87,7 +87,8 @@ export default function DaoManageDialog({ dao, isClose, onClose }: any) {
       const { url: metadataUrl } = await uploadJsonToIPFS(formData);
       if (dao) {
         //Edit MDAO's URI   //TODO!! Change this to Soul Edit
-        await getContractGameMDAO(dao.id).setContractURI(metadataUrl);
+        // await getContractGameMDAO(dao.id).setContractURI(metadataUrl);
+        console.error('DEPRECATED -- Change this to Soul Edit');
       } else {
         //Create a new MDAO
         await getContractHub().makeGame(
@@ -96,7 +97,6 @@ export default function DaoManageDialog({ dao, isClose, onClose }: any) {
           metadataUrl,
         );
       }
-
       showToastSuccess('Success! Data will be updated soon');
       close();
     } catch (error: any) {
