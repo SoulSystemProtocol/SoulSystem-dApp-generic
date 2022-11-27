@@ -6,11 +6,11 @@ export const GAME_DESC: any = {
   together, as a team.`,
   project: (
     <>
-      Projects consume work to produce a product. Cordinating effort via{' '}
+      Projects post{' '}
       <Link href="/tasks/" sx={{ color: '#f8f8f8' }}>
         {nameEntity('task', true)}
-      </Link>
-      .
+      </Link>{' '}
+      to produce products.
     </>
   ),
   task: 'Bounties are tasks you can do for a reward.',

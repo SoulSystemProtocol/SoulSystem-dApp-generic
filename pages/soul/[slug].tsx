@@ -8,7 +8,6 @@ import { getPageTitle } from 'utils';
 import { GAME_DESC } from 'constants/contracts';
 import { Box, Typography } from '@mui/material';
 import DisplayPOAP from 'components/web3/DisplayPOAP';
-import SoulGameView from 'components/entity/soul/SoulGameView';
 import SoulAffiliations from 'components/entity/soul/SoulAffiliations';
 import {
   SelectedSoulContext,
@@ -16,6 +15,7 @@ import {
 } from 'contexts/SelectedSoul';
 
 import { SelectedGameProvider } from 'contexts/SelectedGame';
+import GameView from 'components/entity/game/GameView';
 
 /**
  * Component: Single Soul Page
@@ -23,8 +23,6 @@ import { SelectedGameProvider } from 'contexts/SelectedGame';
 export default function SoulSinglePage(): JSX.Element {
   const router = useRouter();
   const { slug } = router.query;
-  const { handleError } = useError();
-
   return (
     <SelectedSoulProvider slug={slug}>
       <SoulSinglePageContent />
@@ -57,7 +55,7 @@ function SoulSinglePageContent(): JSX.Element {
       {soul?.type == '' && <SoulDetail soul={soul} />}
       {soul?.type == 'GAME' && (
         <SelectedGameProvider hash={soul?.owner}>
-          <SoulGameView sx={{ mt: 4 }} />
+          <GameView sx={{ mt: 4 }} />
         </SelectedGameProvider>
       )}
       {soul?.type == '' && (

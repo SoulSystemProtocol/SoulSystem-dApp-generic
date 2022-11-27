@@ -9,6 +9,7 @@ import {
   Button,
 } from '@mui/material';
 import Dao from 'classes/Dao';
+import Link from 'components/utils/Link';
 import { SOUL_TYPE, CLAIM_STAGE } from 'constants/contracts';
 import { DataContext } from 'contexts/data';
 import useDao from 'hooks/useDao';
@@ -16,13 +17,12 @@ import useError from 'hooks/useError';
 import useTask from 'hooks/useTask';
 import useToast from 'hooks/useToast';
 import { isSoulHasRole } from 'hooks/utils';
-import Link from 'next/link';
 import { useContext, useState, useEffect } from 'react';
 
 /**
- * Component: Task Application
+ * Task Application
  */
-function TaskApplication({ task, nomination }: any) {
+export default function TaskApplication({ task, nomination }: any) {
   const { accountSoul } = useContext(DataContext);
   const { handleError } = useError();
   const { showToastSuccess } = useToast();
@@ -67,10 +67,8 @@ function TaskApplication({ task, nomination }: any) {
       {nominatedDao ? (
         <Box>
           {/* Application data */}
-          <Link href={`/daos/${nominatedDao.id}`} passHref>
-            <MuiLink underline="none">
-              <Typography>{nominatedDao.name}</Typography>
-            </MuiLink>
+          <Link href={`/soul/${nominatedDao.id}`} underline="none">
+            <Typography>{nominatedDao.name}</Typography>
           </Link>
           {/* Application actions */}
           {task.stage !== CLAIM_STAGE.closed &&

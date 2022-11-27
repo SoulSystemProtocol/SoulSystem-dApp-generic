@@ -2,28 +2,29 @@ import { GAME_TYPE } from 'constants/contracts';
 import GameDetail from 'components/dao/GameDetail';
 import DaoTabs from 'components/dao/DaoTabs';
 import ProjectTabs from 'components/project/ProjectTabs';
-import useSoulByHash from 'hooks/useSoulByOwner';
+import { SelectedGameContext } from 'contexts/SelectedGame';
+import { useContext } from 'react';
 import Loading from 'components/layout/Loading';
-// import useError from 'hooks/useError';
+import useError from 'hooks/useError';
+import { Box } from '@mui/material';
 
 /**
  * Single Game View
  */
-export default function GameView({
-  item: game,
-  sx,
-}: {
-  item: any;
-  sx: any;
-}): JSX.Element {
-  const { soul, loading, error } = useSoulByHash(game?.id);
-
+export default function GameView({ sx }: { sx: any }): JSX.Element {
+  const { handleError } = useError();
+  const { game, loading, error } = useContext(SelectedGameContext);
+  if (error) {
+    handleError({ message: '404: Failed to load Game', game, error }, true);
+    return <>Failed to Load Entity</>;
+  }
   if (loading) return <Loading />;
+  if (!game) return <>Failed to Load Entity</>;
   return (
-    <>
-      <GameDetail item={game} soul={soul} />
-      {game?.role == GAME_TYPE.mdao && <DaoTabs item={game} sx={sx} />}
-      {game?.role == GAME_TYPE.project && <ProjectTabs item={game} sx={sx} />}
-    </>
+    <Box sx={sx}>
+      <GameDetail item={game} />
+      {game?.role == GAME_TYPE.mdao && <DaoTabs item={game} />}
+      {game?.role == GAME_TYPE.project && <ProjectTabs item={game} />}
+    </Box>
   );
 }

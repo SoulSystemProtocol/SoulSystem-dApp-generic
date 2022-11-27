@@ -9,13 +9,17 @@ import GameMembershipActions from 'components/entity/game/GameMembershipActions'
 import SoulDescription from 'components/entity/soul/SoulDescription';
 import SocialLinks from 'components/entity/soul/SocialLinks';
 import Link from 'components/utils/Link';
+import { SelectedSoulContext } from 'contexts/SelectedSoul';
+import { useContext } from 'react';
 
 /**
  * Game Detail Page
  */
-export default function GameDetail({ item: game, soul, sx }: any): JSX.Element {
+export default function GameDetail({ item: game, sx }: any): JSX.Element {
+  const { soul } = useContext(SelectedSoulContext);
+  // console.log('Game game:', game, soul);
+
   if (game) {
-    // console.log('Game game:', game, soul);
     return (
       <Box
         sx={{
