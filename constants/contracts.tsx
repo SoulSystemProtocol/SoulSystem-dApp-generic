@@ -28,14 +28,6 @@ export const GAME_TYPE: any = {
   project: 'PROJECT',
 };
 
-export const ENTITY: any = {
-  soul: 'Person',
-  game: 'Game',
-  task: 'Bounty',
-  mdao: 'Team',
-  project: 'Project',
-};
-
 /* TODO: Role Token IDs aren't static/predetermind. Should fetch them from the contract directly */
 export const GAME_ROLE = {
   admin: {

@@ -12,12 +12,7 @@ import {
   Typography,
 } from '@mui/material';
 import Dao from 'classes/Dao';
-import {
-  CLAIM_ROLE,
-  CLAIM_STAGE,
-  ENTITY,
-  SOUL_TYPE,
-} from 'constants/contracts';
+import { CLAIM_ROLE, CLAIM_STAGE, SOUL_TYPE } from 'constants/contracts';
 import { DataContext } from 'contexts/data';
 import { DialogContext } from 'contexts/dialog';
 import useError from 'hooks/useError';
@@ -28,6 +23,7 @@ import useDao from 'hooks/useDao';
 import Link from 'next/link';
 import { useContext, useEffect, useState } from 'react';
 import TaskApplyDialog from './TaskApplyDialog';
+import { nameEntity } from 'hooks/utils';
 
 export default function TaskApplications({ task, sx }: any) {
   const { accountSoul } = useContext(DataContext);
@@ -68,7 +64,7 @@ export default function TaskApplications({ task, sx }: any) {
               )
             }
           >
-            Apply as a {ENTITY.mdao}
+            Apply as a {nameEntity('mdao')}
           </Button>
         )}
     </Box>

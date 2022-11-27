@@ -15,7 +15,6 @@ import {
   CLAIM_POST_ENTITY_TYPE,
   CLAIM_ROLE,
   CLAIM_STAGE,
-  ENTITY,
 } from 'constants/contracts';
 import { DataContext } from 'contexts/data';
 import { DialogContext } from 'contexts/dialog';
@@ -23,7 +22,7 @@ import useDao from 'hooks/useDao';
 import useError from 'hooks/useError';
 import useTask from 'hooks/useTask';
 import useToast from 'hooks/useToast';
-import { isSoulHasRole } from 'hooks/utils';
+import { isSoulHasRole, nameEntity } from 'hooks/utils';
 import Link from 'next/link';
 import { useContext, useEffect, useState } from 'react';
 import TaskPostDeliveryDialog from './TaskPostDeliveryDialog';
@@ -72,7 +71,7 @@ export default function TaskPostedDeliveries({ task, sx }: any) {
               )
             }
           >
-            Post Delivery as a {ENTITY.mdao}
+            Post Delivery as a {nameEntity('mdao')}
           </Button>
         )}
       </Box>
