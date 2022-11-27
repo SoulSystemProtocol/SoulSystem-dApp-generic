@@ -4,13 +4,13 @@ import {
   Box,
   Button,
   Divider,
-  Link as MuiLink,
   List,
   ListItem,
   Stack,
   Typography,
 } from '@mui/material';
 import Dao from 'classes/Dao';
+import Link from 'components/utils/Link';
 import {
   CLAIM_POST_ENTITY_TYPE,
   CLAIM_ROLE,
@@ -23,7 +23,6 @@ import useError from 'hooks/useError';
 import useTask from 'hooks/useTask';
 import useToast from 'hooks/useToast';
 import { isSoulHasRole, nameEntity } from 'hooks/utils';
-import Link from 'next/link';
 import { useContext, useEffect, useState } from 'react';
 import TaskPostDeliveryDialog from './TaskPostDeliveryDialog';
 
@@ -110,7 +109,6 @@ function TaskPostedDelivery({ task, post }: any) {
         .then((dao) => setPostDao(dao))
         .catch((error: any) => handleError(error, true));
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [post]);
 
   return (
@@ -118,18 +116,15 @@ function TaskPostedDelivery({ task, post }: any) {
       {postDao ? (
         <Stack direction="row" spacing={1} alignItems="center">
           <Typography>Applicant</Typography>
-          <Link href={`/daos/${postDao.id}`} passHref>
-            <MuiLink underline="none">
-              <Typography>{postDao.name}</Typography>
-            </MuiLink>
+          <Link href={`/soul/${postDao.id}`}>
+            <Typography>{postDao.name}</Typography>
           </Link>
           <Typography>posted</Typography>
-          <MuiLink href={post.uri} underline="none" target="_blank">
+          <Link href={post.uri} underline="none" target="_blank">
             Delivery
-          </MuiLink>
+          </Link>
           {task.stage !== CLAIM_STAGE.closed &&
             accountSoul &&
-            // isSoulHasRole(task, accountSoul.id, CLAIM_ROLE.admin.id) && (
             isSoulHasRole(task, accountSoul.id, 'admin') && (
               <Box>
                 {isProcessed ? (

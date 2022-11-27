@@ -32,7 +32,7 @@ export function SelectedSoulProvider({ slug, children }: any) {
  */
 function SelectedSoulById({ id, children }: any): JSX.Element {
   const { soul, loading, error } = useSoulById(id as string);
-  console.log('Selected Soul', soul);
+  soul && console.log('Selected Soul', soul);
   return (
     <SelectedSoulContext.Provider value={{ soul, loading, error }}>
       {children}

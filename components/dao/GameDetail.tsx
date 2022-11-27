@@ -6,7 +6,6 @@ import AddressHash from 'components/web3/AddressHash';
 import AccountBalance from 'components/web3/AccountBalance';
 import FundDialogButton from 'components/web3/FundDialogButton';
 import GameMembershipActions from 'components/entity/game/GameMembershipActions';
-import { GAME_TYPE } from 'constants/contracts';
 import SoulDescription from 'components/entity/soul/SoulDescription';
 import SocialLinks from 'components/entity/soul/SocialLinks';
 import Link from 'components/utils/Link';
@@ -44,7 +43,7 @@ export default function GameDetail({ item: game, soul, sx }: any): JSX.Element {
           <Stack key="buttons" direction="row" spacing={2} sx={{ mt: 2 }}>
             <GameMembershipActions dao={game} />
             <FundDialogButton address={game.id} />
-            <Link href={`/soul/${game.id}/rules/manage`}>
+            <Link href={`/game/${game.id}/rules/manage`}>
               <Button>Rules</Button>
             </Link>
           </Stack>

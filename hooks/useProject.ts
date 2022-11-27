@@ -6,7 +6,6 @@ import useSubgraph from './useSubgraph';
  * Hook for work with projects.
  */
 export default function useProject() {
-  // const { setUri } = useGameContract();
   const { findGames } = useSubgraph();
 
   /* DEPRECATED

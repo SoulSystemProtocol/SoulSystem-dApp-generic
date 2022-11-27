@@ -77,7 +77,7 @@ function TaskAcceptedApplication({ soul }: any) {
               <CheckOutlined />
             </Avatar>
           </ListItemAvatar>
-          <Link href={`/daos/${soulDao.id}`} passHref>
+          <Link href={`/soul/${soulDao.id}`} passHref>
             <MuiLink underline="none">
               <Typography>{soulDao.name}</Typography>
             </MuiLink>

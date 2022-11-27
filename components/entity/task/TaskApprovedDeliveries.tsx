@@ -116,7 +116,7 @@ function TaskApprovedDelivery({ soulId }: any) {
           </ListItemAvatar>
           <Stack direction="row" spacing={1}>
             <Typography>Delivery posted by</Typography>
-            <Link href={`/daos/${soulDao.id}`} passHref>
+            <Link href={`/soul/${soulDao.id}`} passHref>
               <MuiLink underline="none">
                 <Typography>{soulDao.name}</Typography>
               </MuiLink>

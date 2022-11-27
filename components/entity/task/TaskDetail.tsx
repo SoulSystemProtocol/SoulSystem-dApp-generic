@@ -12,6 +12,7 @@ import { DataContext } from 'contexts/data';
 import { useContext, useEffect, useState } from 'react';
 import FundDialogButton from 'components/web3/FundDialogButton';
 import Link from 'components/utils/Link';
+import { isSoulHasRole } from 'hooks/utils';
 
 /**
  * Component: project details.
@@ -27,7 +28,6 @@ export default function TaskDetail({ item, sx }: any) {
   const { accountSoul } = useContext(DataContext);
   const [isSoulAdmin, setIsSoulAdmin] = useState(false);
   const [isSoulAuthority, setIsSoulAuthority] = useState(false);
-  const { isSoulHasRole } = useDao();
   const tokens: [] = []; //Supported ERC20 Tokens
 
   useEffect(() => {
@@ -47,10 +47,8 @@ export default function TaskDetail({ item, sx }: any) {
   async function loadData() {
     if (accountSoul) {
       try {
-        setIsSoulAdmin(isSoulHasRole(item, accountSoul.id, GAME_ROLE.admin.id));
-        setIsSoulAuthority(
-          isSoulHasRole(item, accountSoul.id, GAME_ROLE.authority.id),
-        );
+        setIsSoulAdmin(isSoulHasRole(item, accountSoul.id, 'admin'));
+        setIsSoulAuthority(isSoulHasRole(item, accountSoul.id, 'authority'));
       } catch (error: any) {
         handleError(error, true);
       }

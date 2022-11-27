@@ -24,15 +24,14 @@ import ActionsDisplay from 'components/rules/ActionsDisplay';
 export default function RuleManage(): JSX.Element {
   const router = useRouter();
   const { slug } = router.query;
-
   const { showDialog, closeDialog } = useContext(DialogContext);
   const { handleError } = useError();
-
   const { getDaoById } = useDao();
   const [game, setGame] = useState<Dao | null>(null);
 
   async function loadData() {
     try {
+      console.log('Loading Game: ', slug);
       setGame(await getDaoById(slug as string));
     } catch (error: any) {
       handleError(error, true);
@@ -40,9 +39,7 @@ export default function RuleManage(): JSX.Element {
   }
 
   useEffect(() => {
-    if (slug) {
-      loadData();
-    }
+    if (slug) loadData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [slug]);
 
