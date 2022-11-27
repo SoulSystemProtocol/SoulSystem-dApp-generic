@@ -88,10 +88,7 @@ export default function ProjectManageDialog({
     try {
       setFormData(formData);
       setIsLoading(true);
-      const { url: metadataUrl } = await uploadJsonToIPFS(
-        // new ProjectMetadata(formData.image, formData.description),
-        formData,
-      );
+      const { url: metadataUrl } = await uploadJsonToIPFS(formData);
       if (project) {
         // await editProject(project.id, meadataUrl);
         //TODO: Use Soul Edit Functionality for this

@@ -8,7 +8,6 @@ import {
   Stack,
 } from '@mui/material';
 import { MuiForm5 as Form } from '@rjsf/material-ui';
-// import TaskMetadata from 'classes/metadata/TaskMetadata';
 import useError from 'hooks/useError';
 import useIpfs from 'hooks/useIpfs';
 import useContract from 'hooks/useContract';
@@ -76,10 +75,7 @@ export default function TaskManageDialog({
     try {
       setFormData(formData);
       setIsLoading(true);
-      const { url: metadataUrl } = await uploadJsonToIPFS(
-        // new TaskMetadata(formData.description),
-        formData,
-      );
+      const { url: metadataUrl } = await uploadJsonToIPFS(formData);
       if (task) {
         // TODO: Implement this feature
         console.warn('[TODO] Implement Task Edit');

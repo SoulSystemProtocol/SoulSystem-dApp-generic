@@ -8,7 +8,6 @@ import {
   Stack,
 } from '@mui/material';
 import { MuiForm5 as Form } from '@rjsf/material-ui';
-// import TaskPostDeliveryMetadata from 'classes/metadata/TaskPostDeliveryMetadata';
 import useError from 'hooks/useError';
 import useIpfs from 'hooks/useIpfs';
 import useContract from 'hooks/useContract';
@@ -68,10 +67,10 @@ export default function TaskPostDeliveryDialog({
     try {
       setFormData(formData);
       setIsLoading(true);
-      const { url: metadataUrl } = await uploadJsonToIPFS(
-        // new TaskPostDeliveryMetadata(formData.text),
-        { ...formData, type: CLAIM_POST_TYPE.application },
-      );
+      const { url: metadataUrl } = await uploadJsonToIPFS({
+        ...formData,
+        type: CLAIM_POST_TYPE.application,
+      });
       await getContractGameMDAO(formData.daoId).deliverTask(
         item.id,
         metadataUrl,

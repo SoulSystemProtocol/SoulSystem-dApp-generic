@@ -1,6 +1,5 @@
 import Project from 'classes/Project';
 import { GAME_TYPE } from 'constants/contracts';
-import { hexStringToJson } from 'utils/converters';
 import useSubgraph from './useSubgraph';
 
 /**
@@ -68,8 +67,6 @@ function convertSubgraphGameToProject(subgraphGame: any) {
     subgraphGame.id,
     subgraphGame.name,
     subgraphGame.type,
-    subgraphGame.uri,
-    hexStringToJson(subgraphGame.metadata),
     subgraphGame.roles,
     subgraphGame.posts,
   );
