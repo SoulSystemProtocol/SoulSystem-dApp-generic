@@ -19,7 +19,8 @@ export default function useGameByHash(hash: string): any {
       setGame(null);
       console.error('Game query failed', { data, error });
     } else {
-      setGame(data?.game ? normalizeGraphEntity(data.game) : null);
+      // setGame(data?.game ? normalizeGraphEntity(data.game) : null);
+      setGame(data?.game ? data.game : null);
     }
   }, [data, error, loading]);
 

@@ -1,18 +1,23 @@
 import useError from 'hooks/useError';
 import GameView from '../game/GameView';
-import useGameByHash from 'hooks/useGameByHash';
 import Loading from 'components/layout/Loading';
-// import useError from 'hooks/useError';
+import { SelectedGameContext } from 'contexts/SelectedGame';
+import { useContext } from 'react';
+import { SelectedSoulContext } from 'contexts/SelectedSoul';
 
 /**
  * Single Game Display
  */
-export default function SoulGameView({ soul, sx }: any): JSX.Element {
+export default function SoulGameView({ sx }: any): JSX.Element {
   const { handleError } = useError();
-  const { game, error, loading } = useGameByHash(soul?.owner);
+  const { game, loading, error } = useContext(SelectedGameContext);
+  const { soul } = useContext(SelectedSoulContext);
 
   if (error) {
-    handleError({ message: 'Failed to load Game', game, soul, error }, false);
+    handleError(
+      { message: '404: Failed to load Game', game, soul, error },
+      true,
+    );
     return <></>;
   }
   if (loading) return <Loading />;

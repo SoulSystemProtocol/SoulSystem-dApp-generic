@@ -19,7 +19,7 @@ export const SelectedGameContext = createContext<Partial<ISelectedGameContext>>(
  */
 export function SelectedGameProvider({ hash, children }: any) {
   const { game, loading, error } = useGameByHash(hash as string);
-  console.log('SelectedGameProvider() Selected Game: ', game);
+  // console.log('SelectedGameProvider() Selected Game: ', game);
   return (
     <SelectedGameContext.Provider value={{ game, loading, error }}>
       {children}

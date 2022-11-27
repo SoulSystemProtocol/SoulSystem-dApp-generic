@@ -25,7 +25,7 @@ export default function useSoulByOwner(hash: string): any {
       console.error('Soul query failed', { data, error });
     } else {
       try {
-        console.log('[DEV] Soul query Return:', { hash, data });
+        // console.log('[DEV] Soul query Return:', { hash, data });
         setSoul(data?.souls ? normalizeGraphEntity(data.souls[0]) : null);
         setIsOwned(
           !!account &&
@@ -35,7 +35,6 @@ export default function useSoulByOwner(hash: string): any {
         console.error(e);
       }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data, error, loading, account]);
 
   return {

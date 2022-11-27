@@ -1,3 +1,4 @@
+import { useContext } from 'react';
 import Layout from 'components/layout/Layout';
 import SoulDetail from 'components/entity/soul/SoulDetail';
 import useError from 'hooks/useError';
@@ -13,11 +14,8 @@ import {
   SelectedSoulContext,
   SelectedSoulProvider,
 } from 'contexts/SelectedSoul';
-import { useContext } from 'react';
-import {
-  SelectedGameContext,
-  SelectedGameProvider,
-} from 'contexts/SelectedGame';
+
+import { SelectedGameProvider } from 'contexts/SelectedGame';
 
 /**
  * Component: Single Soul Page
@@ -59,7 +57,7 @@ function SoulSinglePageContent(): JSX.Element {
       {soul?.type == '' && <SoulDetail soul={soul} />}
       {soul?.type == 'GAME' && (
         <SelectedGameProvider hash={soul?.owner}>
-          <SoulGameView soul={soul} sx={{ mt: 4 }} />
+          <SoulGameView sx={{ mt: 4 }} />
         </SelectedGameProvider>
       )}
       {soul?.type == '' && (
