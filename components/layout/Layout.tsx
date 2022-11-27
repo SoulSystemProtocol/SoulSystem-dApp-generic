@@ -7,6 +7,8 @@ import {
 } from '@mui/icons-material';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import ArticleIcon from '@mui/icons-material/Article';
+import LockIcon from '@mui/icons-material/Lock';
+import DirectionsRunIcon from '@mui/icons-material/DirectionsRun';
 import ArchitectureIcon from '@mui/icons-material/Architecture';
 import { Container, Toolbar } from '@mui/material';
 import Box from '@mui/material/Box';
@@ -19,38 +21,11 @@ import useLocalStorage from 'hooks/useLocalStorage';
 import { nameEntity } from 'hooks/utils';
 
 const top_links: any = [
-  // ...((account && [{ label: 'Dashboards', route: 'daos' }]) || []),
+  //TODO: Support Hiding
+
   // { label: 'Hackathons', route: 'hackathons' },
   // { label: 'Grants', route: 'grants' },
-  {
-    label: 'SafeNFT',
-    route: 'erc',
-    hide: process.env.NEXT_PUBLIC_FEATURE_NFT == 'false',
-    //TODO: Support Hiding
-  },
-  {
-    label: 'Action Repo',
-    route: 'actions',
-    //TODO: Support Hiding
-  },
-];
 
-//Define Sidemenu Links
-const menu_side_links = [
-  {
-    route: '/souls',
-    label: nameEntity('', true),
-    icon: <PersonOutlineOutlined color="warning" />,
-    hide: process.env.NEXT_PUBLIC_FEATURE_SOUL == 'false',
-  },
-  {
-    label: 'dOrgs',
-  },
-  // {
-  //   route: '/daos',
-  //   label: nameEntity('DAO', true),
-  //   icon: <GroupWork color="warning" />,
-  // },
   {
     route: '/mdao',
     label: nameEntity('mdao', true),
@@ -68,6 +43,25 @@ const menu_side_links = [
     icon: <TaskAlt color="warning" />,
     hide: process.env.NEXT_PUBLIC_FEATURE_SOUL == 'false',
   },
+];
+
+//Define Sidemenu Links
+const menu_side_links = [
+  {
+    route: '/souls',
+    label: nameEntity('', true),
+    icon: <PersonOutlineOutlined color="warning" />,
+    hide: process.env.NEXT_PUBLIC_FEATURE_SOUL == 'false',
+  },
+  // {
+  //   label: 'dOrgs',
+  // },
+  // {
+  //   route: '/daos',
+  //   label: nameEntity('DAO', true),
+  //   icon: <GroupWork color="warning" />,
+  // },
+
   // {
   //   route: '/grants',
   //   label: 'Grants',
@@ -83,6 +77,17 @@ const menu_side_links = [
   //   label: 'Sponsors',
   //   icon: <EmojiEmotions color="warning" />,
   // },
+  {
+    label: 'SafeNFT',
+    route: 'erc',
+    hide: process.env.NEXT_PUBLIC_FEATURE_NFT == 'false',
+    icon: <LockIcon color="warning" />,
+  },
+  {
+    label: 'Action Repo',
+    route: 'actions',
+    icon: <DirectionsRunIcon color="warning" />,
+  },
 ];
 const footer_links: { route: string; label: string; icon: JSX.Element }[] = [];
 const footer_icons: { route: string; label: string; icon: JSX.Element }[] = [
