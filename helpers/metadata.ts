@@ -1,4 +1,3 @@
-import { EditAttributesOutlined } from '@mui/icons-material';
 import _ from 'lodash';
 import { hexStringToJson } from 'utils/converters';
 
@@ -44,7 +43,10 @@ export const attributeSet = (
  */
 export const normalizeGraphEntity = (subgraphEntity: any): any => {
   if (!subgraphEntity?.metadata)
-    console.error('Entity missing Metadata', subgraphEntity);
+    console.error(
+      subgraphEntity.role + ' Entity missing Metadata',
+      subgraphEntity,
+    );
   return subgraphEntity
     ? {
         ...subgraphEntity,
