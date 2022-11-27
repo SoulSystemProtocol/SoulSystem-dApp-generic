@@ -6,7 +6,7 @@ import { useState } from 'react';
 import DaoApplications from './DaoApplications';
 
 /**
- * Component: DAO tabs.
+ * DAO tabs
  */
 export default function DaoTabs({ item: dao, sx }: any) {
   const [tabValue, setTabValue] = useState('1');
@@ -14,38 +14,36 @@ export default function DaoTabs({ item: dao, sx }: any) {
   function handleChange(_: any, newTabValue: any) {
     setTabValue(newTabValue);
   }
-  if (dao) {
-    return (
-      <Box sx={{ width: '100%', ...sx }}>
-        <TabContext value={tabValue}>
-          <TabList
-            onChange={handleChange}
-            variant="scrollable"
-            scrollButtons="auto"
-            sx={{
-              borderBottom: 1,
-              borderColor: 'divider',
-              mb: 1,
-              maxWidth: 'calc(100vw - 32px)',
-            }}
-          >
-            <Tab label="Posts" value="1" />
-            <Tab label="Members" value="2" />
-            <Tab label="Applicants" value="3" />
-          </TabList>
-          <TabPanel value="1" sx={{ px: 0 }}>
-            <EntityComments item={dao} />
-          </TabPanel>
-          <TabPanel value="2" sx={{ px: 0 }}>
-            <GameSouls game={dao} />
-          </TabPanel>
-          <TabPanel value="3" sx={{ px: 0 }}>
-            <DaoApplications dao={dao} />
-          </TabPanel>
-        </TabContext>
-      </Box>
-    );
-  }
 
-  return <></>;
+  if (!dao) return <></>;
+  return (
+    <Box sx={{ width: '100%', ...sx }}>
+      <TabContext value={tabValue}>
+        <TabList
+          onChange={handleChange}
+          variant="scrollable"
+          scrollButtons="auto"
+          sx={{
+            borderBottom: 1,
+            borderColor: 'divider',
+            mb: 1,
+            maxWidth: 'calc(100vw - 32px)',
+          }}
+        >
+          <Tab label="Posts" value="1" />
+          <Tab label="Members" value="2" />
+          <Tab label="Applicants" value="3" />
+        </TabList>
+        <TabPanel value="1" sx={{ px: 0 }}>
+          <EntityComments item={dao} />
+        </TabPanel>
+        <TabPanel value="2" sx={{ px: 0 }}>
+          <GameSouls game={dao} />
+        </TabPanel>
+        <TabPanel value="3" sx={{ px: 0 }}>
+          <DaoApplications dao={dao} />
+        </TabPanel>
+      </TabContext>
+    </Box>
+  );
 }

@@ -22,8 +22,9 @@ const CONF = {
 export default function TaskPage({}: any) {
   const { accountSoul } = useContext(DataContext);
   const { showDialog, closeDialog } = useContext(DialogContext);
-  const renderActions = accountSoul && (
+  const renderActions = (
     <Button
+      disabled={!accountSoul}
       onClick={() =>
         showDialog?.(<ProjectManageDialog onClose={closeDialog} />)
       }

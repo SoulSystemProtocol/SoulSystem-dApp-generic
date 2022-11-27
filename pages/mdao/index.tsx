@@ -24,12 +24,13 @@ export default function DaosPage({}: any) {
   const { showDialog, closeDialog } = useContext(DialogContext);
   // const { handleError } = useError();
 
-  const renderActions = accountSoul && (
+  const renderActions = (
     <Button
+      disabled={!accountSoul}
       onClick={() => showDialog?.(<DaoManageDialog onClose={closeDialog} />)}
       variant="outlined"
     >
-      Create Service
+      Create {nameEntity('mdao')}
     </Button>
   );
 
