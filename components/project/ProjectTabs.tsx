@@ -15,6 +15,7 @@ export default function ProjectTabs({ item: project, sx }: any) {
   function handleChange(_: any, newTabValue: any) {
     setTabValue(newTabValue);
   }
+
   if (project) {
     return (
       <Box sx={{ width: '100%', ...sx }}>

@@ -42,9 +42,7 @@ export default function GameDetail({ item: game, soul, sx }: any): JSX.Element {
           <SoulDescription soul={soul} sx={{ mt: 1 }} />
           <SocialLinks key="SocialLinks" soul={soul} sx={{ mt: 2 }} />
           <Stack key="buttons" direction="row" spacing={2} sx={{ mt: 2 }}>
-            {game.role == GAME_TYPE.mdao && (
-              <GameMembershipActions dao={game} />
-            )}
+            <GameMembershipActions dao={game} />
             <FundDialogButton address={game.id} />
             <Link href={`/soul/${game.id}/rules/manage`}>
               <Button>Rules</Button>

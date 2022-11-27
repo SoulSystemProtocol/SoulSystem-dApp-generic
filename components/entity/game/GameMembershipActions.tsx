@@ -1,21 +1,21 @@
 import { Save } from '@mui/icons-material';
 import { LoadingButton } from '@mui/lab';
-import { Button, Stack, Typography } from '@mui/material';
+import { Button } from '@mui/material';
 import { Box } from '@mui/system';
-import { GAME_ROLE } from 'constants/contracts';
 import { DataContext } from 'contexts/data';
 import useContract from 'hooks/useContract';
-// import useDao from 'hooks/useDao';
 import { isSoulHasRole } from 'hooks/utils';
 import useError from 'hooks/useError';
 import useToast from 'hooks/useToast';
 import { useContext, useEffect, useState } from 'react';
 
+/**
+ * TODO: Refactor
+ */
 export default function GameMembershipActions({ dao, sx }: any) {
   const { accountSoul } = useContext(DataContext);
   const { handleError } = useError();
   const { showToastSuccess } = useToast();
-  // const { isSoulHasRole } = useDao();
   const { getContractGame } = useContract();
   const [isSoulMember, setIsSoulMember] = useState(false);
   const [isSoulSentApplication, setIsSoulSentApplication] = useState(false);
@@ -25,11 +25,8 @@ export default function GameMembershipActions({ dao, sx }: any) {
   async function submit() {
     try {
       setIsProcessing(true);
-      if (isSoulMember) {
-        await getContractGame(dao.id).leave();
-      } else {
-        await getContractGame(dao.id).nominate(accountSoul.id, '');
-      }
+      if (isSoulMember) await getContractGame(dao.id).leave();
+      else await getContractGame(dao.id).nominate(accountSoul.id, '');
       showToastSuccess('Success! Data will be updated soon');
       setIsProcessed(true);
     } catch (error: any) {
@@ -43,10 +40,7 @@ export default function GameMembershipActions({ dao, sx }: any) {
     setIsSoulMember(false);
     setIsSoulSentApplication(false);
     if (accountSoul && dao) {
-      setIsSoulMember(
-        // isSoulHasRole(dao, accountSoul.id, GAME_ROLE.member.id)
-        isSoulHasRole(dao, accountSoul.id, 'member'),
-      );
+      setIsSoulMember(isSoulHasRole(dao, accountSoul.id, 'member'));
       const nominatedSouls = dao.nominations.map(
         (nomination: any) => nomination.nominated.id,
       );
