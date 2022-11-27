@@ -54,3 +54,10 @@ export const isSoulHasRole = (
   soulId: string,
   roleName: string,
 ): boolean => getSoulsByRole(ctx, roleName).includes(soulId);
+
+/**
+ * Check if a value is a numeric
+ */
+export const isNumber = (value: string): boolean => {
+  return /^-{0,1}\d+$/.test(value);
+};

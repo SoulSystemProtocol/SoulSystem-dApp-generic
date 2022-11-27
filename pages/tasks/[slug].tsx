@@ -9,7 +9,7 @@ import TaskApplications from 'components/entity/task/TaskApplications';
 import TaskAcceptedApplications from 'components/entity/task/TaskAcceptedApplications';
 import TaskPostedDeliveries from 'components/entity/task/TaskPostedDeliveries';
 import TaskApprovedDeliveries from 'components/entity/task/TaskApprovedDeliveries';
-import GameComments from 'components/entity/game/GameComments';
+import EntityComments from 'components/entity/EntityComments';
 import { getPageTitle } from 'utils';
 import { nameEntity } from 'hooks/utils';
 
@@ -42,7 +42,7 @@ export default function TaskDetailPage() {
   return (
     <Layout title={getPageTitle(nameEntity('task', true))}>
       <TaskDetail item={task} />
-      {task && <GameComments item={task} />}
+      {task && <EntityComments item={task} />}
       {task && <TaskApplications task={task} sx={{ mt: 2 }} />}
       {task && <TaskAcceptedApplications task={task} sx={{ mt: 2 }} />}
       {task && <TaskPostedDeliveries task={task} sx={{ mt: 2 }} />}

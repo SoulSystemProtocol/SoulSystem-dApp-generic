@@ -2,16 +2,16 @@ import { Box, Button, Paper, Stack, Typography, Chip } from '@mui/material';
 import { DataContext } from 'contexts/data';
 import { useEffect, useState, useContext } from 'react';
 import { DialogContext } from 'contexts/dialog';
-import GamePostAddDialog from './GamePostAddDialog';
+import GamePostAddDialog from './game/GamePostAddDialog';
 import SoulCompactCard from 'components/entity/soul/SoulCompactCard';
 import useError from 'hooks/useError';
 import usePost from 'hooks/usePost';
 import useSubgraph from 'hooks/useSubgraph';
 
 /**
- * Posts component for Game Entities.
+ * Posts component for Entities.
  */
-export default function GameComments({ item, sx = {} }) {
+export default function EntityComments({ item, sx = {} }) {
   const { accountSoul } = useContext(DataContext);
   const { showDialog, closeDialog } = useContext(DialogContext);
   const { processGraphPost } = usePost();
@@ -35,12 +35,11 @@ export default function GameComments({ item, sx = {} }) {
 
   useEffect(() => {
     //Check if Souls is part of this game
-    (!item?.id || !accountSoul?.id)
-    ? setHasAnyRole(false) 
-    : isGamePart(item.id.toString(), accountSoul.id.toString())
-      .then((res) => setHasAnyRole(res))
-      .catch((error) => handleError(error, true));
-    // console.log('isGamePart', item.id, accountSoul.id, { hasAnyRole });
+    !item?.id || !accountSoul?.id
+      ? setHasAnyRole(false)
+      : isGamePart(item.id.toString(), accountSoul.id.toString())
+          .then((res) => setHasAnyRole(res))
+          .catch((error) => handleError(error, true));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [item, accountSoul]);
 

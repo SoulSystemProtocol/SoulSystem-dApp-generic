@@ -1,7 +1,7 @@
 import { TabContext, TabList, TabPanel } from '@mui/lab';
 import { Box, Tab } from '@mui/material';
 import GameSouls from 'components/entity/game/GameSouls';
-import GameComments from 'components/entity/game/GameComments';
+import EntityComments from 'components/entity/EntityComments';
 import { useState } from 'react';
 import DaoApplications from './DaoApplications';
 
@@ -34,7 +34,7 @@ export default function DaoTabs({ item: dao, sx }: any) {
             <Tab label="Applicants" value="3" />
           </TabList>
           <TabPanel value="1" sx={{ px: 0 }}>
-            <GameComments item={dao} />
+            <EntityComments item={dao} />
           </TabPanel>
           <TabPanel value="2" sx={{ px: 0 }}>
             <GameSouls game={dao} />
