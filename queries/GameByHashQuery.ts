@@ -7,9 +7,6 @@ const query = gql`
       name
       type
       role
-      uri
-      uriData
-      metadata
       roles {
         id
         roleId

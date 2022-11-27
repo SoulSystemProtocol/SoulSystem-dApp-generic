@@ -201,7 +201,6 @@ function getFindSoulsQuery(
         owner
         type
         uri
-        uriData
         metadata
         uriImage
         uriFirstName
@@ -237,9 +236,6 @@ function getFindGamesQuery(
       name
       type
       role
-      uri
-      uriData
-      metadata
       roles {
         id
         roleId
@@ -289,15 +285,12 @@ function getFindClaimsQuery(
       id
       name
       stage
-      uri
-      uriData
-      metadata
       type
       game {
         id
         name
-        uriData
-        metadata
+        type
+        role
       }
       roles {
         id

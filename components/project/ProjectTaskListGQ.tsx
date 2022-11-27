@@ -16,8 +16,6 @@ export default function ProjectTaskListGQ(props: any) {
         id
         name
         stage
-        uri
-        uriData
         type
         game {
           name

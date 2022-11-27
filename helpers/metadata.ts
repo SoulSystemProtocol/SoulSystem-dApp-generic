@@ -40,6 +40,7 @@ export const attributeSet = (
 
 /**
  * Normalize graph entity before use
+ * @internal Should no probably only be used for Souls
  */
 export const normalizeGraphEntity = (subgraphEntity: any): any => {
   if (!subgraphEntity?.metadata)
