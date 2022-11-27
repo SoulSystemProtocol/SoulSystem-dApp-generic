@@ -1,6 +1,8 @@
 import { Box, Typography } from '@mui/material';
 import { GAME_TYPE } from 'constants/contracts';
+import { SelectedSoulContext } from 'contexts/SelectedSoul';
 import { nameEntity } from 'hooks/utils';
+import { useContext } from 'react';
 import {
   CardItem,
   soulPartCardContent,
@@ -12,7 +14,9 @@ import SoulProcs from './SoulProcs';
 /**
  * Soul's Connections to other protocol entities
  */
-export default function SoulAffiliations({ soul }: any): JSX.Element {
+export default function SoulAffiliations(): JSX.Element {
+  const { soul } = useContext(SelectedSoulContext);
+
   // console.log('Loaded Soul', soul);
   return (
     <>

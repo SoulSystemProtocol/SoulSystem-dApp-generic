@@ -72,8 +72,7 @@ function SoulSinglePageContent(): JSX.Element {
           )}
         </Box>
       )}
-      {/* {soul?.type == '' && <SoulAffiliations soul={soul} />} */}
-      <SoulAffiliations soul={soul} />
+      {soul?.type == '' && <SoulAffiliations />}
     </Layout>
   );
 }

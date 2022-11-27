@@ -4,6 +4,7 @@ import GameSouls from 'components/entity/game/GameSouls';
 import EntityComments from 'components/entity/EntityComments';
 import { useState } from 'react';
 import DaoApplications from './DaoApplications';
+import SoulAffiliations from 'components/entity/soul/SoulAffiliations';
 
 /**
  * DAO tabs
@@ -33,6 +34,7 @@ export default function DaoTabs({ item: dao, sx }: any) {
           <Tab label="Posts" value="1" />
           <Tab label="Members" value="2" />
           <Tab label="Applicants" value="3" />
+          <Tab label="Relations" value="4" />
         </TabList>
         <TabPanel value="1" sx={{ px: 0 }}>
           <EntityComments item={dao} />
@@ -42,6 +44,9 @@ export default function DaoTabs({ item: dao, sx }: any) {
         </TabPanel>
         <TabPanel value="3" sx={{ px: 0 }}>
           <DaoApplications dao={dao} />
+        </TabPanel>
+        <TabPanel value="4" sx={{ px: 0 }}>
+          <SoulAffiliations />
         </TabPanel>
       </TabContext>
     </Box>
