@@ -1,5 +1,5 @@
-import { Box, Container, Link as MuiLink, IconButton } from '@mui/material';
-import Link from 'next/link';
+import { Box, Container, IconButton } from '@mui/material';
+import Link from 'components/utils/Link';
 
 interface FooterProps {
   links: any;
@@ -32,25 +32,25 @@ export default function Footer({ links, icons }: FooterProps): JSX.Element {
       >
         {icons.map(({ label, route, icon }: any) => (
           // eslint-disable-next-line react/jsx-key
-          <Link key={route} href={route} passHref>
-            <MuiLink
-              underline="none"
-              target="_blank"
-              title={label}
-              sx={{
-                p: 0,
-                mx: 1,
-                color: '#fbfbfb',
-                borderRadius: '50%',
-                borderColor: '#fbfbfb',
-                position: 'relative',
-              }}
-            >
-              <IconButton aria-label="delete" sx={{ p: '0.5rem' }}>
-                {icon}
-              </IconButton>
-              {label}
-            </MuiLink>
+          <Link
+            key={route}
+            href={route}
+            underline="none"
+            target="_blank"
+            title={label}
+            sx={{
+              p: 0,
+              mx: 1,
+              color: '#fbfbfb',
+              borderRadius: '50%',
+              borderColor: '#fbfbfb',
+              position: 'relative',
+            }}
+          >
+            <IconButton aria-label="delete" sx={{ p: '0.5rem' }}>
+              {icon}
+            </IconButton>
+            {label}
           </Link>
         ))}
       </Box>

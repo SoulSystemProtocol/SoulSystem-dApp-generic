@@ -20,17 +20,6 @@ import useTask from 'hooks/useTask';
 import useError from 'hooks/useError';
 import useIpfs from 'hooks/useIpfs';
 import useToast from 'hooks/useToast';
-// import {
-//   handleAddCaseEvidenceEvent,
-//   handleCommentCaseEvent,
-// } from 'utils/analytics';
-
-// interface Props {
-//   item: object;
-//   postType: string;
-//   isClose: Boolean;
-//   onClose: Boolean;
-// };
 
 /**
  * Component: dialog for add case post (comment, confirmation).

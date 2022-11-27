@@ -2,7 +2,7 @@ import { Link as MuiLink } from '@mui/material';
 import NextLink from 'next/link';
 
 /**
- * Component: Link (MUI + Next)
+ * Link (MUI + Next)
  */
 export default function Link({
   children,

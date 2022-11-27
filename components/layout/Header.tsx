@@ -1,10 +1,7 @@
 import { useState, useContext } from 'react';
-import Link from 'next/link';
 import MenuIcon from '@mui/icons-material/Menu';
 import {
   Avatar,
-  Button,
-  Link as MuiLink,
   Menu,
   MenuItem,
   Toolbar,
@@ -23,6 +20,7 @@ import {
   soulImage,
 } from 'utils/converters';
 import ConnectButton from 'components/web3/connect/ConnectButton';
+import Link from 'components/utils/Link';
 
 const drawerWidth = 240;
 
@@ -101,23 +99,22 @@ export default function Header({
             marginRight: '40px',
           }}
         >
-          {links.map(({ route, label }, index) => (
-            <Link key={index} href={`/${route}`} passHref>
-              <MuiLink underline="none">
+          {links.map(({ route, label, hide }, index) => {
+            if (hide) return <></>;
+            return (
+              <Link key={index} href={route}>
                 <Typography mr={4} textAlign="center">
                   {label}
                 </Typography>
-              </MuiLink>
-            </Link>
-          ))}
+              </Link>
+            );
+          })}
         </Box>
         {accountSoul && (
-          <Link href={`/soul/${accountSoul.id}`} passHref>
-            <MuiLink underline="none">
-              <Typography sx={{ mr: 1 }}>
-                {soulToFirstLastNameString(accountSoul)}
-              </Typography>
-            </MuiLink>
+          <Link href={`/soul/${accountSoul.id}`}>
+            <Typography sx={{ mr: 1 }}>
+              {soulToFirstLastNameString(accountSoul)}
+            </Typography>
           </Link>
         )}
         {!account && <ConnectButton />}

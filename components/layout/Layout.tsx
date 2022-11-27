@@ -79,13 +79,13 @@ const menu_side_links = [
   // },
   {
     label: 'SafeNFT',
-    route: 'erc',
+    route: '/erc',
     hide: process.env.NEXT_PUBLIC_FEATURE_NFT == 'false',
     icon: <LockIcon color="warning" />,
   },
   {
     label: 'Action Repo',
-    route: 'actions',
+    route: '/actions',
     icon: <DirectionsRunIcon color="warning" />,
   },
 ];
