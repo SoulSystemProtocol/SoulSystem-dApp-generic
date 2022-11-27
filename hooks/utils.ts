@@ -26,7 +26,8 @@ export const nameEntity = function (
   if (entName.toLocaleLowerCase() == 'mdao')
     return plural ? 'Service Pods' : 'Service Pod';
   if (entName.toLocaleLowerCase() == 'project')
-    return plural ? 'Projects' : 'Project';
+    // return plural ? 'Projects' : 'Project';
+    return plural ? 'Buidls' : 'Buidl';
   if (entName.toLocaleLowerCase() == 'task')
     return plural ? 'Bounties' : 'Bounty';
 
