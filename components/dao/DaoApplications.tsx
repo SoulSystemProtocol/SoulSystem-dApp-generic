@@ -10,14 +10,13 @@ import {
 } from '@mui/material';
 import Soul from 'classes/Soul';
 import { SoulDetails, SoulImage } from 'components/entity/soul/SoulCard';
-import { GAME_ROLE } from 'constants/contracts';
 import { DataContext } from 'contexts/data';
-import useDao from 'hooks/useDao';
 import useContract from 'hooks/useContract';
 import useError from 'hooks/useError';
 import useSoul from 'hooks/useSoul';
 import useToast from 'hooks/useToast';
 import { useContext, useEffect, useState } from 'react';
+import { isSoulHasRole } from 'hooks/utils';
 
 /**
  * Component: a list of dao applications.
@@ -51,14 +50,11 @@ export default function DaoApplications({ dao, sx }: any) {
 }
 
 function DaoApplicationGridItem({ dao, nomination }: any) {
-  const { accountSoul } = useContext(DataContext);
   const { handleError } = useError();
   const { showToastSuccess } = useToast();
   const { getSoulById } = useSoul();
-
-  const { isSoulHasRole } = useDao();
   const { getContractGame } = useContract();
-
+  const { accountSoul } = useContext(DataContext);
   const [isSoulAdmin, setIsSoulAdmin] = useState(false);
   const [nominatedSoul, setNominatedSoul] = useState<Soul | null>(null);
   const [isNominatedSoulMember, setIsNominatedSoulMember] = useState(false);
@@ -69,15 +65,13 @@ function DaoApplicationGridItem({ dao, nomination }: any) {
     try {
       setIsSoulAdmin(
         dao && accountSoul
-          ? isSoulHasRole(dao, accountSoul.id, GAME_ROLE.admin.id)
+          ? isSoulHasRole(dao, accountSoul.id, 'admin')
           : false,
       );
       const soul = await getSoulById(nomination.nominated.id);
       if (soul) {
         setNominatedSoul(soul);
-        setIsNominatedSoulMember(
-          isSoulHasRole(dao, soul.id, GAME_ROLE.member.id),
-        );
+        setIsNominatedSoulMember(isSoulHasRole(dao, soul.id, 'member'));
       }
     } catch (error: any) {
       handleError(error, true);
