@@ -81,7 +81,7 @@ export function SoulImage({ soul, sx }: any) {
   if (soul) {
     return (
       <Box sx={{ ...sx }}>
-        <Link href={`/souls/${soul.id}`} passHref>
+        <Link href={`/soul/${soul.id}`} passHref>
           <Avatar
             sx={{
               cursor: 'pointer',
@@ -104,7 +104,7 @@ export function SoulDetails({ soul, sx }: any) {
   if (soul) {
     return (
       <Box sx={{ ...sx }}>
-        <Link href={`/souls/${soul.id}`} passHref>
+        <Link href={`/soul/${soul.id}`} passHref>
           <MuiLink underline="none">{soulToFirstLastNameString(soul)}</MuiLink>
         </Link>
         <Typography variant="body2" color="text.secondary">

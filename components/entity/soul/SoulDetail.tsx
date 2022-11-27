@@ -43,7 +43,7 @@ export default function SoulDetail({ soul, sx }: any) {
             sx={{ borderRadius: '50%' }}
           />
           {isOwned && (
-            <Link href={`/souls/edit`} passHref>
+            <Link href={`/soul/edit`} passHref>
               <Button
                 size="small"
                 variant="outlined"

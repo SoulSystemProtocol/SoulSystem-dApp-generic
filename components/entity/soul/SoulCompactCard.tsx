@@ -86,7 +86,7 @@ export default function SoulCompactCard({
             {disableLink ? (
               <>{soulToFirstLastNameString(profile)}</>
             ) : (
-              <Link href={`/souls/${profile.id}`} underline="none">
+              <Link href={`/soul/${profile.id}`} underline="none">
                 {soulToFirstLastNameString(profile)}
               </Link>
             )}

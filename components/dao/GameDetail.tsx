@@ -46,7 +46,7 @@ export default function GameDetail({ item: game, soul, sx }: any): JSX.Element {
               <GameMembershipActions dao={game} />
             )}
             <FundDialogButton address={game.id} />
-            <Link href={`/game/${game.id}/rules/manage`}>
+            <Link href={`/soul/${game.id}/rules/manage`}>
               <Button>Rules</Button>
             </Link>
           </Stack>

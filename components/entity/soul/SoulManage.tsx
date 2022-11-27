@@ -94,7 +94,7 @@ export default function SoulManage({ soul }: any) {
         showToastSuccess(
           'Update has been sent to chain and will be processed shortly',
         );
-        router.push('/souls/' + soul.id);
+        router.push('/soul/' + soul.id);
       } else {
         await createSoul(metadataUrl);
         showToastSuccess('Your new soul is on its way');

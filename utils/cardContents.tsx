@@ -33,7 +33,7 @@ export const soulCardContent = (item: any): CardItem => {
     title: metadata?.name || soulToFirstLastNameString(item),
 
     metadata,
-    link: `/souls/${item.id}`,
+    link: `/soul/${item.id}`,
     // roles: [], // TODO: add roles logic
   };
 
@@ -50,7 +50,7 @@ export const gameCardContent = (item: any): CardItem => {
     label: metadata?.description,
     title: metadata?.name,
     metadata,
-    link: `/game/${item.owner}`,
+    link: `/soul/${item.owner}`,
     avatarIcon: <WorkOutlineOutlined />,
   };
   // ret.avatarIcon = (<WorkOutlineOutlined />);
@@ -83,7 +83,7 @@ export const gamePartCardContent = (item: any): CardItem => {
     label: metadata?.description,
     title: metadata?.name,
     metadata,
-    link: `/game/${item.entity.id}`,
+    link: `/soul/${item.entity.id}`,
     roles: item?.roles,
   };
   return ret;
@@ -98,7 +98,7 @@ export const soulPartCardContent = (item: any): CardItem => {
     label: metadata?.description,
     title: metadata?.name,
     metadata,
-    link: `/game/${item.aEnd.owner}`,
+    link: `/soul/${item.aEnd.owner}`,
     roles: item?.roles,
   };
   // console.log('soulPartCardContent() Soul Part', { metadata, item, ret });

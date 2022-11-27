@@ -112,7 +112,7 @@ export default function Header({
           ))}
         </Box>
         {accountSoul && (
-          <Link href={`/souls/${accountSoul.id}`} passHref>
+          <Link href={`/soul/${accountSoul.id}`} passHref>
             <MuiLink underline="none">
               <Typography sx={{ mr: 1 }}>
                 {soulToFirstLastNameString(accountSoul)}
