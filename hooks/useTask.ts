@@ -3,8 +3,8 @@ import { Web3Context } from 'contexts/Web3Context';
 import { ethers } from 'ethers';
 import { useContext } from 'react';
 import { hexStringToJson } from 'utils/converters';
-import useDaoExtContract from './contracts/useDaoExtContract';
 import useTaskContract from './contracts/useTaskContract';
+import useContract from './useContract';
 import useSubgraph from './useSubgraph';
 
 /**
@@ -12,10 +12,10 @@ import useSubgraph from './useSubgraph';
  */
 export default function useTask() {
   const { defaultProvider } = useContext(Web3Context);
-  const { applyToTask } = useDaoExtContract();
   const { acceptApplicant, deliveryApprove, stageExecusion } =
     useTaskContract();
   const { findClaims } = useSubgraph();
+  const { getContractGameMDAO } = useContract();
 
   let getTaskById = async function (id: string): Promise<Task | null> {
     const items = await getTasks([id], undefined);
@@ -52,7 +52,7 @@ export default function useTask() {
   };
 
   const applyForTaskAsDao = async function (taskId: string, daoId: string) {
-    return applyToTask(daoId, taskId, '');
+    return await getContractGameMDAO(daoId).applyToTask(taskId, '');
   };
 
   const acceptSoulForTask = async function (taskId: string, soulId: string) {

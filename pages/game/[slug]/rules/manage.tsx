@@ -39,10 +39,10 @@ export default function RuleManage(): JSX.Element {
           {/* Rules */}
           <Box sx={{ mb: 12 }}>
             <Typography variant="h2" gutterBottom>
-              {'Rules'}
+              Rules
             </Typography>
             <Typography gutterBottom>
-              {'Each rule consists of a general action and a reaction/judgment'}
+              Each rule consists of a general action and a reaction/judgment
             </Typography>
             <Divider />
             <Button
@@ -54,7 +54,7 @@ export default function RuleManage(): JSX.Element {
               }
               sx={{ mt: 2.5 }}
             >
-              {'Add Rule'}
+              Add Rule
             </Button>
             <RuleTable item={game} sx={{ mt: 2.5 }} />
           </Box>

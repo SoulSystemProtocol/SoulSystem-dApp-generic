@@ -12,7 +12,6 @@ import { getById } from './utils';
  */
 export default function useDao() {
   const {
-    // getGameContract,
     // setUri,
     // leave,
     // nominate: applyToJoin,

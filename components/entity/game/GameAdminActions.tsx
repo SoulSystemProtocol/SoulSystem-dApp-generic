@@ -1,53 +1,52 @@
-import { Button, Stack } from '@mui/material';
+import { Stack } from '@mui/material';
 import { DataContext } from 'contexts/data';
 import { DialogContext } from 'contexts/dialog';
 import { useContext, useEffect, useState } from 'react';
 import GameManageDialog from './GameManageDialog';
 import GameRoleManageDialog from './GameRoleManageDialog';
 import { isSoulHasRole } from 'hooks/utils';
+import { SelectedGameContext } from 'contexts/SelectedGame';
+import ConditionalButton from 'components/layout/ConditionalButton';
 
 /**
- * Genric Game Admin Actions
+ * Game Admin Actions
  */
-export default function GameAdminActions({ game: dao, sx }: any): JSX.Element {
+export default function GameAdminActions({ sx }: any): JSX.Element {
   const { accountSoul } = useContext(DataContext);
+  const { game } = useContext(SelectedGameContext);
   const { showDialog, closeDialog } = useContext(DialogContext);
   const [isSoulAdmin, setIsSoulAdmin] = useState(false);
 
   useEffect(() => {
-    setIsSoulAdmin(false);
-    if (accountSoul && dao) {
-      setIsSoulAdmin(isSoulHasRole(dao, accountSoul.id, 'admin'));
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [accountSoul, dao]);
-
-  if (isSoulAdmin) {
-    return (
-      <Stack direction="column" spacing={1} sx={{ ...sx }}>
-        <Button
-          size="small"
-          variant="outlined"
-          onClick={() =>
-            showDialog?.(<GameManageDialog dao={dao} onClose={closeDialog} />)
-          }
-        >
-          Edit
-        </Button>
-        <Button
-          size="small"
-          variant="outlined"
-          onClick={() =>
-            showDialog?.(
-              <GameRoleManageDialog dao={dao} onClose={closeDialog} />,
-            )
-          }
-        >
-          Manage Roles
-        </Button>
-      </Stack>
+    setIsSoulAdmin(
+      accountSoul && game && isSoulHasRole(game, accountSoul.id, 'admin'),
     );
-  } else {
-    return <></>;
-  }
+  }, [accountSoul, game]);
+
+  return (
+    <Stack direction="column" spacing={1} sx={{ ...sx }}>
+      <ConditionalButton
+        disabled={!isSoulAdmin}
+        size="small"
+        variant="outlined"
+        onClick={() =>
+          showDialog?.(<GameManageDialog dao={game} onClose={closeDialog} />)
+        }
+      >
+        Edit
+      </ConditionalButton>
+      <ConditionalButton
+        disabled={!isSoulAdmin}
+        size="small"
+        variant="outlined"
+        onClick={() =>
+          showDialog?.(
+            <GameRoleManageDialog dao={game} onClose={closeDialog} />,
+          )
+        }
+      >
+        Manage Roles
+      </ConditionalButton>
+    </Stack>
+  );
 }

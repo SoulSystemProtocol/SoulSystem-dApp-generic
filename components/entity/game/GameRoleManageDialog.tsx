@@ -9,7 +9,7 @@ import {
 } from '@mui/material';
 import { MuiForm5 as Form } from '@rjsf/material-ui';
 import { GAME_ROLE } from 'constants/contracts';
-import useDao from 'hooks/useDao';
+import useContract from 'hooks/useContract';
 import useError from 'hooks/useError';
 import useToast from 'hooks/useToast';
 import { JSONSchema7 } from 'json-schema';
@@ -43,10 +43,10 @@ export default function GameRoleManageDialog({
 }: DialogParams): JSX.Element {
   const { handleError } = useError();
   const { showToastSuccess } = useToast();
-  const { assignRoleToSoul, removeRoleToSoul } = useDao();
   const [formData, setFormData] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(!isClose);
+  const { getContractGame } = useContract();
 
   const schema: JSONSchema7 = {
     type: 'object',
@@ -88,13 +88,15 @@ export default function GameRoleManageDialog({
       setFormData(formData);
       setIsLoading(true);
       if (formData.action === 'assignRole') {
-        await assignRoleToSoul(dao.id, formData.soulId, formData.roleName);
-        // return await getGameContract(dao.id).roleAssignToToken(
-        //   token,
-        //   role,
-        // );
+        await getContractGame(dao.id).roleAssignToToken(
+          formData.soulId,
+          formData.roleName,
+        );
       } else {
-        await removeRoleToSoul(dao.id, formData.soulId, formData.roleName);
+        await getContractGame(dao.id).roleRemoveFromToken(
+          formData.soulId,
+          formData.roleName,
+        );
       }
       showToastSuccess('Success! Data will be updated soon');
       close();
