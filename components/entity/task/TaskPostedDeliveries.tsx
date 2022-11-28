@@ -11,25 +11,20 @@ import {
 } from '@mui/material';
 import Dao from 'classes/Dao';
 import Link from 'components/utils/Link';
-import {
-  CLAIM_POST_ENTITY_TYPE,
-  CLAIM_ROLE,
-  CLAIM_STAGE,
-} from 'constants/contracts';
+import { CLAIM_POST_ENTITY_TYPE, CLAIM_STAGE } from 'constants/contracts';
 import { DataContext } from 'contexts/data';
 import { DialogContext } from 'contexts/dialog';
 import useDao from 'hooks/useDao';
 import useError from 'hooks/useError';
 import useTask from 'hooks/useTask';
 import useToast from 'hooks/useToast';
-import { isSoulHasRole, nameEntity } from 'hooks/utils';
+import { getSoulsByRole, isSoulHasRole, nameEntity } from 'hooks/utils';
 import { useContext, useEffect, useState } from 'react';
 import TaskPostDeliveryDialog from './TaskPostDeliveryDialog';
 
 export default function TaskPostedDeliveries({ task, sx }: any) {
   const { accountSoul } = useContext(DataContext);
   const { showDialog, closeDialog } = useContext(DialogContext);
-  const { getSoulsByRole } = useTask();
   const [applicantPosts, setApplicantPosts] = useState([]);
 
   useEffect(() => {
@@ -42,7 +37,7 @@ export default function TaskPostedDeliveries({ task, sx }: any) {
     }
   }, [task]);
 
-  if (getSoulsByRole(task, CLAIM_ROLE.applicant.id).length > 0) {
+  if (getSoulsByRole(task, 'applicant').length > 0) {
     return (
       <Box sx={{ ...sx }}>
         <Divider sx={{ mb: 1 }} />
