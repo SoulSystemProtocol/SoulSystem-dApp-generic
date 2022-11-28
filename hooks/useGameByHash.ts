@@ -1,6 +1,5 @@
 import { useQuery } from '@apollo/client';
-import { normalizeGraphEntity } from 'helpers/metadata';
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect } from 'react';
 import queryGameSingle from 'queries/GameByHashQuery';
 
 /**
@@ -19,7 +18,6 @@ export default function useGameByHash(hash: string): any {
       setGame(null);
       console.error('Game query failed', { data, error });
     } else {
-      // setGame(data?.game ? normalizeGraphEntity(data.game) : null);
       setGame(data?.game ? data.game : null);
     }
   }, [data, error, loading]);

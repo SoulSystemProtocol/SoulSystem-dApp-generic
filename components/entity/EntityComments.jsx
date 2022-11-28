@@ -5,8 +5,8 @@ import { DialogContext } from 'contexts/dialog';
 import GamePostAddDialog from './game/GamePostAddDialog';
 import SoulCompactCard from 'components/entity/soul/SoulCompactCard';
 import useError from 'hooks/useError';
-import usePost from 'hooks/usePost';
 import useSubgraph from 'hooks/useSubgraph';
+import { normalizeGraphEntity } from 'helpers/metadata';
 
 /**
  * Posts component for Entities.
@@ -14,7 +14,6 @@ import useSubgraph from 'hooks/useSubgraph';
 export default function EntityComments({ item, sx = {} }) {
   const { accountSoul } = useContext(DataContext);
   const { showDialog, closeDialog } = useContext(DialogContext);
-  const { processGraphPost } = usePost();
   const [commentPosts, setCommentsPosts] = useState([]);
   const [hasAnyRole, setHasAnyRole] = useState(false);
   const { isGamePart } = useSubgraph();
@@ -53,7 +52,7 @@ export default function EntityComments({ item, sx = {} }) {
         <Stack spacing={1}>
           {commentPosts.map((post, index) => {
             //Process Data
-            post = processGraphPost(post);
+            post = normalizeGraphEntity(post);
             return (
               <Paper key={index} sx={{ p: 2 }}>
                 {/* Author */}

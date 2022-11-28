@@ -4,7 +4,7 @@ import { DataContext } from 'contexts/data';
 import { Web3Context } from 'contexts/Web3Context';
 import Link from 'next/link';
 import Layout from '../../components/layout/Layout';
-import SoulListGQ from '../../components/entity/soul/SoulListGQ';
+import SoulListGQ from '../../components/entity/soul/SoulTypeListGQ';
 import { getPageTitle } from '../../utils';
 import { soulCardContent } from 'utils/cardContents';
 

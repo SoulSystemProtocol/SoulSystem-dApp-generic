@@ -1,5 +1,5 @@
 import { GAME_TYPE } from 'constants/contracts';
-import GameDetail from 'components/dao/GameDetail';
+import GameDetail from 'components/entity/game/GameDetail';
 import DaoTabs from 'components/dao/DaoTabs';
 import ProjectTabs from 'components/project/ProjectTabs';
 import { SelectedGameContext } from 'contexts/SelectedGame';

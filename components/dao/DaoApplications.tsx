@@ -1,13 +1,6 @@
 import { Save } from '@mui/icons-material';
 import { LoadingButton } from '@mui/lab';
-import {
-  Box,
-  Button,
-  Card,
-  CardContent,
-  Grid,
-  Typography,
-} from '@mui/material';
+import { Box, Card, CardContent, Grid, Typography } from '@mui/material';
 import Soul from 'classes/Soul';
 import { SoulDetails, SoulImage } from 'components/entity/soul/SoulCard';
 import { DataContext } from 'contexts/data';
@@ -17,25 +10,27 @@ import useSoul from 'hooks/useSoul';
 import useToast from 'hooks/useToast';
 import { useContext, useEffect, useState } from 'react';
 import { isSoulHasRole } from 'hooks/utils';
+import ConditionalButton from 'components/layout/ConditionalButton';
 
 /**
- * Component: a list of dao applications.
+ * Component: a list of dao applications
+ * @todo: Maybe filter approved applications before presenting them and show a message if none are pending
  */
 export default function DaoApplications({ dao, sx }: any) {
   return (
     <Grid container spacing={2} sx={{ ...sx }}>
+      {/* {dao.nominations?.length} Applications */}
       {!dao.nominations && (
         <Grid item xs={12}>
           <Typography>Loading...</Typography>
         </Grid>
       )}
-      {dao.nominations?.length === 0 && (
+      {dao.nominations?.length === 0 ? (
         <Grid item xs={12}>
-          <Typography>No Results</Typography>
+          <Typography>No Pending Applications</Typography>
         </Grid>
-      )}
-      {dao.nominations?.length > 0 && (
-        <>
+      ) : (
+        <Grid item xs={12}>
           {dao.nominations.map((nomination: any, index: number) => (
             <DaoApplicationGridItem
               key={index}
@@ -43,7 +38,7 @@ export default function DaoApplications({ dao, sx }: any) {
               nomination={nomination}
             />
           ))}
-        </>
+        </Grid>
       )}
     </Grid>
   );
@@ -57,7 +52,8 @@ function DaoApplicationGridItem({ dao, nomination }: any) {
   const { accountSoul } = useContext(DataContext);
   const [isSoulAdmin, setIsSoulAdmin] = useState(false);
   const [nominatedSoul, setNominatedSoul] = useState<Soul | null>(null);
-  const [isNominatedSoulMember, setIsNominatedSoulMember] = useState(false);
+  const [isNominatedSoulMember, setIsNominatedSoulMember] =
+    useState<boolean>(false);
   const [isProcessing, setIsProcessing] = useState(false);
   const [isProcessed, setIsProcessed] = useState(false);
 
@@ -102,58 +98,58 @@ function DaoApplicationGridItem({ dao, nomination }: any) {
   useEffect(() => {
     setIsSoulAdmin(false);
     setNominatedSoul(null);
-    // setIsNominatedSoulMember(false); //Seems Redundant
     if (dao && nomination) loadData();
   }, [accountSoul, dao, nomination]);
 
-  if (nominatedSoul && !isNominatedSoulMember) {
-    return (
-      <Grid item xs={12}>
-        <Card variant="outlined">
-          <CardContent sx={{ p: '10px !important' }}>
-            <Box
-              sx={{
-                display: 'flex',
-                flexDirection: 'row',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-              }}
-            >
-              {/* Soul data */}
-              <Box
-                sx={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                }}
-              >
-                <SoulImage soul={nominatedSoul} sx={{ mr: 2 }} />
-                <SoulDetails soul={nominatedSoul} />
-              </Box>
-              {/* Soul actions */}
-              {isSoulAdmin && (
-                <Box>
-                  {isProcessed ? (
-                    <></>
-                  ) : isProcessing ? (
-                    <LoadingButton
-                      loading
-                      loadingPosition="start"
-                      startIcon={<Save />}
-                    >
-                      Processing
-                    </LoadingButton>
-                  ) : (
-                    <Button onClick={() => addToDao()}>Accept Applicant</Button>
-                  )}
-                </Box>
-              )}
-            </Box>
-          </CardContent>
-        </Card>
-      </Grid>
-    );
-  }
+  if (!nominatedSoul || isNominatedSoulMember) return <></>;
 
-  return <></>;
+  return (
+    <Card variant="outlined">
+      <CardContent sx={{ p: '10px !important' }}>
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+          }}
+        >
+          {/* Soul data */}
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'row',
+              alignItems: 'center',
+            }}
+          >
+            <SoulImage soul={nominatedSoul} sx={{ mr: 2 }} />
+            <SoulDetails soul={nominatedSoul} />
+          </Box>
+          {/* Soul actions */}
+          {/* {isSoulAdmin && ( */}
+          <Box>
+            {isProcessed ? (
+              <></>
+            ) : isProcessing ? (
+              <LoadingButton
+                loading
+                loadingPosition="start"
+                startIcon={<Save />}
+              >
+                Processing
+              </LoadingButton>
+            ) : (
+              <ConditionalButton
+                disabled={!isSoulAdmin}
+                onClick={() => addToDao()}
+              >
+                Accept Applicant
+              </ConditionalButton>
+            )}
+          </Box>
+          {/* )} */}
+        </Box>
+      </CardContent>
+    </Card>
+  );
 }

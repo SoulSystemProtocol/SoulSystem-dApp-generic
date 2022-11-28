@@ -4,7 +4,7 @@ import PaginatedList from 'components/PaginatedList';
 /**
  * Component: Soul list filtered by type only
  */
-export default function SoulListGQ(props: any) {
+export default function SoulTypeListGQ(props: any) {
   //Soul Query - Role Optional
   const query = gql`
     query GetSouls($type: String!, $first: Int, $skip: Int) {

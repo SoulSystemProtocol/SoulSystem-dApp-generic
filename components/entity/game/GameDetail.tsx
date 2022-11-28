@@ -1,7 +1,7 @@
 import { Stack, Typography, Button } from '@mui/material';
 import { Box } from '@mui/system';
 import GameAdminActions from 'components/entity/game/GameAdminActions';
-import EntityImage from '../entity/EntityImage';
+import EntityImage from '../EntityImage';
 import AddressHash from 'components/web3/AddressHash';
 import AccountBalance from 'components/web3/AccountBalance';
 import FundDialogButton from 'components/web3/FundDialogButton';
