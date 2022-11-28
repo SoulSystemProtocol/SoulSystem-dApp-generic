@@ -2,9 +2,9 @@ import { Box } from '@mui/material';
 import Soul from 'classes/Soul';
 import SoulList from 'components/entity/soul/SoulList';
 import { GAME_ROLE, SOUL_TYPE } from 'constants/contracts';
-import useDao from 'hooks/useDao';
 import useError from 'hooks/useError';
 import useSoul from 'hooks/useSoul';
+import { getSoulsByRole } from 'hooks/utils';
 import { each, union } from 'lodash';
 import { useEffect, useState } from 'react';
 
@@ -13,7 +13,6 @@ import { useEffect, useState } from 'react';
  */
 export default function GameSouls({ game, sx }: any) {
   const { handleError } = useError();
-  const { getSoulsByRole } = useDao();
   const { getSouls } = useSoul();
   const [souls, setSouls] = useState<Array<Soul> | null>(null);
   const [soulRoles, setSoulRoles] = useState<Object | {}>({});
@@ -21,10 +20,10 @@ export default function GameSouls({ game, sx }: any) {
   async function loadData() {
     try {
       // Load soul ids
-      const members = getSoulsByRole(game, GAME_ROLE.member.id);
-      const admins = getSoulsByRole(game, GAME_ROLE.admin.id);
-      const authorities = getSoulsByRole(game, GAME_ROLE.authority.id);
-      const applicants = getSoulsByRole(game, GAME_ROLE.applicant.id);
+      const members = getSoulsByRole(game, 'member');
+      const admins = getSoulsByRole(game, 'admin');
+      const authorities = getSoulsByRole(game, 'authority');
+      const applicants = getSoulsByRole(game, 'applicant');
       const allSouls = union(members, admins, authorities, applicants);
       // Load souls by ids
       setSouls(
@@ -47,9 +46,7 @@ export default function GameSouls({ game, sx }: any) {
         },
         (roleSouls, roleId) => {
           each(roleSouls, (soul: string) => {
-            if (!roles[soul]) {
-              roles[soul] = Array();
-            }
+            if (!roles[soul]) roles[soul] = Array();
             roles[soul].push(roleId);
           });
         },
@@ -61,9 +58,7 @@ export default function GameSouls({ game, sx }: any) {
   }
 
   useEffect(() => {
-    if (game) {
-      loadData();
-    }
+    if (game) loadData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [game]);
 
