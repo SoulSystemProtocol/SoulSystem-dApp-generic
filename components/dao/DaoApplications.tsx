@@ -15,7 +15,6 @@ import { SelectedGameContext } from 'contexts/SelectedGame';
 
 /**
  * Component: a list of game applications
- * @todo: Maybe filter approved applications before presenting them and show a message if none are pending
  */
 export default function DaoApplications({ sx }: any) {
   const { game, loading, error } = useContext(SelectedGameContext);
@@ -30,7 +29,6 @@ export default function DaoApplications({ sx }: any) {
 
   return (
     <Grid container spacing={2} sx={{ ...sx }}>
-      {/* {game.nominations?.length} Applications */}
       {!game.nominations && (
         <Grid item xs={12}>
           <Typography>Loading...</Typography>
