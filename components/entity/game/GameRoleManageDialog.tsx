@@ -8,7 +8,6 @@ import {
   Stack,
 } from '@mui/material';
 import { MuiForm5 as Form } from '@rjsf/material-ui';
-import { GAME_ROLE } from 'constants/contracts';
 import useContract from 'hooks/useContract';
 import useError from 'hooks/useError';
 import useToast from 'hooks/useToast';
@@ -68,10 +67,7 @@ export default function GameRoleManageDialog({
         title: 'Role',
         default: 'member',
         enum: ['member', 'admin'],
-        enumNames: [
-          capitalize(GAME_ROLE.member.name),
-          capitalize(GAME_ROLE.admin.name),
-        ],
+        enumNames: [capitalize('member'), capitalize('admin')],
       },
     },
   };
@@ -84,9 +80,9 @@ export default function GameRoleManageDialog({
   }
 
   async function submit({ formData }: any) {
+    setIsLoading(true);
     try {
       setFormData(formData);
-      setIsLoading(true);
       if (formData.action === 'assignRole') {
         await getContractGame(dao.id).roleAssignToToken(
           formData.soulId,
@@ -102,8 +98,8 @@ export default function GameRoleManageDialog({
       close();
     } catch (error: any) {
       handleError(error, true);
-      setIsLoading(false);
     }
+    setIsLoading(false);
   }
 
   return (

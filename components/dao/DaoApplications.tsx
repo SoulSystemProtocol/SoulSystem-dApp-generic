@@ -9,32 +9,43 @@ import useError from 'hooks/useError';
 import useSoul from 'hooks/useSoul';
 import useToast from 'hooks/useToast';
 import { useContext, useEffect, useState } from 'react';
-import { isSoulHasRole } from 'hooks/utils';
+import { getSoulsByRole, isSoulHasRole } from 'hooks/utils';
 import ConditionalButton from 'components/layout/ConditionalButton';
+import { SelectedGameContext } from 'contexts/SelectedGame';
 
 /**
- * Component: a list of dao applications
+ * Component: a list of game applications
  * @todo: Maybe filter approved applications before presenting them and show a message if none are pending
  */
-export default function DaoApplications({ dao, sx }: any) {
+export default function DaoApplications({ sx }: any) {
+  const { game, loading, error } = useContext(SelectedGameContext);
+  if (!game) return <></>;
+
+  //All Current Members
+  const members = getSoulsByRole(game, 'member');
+  //Applications that aren't members
+  let applications = game?.nominations?.filter((nomination: any) => {
+    return !members.includes(nomination?.nominated?.id?.toString());
+  });
+
   return (
     <Grid container spacing={2} sx={{ ...sx }}>
-      {/* {dao.nominations?.length} Applications */}
-      {!dao.nominations && (
+      {/* {game.nominations?.length} Applications */}
+      {!game.nominations && (
         <Grid item xs={12}>
           <Typography>Loading...</Typography>
         </Grid>
       )}
-      {dao.nominations?.length === 0 ? (
+      {applications?.length === 0 ? (
         <Grid item xs={12}>
           <Typography>No Pending Applications</Typography>
         </Grid>
       ) : (
         <Grid item xs={12}>
-          {dao.nominations.map((nomination: any, index: number) => (
+          {applications.map((nomination: any, index: number) => (
             <DaoApplicationGridItem
               key={index}
-              dao={dao}
+              game={game}
               nomination={nomination}
             />
           ))}
@@ -44,7 +55,7 @@ export default function DaoApplications({ dao, sx }: any) {
   );
 }
 
-function DaoApplicationGridItem({ dao, nomination }: any) {
+function DaoApplicationGridItem({ game, nomination }: any) {
   const { handleError } = useError();
   const { showToastSuccess } = useToast();
   const { getSoulById } = useSoul();
@@ -52,34 +63,34 @@ function DaoApplicationGridItem({ dao, nomination }: any) {
   const { accountSoul } = useContext(DataContext);
   const [isSoulAdmin, setIsSoulAdmin] = useState(false);
   const [nominatedSoul, setNominatedSoul] = useState<Soul | null>(null);
-  const [isNominatedSoulMember, setIsNominatedSoulMember] =
-    useState<boolean>(false);
+  // const [isNominatedSoulMember, setIsNominatedSoulMember] =
+  //   useState<boolean>(false);
   const [isProcessing, setIsProcessing] = useState(false);
   const [isProcessed, setIsProcessed] = useState(false);
 
   async function loadData() {
     try {
       setIsSoulAdmin(
-        dao && accountSoul
-          ? isSoulHasRole(dao, accountSoul.id, 'admin')
+        game && accountSoul
+          ? isSoulHasRole(game, accountSoul.id, 'admin')
           : false,
       );
       const soul = await getSoulById(nomination.nominated.id);
       if (soul) {
         setNominatedSoul(soul);
-        setIsNominatedSoulMember(isSoulHasRole(dao, soul.id, 'member'));
+        // setIsNominatedSoulMember(isSoulHasRole(game, soul.id, 'member'));
       }
     } catch (error: any) {
       handleError(error, true);
     }
   }
 
-  async function addToDao() {
+  /// Add Member
+  async function assignAsMember() {
     try {
       setIsProcessing(true);
       if (nominatedSoul) {
-        // await assignRoleToSoul(dao.id, nominatedSoul.id, GAME_ROLE.member.name);
-        await getContractGame(dao.id).roleAssignToToken(
+        await getContractGame(game.id).roleAssignToToken(
           nominatedSoul.id,
           'member',
         );
@@ -98,10 +109,12 @@ function DaoApplicationGridItem({ dao, nomination }: any) {
   useEffect(() => {
     setIsSoulAdmin(false);
     setNominatedSoul(null);
-    if (dao && nomination) loadData();
-  }, [accountSoul, dao, nomination]);
+    if (game && nomination) loadData();
+  }, [accountSoul, game, nomination]);
 
+  /* Filtered Beforehand
   if (!nominatedSoul || isNominatedSoulMember) return <></>;
+  */
 
   return (
     <Card variant="outlined">
@@ -141,7 +154,7 @@ function DaoApplicationGridItem({ dao, nomination }: any) {
             ) : (
               <ConditionalButton
                 disabled={!isSoulAdmin}
-                onClick={() => addToDao()}
+                onClick={() => assignAsMember()}
               >
                 Accept Applicant
               </ConditionalButton>
