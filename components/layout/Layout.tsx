@@ -132,7 +132,14 @@ export default function Layout({ children, title }: any) {
         <title>{title || process.env.NEXT_PUBLIC_APP_NAME}</title>
         <meta name="viewport" content="initial-scale=1, width=device-width" />
       </Head>
-      <Sidebar links={menu_side_links} toggler={toggleDrawer} isOpen={isOpen} />
+
+      {process.env.NEXT_PUBLIC_FEATURE_SIDEBAR == 'true' && (
+        <Sidebar
+          links={menu_side_links}
+          toggler={toggleDrawer}
+          isOpen={isOpen}
+        />
+      )}
       <Container sx={{ minHeight: '100vh', m: '0 auto' }} maxWidth="xl">
         <Header open={isOpen} toggleDrawer={toggleDrawer} links={top_links} />
         <Container
