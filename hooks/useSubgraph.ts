@@ -205,6 +205,7 @@ function getFindSoulsQuery(
         uriImage
         uriFirstName
         uriLastName
+        name
         participantGame {
           id
           roles
