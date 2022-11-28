@@ -14,10 +14,10 @@ import useError from 'hooks/useError';
 import useToast from 'hooks/useToast';
 
 /**
- * Component: Dialog for disable (mark as obsolete) a jurisdiction rule.
+ * Component: Dialog for disable (mark as obsolete) a Game's rule.
  */
 export default function RuleDisableDialog({
-  jurisdiction,
+  item,
   rule,
   isClose,
   onClose,
@@ -37,7 +37,7 @@ export default function RuleDisableDialog({
   async function submit() {
     try {
       setIsLoading(true);
-      await getContractGame(jurisdiction.id).ruleDisable(rule.ruleId, true);
+      await getContractGame(item.id).ruleDisable(rule.ruleId, true);
       showToastSuccess('Success! Data will be updated soon.');
       close();
     } catch (error: any) {

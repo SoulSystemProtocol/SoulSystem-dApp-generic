@@ -168,43 +168,32 @@ export function handleCancelCaseEvent(caseId: string) {
 }
 
 /**
- * Handle join jurisdiction event.
+ * Handle join game event.
  */
-export function handleJoinJurisdictionEvent(jurisdiction: string) {
+export function handleJoinGameEvent(game: string) {
   if (isAnalyticsEnabled()) {
     posthog.capture(POST_HOG_EVENT.joinedJurisdiction, {
-      [POST_HOG_PROPERTY.jurisdiction]: jurisdiction,
+      [POST_HOG_PROPERTY.game]: game,
     });
   }
 }
 
 /**
- * Handle leave jurisdiction event.
+ * Handle leave game event.
  */
-export function handleLeaveJurisdictionEvent(jurisdiction: string) {
+export function handleLeaveGameEvent(game: string) {
   if (isAnalyticsEnabled()) {
     posthog.capture(POST_HOG_EVENT.leftJurisdiction, {
-      [POST_HOG_PROPERTY.jurisdiction]: jurisdiction,
+      [POST_HOG_PROPERTY.game]: game,
     });
   }
 }
 
 /**
- * Handle make jurisdiction event.
+ * Handle make game event.
  */
-export function handleMakeJurisdiction() {
+export function handleMakeGame() {
   if (isAnalyticsEnabled()) {
     posthog.capture(POST_HOG_EVENT.madeJurisdiction);
-  }
-}
-
-/**
- * Handle set jurisdiction uri event.
- */
-export function handleSetJurisdictionUri(jurisdiction: string) {
-  if (isAnalyticsEnabled()) {
-    posthog.capture(POST_HOG_EVENT.setJurisdictionUri, {
-      [POST_HOG_PROPERTY.jurisdiction]: jurisdiction,
-    });
   }
 }

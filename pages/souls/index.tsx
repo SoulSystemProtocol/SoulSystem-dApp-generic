@@ -23,7 +23,7 @@ export default function SoulsPage({ type = '' }: any) {
   const { accountSoul } = useContext(DataContext);
 
   const renderActions = account && !accountSoul && (
-    <Link href={`/${CONF.ROUTE}/create`} passHref>
+    <Link href={`/soul/create`} passHref>
       <Button variant="outlined">Create Soul</Button>
     </Link>
   );

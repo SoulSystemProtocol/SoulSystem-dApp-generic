@@ -83,7 +83,7 @@ export default function DisplayPOAP({
                 ) : (
                   <DisplayGridItem1
                     key={item.event.id.toString()}
-                    props={{ key: item.event.id.toString(), xs: 12, md: 1 }}
+                    props={{ key: item.event.id.toString(), xs: 2, md: 1 }}
                     image_url={item?.event?.image_url}
                     name={item.event.name}
                     title={`${item.event.name} - ${item.event.description}`}

@@ -15,7 +15,7 @@ import JsonViewDialog from 'components/json/JsonViewDialog';
 /**
  * Component: Games's Rules in Table Display
  */
-export default function RuleTable({ jurisdiction, sx }: any) {
+export default function RuleTable({ item, sx }: any) {
   // eslint-disable-next-line prettier/prettier
   const { showDialog, closeDialog }: Partial<IDialogParams> =
     useContext(DialogContext);
@@ -54,7 +54,7 @@ export default function RuleTable({ jurisdiction, sx }: any) {
             onClick={() =>
               showDialog?.(
                 <RuleDisableDialog
-                  jurisdiction={jurisdiction}
+                  item={item}
                   rule={params.row.rule}
                   onClose={closeDialog}
                 />,
@@ -201,7 +201,7 @@ export default function RuleTable({ jurisdiction, sx }: any) {
       setRows([]);
       setIsLoading(true);
       const rows = [];
-      const rules = await getGameRules([], jurisdiction.id);
+      const rules = await getGameRules([], item.id);
       // const actionGuids = new Set();
       const actionGuids = new Array();
       for (const rule of rules) {
@@ -222,11 +222,10 @@ export default function RuleTable({ jurisdiction, sx }: any) {
   }
 
   useEffect(() => {
-    if (jurisdiction) {
-      loadData();
-    }
+    if (item) loadData();
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [jurisdiction]);
+  }, [item]);
 
   return (
     <Box sx={{ height: 800, ...sx }}>
