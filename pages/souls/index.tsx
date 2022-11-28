@@ -11,7 +11,7 @@ import { soulCardContent } from 'utils/cardContents';
 const CONF = {
   PAGE_TITLE: 'SBT Profiles',
   TITLE: 'SBT Profiles',
-  SUBTITLE: `You can now be an NFT!`,
+  SUBTITLE: `You can now be an NFT! interact with the soul-system, mint yourself a soulbound NFT avatar`,
   ROUTE: 'souls',
 };
 
