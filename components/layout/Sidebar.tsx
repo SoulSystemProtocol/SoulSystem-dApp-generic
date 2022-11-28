@@ -84,7 +84,7 @@ export default function Sidebar({
       if (hide) return <></>;
       const isActive = router.pathname.startsWith(route);
       return (
-        <>
+        <Box key={'item' + label}>
           {route ? (
             <ListItem
               key={'item' + label}
@@ -141,7 +141,7 @@ export default function Sidebar({
               {label}
             </ListSubheader>
           )}
-        </>
+        </Box>
       );
     },
   );
