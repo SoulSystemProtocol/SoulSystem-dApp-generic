@@ -17,6 +17,7 @@ export interface CardItem {
   imgSrc: string;
   roles?: any[];
   avatarIcon?: any;
+  baseRoute?: string;
 }
 
 // Item Processing Function
@@ -105,13 +106,14 @@ export const soulPartCardContent = (item: any): CardItem => {
   return ret;
 };
 
-// Task Participant
+// Task Participant // DEPRECATED
 export const taskPartCardContent = (item: any): CardItem => {
-  let gameMetadata = hexStringToJson(item.entity.game.metadata);
-  let metadata = hexStringToJson(item.entity.metadata);
+  console.warn('Task Part Item', item);
+  let gameMetadata = hexStringToJson(item?.entity?.game?.metadata); //Games no longer have metadata...
+  let metadata = hexStringToJson(item?.entity?.metadata);
   let ret = {
     id: item.entity.id,
-    imgSrc: resolveLink(gameMetadata.image),
+    imgSrc: resolveLink(gameMetadata?.image),
     label: metadata?.description,
     title: metadata?.name,
     metadata,

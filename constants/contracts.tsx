@@ -26,6 +26,7 @@ export const SOUL_TYPE: any = {
 export const GAME_TYPE: any = {
   mdao: 'MDAO',
   project: 'PROJECT',
+  task: 'bounty',
 };
 
 /* TODO: Role Token IDs aren't static/predetermind. Should fetch them from the contract directly */

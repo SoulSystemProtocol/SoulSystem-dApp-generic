@@ -6,16 +6,19 @@ import CardAvatar from './CardAvatar';
 import { roleIdToName } from 'utils/converters';
 import { CardItem } from 'utils/cardContents';
 
-type TDashboardCard = {
-  baseRoute: string;
-  data: CardItem;
-};
-
 /**
  * Dashboard card component.
  */
-export default function DashboardCard({ baseRoute, data }: TDashboardCard) {
-  const { id, title, label, imgSrc, avatarIcon, roles = [] } = data;
+export default function DashboardCard({
+  id,
+  title,
+  label,
+  link,
+  imgSrc,
+  avatarIcon,
+  roles = [],
+  baseRoute,
+}: CardItem) {
   const renderChip = !!roles?.length && (
     <Stack spacing={1} sx={{ ml: 1, alignSelf: 'flex-start' }}>
       {roles.map((role: string, index: number) => (
@@ -25,8 +28,8 @@ export default function DashboardCard({ baseRoute, data }: TDashboardCard) {
   );
 
   if (id) {
-    const link = data.link || `/${baseRoute}/${id}`;
-    if (!data.link) console.error('data has no link', data);
+    const datalink = link || `/${baseRoute}/${id}`;
+    if (!datalink) console.error('data has no link', datalink);
     return (
       <Card variant="outlined">
         <CardContent sx={{ p: '10px !important' }}>
@@ -34,9 +37,13 @@ export default function DashboardCard({ baseRoute, data }: TDashboardCard) {
             direction="row"
             sx={{ alignItems: 'center', display: 'flex', flexDirection: 'row' }}
           >
-            <CardAvatar imgSrc={imgSrc} avatarIcon={avatarIcon} link={link} />
+            <CardAvatar
+              imgSrc={imgSrc}
+              avatarIcon={avatarIcon}
+              link={datalink}
+            />
             <Box sx={{ ml: 2, flex: 1, alignSelf: 'flex-start' }}>
-              <Link href={link} underline="none">
+              <Link href={datalink} underline="none">
                 {title}
               </Link>
               {label && (
@@ -46,7 +53,7 @@ export default function DashboardCard({ baseRoute, data }: TDashboardCard) {
                   sx={{ mt: '1px' }}
                 >
                   <Link
-                    href={link}
+                    href={datalink}
                     underline="none"
                     sx={{
                       color: 'inherit',

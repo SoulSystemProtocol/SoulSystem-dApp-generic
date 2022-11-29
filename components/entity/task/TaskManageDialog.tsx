@@ -14,6 +14,7 @@ import useContract from 'hooks/useContract';
 import useToast from 'hooks/useToast';
 import { JSONSchema7 } from 'json-schema';
 import { useState } from 'react';
+import { GAME_TYPE } from 'constants/contracts';
 
 /**
  * A dialog for creating or editing tasks.
@@ -80,13 +81,8 @@ export default function TaskManageDialog({
         // TODO: Implement this feature
         console.warn('[TODO] Implement Task Edit');
       } else {
-        // console.log('[DEBUG] Creating a new task for project: ' + project.id, {
-        //   name: formData.name,
-        //   metadataUrl,
-        // });
         await getContractGameProject(project.id).makeTask(
-          // 'BOUNTY',
-          'bounty',
+          GAME_TYPE.task,
           formData.name,
           metadataUrl,
         );

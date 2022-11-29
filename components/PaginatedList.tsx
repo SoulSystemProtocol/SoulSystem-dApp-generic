@@ -9,7 +9,6 @@ import { CardItem } from 'utils/cardContents';
 type TPaginatedList = {
   query: any;
   variables?: any;
-  baseRoute: string;
   subtitle: string;
   title: string;
   getCardContent: (dataItem: any) => CardItem;
@@ -34,7 +33,6 @@ const wrapperStyle = {
 export default function PaginatedList({
   query,
   variables,
-  baseRoute,
   subtitle,
   title,
   renderActions,
@@ -113,7 +111,7 @@ export default function PaginatedList({
                 const cardData: CardItem = getCardContent(dataItem);
                 return (
                   <Grid key={index} item xs={12} md={gridMD} lg={gridLG}>
-                    <DashboardCard baseRoute={baseRoute} data={cardData} />
+                    <DashboardCard {...cardData} />
                   </Grid>
                 );
               })}

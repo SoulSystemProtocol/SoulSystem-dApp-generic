@@ -22,17 +22,6 @@ const CONF = {
 export default function TaskPage({}: any) {
   const { accountSoul } = useContext(DataContext);
   const { showDialog, closeDialog } = useContext(DialogContext);
-  const renderActions = (
-    <Button
-      disabled={!accountSoul}
-      onClick={() =>
-        showDialog?.(<ProjectManageDialog onClose={closeDialog} />)
-      }
-      variant="outlined"
-    >
-      Create Task
-    </Button>
-  );
 
   const listProps = {
     variables: {
@@ -40,9 +29,21 @@ export default function TaskPage({}: any) {
       role: 'bounty',
     },
     getCardContent: processCardContent,
-    renderActions,
+    // renderActions: (
+    //   <Button
+    //     disabled={!accountSoul}
+    //     onClick={() =>
+    //       showDialog?.(<ProjectManageDialog onClose={closeDialog} />)
+    //     }
+    //     variant="outlined"
+    //   >
+    //     Create Task
+    //   </Button>
+    // ),
     subtitle: CONF.SUBTITLE,
     title: CONF.TITLE,
+    gridMD: 12,
+    gridLG: 12,
   };
 
   return (
