@@ -19,7 +19,7 @@ export default function GameView({ sx }: { sx: any }): JSX.Element {
     return <>Failed to Load Entity</>;
   }
   if (loading) return <Loading />;
-  if (!game) return <>Failed to Load Entity</>;
+  // if (!game) return <>Failed to Load Entity</>;
   return (
     <Box sx={sx}>
       <GameDetail item={game} sx={{ mb: 5 }} />
