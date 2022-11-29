@@ -5,6 +5,7 @@ import { APP_CONFIGS } from '../constants';
 import Loader from './Loader';
 import DashboardCard from './DashboardCard';
 import { CardItem } from 'utils/cardContents';
+import DashboardCardTask from './DashboardCardTask';
 
 type TPaginatedList = {
   query: any;
@@ -111,7 +112,11 @@ export default function PaginatedList({
                 const cardData: CardItem = getCardContent(dataItem);
                 return (
                   <Grid key={index} item xs={12} md={gridMD} lg={gridLG}>
-                    <DashboardCard {...cardData} />
+                    {cardData.imgSrc == 'PARENT_IMAGE' ? (
+                      <DashboardCardTask {...cardData} />
+                    ) : (
+                      <DashboardCard {...cardData} />
+                    )}
                   </Grid>
                 );
               })}

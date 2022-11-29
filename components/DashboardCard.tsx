@@ -29,7 +29,7 @@ export default function DashboardCard({
 
   if (id) {
     const datalink = link || `/${baseRoute}/${id}`;
-    if (!datalink) console.error('data has no link', datalink);
+    if (!datalink) console.error('Item missing a link', { link, datalink });
     return (
       <Card variant="outlined">
         <CardContent sx={{ p: '10px !important' }}>

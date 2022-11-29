@@ -8,6 +8,7 @@ import {
   soulToFirstLastNameString,
 } from './converters';
 import { resolveLink } from 'helpers/IPFS';
+import { useState } from 'react';
 
 export interface CardItem {
   id: string;
@@ -103,6 +104,23 @@ export const soulPartCardContent = (item: any): CardItem => {
     roles: item?.roles,
   };
   // console.log('soulPartCardContent() Soul Part', { metadata, item, ret });
+  return ret;
+};
+
+// Soul Part for Tasks (Using Parent's Image)
+export const soulPartTaskCardContent = (item: any): CardItem => {
+  let metadata = hexStringToJson(item.aEnd.metadata);
+  let ret = {
+    id: item.aEnd.id,
+    imgSrc: 'PARENT_IMAGE',
+    label: metadata?.description,
+    title: metadata?.name,
+    metadata,
+    // link: `/tasks/${item.aEnd.owner}`,
+    link: `/soul/${item.aEnd.owner}`,
+    roles: item?.roles,
+  };
+  // console.log('soulPartTaskCardContent() Soul Part', { metadata, item, ret });
   return ret;
 };
 

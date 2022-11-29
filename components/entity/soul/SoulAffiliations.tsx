@@ -6,10 +6,10 @@ import { useContext } from 'react';
 import {
   CardItem,
   soulPartCardContent,
+  soulPartTaskCardContent,
   taskPartCardContent,
 } from 'utils/cardContents';
 import SoulParts from './SoulParts';
-import SoulProcs from './SoulProcs';
 
 /**
  * Soul's Connections to other protocol entities
@@ -116,7 +116,7 @@ export default function SoulAffiliations(): JSX.Element {
               }
               return Object.values(outputs);
             }}
-            getCardContent={soulPartCardContent}
+            getCardContent={soulPartTaskCardContent}
           />
         )}
       </Box>
