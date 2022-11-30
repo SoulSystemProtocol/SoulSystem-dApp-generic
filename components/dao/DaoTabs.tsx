@@ -36,7 +36,7 @@ export default function DaoTabs({ item: dao, sx }: any) {
           <Tab label="Applicants" value="3" />
           <Tab label="Relations" value="4" />
         </TabList>
-        <TabPanel value="1" sx={{ px: 0 }}>
+        <TabPanel value="1" sx={{ p: 0 }}>
           <EntityComments item={dao} />
         </TabPanel>
         <TabPanel value="2" sx={{ px: 0 }}>

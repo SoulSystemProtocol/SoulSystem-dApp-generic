@@ -24,6 +24,7 @@ import useToast from 'hooks/useToast';
 import Link from 'next/link';
 import { useContext, useEffect, useState } from 'react';
 import { soulImage } from 'utils/converters';
+import useSoulById from 'hooks/useSoulById';
 
 export default function TaskApprovedDeliveries({ task, sx }: any) {
   const { accountSoul } = useContext(DataContext);
@@ -91,6 +92,7 @@ export default function TaskApprovedDeliveries({ task, sx }: any) {
 function TaskApprovedDelivery({ soulId }: any) {
   const { handleError } = useError();
   const { getSoulById } = useSoul();
+  // const { soul, loading, error } = useSoulById(soulId as string);
   const { getDaoById } = useDao();
   const [soulDao, setSoulDao] = useState<Dao | null>(null);
 
@@ -98,12 +100,24 @@ function TaskApprovedDelivery({ soulId }: any) {
     // Try load post DAO
     if (soulId) {
       getSoulById(soulId)
+        //TODO: Maybe get GameBySoulId
         .then((soul) => (soul ? getDaoById(soul.owner) : null))
         .then((dao) => setSoulDao(dao))
         .catch((error: any) => handleError(error, true));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [soulId]);
+
+  console.error('TODO: Enable and Test New Soul Hook!');
+  // useEffect(() => {  //TODO: Enable and Test This!
+  //   // Try load post DAO
+  //   if (soul) {
+  //     getDaoById(soul.owner)
+  //       .then((dao) => setSoulDao(dao))
+  //       .catch((error: any) => handleError(error, true));
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [soul]);
 
   return (
     <ListItem>

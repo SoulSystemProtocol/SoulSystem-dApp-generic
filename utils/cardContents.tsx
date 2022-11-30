@@ -8,7 +8,6 @@ import {
   soulToFirstLastNameString,
 } from './converters';
 import { resolveLink } from 'helpers/IPFS';
-import { useState } from 'react';
 
 export interface CardItem {
   id: string;

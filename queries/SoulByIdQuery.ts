@@ -8,12 +8,16 @@ const query = gql`
       type
       role
       uri
-      uriData
       metadata
       uriImage
       uriFirstName
       uriLastName
       name
+      attrs {
+        id
+        role
+        bEnd
+      }
     }
   }
 `;
