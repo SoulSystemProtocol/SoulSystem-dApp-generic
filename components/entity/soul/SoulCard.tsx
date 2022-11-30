@@ -12,7 +12,7 @@ export default function SoulCard({ soul, roles }: any): JSX.Element {
   if (soul) {
     return (
       <Grid item>
-        <Card variant="outlined">
+        <Card variant="outlined" sx={{ borderRadius: '16px' }}>
           <CardContent sx={{ p: '10px !important' }}>
             <Box
               sx={{
