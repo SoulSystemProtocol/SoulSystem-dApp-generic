@@ -21,13 +21,5 @@ const query = gql`
     }
   }
 `;
-/// REMOVED
-// participantGame {
-//   id
-//   roles
-// }
-// participantProc {
-//   id
-//   roles
-// }
+
 export default query;

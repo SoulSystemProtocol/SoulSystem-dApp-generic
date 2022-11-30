@@ -1,4 +1,3 @@
-import { normalizeGraphEntity } from 'helpers/metadata';
 // import { ethers } from 'ethers';
 import useTaskContract from './contracts/useTaskContract';
 import useContract from './useContract';
@@ -26,9 +25,7 @@ export default function useTask() {
     skip = 0,
   ): Promise<Array<any>> {
     const subgraphTasks = await findClaims(ids, type, projectId, first, skip);
-    return subgraphTasks.map((subgraphTask: any) =>
-      normalizeGraphEntity(subgraphTask),
-    );
+    return subgraphTasks;
   };
 
   const isSoulHasRole = function (
