@@ -8,7 +8,6 @@ import {
   Typography,
   Button,
 } from '@mui/material';
-import Dao from 'classes/Dao';
 import Link from 'components/utils/Link';
 import { SOUL_TYPE, CLAIM_STAGE } from 'constants/contracts';
 import { DataContext } from 'contexts/data';
@@ -28,7 +27,7 @@ export default function TaskApplication({ task, nomination }: any) {
   const { showToastSuccess } = useToast();
   const { getDaoById } = useDao();
   const { acceptSoulForTask } = useTask();
-  const [nominatedDao, setNominatedDao] = useState<Dao | null>(null);
+  const [nominatedDao, setNominatedDao] = useState<any | null>(null);
   const [isProcessing, setIsProcessing] = useState(false);
   const [isProcessed, setIsProcessed] = useState(false);
 

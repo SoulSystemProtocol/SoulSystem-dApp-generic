@@ -9,7 +9,6 @@ import {
   Stack,
   Typography,
 } from '@mui/material';
-import Dao from 'classes/Dao';
 import Link from 'components/utils/Link';
 import { CLAIM_POST_ENTITY_TYPE, CLAIM_STAGE } from 'constants/contracts';
 import { DataContext } from 'contexts/data';
@@ -80,7 +79,7 @@ function TaskPostedDelivery({ task, post }: any) {
   const { showToastSuccess } = useToast();
   const { getDaoById } = useDao();
   const { approveSoulDelivery } = useTask();
-  const [postDao, setPostDao] = useState<Dao | null>(null);
+  const [postDao, setPostDao] = useState<any | null>(null);
   const [isProcessing, setIsProcessing] = useState(false);
   const [isProcessed, setIsProcessed] = useState(false);
 

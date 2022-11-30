@@ -14,7 +14,6 @@ import {
   Typography,
 } from '@mui/material';
 import { CLAIM_ROLE, CLAIM_STAGE } from 'constants/contracts';
-import Dao from 'classes/Dao';
 import { DataContext } from 'contexts/data';
 import useDao from 'hooks/useDao';
 import useError from 'hooks/useError';
@@ -94,7 +93,7 @@ function TaskApprovedDelivery({ soulId }: any) {
   const { getSoulById } = useSoul();
   // const { soul, loading, error } = useSoulById(soulId as string);
   const { getDaoById } = useDao();
-  const [soulDao, setSoulDao] = useState<Dao | null>(null);
+  const [soulDao, setSoulDao] = useState<any | null>(null);
 
   useEffect(() => {
     // Try load post DAO

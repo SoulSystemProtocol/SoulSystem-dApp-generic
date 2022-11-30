@@ -13,7 +13,6 @@ export default function useWeb3NativeBalance(address: string): {
   const [balance, setBalance] = useState<string | null>(null);
 
   useEffect(() => {
-    console.warn("Get Addr for Balance", { address });
     if (address && getBalance) {
       getBalance(address)
         .then((fund: string) => setBalance(fund))

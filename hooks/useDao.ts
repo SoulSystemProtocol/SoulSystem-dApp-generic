@@ -1,4 +1,3 @@
-import Dao from 'classes/Dao';
 import { GAME_TYPE } from 'constants/contracts';
 import { hexStringToJson } from 'utils/converters';
 import useGameContract from './contracts/useGameContract';
@@ -32,7 +31,7 @@ export default function useDao() {
     );
   }
 
-  function getSoulsByRole(dao: Dao, roleId: string): Array<string> {
+  function getSoulsByRole(dao: any, roleId: string): Array<string> {
     return (
       dao.roles?.find((element: any) => element?.roleId === roleId)?.souls || []
     );
@@ -45,7 +44,7 @@ export default function useDao() {
     getDaos,
     getDaoById: (id: string) => getById(id, getDaos),
     getSoulsByRole,
-    isSoulHasRole: (dao: Dao, soul: string, roleId: string): boolean =>
+    isSoulHasRole: (dao: any, soul: string, roleId: string): boolean =>
       getSoulsByRole(dao, roleId).includes(soul),
     // leave,
     // applyToJoin,

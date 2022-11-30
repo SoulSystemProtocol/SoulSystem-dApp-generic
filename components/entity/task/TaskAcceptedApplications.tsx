@@ -2,7 +2,6 @@ import { CheckOutlined } from '@mui/icons-material';
 import {
   Avatar,
   Box,
-  Grid,
   Divider,
   Link as MuiLink,
   List,
@@ -10,7 +9,6 @@ import {
   ListItemAvatar,
   Typography,
 } from '@mui/material';
-import Dao from 'classes/Dao';
 import { CLAIM_ROLE, SOUL_TYPE } from 'constants/contracts';
 import useDao from 'hooks/useDao';
 import useError from 'hooks/useError';
@@ -54,7 +52,7 @@ export default function TaskAcceptedApplications({ task, sx }: any) {
 function TaskAcceptedApplication({ soul }: any) {
   const { handleError } = useError();
   const { getDaoById } = useDao();
-  const [soulDao, setSoulDao] = useState<Dao | null>(null);
+  const [soulDao, setSoulDao] = useState<any | null>(null);
 
   useEffect(() => {
     // Load soul DAO if type is game

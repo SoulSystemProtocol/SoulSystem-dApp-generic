@@ -1,4 +1,3 @@
-import Project from 'classes/Project';
 import { GAME_TYPE } from 'constants/contracts';
 import useSubgraph from './useSubgraph';
 
@@ -21,7 +20,7 @@ export default function useProject() {
   };
   */
 
-  const getProjectById = async function (id: string): Promise<Project | null> {
+  const getProjectById = async function (id: string): Promise<any | null> {
     const projects = await getProjects([id]);
     return projects.length > 0 ? projects[0] : null;
   };
@@ -30,22 +29,20 @@ export default function useProject() {
     ids?: Array<string>,
     first = 10,
     skip = 0,
-  ): Promise<Array<Project>> {
+  ): Promise<Array<any>> {
     const subgraphGames = await findGames(ids, GAME_TYPE.project, first, skip);
-    return subgraphGames.map((subgraphGame: any) =>
-      convertSubgraphGameToProject(subgraphGame),
-    );
+    return subgraphGames;
   };
 
   const isSoulHasRole = function (
-    project: Project,
+    project: any,
     soul: string,
     roleId: string,
   ): boolean {
     return getSoulsByRole(project, roleId).includes(soul);
   };
 
-  const getSoulsByRole = function (project: Project, roleId: string) {
+  const getSoulsByRole = function (project: any, roleId: string) {
     const projectRole = project.roles?.find(
       (element: any) => element?.roleId === roleId,
     );
@@ -59,14 +56,4 @@ export default function useProject() {
     isSoulHasRole,
     getSoulsByRole,
   };
-}
-
-function convertSubgraphGameToProject(subgraphGame: any) {
-  return new Project(
-    subgraphGame.id,
-    subgraphGame.name,
-    subgraphGame.type,
-    subgraphGame.roles,
-    subgraphGame.posts,
-  );
 }
