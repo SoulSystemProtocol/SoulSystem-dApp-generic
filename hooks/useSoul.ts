@@ -1,4 +1,3 @@
-import Soul from 'classes/Soul';
 import { hexStringToJson } from 'utils/converters';
 import useSoulContract from './contracts/useSoulContract';
 import useSubgraph from './useSubgraph';
@@ -17,14 +16,14 @@ export default function useSoul() {
     type?: string,
     first = 10,
     skip = 0,
-  ): Promise<Array<Soul>> {
+  ): Promise<Array<any>> {
     const subgraphSouls = await findSouls(ids, owners, type, first, skip);
     return subgraphSouls.map((subgraphSoul: any) =>
       convertSubgraphSoulToSoul(subgraphSoul),
     );
   }
 
-  async function getSoulByOwner(owner: string): Promise<Soul | null> {
+  async function getSoulByOwner(owner: string): Promise<any | null> {
     const souls = await getSouls(undefined, [owner]);
     return souls.length > 0 ? souls[0] : null;
   }

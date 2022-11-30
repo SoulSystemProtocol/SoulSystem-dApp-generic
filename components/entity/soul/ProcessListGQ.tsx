@@ -23,7 +23,7 @@ export default function ProcessListGQ(props: any) {
         owner
         type
         uri
-        uriData
+        # uriData
         metadata
         name
         uriImage

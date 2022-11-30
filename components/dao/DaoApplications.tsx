@@ -1,7 +1,6 @@
 import { Save } from '@mui/icons-material';
 import { LoadingButton } from '@mui/lab';
 import { Box, Card, CardContent, Grid, Typography } from '@mui/material';
-import Soul from 'classes/Soul';
 import { SoulCardImage } from 'components/entity/soul/SoulCard';
 import { DataContext } from 'contexts/data';
 import useContract from 'hooks/useContract';
@@ -61,7 +60,7 @@ function DaoApplicationGridItem({ game, nomination }: any) {
   const { getContractGame } = useContract();
   const { accountSoul } = useContext(DataContext);
   const [isSoulAdmin, setIsSoulAdmin] = useState(false);
-  const [nominatedSoul, setNominatedSoul] = useState<Soul | null>(null);
+  const [nominatedSoul, setNominatedSoul] = useState<any | null>(null);
   // const [isNominatedSoulMember, setIsNominatedSoulMember] =
   //   useState<boolean>(false);
   const [isProcessing, setIsProcessing] = useState(false);

@@ -1,4 +1,3 @@
-import Task from 'classes/Task';
 import { CLAIM_STAGE, GAME_ROLE } from 'constants/contracts';
 import { truncate } from 'lodash';
 import _ from 'lodash';
@@ -70,7 +69,7 @@ export function soulImage(soul: any): string {
 /**
  * Convert task stage to readable string.
  */
-export function taskStageToString(task: Task): string {
+export function taskStageToString(task: any): string {
   for (let stageName in CLAIM_STAGE) {
     if (CLAIM_STAGE[stageName] == task.stage) return stageName;
   }

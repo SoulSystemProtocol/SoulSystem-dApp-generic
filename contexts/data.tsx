@@ -1,4 +1,3 @@
-import Soul from 'classes/Soul';
 import LoadingBackdrop from 'components/backdrop/LoadingBackdrop';
 import useError from 'hooks/useError';
 import useSoul from 'hooks/useSoul';
@@ -16,7 +15,7 @@ export function DataProvider({ children }: any) {
   const { handleError } = useError();
   const { getSoulByOwner } = useSoul();
   const [isReady, setIsReady] = useState(false);
-  const [accountSoul, setAccountSoul] = useState<Soul | null>(null);
+  const [accountSoul, setAccountSoul] = useState<any | null>(null);
 
   async function updateContext() {
     if (!account) {

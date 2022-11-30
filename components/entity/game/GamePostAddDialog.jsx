@@ -15,7 +15,6 @@ import { POST_TYPE } from 'constants/metadata';
 import { DataContext } from 'contexts/data';
 import { roleIdToName } from 'utils/converters';
 import useContract from 'hooks/useContract';
-import Task from 'classes/Task';
 import useTask from 'hooks/useTask';
 import useError from 'hooks/useError';
 import useIpfs from 'hooks/useIpfs';
@@ -97,7 +96,7 @@ export default function GamePostAddDialog({
   async function submit({ formData }) {
     try {
       //[MVP] Use a single role for now : 'member'
-      if (item instanceof Task)
+      if (item instanceof any)
         formData.role = 'creator'; //or Creator for Procedures
       else formData.role = 'member'; //TODO: Implement the role select if entity holds more than 1 role & default to something else...
       setFormData(formData);

@@ -11,7 +11,6 @@ import {
   Typography,
 } from '@mui/material';
 import Dao from 'classes/Dao';
-import Soul from 'classes/Soul';
 import { CLAIM_ROLE, SOUL_TYPE } from 'constants/contracts';
 import useDao from 'hooks/useDao';
 import useError from 'hooks/useError';
@@ -25,7 +24,7 @@ export default function TaskAcceptedApplications({ task, sx }: any) {
   const { handleError } = useError();
   const { getSoulsByRole } = useTask();
   const { getSouls } = useSoul();
-  const [acceptedSouls, setAcceptedSouls] = useState<Array<Soul>>([]);
+  const [acceptedSouls, setAcceptedSouls] = useState<Array<any>>([]);
 
   useEffect(() => {
     if (task) {

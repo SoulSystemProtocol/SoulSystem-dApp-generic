@@ -1,4 +1,3 @@
-import Task from 'classes/Task';
 import TaskList from 'components/entity/task/TaskList';
 import useError from 'hooks/useError';
 import useTask from 'hooks/useTask';
@@ -10,7 +9,7 @@ import { useEffect, useState } from 'react';
 export default function ProjectTaskList({ project, sx }: any) {
   const { handleError } = useError();
   const { getTasks } = useTask();
-  const [tasks, setTasks] = useState<Array<Task> | null>(null);
+  const [tasks, setTasks] = useState<Array<any> | null>(null);
 
   async function loadData() {
     try {

@@ -19,7 +19,6 @@ export default function ProjectTaskListGQ(props: any) {
         type
         game {
           name
-          uriData
         }
         roles {
           id

@@ -1,6 +1,5 @@
-import Task from 'classes/Task';
+import { normalizeGraphEntity } from 'helpers/metadata';
 // import { ethers } from 'ethers';
-import { hexStringToJson } from 'utils/converters';
 import useTaskContract from './contracts/useTaskContract';
 import useContract from './useContract';
 import useSubgraph from './useSubgraph';
@@ -14,7 +13,7 @@ export default function useTask() {
   const { findClaims } = useSubgraph();
   const { getContractGameMDAO } = useContract();
 
-  let getTaskById = async function (id: string): Promise<Task | null> {
+  let getTaskById = async function (id: string): Promise<any | null> {
     const items = await getTasks([id], undefined);
     return items.length > 0 ? items[0] : null;
   };
@@ -25,22 +24,22 @@ export default function useTask() {
     projectId?: string,
     first = 10,
     skip = 0,
-  ): Promise<Array<Task>> {
+  ): Promise<Array<any>> {
     const subgraphTasks = await findClaims(ids, type, projectId, first, skip);
     return subgraphTasks.map((subgraphTask: any) =>
-      convertSubgraphTaskToTask(subgraphTask),
+      normalizeGraphEntity(subgraphTask),
     );
   };
 
   const isSoulHasRole = function (
-    task: Task,
+    task: any,
     soul: string,
     roleId: string,
   ): boolean {
     return getSoulsByRole(task, roleId).includes(soul);
   };
 
-  const getSoulsByRole = function (task: Task, roleId: string): Array<string> {
+  const getSoulsByRole = function (task: any, roleId: string): Array<string> {
     const taskRole = task.roles?.find(
       (element: any) => element?.roleId === roleId,
     );
@@ -74,22 +73,4 @@ export default function useTask() {
     approveSoulDelivery,
     disburseFundsToWinners,
   };
-}
-
-function convertSubgraphTaskToTask(subgraphTask: any) {
-  return new Task(
-    subgraphTask.id,
-    subgraphTask.name,
-    subgraphTask.stage,
-    subgraphTask.uri,
-    hexStringToJson(subgraphTask.metadata),
-    {
-      id: subgraphTask.game.id,
-      name: subgraphTask.game.name,
-      ...hexStringToJson(subgraphTask.game.metadata),
-    },
-    subgraphTask.roles,
-    subgraphTask.nominations,
-    subgraphTask.posts,
-  );
 }

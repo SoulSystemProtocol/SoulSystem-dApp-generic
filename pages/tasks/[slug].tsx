@@ -1,4 +1,3 @@
-import Task from 'classes/Task';
 import Layout from 'components/layout/Layout';
 import TaskDetail from 'components/entity/task/TaskDetail';
 import useError from 'hooks/useError';
@@ -21,7 +20,7 @@ export default function TaskDetailPage() {
   const { slug } = router.query;
   const { handleError } = useError();
   const { getTaskById } = useTask();
-  const [task, setTask] = useState<Task | null>(null);
+  const [task, setTask] = useState<any | null>(null);
 
   async function loadData() {
     if (!slug) setTask(null);

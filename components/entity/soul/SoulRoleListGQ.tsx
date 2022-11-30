@@ -13,7 +13,7 @@ export default function SoulRoleListGQ(props: any) {
         owner
         type
         uri
-        uriData
+        # uriData
         metadata
         name
         uriImage

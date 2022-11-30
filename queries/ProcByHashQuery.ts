@@ -45,8 +45,6 @@ const query = gql`
           id
           owner
         }
-        uri
-        metadata
       }
     }
   }
