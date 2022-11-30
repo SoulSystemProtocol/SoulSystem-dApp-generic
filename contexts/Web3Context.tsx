@@ -17,6 +17,7 @@ interface IWeb3Context {
   connectWallet: Function;
   disconnectWallet: Function;
   switchNetwork: Function;
+  getBalance: (account: string) => Promise<string>;
 }
 
 export const Web3Context = createContext<Partial<IWeb3Context>>({});
@@ -161,6 +162,18 @@ export function Web3Provider({ children }: any) {
     }
   }
 
+  /**
+   * Get Native Balance for Address
+   */
+  const getBalance = async function (address: string): Promise<string> {
+    if (!ethers.utils.isAddress(address)) {
+      console.error('Not a Valid Address', address);
+      return '';
+    }
+    const balance = await defaultProvider.getBalance(address);
+    return ethers.utils.formatEther(balance);
+  };
+
   useEffect(() => {
     // Init default provider
     const rpcProvider = new ethers.providers.JsonRpcProvider(
@@ -218,6 +231,7 @@ export function Web3Provider({ children }: any) {
         connectWallet,
         disconnectWallet,
         switchNetwork,
+        getBalance,
       }}
     >
       {children}

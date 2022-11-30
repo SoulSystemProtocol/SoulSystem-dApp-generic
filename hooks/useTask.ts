@@ -1,7 +1,5 @@
 import Task from 'classes/Task';
-import { Web3Context } from 'contexts/Web3Context';
-import { ethers } from 'ethers';
-import { useContext } from 'react';
+// import { ethers } from 'ethers';
 import { hexStringToJson } from 'utils/converters';
 import useTaskContract from './contracts/useTaskContract';
 import useContract from './useContract';
@@ -11,7 +9,6 @@ import useSubgraph from './useSubgraph';
  * Hook for work with task.
  */
 export default function useTask() {
-  const { defaultProvider } = useContext(Web3Context);
   const { acceptApplicant, deliveryApprove, stageExecusion } =
     useTaskContract();
   const { findClaims } = useSubgraph();
@@ -67,11 +64,6 @@ export default function useTask() {
     return stageExecusion(taskId, []);
   };
 
-  const getFund = async function (taskId: string) {
-    const balance = await defaultProvider.getBalance(taskId);
-    return ethers.utils.formatEther(balance);
-  };
-
   return {
     getTaskById,
     getTasks,
@@ -81,7 +73,6 @@ export default function useTask() {
     acceptSoulForTask,
     approveSoulDelivery,
     disburseFundsToWinners,
-    getFund,
   };
 }
 

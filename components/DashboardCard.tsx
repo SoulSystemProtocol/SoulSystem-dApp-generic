@@ -18,7 +18,9 @@ export default function DashboardCard({
   avatarIcon,
   roles = [],
   baseRoute,
+  children,
 }: CardItem) {
+  //TODO: Later on Replace this with <SoulRoles> (roles need to be different)
   const renderChip = !!roles?.length && (
     <Stack spacing={1} sx={{ ml: 1, alignSelf: 'flex-start' }}>
       {roles.map((role: string, index: number) => (
@@ -70,6 +72,7 @@ export default function DashboardCard({
                 </Typography>
               )}
             </Box>
+            {children}
             {renderChip}
           </Stack>
         </CardContent>

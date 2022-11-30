@@ -8,6 +8,7 @@ import {
   soulToFirstLastNameString,
 } from './converters';
 import { resolveLink } from 'helpers/IPFS';
+import TaskSoulCardDetails from 'components/entity/task/TaskSoulCardDetails';
 
 export interface CardItem {
   id: string;
@@ -18,6 +19,7 @@ export interface CardItem {
   roles?: any[];
   avatarIcon?: any;
   baseRoute?: string;
+  children?: any;
 }
 
 // Item Processing Function
@@ -59,18 +61,19 @@ export const gameCardContent = (item: any): CardItem => {
 };
 
 // Process Card Processing
-export const processCardContent = (item: any): CardItem => {
-  let metadata = hexStringToJson(item.metadata);
+export const processCardContent = (soul: any): CardItem => {
+  let metadata = hexStringToJson(soul.metadata);
   let ret = {
-    id: item.id,
-    imgSrc: resolveLink(metadata?.image),
+    id: soul.id,
+    imgSrc: 'PARENT_IMAGE',
     avatarIcon: <WorkOutlineOutlined />,
     label: metadata?.description,
     title: metadata?.name,
     metadata,
-    link: `/task/${item.owner}`,
+    link: `/task/${soul.owner}`,
+    children: soul && <TaskSoulCardDetails address={soul.owner} />,
   };
-  console.log('Task Item', { ret, item });
+  // console.log('Task soul', { ret, soul, owner: soul.owner });
   return ret;
 };
 

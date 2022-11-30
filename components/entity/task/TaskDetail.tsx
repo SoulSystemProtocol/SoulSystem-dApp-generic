@@ -1,7 +1,6 @@
 import { Button, Stack, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import useError from 'hooks/useError';
-import useTask from 'hooks/useTask';
 import useContract from 'hooks/useContract';
 import { taskStageToString } from 'utils/converters';
 import EntityImage from '../EntityImage';
@@ -12,6 +11,7 @@ import { useContext, useEffect, useState } from 'react';
 import FundDialogButton from 'components/web3/FundDialogButton';
 import Link from 'components/utils/Link';
 import { isSoulHasRole } from 'hooks/utils';
+import useWeb3NativeBalance from 'hooks/useWeb3NativeBalance';
 
 /**
  * Component: project details.
@@ -20,23 +20,13 @@ import { isSoulHasRole } from 'hooks/utils';
  *
  */
 export default function TaskDetail({ item, sx }: any) {
-  const { getFund } = useTask();
   const { getContractTask } = useContract();
   const { handleError } = useError();
-  const [fund, setFund] = useState<string | null>(null);
   const { accountSoul } = useContext(DataContext);
   const [isSoulAdmin, setIsSoulAdmin] = useState(false);
   const [isSoulAuthority, setIsSoulAuthority] = useState(false);
   const tokens: [] = []; //Supported ERC20 Tokens
-
-  useEffect(() => {
-    if (item) {
-      getFund(item.id)
-        .then((fund) => setFund(fund))
-        .catch((error) => handleError(error, true));
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [item]);
+  const { balance: fund } = useWeb3NativeBalance(item?.id);
 
   useEffect(() => {
     if (item) loadData();

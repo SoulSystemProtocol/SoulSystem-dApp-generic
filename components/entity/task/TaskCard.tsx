@@ -1,47 +1,26 @@
-import {
-  Box,
-  Card,
-  CardContent,
-  Link as MuiLink,
-  Typography,
-} from '@mui/material';
+import { Box, Card, CardContent, Typography } from '@mui/material';
 import EntityImage from 'components/entity/EntityImage';
-import useError from 'hooks/useError';
-import useTask from 'hooks/useTask';
-import Link from 'next/link';
-import { useEffect, useState } from 'react';
-import { taskStageToString } from 'utils/converters';
+import Link from 'components/utils/Link';
+import TaskCardDetails from './TaskCardDetails';
 
 /**
- * Component: a card with task.
+ * A card with task
  */
-export default function TaskCard({ task }: any) {
-  if (task) {
-    return (
-      <Card variant="outlined">
-        <CardContent sx={{ p: '16px !important' }}>
-          <TaskHeader task={task} />
-        </CardContent>
-      </Card>
-    );
-  }
-  return <></>;
+export default function TaskCard({ task }: any): JSX.Element {
+  if (!task) return <></>;
+  return (
+    <Card variant="outlined">
+      <CardContent sx={{ p: '16px !important' }}>
+        <TaskHeader task={task} />
+      </CardContent>
+    </Card>
+  );
 }
 
-function TaskHeader({ task, sx }: any) {
-  const { getFund } = useTask();
-  const { handleError } = useError();
-  const [fund, setFund] = useState<string | null>(null);
-
-  useEffect(() => {
-    if (task) {
-      getFund(task.id)
-        .then((fund) => setFund(fund))
-        .catch((error) => handleError(error, true));
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [task]);
-
+/**
+ *
+ */
+function TaskHeader({ task, sx }: any): JSX.Element {
   return (
     <Box
       sx={{
@@ -60,10 +39,8 @@ function TaskHeader({ task, sx }: any) {
         />
         {/* Task name and description */}
         <Box>
-          <Link href={`/tasks/${task.id}`} passHref>
-            <MuiLink underline="none" sx={{ color: '#f8f8f8' }}>
-              <Typography variant="body1">{task.name}</Typography>
-            </MuiLink>
+          <Link href={`/tasks/${task.id}`} sx={{ color: '#f8f8f8' }}>
+            <Typography variant="body1">{task.name}</Typography>
           </Link>
           {task?.metadata?.description && (
             <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
@@ -73,22 +50,7 @@ function TaskHeader({ task, sx }: any) {
         </Box>
       </Box>
       {/* Task stage */}
-      <Box sx={{ textAlign: 'center' }}>
-        <Typography
-          variant="body2"
-          color="text.secondary"
-          sx={{ textTransform: 'capitalize' }}
-        >
-          {taskStageToString(task)}
-        </Typography>
-        <Typography
-          variant="body2"
-          color="text.secondary"
-          sx={{ textTransform: 'capitalize' }}
-        >
-          {fund} {process.env.NEXT_PUBLIC_NETWORK_CURRENCY_NAME}
-        </Typography>
-      </Box>
+      <TaskCardDetails task={task} />
     </Box>
   );
 }
