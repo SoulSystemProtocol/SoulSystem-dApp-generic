@@ -68,7 +68,7 @@ export default function GameMembershipActions({ dao, sx }: any) {
         </Button>
       ) : isSoulSentApplication ? (
         <Button variant="outlined" disabled>
-          Application is pending
+          Application Pending
         </Button>
       ) : (
         <Button variant="outlined" onClick={() => submit()}>

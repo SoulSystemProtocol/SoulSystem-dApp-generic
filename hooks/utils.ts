@@ -35,6 +35,13 @@ export const nameEntity = function (
 };
 
 /**
+ * (Re)Name a Role
+ */
+export const nameRole = function (name: string, type: string): string {
+  return name;
+};
+
+/**
  * Get all the roles a soul is assigned to
  */
 export const getSoulsByRole = (

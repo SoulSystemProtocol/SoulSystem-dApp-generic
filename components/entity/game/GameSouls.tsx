@@ -1,65 +1,45 @@
 import { Box } from '@mui/material';
-import Soul from 'classes/Soul';
 import SoulList from 'components/entity/soul/SoulList';
-import { GAME_ROLE, SOUL_TYPE } from 'constants/contracts';
 import useError from 'hooks/useError';
-import useSoul from 'hooks/useSoul';
-import { getSoulsByRole } from 'hooks/utils';
-import { each, union } from 'lodash';
+import useSoulsById from 'hooks/useSoulsById';
+import { nameRole } from 'hooks/utils';
+import { union } from 'lodash';
 import { useEffect, useState } from 'react';
 
 /**
- * Component: game members.
+ * Display Game Members
  */
 export default function GameSouls({ game, sx }: any) {
   const { handleError } = useError();
-  const { getSouls } = useSoul();
-  const [souls, setSouls] = useState<Array<Soul> | null>(null);
+  const [soulIds, setSoulIds] = useState<Array<string>>([]);
+  const { souls } = useSoulsById(soulIds, 24);
   const [soulRoles, setSoulRoles] = useState<Object | {}>({});
 
   async function loadData() {
     try {
-      // Load soul ids
-      const members = getSoulsByRole(game, 'member');
-      const admins = getSoulsByRole(game, 'admin');
-      const authorities = getSoulsByRole(game, 'authority');
-      const applicants = getSoulsByRole(game, 'applicant');
-      const allSouls = union(members, admins, authorities, applicants);
-      // Load souls by ids
-      setSouls(
-        await getSouls(
-          allSouls,
-          undefined,
-          SOUL_TYPE.created_by_not_contract,
-          25,
-          0,
-        ),
-      );
-      // Define roles for each soul
+      let allSouls: any[] = [];
+      // let roleSouls: any = {};
       const roles: { [key: string]: Array<any> } = {};
-      each(
-        {
-          [GAME_ROLE.member.id]: members,
-          [GAME_ROLE.admin.id]: admins,
-          [GAME_ROLE.authority.id]: authorities,
-          [GAME_ROLE.applicant.id]: applicants,
-        },
-        (roleSouls, roleId) => {
-          each(roleSouls, (soul: string) => {
-            if (!roles[soul]) roles[soul] = Array();
-            roles[soul].push(roleId);
-          });
-        },
-      );
+      for (let i = 0; i < game.roles.length; i++) {
+        allSouls = union(allSouls, game.roles[i].souls);
+        // roleSouls[game.roles[i].name] = game.roles[i].souls;
+        for (let j = 0; j < game.roles[i].souls.length; j++) {
+          const soulId = game.roles[i].souls[j];
+          if (!roles[soulId]) roles[soulId] = Array();
+          roles[soulId].push(nameRole(game.roles[i].name, 'game'));
+        }
+      }
+      setSoulIds(allSouls);
       setSoulRoles(roles);
     } catch (error: any) {
       handleError(error, true);
+      setSoulIds([]);
+      setSoulRoles({});
     }
   }
 
   useEffect(() => {
-    if (game) loadData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    game && loadData();
   }, [game]);
 
   if (game) {

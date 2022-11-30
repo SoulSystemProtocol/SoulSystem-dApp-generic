@@ -12,7 +12,8 @@ export default function EntityImage({
   icon,
   sx = {},
 }: any): JSX.Element {
-  const url = item?.image || item?.metadata?.image;
+  //Extract Image Link
+  const url = item?.image || item?.uriImage || item?.metadata?.image;
   return (
     <Avatar
       title={title}

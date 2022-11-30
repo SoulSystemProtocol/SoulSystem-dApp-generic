@@ -2,7 +2,7 @@ import { Save } from '@mui/icons-material';
 import { LoadingButton } from '@mui/lab';
 import { Box, Card, CardContent, Grid, Typography } from '@mui/material';
 import Soul from 'classes/Soul';
-import { SoulDetails, SoulImage } from 'components/entity/soul/SoulCard';
+import { SoulCardImage } from 'components/entity/soul/SoulCard';
 import { DataContext } from 'contexts/data';
 import useContract from 'hooks/useContract';
 import useError from 'hooks/useError';
@@ -12,6 +12,7 @@ import { useContext, useEffect, useState } from 'react';
 import { getSoulsByRole, isSoulHasRole } from 'hooks/utils';
 import ConditionalButton from 'components/layout/ConditionalButton';
 import { SelectedGameContext } from 'contexts/SelectedGame';
+import { SoulCardDetails } from 'components/entity/soul/SoulCardDetails';
 
 /**
  * Component: a list of game applications
@@ -133,8 +134,8 @@ function DaoApplicationGridItem({ game, nomination }: any) {
               alignItems: 'center',
             }}
           >
-            <SoulImage soul={nominatedSoul} sx={{ mr: 2 }} />
-            <SoulDetails soul={nominatedSoul} />
+            <SoulCardImage soul={nominatedSoul} sx={{ mr: 2 }} />
+            <SoulCardDetails soul={nominatedSoul} />
           </Box>
           {/* Soul actions */}
           {/* {isSoulAdmin && ( */}

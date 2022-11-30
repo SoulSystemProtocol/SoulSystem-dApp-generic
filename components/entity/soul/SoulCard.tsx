@@ -1,28 +1,14 @@
 import { PersonOutlineOutlined } from '@mui/icons-material';
-import {
-  Avatar,
-  Box,
-  Card,
-  CardContent,
-  Chip,
-  Grid,
-  Link as MuiLink,
-  Stack,
-  Typography,
-} from '@mui/material';
-import { capitalize } from 'lodash';
-import Link from 'next/link';
-import {
-  addressToShortAddress,
-  soulToFirstLastNameString,
-  roleIdToName,
-} from 'utils/converters';
-import { resolveLink } from 'helpers/IPFS';
+import { Box, Card, CardContent, Grid } from '@mui/material';
+import EntityImage from '../EntityImage';
+import Link from 'components/utils/Link';
+import { SoulRoles } from './SoulRoles';
+import { SoulCardDetails } from './SoulCardDetails';
 
 /**
- * Component: a card with soul.
+ * Display a single Soul
  */
-export default function SoulCard({ soul, roles }: any) {
+export default function SoulCard({ soul, roles }: any): JSX.Element {
   if (soul) {
     return (
       <Grid item>
@@ -43,8 +29,8 @@ export default function SoulCard({ soul, roles }: any) {
                   alignItems: 'center',
                 }}
               >
-                <SoulImage soul={soul} sx={{ mr: 2 }} />
-                <SoulDetails soul={soul} sx={{ mr: 2 }} />
+                <SoulCardImage soul={soul} sx={{ mr: 2 }} />
+                <SoulCardDetails soul={soul} sx={{ mr: 2 }} />
               </Box>
               <Box>
                 <SoulRoles roles={roles} />
@@ -59,57 +45,21 @@ export default function SoulCard({ soul, roles }: any) {
   return <></>;
 }
 
-export function SoulRoles({ roles }: any) {
-  if (roles?.length > 0) {
-    return (
-      <Stack spacing={1}>
-        {roles.map((role: string, index: number) => (
-          <Chip
-            key={index}
-            label={capitalize(roleIdToName(role))}
-            // label={role}
-            size="small"
-          />
-        ))}
-      </Stack>
-    );
-  }
-  return <></>;
-}
-
-export function SoulImage({ soul, sx }: any) {
+export function SoulCardImage({ soul, sx }: any) {
   if (soul) {
     return (
       <Box sx={{ ...sx }}>
-        <Link href={`/soul/${soul.id}`} passHref>
-          <Avatar
+        <Link href={`/soul/${soul.id}`}>
+          <EntityImage
+            item={soul}
             sx={{
               cursor: 'pointer',
               width: 82,
               height: 82,
-              borderRadius: '16px',
             }}
-            src={resolveLink(soul.uriImage)}
-          >
-            <PersonOutlineOutlined />
-          </Avatar>
+            icon={<PersonOutlineOutlined />}
+          />
         </Link>
-      </Box>
-    );
-  }
-  return <></>;
-}
-
-export function SoulDetails({ soul, sx }: any) {
-  if (soul) {
-    return (
-      <Box sx={{ ...sx }}>
-        <Link href={`/soul/${soul.id}`} passHref>
-          <MuiLink underline="none">{soulToFirstLastNameString(soul)}</MuiLink>
-        </Link>
-        <Typography variant="body2" color="text.secondary">
-          {addressToShortAddress(soul.owner)}
-        </Typography>
       </Box>
     );
   }
