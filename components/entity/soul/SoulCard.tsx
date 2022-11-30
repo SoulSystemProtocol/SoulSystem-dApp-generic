@@ -19,7 +19,7 @@ export default function SoulCard({ soul, roles }: any): JSX.Element {
                 display: 'flex',
                 flexDirection: 'row',
                 alignItems: 'center',
-                // justifyContent: 'space-between',
+                justifyContent: 'space-between',
               }}
             >
               <Box
