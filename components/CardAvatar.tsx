@@ -25,7 +25,7 @@ export default function CardAvatar({ imgSrc, avatarIcon, link, sx }: any) {
     // </Avatar>
 
     <EntityImage
-      url={imgSrc}
+      imgSrc={imgSrc}
       icon={avatarIcon || <SchoolOutlined />}
       sx={{
         cursor: link ? 'pointer' : 'default',

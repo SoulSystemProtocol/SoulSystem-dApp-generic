@@ -7,7 +7,7 @@ export interface EntityImageProps {
   title?: string;
   alt?: string;
   icon?: any;
-  url?: string;
+  imgSrc?: string;
   sx?: any;
 }
 /**
@@ -18,13 +18,11 @@ export default function EntityImage({
   title,
   alt,
   icon,
-  url,
+  imgSrc,
   sx = {},
 }: EntityImageProps): JSX.Element {
   //Extract Image Link
-  if (!url && !!item) {
-    url = item?.image || item?.uriImage || item?.metadata?.image;
-  }
+  const url = imgSrc || item?.image || item?.uriImage || item?.metadata?.image;
   return (
     <Avatar
       title={title}
@@ -35,7 +33,7 @@ export default function EntityImage({
         borderRadius: '12%',
         ...sx,
       }}
-      src={resolveLink(url)}
+      src={resolveLink(url as string)}
     >
       {icon || <AutoAwesomeOutlined />}
     </Avatar>

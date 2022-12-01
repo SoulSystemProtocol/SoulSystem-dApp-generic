@@ -33,8 +33,8 @@ function TaskHeader({ task, sx }: any): JSX.Element {
     >
       <Box sx={{ display: 'flex' }}>
         <EntityImage
-          title={task.game.name}
           item={task.game}
+          title={task.game.name}
           sx={{ width: '48px', height: '48px', mr: 2.5 }}
         />
         {/* Task name and description */}

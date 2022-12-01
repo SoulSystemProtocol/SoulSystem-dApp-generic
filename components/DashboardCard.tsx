@@ -2,10 +2,9 @@ import { Chip, Card, CardContent, Stack, Typography } from '@mui/material';
 import Link from 'components/utils/Link';
 import { Box } from '@mui/system';
 import { capitalize } from 'lodash';
-import CardAvatar from './CardAvatar';
 import { roleIdToName } from 'utils/converters';
 import { CardItem } from 'utils/cardContents';
-import EntityImage from './entity/EntityImage';
+import CardAvatar from './CardAvatar';
 
 /**
  * Dashboard card component.
