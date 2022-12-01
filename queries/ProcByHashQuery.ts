@@ -41,6 +41,8 @@ const query = gql`
         id
         createdDate
         entityRole
+        uri
+        metadata
         author {
           id
           owner
