@@ -4,9 +4,10 @@ import { DataContext } from 'contexts/data';
 import { Web3Context } from 'contexts/Web3Context';
 import Link from 'next/link';
 import Layout from '../../components/layout/Layout';
-import SoulListGQ from '../../components/entity/soul/SoulTypeListGQ';
 import { getPageTitle } from '../../utils';
 import { soulCardContent } from 'utils/cardContents';
+import PaginatedList from 'components/PaginatedList';
+import SoulsByTypeQuery from 'queries/SoulsByTypeQuery';
 
 const CONF = {
   PAGE_TITLE: 'SBT Profiles',
@@ -39,7 +40,7 @@ export default function SoulsPage({ type = '' }: any) {
 
   return (
     <Layout title={getPageTitle(CONF.PAGE_TITLE)}>
-      <SoulListGQ {...soulsListPropsGQ} />
+      <PaginatedList {...soulsListPropsGQ} query={SoulsByTypeQuery} />
     </Layout>
   );
 }
