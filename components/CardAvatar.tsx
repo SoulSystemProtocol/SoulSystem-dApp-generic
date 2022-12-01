@@ -3,6 +3,7 @@ import { Avatar } from '@mui/material';
 import { Box } from '@mui/system';
 import Link from 'next/link';
 import { resolveLink } from 'helpers/IPFS';
+import EntityImage from './entity/EntityImage';
 
 /**
  *  Component: Card Avatar Image
@@ -10,18 +11,29 @@ import { resolveLink } from 'helpers/IPFS';
 export default function CardAvatar({ imgSrc, avatarIcon, link, sx }: any) {
   //Image
   const renderAvatar = (
-    <Avatar
+    // <Avatar
+    //   sx={{
+    //     cursor: link ? 'pointer' : 'default',
+    //     width: 82,
+    //     height: 82,
+    //     borderRadius: '12%',
+    //     ...sx,
+    //   }}
+    //   src={resolveLink(imgSrc)}
+    // >
+    //   {avatarIcon || <SchoolOutlined />}
+    // </Avatar>
+
+    <EntityImage
+      url={imgSrc}
+      icon={avatarIcon || <SchoolOutlined />}
       sx={{
-        cursor: 'pointer',
+        cursor: link ? 'pointer' : 'default',
         width: 82,
         height: 82,
-        borderRadius: '12%',
         ...sx,
       }}
-      src={resolveLink(imgSrc)}
-    >
-      {avatarIcon || <SchoolOutlined />}
-    </Avatar>
+    />
   );
 
   //Optinal Link

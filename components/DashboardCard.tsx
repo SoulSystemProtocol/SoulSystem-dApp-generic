@@ -5,6 +5,7 @@ import { capitalize } from 'lodash';
 import CardAvatar from './CardAvatar';
 import { roleIdToName } from 'utils/converters';
 import { CardItem } from 'utils/cardContents';
+import EntityImage from './entity/EntityImage';
 
 /**
  * Dashboard card component.
