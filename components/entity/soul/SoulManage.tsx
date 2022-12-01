@@ -3,7 +3,7 @@ import { LoadingButton } from '@mui/lab';
 import { Box, Button } from '@mui/material';
 import { MuiForm5 as Form } from '@rjsf/material-ui';
 import ImageInput from 'components/form/widget/ImageInput';
-import SoulAttributesInput from 'components/form/widget/soul/SoulAttributesInput';
+import SoulAttributesInput from 'components/form/widget/SoulAttributesInput';
 import { PROFILE_TRAIT_TYPE } from 'constants/metadata';
 import useError from 'hooks/useError';
 import useIpfs from 'hooks/useIpfs';
