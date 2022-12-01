@@ -16,6 +16,8 @@ import {
 
 import { SelectedGameProvider } from 'contexts/SelectedGame';
 import GameView from 'components/entity/game/GameView';
+import { SelectedProcProvider } from 'contexts/SelectedProc';
+import TaskView from 'components/entity/task/TaskView';
 
 /**
  * Component: Single Soul Page
@@ -57,6 +59,11 @@ function SoulSinglePageContent(): JSX.Element {
         <SelectedGameProvider hash={soul?.owner}>
           <GameView sx={{ mt: 4 }} />
         </SelectedGameProvider>
+      )}
+      {soul?.type == 'TASK' && (
+        <SelectedProcProvider address={soul?.owner}>
+          <TaskView />
+        </SelectedProcProvider>
       )}
       {soul?.type == '' && (
         <Box sx={{ my: 2, display: 'flex' }}>

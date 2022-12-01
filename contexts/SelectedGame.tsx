@@ -8,7 +8,7 @@ interface ISelectedGameContext {
 }
 
 /**
- * Context for Selected Entity (by hash or id)
+ * Context for Selected Entity (by hash)
  */
 export const SelectedGameContext = createContext<Partial<ISelectedGameContext>>(
   {},

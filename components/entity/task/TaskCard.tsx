@@ -39,7 +39,7 @@ function TaskHeader({ task, sx }: any): JSX.Element {
         />
         {/* Task name and description */}
         <Box>
-          <Link href={`/tasks/${task.id}`} sx={{ color: '#f8f8f8' }}>
+          <Link href={`/soul/${task.id}`} sx={{ color: '#f8f8f8' }}>
             <Typography variant="body1">{task.name}</Typography>
           </Link>
           {task?.metadata?.description && (

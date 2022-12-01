@@ -137,7 +137,7 @@ export const taskPartCardContent = (item: any): CardItem => {
     label: metadata?.description,
     title: metadata?.name,
     metadata,
-    link: `/tasks/${item.entity.id}`,
+    link: `/soul/${item.entity.id}`,
     roles: item?.roles,
   };
   return ret;
