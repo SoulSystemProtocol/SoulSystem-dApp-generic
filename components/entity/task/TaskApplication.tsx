@@ -60,7 +60,7 @@ export default function TaskApplication({ task, nomination }: any) {
       <ListItemAvatar>
         <Avatar>
           <AccessTimeOutlined />
-          {/* TODO: Add Image nominatedDao?.uriData.image */}
+          {/* TODO: Add Image nominatedDao?.metadata.image */}
         </Avatar>
       </ListItemAvatar>
       {nominatedDao ? (

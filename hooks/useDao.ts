@@ -26,9 +26,7 @@ export default function useDao() {
   ): Promise<Array<object>> {
     const subgraphGames = await findGames(ids, GAME_TYPE.mdao, first, skip);
     // console.log('DAO subgraphGames', subgraphGames, ids);
-    return subgraphGames.map((subgraphGame: any) =>
-      convertSubgraphGameToDao(subgraphGame),
-    );
+    return subgraphGames;
   }
 
   function getSoulsByRole(dao: any, roleId: string): Array<string> {
@@ -51,9 +49,4 @@ export default function useDao() {
     assignRoleToSoul: assignRole,
     removeRoleToSoul: removeRole,
   };
-}
-
-function convertSubgraphGameToDao(subgraphGame: any) {
-  const metadata = hexStringToJson(subgraphGame.metadata);
-  return { ...subgraphGame, uriData: metadata, metadata };
 }

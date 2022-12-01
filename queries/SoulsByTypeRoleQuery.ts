@@ -10,7 +10,6 @@ const query = gql`
       owner
       type
       uri
-      # uriData
       metadata
       name
       uriImage

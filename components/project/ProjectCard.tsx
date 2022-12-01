@@ -39,7 +39,7 @@ function ProjectImage({ project, sx }: any) {
   if (project) {
     return (
       <Box sx={{ ...sx }}>
-        <Link href={`/projects/${project.id}`} passHref>
+        <Link href={`/soul/${project.id}`} passHref>
           <Avatar
             sx={{
               cursor: 'pointer',
@@ -63,7 +63,7 @@ function ProjectDetails({ project, sx }: any) {
   if (project) {
     return (
       <Box sx={{ ...sx }}>
-        <Link href={`/projects/${project.id}`} passHref>
+        <Link href={`/soul/${project.id}`} passHref>
           <MuiLink underline="none">{project.name}</MuiLink>
         </Link>
         {project?.metadata?.description && (

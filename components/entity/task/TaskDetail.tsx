@@ -76,7 +76,7 @@ export default function TaskDetail({ item, sx }: any) {
               ? ` | ${fund} ${process.env.NEXT_PUBLIC_NETWORK_CURRENCY_NAME}`
               : ''}
           </Typography>
-          <Typography sx={{ mt: 1 }}>{item.uriData?.description}</Typography>
+          <Typography sx={{ mt: 1 }}>{item.metadata?.description}</Typography>
           <Stack direction="row" spacing={2} sx={{ mt: 2 }}>
             {(item.stage === null || item.stage >= CLAIM_STAGE.pending) && (
               <FundDialogButton address={item.id} />

@@ -13,7 +13,7 @@ type TPaginatedList = {
   subtitle: string;
   title: string;
   getCardContent: (dataItem: any) => CardItem;
-  itemsProcessing: (items: any[]) => CardItem[];
+  itemsProcessing?: (items: any[]) => CardItem[];
   renderActions?: JSX.Element;
   entityName?: string;
   gridMD?: number;
