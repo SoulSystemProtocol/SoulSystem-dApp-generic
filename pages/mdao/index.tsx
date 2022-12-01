@@ -5,10 +5,11 @@ import { DataContext } from 'contexts/data';
 import { getPageTitle } from '../../utils';
 import DaoManageDialog from 'components/dao/DaoManageDialog';
 import Layout from 'components/layout/Layout';
-import SoulListGQ from 'components/entity/soul/SoulRoleListGQ';
 import { gameCardContent } from 'utils/cardContents';
 import { nameEntity } from 'hooks/utils';
 import { GAME_DESC } from 'constants/contracts';
+import PaginatedList from 'components/PaginatedList';
+import SoulsByTypeRoleQuery from 'queries/SoulsByTypeRoleQuery';
 
 const CONF = {
   PAGE_TITLE: nameEntity('mdao', true),
@@ -34,7 +35,7 @@ export default function DaosPage({}: any) {
     </Button>
   );
 
-  const daosListProps = {
+  const listProps = {
     variables: {
       type: 'GAME',
       role: 'MDAO',
@@ -47,7 +48,7 @@ export default function DaosPage({}: any) {
 
   return (
     <Layout title={getPageTitle(CONF.PAGE_TITLE)}>
-      <SoulListGQ {...daosListProps} />
+      <PaginatedList {...listProps} query={SoulsByTypeRoleQuery} />
     </Layout>
   );
 }

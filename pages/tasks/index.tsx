@@ -1,9 +1,10 @@
 import { getPageTitle } from '../../utils';
 import Layout from 'components/layout/Layout';
-import SoulListGQ from 'components/entity/soul/SoulTypeListGQ';
 import { processCardContent } from 'utils/cardContents';
 import { GAME_DESC } from 'constants/contracts';
 import { nameEntity } from 'hooks/utils';
+import PaginatedList from 'components/PaginatedList';
+import SoulsByTypeRoleQuery from 'queries/SoulsByTypeRoleQuery';
 
 const CONF = {
   PAGE_TITLE: nameEntity('task', true),
@@ -43,7 +44,7 @@ export default function TaskPage({}: any) {
 
   return (
     <Layout title={getPageTitle(CONF.PAGE_TITLE)}>
-      <SoulListGQ {...listProps} />
+      <PaginatedList {...listProps} query={SoulsByTypeRoleQuery} />
     </Layout>
   );
 }

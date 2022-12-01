@@ -5,7 +5,8 @@ import { DataContext } from 'contexts/data';
 import { getPageTitle } from '../../utils';
 import ProjectManageDialog from 'components/project/ProjectManageDialog';
 import Layout from 'components/layout/Layout';
-import SoulListGQ from 'components/entity/soul/SoulRoleListGQ';
+import PaginatedList from 'components/PaginatedList';
+import SoulsByTypeRoleQuery from 'queries/SoulsByTypeRoleQuery';
 import { gameCardContent } from 'utils/cardContents';
 import { nameEntity } from 'hooks/utils';
 import { GAME_DESC } from 'constants/contracts';
@@ -47,7 +48,7 @@ export default function ProjectsPage({}: any) {
 
   return (
     <Layout title={getPageTitle(CONF.PAGE_TITLE)}>
-      <SoulListGQ {...listProps} />
+      <PaginatedList {...listProps} query={SoulsByTypeRoleQuery} />
     </Layout>
   );
 }
