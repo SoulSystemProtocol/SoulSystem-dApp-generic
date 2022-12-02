@@ -12,6 +12,8 @@ import FundDialogButton from 'components/web3/FundDialogButton';
 import Link from 'components/utils/Link';
 import { isSoulHasRole, nameEntity } from 'hooks/utils';
 import useWeb3NativeBalance from 'hooks/useWeb3NativeBalance';
+import { SelectedSoulContext } from 'contexts/SelectedSoul';
+import useContainerImage from 'hooks/useContainerImage';
 
 /**
  * Component: project details.
@@ -27,10 +29,12 @@ export default function TaskDetail({ item, sx }: any) {
   const [isSoulAuthority, setIsSoulAuthority] = useState(false);
   const tokens: [] = []; //Supported ERC20 Tokens
   const { balance: fund } = useWeb3NativeBalance(item?.id);
+  const { soul } = useContext(SelectedSoulContext);
+  const containerImageSrc = useContainerImage(soul.id);
 
   useEffect(() => {
     if (item) loadData();
-    console.log('TaskDetail() Item', item);
+    console.log('TaskDetail() Item', { item, soul });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [item]);
 
@@ -55,8 +59,8 @@ export default function TaskDetail({ item, sx }: any) {
         }}
       >
         <Box>
-          <EntityImage item={item.game} />
-          <Link href={`/soul/${item.game.id}`} sx={{ color: '#f8f8f8' }}>
+          <EntityImage imgSrc={containerImageSrc} />
+          <Link href={`/soul/${soul.owner}`} sx={{ color: '#f8f8f8' }}>
             <Typography
               sx={{
                 textAlign: 'center',
