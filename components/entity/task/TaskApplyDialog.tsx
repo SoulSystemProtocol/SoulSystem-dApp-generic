@@ -8,6 +8,8 @@ import {
   Stack,
 } from '@mui/material';
 import { MuiForm5 as Form } from '@rjsf/material-ui';
+import SoulAndDaoSelect from 'components/form/widget/SoulAndDaoSelect';
+import SoulSearchBox from 'components/form/widget/SoulSearchBox';
 import useError from 'hooks/useError';
 import useTask from 'hooks/useTask';
 import useToast from 'hooks/useToast';
@@ -33,7 +35,22 @@ export default function TaskApplyDialog({ task, isClose, onClose }: any) {
         type: 'string',
         title: 'Address of your DAO',
       },
+      soulId: {
+        type: 'string',
+        title: 'Apply as',
+      },
     },
+  };
+
+  const uiSchema = {
+    soulId: {
+      'ui:widget': 'SoulAndDaoSelect',
+    },
+  };
+
+  const widgets = {
+    // SoulAndDaoSelect,
+    SoulAndDaoSelect: SoulSearchBox,
   };
 
   async function close() {
@@ -67,6 +84,8 @@ export default function TaskApplyDialog({ task, isClose, onClose }: any) {
       <DialogContent>
         <Form
           schema={schema}
+          uiSchema={uiSchema}
+          widgets={widgets}
           formData={formData}
           onSubmit={submit}
           disabled={isLoading}
