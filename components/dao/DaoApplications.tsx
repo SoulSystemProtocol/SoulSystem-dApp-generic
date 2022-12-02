@@ -5,13 +5,13 @@ import { SoulCardImage } from 'components/entity/soul/SoulCard';
 import { DataContext } from 'contexts/data';
 import useContract from 'hooks/useContract';
 import useError from 'hooks/useError';
-import useSoul from 'hooks/useSoul';
 import useToast from 'hooks/useToast';
 import { useContext, useEffect, useState } from 'react';
 import { getSoulsByRole, isSoulHasRole } from 'hooks/utils';
 import ConditionalButton from 'components/layout/ConditionalButton';
 import { SelectedGameContext } from 'contexts/SelectedGame';
 import { SoulCardDetails } from 'components/entity/soul/SoulCardDetails';
+import useSubgraph from 'hooks/useSubgraph';
 
 /**
  * Component: a list of game applications
@@ -56,7 +56,7 @@ export default function DaoApplications({ sx }: any) {
 function DaoApplicationGridItem({ game, nomination }: any) {
   const { handleError } = useError();
   const { showToastSuccess } = useToast();
-  const { getSoulById } = useSoul();
+  const { getSoulById } = useSubgraph();
   const { getContractGame } = useContract();
   const { accountSoul } = useContext(DataContext);
   const [isSoulAdmin, setIsSoulAdmin] = useState(false);

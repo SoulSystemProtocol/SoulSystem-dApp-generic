@@ -13,6 +13,8 @@ import { useContext, useEffect, useState } from 'react';
 import TaskApplyDialog from './TaskApplyDialog';
 import { nameEntity } from 'hooks/utils';
 import TaskApplication from './TaskApplication';
+import ConditionalButton from 'components/layout/ConditionalButton';
+import { Stack } from '@mui/system';
 
 export default function TaskApplications({ task, sx }: any) {
   const { accountSoul } = useContext(DataContext);
@@ -21,7 +23,25 @@ export default function TaskApplications({ task, sx }: any) {
   return (
     <Box sx={{ ...sx }}>
       <Divider sx={{ mb: 1 }} />
-      <Typography variant="h5">Applicants:</Typography>
+      <Stack direction="row">
+        <Typography variant="h5">Applications:</Typography>
+        <ConditionalButton
+          sx={{ ml: 'auto' }}
+          disabled={
+            !accountSoul ||
+            (task.stage !== null &&
+              (task.stage < CLAIM_STAGE.open ||
+                task.stage > CLAIM_STAGE.closed))
+          }
+          size="small"
+          variant="outlined"
+          onClick={() =>
+            showDialog?.(<TaskApplyDialog task={task} onClose={closeDialog} />)
+          }
+        >
+          Apply
+        </ConditionalButton>
+      </Stack>
       <List>
         {task.nominations.length > 0 ? (
           <>
@@ -39,26 +59,6 @@ export default function TaskApplications({ task, sx }: any) {
           </ListItem>
         )}
       </List>
-      {/* Button to apply as DAO */}
-      {/* {accountSoul &&
-        (task.stage === null ||
-          (task.stage >= CLAIM_STAGE.open &&
-            task.stage < CLAIM_STAGE.closed)) && ( */}
-      <Button
-        disabled={
-          !accountSoul ||
-          (task.stage !== null &&
-            (task.stage < CLAIM_STAGE.open || task.stage > CLAIM_STAGE.closed))
-        }
-        size="small"
-        variant="outlined"
-        onClick={() =>
-          showDialog?.(<TaskApplyDialog task={task} onClose={closeDialog} />)
-        }
-      >
-        Apply as a {nameEntity('mdao')}
-      </Button>
-      {/* )} */}
     </Box>
   );
 }

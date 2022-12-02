@@ -10,7 +10,7 @@ import { DataContext } from 'contexts/data';
 import { useContext, useEffect, useState } from 'react';
 import FundDialogButton from 'components/web3/FundDialogButton';
 import Link from 'components/utils/Link';
-import { isSoulHasRole } from 'hooks/utils';
+import { isSoulHasRole, nameEntity } from 'hooks/utils';
 import useWeb3NativeBalance from 'hooks/useWeb3NativeBalance';
 
 /**
@@ -30,6 +30,7 @@ export default function TaskDetail({ item, sx }: any) {
 
   useEffect(() => {
     if (item) loadData();
+    console.log('TaskDetail() Item', item);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [item]);
 
@@ -79,7 +80,10 @@ export default function TaskDetail({ item, sx }: any) {
           <Typography sx={{ mt: 1 }}>{item.metadata?.description}</Typography>
           <Stack direction="row" spacing={2} sx={{ mt: 2 }}>
             {(item.stage === null || item.stage >= CLAIM_STAGE.pending) && (
-              <FundDialogButton address={item.id} />
+              <FundDialogButton
+                text={`Fund ${nameEntity('task')}`}
+                address={item.id}
+              />
             )}
             {(isSoulAdmin || isSoulAuthority) &&
               item.stage > CLAIM_STAGE.decision &&

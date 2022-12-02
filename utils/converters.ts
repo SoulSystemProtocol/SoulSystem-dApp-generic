@@ -49,6 +49,7 @@ export function addressToShortAddress(address: string): string {
  * Get first name and last name of soul.
  */
 export function soulToFirstLastNameString(soul: any, length = 36): string {
+  if (soul?.name) return soul.name;
   if (soul?.metadata?.name) return soul.metadata.name;
   let firstLastName = 'Anonymous';
   if (soul?.uriFirstName || soul?.uriLastName) {

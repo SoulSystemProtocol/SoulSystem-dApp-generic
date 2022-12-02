@@ -1,10 +1,12 @@
 import { Autocomplete, Box, TextField } from '@mui/material';
 import SoulCompactCard from 'components/entity/soul/SoulCompactCard';
 import useError from 'hooks/useError';
-import { useEffect, useMemo, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { soulToFirstLastNameString } from 'utils/converters';
 import { useQuery } from '@apollo/client';
-import SoulsOpenInj from 'queries/SoulsOpenInj';
+import { DataContext } from 'contexts/data';
+import SoulsManagedByQuery from 'queries/SoulsManagedByQuery';
+import { WidgetProps } from '@rjsf/core';
 
 interface TProps {
   options?: any;
@@ -20,7 +22,7 @@ interface TProps {
   onKeyDown?: (e: any) => void;
 }
 
-/**
+/** TODO: Administrated Soul + Self Soul
  * Form Widget: Select a Soul
  */
 export default function SoulSearchBox({
@@ -35,7 +37,7 @@ export default function SoulSearchBox({
   disabled = false,
   onChange = () => {},
   onKeyDown = () => {},
-}: TProps): JSX.Element {
+}: WidgetProps): JSX.Element {
   console.log('SoulSearchBox Started W/', {
     options,
     sx,
@@ -47,29 +49,21 @@ export default function SoulSearchBox({
     required,
     disabled,
   });
+  const { accountSoul } = useContext(DataContext);
   const [isDisabled, setIsDisabled] = useState(disabled);
-  const [selectedSoul, setSelectedSoul] = useState(null);
+  const [selectedSoul, setSelectedSoul] = useState(accountSoul);
   const [inputValue, setInputValue] = useState<string>(''); //Current text input value
-  const [searchQueryParams, setSearchQueryParams] = useState<string>(''); //Current text input value
   const [items, setItems] = useState<Array<any>>([]);
   const { handleError } = useError();
 
-  // const { accountSoul } = useContext(DataContext);
-
-  useEffect(() => {
-    let queryFilters: string[] = [];
-    // queryFilters.push(`type: "" `);
-    if (type !== undefined) queryFilters.push(`type: "${type}" `);
-    role && queryFilters.push(`role: "${role}""`);
-    inputValue &&
-      queryFilters.push(`searchField_contains_nocase: "${inputValue}"`);
-    let searchQueryParams = queryFilters.join(', ');
-    // console.log('searchQueryParams', searchQueryParams);
-    setSearchQueryParams(searchQueryParams);
-  }, [inputValue]);
-
-  const { data, loading, error } = useQuery(SoulsOpenInj(searchQueryParams), {
-    variables: { first: 12, skip: 0 },
+  const { data, loading, error } = useQuery(SoulsManagedByQuery, {
+    variables: {
+      Bid: accountSoul.id,
+      RelRole: 'admin',
+      Arole: 'MDAO',
+      first: 12,
+      skip: 0,
+    },
   });
 
   useEffect(() => {
@@ -89,17 +83,32 @@ export default function SoulSearchBox({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value]);
 
+  console.warn('SoulSearchBox() Data', {
+    data,
+    loading,
+    error,
+    accountSoul,
+  });
   useEffect(() => {
     //Make sure options is never null | undefined
-    setItems(data ? data.souls : []);
+    // setItems(data ? data.souls : []);
+    setItems(
+      data
+        ? [accountSoul].concat(
+            data?.soulParts?.map((soulPart: any) => soulPart.aEnd),
+          )
+        : [accountSoul],
+    );
+    //Default Option
+    onChange(accountSoul?.id);
   }, [data]);
 
   return (
     <Box sx={{ ...sx }}>
-      {options?.header && options.header}
+      <>{options?.header && options.header}</>
       <Autocomplete
         disabled={isDisabled}
-        getOptionLabel={(option) => soulToFirstLastNameString(option)}
+        getOptionLabel={soulToFirstLastNameString}
         // filterOptions={(x) => x}
         options={items}
         value={selectedSoul}

@@ -154,7 +154,16 @@ export default function useSubgraph() {
     return response.actions;
   };
 
+  /**
+   * Fetch a Specific Soul by ID
+   */
+  const getSoulById = async (id: string): Promise<any> => {
+    const response = await makeSubgraphQuery(SoulByIdQuery(id));
+    return response?.soul;
+  };
+
   return {
+    getSoulById,
     isGamePart,
     findSouls,
     findGames,
@@ -183,6 +192,26 @@ async function makeSubgraphQuery(query: string, variables = {}) {
   }
 }
 
+function SoulByIdQuery(id: string){
+  return `{ 
+  soul(id: ${id}) {
+    id
+    owner
+    type
+    role
+    uri
+    metadata
+    uriImage
+    name
+    attrs {
+      id
+      role
+      bEnd
+    }
+  }
+}`;
+}
+
 function getFindSoulsQuery(
   ids?: Array<string>,
   owners?: Array<string>,
@@ -203,8 +232,6 @@ function getFindSoulsQuery(
         uri
         metadata
         uriImage
-        uriFirstName
-        uriLastName
         name
         participantGame {
           id

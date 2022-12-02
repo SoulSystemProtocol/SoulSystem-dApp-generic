@@ -70,7 +70,7 @@ export const processCardContent = (soul: any): CardItem => {
     label: metadata?.description,
     title: metadata?.name,
     metadata,
-    link: `/task/${soul.owner}`,
+    link: `/soul/${soul.owner}`,
     children: soul && <TaskSoulCardDetails address={soul.owner} />,
   };
   // console.log('Task soul', { ret, soul, owner: soul.owner });

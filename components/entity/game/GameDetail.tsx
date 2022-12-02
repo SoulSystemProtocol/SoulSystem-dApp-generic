@@ -11,6 +11,7 @@ import SocialLinks from 'components/entity/soul/SocialLinks';
 import Link from 'components/utils/Link';
 import { SelectedSoulContext } from 'contexts/SelectedSoul';
 import { useContext } from 'react';
+import { nameEntity } from 'hooks/utils';
 
 /**
  * Game Detail Page
@@ -46,7 +47,10 @@ export default function GameDetail({ item: game, sx }: any): JSX.Element {
           <SocialLinks key="SocialLinks" soul={soul} sx={{ mt: 2 }} />
           <Stack key="buttons" direction="row" spacing={2} sx={{ mt: 2 }}>
             <GameMembershipActions dao={game} />
-            <FundDialogButton address={game.id} />
+            <FundDialogButton
+              text={`Fund ${nameEntity(game.role)}`}
+              address={game.id}
+            />
             <Link href={`/game/${game.id}/rules/manage`}>
               <Button>Rules</Button>
             </Link>
