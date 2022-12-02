@@ -24,7 +24,6 @@ export default function SoulCompactCard({
   sx,
 }: any): JSX.Element {
   const { handleError } = useError();
-  // const { getProfile } = useProfile();
   const { getSoulById, getSoulByOwner } = useSoul();
   const [isLoading, setIsLoading] = useState(true);
   const [profile, setProfile] = useState<any>(null);
@@ -57,11 +56,6 @@ export default function SoulCompactCard({
     } else {
       setIsLoading(false);
     }
-    /* REMOVED - useEffect doesn't return anything.
-    return () => {
-      isComponentActive = false;
-    };
-    */
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [propsProfile, propsProfileId, propsAccount]);
 
@@ -70,7 +64,7 @@ export default function SoulCompactCard({
       sx={{
         display: 'flex',
         flexDirection: 'row',
-        alignItems: 'center',
+        alignItems: 'space-between',
         ...sx,
       }}
     >
@@ -91,11 +85,11 @@ export default function SoulCompactCard({
               </Link>
             )}
           </Typography>
-          {!disableId && (
+          {/* {!disableId && (
             <Chip size="small" label={`ID: ${profile.id}`} sx={{ ml: 1 }} />
-          )}
+          )} */}
           {!disableAddress && (
-            <Typography sx={{ color: 'text.secondary', ml: 1 }}>
+            <Typography sx={{ color: 'text.secondary', ml: 'auto' }}>
               ({addressToShortAddress(profile.owner)})
             </Typography>
           )}

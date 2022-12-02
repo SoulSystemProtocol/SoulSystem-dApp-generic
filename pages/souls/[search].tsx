@@ -7,7 +7,6 @@ import Layout from '../../components/layout/Layout';
 import { getPageTitle } from '../../utils';
 import { soulCardContent } from 'utils/cardContents';
 import PaginatedList from 'components/PaginatedList';
-import SoulsByTypeQuery from 'queries/SoulsByTypeQuery';
 import SoulSearchBox from 'components/form/widget/SoulSearchBox';
 import SoulsOpenInj from 'queries/SoulsOpenInj';
 import { useRouter } from 'next/router';
@@ -18,9 +17,9 @@ import { useRouter } from 'next/router';
 export default function SoulsSearch({ type = '' }: any) {
   const router = useRouter();
   const { search } = router.query;
-  // const [search, setSearch] = useState(router.query.search);
   const { account } = useContext(Web3Context);
   const { accountSoul } = useContext(DataContext);
+
   const CONF = {
     PAGE_TITLE: search ? `Soul Search ` : 'SBT Profiles',
     TITLE: search ? `Results for: ${search}` : 'SBT Profiles',
@@ -48,10 +47,15 @@ export default function SoulsSearch({ type = '' }: any) {
       <SoulSearchBox
         label="Soul Search"
         sx={{ width: { xs: 1, md: 520 }, margin: '30px auto 40px' }}
+        value={search as string}
         onChange={(id) => {
           console.log('Search Changed -- Go to Soul:', id);
           router.push('/soul/' + id);
-          // setSearch(id);
+        }}
+        onKeyDown={(e: any) => {
+          if (e.keyCode === 13) {
+            router.push('/souls/' + e.target.value);
+          }
         }}
       />
       <PaginatedList

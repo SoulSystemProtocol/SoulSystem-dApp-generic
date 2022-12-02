@@ -8,37 +8,54 @@ import {
 } from 'utils/converters';
 import { useQuery } from '@apollo/client';
 import SoulsOpenInj from 'queries/SoulsOpenInj';
-import { useRouter } from 'next/router';
 
-interface Props {
-  // size?: number;
-  size?: 'small' | 'medium' | undefined;
+interface TProps {
   options?: any;
   label: string;
+  sx: any;
+  size?: 'small' | 'medium' | undefined;
   disabled?: boolean;
   required?: boolean;
-  sx?: any;
   value?: string;
+  type?: string;
+  role?: string;
   onChange?: (id: any) => void;
+  onKeyDown?: (e: any) => void;
 }
 
 /**
  * Form Widget: Select a Soul
  */
-export default function SoulSearchBox(props: Props): JSX.Element {
-  const router = useRouter();
-  const propsHeader = props.options?.header;
-  const propsSx = props.sx;
-  const propsValue = props.value;
-  const propsOnChange = props.onChange || (() => {});
-  const [isDisabled, setIsDisabled] = useState(props.disabled || false);
-  const [selectedValue, setSelectedValue] = useState(null);
+export default function SoulSearchBox({
+  options,
+  sx = {},
+  value = '',
+  size,
+  label,
+  type = '',
+  role = '',
+  required = false,
+  disabled = false,
+  onChange = () => {},
+  onKeyDown = () => {},
+}: TProps): JSX.Element {
+  console.log('SoulSearchBox Started W/', {
+    options,
+    sx,
+    value,
+    type,
+    role,
+    size,
+    label,
+    required,
+    disabled,
+  });
+  const [isDisabled, setIsDisabled] = useState(disabled);
+  const [selectedSoul, setSelectedSoul] = useState(null);
   const [inputValue, setInputValue] = useState<string>(''); //Current text input value
   const [searchQueryParams, setSearchQueryParams] = useState<string>(''); //Current text input value
-  const [options, setOptions] = useState<Array<any>>([]);
+  const [items, setItems] = useState<Array<any>>([]);
   const { handleError } = useError();
-  const type = '';
-  const role = '';
 
   // const { accountSoul } = useContext(DataContext);
 
@@ -55,36 +72,36 @@ export default function SoulSearchBox(props: Props): JSX.Element {
   }, [inputValue]);
 
   const { data, loading, error } = useQuery(SoulsOpenInj(searchQueryParams), {
-    // variables: { first, skip },
+    variables: { first: 12, skip: 0 },
   });
 
   useEffect(() => {
     //** Handle Injected Value
-    if (propsValue) {
-      console.log('[DEV] Expected to Init selected value', propsValue);
+    if (value) {
+      console.log('[DEV] Expected to Init selected value', value);
       /*
       setIsDisabled(true);
-      getProfile({ id: propsValue })
+      getProfile({ id: value })
         .then((profile: any) => {
-          setSelectedValue(profile);
+          setSelectedSoul(profile);
           setIsDisabled(false);
         })
         .catch((error: any) => handleError(error, true));
         */
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [propsValue]);
+  }, [value]);
 
   useEffect(() => {
     //Make sure options is never null | undefined
-    setOptions(data ? data.souls : []);
+    setItems(data ? data.souls : []);
   }, [data]);
 
   return (
-    <Box sx={{ ...propsSx }}>
-      {propsHeader}
+    <Box sx={{ ...sx }}>
+      {options?.header && options.header}
       <Autocomplete
-        disabled={isDisabled || !options}
+        disabled={isDisabled}
         getOptionLabel={(option) =>
           soulToFirstLastNameString(option) +
           ' (' +
@@ -93,17 +110,17 @@ export default function SoulSearchBox(props: Props): JSX.Element {
           addressToShortAddress(option.owner) +
           ')'
         }
-        filterOptions={(x) => x}
-        options={options}
-        value={selectedValue}
+        // filterOptions={(x) => x}
+        options={items}
+        value={selectedSoul}
         onChange={(_, newValue: any) => {
-          console.log('onChange', newValue);
+          // console.log('onChange', newValue);
           //ID Changed
-          setSelectedValue(newValue);
-          propsOnChange(newValue?.id);
+          setSelectedSoul(newValue);
+          onChange(newValue?.id);
         }}
         onInputChange={(_, newInputValue) => {
-          console.log('Input Changed to: ', newInputValue);
+          // console.log('Input Changed to: ', newInputValue);
           //Text Value Changed
           setInputValue(newInputValue);
         }}
@@ -114,15 +131,11 @@ export default function SoulSearchBox(props: Props): JSX.Element {
           <TextField
             // fullWidth
             {...params}
-            size={props.size}
-            label={props.label || 'Soul Search'}
+            size={size}
+            label={label || 'Soul Search'}
             placeholder={'Search by name or address'}
-            required={props.required || false}
-            onKeyDown={(e: any) => {
-              if (e.keyCode === 13) {
-                router.push('/souls/' + e.target.value);
-              }
-            }}
+            required={required || false}
+            onKeyDown={onKeyDown}
           />
         )}
         renderOption={(props, option) => {
