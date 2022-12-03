@@ -6,12 +6,6 @@ import SoulPartsQuery from 'queries/SoulPartsQuery';
  */
 export default function SoulParts(props: any) {
   return (
-    <PaginatedList
-      {...props}
-      entityName="soulParts"
-      query={SoulPartsQuery}
-      gridMD={6}
-      gridLG={4}
-    />
+    <PaginatedList entityName="soulParts" query={SoulPartsQuery} {...props} />
   );
 }

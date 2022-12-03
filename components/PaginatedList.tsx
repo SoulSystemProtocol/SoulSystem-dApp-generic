@@ -3,9 +3,9 @@ import { useEffect, useState } from 'react';
 import { Box, Grid, Pagination, Typography } from '@mui/material';
 import { APP_CONFIGS } from '../constants';
 import Loader from './Loader';
-import DashboardCard from './DashboardCard';
+import ListCard from './ListCard';
 import { CardItem } from 'utils/cardContents';
-import DashboardCardTask from './DashboardCardTask';
+import ListCardTask from './ListCardTask';
 
 type TPaginatedList = {
   query: any;
@@ -41,7 +41,7 @@ export default function PaginatedList({
   itemsProcessing = (items) => items,
   entityName = 'souls',
   gridMD = 6,
-  gridLG = 6,
+  gridLG = 4,
 }: TPaginatedList) {
   const pageSize = APP_CONFIGS.PAGE_SIZE;
   const [currentPage, setCurrentPage] = useState(1);
@@ -49,7 +49,7 @@ export default function PaginatedList({
   const [items, setItems] = useState<Array<CardItem>>([]);
   const [first] = useState<number>(pageSize);
   const [skip, setSkip] = useState<number>(0);
-
+  console.log('GRID For', entityName, { gridMD, gridLG });
   //TODO: Use Order
   const [orderBy, setOrderBy] = useState({ createdAt: 'desc' });
   const { data, loading, error } = useQuery(query, {
@@ -113,9 +113,9 @@ export default function PaginatedList({
                 return (
                   <Grid key={index} item xs={12} md={gridMD} lg={gridLG}>
                     {cardData.imgSrc == 'PARENT_IMAGE' ? (
-                      <DashboardCardTask {...cardData} />
+                      <ListCardTask {...cardData} />
                     ) : (
-                      <DashboardCard {...cardData} />
+                      <ListCard {...cardData} />
                     )}
                   </Grid>
                 );

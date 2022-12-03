@@ -8,7 +8,7 @@ import CardAvatar from './CardAvatar';
 /**
  * Dashboard card component.
  */
-export default function DashboardCard({
+export default function ListCard({
   id,
   title,
   label,
@@ -20,8 +20,8 @@ export default function DashboardCard({
   children,
 }: CardItem) {
   //TODO: Later on Replace this with <SoulRoles> (roles need to be different)
-  const renderChip = !!roles?.length && (
-    <Stack spacing={1} sx={{ ml: 1, alignSelf: 'flex-start' }}>
+  const roleChips = !!roles?.length && (
+    <Stack spacing={1} sx={{ ml: 1, alignSelf: 'center' }}>
       {roles.map((role: string, index: number) => (
         <Chip key={index} label={capitalize(role)} size="small" />
       ))}
@@ -72,7 +72,7 @@ export default function DashboardCard({
               )}
             </Box>
             {children}
-            {renderChip}
+            {roleChips}
           </Stack>
         </CardContent>
       </Card>

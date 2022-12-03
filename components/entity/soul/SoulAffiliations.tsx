@@ -93,6 +93,7 @@ export default function SoulAffiliations(): JSX.Element {
         <Typography variant="h4">{nameEntity('task', true)}</Typography>
         {soul?.id && (
           <SoulParts
+            gridLG={6}
             variables={{
               id: soul?.id,
               role: GAME_TYPE.task,

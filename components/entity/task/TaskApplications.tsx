@@ -9,9 +9,8 @@ import {
 import { CLAIM_STAGE } from 'constants/contracts';
 import { DataContext } from 'contexts/data';
 import { DialogContext } from 'contexts/dialog';
-import { useContext, useEffect, useState } from 'react';
+import { useContext } from 'react';
 import TaskApplyDialog from './TaskApplyDialog';
-import { nameEntity } from 'hooks/utils';
 import TaskApplication from './TaskApplication';
 import ConditionalButton from 'components/layout/ConditionalButton';
 import { Stack } from '@mui/system';
@@ -20,6 +19,7 @@ export default function TaskApplications({ task, sx }: any) {
   const { accountSoul } = useContext(DataContext);
   const { showDialog, closeDialog } = useContext(DialogContext);
 
+  console.warn('[DEV] Task Item', task);
   return (
     <Box sx={{ ...sx }}>
       <Divider sx={{ mb: 1 }} />

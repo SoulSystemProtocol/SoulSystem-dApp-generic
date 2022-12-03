@@ -192,24 +192,27 @@ async function makeSubgraphQuery(query: string, variables = {}) {
   }
 }
 
+/**
+ * Basic Soul Fetc by ID
+ */
 function SoulByIdQuery(id: string){
   return `{ 
-  soul(id: ${id}) {
-    id
-    owner
-    type
-    role
-    uri
-    metadata
-    uriImage
-    name
-    attrs {
+    soul(id: ${id}) {
       id
+      owner
+      type
       role
-      bEnd
+      uri
+      metadata
+      uriImage
+      name
+      attrs {
+        id
+        role
+        bEnd
+      }
     }
-  }
-}`;
+  }`;
 }
 
 function getFindSoulsQuery(
