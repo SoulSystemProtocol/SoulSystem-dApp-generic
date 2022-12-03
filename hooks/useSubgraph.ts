@@ -329,6 +329,7 @@ function getFindClaimsQuery(
       }
       nominations {
         id
+        uri
         createdDate
         nominator {
           id

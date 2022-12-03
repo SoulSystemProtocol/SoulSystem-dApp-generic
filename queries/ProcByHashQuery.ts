@@ -36,6 +36,7 @@ const query = gql`
           owner
           type
         }
+        uri
       }
       posts {
         id
