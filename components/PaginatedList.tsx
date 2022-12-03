@@ -10,8 +10,8 @@ import ListCardTask from './ListCardTask';
 type TPaginatedList = {
   query: any;
   variables?: any;
-  subtitle: string;
-  title: string;
+  subtitle?: string;
+  title?: string;
   getCardContent: (dataItem: any) => CardItem;
   itemsProcessing?: (items: any[]) => CardItem[];
   renderActions?: JSX.Element;
@@ -49,7 +49,6 @@ export default function PaginatedList({
   const [items, setItems] = useState<Array<CardItem>>([]);
   const [first] = useState<number>(pageSize);
   const [skip, setSkip] = useState<number>(0);
-  console.log('GRID For', entityName, { gridMD, gridLG });
   //TODO: Use Order
   const [orderBy, setOrderBy] = useState({ createdAt: 'desc' });
   const { data, loading, error } = useQuery(query, {

@@ -76,6 +76,24 @@ export const processCardContent = (soul: any): CardItem => {
   // console.log('Task soul', { ret, soul, owner: soul.owner });
   return ret;
 };
+// Process Card Processing
+export const containedCardContent = (relation: any): CardItem => {
+  console.log('containedCardContent', { relation });
+  const soul = relation?.aEnd;
+  let metadata = hexStringToJson(soul.metadata);
+  let ret = {
+    id: soul.id,
+    imgSrc: 'PARENT_IMAGE',
+    avatarIcon: <WorkOutlineOutlined />,
+    label: metadata?.description,
+    title: metadata?.name,
+    metadata,
+    link: `/soul/${soul.owner}`,
+    children: soul && <TaskSoulCardDetails address={soul.owner} />,
+  };
+  // console.log('Task soul', { ret, soul, owner: soul.owner });
+  return ret;
+};
 
 // Game Participant
 export const gamePartCardContent = (item: any): CardItem => {

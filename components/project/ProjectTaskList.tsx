@@ -1,32 +1,26 @@
-import TaskList from 'components/entity/task/TaskList';
-import useError from 'hooks/useError';
-import useTask from 'hooks/useTask';
-import { useEffect, useState } from 'react';
+import { useContext } from 'react';
+import { SelectedSoulContext } from 'contexts/SelectedSoul';
+import { containedCardContent } from 'utils/cardContents';
+import PaginatedList from 'components/PaginatedList';
+import SoulContainedQuery from 'queries/SoulContainedQuery';
 
 /**
- * Component: a list of project tasks.
+ * List of project's tasks
  */
-export default function ProjectTaskList({ project, sx }: any) {
-  const { handleError } = useError();
-  const { getTasks } = useTask();
-  const [tasks, setTasks] = useState<Array<any> | null>(null);
+export default function ProjectTaskList({ sx }: any) {
+  const { soul } = useContext(SelectedSoulContext);
+  const listProps = {
+    variables: {
+      Bid: soul?.id,
+      Arole: 'bounty',
+    },
+    entityName: 'soulAssocs',
+    getCardContent: containedCardContent,
+    gridMD: 12,
+    gridLG: 12,
+    query: SoulContainedQuery,
+    sx,
+  };
 
-  async function loadData() {
-    try {
-      // Update states
-      setTasks(null);
-      // Load tasks
-      const tasks = await getTasks(undefined, undefined, project.id);
-      setTasks(tasks);
-    } catch (error: any) {
-      handleError(error, true);
-    }
-  }
-
-  useEffect(() => {
-    if (project) loadData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [project]);
-
-  return <TaskList tasks={tasks} sx={{ ...sx }} />;
+  return <PaginatedList {...listProps} />;
 }

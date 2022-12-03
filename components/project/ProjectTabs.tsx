@@ -39,7 +39,7 @@ export default function ProjectTabs({ item: project, sx }: any) {
         </TabPanel>
         <TabPanel value="2" sx={{ px: 0 }}>
           <ProjectAddTaskButton project={project} sx={{ mb: 4 }} />
-          <ProjectTaskList project={project} />
+          <ProjectTaskList />
         </TabPanel>
         <TabPanel value="3" sx={{ px: 0 }}>
           <GameSouls game={project} />

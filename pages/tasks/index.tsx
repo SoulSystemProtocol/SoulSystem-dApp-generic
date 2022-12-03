@@ -40,11 +40,12 @@ export default function TaskPage({}: any) {
     title: CONF.TITLE,
     gridMD: 12,
     gridLG: 12,
+    query: SoulsByTypeRoleQuery,
   };
 
   return (
     <Layout title={getPageTitle(CONF.PAGE_TITLE)}>
-      <PaginatedList {...listProps} query={SoulsByTypeRoleQuery} />
+      <PaginatedList {...listProps} />
     </Layout>
   );
 }

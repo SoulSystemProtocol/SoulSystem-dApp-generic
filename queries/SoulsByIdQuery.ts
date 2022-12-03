@@ -10,8 +10,6 @@ const query = gql`
       uri
       metadata
       uriImage
-      uriFirstName
-      uriLastName
       name
     }
   }

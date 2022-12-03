@@ -8,6 +8,7 @@ import { hexStringToJson } from 'utils/converters';
  * Hook to work with subgraph.
  */
 export default function useSubgraph() {
+  
   const findSouls = async function (
     ids?: Array<string>,
     owners?: Array<string>,
@@ -173,6 +174,9 @@ export default function useSubgraph() {
   };
 }
 
+/**
+ * Run a GQL string query against the subgraph.
+ */
 async function makeSubgraphQuery(query: string, variables = {}) {
   try {
     const response = await axios.post(
