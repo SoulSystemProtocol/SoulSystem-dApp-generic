@@ -33,7 +33,7 @@ export default function ActionTable({ sx }: any): JSX.Element {
       width: 60,
       // getActions: (params: GridRowParams) => {
       //   // console.log('[DEBUG] params', params);
-      //   const actions = [
+      //   return [
       //     <GridActionsCellItem
       //       key="viewJson"
       //       icon={<DataObjectOutlined />}
@@ -46,7 +46,6 @@ export default function ActionTable({ sx }: any): JSX.Element {
       //       }
       //     />,
       //   ];
-      //   return actions;
       // },
     },
     {
