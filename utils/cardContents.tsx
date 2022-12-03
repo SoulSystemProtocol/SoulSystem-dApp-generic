@@ -60,7 +60,7 @@ export const gameCardContent = (item: any): CardItem => {
   return ret;
 };
 
-// Process Card Processing
+// Process Soul
 export const processCardContent = (soul: any): CardItem => {
   let metadata = hexStringToJson(soul.metadata);
   let ret = {
@@ -76,38 +76,22 @@ export const processCardContent = (soul: any): CardItem => {
   // console.log('Task soul', { ret, soul, owner: soul.owner });
   return ret;
 };
-// Process Card Processing
+
+// Relation to Container Soul
 export const containedCardContent = (relation: any): CardItem => {
-  console.log('containedCardContent', { relation });
   const soul = relation?.aEnd;
-  let metadata = hexStringToJson(soul.metadata);
+  let metadata = hexStringToJson(soul?.metadata);
   let ret = {
-    id: soul.id,
+    id: soul?.id,
     imgSrc: 'PARENT_IMAGE',
     avatarIcon: <WorkOutlineOutlined />,
     label: metadata?.description,
     title: metadata?.name,
     metadata,
-    link: `/soul/${soul.owner}`,
-    children: soul && <TaskSoulCardDetails address={soul.owner} />,
+    link: `/soul/${soul?.owner}`,
+    children: soul && <TaskSoulCardDetails address={soul?.owner} />,
   };
   // console.log('Task soul', { ret, soul, owner: soul.owner });
-  return ret;
-};
-
-// Game Participant
-export const gamePartCardContent = (item: any): CardItem => {
-  let metadata = hexStringToJson(item.entity.metadata);
-  // console.log('Game Participant', { metadata, item });
-  let ret = {
-    id: item.entity.id,
-    imgSrc: resolveLink(metadata?.image),
-    label: metadata?.description,
-    title: metadata?.name,
-    metadata,
-    link: `/soul/${item.entity.id}`,
-    roles: item?.roles,
-  };
   return ret;
 };
 
@@ -124,6 +108,22 @@ export const soulPartCardContent = (item: any): CardItem => {
     roles: item?.roles,
   };
   // console.log('soulPartCardContent() Soul Part', { metadata, item, ret });
+  return ret;
+};
+
+// Game Participant
+export const gamePartCardContent = (item: any): CardItem => {
+  let metadata = hexStringToJson(item.entity.metadata);
+  // console.log('Game Participant', { metadata, item });
+  let ret = {
+    id: item.entity.id,
+    imgSrc: resolveLink(metadata?.image),
+    label: metadata?.description,
+    title: metadata?.name,
+    metadata,
+    link: `/soul/${item.entity.id}`,
+    roles: item?.roles,
+  };
   return ret;
 };
 
