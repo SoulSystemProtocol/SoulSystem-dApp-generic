@@ -17,6 +17,22 @@ const darkTheme = createTheme({
   palette: {
     mode: 'dark',
   },
+  components: {
+    MuiCard: {
+      styleOverrides: {
+        root: {
+          borderRadius: '14px',
+        },
+      },
+    },
+    MuiCardContent: {
+      styleOverrides: {
+        root: {
+          padding: '10px !important',
+        },
+      },
+    },
+  },
   typography: {
     h1: {
       fontFamily: '"Montserrat", Open Sans',
