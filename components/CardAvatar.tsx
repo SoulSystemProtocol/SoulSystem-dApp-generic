@@ -1,8 +1,6 @@
 import { SchoolOutlined } from '@mui/icons-material';
-import { Avatar } from '@mui/material';
 import { Box } from '@mui/system';
 import Link from 'next/link';
-import { resolveLink } from 'helpers/IPFS';
 import EntityImage from './entity/EntityImage';
 
 /**
