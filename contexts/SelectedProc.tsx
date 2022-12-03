@@ -1,5 +1,4 @@
 import { createContext } from 'react';
-import useGameByHash from 'hooks/useGameByHash';
 import useProcByAddr from 'hooks/useProcByAddr';
 
 interface ISelectedProcContext {

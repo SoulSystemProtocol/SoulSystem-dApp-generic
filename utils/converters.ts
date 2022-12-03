@@ -99,5 +99,6 @@ export function formatActionName(action: {
  * Fetch Role Name by ID
  */
 export function roleIdToName(role: string): string | undefined {
+  console.error("CALLED DEPRECATED FUNCTION: 'roleIdToName'");
   return Object.values(GAME_ROLE).find((element) => element.id == role)?.name;
 }
