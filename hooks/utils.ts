@@ -29,8 +29,7 @@ export const nameEntity = function (
     return plural ? 'Buidls' : 'Buidl';
   if (entName.toLocaleLowerCase() == 'task')
     return plural ? 'Bounties' : 'Bounty';
-
-  console.log('[DEV] Naming Entity: ', entName);
+  //Default
   return plural ? 'Entities' : 'Entity';
 };
 
