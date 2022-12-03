@@ -119,7 +119,7 @@ export default function GamePostAddDialog({
     }
   }
 
-  useEffect(() => {
+  useEffect(() => { //TODO: REFACTOR ROLES!
     // Define which roles the profile has
     if (accountSoul && item) {
       const caseRoleNames = Object.values(CLAIM_ROLE)

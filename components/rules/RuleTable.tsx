@@ -31,42 +31,42 @@ export default function RuleTable({ item, sx }: any) {
       type: 'actions',
       headerName: '',
       width: 100,
-      getActions: (params: any) => {
-        const viewAsJsonAction = (
-          <GridActionsCellItem
-            key="viewJson"
-            icon={<DataObjectOutlined />}
-            label="View as JSON"
-            title="View as JSON"
-            onClick={() =>
-              showDialog?.(
-                <JsonViewDialog json={params.row} onClose={closeDialog} />,
-              )
-            }
-          />
-        );
-        const disableAction = (
-          <GridActionsCellItem
-            key="disable"
-            icon={<BlockOutlined />}
-            label="Mark as Obsolete"
-            title="Mark as Obsolete"
-            onClick={() =>
-              showDialog?.(
-                <RuleDisableDialog
-                  item={item}
-                  rule={params.row.rule}
-                  onClose={closeDialog}
-                />,
-              )
-            }
-          />
-        );
-        return [
-          viewAsJsonAction,
-          ...(params.row.rule.isDisabled ? [] : [disableAction]),
-        ];
-      },
+      // getActions: (params: any) => {
+      //   const viewAsJsonAction = (
+      //     <GridActionsCellItem
+      //       key="viewJson"
+      //       icon={<DataObjectOutlined />}
+      //       label="View as JSON"
+      //       title="View as JSON"
+      //       onClick={() =>
+      //         showDialog?.(
+      //           <JsonViewDialog json={params.row} onClose={closeDialog} />,
+      //         )
+      //       }
+      //     />
+      //   );
+      //   const disableAction = (
+      //     <GridActionsCellItem
+      //       key="disable"
+      //       icon={<BlockOutlined />}
+      //       label="Mark as Obsolete"
+      //       title="Mark as Obsolete"
+      //       onClick={() =>
+      //         showDialog?.(
+      //           <RuleDisableDialog
+      //             item={item}
+      //             rule={params.row.rule}
+      //             onClose={closeDialog}
+      //           />,
+      //         )
+      //       }
+      //     />
+      //   );
+      //   return [
+      //     viewAsJsonAction,
+      //     ...(params.row.rule.isDisabled ? [] : [disableAction]),
+      //   ];
+      // },
     },
     {
       field: 'id',
