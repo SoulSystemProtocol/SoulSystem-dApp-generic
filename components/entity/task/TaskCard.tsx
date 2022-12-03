@@ -9,7 +9,7 @@ import TaskCardDetails from './TaskCardDetails';
 export default function TaskCard({ task }: any): JSX.Element {
   if (!task) return <></>;
   return (
-    <Card variant="outlined">
+    <Card>
       <CardContent sx={{ p: '16px !important' }}>
         <TaskHeader task={task} />
       </CardContent>

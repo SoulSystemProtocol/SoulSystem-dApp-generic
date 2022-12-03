@@ -2,7 +2,6 @@ import { Chip, Card, CardContent, Stack, Typography } from '@mui/material';
 import Link from 'components/utils/Link';
 import { Box } from '@mui/system';
 import { capitalize } from 'lodash';
-import { roleIdToName } from 'utils/converters';
 import { CardItem } from 'utils/cardContents';
 import CardAvatar from './CardAvatar';
 
@@ -24,7 +23,7 @@ export default function DashboardCard({
   const renderChip = !!roles?.length && (
     <Stack spacing={1} sx={{ ml: 1, alignSelf: 'flex-start' }}>
       {roles.map((role: string, index: number) => (
-        <Chip key={index} label={capitalize(roleIdToName(role))} size="small" />
+        <Chip key={index} label={capitalize(role)} size="small" />
       ))}
     </Stack>
   );
@@ -34,7 +33,7 @@ export default function DashboardCard({
     if (!datalink) console.error('Item missing a link', { link, datalink });
     return (
       <Card variant="outlined">
-        <CardContent sx={{ p: '10px !important' }}>
+        <CardContent>
           <Stack
             direction="row"
             sx={{ alignItems: 'center', display: 'flex', flexDirection: 'row' }}

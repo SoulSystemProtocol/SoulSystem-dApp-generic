@@ -12,8 +12,8 @@ export default function SoulCard({ soul, roles }: any): JSX.Element {
   // if (!soul) return <></>;
   return (
     <Grid item>
-      <Card variant="outlined" sx={{ borderRadius: '16px' }}>
-        <CardContent sx={{ p: '10px !important' }}>
+      <Card sx={{ borderRadius: '16px' }}>
+        <CardContent>
           <Box
             sx={{
               display: 'flex',

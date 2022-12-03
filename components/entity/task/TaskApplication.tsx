@@ -1,15 +1,13 @@
-import { AccessTimeOutlined, Save } from '@mui/icons-material';
+import { Save } from '@mui/icons-material';
 import { LoadingButton } from '@mui/lab';
 import {
-  ListItem,
-  ListItemAvatar,
-  Avatar,
   Box,
   Typography,
   Button,
   Stack,
+  Card,
+  CardContent,
 } from '@mui/material';
-import Link from 'components/utils/Link';
 import { SOUL_TYPE, CLAIM_STAGE } from 'constants/contracts';
 import { DataContext } from 'contexts/data';
 import useDao from 'hooks/useDao';
@@ -19,12 +17,17 @@ import useTask from 'hooks/useTask';
 import useToast from 'hooks/useToast';
 import { isSoulHasRole } from 'hooks/utils';
 import { useContext, useState, useEffect } from 'react';
-import EntityImage from '../EntityImage';
+import { SoulCardImage } from '../soul/SoulCard';
+import { SoulCardDetails } from '../soul/SoulCardDetails';
+import { loadJsonFromIPFS, resolveLink } from 'helpers/IPFS';
 
 /**
  * Task Application
  */
-export default function TaskApplication({ task, nomination }: any) {
+export default function TaskApplication({
+  task,
+  nomination,
+}: any): JSX.Element {
   const { accountSoul } = useContext(DataContext);
   const { handleError } = useError();
   const { showToastSuccess } = useToast();
@@ -64,62 +67,92 @@ export default function TaskApplication({ task, nomination }: any) {
 
   if (isSoulHasRole(task, nomination.nominated.id, 'applicant')) return <></>;
   return (
-    <ListItem sx={{ mb: 2 }}>
-      <ListItemAvatar>
-        <EntityImage
-          item={nominatedSoul}
-          sx={{
-            width: 72,
-            height: 72,
-            borderRadius: '50%',
-          }}
-          icon={<AccessTimeOutlined />}
-        />
-      </ListItemAvatar>
-      {nominatedDao ? (
-        <Stack direction="row" flex={1} justifyContent="space-between">
-          <Box>
-            {/* Application data */}
-            <Link href={`/soul/${nominatedDao.id}`} underline="none">
-              <Typography>{nominatedDao.name}</Typography>
-            </Link>
-          </Box>
-
-          <Box>
-            {/* Application actions */}
-            {task.stage !== CLAIM_STAGE.closed &&
-              accountSoul &&
-              isSoulHasRole(task, accountSoul.id, 'admin') && (
-                <Box sx={{ mt: 0.5 }}>
-                  {isProcessed ? (
-                    <></>
-                  ) : isProcessing ? (
-                    <LoadingButton
-                      size="small"
-                      loading
-                      loadingPosition="start"
-                      startIcon={<Save />}
-                    >
-                      Processing
-                    </LoadingButton>
-                  ) : (
-                    <Button
-                      variant="outlined"
-                      size="small"
-                      onClick={() => {
-                        acceptAplicant(nomination.nominated.id);
-                      }}
-                    >
-                      Accept Application
-                    </Button>
+    <Card sx={{ mb: 2 }}>
+      <CardContent>
+        <Stack direction="row">
+          {nominatedSoul ? (
+            <Stack direction="row" flex={1} justifyContent="space-between">
+              {/* Soul data */}
+              <Box
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                }}
+              >
+                <SoulCardImage soul={nominatedSoul} sx={{ mr: 2 }} />
+                <SoulCardDetails soul={nominatedSoul} />
+              </Box>
+              <Box>
+                <TaskApplicationUriDisplay
+                  soul={nominatedSoul}
+                  nomination={nomination}
+                />
+              </Box>
+              <Stack direction="column" justifyContent="center">
+                {/* Application actions */}
+                {task.stage !== CLAIM_STAGE.closed &&
+                  accountSoul &&
+                  isSoulHasRole(task, accountSoul.id, 'admin') && (
+                    <Stack direction="column" justifyContent="center">
+                      {isProcessed ? (
+                        <></>
+                      ) : isProcessing ? (
+                        <LoadingButton
+                          size="small"
+                          loading
+                          loadingPosition="start"
+                          startIcon={<Save />}
+                        >
+                          Processing
+                        </LoadingButton>
+                      ) : (
+                        <Button
+                          variant="outlined"
+                          size="small"
+                          onClick={() => {
+                            acceptAplicant(nomination.nominated.id);
+                          }}
+                        >
+                          Accept Application
+                        </Button>
+                      )}
+                    </Stack>
                   )}
-                </Box>
-              )}
-          </Box>
+              </Stack>
+            </Stack>
+          ) : (
+            <Typography>...</Typography>
+          )}
         </Stack>
-      ) : (
-        <Typography>...</Typography>
-      )}
-    </ListItem>
+      </CardContent>
+    </Card>
+  );
+}
+
+/**
+ * Display Task Application Content
+ */
+function TaskApplicationUriDisplay({ nomination, soul }: any): JSX.Element {
+  const [data, setData] = useState<any | null>(null);
+  const [nominator, setNominator] = useState<any | null>(null);
+
+  useEffect(() => {
+    for (let i = 0; i < nomination.uri.length; i++) {
+      console.log('nomination.uri[i]', nomination.uri[i]);
+      setNominator(nomination.nominator[i]);
+      loadJsonFromIPFS(resolveLink(nomination.uri[i])).then((data) => {
+        setData(data);
+        console.log(
+          'JSON Data for nomination.uri[i]',
+          nomination.uri[i],
+          nomination.nominator[i],
+          data,
+        );
+      });
+    }
+  }, [nomination]);
+
+  return (
+    <Typography variant="subtitle2">&quot;{data?.description}&quot;</Typography>
   );
 }

@@ -17,13 +17,13 @@ import { CLAIM_ROLE, CLAIM_STAGE } from 'constants/contracts';
 import { DataContext } from 'contexts/data';
 import useDao from 'hooks/useDao';
 import useError from 'hooks/useError';
-import useSoul from 'hooks/useSoul';
 import useTask from 'hooks/useTask';
 import useToast from 'hooks/useToast';
 import Link from 'next/link';
 import { useContext, useEffect, useState } from 'react';
 import { soulImage } from 'utils/converters';
 import useSoulById from 'hooks/useSoulById';
+import useSubgraph from 'hooks/useSubgraph';
 
 export default function TaskApprovedDeliveries({ task, sx }: any) {
   const { accountSoul } = useContext(DataContext);
@@ -90,7 +90,8 @@ export default function TaskApprovedDeliveries({ task, sx }: any) {
 
 function TaskApprovedDelivery({ soulId }: any) {
   const { handleError } = useError();
-  const { getSoulById } = useSoul();
+  // const { getSoulById } = useSoul();
+  const { getSoulById } = useSubgraph();
   // const { soul, loading, error } = useSoulById(soulId as string);
   const { getDaoById } = useDao();
   const [soulDao, setSoulDao] = useState<any | null>(null);

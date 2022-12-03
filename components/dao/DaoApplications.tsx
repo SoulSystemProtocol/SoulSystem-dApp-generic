@@ -1,6 +1,6 @@
 import { Save } from '@mui/icons-material';
 import { LoadingButton } from '@mui/lab';
-import { Box, Card, CardContent, Grid, Typography } from '@mui/material';
+import { Box, Card, CardContent, Grid, Stack, Typography } from '@mui/material';
 import { SoulCardImage } from 'components/entity/soul/SoulCard';
 import { DataContext } from 'contexts/data';
 import useContract from 'hooks/useContract';
@@ -115,8 +115,8 @@ function DaoApplicationGridItem({ game, nomination }: any) {
   */
 
   return (
-    <Card variant="outlined">
-      <CardContent sx={{ p: '10px !important' }}>
+    <Card>
+      <CardContent>
         <Box
           sx={{
             display: 'flex',
@@ -138,7 +138,7 @@ function DaoApplicationGridItem({ game, nomination }: any) {
           </Box>
           {/* Soul actions */}
           {/* {isSoulAdmin && ( */}
-          <Box>
+          <Stack direction="column" justifyContent="center">
             {isProcessed ? (
               <></>
             ) : isProcessing ? (
@@ -151,13 +151,15 @@ function DaoApplicationGridItem({ game, nomination }: any) {
               </LoadingButton>
             ) : (
               <ConditionalButton
+                variant="outlined"
+                size="small"
                 disabled={!isSoulAdmin}
                 onClick={() => assignAsMember()}
               >
                 Accept Applicant
               </ConditionalButton>
             )}
-          </Box>
+          </Stack>
           {/* )} */}
         </Box>
       </CardContent>
