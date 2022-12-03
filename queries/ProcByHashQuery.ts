@@ -37,6 +37,7 @@ const query = gql`
           type
         }
         uri
+        status
       }
       posts {
         id
