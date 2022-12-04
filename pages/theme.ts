@@ -12,6 +12,13 @@ export const darkTheme = createTheme({
         },
       },
     },
+    MuiPaper: {
+      styleOverrides: {
+        root: {
+          borderRadius: '12px',
+        },
+      },
+    },
     MuiCardContent: {
       styleOverrides: {
         root: {
