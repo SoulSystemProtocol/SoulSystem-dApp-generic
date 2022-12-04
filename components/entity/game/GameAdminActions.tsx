@@ -1,4 +1,4 @@
-import { Stack } from '@mui/material';
+import { Stack, SxProps } from '@mui/material';
 import { DataContext } from 'contexts/data';
 import { DialogContext } from 'contexts/dialog';
 import { useContext, useEffect, useState } from 'react';
@@ -11,7 +11,7 @@ import ConditionalButton from 'components/layout/ConditionalButton';
 /**
  * Game Admin Actions
  */
-export default function GameAdminActions({ sx }: any): JSX.Element {
+export default function GameAdminActions({ sx }: { sx: SxProps }): JSX.Element {
   const { accountSoul } = useContext(DataContext);
   const { game } = useContext(SelectedGameContext);
   const { showDialog, closeDialog } = useContext(DialogContext);

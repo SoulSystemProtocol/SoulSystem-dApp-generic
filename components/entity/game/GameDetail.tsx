@@ -32,7 +32,7 @@ export default function GameDetail({ sx }: any): JSX.Element {
     >
       <Box>
         <EntityImage item={soul} />
-        <GameAdminActions item={game} sx={{ mt: 2, width: 164 }} />
+        <GameAdminActions sx={{ mt: 2, width: 164 }} />
       </Box>
       <Box sx={{ flexGrow: 1, mt: { xs: 2, md: 0 }, ml: { md: 4 } }}>
         <AddressHash address={game?.id} sx={{ float: 'right' }} />

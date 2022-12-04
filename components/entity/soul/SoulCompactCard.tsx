@@ -1,5 +1,13 @@
-import { useEffect, useState } from 'react';
-import { Avatar, Box, Chip, Link, Skeleton, Typography } from '@mui/material';
+import { useState } from 'react';
+import {
+  Avatar,
+  Box,
+  Chip,
+  Link,
+  Skeleton,
+  Typography,
+  SxProps,
+} from '@mui/material';
 import { PersonOutlineOutlined } from '@mui/icons-material';
 import {
   addressToShortAddress,
@@ -8,7 +16,7 @@ import {
 } from 'utils/converters';
 
 /**
- * Component: a compact profile card.
+ * Passive Component for a compact profile card
  */
 export default function SoulCompactCard({
   profile,
@@ -16,7 +24,13 @@ export default function SoulCompactCard({
   disableLink = false,
   disableRating = true,
   sx,
-}: any): JSX.Element {
+}: {
+  profile: any;
+  disableAddress?: boolean;
+  disableLink?: boolean;
+  disableRating?: boolean;
+  sx?: SxProps;
+}): JSX.Element {
   const [isLoading, setIsLoading] = useState(false);
 
   return (

@@ -295,6 +295,8 @@ function getFindGamesQuery(
         author {
           id
           owner
+          name
+          uriImage
         }
         uri
         metadata
@@ -356,6 +358,8 @@ function getFindClaimsQuery(
         author {
           id
           owner
+          name
+          uriImage
         }
         uri
         metadata

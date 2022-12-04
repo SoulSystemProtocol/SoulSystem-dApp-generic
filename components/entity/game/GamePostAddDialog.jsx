@@ -25,7 +25,7 @@ import useToast from 'hooks/useToast';
 export default function GamePostAddDialog({
   item,
   postType = POST_TYPE.comment,
-  isClose,
+  isClose = true,
   onClose,
 }) {
   const { accountSoul } = useContext(DataContext);
@@ -95,9 +95,11 @@ export default function GamePostAddDialog({
   async function submit({ formData }) {
     try {
       //[MVP] Use a single role for now : 'member'
-      if (item instanceof any)
-        formData.role = 'creator'; //or Creator for Procedures
-      else formData.role = 'member'; //TODO: Implement the role select if entity holds more than 1 role & default to something else...
+      //TODO: Implement the role select if entity holds more than 1 role & default to something else...
+      // if (item) formData.role = 'creator'; //or Creator for Procedures
+      // else
+      formData.role = 'member';
+
       setFormData(formData);
       setIsLoading(true);
       // console.log('Send post: ', { item, role: formData.role, accountSoul });

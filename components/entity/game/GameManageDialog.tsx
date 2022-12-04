@@ -19,7 +19,7 @@ import { GAME_TYPE } from 'constants/contracts';
 /**
  * A dialog for creating or editing DAO.
  */
-export default function GameManageDialog({ dao, isClose, onClose }: any) {
+export default function GameManageDialog({ game, isClose, onClose }: any) {
   const { showToastSuccess } = useToast();
   const { uploadJsonToIPFS } = useIpfs();
   const { handleError } = useError();
@@ -27,10 +27,10 @@ export default function GameManageDialog({ dao, isClose, onClose }: any) {
   const [isOpen, setIsOpen] = useState(!isClose);
   const { getContractHub } = useContract();
   const [formData, setFormData] = useState({
-    ...(dao && {
-      image: dao.metadata?.image,
-      name: dao.name,
-      description: dao.metadata?.description,
+    ...(game && {
+      image: game.metadata?.image,
+      name: game.name,
+      description: game.metadata?.description,
     }),
   });
 
@@ -58,7 +58,7 @@ export default function GameManageDialog({ dao, isClose, onClose }: any) {
       'ui:widget': 'ImageInput',
     },
     name: {
-      'ui:disabled': dao ? true : false,
+      'ui:disabled': game ? true : false,
     },
     description: {
       'ui:widget': 'textarea',
@@ -86,8 +86,8 @@ export default function GameManageDialog({ dao, isClose, onClose }: any) {
       const { url: metadataUrl } = await uploadJsonToIPFS(
         formData, //All Data
       );
-      if (dao) {
-        // await editDao(dao.id, metadataUrl);
+      if (game) {
+        // await editDao(game.id, metadataUrl);
         console.error('No Mapped Function. Should Use Soul Edit');
       } else {
         await getContractHub().makeGame(
@@ -112,7 +112,7 @@ export default function GameManageDialog({ dao, isClose, onClose }: any) {
       fullWidth
     >
       <DialogTitle sx={{ pb: 0 }}>
-        {dao ? 'Edit DAO' : 'Create DAO'}
+        {game ? 'Edit DAO' : 'Create DAO'}
       </DialogTitle>
       <DialogContent>
         <Form
@@ -136,7 +136,7 @@ export default function GameManageDialog({ dao, isClose, onClose }: any) {
             ) : (
               <>
                 <Button variant="contained" type="submit">
-                  {dao ? 'Save' : 'Create'}
+                  {game ? 'Save' : 'Create'}
                 </Button>
                 <Button variant="outlined" onClick={onClose}>
                   Cancel

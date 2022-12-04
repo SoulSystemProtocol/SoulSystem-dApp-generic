@@ -48,6 +48,8 @@ const query = gql`
         author {
           id
           owner
+          name
+          uriImage
         }
       }
     }
