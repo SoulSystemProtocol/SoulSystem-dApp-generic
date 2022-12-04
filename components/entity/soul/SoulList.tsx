@@ -1,5 +1,6 @@
 import { Grid, Typography } from '@mui/material';
-import SoulCard from './SoulCard';
+import GridCard from 'components/GridCard';
+import { soulCardProcessedContent } from 'utils/cardContents';
 
 /**
  * Component: a list of souls.
@@ -21,7 +22,7 @@ export default function SoulList({ souls, sx, roles }: any) {
         <>
           {souls.map((soul: any, index: number) => (
             <Grid item key={String(index)} xs={12} lg={6}>
-              <SoulCard soul={soul} roles={roles?.[soul.id]} />
+              <GridCard {...soulCardProcessedContent(soul, roles?.[soul.id])} />
             </Grid>
           ))}
         </>

@@ -36,17 +36,17 @@ export default function SoulSearchBox({
   onChange = () => {},
   onKeyDown = () => {},
 }: TProps): JSX.Element {
-  console.log('SoulSearchBox Started W/', {
-    options,
-    sx,
-    value,
-    type,
-    role,
-    size,
-    label,
-    required,
-    disabled,
-  });
+  // console.log('SoulSearchBox Started W/', {
+  //   options,
+  //   sx,
+  //   value,
+  //   type,
+  //   role,
+  //   size,
+  //   label,
+  //   required,
+  //   disabled,
+  // });
   const [isDisabled, setIsDisabled] = useState(disabled);
   const [selectedSoul, setSelectedSoul] = useState(null);
   const [inputValue, setInputValue] = useState<string>(''); //Current text input value

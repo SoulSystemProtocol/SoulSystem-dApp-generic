@@ -42,13 +42,10 @@ export default function GameSouls({ game, sx }: any) {
     game && loadData();
   }, [game]);
 
-  if (game) {
-    return (
-      <Box sx={{ sm: 12, ...sx }}>
-        <SoulList souls={souls} roles={soulRoles} />
-      </Box>
-    );
-  }
-
-  return <></>;
+  if (!game) return <></>;
+  return (
+    <Box sx={{ sm: 12, ...sx }}>
+      <SoulList souls={souls} roles={soulRoles} />
+    </Box>
+  );
 }

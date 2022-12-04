@@ -38,17 +38,17 @@ export default function SoulSearchBox({
   onChange = () => {},
   onKeyDown = () => {},
 }: WidgetProps): JSX.Element {
-  console.log('SoulSearchBox Started W/', {
-    options,
-    sx,
-    value,
-    type,
-    role,
-    size,
-    label,
-    required,
-    disabled,
-  });
+  // console.log('SoulSearchBox Started W/', {
+  //   options,
+  //   sx,
+  //   value,
+  //   type,
+  //   role,
+  //   size,
+  //   label,
+  //   required,
+  //   disabled,
+  // });
   const { accountSoul } = useContext(DataContext);
   const [isDisabled, setIsDisabled] = useState(disabled);
   const [selectedSoul, setSelectedSoul] = useState(accountSoul);

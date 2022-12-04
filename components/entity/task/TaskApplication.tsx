@@ -1,13 +1,6 @@
 import { Save } from '@mui/icons-material';
 import { LoadingButton } from '@mui/lab';
-import {
-  Box,
-  Typography,
-  Button,
-  Stack,
-  Card,
-  CardContent,
-} from '@mui/material';
+import { Typography, Button, Stack } from '@mui/material';
 import { SOUL_TYPE, CLAIM_STAGE } from 'constants/contracts';
 import { DataContext } from 'contexts/data';
 import useDao from 'hooks/useDao';
@@ -17,9 +10,9 @@ import useTask from 'hooks/useTask';
 import useToast from 'hooks/useToast';
 import { isSoulHasRole } from 'hooks/utils';
 import { useContext, useState, useEffect } from 'react';
-import { SoulCardImage } from '../soul/SoulCard';
-import { SoulCardDetails } from '../soul/SoulCardDetails';
 import { loadJsonFromIPFS, resolveLink } from 'helpers/IPFS';
+import { soulCardContent } from 'utils/cardContents';
+import GridCard from 'components/GridCard';
 
 /**
  * Task Application
@@ -65,67 +58,53 @@ export default function TaskApplication({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [nomination]);
 
+  if (!nominatedSoul) return <></>;
   if (isSoulHasRole(task, nomination.nominated.id, 'applicant')) return <></>;
+
   return (
-    <Card sx={{ mb: 2 }}>
-      <CardContent>
-        <Stack direction="row">
-          {nominatedSoul ? (
-            <Stack direction="row" flex={1} justifyContent="space-between">
-              {/* Soul data */}
-              <Box
-                sx={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                }}
-              >
-                <SoulCardImage soul={nominatedSoul} sx={{ mr: 2 }} />
-                <SoulCardDetails soul={nominatedSoul} />
-              </Box>
-              <Box>
-                <TaskApplicationUriDisplay
-                  soul={nominatedSoul}
-                  nomination={nomination}
-                />
-              </Box>
-              <Stack direction="column" justifyContent="center">
-                {/* Application actions */}
-                {task.stage !== CLAIM_STAGE.closed &&
-                  accountSoul &&
-                  isSoulHasRole(task, accountSoul.id, 'admin') && (
-                    <Stack direction="column" justifyContent="center">
-                      {isProcessed ? (
-                        <></>
-                      ) : isProcessing ? (
-                        <LoadingButton
-                          size="small"
-                          loading
-                          loadingPosition="start"
-                          startIcon={<Save />}
-                        >
-                          Processing
-                        </LoadingButton>
-                      ) : (
-                        <Button
-                          variant="outlined"
-                          size="small"
-                          onClick={() => {
-                            acceptAplicant(nomination.nominated.id);
-                          }}
-                        >
-                          Accept Application
-                        </Button>
-                      )}
-                    </Stack>
-                  )}
-              </Stack>
+    <GridCard {...soulCardContent(nominatedSoul)}>
+      <Stack
+        direction="column"
+        sx={{ textAlign: 'center', flex: 1, alignSelf: 'flex-start' }}
+      >
+        <TaskApplicationUriDisplay
+          soul={nominatedSoul}
+          nomination={nomination}
+        />
+      </Stack>
+
+      <Stack direction="column">
+        {/* Application actions */}
+        {task.stage !== CLAIM_STAGE.closed &&
+          accountSoul &&
+          isSoulHasRole(task, accountSoul.id, 'admin') && (
+            <Stack direction="column" justifyContent="center">
+              {isProcessed ? (
+                <></>
+              ) : isProcessing ? (
+                <LoadingButton
+                  size="small"
+                  loading
+                  loadingPosition="start"
+                  startIcon={<Save />}
+                >
+                  Processing
+                </LoadingButton>
+              ) : (
+                <Button
+                  variant="outlined"
+                  size="small"
+                  onClick={() => {
+                    acceptAplicant(nomination.nominated.id);
+                  }}
+                >
+                  Accept Application
+                </Button>
+              )}
             </Stack>
-          ) : (
-            <Typography>...</Typography>
           )}
-        </Stack>
-      </CardContent>
-    </Card>
+      </Stack>
+    </GridCard>
   );
 }
 

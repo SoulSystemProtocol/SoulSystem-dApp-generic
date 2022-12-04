@@ -7,7 +7,7 @@ import GameApplicationGridCard from './GameApplicationGridCard';
 /**
  * List of game applications
  */
-export default function GameApplications({ sx }: any) {
+export default function GameApplications({ sx }: any): JSX.Element {
   const { game, loading, error } = useContext(SelectedGameContext);
   if (!game) return <></>;
 

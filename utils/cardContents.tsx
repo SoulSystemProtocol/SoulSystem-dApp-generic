@@ -1,7 +1,4 @@
-import {
-  PersonOutlineOutlined,
-  WorkOutlineOutlined,
-} from '@mui/icons-material';
+import { WorkOutlineOutlined } from '@mui/icons-material';
 import {
   addressToShortAddress,
   hexStringToJson,
@@ -9,6 +6,7 @@ import {
 } from './converters';
 import { resolveLink } from 'helpers/IPFS';
 import TaskSoulCardDetails from 'components/entity/task/TaskSoulCardDetails';
+import { normalizeGraphEntity } from 'helpers/metadata';
 
 export interface CardItem {
   id: string;
@@ -27,16 +25,24 @@ export interface CardItem {
  */
 
 /// Soul
-export const soulCardContent = (item: any): CardItem => {
-  let metadata = hexStringToJson(item.metadata);
+export const soulCardContent = (item: any, roles?: any[]): CardItem => {
+  return soulCardProcessedContent(normalizeGraphEntity(item));
+};
+
+/// Soul Card with Item that has Already Been Processed
+export const soulCardProcessedContent = (
+  item: any,
+  roles?: any[],
+): CardItem => {
+  // console.warn('Start with item', item);
   let ret = {
     id: item.id,
-    imgSrc: resolveLink(metadata?.image),
-    avatarIcon: <PersonOutlineOutlined />,
+    imgSrc: resolveLink(item?.metadata?.image),
+    // avatarIcon: <PersonOutlineOutlined />,
     label: addressToShortAddress(item.owner),
     title: soulToFirstLastNameString(item),
-    metadata,
     link: `/soul/${item.id}`,
+    roles,
   };
   return ret;
 };

@@ -1,7 +1,6 @@
 import { useContext } from 'react';
 import Layout from 'components/layout/Layout';
 import SoulDetail from 'components/entity/soul/SoulDetail';
-import useError from 'hooks/useError';
 import { useRouter } from 'next/router';
 import { soulToFirstLastNameString } from 'utils/converters';
 import { getPageTitle } from 'utils';
@@ -13,10 +12,9 @@ import {
   SelectedSoulContext,
   SelectedSoulProvider,
 } from 'contexts/SelectedSoul';
-
 import { SelectedGameProvider } from 'contexts/SelectedGame';
-import GameView from 'components/entity/game/GameView';
 import { SelectedProcProvider } from 'contexts/SelectedProc';
+import GameView from 'components/entity/game/GameView';
 import TaskView from 'components/entity/task/TaskView';
 
 /**

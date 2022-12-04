@@ -5,12 +5,12 @@ import useToast from 'hooks/useToast';
 import { useContext, useEffect, useState } from 'react';
 import { isSoulHasRole } from 'hooks/utils';
 import ConditionalButton from 'components/layout/ConditionalButton';
-import { SoulCardDetails } from 'components/entity/soul/SoulCardDetails';
 import useSubgraph from 'hooks/useSubgraph';
 import { Save } from '@mui/icons-material';
 import { LoadingButton } from '@mui/lab';
-import { Card, CardContent, Box, Stack } from '@mui/material';
-import SoulCardImage from 'components/entity/soul/SoulCardImage';
+import { Stack } from '@mui/material';
+import GridCard from 'components/GridCard';
+import { soulCardContent } from 'utils/cardContents';
 
 /**
  * Game Application Card
@@ -78,54 +78,28 @@ export default function GameApplicationGridCard({
   /* Should be Filtered Beforehand
   if (!nominatedSoul || isNominatedSoulMember) return <></>;
   */
-
+  if (!nominatedSoul) return <></>;
   return (
-    <Card>
-      <CardContent>
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-          }}
-        >
-          {/* Soul data */}
-          <Box
-            sx={{
-              display: 'flex',
-              flexDirection: 'row',
-              alignItems: 'center',
-            }}
+    <GridCard {...soulCardContent(nominatedSoul)}>
+      {/* Soul actions */}
+      <Stack direction="column" justifyContent="center">
+        {isProcessed ? (
+          <></>
+        ) : isProcessing ? (
+          <LoadingButton loading loadingPosition="start" startIcon={<Save />}>
+            Processing
+          </LoadingButton>
+        ) : (
+          <ConditionalButton
+            variant="outlined"
+            size="small"
+            disabled={!isSoulAdmin}
+            onClick={() => assignAsMember()}
           >
-            <SoulCardImage soul={nominatedSoul} sx={{ mr: 2 }} />
-            <SoulCardDetails soul={nominatedSoul} />
-          </Box>
-          {/* Soul actions */}
-          <Stack direction="column" justifyContent="center">
-            {isProcessed ? (
-              <></>
-            ) : isProcessing ? (
-              <LoadingButton
-                loading
-                loadingPosition="start"
-                startIcon={<Save />}
-              >
-                Processing
-              </LoadingButton>
-            ) : (
-              <ConditionalButton
-                variant="outlined"
-                size="small"
-                disabled={!isSoulAdmin}
-                onClick={() => assignAsMember()}
-              >
-                Accept Applicant
-              </ConditionalButton>
-            )}
-          </Stack>
-        </Box>
-      </CardContent>
-    </Card>
+            Accept Applicant
+          </ConditionalButton>
+        )}
+      </Stack>
+    </GridCard>
   );
 }
