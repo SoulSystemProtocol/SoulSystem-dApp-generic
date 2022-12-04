@@ -4,7 +4,7 @@ import useError from 'hooks/useError';
 import useContract from 'hooks/useContract';
 import { taskStageToString } from 'utils/converters';
 import EntityImage from '../EntityImage';
-import { CLAIM_STAGE } from 'constants/contracts';
+import { PROC_STAGE } from 'constants/contracts';
 import AddressHash from 'components/web3/AddressHash';
 import { DataContext } from 'contexts/data';
 import { useContext, useEffect, useState } from 'react';
@@ -83,15 +83,15 @@ export default function TaskDetail({ item, sx }: any) {
           </Typography>
           <Typography sx={{ mt: 1 }}>{item.metadata?.description}</Typography>
           <Stack direction="row" spacing={2} sx={{ mt: 2 }}>
-            {(item.stage === null || item.stage >= CLAIM_STAGE.pending) && (
+            {(item.stage === null || item.stage >= PROC_STAGE.pending) && (
               <FundDialogButton
                 text={`Fund ${nameEntity('task')}`}
                 address={item.id}
               />
             )}
             {(isSoulAdmin || isSoulAuthority) &&
-              item.stage > CLAIM_STAGE.decision &&
-              item.stage < CLAIM_STAGE.closed && (
+              item.stage > PROC_STAGE.decision &&
+              item.stage < PROC_STAGE.closed && (
                 <Button
                   size="small"
                   variant="outlined"
@@ -102,7 +102,7 @@ export default function TaskDetail({ item, sx }: any) {
                   Cancel Bounty
                 </Button>
               )}
-            {isSoulAdmin && item.stage == CLAIM_STAGE.execute && (
+            {isSoulAdmin && item.stage == PROC_STAGE.execute && (
               <Button
                 size="small"
                 variant="outlined"
@@ -111,7 +111,7 @@ export default function TaskDetail({ item, sx }: any) {
                 Disburse Prize
               </Button>
             )}
-            {item.stage > CLAIM_STAGE.execute && (
+            {item.stage > PROC_STAGE.execute && (
               <Button
                 size="small"
                 variant="outlined"
@@ -120,7 +120,7 @@ export default function TaskDetail({ item, sx }: any) {
                 Disburse Funds
               </Button>
             )}
-            {item.stage > CLAIM_STAGE.cancelled && (
+            {item.stage > PROC_STAGE.cancelled && (
               <Button
                 size="small"
                 variant="outlined"

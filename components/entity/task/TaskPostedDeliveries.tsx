@@ -10,7 +10,7 @@ import {
   Typography,
 } from '@mui/material';
 import Link from 'components/utils/Link';
-import { CLAIM_POST_ENTITY_TYPE, CLAIM_STAGE } from 'constants/contracts';
+import { CLAIM_POST_ENTITY_TYPE, PROC_STAGE } from 'constants/contracts';
 import { DataContext } from 'contexts/data';
 import { DialogContext } from 'contexts/dialog';
 import useDao from 'hooks/useDao';
@@ -54,7 +54,7 @@ export default function TaskPostedDeliveries({ task, sx }: any) {
             </ListItem>
           )}
         </List>
-        {task.stage !== CLAIM_STAGE.closed && accountSoul && (
+        {task.stage !== PROC_STAGE.closed && accountSoul && (
           <Button
             size="small"
             variant="outlined"
@@ -117,7 +117,7 @@ function TaskPostedDelivery({ task, post }: any) {
           <Link href={post.uri} underline="none" target="_blank">
             Delivery
           </Link>
-          {task.stage !== CLAIM_STAGE.closed &&
+          {task.stage !== PROC_STAGE.closed &&
             accountSoul &&
             isSoulHasRole(task, accountSoul.id, 'admin') && (
               <Box>

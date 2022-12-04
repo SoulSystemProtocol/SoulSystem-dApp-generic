@@ -1,7 +1,7 @@
 import { Save } from '@mui/icons-material';
 import { LoadingButton } from '@mui/lab';
 import { Typography, Button, Stack } from '@mui/material';
-import { SOUL_TYPE, CLAIM_STAGE } from 'constants/contracts';
+import { SOUL_TYPE, PROC_STAGE } from 'constants/contracts';
 import { DataContext } from 'contexts/data';
 import useDao from 'hooks/useDao';
 import useError from 'hooks/useError';
@@ -75,7 +75,7 @@ export default function TaskApplication({
 
       <Stack direction="column">
         {/* Application actions */}
-        {task.stage !== CLAIM_STAGE.closed &&
+        {task.stage !== PROC_STAGE.closed &&
           accountSoul &&
           isSoulHasRole(task, accountSoul.id, 'admin') && (
             <Stack direction="column" justifyContent="center">

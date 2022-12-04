@@ -2,11 +2,12 @@ import {
   Box,
   Button,
   Divider,
+  Grid,
   List,
   ListItem,
   Typography,
 } from '@mui/material';
-import { CLAIM_STAGE } from 'constants/contracts';
+import { PROC_STAGE } from 'constants/contracts';
 import { DataContext } from 'contexts/data';
 import { DialogContext } from 'contexts/dialog';
 import { useContext } from 'react';
@@ -30,8 +31,7 @@ export default function TaskApplications({ task, sx }: any) {
           disabled={
             !accountSoul ||
             (task.stage !== null &&
-              (task.stage < CLAIM_STAGE.open ||
-                task.stage > CLAIM_STAGE.closed))
+              (task.stage < PROC_STAGE.open || task.stage > PROC_STAGE.closed))
           }
           size="small"
           variant="outlined"
@@ -42,23 +42,25 @@ export default function TaskApplications({ task, sx }: any) {
           Apply
         </ConditionalButton>
       </Stack>
-      <List>
+      <Grid container spacing={2} sx={{ ...sx }}>
         {task.nominations.length > 0 ? (
           <>
             {task.nominations.map((nomination: any, index: number) => (
-              <TaskApplication
-                key={index}
-                task={task}
-                nomination={nomination}
-              />
+              <Grid item key={String(index)} xs={12}>
+                <TaskApplication
+                  key={index}
+                  task={task}
+                  nomination={nomination}
+                />
+              </Grid>
             ))}
           </>
         ) : (
-          <ListItem>
+          <Grid item xs={12}>
             <Typography variant="body2">No applications</Typography>
-          </ListItem>
+          </Grid>
         )}
-      </List>
+      </Grid>
     </Box>
   );
 }

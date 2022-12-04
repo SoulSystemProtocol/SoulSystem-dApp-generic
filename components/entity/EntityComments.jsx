@@ -86,7 +86,7 @@ export default function EntityComments({ item, sx = {} }) {
         </Stack>
       )}
       {
-        //item?.stage === CLAIM_STAGE.open &&    //TODO: Enable this on Protocol version 0.5.3 (Disply only if has a soul in a role)
+        //item?.stage === PROC_STAGE.open &&    //TODO: Enable this on Protocol version 0.5.3 (Disply only if has a soul in a role)
         hasAnyRole && (
           <Box sx={{ mt: 2 }}>
             <Button

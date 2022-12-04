@@ -13,7 +13,7 @@ import {
   Stack,
   Typography,
 } from '@mui/material';
-import { CLAIM_ROLE, CLAIM_STAGE } from 'constants/contracts';
+import { CLAIM_ROLE, PROC_STAGE } from 'constants/contracts';
 import { DataContext } from 'contexts/data';
 import useDao from 'hooks/useDao';
 import useError from 'hooks/useError';
@@ -58,7 +58,7 @@ export default function TaskApprovedDeliveries({ task, sx }: any) {
           ))}
         </List>
         {/* Button to disburse funds */}
-        {task.stage === CLAIM_STAGE.execution && accountSoul && (
+        {task.stage === PROC_STAGE.execution && accountSoul && (
           <>
             {isProcessed ? (
               <></>
