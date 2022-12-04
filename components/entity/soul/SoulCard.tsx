@@ -1,12 +1,10 @@
-import { PersonOutlineOutlined } from '@mui/icons-material';
 import { Box, Card, CardContent, Grid } from '@mui/material';
-import EntityImage from '../EntityImage';
-import Link from 'components/utils/Link';
 import { SoulRoles } from './SoulRoles';
 import { SoulCardDetails } from './SoulCardDetails';
+import SoulCardImage from 'components/entity/soul/SoulCardImage';
 
 /**
- * Display a single Soul
+ * Display a Single Soul
  */
 export default function SoulCard({ soul, roles }: any): JSX.Element {
   // if (!soul) return <></>;
@@ -39,23 +37,5 @@ export default function SoulCard({ soul, roles }: any): JSX.Element {
         </CardContent>
       </Card>
     </Grid>
-  );
-}
-
-export function SoulCardImage({ soul, sx }: any) {
-  return (
-    <Box sx={{ ...sx }}>
-      <Link href={soul ? `/soul/${soul.id}` : ''}>
-        <EntityImage
-          item={soul}
-          sx={{
-            cursor: 'pointer',
-            width: 82,
-            height: 82,
-          }}
-          icon={<PersonOutlineOutlined />}
-        />
-      </Link>
-    </Box>
   );
 }

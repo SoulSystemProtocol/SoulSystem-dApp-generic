@@ -3,9 +3,9 @@ import { useEffect, useState } from 'react';
 import { Box, Grid, Pagination, Typography } from '@mui/material';
 import { APP_CONFIGS } from '../constants';
 import Loader from './Loader';
-import ListCard from './ListCard';
+import GridCard from './GridCard';
 import { CardItem } from 'utils/cardContents';
-import ListCardTask from './ListCardTask';
+import GridCardTask from './GridCardTask';
 
 type TPaginatedList = {
   query: any;
@@ -38,7 +38,7 @@ export default function PaginatedList({
   title,
   renderActions,
   getCardContent = (item) => item,
-  itemsProcessing = (items) => items,
+  itemsProcessing = (items): CardItem[] => items,
   entityName = 'souls',
   gridMD = 6,
   gridLG = 4,
@@ -112,9 +112,9 @@ export default function PaginatedList({
                 return (
                   <Grid key={index} item xs={12} md={gridMD} lg={gridLG}>
                     {cardData.imgSrc == 'PARENT_IMAGE' ? (
-                      <ListCardTask {...cardData} />
+                      <GridCardTask {...cardData} />
                     ) : (
-                      <ListCard {...cardData} />
+                      <GridCard {...cardData} />
                     )}
                   </Grid>
                 );

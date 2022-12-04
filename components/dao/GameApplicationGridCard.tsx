@@ -1,59 +1,24 @@
-import { Save } from '@mui/icons-material';
-import { LoadingButton } from '@mui/lab';
-import { Box, Card, CardContent, Grid, Stack, Typography } from '@mui/material';
-import { SoulCardImage } from 'components/entity/soul/SoulCard';
 import { DataContext } from 'contexts/data';
 import useContract from 'hooks/useContract';
 import useError from 'hooks/useError';
 import useToast from 'hooks/useToast';
 import { useContext, useEffect, useState } from 'react';
-import { getSoulsByRole, isSoulHasRole } from 'hooks/utils';
+import { isSoulHasRole } from 'hooks/utils';
 import ConditionalButton from 'components/layout/ConditionalButton';
-import { SelectedGameContext } from 'contexts/SelectedGame';
 import { SoulCardDetails } from 'components/entity/soul/SoulCardDetails';
 import useSubgraph from 'hooks/useSubgraph';
+import { Save } from '@mui/icons-material';
+import { LoadingButton } from '@mui/lab';
+import { Card, CardContent, Box, Stack } from '@mui/material';
+import SoulCardImage from 'components/entity/soul/SoulCardImage';
 
 /**
- * Component: a list of game applications
+ * Game Application Card
  */
-export default function DaoApplications({ sx }: any) {
-  const { game, loading, error } = useContext(SelectedGameContext);
-  if (!game) return <></>;
-
-  //All Current Members
-  const members = getSoulsByRole(game, 'member');
-  //Applications that aren't members
-  let applications = game?.nominations?.filter((nomination: any) => {
-    return !members.includes(nomination?.nominated?.id?.toString());
-  });
-
-  return (
-    <Grid container spacing={2} sx={{ ...sx }}>
-      {!game.nominations && (
-        <Grid item xs={12}>
-          <Typography>Loading...</Typography>
-        </Grid>
-      )}
-      {applications?.length === 0 ? (
-        <Grid item xs={12}>
-          <Typography>No Pending Applications</Typography>
-        </Grid>
-      ) : (
-        <Grid item xs={12}>
-          {applications.map((nomination: any, index: number) => (
-            <DaoApplicationGridItem
-              key={index}
-              game={game}
-              nomination={nomination}
-            />
-          ))}
-        </Grid>
-      )}
-    </Grid>
-  );
-}
-
-function DaoApplicationGridItem({ game, nomination }: any) {
+export default function GameApplicationGridCard({
+  game,
+  nomination,
+}: any): JSX.Element {
   const { handleError } = useError();
   const { showToastSuccess } = useToast();
   const { getSoulById } = useSubgraph();
@@ -110,7 +75,7 @@ function DaoApplicationGridItem({ game, nomination }: any) {
     if (game && nomination) loadData();
   }, [accountSoul, game, nomination]);
 
-  /* Filtered Beforehand
+  /* Should be Filtered Beforehand
   if (!nominatedSoul || isNominatedSoulMember) return <></>;
   */
 
@@ -137,7 +102,6 @@ function DaoApplicationGridItem({ game, nomination }: any) {
             <SoulCardDetails soul={nominatedSoul} />
           </Box>
           {/* Soul actions */}
-          {/* {isSoulAdmin && ( */}
           <Stack direction="column" justifyContent="center">
             {isProcessed ? (
               <></>
@@ -160,7 +124,6 @@ function DaoApplicationGridItem({ game, nomination }: any) {
               </ConditionalButton>
             )}
           </Stack>
-          {/* )} */}
         </Box>
       </CardContent>
     </Card>

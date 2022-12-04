@@ -3,7 +3,7 @@ import { Box, Tab } from '@mui/material';
 import GameSouls from 'components/entity/game/GameSouls';
 import EntityComments from 'components/entity/EntityComments';
 import { useState } from 'react';
-import DaoApplications from './DaoApplications';
+import GameApplications from './GameApplications';
 import SoulAffiliations from 'components/entity/soul/SoulAffiliations';
 
 /**
@@ -16,7 +16,7 @@ export default function DaoTabs({ item: dao, sx }: any) {
     setTabValue(newTabValue);
   }
 
-  if (!dao) return <></>;
+  if (!dao) return <>...</>;
   return (
     <Box sx={{ width: '100%', ...sx }}>
       <TabContext value={tabValue}>
@@ -43,7 +43,7 @@ export default function DaoTabs({ item: dao, sx }: any) {
           <GameSouls game={dao} />
         </TabPanel>
         <TabPanel value="3" sx={{ px: 0 }}>
-          <DaoApplications dao={dao} />
+          <GameApplications />
         </TabPanel>
         <TabPanel value="4" sx={{ px: 0 }}>
           <SoulAffiliations />
