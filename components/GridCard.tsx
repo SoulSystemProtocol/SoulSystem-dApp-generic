@@ -4,6 +4,8 @@ import { Box } from '@mui/system';
 import { capitalize } from 'lodash';
 import { CardItem } from 'utils/cardContents';
 import CardAvatar from './CardAvatar';
+import { SchoolOutlined } from '@mui/icons-material';
+import EntityImage from './entity/EntityImage';
 
 /**
  * Dashboard card component.
@@ -38,7 +40,17 @@ export default function GridCard({
           direction="row"
           sx={{ alignItems: 'center', display: 'flex', flexDirection: 'row' }}
         >
-          <CardAvatar imgSrc={imgSrc} avatarIcon={avatarIcon} link={datalink} />
+          <Link href={datalink}>
+            <EntityImage
+              imgSrc={imgSrc}
+              icon={avatarIcon || <SchoolOutlined />}
+              sx={{
+                cursor: 'pointer',
+                width: 82,
+                height: 82,
+              }}
+            />
+          </Link>
           <Box sx={{ ml: 2, flex: 1, alignSelf: 'flex-start' }}>
             <Link href={datalink} underline="none">
               {title}

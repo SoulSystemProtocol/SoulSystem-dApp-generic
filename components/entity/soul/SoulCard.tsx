@@ -9,33 +9,31 @@ import SoulCardImage from 'components/entity/soul/SoulCardImage';
 export default function SoulCard({ soul, roles }: any): JSX.Element {
   // if (!soul) return <></>;
   return (
-    <Grid item>
-      <Card sx={{ borderRadius: '16px' }}>
-        <CardContent>
+    <Card>
+      <CardContent>
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+          }}
+        >
           <Box
             sx={{
               display: 'flex',
               flexDirection: 'row',
               alignItems: 'center',
-              justifyContent: 'space-between',
             }}
           >
-            <Box
-              sx={{
-                display: 'flex',
-                flexDirection: 'row',
-                alignItems: 'center',
-              }}
-            >
-              <SoulCardImage soul={soul} sx={{ mr: 2 }} />
-              <SoulCardDetails soul={soul} sx={{ mr: 2 }} />
-            </Box>
-            <Box>
-              <SoulRoles roles={roles} />
-            </Box>
+            <SoulCardImage soul={soul} sx={{ mr: 2 }} />
+            <SoulCardDetails soul={soul} sx={{ mr: 2 }} />
           </Box>
-        </CardContent>
-      </Card>
-    </Grid>
+          <Box>
+            <SoulRoles roles={roles} />
+          </Box>
+        </Box>
+      </CardContent>
+    </Card>
   );
 }
