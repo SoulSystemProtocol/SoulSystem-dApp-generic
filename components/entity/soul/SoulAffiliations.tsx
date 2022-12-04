@@ -7,7 +7,6 @@ import {
   CardItem,
   soulPartCardContent,
   soulPartTaskCardContent,
-  taskPartCardContent,
 } from 'utils/cardContents';
 import SoulParts from './SoulParts';
 

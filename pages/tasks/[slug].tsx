@@ -12,7 +12,7 @@ import EntityComments from 'components/entity/EntityComments';
 import { getPageTitle } from 'utils';
 import { nameEntity } from 'hooks/utils';
 
-/**
+/** DEPRECATE
  * Page with Task details.
  */
 export default function TaskDetailPage() {
