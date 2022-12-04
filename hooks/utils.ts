@@ -18,7 +18,7 @@ export const getById = async function (
  * 'MDAO', 'PROJECT',
  */
 export const nameEntity = function (
-  entName: string,
+  entName: string = '',
   plural: boolean = false,
 ): string {
   // if (entName == '') return plural ? 'SBT Profiles' : 'Profile';

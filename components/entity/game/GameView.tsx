@@ -22,7 +22,7 @@ export default function GameView({ sx }: { sx: any }): JSX.Element {
   // if (!game) return <>Failed to Load Entity</>;
   return (
     <Box sx={sx}>
-      <GameDetail item={game} sx={{ mb: 5 }} />
+      <GameDetail sx={{ mb: 5 }} />
       {game?.role == GAME_TYPE.mdao && <DaoTabs item={game} />}
       {game?.role == GAME_TYPE.project && <ProjectTabs item={game} />}
     </Box>

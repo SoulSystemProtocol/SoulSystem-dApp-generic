@@ -23,6 +23,7 @@ export default function GameAdminActions({ sx }: any): JSX.Element {
     );
   }, [accountSoul, game]);
 
+  if (!game) return <></>;
   return (
     <Stack direction="column" spacing={1} sx={{ ...sx }}>
       <ConditionalButton

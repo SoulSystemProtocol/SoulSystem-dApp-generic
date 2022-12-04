@@ -12,54 +12,53 @@ import Link from 'components/utils/Link';
 import { SelectedSoulContext } from 'contexts/SelectedSoul';
 import { useContext } from 'react';
 import { nameEntity } from 'hooks/utils';
+import { SelectedGameContext } from 'contexts/SelectedGame';
 
 /**
  * Game Detail Page
  */
-export default function GameDetail({ item: game, sx }: any): JSX.Element {
+export default function GameDetail({ sx }: any): JSX.Element {
   const { soul } = useContext(SelectedSoulContext);
-  // console.log('Game game:', game, soul);
+  const { game } = useContext(SelectedGameContext);
 
-  if (game) {
-    return (
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: { xs: 'column', md: 'row' },
-          ...sx,
-        }}
-      >
-        <Box>
-          <EntityImage item={soul} />
-          <GameAdminActions item={game} sx={{ mt: 2, width: 164 }} />
-        </Box>
-        <Box sx={{ flexGrow: 1, mt: { xs: 2, md: 0 }, ml: { md: 4 } }}>
-          <AddressHash address={game.id} sx={{ float: 'right' }} />
-          <Typography variant="h1">{game.name}</Typography>
-          <Typography color="text.secondary" variant="body2">
-            Balance: <AccountBalance address={game.id} />{' '}
-            {process.env.NEXT_PUBLIC_NETWORK_CURRENCY_SYMBOL}
-          </Typography>
-
-          <>({game.role})</>
-          <Typography sx={{ mt: 1 }}>{game?.metadata?.description}</Typography>
-          <SoulDescription soul={soul} sx={{ mt: 1 }} />
-          <SocialLinks key="SocialLinks" soul={soul} sx={{ mt: 2 }} />
-          <Stack key="buttons" direction="row" spacing={2} sx={{ mt: 2 }}>
-            <GameMembershipActions dao={game} />
-            <FundDialogButton
-              text={`Fund ${nameEntity(game.role)}`}
-              address={game.id}
-            />
-            {process.env.NEXT_PUBLIC_FEATURE_RULES === 'true' && (
-              <Link href={`/game/${game.id}/rules/manage`}>
-                <Button>Rules</Button>
-              </Link>
-            )}
-          </Stack>
-        </Box>
+  // if (!game) return <></>;
+  return (
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: { xs: 'column', md: 'row' },
+        ...sx,
+      }}
+    >
+      <Box>
+        <EntityImage item={soul} />
+        <GameAdminActions item={game} sx={{ mt: 2, width: 164 }} />
       </Box>
-    );
-  }
-  return <></>;
+      <Box sx={{ flexGrow: 1, mt: { xs: 2, md: 0 }, ml: { md: 4 } }}>
+        <AddressHash address={game?.id} sx={{ float: 'right' }} />
+        <Typography variant="h1">{game?.name}</Typography>
+        <Typography color="text.secondary" variant="body2">
+          Balance: <AccountBalance address={game?.id} />{' '}
+          {process.env.NEXT_PUBLIC_NETWORK_CURRENCY_SYMBOL}
+        </Typography>
+
+        <>({game?.role})</>
+        <Typography sx={{ mt: 1 }}>{game?.metadata?.description}</Typography>
+        <SoulDescription soul={soul} sx={{ mt: 1 }} />
+        <SocialLinks key="SocialLinks" soul={soul} sx={{ mt: 2 }} />
+        <Stack key="buttons" direction="row" spacing={2} sx={{ mt: 2 }}>
+          <GameMembershipActions dao={game} />
+          <FundDialogButton
+            text={`Fund ${nameEntity(game?.role)}`}
+            address={game?.id}
+          />
+          {process.env.NEXT_PUBLIC_FEATURE_RULES === 'true' && (
+            <Link href={`/game/${game?.id}/rules/manage`}>
+              <Button>Rules</Button>
+            </Link>
+          )}
+        </Stack>
+      </Box>
+    </Box>
+  );
 }
