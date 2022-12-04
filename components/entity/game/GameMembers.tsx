@@ -9,7 +9,7 @@ import { useEffect, useState } from 'react';
 /**
  * Display Game Members
  */
-export default function GameSouls({ game, sx }: any) {
+export default function GameMembers({ game, sx }: any) {
   const { handleError } = useError();
   const [soulIds, setSoulIds] = useState<Array<string>>([]);
   const { souls } = useSoulsById(soulIds, 24);
