@@ -3,13 +3,15 @@ import { Box, Tab } from '@mui/material';
 import EntityComments from 'components/entity/EntityComments';
 import GameMembers from 'components/entity/game/GameMembers';
 import { useState } from 'react';
-import ProjectAddTaskButton from './ProjectAddTaskButton';
-import ProjectTaskList from './ProjectTaskList';
+import TaskAcceptedApplications from './TaskAcceptedApplications';
+import TaskApplications from './TaskApplications';
+import TaskApprovedDeliveries from './TaskApprovedDeliveries';
+import TaskPostedDeliveries from './TaskPostedDeliveries';
 
 /**
- * Project tabs
+ * Task tabs
  */
-export default function ProjectTabs({ item: project, sx }: any) {
+export default function ProjectTabs({ item, sx }: any) {
   const [tabValue, setTabValue] = useState('1');
 
   function handleChange(_: any, newTabValue: any) {
@@ -31,18 +33,20 @@ export default function ProjectTabs({ item: project, sx }: any) {
           }}
         >
           <Tab label="Posts" value="1" />
-          <Tab label="Tasks" value="2" />
+          <Tab label="Applications" value="2" />
           <Tab label="Members" value="3" />
         </TabList>
         <TabPanel value="1" sx={{ px: 0 }}>
-          <EntityComments item={project} />
+          <EntityComments item={item} />
         </TabPanel>
         <TabPanel value="2" sx={{ px: 0 }}>
-          <ProjectAddTaskButton project={project} sx={{ mb: 4 }} />
-          <ProjectTaskList />
+          {item && <TaskApplications task={item} sx={{ mt: 2 }} />}
+          {item && <TaskAcceptedApplications task={item} sx={{ mt: 2 }} />}
+          {item && <TaskPostedDeliveries task={item} sx={{ mt: 2 }} />}
+          {item && <TaskApprovedDeliveries task={item} sx={{ mt: 2 }} />}
         </TabPanel>
         <TabPanel value="3" sx={{ px: 0 }}>
-          <GameMembers game={project} />
+          <GameMembers game={item} />
         </TabPanel>
       </TabContext>
     </Box>

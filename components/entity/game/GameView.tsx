@@ -1,7 +1,7 @@
 import { GAME_TYPE } from 'constants/contracts';
 import GameDetail from 'components/entity/game/GameDetail';
-import DaoTabs from 'components/dao/DaoTabs';
-import ProjectTabs from 'components/project/ProjectTabs';
+import DaoTabs from 'components/entity/game/DaoTabs';
+import ProjectTabs from 'components/entity/game/ProjectTabs';
 import { SelectedGameContext } from 'contexts/SelectedGame';
 import { useContext } from 'react';
 import Loading from 'components/layout/Loading';

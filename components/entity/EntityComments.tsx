@@ -1,11 +1,11 @@
 import {
   Box,
-  Button,
   Paper,
   Stack,
   Typography,
   Chip,
   SxProps,
+  Grid,
 } from '@mui/material';
 import { DataContext } from 'contexts/data';
 import { useEffect, useState, useContext } from 'react';
@@ -60,48 +60,52 @@ export default function EntityComments({
 
   return (
     <Box sx={sx}>
-      {/* Comments */}
-      {commentPosts.length == 0 ? (
-        <Typography></Typography>
-      ) : (
-        <Stack spacing={1}>
-          {commentPosts.map((post: any, index) => {
-            //Process Data
-            post = normalizeGraphEntity(post);
-            console.log('Processed post:', post);
-            return (
-              <Paper key={index} sx={{ p: 2 }}>
-                {/* Author */}
-                <Stack direction="row" spacing={1} alignItems="center">
-                  <SoulCompactCard profile={post.author} />
-                  <Chip
-                    key={post.entityRole}
-                    label={post.entityRole}
-                    size="small"
-                  />
-                </Stack>
-                {/* Message */}
-                <Paper variant="outlined" sx={{ p: 2, mt: 1 }}>
-                  <Typography
-                    variant="body2"
-                    sx={{ fontWeight: 'normal' }}
-                    gutterBottom
-                  >
-                    {post.metadata.text}
-                  </Typography>
-                  <Typography
-                    variant="body2"
-                    sx={{ fontSize: '0.7em', opacity: 0.66 }}
-                  >
-                    {new Date(post.createdDate * 1000).toLocaleString()}
-                  </Typography>
-                </Paper>
-              </Paper>
-            );
-          })}
-        </Stack>
-      )}
-
+      <Grid container spacing={2}>
+        {/* Comments */}
+        {commentPosts.length == 0 ? (
+          <Grid item key="empty" xs={12}>
+            <Paper sx={{ p: 2 }}>No updates yet...</Paper>
+          </Grid>
+        ) : (
+          <>
+            {commentPosts.map((post: any, index) => {
+              //Process Data
+              post = normalizeGraphEntity(post);
+              return (
+                <Grid item key={post.id} xs={12}>
+                  <Paper sx={{ p: 2 }}>
+                    {/* Author */}
+                    <Stack direction="row" spacing={1} alignItems="center">
+                      <SoulCompactCard profile={post.author} />
+                      <Chip
+                        key={post.entityRole}
+                        label={post.entityRole}
+                        size="small"
+                      />
+                    </Stack>
+                    {/* Message */}
+                    <Paper variant="outlined" sx={{ p: 2, mt: 1 }}>
+                      <Typography
+                        variant="body2"
+                        sx={{ fontWeight: 'normal' }}
+                        gutterBottom
+                      >
+                        {post.metadata.text}
+                      </Typography>
+                      <Typography
+                        variant="body2"
+                        sx={{ fontSize: '0.7em', opacity: 0.66 }}
+                      >
+                        {new Date(post.createdDate * 1000).toLocaleString()}
+                      </Typography>
+                    </Paper>
+                  </Paper>
+                </Grid>
+              );
+            })}
+          </>
+        )}
+      </Grid>
       {/* //item?.stage === PROC_STAGE.open &&    //TODO: Enable this on Protocol version 0.5.3 (Disply only if has a soul in a role) */}
 
       <Box sx={{ mt: 2 }}>

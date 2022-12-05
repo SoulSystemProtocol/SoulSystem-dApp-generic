@@ -50,6 +50,8 @@ function SoulSinglePageContent(): JSX.Element {
     transform: 'rotate(180deg)',
   };
 
+  if (error) return <>Failed to Load Entity</>;
+
   return (
     <Layout title={getPageTitle(CONF.PAGE_TITLE)}>
       {soul?.type == '' && <SoulDetail soul={soul} />}
