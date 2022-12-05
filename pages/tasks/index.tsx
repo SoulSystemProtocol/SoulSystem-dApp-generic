@@ -16,9 +16,6 @@ const CONF = {
  * Page for a list of projects
  */
 export default function TaskPage({}: any) {
-  // const { accountSoul } = useContext(DataContext);
-  // const { showDialog, closeDialog } = useContext(DialogContext);
-
   const listProps = {
     variables: {
       type: 'TASK',
