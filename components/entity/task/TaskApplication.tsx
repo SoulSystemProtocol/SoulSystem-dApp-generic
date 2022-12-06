@@ -111,7 +111,11 @@ export default function TaskApplication({
 /**
  * Display Task Application Content
  */
-function TaskApplicationUriDisplay({ nomination, soul }: any): JSX.Element {
+function TaskApplicationUriDisplay({
+  nomination,
+}: {
+  nomination: any;
+}): JSX.Element {
   const [data, setData] = useState<any | null>(null);
   const [nominator, setNominator] = useState<any | null>(null);
 
@@ -121,12 +125,6 @@ function TaskApplicationUriDisplay({ nomination, soul }: any): JSX.Element {
       setNominator(nomination.nominator[i]);
       loadJsonFromIPFS(resolveLink(nomination.uri[i])).then((data) => {
         setData(data);
-        console.log(
-          'JSON Data for nomination.uri[i]',
-          nomination.uri[i],
-          nomination.nominator[i],
-          data,
-        );
       });
     }
   }, [nomination]);

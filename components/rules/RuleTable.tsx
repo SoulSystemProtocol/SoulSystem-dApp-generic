@@ -2,7 +2,7 @@ import { BlockOutlined, DataObjectOutlined } from '@mui/icons-material';
 import { Stack, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import { DataGrid, GridActionsCellItem, GridToolbar } from '@mui/x-data-grid';
-import { DialogContext, IDialogParams } from 'contexts/dialog';
+import { DialogContext, TDialogContext } from 'contexts/dialog';
 import useAction from 'hooks/useAction';
 import useError from 'hooks/useError';
 import useSubgraph from 'hooks/useSubgraph';
@@ -17,7 +17,7 @@ import JsonViewDialog from 'components/json/JsonViewDialog';
  */
 export default function RuleTable({ item, sx }: any) {
   // eslint-disable-next-line prettier/prettier
-  const { showDialog, closeDialog }: Partial<IDialogParams> =
+  const { showDialog, closeDialog }: Partial<TDialogContext> =
     useContext(DialogContext);
   const { handleError } = useError();
   const { getActions } = useAction();

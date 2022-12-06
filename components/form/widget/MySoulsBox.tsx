@@ -12,7 +12,7 @@ interface TProps {
   options?: any;
   label: string;
   sx: any;
-  size?: 'small' | 'medium' | undefined;
+  size?: 'small' | 'medium';
   disabled?: boolean;
   required?: boolean;
   value?: string;
@@ -142,7 +142,6 @@ export default function SoulSearchBox({
             <li {...props}>
               <SoulCompactCard
                 profile={option}
-                disableId={false}
                 disableAddress={false}
                 disableLink={true}
                 disableRating={true}

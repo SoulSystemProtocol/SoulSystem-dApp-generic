@@ -88,12 +88,12 @@ export default function GameRoleManageDialog({
           formData.soulId,
           formData.roleName,
         );
-      } else {
+      } else if (formData.action === 'removeRole') {
         await getContractGame(dao.id).roleRemoveFromToken(
           formData.soulId,
           formData.roleName,
         );
-      }
+      } else console.error('Unknown action: ' + formData.action);
       showToastSuccess('Success! Data will be updated soon');
       close();
     } catch (error: any) {

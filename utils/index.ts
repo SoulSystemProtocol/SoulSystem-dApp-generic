@@ -1,5 +1,4 @@
 import { APP_CONFIGS } from '../constants';
-import { gql } from '@apollo/client';
 import axios from 'axios';
 
 ///Generate Page Title
@@ -9,11 +8,7 @@ export const getPageTitle = (pageName: string) =>
 /// Pagination Helper
 export const getPagination = (page: any) => (page - 1) * APP_CONFIGS.PAGE_SIZE;
 
-/**
- * Get Soul ID by Account Address
- * @param address 
- * @returns 
- */
+/// Get Soul ID by Account Address
 export const getSBTForAccount = async (
   address: string,
 ): Promise<string | undefined> => {
@@ -31,12 +26,8 @@ export const getSBTForAccount = async (
   return response?.account?.sbt?.id;
 };
 
-/**
- * Runs a subgraph query
- * @param query 
- * @param variables 
- */
-export async function runSubgraphQuery(query: string, variables = {}) {
+/// Runs a subgraph query
+export async function runSubgraphQuery(query: string, variables: any = {}) {
   try {
     const response = await axios.post(
       process.env.NEXT_PUBLIC_SUBGRAPH_API || '',

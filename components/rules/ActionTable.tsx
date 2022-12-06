@@ -7,7 +7,7 @@ import {
   GridToolbar,
 } from '@mui/x-data-grid';
 import JsonViewDialog from 'components/json/JsonViewDialog';
-import { DialogContext, IDialogParams } from 'contexts/dialog';
+import { DialogContext, TDialogContext } from 'contexts/dialog';
 import useAction from 'hooks/useAction';
 import useError from 'hooks/useError';
 import { capitalize } from 'lodash';
@@ -18,7 +18,7 @@ import { useContext, useEffect, useState } from 'react';
  */
 export default function ActionTable({ sx }: any): JSX.Element {
   // eslint-disable-next-line prettier/prettier
-  const { showDialog, closeDialog }: Partial<IDialogParams> =
+  const { showDialog, closeDialog }: Partial<TDialogContext> =
     useContext(DialogContext);
   const { handleError } = useError();
   const { getActions } = useAction();

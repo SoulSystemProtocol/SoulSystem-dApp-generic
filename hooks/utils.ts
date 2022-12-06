@@ -23,7 +23,7 @@ export const nameEntity = function (
 ): string {
   // if (entName == '') return plural ? 'SBT Profiles' : 'Profile';
   if (entName == '') return plural ? 'Builders' : 'Builder';
-  if (entName.toLocaleLowerCase() == 'mdao') return plural ? 'Teams' : 'Team';
+  if (entName.toLocaleLowerCase() == 'mdao') return plural ? 'Pods' : 'Pod';
   if (entName.toLocaleLowerCase() == 'project')
     // return plural ? 'Projects' : 'Project';
     return plural ? 'Buidls' : 'Buidl';

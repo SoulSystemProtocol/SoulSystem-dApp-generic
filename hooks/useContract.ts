@@ -21,14 +21,14 @@ export default function useContract() {
   const { provider, isNetworkChainIdCorrect } = useContext(Web3Context);
 
   /// Common Validations
-  function validate() {
+  function validateChain() {
     if (isNetworkChainIdCorrect === null) throw new NoWalletError();
     if (!isNetworkChainIdCorrect) throw new WrongNetworkError();
   }
 
   /// Hub Contract
   function getContractHub() {
-    validate();
+    validateChain();
     const address = process.env.NEXT_PUBLIC_HUB_CONTRACT_ADDRESS;
     return new Contract(String(address), ABI_Hub, provider?.getSigner());
   }
@@ -36,7 +36,7 @@ export default function useContract() {
   /// Action Repo Contract (history)
   function getContractActions() {
     console.warn('isNetworkChainIdCorrect', isNetworkChainIdCorrect);
-    validate();
+    validateChain();
     const address = process.env.NEXT_PUBLIC_ACTION_REPO_CONTRACT_ADDRESS;
     return new Contract(String(address), ABI_Action, provider?.getSigner());
   }
@@ -44,7 +44,7 @@ export default function useContract() {
   /* TBD
   /// Data Repo Contract
   function getContractData() {
-    validate();
+    validateChain();
     const address = process.env.NEXT_PUBLIC_DATA_REPO_CONTRACT_ADDRESS;
     return new Contract(String(address), ABI_Action, provider?.getSigner());
   }
@@ -52,48 +52,49 @@ export default function useContract() {
 
   /// SBT Contract
   function getContractSoul() {
-    validate();
+    validateChain();
     const address = process.env.NEXT_PUBLIC_SOUL_CONTRACT_ADDRESS;
     return new Contract(String(address), ABI_Soul, provider?.getSigner());
   }
 
   /// Game Contract
   function getContractGame(address: string) {
-    validate();
+    validateChain();
     return new Contract(address, ABI_Game, provider?.getSigner());
   }
 
   /// Game Extension: Court
   function getContractGameCourt(address: string) {
-    validate();
+    validateChain();
     return new Contract(address, ABI_extCourt, provider?.getSigner());
   }
 
   /// Game Extension: mDAO
   function getContractGameMDAO(address: string) {
-    validate();
+    validateChain();
     return new Contract(address, ABI_extMDAO, provider?.getSigner());
   }
 
   /// Game Extension: Project
   function getContractGameProject(address: string) {
-    validate();
+    validateChain();
     return new Contract(address, ABI_extProject, provider?.getSigner());
   }
 
   /// Game Extension: Rules
   function getContractGameRules(address: string) {
-    validate();
+    validateChain();
     return new Contract(address, ABI_extRules, provider?.getSigner());
   }
 
   /// Task Contract
   function getContractTask(address: string) {
-    validate();
+    validateChain();
     return new Contract(address, ABI_Task, provider?.getSigner());
   }
 
   return {
+    validateChain,
     getContractActions,
     getContractHub,
     getContractGame,

@@ -11,7 +11,7 @@ import {
 } from '@mui/material';
 import { Box } from '@mui/system';
 import RuleEffects from 'components/rules/RuleEffects';
-import { DialogContext, IDialogParams } from 'contexts/dialog';
+import { DialogContext, TDialogContext } from 'contexts/dialog';
 import { useContext, useState } from 'react';
 import { formatActionName } from 'utils/converters';
 
@@ -92,7 +92,7 @@ function LawAction({ law }: any) {
 }
 
 function LawRules({ law, isCommentsEnabled, sx }: any): JSX.Element {
-  const { showDialog, closeDialog }: Partial<IDialogParams> =
+  const { showDialog, closeDialog }: Partial<TDialogContext> =
     useContext(DialogContext);
 
   if (law?.rules) {

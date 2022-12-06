@@ -16,11 +16,8 @@ import useError from 'hooks/useError';
 import useToast from 'hooks/useToast';
 import { JSONSchema7 } from 'json-schema';
 import AddressHash from 'components/web3/AddressHash';
-
-interface DialogParams {
-  onClose: Function;
-  isClose?: boolean;
-}
+import useContract from 'hooks/useContract';
+import { DialogParams } from 'contexts/dialog';
 
 interface FundParams extends DialogParams {
   address: string;
@@ -33,9 +30,11 @@ export default function FundDialog({
   address,
   isClose,
   onClose,
+  title = 'Fund',
 }: FundParams): JSX.Element {
   const { showToastSuccess } = useToast();
   const { handleError } = useError();
+  const { validateChain } = useContract();
   // const { applyForTaskAsDao } = useTask();
   const [isLoading, setIsLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(!isClose);
@@ -47,7 +46,7 @@ export default function FundDialog({
     required: ['amount'],
     properties: {
       amount: {
-        type: 'string',
+        type: 'number',
         title: 'Amount',
       },
     },
@@ -62,12 +61,13 @@ export default function FundDialog({
 
   const submit = async ({ formData }: any) => {
     try {
+      validateChain();
       setFormData(formData);
       setIsLoading(true);
       let tx = {
         to: address,
         value: (formData.amount * 10 ** 18).toString(), //Works
-        // value: BigNumber.from(formData.amount), //Fails
+        // value: Number(BigNumber.from(formData.amount)), //Fails
         // value: BigNumber.from(formData.amount).toHexString(), //Fails
         // value: ethers.utils.formatEther(formData.amount).toString(), //Wrong amount
         //TODO: Should try to use ethers.utils to format the amount
@@ -90,7 +90,7 @@ export default function FundDialog({
       fullWidth
     >
       <DialogTitle sx={{ pb: 0 }}>
-        Fund <AddressHash address={address} />
+        {title} <AddressHash address={address} />
       </DialogTitle>
       <DialogContent>
         <Form

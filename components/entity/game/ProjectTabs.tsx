@@ -2,6 +2,7 @@ import { TabContext, TabList, TabPanel } from '@mui/lab';
 import { Box, Tab } from '@mui/material';
 import EntityComments from 'components/entity/EntityComments';
 import GameMembers from 'components/entity/game/GameMembers';
+import { nameEntity } from 'hooks/utils';
 import { useState } from 'react';
 import ProjectAddTaskButton from '../../project/ProjectAddTaskButton';
 import ProjectTaskList from '../../project/ProjectTaskList';
@@ -30,8 +31,8 @@ export default function ProjectTabs({ item: project, sx }: any) {
             maxWidth: 'calc(100vw - 32px)',
           }}
         >
-          <Tab label="Posts" value="1" />
-          <Tab label="Tasks" value="2" />
+          <Tab label="Anouncments" value="1" />
+          <Tab label={nameEntity('task', true)} value="2" />
           <Tab label="Members" value="3" />
         </TabList>
         <TabPanel value="1" sx={{ px: 0 }}>

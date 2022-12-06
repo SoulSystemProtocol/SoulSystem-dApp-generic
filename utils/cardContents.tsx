@@ -146,20 +146,3 @@ export const soulPartTaskCardContent = (item: any): CardItem => {
   // console.log('soulPartTaskCardContent() Soul Part', { metadata, item, ret });
   return ret;
 };
-
-// Task Participant // DEPRECATED
-export const taskPartCardContent = (item: any): CardItem => {
-  console.warn('Task Part Item', item);
-  let gameMetadata = hexStringToJson(item?.entity?.game?.metadata); //Games no longer have metadata...
-  let metadata = hexStringToJson(item?.entity?.metadata);
-  let ret = {
-    id: item.entity.id,
-    imgSrc: resolveLink(gameMetadata?.image),
-    label: metadata?.description,
-    title: metadata?.name,
-    metadata,
-    link: `/soul/${item.entity.id}`,
-    roles: item?.roles,
-  };
-  return ret;
-};

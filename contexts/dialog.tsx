@@ -1,11 +1,17 @@
 import { createContext, useState } from 'react';
 
-export interface IDialogParams {
+export interface DialogParams {
+  onClose: Function;
+  isClose?: boolean;
+  title?: string;
+}
+
+export interface TDialogContext {
   showDialog: Function;
   closeDialog: any;
 }
 
-export const DialogContext = createContext<Partial<IDialogParams>>({});
+export const DialogContext = createContext<Partial<TDialogContext>>({});
 
 export function DialogProvider({ children }: any) {
   const [dialog, setDialog] = useState(null);
