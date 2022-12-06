@@ -1,9 +1,5 @@
 import { WorkOutlineOutlined } from '@mui/icons-material';
-import {
-  addressToShortAddress,
-  hexStringToJson,
-  soulToFirstLastNameString,
-} from './converters';
+import { addressToShortAddress, hexStringToJson, nameSoul } from './converters';
 import { resolveLink } from 'helpers/IPFS';
 import TaskSoulCardDetails from 'components/entity/task/TaskSoulCardDetails';
 import { normalizeGraphEntity } from 'helpers/metadata';
@@ -40,7 +36,7 @@ export const soulCardProcessedContent = (
     imgSrc: resolveLink(item?.metadata?.image),
     // avatarIcon: <PersonOutlineOutlined />,
     label: addressToShortAddress(item.owner),
-    title: soulToFirstLastNameString(item),
+    title: nameSoul(item),
     link: `/soul/${item.id}`,
     roles,
   };

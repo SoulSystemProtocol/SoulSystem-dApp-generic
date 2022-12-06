@@ -7,7 +7,7 @@ import { Box } from '@mui/system';
 import { styled } from '@mui/material/styles';
 import { DataContext } from 'contexts/data';
 import { Web3Context } from 'contexts/Web3Context';
-import { soulToFirstLastNameString } from 'utils/converters';
+import { nameSoul } from 'utils/converters';
 import ConnectButton from 'components/web3/connect/ConnectButton';
 import Link from 'components/utils/Link';
 import SettingsMenu from './SettingsMenu';
@@ -104,9 +104,7 @@ export default function Header({
         </Box>
         {accountSoul && (
           <Link href={`/soul/${accountSoul.id}`}>
-            <Typography sx={{ mr: 1 }}>
-              {soulToFirstLastNameString(accountSoul)}
-            </Typography>
+            <Typography sx={{ mr: 1 }}>{nameSoul(accountSoul)}</Typography>
           </Link>
         )}
         {!account && <ConnectButton />}

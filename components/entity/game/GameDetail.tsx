@@ -27,16 +27,27 @@ export default function GameDetail({ sx }: any): JSX.Element {
       sx={{
         display: 'flex',
         flexDirection: { xs: 'column', md: 'row' },
+        mb: { xs: 1, md: 2 },
         ...sx,
       }}
     >
-      <Box>
+      <Box
+        sx={{
+          margin: '0 auto',
+          flexGrow: 0,
+        }}
+      >
         <EntityImage item={soul} />
         <GameAdminActions sx={{ mt: 2, width: 164 }} />
       </Box>
-      <Box sx={{ flexGrow: 1, mt: { xs: 2, md: 0 }, ml: { md: 4 } }}>
-        <AddressHash address={game?.id} sx={{ float: 'right' }} />
+
+      <Stack
+        direction="column"
+        spacing={1}
+        sx={{ flexGrow: 1, mt: { xs: 2, md: 0 }, ml: { md: 4 } }}
+      >
         <Typography variant="h1">{game?.name}</Typography>
+        <AddressHash address={game?.id} sx={{ float: 'right' }} />
         <Typography color="text.secondary" variant="body2">
           Balance: <AccountBalance address={game?.id} />{' '}
           {process.env.NEXT_PUBLIC_NETWORK_CURRENCY_SYMBOL}
@@ -58,7 +69,7 @@ export default function GameDetail({ sx }: any): JSX.Element {
             </Link>
           )}
         </Stack>
-      </Box>
+      </Stack>
     </Box>
   );
 }

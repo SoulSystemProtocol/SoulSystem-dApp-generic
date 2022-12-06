@@ -6,12 +6,12 @@ import { SelectedGameContext } from 'contexts/SelectedGame';
 import { useContext } from 'react';
 import Loading from 'components/layout/Loading';
 import useError from 'hooks/useError';
-import { Box } from '@mui/material';
+import { Box, SxProps } from '@mui/material';
 
 /**
  * Single Game View
  */
-export default function GameView({ sx }: { sx: any }): JSX.Element {
+export default function GameView({ sx }: { sx?: SxProps }): JSX.Element {
   const { handleError } = useError();
   const { game, loading, error } = useContext(SelectedGameContext);
   if (error) {
@@ -22,7 +22,7 @@ export default function GameView({ sx }: { sx: any }): JSX.Element {
   // if (!game) return <>Failed to Load Entity</>;
   return (
     <Box sx={sx}>
-      <GameDetail sx={{ mb: 5 }} />
+      <GameDetail />
       {game?.role == GAME_TYPE.mdao && <DaoTabs item={game} />}
       {game?.role == GAME_TYPE.project && <ProjectTabs item={game} />}
     </Box>

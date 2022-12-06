@@ -2,7 +2,7 @@ import { Autocomplete, Box, TextField } from '@mui/material';
 import SoulCompactCard from 'components/entity/soul/SoulCompactCard';
 import useError from 'hooks/useError';
 import { useContext, useEffect, useState } from 'react';
-import { soulToFirstLastNameString } from 'utils/converters';
+import { nameSoul } from 'utils/converters';
 import { useQuery } from '@apollo/client';
 import { DataContext } from 'contexts/data';
 import SoulsManagedByQuery from 'queries/SoulsManagedByQuery';
@@ -108,7 +108,7 @@ export default function SoulSearchBox({
       <>{options?.header && options.header}</>
       <Autocomplete
         disabled={isDisabled}
-        getOptionLabel={soulToFirstLastNameString}
+        getOptionLabel={nameSoul}
         // filterOptions={(x) => x}
         options={items}
         value={selectedSoul}

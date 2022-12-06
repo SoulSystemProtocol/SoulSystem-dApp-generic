@@ -9,11 +9,7 @@ import {
   SxProps,
 } from '@mui/material';
 import { PersonOutlineOutlined } from '@mui/icons-material';
-import {
-  addressToShortAddress,
-  soulToFirstLastNameString,
-  soulImage,
-} from 'utils/converters';
+import { addressToShortAddress, nameSoul, soulImage } from 'utils/converters';
 
 /**
  * Passive Component for a compact profile card
@@ -52,10 +48,10 @@ export default function SoulCompactCard({
           </Avatar>
           <Typography variant="body2" sx={{ fontWeight: 'normal', ml: 1 }}>
             {disableLink ? (
-              <>{soulToFirstLastNameString(profile)}</>
+              <>{nameSoul(profile)}</>
             ) : (
               <Link href={`/soul/${profile.id}`} underline="none">
-                {soulToFirstLastNameString(profile)}
+                {nameSoul(profile)}
               </Link>
             )}
           </Typography>

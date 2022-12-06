@@ -12,7 +12,7 @@ import useToast from 'hooks/useToast';
 import { JSONSchema7 } from 'json-schema';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-import { soulToFirstLastNameString } from 'utils/converters';
+import { nameSoul } from 'utils/converters';
 import { getAttribute } from 'helpers/metadata';
 
 /**
@@ -78,7 +78,7 @@ export default function SoulManage({ soul }: any) {
         metadata?.attributes,
         PROFILE_TRAIT_TYPE.lastName,
       );
-      metadata.name = soulToFirstLastNameString({ uriFirstName, uriLastName });
+      metadata.name = nameSoul({ uriFirstName, uriLastName });
       metadata.description = getAttribute(metadata?.attributes, 'Description');
       const { url: metadataUrl } = await uploadJsonToIPFS(metadata);
       // eslint-disable-next-line prettier/prettier

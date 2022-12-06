@@ -1,8 +1,7 @@
-import { Stack, Typography } from '@mui/material';
-import { Box } from '@mui/system';
+import { Box, Button, Stack, Typography } from '@mui/material';
 import useError from 'hooks/useError';
 import useContract from 'hooks/useContract';
-import { taskStageToString } from 'utils/converters';
+import { taskStageToString, nameSoul } from 'utils/converters';
 import EntityImage from '../EntityImage';
 import { PROC_STAGE } from 'constants/contracts';
 import AddressHash from 'components/web3/AddressHash';
@@ -21,6 +20,8 @@ import { getChainData } from 'components/web3/chains/ChainsData';
  * Component: project details.
  */
 export default function TaskDetail({ item, sx }: any) {
+  const { soul } = useContext(SelectedSoulContext);
+  const containerImageSrc = useContainerImage(soul.id);
   const { getContractTask } = useContract();
   const { handleError } = useError();
   const { accountSoul } = useContext(DataContext);
@@ -28,8 +29,6 @@ export default function TaskDetail({ item, sx }: any) {
   const [isSoulAuthority, setIsSoulAuthority] = useState(false);
   const tokens: string[] = []; //Supported ERC20 Tokens
   const { balance: fund } = useWeb3NativeBalance(item?.id);
-  const { soul } = useContext(SelectedSoulContext);
-  const containerImageSrc = useContainerImage(soul.id);
 
   useEffect(() => {
     loadData();
@@ -49,36 +48,43 @@ export default function TaskDetail({ item, sx }: any) {
     setIsSoulAuthority(false);
   }
 
-  if (!item) return <></>;
+  if (!soul || !item) return <></>;
   return (
     <Box
       sx={{
         display: 'flex',
         flexDirection: { xs: 'column', md: 'row' },
+        mb: { xs: 1, md: 2 },
         ...sx,
       }}
     >
-      <Box>
-        <EntityImage imgSrc={containerImageSrc} />
-        <Link href={`/soul/${soul.owner}`} sx={{ color: '#f8f8f8' }}>
-          <Typography
-            sx={{
-              textAlign: 'center',
-            }}
-          >
-            {item?.game?.name && `By: ${item.game.name}`}
-          </Typography>
-        </Link>
+      <Box
+        sx={{
+          margin: '0 auto',
+          flexGrow: 0,
+        }}
+      >
+        <EntityImage imgSrc={containerImageSrc} title={item?.game?.name} />
+        {/* <Typography sx={{ mx: '16px' }}>
+          {item?.game?.name ? `By: ${item.game.name}` : ''}
+        </Typography> */}
+        {/* {isOwned && ( */}
+        {/* //TODO: Support editing other souls */}
+        {/* <Link href={`/soul/edit`}>
+          <Button size="small" variant="outlined" sx={{ mt: 2, width: 164 }}>
+            Edit
+          </Button>
+        </Link> */}
+        {/* )} */}
       </Box>
+
       <Stack
         direction="column"
         spacing={1}
-        sx={{ mt: 2, flexGrow: 1, ml: { md: 3 } }}
+        sx={{ flexGrow: 1, mt: { xs: 2, md: 0 }, ml: { md: 4 } }}
       >
+        <Typography variant="h1">{nameSoul(soul)}</Typography>
         <AddressHash address={item.id} sx={{ float: 'right' }} />
-        <Typography variant="h1" sx={{ mt: 1 }}>
-          {item.name}
-        </Typography>
         <Typography color="text.secondary" variant="body2" sx={{ mt: 1 }}>
           {taskStageToString(item)}{' '}
           {fund ? ` | ${fund} ${getChainData()?.native}` : ''}

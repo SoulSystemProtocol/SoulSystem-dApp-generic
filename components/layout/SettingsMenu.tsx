@@ -10,11 +10,7 @@ import {
 import ConnectButton from 'components/web3/connect/ConnectButton';
 import { Web3Context } from 'contexts/Web3Context';
 import { useContext, useState } from 'react';
-import {
-  soulToFirstLastNameString,
-  soulImage,
-  addressToShortAddress,
-} from 'utils/converters';
+import { nameSoul, soulImage, addressToShortAddress } from 'utils/converters';
 
 /**
  * User Settings Menu
@@ -36,7 +32,7 @@ export default function SettingsMenu({ profile }: any): JSX.Element {
       <Tooltip title="Open settings">
         <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
           <Avatar
-            alt={soulToFirstLastNameString(profile)}
+            alt={nameSoul(profile)}
             src={soulImage(profile)}
             sx={{ width: 48, height: 48 }}
           />

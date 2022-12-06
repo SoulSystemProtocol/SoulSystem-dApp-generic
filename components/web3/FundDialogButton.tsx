@@ -10,10 +10,12 @@ import ConditionalButton from 'components/layout/ConditionalButton';
 export default function FundDialogButton({
   address,
   text = 'Fund Entity',
+  disabled,
   sx = {},
 }: {
   address: string;
   text: string;
+  disabled?: boolean;
   sx?: SxProps;
 }): JSX.Element {
   const { showDialog, closeDialog }: Partial<TDialogContext> =
@@ -23,6 +25,7 @@ export default function FundDialogButton({
       size="small"
       variant="outlined"
       sx={sx}
+      disabled={disabled}
       onClick={() =>
         showDialog?.(
           <FundDialog address={address} title={text} onClose={closeDialog} />,
