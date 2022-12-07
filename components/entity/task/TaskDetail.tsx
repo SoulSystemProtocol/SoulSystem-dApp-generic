@@ -8,7 +8,6 @@ import AddressHash from 'components/web3/AddressHash';
 import { DataContext } from 'contexts/data';
 import { useContext, useEffect, useState } from 'react';
 import FundDialogButton from 'components/web3/FundDialogButton';
-import Link from 'components/utils/Link';
 import { isSoulHasRole, nameEntity } from 'hooks/utils';
 import useWeb3NativeBalance from 'hooks/useWeb3NativeBalance';
 import ConditionalButton from 'components/layout/ConditionalButton';
@@ -29,12 +28,7 @@ export default function TaskDetail({ item, sx }: any) {
   const [isSoulAuthority, setIsSoulAuthority] = useState(false);
   const tokens: string[] = []; //Supported ERC20 Tokens
   const { balance: fund } = useWeb3NativeBalance(item?.id);
-
-  useEffect(() => {
-    loadData();
-  }, [item, accountSoul]);
-
-  async function loadData() {
+  const loadData = () => {
     if (accountSoul && item) {
       try {
         setIsSoulAdmin(isSoulHasRole(item, accountSoul.id, 'admin'));
@@ -46,7 +40,11 @@ export default function TaskDetail({ item, sx }: any) {
     }
     setIsSoulAdmin(false);
     setIsSoulAuthority(false);
-  }
+  };
+
+  useEffect(() => {
+    loadData();
+  }, [item, accountSoul]);
 
   if (!soul || !item) return <></>;
   return (
