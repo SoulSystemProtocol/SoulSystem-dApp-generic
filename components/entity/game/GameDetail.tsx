@@ -1,5 +1,4 @@
-import { Stack, Typography, Button } from '@mui/material';
-import { Box } from '@mui/system';
+import { Box, Stack, Typography, Button } from '@mui/material';
 import GameAdminActions from 'components/entity/game/GameAdminActions';
 import EntityImage from '../EntityImage';
 import AddressHash from 'components/web3/AddressHash';
