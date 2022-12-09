@@ -1,13 +1,13 @@
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { ThemeProvider } from '@mui/material/styles';
 import { DataProvider } from 'contexts/data';
 import { DialogProvider } from 'contexts/dialog';
 import { Web3Provider } from 'contexts/Web3Context';
 import { AppProps } from 'next/app';
 import NextNProgress from 'nextjs-progressbar';
 import { SnackbarProvider } from 'notistack';
-import '../styles/globals.css';
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
-import { darkTheme } from './theme';
+import { darkTheme } from '../constants/theme';
+import '../styles/globals.css';
 
 const client = new ApolloClient({
   uri: process.env.NEXT_PUBLIC_SUBGRAPH_API,
