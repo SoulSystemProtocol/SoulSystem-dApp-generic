@@ -67,10 +67,7 @@ export default function TaskApplication({
         direction="column"
         sx={{ textAlign: 'center', flex: 1, alignSelf: 'flex-start' }}
       >
-        <TaskApplicationUriDisplay
-          soul={nominatedSoul}
-          nomination={nomination}
-        />
+        <TaskApplicationUriDisplay nomination={nomination} />
       </Stack>
 
       <Stack direction="column">
