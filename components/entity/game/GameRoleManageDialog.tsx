@@ -7,7 +7,7 @@ import {
   DialogTitle,
   Stack,
 } from '@mui/material';
-import { MuiForm5 as Form } from '@rjsf/material-ui';
+import { Form } from '@rjsf/material-ui';
 import useContract from 'hooks/useContract';
 import useError from 'hooks/useError';
 import useToast from 'hooks/useToast';

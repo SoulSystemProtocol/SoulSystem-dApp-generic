@@ -7,7 +7,7 @@ import {
   DialogTitle,
   Stack,
 } from '@mui/material';
-import { MuiForm5 as Form } from '@rjsf/material-ui';
+import { Form } from '@rjsf/material-ui';
 import { JSONSchema7 } from 'json-schema';
 import useContract from 'hooks/useContract';
 import useError from 'hooks/useError';

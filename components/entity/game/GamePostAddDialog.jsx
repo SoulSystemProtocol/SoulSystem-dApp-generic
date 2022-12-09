@@ -8,7 +8,7 @@ import {
   DialogTitle,
   Stack,
 } from '@mui/material';
-import { MuiForm5 as Form } from '@rjsf/material-ui';
+import { Form } from '@rjsf/material-ui';
 import { CLAIM_ROLE } from 'constants/contracts';
 import { POST_TYPE } from 'constants/metadata';
 import { DataContext } from 'contexts/data';

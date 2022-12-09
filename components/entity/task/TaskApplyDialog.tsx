@@ -7,7 +7,7 @@ import {
   DialogTitle,
   Stack,
 } from '@mui/material';
-import { MuiForm5 as Form } from '@rjsf/material-ui';
+import { Form } from '@rjsf/material-ui';
 import MySoulsBox from 'components/form/widget/MySoulsBox';
 import { DataContext } from 'contexts/data';
 import useContract from 'hooks/useContract';

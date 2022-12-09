@@ -8,7 +8,7 @@ import {
 import ImageInput from 'components/form/widget/ImageInput';
 import useError from 'hooks/useError';
 import { useState } from 'react';
-import { MuiForm5 as Form } from '@rjsf/material-ui';
+import { Form } from '@rjsf/material-ui';
 import { LoadingButton } from '@mui/lab';
 import { Save } from '@mui/icons-material';
 import { JSONSchema7 } from 'json-schema';
@@ -20,7 +20,11 @@ import { GAME_TYPE } from 'constants/contracts';
 /**
  * A dialog for creating or editing DAO.
  */
-export default function DaoManageDialog({ dao, isClose, onClose }: any) {
+export default function DaoManageDialog({
+  dao,
+  isClose,
+  onClose,
+}: any): JSX.Element {
   const { showToastSuccess } = useToast();
   const { uploadJsonToIPFS } = useIpfs();
   const { handleError } = useError();

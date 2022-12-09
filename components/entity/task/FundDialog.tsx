@@ -10,7 +10,7 @@ import {
   DialogTitle,
   Stack,
 } from '@mui/material';
-import { MuiForm5 as Form } from '@rjsf/material-ui';
+import { Form } from '@rjsf/material-ui';
 import useError from 'hooks/useError';
 // import useTask from 'hooks/useTask';
 import useToast from 'hooks/useToast';
