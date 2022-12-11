@@ -1,7 +1,7 @@
 import { Save } from '@mui/icons-material';
 import { LoadingButton } from '@mui/lab';
 import { Box, Button } from '@mui/material';
-import { Form } from '@rjsf/material-ui';
+import { MuiForm5 as Form } from '@rjsf/material-ui';
 import ImageInput from 'components/form/widget/ImageInput';
 import SoulAttributesInput from 'components/form/widget/SoulAttributesInput';
 import { PROFILE_TRAIT_TYPE } from 'constants/metadata';

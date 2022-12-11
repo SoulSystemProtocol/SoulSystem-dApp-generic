@@ -7,7 +7,7 @@ import {
   DialogTitle,
   Stack,
 } from '@mui/material';
-import { Form } from '@rjsf/material-ui';
+import { MuiForm5 as Form } from '@rjsf/material-ui';
 import ActionSelect from 'components/form/widget/ActionSelect';
 // import IconSelect from 'components/form/widget/IconSelect';
 import { REPUTATION_DOMAIN } from 'constants/contracts';

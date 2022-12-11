@@ -7,7 +7,7 @@ import {
   DialogTitle,
   Stack,
 } from '@mui/material';
-import { Form } from '@rjsf/material-ui';
+import { MuiForm5 as Form } from '@rjsf/material-ui';
 import ImageInput from 'components/form/widget/ImageInput';
 import { GAME_TYPE } from 'constants/contracts';
 import useError from 'hooks/useError';
