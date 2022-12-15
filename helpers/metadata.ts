@@ -1,6 +1,12 @@
 import _ from 'lodash';
 import { hexStringToJson } from 'utils/converters';
 
+export interface MetadataAttribute {
+  trait_type: string;
+  value: any;
+  display_type?: 'boost_number' | 'boost_percentage' | 'number';
+}
+
 /**
  * Get a trait value from metadata attributes.
  */
