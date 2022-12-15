@@ -1,5 +1,5 @@
 import { Typography } from '@mui/material';
-import { getAttribute } from 'helpers/metadata';
+import { attributeHelper } from 'helpers/AttributeHelper';
 
 /**
  * Display Soul's description Field
@@ -7,7 +7,7 @@ import { getAttribute } from 'helpers/metadata';
 export default function SoulDescription({ soul, sx }: any) {
   const description = soul?.metadata?.description
     ? soul.metadata.description
-    : getAttribute(soul?.metadata?.attributes, 'Description');
+    : attributeHelper.extractValue(soul?.metadata?.attributes, 'Description');
   if (description) {
     return <Typography sx={{ ...sx }}>{description}</Typography>;
   }

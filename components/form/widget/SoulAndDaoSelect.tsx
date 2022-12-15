@@ -7,9 +7,10 @@ import {
   InputAdornment,
 } from '@mui/material';
 import { WidgetProps } from '@rjsf/core';
-import PROFILE_TRAITS from 'components/entity/soul/ProfileTraits';
+import PROFILE_TRAITS, { Trait } from 'components/entity/soul/ProfileTraits';
 import { PROFILE_TRAIT_TYPE } from 'constants/metadata';
-import { attributeSet, getAttribute } from 'helpers/metadata';
+import { attributeHelper } from 'helpers/AttributeHelper';
+import { MetadataAttribute } from 'helpers/metadata';
 import { useState, useEffect } from 'react';
 
 /**
@@ -19,7 +20,8 @@ import { useState, useEffect } from 'react';
 export default function SoulAndDaoSelect(props: WidgetProps): JSX.Element {
   const propsAttributes = props.value;
   const propsOnChange = props.onChange;
-  const [attributes, setAttributes] = useState<Array<object>>(propsAttributes);
+  const [attributes, setAttributes] =
+    useState<Array<MetadataAttribute>>(propsAttributes);
 
   function onChange(event: any) {
     //Fetch Data
@@ -29,11 +31,12 @@ export default function SoulAndDaoSelect(props: WidgetProps): JSX.Element {
         ? event.target.checked
         : event.target.value;
     //** Update attributes
-    let newAttr = {
+    const newAttr: MetadataAttribute = {
       trait_type: eventTargetName,
       value: eventTargetValue !== null ? eventTargetValue : '',
     };
-    let newAttributes = attributeSet([...attributes], eventTargetName, newAttr);
+    // let newAttributes = attributeSet([...attributes], eventTargetName, newAttr);
+    let newAttributes = attributeHelper.attributeSet([...attributes], newAttr);
     setAttributes(newAttributes);
   }
 
@@ -61,7 +64,7 @@ export default function SoulAndDaoSelect(props: WidgetProps): JSX.Element {
                     label="First Name"
                     name={PROFILE_TRAIT_TYPE.firstName}
                     disabled={props.disabled}
-                    value={getAttribute(
+                    value={attributeHelper.extractValue(
                       attributes,
                       PROFILE_TRAIT_TYPE.firstName,
                     )}
@@ -73,7 +76,7 @@ export default function SoulAndDaoSelect(props: WidgetProps): JSX.Element {
                     label="Last Name"
                     name={PROFILE_TRAIT_TYPE.lastName}
                     disabled={props.disabled}
-                    value={getAttribute(
+                    value={attributeHelper.extractValue(
                       attributes,
                       PROFILE_TRAIT_TYPE.lastName,
                     )}
@@ -85,7 +88,10 @@ export default function SoulAndDaoSelect(props: WidgetProps): JSX.Element {
                     label="Email"
                     name={PROFILE_TRAIT_TYPE.email}
                     disabled={props.disabled}
-                    value={getAttribute(attributes, PROFILE_TRAIT_TYPE.email)}
+                    value={attributeHelper.extractValue(
+                      attributes,
+                      PROFILE_TRAIT_TYPE.email,
+                    )}
                     placeholder="email@site.com"
                   />
                   <TextField
@@ -94,7 +100,7 @@ export default function SoulAndDaoSelect(props: WidgetProps): JSX.Element {
                     label="A little bit about yourself"
                     name={PROFILE_TRAIT_TYPE.description}
                     disabled={props.disabled}
-                    value={getAttribute(
+                    value={attributeHelper.extractValue(
                       attributes,
                       PROFILE_TRAIT_TYPE.description,
                     )}
@@ -108,28 +114,35 @@ export default function SoulAndDaoSelect(props: WidgetProps): JSX.Element {
                   <Grid key={'header'} item xs={12}>
                     <Typography variant="h6">Socials</Typography>
                   </Grid>
-                  {PROFILE_TRAITS.map((item: any, index: number) => (
-                    <Grid key={index.toString()} item xs={12} sm={6}>
-                      <TextField
-                        sx={{ width: '100%' }}
-                        variant="outlined"
-                        onChange={onChange}
-                        label={item.label}
-                        name={item.label}
-                        disabled={props.disabled}
-                        value={getAttribute(attributes, item.label)}
-                        placeholder={item.placeholder}
-                        type={item.type}
-                        InputProps={{
-                          startAdornment: (
-                            <InputAdornment position="start">
-                              {item.icon}
-                            </InputAdornment>
-                          ),
-                        }}
-                      />
-                    </Grid>
-                  ))}
+                  {/* {PROFILE_TRAITS.map((item: any, index: number) => ( */}
+                  {Object.keys(PROFILE_TRAITS).map((name: string) => {
+                    const item: Trait = PROFILE_TRAITS[name];
+                    return (
+                      <Grid key={name} item xs={12} sm={6}>
+                        <TextField
+                          sx={{ width: '100%' }}
+                          variant="outlined"
+                          onChange={onChange}
+                          label={item.label}
+                          name={name}
+                          disabled={props.disabled}
+                          value={attributeHelper.extractValue(
+                            attributes,
+                            item.label,
+                          )}
+                          placeholder={item.placeholder}
+                          type={item.type}
+                          InputProps={{
+                            startAdornment: (
+                              <InputAdornment position="start">
+                                {item.icon}
+                              </InputAdornment>
+                            ),
+                          }}
+                        />
+                      </Grid>
+                    );
+                  })}
                 </Grid>
               </Grid>
             </Grid>

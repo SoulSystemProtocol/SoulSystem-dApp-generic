@@ -13,7 +13,7 @@ import { JSONSchema7 } from 'json-schema';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { nameSoul } from 'utils/converters';
-import { getAttribute } from 'helpers/metadata';
+import { extractAttributeValue } from 'helpers/metadata';
 
 /**
  * Component: create or edit Soul.
@@ -70,16 +70,19 @@ export default function SoulManage({ soul }: any) {
       setStatus(STATUS.isUploadingToIpfs);
 
       let metadata = formData;
-      let uriFirstName = getAttribute(
+      let uriFirstName = extractAttributeValue(
         metadata?.attributes,
         PROFILE_TRAIT_TYPE.firstName,
       );
-      let uriLastName = getAttribute(
+      let uriLastName = extractAttributeValue(
         metadata?.attributes,
         PROFILE_TRAIT_TYPE.lastName,
       );
       metadata.name = nameSoul({ uriFirstName, uriLastName });
-      metadata.description = getAttribute(metadata?.attributes, 'Description');
+      metadata.description = extractAttributeValue(
+        metadata?.attributes,
+        'Description',
+      );
       const { url: metadataUrl } = await uploadJsonToIPFS(metadata);
       // eslint-disable-next-line prettier/prettier
       console.log("Saving Soul's Metadata", {

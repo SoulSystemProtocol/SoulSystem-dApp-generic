@@ -1,11 +1,14 @@
 import { MailOutlineRounded } from '@mui/icons-material';
 import { Stack } from '@mui/material';
 import Link from 'components/utils/Link';
-import { getAttribute } from 'helpers/metadata';
-import PROFILE_TRAITS from './ProfileTraits';
+import { attributeHelper } from 'helpers/AttributeHelper';
+import { PROFILE_TRAITS, Trait } from './ProfileTraits';
 
 export default function SocialLinks({ soul, sx }: any): JSX.Element {
-  const email = getAttribute(soul?.metadata?.attributes, 'email');
+  const email = attributeHelper.extractValue(
+    soul?.metadata?.attributes,
+    'email',
+  );
 
   return (
     <Stack key="SocialLinks" direction="row" spacing={2} sx={{ ...sx }}>
@@ -19,8 +22,14 @@ export default function SocialLinks({ soul, sx }: any): JSX.Element {
           <MailOutlineRounded />
         </Link>
       )}
-      {PROFILE_TRAITS.map((item: any, index: number) => {
-        const value = getAttribute(soul?.metadata?.attributes, item.label);
+      {/* {PROFILE_TRAITS.map((item: any, index: number) => { */}
+      {Object.keys(PROFILE_TRAITS).map((name: string) => {
+        const item: Trait = PROFILE_TRAITS[name];
+        const value =
+          attributeHelper.extractValue(
+            soul?.metadata?.attributes,
+            item.label,
+          ) || attributeHelper.extractValue(soul?.metadata?.attributes, name);
         return !value ? null : (
           <Link
             href={item.baseURL ? item.baseURL + value : value}

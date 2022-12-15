@@ -19,13 +19,6 @@ export interface Trait {
 }
 
 export const PROFILE_TRAITS: { [key: string]: Trait } = {
-  website: {
-    // name: 'website',
-    label: 'Webite',
-    type: 'url',
-    placeholder: 'https://example.com',
-    icon: <Language color="primary" />,
-  },
   twitter: {
     // name: 'twitter',
     label: 'Twitter',
@@ -74,6 +67,13 @@ export const PROFILE_TRAITS: { [key: string]: Trait } = {
     placeholder: 'username',
     icon: <InsertLink color="primary" />,
     baseURL: 'https://devpost.com/',
+  },
+  website: {
+    // name: 'website',
+    label: 'Webite',
+    type: 'url',
+    placeholder: 'https://example.com',
+    icon: <Language color="primary" />,
   },
   // {
   //   name: 'isEmailNotificationsEnabled',
