@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import { nameSoul } from 'utils/converters';
 import { getPageTitle } from 'utils';
 import { GAME_DESC } from 'constants/contracts';
-import { Box, Typography } from '@mui/material';
+import { Box, Grid, Typography } from '@mui/material';
 import DisplayPOAP from 'components/web3/DisplayPOAP';
 import SoulAffiliations from 'components/entity/soul/SoulAffiliations';
 import {
@@ -16,6 +16,8 @@ import { SelectedGameProvider } from 'contexts/SelectedGame';
 import { SelectedProcProvider } from 'contexts/SelectedProc';
 import GameView from 'components/entity/game/GameView';
 import TaskView from 'components/entity/task/TaskView';
+import { MetadataAttribute } from 'helpers/metadata';
+import AttributeDisplayPercentage from 'components/entity/soul/AttributeDisplayPercentage';
 
 /**
  * Component: Single Soul Page
@@ -65,6 +67,22 @@ function SoulSinglePageContent(): JSX.Element {
           <TaskView />
         </SelectedProcProvider>
       )}
+      {soul?.type == '' && (
+        <Grid container spacing={2} sx={{ mb: 4 }}>
+          {/* <Grid key={'header'} item xs={12}>
+            <Typography variant="h4">Skills</Typography>
+          </Grid> */}
+          {soul?.metadata?.attributes.map(
+            (item: MetadataAttribute, index: number) =>
+              item.display_type != 'boost_percentage' ? null : (
+                <Grid key={item.trait_type} item xs={4} sm={2} lg={1}>
+                  <AttributeDisplayPercentage item={item} />
+                </Grid>
+              ),
+          )}
+        </Grid>
+      )}
+
       {soul?.type == '' && (
         <Box sx={{ my: 2, display: 'flex' }}>
           {soul?.owner && (

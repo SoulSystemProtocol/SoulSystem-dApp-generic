@@ -44,7 +44,7 @@ export default function SoulAttributesInput(props: WidgetProps): JSX.Element {
   // const [attributesObj, setAttributesObj] = useState<any>();
 
   useEffect(() => {
-    // Update parent's data
+    // Update data on parent (form)
     propsOnChange(attributes);
     /*
     let newAttributeObj: any = {};
@@ -195,157 +195,55 @@ export default function SoulAttributesInput(props: WidgetProps): JSX.Element {
           </Grid>
         </Grid>
       </Grid>
-      <Grid container spacing={2}>
-        <Grid key={1} item xs={12}>
-          <>
-            <Grid key={'header'} item xs={12}>
-              <Typography variant="h6">Skills</Typography>
+      <Grid container spacing={2} sx={{ mb: 4 }}>
+        <Grid key={'header'} item xs={12}>
+          <Typography variant="h6">Skills</Typography>
+        </Grid>
+        {attributes.map((item: MetadataAttribute, index: number) => {
+          return item.display_type != 'boost_percentage' ? null : (
+            <Grid key={item.trait_type} item xs={4} sm={2} lg={1}>
+              <Button
+                title="Remove Skill"
+                onClick={() =>
+                  setAttributes(attributeHelper.removeItem(attributes, item))
+                }
+                sx={{
+                  color: 'red',
+                  padding: 0,
+                  minWidth: '20px',
+                  float: 'right',
+                  position: 'relative',
+                  zIndex: 10,
+                }}
+              >
+                <DeleteForeverIcon />
+              </Button>
+              <AttributeDisplayPercentage item={item} />
             </Grid>
-            {attributes.map((item: MetadataAttribute, index: number) => {
-              return item.display_type != 'boost_percentage' ? null : (
-                <Grid key={item.trait_type} item xs={12} sm={6}>
-                  <AttributeDisplayPercentage item={item} />
-                </Grid>
-              );
-            })}
-            <Button
-              variant="outlined"
-              onClick={() =>
-                showDialog?.(
-                  <AttributeAddDialog
-                    onClose={closeDialog}
-                    onSubmit={(data: any) => {
-                      console.warn('AttributeAddDialog Submit', data);
-                      setAttributes((attributes) => [...attributes, data]);
-                    }}
-                    title="Add Skill"
-                  />,
-                )
-              }
-            >
-              +
-            </Button>
-          </>
+          );
+        })}
+        <Grid key="addButtonCell" item xs={4} sm={2} lg={1}>
+          <Button
+            sx={{ aspectRatio: '1 !important', marginTop: '24px' }}
+            variant="outlined"
+            title="Add Skill"
+            onClick={() =>
+              showDialog?.(
+                <AttributeAddDialog
+                  onClose={closeDialog}
+                  onSubmit={(data: any) => {
+                    console.warn('AttributeAddDialog Submit', data);
+                    setAttributes((attributes) => [...attributes, data]);
+                  }}
+                  title="Add Skill"
+                />,
+              )
+            }
+          >
+            +
+          </Button>
         </Grid>
       </Grid>
     </Box>
-  );
-}
-
-/** [UNUSED]
- *
- */
-export function CustomAttribute({
-  item,
-  setAttribute,
-  removeAttribute,
-}: AttributeProps): JSX.Element {
-  const [label, setLabel] = useState<string>('');
-  const [value, setValue] = useState<string>('');
-  const [type, setType] = useState<MetadataAttributeType | undefined>();
-
-  const onChange = (event: any) => {
-    console.warn('Handled onChange', event);
-  };
-
-  useEffect(() => {
-    setLabel(item.trait_type);
-    setValue(item.value);
-    setType(item.display_type);
-    console.warn('Attr Updated Externally: ', { item, label, value, type });
-  }, [item]);
-
-  useEffect(() => {
-    //** Update attributes
-    const newAttr: MetadataAttribute = {
-      trait_type: label,
-      value,
-      display_type: type,
-    };
-    console.warn('CustomAttribute() Update Attr: ', {
-      label,
-      value,
-      type,
-      newAttr,
-    });
-    // newAttr.display_type = '';
-    console.log('CustomAttribute() New Attr: ', newAttr);
-    setAttribute(newAttr);
-  }, [label, value, type]);
-
-  return (
-    <Grid key={'name'} item xs={12}>
-      <Box component="form" noValidate autoComplete="off">
-        <Stack direction={{ xs: 'column', sm: 'row' }}>
-          {type == 'boost_percentage' && (
-            <AttributeDisplayPercentage item={item} />
-          )}
-          <FormControl variant="standard">
-            <InputLabel htmlFor="component-simple">Type</InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              value={type || 'number'}
-              label="Trait Type"
-              onChange={(event) => setType(event?.target?.value)}
-            >
-              {['boost_number', 'boost_percentage', 'number'].map((name) => (
-                <MenuItem key={name} value={name}>
-                  {capitalize(name)}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-          <FormControl variant="standard">
-            <InputLabel htmlFor="component-simple">Label</InputLabel>
-            <TextField
-              disabled={true}
-              sx={{ flex: 1 }}
-              variant="outlined"
-              onChange={(event) => setLabel(event.target.value)}
-              label={label}
-              name="label"
-              value={label}
-            />
-          </FormControl>
-          <FormControl variant="standard">
-            <InputLabel htmlFor="component-simple">Value</InputLabel>
-
-            <TextField
-              sx={{ flex: 1 }}
-              variant="outlined"
-              onChange={(event) => setValue(event.target.value)}
-              label={label}
-              name="value"
-              value={value}
-              // InputProps={{
-              //   endAdornment: (
-              //     <Button
-              //       onClick={() => removeAttribute()}
-              //       sx={{
-              //         color: 'red',
-              //         margin: '0px !important',
-              //         padding: '0px !important',
-              //       }}
-              //     >
-              //       <DeleteForeverIcon />
-              //     </Button>
-              //   ),
-              // }}
-            />
-          </FormControl>
-          <Button
-            onClick={() => removeAttribute()}
-            sx={{
-              color: 'red',
-              margin: '0px !important',
-              padding: '0px !important',
-            }}
-          >
-            <DeleteForeverIcon />
-          </Button>
-        </Stack>
-      </Box>
-    </Grid>
   );
 }

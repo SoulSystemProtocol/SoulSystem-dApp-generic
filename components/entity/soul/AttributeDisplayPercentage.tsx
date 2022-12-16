@@ -1,4 +1,4 @@
-import { Box, CircularProgress, Typography } from '@mui/material';
+import { Box, CircularProgress, Stack, Typography } from '@mui/material';
 import { MetadataAttribute } from 'helpers/metadata';
 
 /**
@@ -9,28 +9,37 @@ export default function AttributeDisplayPercentage({
 }: {
   item: MetadataAttribute;
 }): JSX.Element {
-  // return <CircularProgress variant="determinate" value={item.value} />;
   return (
-    <Box sx={{ position: 'relative', display: 'inline-flex' }}>
-      <CircularProgress variant="determinate" value={item.value} />
-      <Box
-        sx={{
-          top: 0,
-          left: 0,
-          bottom: 0,
-          right: 0,
-          position: 'absolute',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      >
-        <Typography
-          variant="caption"
-          component="div"
-          color="text.secondary"
-        >{`${Math.round(item.value)}%`}</Typography>
+    <Stack direction="column" sx={{ alignItems: 'center' }}>
+      <Typography variant="subtitle1">{item.trait_type}</Typography>
+      <Box>
+        <Box sx={{ position: 'relative', display: 'inline-flex', flexGrow: 0 }}>
+          <CircularProgress
+            variant="determinate"
+            thickness={6}
+            size={60}
+            value={item.value}
+          />
+          <Box
+            sx={{
+              top: 0,
+              left: 0,
+              bottom: 0,
+              right: 0,
+              position: 'absolute',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            <Typography
+              variant="caption"
+              component="div"
+              color="text.secondary"
+            >{`${Math.round(item.value)}%`}</Typography>
+          </Box>
+        </Box>
       </Box>
-    </Box>
+    </Stack>
   );
 }

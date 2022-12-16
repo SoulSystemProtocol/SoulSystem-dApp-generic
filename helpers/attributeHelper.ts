@@ -14,11 +14,17 @@ export const attributeHelper = {
   /**
    * Fetch the index of the current attribute in the array
    */
-  getIndex: (attributes: MetadataAttribute[], trait_type: string) => {
+  getIndex: (
+    attributes: MetadataAttribute[],
+    trait_type: string,
+    display_type?: string,
+  ) => {
     //Match, Case Insensitive
     return _.findIndex(
       attributes,
-      (term) => term.trait_type.toLowerCase() == trait_type.toLowerCase(),
+      (term) =>
+        term.trait_type.toLowerCase() == trait_type.toLowerCase() &&
+        term.display_type == display_type,
     );
   },
 
@@ -34,7 +40,7 @@ export const attributeHelper = {
   },
 
   /**
-   * Extract trait_value by trait_type (label)
+   * Extract value (value) by name (trait_type)
    */
   extractValue(attributes: MetadataAttribute[], traitType: string): string {
     let index = attributeHelper.getIndex(attributes, traitType);
@@ -42,12 +48,31 @@ export const attributeHelper = {
   },
 
   /**
-   * 
+   * Remove an attribute from array by index
    */
   removeByIndex(
     index: number,
     attributes: MetadataAttribute[],
   ): MetadataAttribute[] {
     return attributes.filter((attr, i) => i !== index);
+  },
+
+  /**
+   * Remove an attribute from array
+   */
+  removeItem(
+    attributes: MetadataAttribute[],
+    item: MetadataAttribute,
+  ): MetadataAttribute[] {
+    const index = attributeHelper.getIndex(
+      attributes,
+      item.trait_type,
+      item.display_type,
+    );
+    if (index !== -1) {
+      return attributeHelper.removeByIndex(index, attributes);
+    }
+    console.error('Attribute not found', item);
+    return attributes;
   },
 };

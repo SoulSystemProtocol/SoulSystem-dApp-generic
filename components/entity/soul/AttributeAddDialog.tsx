@@ -38,11 +38,14 @@ export default function AttributeAddDialog({
     properties: {
       trait_type: {
         type: 'string',
-        title: 'Name',
+        title: 'Skill Name',
       },
       value: {
-        type: 'string',
-        title: 'Value',
+        type: 'number',
+        title: 'Percentage (%)',
+        maximum: 100,
+        minimum: 0,
+        // endAdornment: '%',
       },
       // description: {
       //   type: 'string',
