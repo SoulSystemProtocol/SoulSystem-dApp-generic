@@ -10,17 +10,17 @@ import { resolveLink } from 'helpers/IPFS';
 /**
  * A widget to input an image, upload it to IPFS, and get URI.
  */
-export default function ImageInput(props: WidgetProps) {
+export default function CoverInput(props: WidgetProps) {
   const propsDisabled = props.disabled;
   const propsSx = props.options?.sx;
   const propsHeader = props.options?.header;
-  const propsImage = props.value;
+  // const propsImage = props.value;
   const propsOnChange = props.onChange;
   const { handleError } = useError();
   const { uploadFileToIPFS } = useIpfs();
   const [isLoading, setIsLoading] = useState(false);
   const size = 164;
-  const elId = 'imageInput';
+  const elId = 'coverInput';
 
   /// Input File Validation
   function isFileValid(file: any) {
@@ -67,16 +67,16 @@ export default function ImageInput(props: WidgetProps) {
       {propsHeader as ReactNode}
       <label
         htmlFor={elId}
-        style={{ display: 'block', width: size, height: size }}
+        style={{ display: 'block', width: '100%', height: size }}
       >
         <Avatar
           sx={{
             cursor: !isLoading && !propsDisabled ? 'pointer' : null,
-            width: size,
+            width: '100%',
             height: size,
             borderRadius: '24px',
           }}
-          src={!isLoading ? resolveLink(propsImage) : undefined}
+          src={!isLoading ? resolveLink(props.value) : undefined}
         >
           {isLoading ? <CircularProgress /> : <AddOutlined />}
         </Avatar>

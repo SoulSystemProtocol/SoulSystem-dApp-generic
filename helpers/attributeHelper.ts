@@ -6,6 +6,12 @@ import { MetadataAttribute } from './metadata';
  */
 export const attributeHelper = {
   /**
+   * Sort by display_type
+   */
+  sort: (attributes: MetadataAttribute[]) =>
+    attributes.sort((a: any, b: any) => a?.display_type - b?.display_type),
+
+  /**
    * Fetch the index of the current attribute in the array
    */
   getIndex: (attributes: MetadataAttribute[], trait_type: string) => {
@@ -34,5 +40,14 @@ export const attributeHelper = {
     let index = attributeHelper.getIndex(attributes, traitType);
     return index !== -1 ? attributes[index].value : '';
   },
-  
+
+  /**
+   * 
+   */
+  removeByIndex(
+    index: number,
+    attributes: MetadataAttribute[],
+  ): MetadataAttribute[] {
+    return attributes.filter((attr, i) => i !== index);
+  },
 };

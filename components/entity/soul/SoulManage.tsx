@@ -2,9 +2,11 @@ import { Save } from '@mui/icons-material';
 import { LoadingButton } from '@mui/lab';
 import { Box, Button } from '@mui/material';
 import { MuiForm5 as Form } from '@rjsf/material-ui';
+import CoverInput from 'components/form/widget/CoverInput';
 import ImageInput from 'components/form/widget/ImageInput';
 import SoulAttributesInput from 'components/form/widget/SoulAttributesInput';
 import { PROFILE_TRAIT_TYPE } from 'constants/metadata';
+import { attributeHelper } from 'helpers/AttributeHelper';
 import useError from 'hooks/useError';
 import useIpfs from 'hooks/useIpfs';
 import useSoul from 'hooks/useSoul';
@@ -13,7 +15,6 @@ import { JSONSchema7 } from 'json-schema';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { nameSoul } from 'utils/converters';
-import { extractAttributeValue } from 'helpers/metadata';
 
 /**
  * Component: create or edit Soul.
@@ -36,6 +37,10 @@ export default function SoulManage({ soul }: any) {
   const schema: JSONSchema7 = {
     type: 'object',
     properties: {
+      cover: {
+        type: 'string',
+        title: 'cover',
+      },
       image: {
         type: 'string',
         title: '',
@@ -52,15 +57,15 @@ export default function SoulManage({ soul }: any) {
     image: {
       'ui:widget': 'ImageInput',
     },
+    cover: {
+      'ui:widget': 'CoverInput',
+    },
     attributes: {
       'ui:widget': 'SoulAttributesInput',
     },
   };
 
-  const widgets = {
-    ImageInput: ImageInput,
-    SoulAttributesInput: SoulAttributesInput,
-  };
+  const widgets = { CoverInput, ImageInput, SoulAttributesInput };
 
   async function submit({ formData }: any) {
     try {
@@ -70,16 +75,16 @@ export default function SoulManage({ soul }: any) {
       setStatus(STATUS.isUploadingToIpfs);
 
       let metadata = formData;
-      let uriFirstName = extractAttributeValue(
+      let uriFirstName = attributeHelper.extractValue(
         metadata?.attributes,
         PROFILE_TRAIT_TYPE.firstName,
       );
-      let uriLastName = extractAttributeValue(
+      let uriLastName = attributeHelper.extractValue(
         metadata?.attributes,
         PROFILE_TRAIT_TYPE.lastName,
       );
       metadata.name = nameSoul({ uriFirstName, uriLastName });
-      metadata.description = extractAttributeValue(
+      metadata.description = attributeHelper.extractValue(
         metadata?.attributes,
         'Description',
       );
