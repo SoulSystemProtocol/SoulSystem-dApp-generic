@@ -29,6 +29,7 @@ export default function ImageInput(props: WidgetProps) {
       file.type === 'image/jpeg' ||
       file.type === 'image/png' ||
       file.type === 'image/gif' ||
+      file.type === 'image/webp' ||
       file.type === 'image/svg+xml';
     if (!isJpgOrPng) return false;
     //Validate Size
@@ -63,7 +64,10 @@ export default function ImageInput(props: WidgetProps) {
   return (
     <Box sx={{ ...(propsSx as object) }}>
       {propsHeader as ReactNode}
-      <label htmlFor="input" style={{ width: size, height: size }}>
+      <label
+        htmlFor="input"
+        style={{ display: 'block', width: size, height: size }}
+      >
         <Avatar
           sx={{
             cursor: !isLoading && !propsDisabled ? 'pointer' : null,
