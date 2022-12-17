@@ -58,10 +58,6 @@ export default function useSubgraph() {
       }
     `;
     const response = await makeSubgraphQuery(queryGQL, { sbt, gameId });
-    // console.log('Response:', response, response.gameParticipants, {
-    //   sbt,
-    //   gameId,
-    // });
     return response.gameParticipants.length > 0;
   };
 
@@ -93,7 +89,7 @@ export default function useSubgraph() {
 
   /**
    * Search for Game's Rules
-   */
+   * /
   let searchGameRulesByQuery = async function (
     containerId: string,
     isPositive?: boolean,
