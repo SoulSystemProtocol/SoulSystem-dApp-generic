@@ -155,7 +155,7 @@ export default function SoulAttributesInput(props: WidgetProps): JSX.Element {
         </Grid>
         {attributes.map((item: MetadataAttribute, index: number) => {
           return item.display_type != 'boost_percentage' ? null : (
-            <Grid key={item.trait_type} item xs={4} sm={2} lg={1}>
+            <Grid key={item.trait_type} item xs={4} sm={2} lg={2}>
               <Button
                 title="Remove Skill"
                 onClick={() =>
@@ -163,11 +163,12 @@ export default function SoulAttributesInput(props: WidgetProps): JSX.Element {
                 }
                 sx={{
                   color: 'red',
-                  padding: 0,
                   minWidth: '20px',
                   float: 'right',
-                  position: 'relative',
                   zIndex: 10,
+                  borderRadius: '12px 0 0 0',
+                  position: 'absolute',
+                  padding: '8px',
                 }}
               >
                 <DeleteForeverIcon />

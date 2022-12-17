@@ -7,9 +7,9 @@ import ImageInput from 'components/form/widget/ImageInput';
 import SoulAttributesInput from 'components/form/widget/SoulAttributesInput';
 import { PROFILE_TRAIT_TYPE } from 'constants/metadata';
 import { AttributeHelper } from 'helpers/AttributeHelper';
+import useSoulContract from 'hooks/contracts/useSoulContract';
 import useError from 'hooks/useError';
 import useIpfs from 'hooks/useIpfs';
-import useSoul from 'hooks/useSoul';
 import useToast from 'hooks/useToast';
 import { JSONSchema7 } from 'json-schema';
 import { useRouter } from 'next/router';
@@ -30,7 +30,8 @@ export default function SoulManage({ soul }: any) {
   const { showToastSuccess } = useToast();
   const { uploadJsonToIPFS } = useIpfs();
   const { handleError } = useError();
-  const { createSoul, editSoul } = useSoul();
+  const { mint: createSoul, update: editSoul } = useSoulContract();
+
   const [status, setStatus] = useState(STATUS.isAvailable);
   const [formData, setFormData] = useState(soul?.metadata || {});
 

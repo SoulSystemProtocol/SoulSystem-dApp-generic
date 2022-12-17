@@ -90,7 +90,6 @@ export default function TaskApprovedDeliveries({ task, sx }: any) {
 
 function TaskApprovedDelivery({ soulId }: any) {
   const { handleError } = useError();
-  // const { getSoulById } = useSoul();
   const { getSoulById } = useSubgraph();
   // const { soul, loading, error } = useSoulById(soulId as string);
   const { getDaoById } = useDao();

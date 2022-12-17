@@ -8,7 +8,6 @@ import { hexStringToJson } from 'utils/converters';
  * Hook to work with subgraph.
  */
 export default function useSubgraph() {
-  
   const findSouls = async function (
     ids?: Array<string>,
     owners?: Array<string>,
@@ -199,7 +198,7 @@ async function makeSubgraphQuery(query: string, variables = {}) {
 /**
  * Basic Soul Fetc by ID
  */
-function SoulByIdQuery(id: string){
+function SoulByIdQuery(id: string) {
   return `{ 
     soul(id: ${id}) {
       id
