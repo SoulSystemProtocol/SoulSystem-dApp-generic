@@ -19,7 +19,7 @@ import { nameSoul } from 'utils/converters';
 /**
  * Component: create or edit Soul.
  */
-export default function SoulManage({ soul }: any) {
+export default function SoulEdit({ soul }: any) {
   const STATUS = {
     isAvailable: 'isAvailable',
     isUploadingToIpfs: 'isUploadingToIpfs',

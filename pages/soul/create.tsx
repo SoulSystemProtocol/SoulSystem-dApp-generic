@@ -1,5 +1,5 @@
 import Layout from 'components/layout/Layout';
-import SoulManage from 'components/entity/soul/SoulManage';
+import SoulEdit from 'components/entity/soul/SoulEdit';
 import { getPageTitle } from 'utils';
 
 /**
@@ -8,7 +8,7 @@ import { getPageTitle } from 'utils';
 export default function SoulCreate() {
   return (
     <Layout title={getPageTitle('Create Soul')}>
-      <SoulManage />
+      <SoulEdit />
     </Layout>
   );
 }
