@@ -14,7 +14,7 @@ import { PROFILE_TRAITS, Trait } from 'components/entity/soul/ProfileTraits';
 import { useContext, useEffect, useState } from 'react';
 import { MetadataAttribute } from 'helpers/metadata';
 import _ from 'lodash';
-import { attributeHelper } from 'helpers/AttributeHelper';
+import { AttributeHelper } from 'helpers/AttributeHelper';
 import { DialogContext, TDialogContext } from 'contexts/dialog';
 import AttributeAddDialog from 'components/entity/soul/AttributeAddDialog';
 import AttributeDisplayPercentage from 'components/entity/soul/AttributeDisplayPercentage';
@@ -28,7 +28,7 @@ export default function SoulAttributesInput(props: WidgetProps): JSX.Element {
   const { showDialog, closeDialog }: Partial<TDialogContext> =
     useContext(DialogContext);
   const [attributes, setAttributes] =
-    useState<Array<MetadataAttribute>>(propsAttributes); //attributeHelper.sort(propsAttributes), // What for?
+    useState<Array<MetadataAttribute>>(propsAttributes); //AttributeHelper.sort(propsAttributes), // What for?
 
   useEffect(() => {
     // Update data on parent (form)
@@ -51,7 +51,7 @@ export default function SoulAttributesInput(props: WidgetProps): JSX.Element {
       trait_type,
       value: trait_value !== null ? trait_value : '',
     };
-    let newAttributes = attributeHelper.attributeSet([...attributes], newAttr);
+    let newAttributes = AttributeHelper.attributeSet([...attributes], newAttr);
     console.log('New Attr: ', newAttr, newAttributes);
     setAttributes(newAttributes);
   };
@@ -71,7 +71,7 @@ export default function SoulAttributesInput(props: WidgetProps): JSX.Element {
               label="First Name"
               name={PROFILE_TRAIT_TYPE.firstName}
               disabled={props.disabled}
-              value={attributeHelper.extractValue(
+              value={AttributeHelper.extractValue(
                 attributes,
                 PROFILE_TRAIT_TYPE.firstName,
               )}
@@ -83,7 +83,7 @@ export default function SoulAttributesInput(props: WidgetProps): JSX.Element {
               label="Last Name"
               name={PROFILE_TRAIT_TYPE.lastName}
               disabled={props.disabled}
-              value={attributeHelper.extractValue(
+              value={AttributeHelper.extractValue(
                 attributes,
                 PROFILE_TRAIT_TYPE.lastName,
               )}
@@ -95,7 +95,7 @@ export default function SoulAttributesInput(props: WidgetProps): JSX.Element {
               label="Email"
               name={PROFILE_TRAIT_TYPE.email}
               disabled={props.disabled}
-              value={attributeHelper.extractValue(
+              value={AttributeHelper.extractValue(
                 attributes,
                 PROFILE_TRAIT_TYPE.email,
               )}
@@ -107,7 +107,7 @@ export default function SoulAttributesInput(props: WidgetProps): JSX.Element {
               label="A little bit about yourself"
               name={PROFILE_TRAIT_TYPE.description}
               disabled={props.disabled}
-              value={attributeHelper.extractValue(
+              value={AttributeHelper.extractValue(
                 attributes,
                 PROFILE_TRAIT_TYPE.description,
               )}
@@ -132,7 +132,7 @@ export default function SoulAttributesInput(props: WidgetProps): JSX.Element {
                     label={item.label}
                     name={name}
                     disabled={props.disabled}
-                    value={attributeHelper.extractValue(attributes, item.label)}
+                    value={AttributeHelper.extractValue(attributes, item.label)}
                     placeholder={item.placeholder}
                     type={item.type}
                     InputProps={{
@@ -159,7 +159,7 @@ export default function SoulAttributesInput(props: WidgetProps): JSX.Element {
               <Button
                 title="Remove Skill"
                 onClick={() =>
-                  setAttributes(attributeHelper.removeItem(attributes, item))
+                  setAttributes(AttributeHelper.removeItem(attributes, item))
                 }
                 sx={{
                   color: 'red',

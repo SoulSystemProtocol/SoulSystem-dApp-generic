@@ -9,7 +9,7 @@ import {
 import { WidgetProps } from '@rjsf/core';
 import PROFILE_TRAITS, { Trait } from 'components/entity/soul/ProfileTraits';
 import { PROFILE_TRAIT_TYPE } from 'constants/metadata';
-import { attributeHelper } from 'helpers/AttributeHelper';
+import { AttributeHelper } from 'helpers/AttributeHelper';
 import { MetadataAttribute } from 'helpers/metadata';
 import { useState, useEffect } from 'react';
 
@@ -36,7 +36,7 @@ export default function SoulAndDaoSelect(props: WidgetProps): JSX.Element {
       value: eventTargetValue !== null ? eventTargetValue : '',
     };
     // let newAttributes = attributeSet([...attributes], eventTargetName, newAttr);
-    let newAttributes = attributeHelper.attributeSet([...attributes], newAttr);
+    let newAttributes = AttributeHelper.attributeSet([...attributes], newAttr);
     setAttributes(newAttributes);
   }
 
@@ -64,7 +64,7 @@ export default function SoulAndDaoSelect(props: WidgetProps): JSX.Element {
                     label="First Name"
                     name={PROFILE_TRAIT_TYPE.firstName}
                     disabled={props.disabled}
-                    value={attributeHelper.extractValue(
+                    value={AttributeHelper.extractValue(
                       attributes,
                       PROFILE_TRAIT_TYPE.firstName,
                     )}
@@ -76,7 +76,7 @@ export default function SoulAndDaoSelect(props: WidgetProps): JSX.Element {
                     label="Last Name"
                     name={PROFILE_TRAIT_TYPE.lastName}
                     disabled={props.disabled}
-                    value={attributeHelper.extractValue(
+                    value={AttributeHelper.extractValue(
                       attributes,
                       PROFILE_TRAIT_TYPE.lastName,
                     )}
@@ -88,7 +88,7 @@ export default function SoulAndDaoSelect(props: WidgetProps): JSX.Element {
                     label="Email"
                     name={PROFILE_TRAIT_TYPE.email}
                     disabled={props.disabled}
-                    value={attributeHelper.extractValue(
+                    value={AttributeHelper.extractValue(
                       attributes,
                       PROFILE_TRAIT_TYPE.email,
                     )}
@@ -100,7 +100,7 @@ export default function SoulAndDaoSelect(props: WidgetProps): JSX.Element {
                     label="A little bit about yourself"
                     name={PROFILE_TRAIT_TYPE.description}
                     disabled={props.disabled}
-                    value={attributeHelper.extractValue(
+                    value={AttributeHelper.extractValue(
                       attributes,
                       PROFILE_TRAIT_TYPE.description,
                     )}
@@ -126,7 +126,7 @@ export default function SoulAndDaoSelect(props: WidgetProps): JSX.Element {
                           label={item.label}
                           name={name}
                           disabled={props.disabled}
-                          value={attributeHelper.extractValue(
+                          value={AttributeHelper.extractValue(
                             attributes,
                             item.label,
                           )}

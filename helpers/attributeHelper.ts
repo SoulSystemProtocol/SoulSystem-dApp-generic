@@ -4,7 +4,7 @@ import { MetadataAttribute } from './metadata';
 /**
  * General Helper Functions
  */
-export const attributeHelper = {
+export const AttributeHelper = {
   /**
    * Sort by display_type
    */
@@ -33,7 +33,7 @@ export const attributeHelper = {
    */
   attributeSet: (attributes: MetadataAttribute[], attr: MetadataAttribute) => {
     //Match, Case Insensitive
-    let index = attributeHelper.getIndex(attributes, attr.trait_type);
+    let index = AttributeHelper.getIndex(attributes, attr.trait_type);
     if (index == -1) attributes.push(attr);
     else attributes[index] = attr;
     return attributes;
@@ -43,7 +43,7 @@ export const attributeHelper = {
    * Extract value (value) by name (trait_type)
    */
   extractValue(attributes: MetadataAttribute[], traitType: string): string {
-    let index = attributeHelper.getIndex(attributes, traitType);
+    let index = AttributeHelper.getIndex(attributes, traitType);
     return index !== -1 ? attributes[index].value : '';
   },
 
@@ -64,13 +64,13 @@ export const attributeHelper = {
     attributes: MetadataAttribute[],
     item: MetadataAttribute,
   ): MetadataAttribute[] {
-    const index = attributeHelper.getIndex(
+    const index = AttributeHelper.getIndex(
       attributes,
       item.trait_type,
       item.display_type,
     );
     if (index !== -1) {
-      return attributeHelper.removeByIndex(index, attributes);
+      return AttributeHelper.removeByIndex(index, attributes);
     }
     console.error('Attribute not found', item);
     return attributes;
