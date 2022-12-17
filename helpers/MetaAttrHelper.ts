@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import { findIndex, isEmpty } from 'lodash';
 import { MetadataAttribute } from './metadata';
 
 /**
@@ -15,23 +15,27 @@ export const MetaAttrHelper: any = {
    * Fetch the index of the current attribute in the array
    */
   getIndex: (
-    attributes: MetadataAttribute[],
+    attributes: MetadataAttribute[] = [],
     trait_type: string,
     display_type?: string,
-  ) => {
+  ): number => {
+    if (isEmpty(attributes) || !trait_type) return -1;
     //Match, Case Insensitive
-    return _.findIndex(
+    return findIndex(
       attributes,
       (term) =>
-        term.trait_type.toLowerCase() == trait_type.toLowerCase() &&
-        term.display_type == display_type,
+        term?.trait_type?.toLowerCase() == trait_type.toLowerCase() &&
+        term?.display_type == display_type,
     );
   },
 
   /**
    * Set the value of an attribute
    */
-  attributeSet: (attributes: MetadataAttribute[], attr: MetadataAttribute) => {
+  attributeSet: (
+    attributes: MetadataAttribute[],
+    attr: MetadataAttribute,
+  ): MetadataAttribute[] => {
     //Match, Case Insensitive
     let index = MetaAttrHelper.getIndex(attributes, attr.trait_type);
     if (index == -1) attributes.push(attr);

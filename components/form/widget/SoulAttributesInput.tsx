@@ -31,6 +31,7 @@ export default function SoulAttributesInput(props: WidgetProps): JSX.Element {
     useState<Array<MetadataAttribute>>(propsAttributes); //MetaAttrHelper.sort(propsAttributes), // What for?
 
   useEffect(() => {
+    console.warn('Reeceived attributes: ', { propsAttributes, attributes });
     // Update data on parent (form)
     propsOnChange(attributes);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -154,7 +155,7 @@ export default function SoulAttributesInput(props: WidgetProps): JSX.Element {
           <Typography variant="h6">Skills</Typography>
         </Grid>
         {attributes.map((item: MetadataAttribute, index: number) => {
-          return item.display_type != 'boost_percentage' ? null : (
+          return item?.display_type != 'boost_percentage' ? null : (
             <Grid key={item.trait_type} item xs={4} sm={2} lg={2}>
               <Button
                 title="Remove Skill"
