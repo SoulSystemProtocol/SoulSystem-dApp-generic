@@ -66,6 +66,8 @@ export default function SoulDetail({ soul, sx }: any) {
               borderRadius: '50%',
               border: '5px solid ' + theme.palette.background.default,
               mt: '-60px',
+              ml: 'auto',
+              mr: 'auto',
             }}
           />
           <Stack
