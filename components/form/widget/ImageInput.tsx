@@ -74,7 +74,7 @@ export default function ImageInput(props: WidgetProps) {
             cursor: !isLoading && !propsDisabled ? 'pointer' : null,
             width: size,
             height: size,
-            borderRadius: '24px',
+            borderRadius: '50%',
           }}
           src={!isLoading ? resolveLink(propsImage) : undefined}
         >

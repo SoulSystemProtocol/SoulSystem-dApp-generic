@@ -74,7 +74,7 @@ export default function CoverInput(props: WidgetProps) {
             cursor: !isLoading && !propsDisabled ? 'pointer' : null,
             width: '100%',
             height: size,
-            borderRadius: '24px',
+            borderRadius: '12px',
           }}
           src={!isLoading ? resolveLink(props.value) : undefined}
         >

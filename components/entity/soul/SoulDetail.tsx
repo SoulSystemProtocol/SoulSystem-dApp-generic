@@ -1,7 +1,6 @@
 import { PersonOutlineOutlined } from '@mui/icons-material';
 import { Box, Button, Stack, Typography } from '@mui/material';
 import { Web3Context } from 'contexts/Web3Context';
-import Link from 'next/link';
 import { useContext, useEffect, useState } from 'react';
 import { nameSoul } from 'utils/converters';
 import AddressHash from 'components/web3/AddressHash';
@@ -11,6 +10,9 @@ import SoulDescription from './SoulDescription';
 import SocialLinks from './SocialLinks';
 import Loading from 'components/layout/Loading';
 import { nameEntity } from 'hooks/utils';
+import Link from 'components/utils/Link';
+import { resolveLink } from 'helpers/IPFS';
+import { darkTheme as theme } from 'constants/theme';
 
 /**
  * Soul details
@@ -25,52 +27,77 @@ export default function SoulDetail({ soul, sx }: any) {
   }, [soul, account]);
 
   if (!soul) return <Loading />;
-
+  const coverImageSrc = resolveLink(soul?.metadata?.cover);
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        flexDirection: { xs: 'column', md: 'row' },
-        mb: { xs: 1, md: 2 },
-        ...sx,
-      }}
-    >
+    <>
+      <div
+        className="cover"
+        style={{
+          width: '100%',
+          height: '230px',
+          overflow: 'hidden',
+          backgroundSize: 'cover',
+          backgroundRepeat: 'no-repeat',
+          backgroundPosition: 'center',
+          borderRadius: '12px',
+          background:
+            'url(' + coverImageSrc + ') center center / cover no-repeat',
+        }}
+      ></div>
       <Box
         sx={{
-          margin: '0 auto',
+          display: 'flex',
+          flexDirection: { xs: 'column', md: 'row' },
+          mb: { xs: 1, md: 2 },
+          ...sx,
         }}
       >
-        <EntityImage
-          item={soul}
-          icon={<PersonOutlineOutlined />}
-          sx={{ borderRadius: '50%' }}
-        />
-        {isOwned && (
-          <Link href={`/soul/edit`} passHref>
-            <Button size="small" variant="outlined" sx={{ mt: 2, width: 164 }}>
-              Edit
-            </Button>
-          </Link>
-        )}
-      </Box>
-
-      <Stack
-        direction="column"
-        spacing={1}
-        sx={{ flexGrow: 1, mt: { xs: 2, md: 0 }, ml: { md: 4 } }}
-      >
-        {/* <Chip label={`ID: ${soul.id}`} sx={{ height: '24px', mb: 1.5 }} /> */}
-        <Typography variant="h1">{nameSoul(soul)}</Typography>
-        <AddressHash address={soul.owner} sx={{ mt: 1 }} />
-        <SoulDescription soul={soul} sx={{ mt: 1 }} />
-        <SocialLinks key="SocialLinks" soul={soul} sx={{ mt: 2 }} />
-        <Stack key="buttons" direction="row" spacing={2} sx={{ mt: 2 }}>
-          <FundDialogButton
-            address={soul.owner}
-            text={'Fund ' + nameEntity(soul.role)}
+        <Box
+          sx={{
+            margin: '0 auto',
+          }}
+        >
+          <EntityImage
+            item={soul}
+            icon={<PersonOutlineOutlined />}
+            sx={{
+              borderRadius: '50%',
+              border: '5px solid ' + theme.palette.background.default,
+              mt: '-60px',
+            }}
           />
+          <Stack key="buttons" direction="column" spacing={2} sx={{ mt: 2 }}>
+            <FundDialogButton
+              address={soul.owner}
+              disabled={isOwned}
+              text={'Fund ' + nameEntity(soul.role)}
+            />
+            {isOwned && (
+              <Link href={`/soul/edit`}>
+                <Button
+                  size="small"
+                  variant="outlined"
+                  sx={{ mt: 2, width: '100%', margin: 0 }}
+                >
+                  Edit
+                </Button>
+              </Link>
+            )}
+          </Stack>
+        </Box>
+
+        <Stack
+          direction="column"
+          spacing={1}
+          sx={{ flexGrow: 1, mt: { xs: 2, md: 0 }, ml: { md: 4 } }}
+        >
+          {/* <Chip label={`ID: ${soul.id}`} sx={{ height: '24px', mb: 1.5 }} /> */}
+          <Typography variant="h1">{nameSoul(soul)}</Typography>
+          <AddressHash address={soul.owner} sx={{ mt: 1 }} />
+          <SoulDescription soul={soul} sx={{ mt: 1 }} />
+          <SocialLinks key="SocialLinks" soul={soul} sx={{ mt: 2 }} />
         </Stack>
-      </Stack>
-    </Box>
+      </Box>
+    </>
   );
 }

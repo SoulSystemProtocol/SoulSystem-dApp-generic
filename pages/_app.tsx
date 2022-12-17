@@ -6,7 +6,7 @@ import { AppProps } from 'next/app';
 import NextNProgress from 'nextjs-progressbar';
 import { SnackbarProvider } from 'notistack';
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
-import { darkTheme } from '../constants/theme';
+import { darkTheme as theme } from '../constants/theme';
 import '../styles/globals.css';
 
 const client = new ApolloClient({
@@ -20,7 +20,7 @@ const client = new ApolloClient({
 export default function App({ Component, pageProps }: AppProps): JSX.Element {
   return (
     <ApolloProvider client={client}>
-      <ThemeProvider theme={darkTheme}>
+      <ThemeProvider theme={theme}>
         <SnackbarProvider maxSnack={3}>
           <Web3Provider>
             <DataProvider>
