@@ -104,7 +104,6 @@ export default function SoulDetail({ soul, sx }: any) {
           spacing={1}
           sx={{ flexGrow: 1, mt: { xs: 2, md: 0 }, ml: { md: 4 } }}
         >
-          {/* <Chip label={`ID: ${soul.id}`} sx={{ height: '24px', mb: 1.5 }} /> */}
           <Typography variant="h1">{nameSoul(soul)}</Typography>
           <AddressHash address={soul.owner} sx={{ mt: 1 }} />
           <SoulDescription soul={soul} sx={{ mt: 1 }} />

@@ -63,6 +63,7 @@ export default function Header({
       open={open}
       sx={{
         zIndex: (theme: any) => theme.zIndex.drawer + 1,
+        borderRadius: 0,
         boxShadow: '0px 2px 6px rgba(118, 139, 160, 0.1)',
         ...sx,
       }}

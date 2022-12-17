@@ -50,6 +50,7 @@ function SoulSinglePageContent(): JSX.Element {
     fontSize: '0.8em',
     margin: 'auto 0',
     transform: 'rotate(180deg)',
+    marginLeft: '-18px',
   };
 
   if (error) return <>Failed to Load Entity</>;
@@ -75,7 +76,7 @@ function SoulSinglePageContent(): JSX.Element {
           {soul?.metadata?.attributes.map(
             (item: MetadataAttribute, index: number) =>
               item.display_type != 'boost_percentage' ? null : (
-                <Grid key={item.trait_type} item xs={4} sm={2} lg={1}>
+                <Grid key={item.trait_type} item xs={4} sm={2} lg={2}>
                   <AttributeDisplayPercentage item={item} />
                 </Grid>
               ),
