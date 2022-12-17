@@ -4,7 +4,7 @@ import { MetadataAttribute } from './metadata';
 /**
  * General Helper Functions
  */
-export const AttributeHelper = {
+export const AttributeHelper: any = {
   /**
    * Sort by display_type
    */
@@ -75,5 +75,4 @@ export const AttributeHelper = {
     console.error('Attribute not found', item);
     return attributes;
   },
-  
 };
