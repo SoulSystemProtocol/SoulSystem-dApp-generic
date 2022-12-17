@@ -22,7 +22,7 @@ export default function useError() {
     }
     if (typeof error == 'object' && error?.code == -32603) {
       isErrorToastRequired = false;
-      showToastError({ message: 'Metamask error: Transaction underpriced' });
+      showToastError({ message: 'Metamask: Transaction underpriced' });
     }
     //For User
     if (isErrorToastRequired) showToastError(error);

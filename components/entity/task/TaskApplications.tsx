@@ -21,7 +21,7 @@ export default function TaskApplications({
   const { accountSoul } = useContext(DataContext);
   const { showDialog, closeDialog } = useContext(DialogContext);
 
-  console.warn('[DEV] Task Item', task);
+  console.warn('[DEV] TaskApplications() Task Item:', task);
   return (
     <Box sx={{ sm: 12 }}>
       <ConditionalButton
@@ -42,10 +42,10 @@ export default function TaskApplications({
       <Grid container spacing={2} sx={{ ...sx }}>
         {task.nominations.length > 0 ? (
           <>
-            {task.nominations.map((nomination: any, index: number) => (
-              <Grid item key={String(index)} xs={12}>
+            {task.nominations.map((nomination: any) => (
+              <Grid item key={nomination.id} xs={12}>
                 <TaskApplication
-                  key={index}
+                  key={'n' + nomination.id}
                   task={task}
                   nomination={nomination}
                 />

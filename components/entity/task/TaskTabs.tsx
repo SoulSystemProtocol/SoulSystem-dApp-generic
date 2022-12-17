@@ -1,12 +1,12 @@
 import { TabContext, TabList, TabPanel } from '@mui/lab';
 import { Box, Tab } from '@mui/material';
-import EntityComments from 'components/entity/EntityComments';
+import EntityComments from 'components/entity/post/EntityPosts';
 import GameMembers from 'components/entity/game/GameMembers';
 import { useState } from 'react';
 import TaskAcceptedApplications from './TaskAcceptedApplications';
 import TaskApplications from './TaskApplications';
 import TaskApprovedDeliveries from './TaskApprovedDeliveries';
-import TaskPostedDeliveries from './TaskPostedDeliveries';
+import TaskPostedDeliveries from '../post/TaskPostedDeliveries';
 
 /**
  * Task tabs
@@ -41,7 +41,7 @@ export default function ProjectTabs({ item, sx }: any) {
         </TabPanel>
         <TabPanel value="2" sx={{ px: 0 }}>
           {item && <TaskApplications task={item} sx={{ mt: 2 }} />}
-          {item && <TaskAcceptedApplications task={item} sx={{ mt: 2 }} />}
+          {/* {item && <TaskAcceptedApplications task={item} sx={{ mt: 2 }} />} */}
           {item && <TaskPostedDeliveries task={item} sx={{ mt: 2 }} />}
           {item && <TaskApprovedDeliveries task={item} sx={{ mt: 2 }} />}
         </TabPanel>

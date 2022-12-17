@@ -17,6 +17,9 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { soulImage } from 'utils/converters';
 
+/** [DEPRECATE?] What is this even for?!
+ *
+ */
 export default function TaskAcceptedApplications({ task, sx }: any) {
   const { handleError } = useError();
   const { getSoulsByRole } = useTask();

@@ -1,6 +1,6 @@
 import { TabContext, TabList, TabPanel } from '@mui/lab';
 import { Box, Tab } from '@mui/material';
-import EntityComments from 'components/entity/EntityComments';
+import EntityComments from 'components/entity/post/EntityPosts';
 import GameMembers from 'components/entity/game/GameMembers';
 import { nameEntity } from 'hooks/utils';
 import { useState } from 'react';

@@ -4,6 +4,7 @@ import {
   Box,
   Button,
   Divider,
+  Grid,
   List,
   ListItem,
   Stack,
@@ -13,12 +14,13 @@ import Link from 'components/utils/Link';
 import { CLAIM_POST_ENTITY_TYPE, PROC_STAGE } from 'constants/contracts';
 import { DataContext } from 'contexts/data';
 import { DialogContext } from 'contexts/dialog';
-import useDao from 'hooks/useDao';
+import { normalizeGraphEntity } from 'helpers/metadata';
 import useError from 'hooks/useError';
 import useTask from 'hooks/useTask';
 import useToast from 'hooks/useToast';
-import { getSoulsByRole, isSoulHasRole, nameEntity } from 'hooks/utils';
+import { getSoulsByRole, isSoulHasRole } from 'hooks/utils';
 import { useContext, useEffect, useState } from 'react';
+import PostSingleDisplay from './PostSingleDisplay';
 import TaskPostDeliveryDialog from './TaskPostDeliveryDialog';
 
 export default function TaskPostedDeliveries({ task, sx }: any) {
@@ -40,8 +42,10 @@ export default function TaskPostedDeliveries({ task, sx }: any) {
     return (
       <Box sx={{ ...sx }}>
         <Divider sx={{ mb: 1 }} />
-        <Typography variant="h5">Posted Deliveries: </Typography>
-        <List>
+        <Typography variant="h5" sx={{ mb: 1 }}>
+          Posted Deliveries:
+        </Typography>
+        <Grid container spacing={2} sx={{ mb: 2 }}>
           {applicantPosts.length > 0 ? (
             <>
               {task.posts.map((post: any, index: number) => (
@@ -53,18 +57,18 @@ export default function TaskPostedDeliveries({ task, sx }: any) {
               <Typography variant="body2">No deliveries</Typography>
             </ListItem>
           )}
-        </List>
+        </Grid>
         {task.stage !== PROC_STAGE.closed && accountSoul && (
           <Button
             size="small"
             variant="outlined"
             onClick={() =>
               showDialog?.(
-                <TaskPostDeliveryDialog item={task} onClose={closeDialog} />,
+                <TaskPostDeliveryDialog task={task} onClose={closeDialog} />,
               )
             }
           >
-            Post Delivery as a {nameEntity('mdao')}
+            Post Delivery
           </Button>
         )}
       </Box>
@@ -77,11 +81,10 @@ function TaskPostedDelivery({ task, post }: any) {
   const { accountSoul } = useContext(DataContext);
   const { handleError } = useError();
   const { showToastSuccess } = useToast();
-  const { getDaoById } = useDao();
   const { approveSoulDelivery } = useTask();
-  const [postDao, setPostDao] = useState<any | null>(null);
   const [isProcessing, setIsProcessing] = useState(false);
   const [isProcessed, setIsProcessed] = useState(false);
+  const [canAdmin, setCanAdmin] = useState<boolean>(false);
 
   async function approveDelivery(soulId: string) {
     try {
@@ -97,56 +100,45 @@ function TaskPostedDelivery({ task, post }: any) {
   }
 
   useEffect(() => {
-    // Try load post DAO
-    if (post) {
-      getDaoById(post.author.owner)
-        .then((dao) => setPostDao(dao))
-        .catch((error: any) => handleError(error, true));
-    }
+    console.warn('Post:', post);
   }, [post]);
 
+  useEffect(() => {
+    setCanAdmin(
+      task.stage !== PROC_STAGE.closed &&
+        accountSoul &&
+        isSoulHasRole(task, accountSoul.id, 'admin'),
+    );
+  }, [accountSoul, task]);
+
+  //Process Entity
+  post = normalizeGraphEntity(post);
+  if (post?.metadata?.type !== 'application') return <></>;
   return (
-    <ListItem>
-      {postDao ? (
-        <Stack direction="row" spacing={1} alignItems="center">
-          <Typography>Applicant</Typography>
-          <Link href={`/soul/${postDao.id}`}>
-            <Typography>{postDao.name}</Typography>
-          </Link>
-          <Typography>posted</Typography>
-          <Link href={post.uri} underline="none" target="_blank">
-            Delivery
-          </Link>
-          {task.stage !== PROC_STAGE.closed &&
-            accountSoul &&
-            isSoulHasRole(task, accountSoul.id, 'admin') && (
-              <Box>
-                {isProcessed ? (
-                  <></>
-                ) : isProcessing ? (
-                  <LoadingButton
-                    size="small"
-                    loading
-                    loadingPosition="start"
-                    startIcon={<Save />}
-                  >
-                    Processing
-                  </LoadingButton>
-                ) : (
-                  <Button
-                    size="small"
-                    variant="outlined"
-                    onClick={() => approveDelivery(post.author.id)}
-                  >
-                    Approve
-                  </Button>
-                )}
-              </Box>
-            )}
-        </Stack>
-      ) : (
-        <Typography>...</Typography>
-      )}
-    </ListItem>
+    <PostSingleDisplay post={post}>
+      <Box>
+        {isProcessed ? (
+          <>Accepted</>
+        ) : isProcessing ? (
+          <LoadingButton
+            size="small"
+            loading
+            loadingPosition="start"
+            startIcon={<Save />}
+          >
+            Processing
+          </LoadingButton>
+        ) : (
+          <Button
+            size="small"
+            variant="outlined"
+            disabled={!canAdmin}
+            onClick={() => approveDelivery(post.author.id)}
+          >
+            Approve
+          </Button>
+        )}
+      </Box>
+    </PostSingleDisplay>
   );
 }

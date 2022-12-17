@@ -1,30 +1,24 @@
-import {
-  Box,
-  Paper,
-  Stack,
-  Typography,
-  Chip,
-  SxProps,
-  Grid,
-} from '@mui/material';
+import { Box, Paper, SxProps, Grid } from '@mui/material';
 import { DataContext } from 'contexts/data';
 import { useEffect, useState, useContext } from 'react';
 import { DialogContext } from 'contexts/dialog';
-import GamePostAddDialog from './game/GamePostAddDialog';
-import SoulCompactCard from 'components/entity/soul/SoulCompactCard';
+import GamePostAddDialog from './GamePostAddDialog';
 import useError from 'hooks/useError';
 import useSubgraph from 'hooks/useSubgraph';
 import { normalizeGraphEntity } from 'helpers/metadata';
 import ConditionalButton from 'components/layout/ConditionalButton';
+import PostSingleDisplay from './PostSingleDisplay';
 
 /**
- * Posts component for Entities.
+ * Display Multiple Posts By Entity
  */
-export default function EntityComments({
+export default function EntityPosts({
   item,
+  types,
   sx = {},
 }: {
   item: any;
+  types?: string[];
   sx?: SxProps;
 }): JSX.Element {
   const { accountSoul } = useContext(DataContext);
@@ -68,40 +62,18 @@ export default function EntityComments({
           </Grid>
         ) : (
           <>
-            {commentPosts.map((post: any, index) => {
-              //Process Data
+            {commentPosts.map((post: any) => {
+              //Process Entity
               post = normalizeGraphEntity(post);
-              return (
-                <Grid item key={post.id} xs={12}>
-                  <Paper sx={{ p: 2 }}>
-                    {/* Author */}
-                    <Stack direction="row" spacing={1} alignItems="center">
-                      <SoulCompactCard profile={post.author} />
-                      <Chip
-                        key={post.entityRole}
-                        label={post.entityRole}
-                        size="small"
-                      />
-                    </Stack>
-                    {/* Message */}
-                    <Paper variant="outlined" sx={{ p: 2, mt: 1 }}>
-                      <Typography
-                        variant="body2"
-                        sx={{ fontWeight: 'normal' }}
-                        gutterBottom
-                      >
-                        {post.metadata.text}
-                      </Typography>
-                      <Typography
-                        variant="body2"
-                        sx={{ fontSize: '0.7em', opacity: 0.66 }}
-                      >
-                        {new Date(post.createdDate * 1000).toLocaleString()}
-                      </Typography>
-                    </Paper>
-                  </Paper>
-                </Grid>
-              );
+              console.log('Render Post:', {
+                post,
+                type: post?.metadata?.type,
+                types,
+                isIn: types?.includes(post?.metadata?.type),
+              });
+              return !types || types.includes(post?.metadata?.type) ? (
+                <PostSingleDisplay post={post} />
+              ) : null;
             })}
           </>
         )}

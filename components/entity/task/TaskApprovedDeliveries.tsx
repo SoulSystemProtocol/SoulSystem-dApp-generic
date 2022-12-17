@@ -54,7 +54,7 @@ export default function TaskApprovedDeliveries({ task, sx }: any) {
         <Typography variant="h5">Winners:</Typography>
         <List>
           {subjectSouls.map((soul: any, index: number) => (
-            <TaskApprovedDelivery key={index} task={task} soulId={soul} />
+            <TaskApprovedDelivery key={index} task={task} />
           ))}
         </List>
         {/* Button to disburse funds */}

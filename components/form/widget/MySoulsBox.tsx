@@ -8,22 +8,9 @@ import { DataContext } from 'contexts/data';
 import SoulsManagedByQuery from 'queries/SoulsManagedByQuery';
 import { WidgetProps } from '@rjsf/core';
 
-interface TProps {
-  options?: any;
-  label: string;
-  sx: any;
-  size?: 'small' | 'medium';
-  disabled?: boolean;
-  required?: boolean;
-  value?: string;
-  type?: string;
-  role?: string;
-  onChange?: (id: any) => void;
-  onKeyDown?: (e: any) => void;
-}
-
-/** TODO: Administrated Soul + Self Soul
+/**
  * Form Widget: Select a Soul
+ * Display Administrated Souls + Self Soul
  */
 export default function SoulSearchBox({
   options,
@@ -31,29 +18,16 @@ export default function SoulSearchBox({
   value = '',
   size,
   label,
-  type = '',
-  role = '',
   required = false,
   disabled = false,
   onChange = () => {},
   onKeyDown = () => {},
 }: WidgetProps): JSX.Element {
-  // console.log('SoulSearchBox Started W/', {
-  //   options,
-  //   sx,
-  //   value,
-  //   type,
-  //   role,
-  //   size,
-  //   label,
-  //   required,
-  //   disabled,
-  // });
   const { accountSoul } = useContext(DataContext);
   const [isDisabled, setIsDisabled] = useState(disabled);
   const [selectedSoul, setSelectedSoul] = useState(accountSoul);
   const [inputValue, setInputValue] = useState<string>(''); //Current text input value
-  const [items, setItems] = useState<Array<any>>([]);
+  const [souls, setSouls] = useState<Array<any>>([]);
   const { handleError } = useError();
 
   const { data, loading, error } = useQuery(SoulsManagedByQuery, {
@@ -69,30 +43,16 @@ export default function SoulSearchBox({
   useEffect(() => {
     //** Handle Injected Value
     if (value) {
-      console.log('[DEV] Expected to Init selected value', value);
-      /*
-      setIsDisabled(true);
-      getProfile({ id: value })
-        .then((profile: any) => {
-          setSelectedSoul(profile);
-          setIsDisabled(false);
-        })
-        .catch((error: any) => handleError(error, true));
-        */
+      // console.warn('[TODO] Expected to Init selected value', value);
+      // setInputValue(value);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value]);
 
-  console.warn('SoulSearchBox() Data', {
-    data,
-    loading,
-    error,
-    accountSoul,
-  });
   useEffect(() => {
     //Make sure options is never null | undefined
-    // setItems(data ? data.souls : []);
-    setItems(
+    // setSouls(data ? data.souls : []);
+    setSouls(
       data
         ? [accountSoul].concat(
             data?.soulParts?.map((soulPart: any) => soulPart.aEnd),
@@ -100,7 +60,8 @@ export default function SoulSearchBox({
         : [accountSoul],
     );
     //Default Option
-    onChange(accountSoul?.id);
+    // onChange(accountSoul?.id);
+    onChange(accountSoul?.owner);
   }, [data]);
 
   return (
@@ -110,21 +71,23 @@ export default function SoulSearchBox({
         disabled={isDisabled}
         getOptionLabel={nameSoul}
         // filterOptions={(x) => x}
-        options={items}
+        options={souls}
         value={selectedSoul}
         onChange={(_, newValue: any) => {
-          // console.log('onChange', newValue);
+          console.log('onChange', newValue);
           //ID Changed
           setSelectedSoul(newValue);
-          onChange(newValue?.id);
+          // onChange(newValue?.id);
+          onChange(newValue?.owner);
         }}
         onInputChange={(_, newInputValue) => {
-          // console.log('Input Changed to: ', newInputValue);
+          console.log('Input Changed to: ', newInputValue);
           //Text Value Changed
           setInputValue(newInputValue);
         }}
         isOptionEqualToValue={(option: any, value: any) =>
-          option?.id === value?.id
+          // option?.id === value?.id
+          option?.owner === value?.owner
         }
         renderInput={(params) => (
           <TextField

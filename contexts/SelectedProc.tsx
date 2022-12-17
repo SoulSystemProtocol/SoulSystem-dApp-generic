@@ -19,7 +19,6 @@ export const SelectedProcContext = createContext<Partial<ISelectedProcContext>>(
  */
 export function SelectedProcProvider({ address, children }: any) {
   const { proc, loading, error } = useProcByAddr(address as string);
-  console.log('SelectedProcProvider() Selected Proc: ', proc);
   return (
     <SelectedProcContext.Provider value={{ proc, loading, error }}>
       {children}

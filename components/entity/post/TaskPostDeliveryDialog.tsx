@@ -13,47 +13,61 @@ import useIpfs from 'hooks/useIpfs';
 import useContract from 'hooks/useContract';
 import useToast from 'hooks/useToast';
 import { JSONSchema7 } from 'json-schema';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { CLAIM_POST_TYPE } from 'constants/contracts';
+import { DataContext } from 'contexts/data';
+import MySoulsBox from 'components/form/widget/MySoulsBox';
 
 /**
  * A dialog for post a task delivery.
  */
 export default function TaskPostDeliveryDialog({
-  item,
+  task,
   isClose,
   onClose,
 }: any): JSX.Element {
   const { showToastSuccess } = useToast();
   const { uploadJsonToIPFS } = useIpfs();
   const { handleError } = useError();
-  const { getContractGameMDAO } = useContract();
+  const { getContractGameMDAO, getContractTask } = useContract();
+  const { accountSoul } = useContext(DataContext);
   const [isLoading, setIsLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(!isClose);
   const [formData, setFormData] = useState({});
 
   const schema: JSONSchema7 = {
     type: 'object',
-    required: ['daoId', 'text'],
+    required: ['account', 'text'],
     properties: {
-      daoId: {
+      // daoId: {
+      //   type: 'string',
+      //   title: 'Address of your DAO',
+      // },
+      account: {
         type: 'string',
-        title: 'Address of your DAO',
+        title: 'Deliver as',
       },
       text: {
         type: 'string',
-        title: 'Message',
+        title: 'Details',
       },
     },
   };
 
   const uiSchema = {
+    account: {
+      'ui:widget': 'MySoulsBox',
+    },
     text: {
       'ui:widget': 'textarea',
       'ui:options': {
-        rows: 5,
+        rows: 6,
       },
     },
+  };
+
+  const widgets = {
+    MySoulsBox,
   };
 
   async function close() {
@@ -63,7 +77,7 @@ export default function TaskPostDeliveryDialog({
     onClose();
   }
 
-  async function submit({ formData }: any) {
+  async function submit({ formData }: any): Promise<void> {
     try {
       setFormData(formData);
       setIsLoading(true);
@@ -71,10 +85,22 @@ export default function TaskPostDeliveryDialog({
         ...formData,
         type: CLAIM_POST_TYPE.application,
       });
-      await getContractGameMDAO(formData.daoId).deliverTask(
-        item.id,
-        metadataUrl,
-      );
+
+      if (formData.account == accountSoul.owner) {
+        console.log(`Deliver as Oneself:${task.id}`, { formData, metadataUrl });
+        //Deliver as Oneself
+        await getContractTask(task.id).post(
+          'applicant',
+          accountSoul.id,
+          metadataUrl,
+        );
+      } else {
+        //Deliver as mDAO
+        await getContractGameMDAO(formData.account).deliverTask(
+          task.id, //Task Address
+          metadataUrl, //URI String
+        );
+      }
       showToastSuccess('Success! Data will be updated soon');
       close();
     } catch (error: any) {
@@ -96,6 +122,7 @@ export default function TaskPostDeliveryDialog({
           schema={schema}
           formData={formData}
           uiSchema={uiSchema}
+          widgets={widgets}
           onSubmit={submit}
           disabled={isLoading}
         >

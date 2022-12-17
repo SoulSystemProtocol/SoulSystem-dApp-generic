@@ -28,8 +28,12 @@ export default function TaskApplication({
   const [nominatedSoul, setNominatedSoul] = useState<any | null>(null);
   const [isProcessing, setIsProcessing] = useState(false);
   const [isProcessed, setIsProcessed] = useState(false);
+  const [canAdmin, setCanAdmin] = useState<boolean>(false);
 
-  async function acceptAplicant(soulId: string) {
+  /**
+   * Accept Application
+   */
+  async function acceptNomination(soulId: string) {
     try {
       setIsProcessing(true);
       await acceptSoulForTask(task.id, soulId);
@@ -43,13 +47,25 @@ export default function TaskApplication({
   }
 
   useEffect(() => {
+    setIsProcessed(isSoulHasRole(task, nomination.nominated.id, 'applicant'));
+  }, [nomination, task]);
+
+  useEffect(() => {
+    setCanAdmin(
+      task.stage !== PROC_STAGE.closed &&
+        accountSoul &&
+        isSoulHasRole(task, accountSoul.id, 'admin'),
+    );
+  }, [accountSoul, task]);
+
+  useEffect(() => {
     console.log('TaskApplication: nomination', nomination);
     getSoulById(nomination.nominated.id).then((soul) => setNominatedSoul(soul));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [nomination]);
 
   if (!nominatedSoul) return <></>;
-  if (isSoulHasRole(task, nomination.nominated.id, 'applicant')) return <></>;
+  // if (isSoulHasRole(task, nomination.nominated.id, 'applicant')) return <></>;
 
   return (
     <GridCard {...soulCardContent(nominatedSoul)}>
@@ -62,34 +78,33 @@ export default function TaskApplication({
 
       <Stack direction="column">
         {/* Application actions */}
-        {task.stage !== PROC_STAGE.closed &&
-          accountSoul &&
-          isSoulHasRole(task, accountSoul.id, 'admin') && (
-            <Stack direction="column" justifyContent="center">
-              {isProcessed ? (
-                <></>
-              ) : isProcessing ? (
-                <LoadingButton
-                  size="small"
-                  loading={isProcessing}
-                  loadingPosition="start"
-                  startIcon={<Save />}
-                >
-                  Processing
-                </LoadingButton>
-              ) : (
-                <Button
-                  variant="outlined"
-                  size="small"
-                  onClick={() => {
-                    acceptAplicant(nomination.nominated.id);
-                  }}
-                >
-                  Accept Application
-                </Button>
-              )}
-            </Stack>
-          )}
+        {canAdmin && (
+          <Stack direction="column" justifyContent="center">
+            {isProcessed ? (
+              <>Accepted</>
+            ) : isProcessing ? (
+              <LoadingButton
+                size="small"
+                loading={isProcessing}
+                loadingPosition="start"
+                startIcon={<Save />}
+              >
+                Processing
+              </LoadingButton>
+            ) : (
+              <Button
+                variant="outlined"
+                size="small"
+                disabled={isProcessed}
+                onClick={() => {
+                  acceptNomination(nomination.nominated.id);
+                }}
+              >
+                Accept Application
+              </Button>
+            )}
+          </Stack>
+        )}
       </Stack>
     </GridCard>
   );

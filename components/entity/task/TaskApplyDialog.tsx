@@ -35,9 +35,9 @@ export default function TaskApplyDialog({ task, isClose, onClose }: any) {
 
   const schema: JSONSchema7 = {
     type: 'object',
-    required: ['soulId'],
+    required: ['account'],
     properties: {
-      soulId: {
+      account: {
         type: 'string',
         title: 'Apply as',
       },
@@ -49,7 +49,7 @@ export default function TaskApplyDialog({ task, isClose, onClose }: any) {
   };
 
   const uiSchema = {
-    soulId: {
+    account: {
       'ui:widget': 'MySoulsBox',
     },
     description: {
@@ -71,8 +71,8 @@ export default function TaskApplyDialog({ task, isClose, onClose }: any) {
     onClose();
   }
 
-  async function submit({ formData }: any) {
-    console.log('Form Submitted', formData);
+  async function submit({ formData }: any): Promise<void> {
+    console.log('TaskApplyDialog() Form Submitted', formData);
     try {
       setFormData(formData);
       setIsLoading(true);
@@ -82,21 +82,18 @@ export default function TaskApplyDialog({ task, isClose, onClose }: any) {
         description: formData.description,
       });
 
-      if (formData.soulId == accountSoul.id) {
-        // console.log(`Apply for Task:${task.id}`, { formData, metadataUrl });
+      // if (formData.soulId == accountSoul.id) {
+      if (formData.account == accountSoul.owner) {
+        console.log(`Apply for Task:${task.id}`, { formData, metadataUrl });
         //Apply as Oneself
-        getContractTask(task.id).application(
+        await getContractTask(task.id).application(
           formData?.description ? metadataUrl : '',
         );
       } else {
         //Apply as an mDAO
-        let soul = await getSoulById(formData.soulId);
-        // console.warn('Soul By Id', { soulId: formData.soulId, soul });
-        // console.log(`Apply for Task:${task.id} as ${soul.owner}`, {
-        //   formData,
-        //   metadataUrl,
-        // });
-        await getContractGameMDAO(soul.owner).applyToTask(
+        // let soul = await getSoulById(formData.soulId);
+        // await getContractGameMDAO(soul.owner).applyToTask(
+        await getContractGameMDAO(formData.account).applyToTask(
           task.id,
           formData?.description ? metadataUrl : '',
         );
