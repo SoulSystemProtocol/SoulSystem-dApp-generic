@@ -2,13 +2,12 @@ import { useContext } from 'react';
 import Link from 'components/utils/Link';
 import Layout from 'components/layout/Layout';
 import ConnectButton from 'components/web3/connect/ConnectButton';
-import { Box, Card, Typography } from '@mui/material';
+import { Box, Card, CardMedia, Typography } from '@mui/material';
 import { Web3Context } from '../contexts/Web3Context';
 import { APP_CONFIGS } from '../constants';
 import { getPageTitle } from '../utils';
 
 const wrapperStyle = {
-  // background: 'black',
   color: '#fff',
   textAlign: 'center',
   px: { xs: 2, md: 4 },
@@ -24,7 +23,12 @@ export default function Landing() {
   return (
     <Layout title={getPageTitle('Home')}>
       <Card sx={{ height: '320px' }}>
-        <img src="/images/futuristic_tower1.jpg" />
+        <CardMedia
+          component="img"
+          width="100%"
+          image="/images/futuristic_tower1.jpg"
+          alt="skyscraper architecture"
+        />
       </Card>
       <Box sx={{ width: '100%' }}>
         <Box sx={wrapperStyle}>
