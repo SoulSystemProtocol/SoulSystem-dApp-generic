@@ -12,18 +12,12 @@ import { WidgetProps } from '@rjsf/core';
 import { PROFILE_TRAIT_TYPE } from 'constants/metadata';
 import { PROFILE_TRAITS, Trait } from 'components/entity/soul/ProfileTraits';
 import { useContext, useEffect, useState } from 'react';
-import { MetadataAttribute, MetadataAttributeType } from 'helpers/metadata';
+import { MetadataAttribute } from 'helpers/metadata';
 import _ from 'lodash';
 import { attributeHelper } from 'helpers/AttributeHelper';
 import { DialogContext, TDialogContext } from 'contexts/dialog';
 import AttributeAddDialog from 'components/entity/soul/AttributeAddDialog';
 import AttributeDisplayPercentage from 'components/entity/soul/AttributeDisplayPercentage';
-
-interface AttributeProps {
-  item: MetadataAttribute;
-  setAttribute: (attribute: MetadataAttribute) => void;
-  removeAttribute: () => void;
-}
 
 /**
  * Form Widget: input Soul's attributes.
@@ -35,8 +29,6 @@ export default function SoulAttributesInput(props: WidgetProps): JSX.Element {
     useContext(DialogContext);
   const [attributes, setAttributes] =
     useState<Array<MetadataAttribute>>(propsAttributes); //attributeHelper.sort(propsAttributes), // What for?
-
-  // const [attributesObj, setAttributesObj] = useState<any>();
 
   useEffect(() => {
     // Update data on parent (form)
