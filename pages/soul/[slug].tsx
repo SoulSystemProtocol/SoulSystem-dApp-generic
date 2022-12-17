@@ -75,7 +75,7 @@ function SoulSinglePageContent(): JSX.Element {
           </Grid> */}
           {soul?.metadata?.attributes.map(
             (item: MetadataAttribute, index: number) =>
-              item.display_type != 'boost_percentage' ? null : (
+              item && item.display_type != 'boost_percentage' ? null : (
                 <Grid key={item.trait_type} item xs={4} sm={2} lg={2}>
                   <AttributeDisplayPercentage item={item} />
                 </Grid>
