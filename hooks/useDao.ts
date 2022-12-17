@@ -1,5 +1,4 @@
 import { GAME_TYPE } from 'constants/contracts';
-import { hexStringToJson } from 'utils/converters';
 import useGameContract from './contracts/useGameContract';
 import useSubgraph from './useSubgraph';
 import { getById } from './utils';
@@ -10,13 +9,7 @@ import { getById } from './utils';
  * TODO: Move neccessary functions to hook useGame().
  */
 export default function useDao() {
-  const {
-    // setUri,
-    // leave,
-    // nominate: applyToJoin,
-    assignRole,
-    removeRole,
-  } = useGameContract();
+  // const { assignRole, removeRole } = useGameContract();
   const { findGames } = useSubgraph();
 
   async function getDaos(
@@ -40,13 +33,13 @@ export default function useDao() {
     // makeGame(GAME_TYPE.mdao, name, metadataUrl),
     // editDao: async (id: string, metadataUrl: string) => setUri(id, metadataUrl),
     getDaos,
-    getDaoById: (id: string) => getById(id, getDaos),
+    getDaoById: (id: string) => getById(id, getDaos), //DEPRECATE! 
     getSoulsByRole,
     isSoulHasRole: (dao: any, soul: string, roleId: string): boolean =>
       getSoulsByRole(dao, roleId).includes(soul),
     // leave,
     // applyToJoin,
-    assignRoleToSoul: assignRole,
-    removeRoleToSoul: removeRole,
+    // assignRoleToSoul: assignRole,
+    // removeRoleToSoul: removeRole,
   };
 }
