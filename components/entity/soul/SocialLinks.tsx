@@ -1,8 +1,8 @@
 import { MailOutlineRounded } from '@mui/icons-material';
 import { Stack } from '@mui/material';
 import Link from 'components/utils/Link';
-import { attributeHelper } from 'helpers/AttributeHelper';
 import { PROFILE_TRAITS, Trait } from './ProfileTraits';
+import { attributeHelper } from 'helpers/AttributeHelper';
 
 export default function SocialLinks({ soul, sx }: any): JSX.Element {
   const email = attributeHelper.extractValue(
