@@ -1,12 +1,8 @@
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import {
   Button,
-  FormControl,
   Grid,
   InputAdornment,
-  InputLabel,
-  MenuItem,
-  Select,
   Stack,
   TextField,
   Typography,
@@ -18,7 +14,6 @@ import { PROFILE_TRAITS, Trait } from 'components/entity/soul/ProfileTraits';
 import { useContext, useEffect, useState } from 'react';
 import { MetadataAttribute, MetadataAttributeType } from 'helpers/metadata';
 import _ from 'lodash';
-import { capitalize } from 'lodash';
 import { attributeHelper } from 'helpers/AttributeHelper';
 import { DialogContext, TDialogContext } from 'contexts/dialog';
 import AttributeAddDialog from 'components/entity/soul/AttributeAddDialog';
@@ -46,41 +41,8 @@ export default function SoulAttributesInput(props: WidgetProps): JSX.Element {
   useEffect(() => {
     // Update data on parent (form)
     propsOnChange(attributes);
-    /*
-    let newAttributeObj: any = {};
-    for (let i in attributes) {
-      if (attributes[i].trait_type) {
-        const traitType = attributes[i].trait_type.toLowerCase();
-        if (!(traitType in newAttributeObj)) newAttributeObj[traitType] = {};
-        newAttributeObj[traitType][attributes[i].trait_type] = attributes[i];
-      }
-    }
-    console.warn('Workable Attribute Object:', newAttributeObj);
-    setAttributesObj(newAttributeObj);
-    */
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [attributes]);
-
-  /* [CANCELLED]
-  const updateAttributes = (key: string, attr: MetadataAttribute) => {
-    setAttributesObj({ ...attributesObj, [key]: attr });
-    console.warn('Update Attributes Object', { ...attributesObj, [key]: attr });
-  };
-  * /
-
-  /**
-   *
-   * /
-  const singleAttrChanage = (index: number, attr: MetadataAttribute) => {
-    console.log(
-      'SoulAttributesInput.singleAttrChanage() Attr Change I:' + index,
-      {
-        attr,
-        current: attributes[index],
-      },
-    );
-    setAttributes(Object.assign([], attributes, { [index]: attr }));
-  };
 
   /**
    *

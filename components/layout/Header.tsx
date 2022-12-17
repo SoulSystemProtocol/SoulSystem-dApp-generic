@@ -11,6 +11,7 @@ import { nameSoul } from 'utils/converters';
 import ConnectButton from 'components/web3/connect/ConnectButton';
 import Link from 'components/utils/Link';
 import SettingsMenu from './SettingsMenu';
+import HeaderLogo from './HeaderLogo';
 
 const drawerWidth = 240;
 
@@ -69,7 +70,7 @@ export default function Header({
       }}
     >
       <Toolbar>
-        {process.env.NEXT_PUBLIC_FEATURE_SIDEBAR == 'true' && (
+        {process.env.NEXT_PUBLIC_FEATURE_SIDEBAR == 'true' ? (
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -82,6 +83,8 @@ export default function Header({
           >
             <MenuIcon />
           </IconButton>
+        ) : (
+          <HeaderLogo />
         )}
         <Box
           sx={{

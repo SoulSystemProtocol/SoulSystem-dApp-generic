@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import Link from 'components/utils/Link';
 import Layout from 'components/layout/Layout';
 import ConnectButton from 'components/web3/connect/ConnectButton';
-import { Box, Typography } from '@mui/material';
+import { Box, Card, Typography } from '@mui/material';
 import { Web3Context } from '../contexts/Web3Context';
 import { APP_CONFIGS } from '../constants';
 import { getPageTitle } from '../utils';
@@ -23,6 +23,9 @@ export default function Landing() {
 
   return (
     <Layout title={getPageTitle('Home')}>
+      <Card sx={{ height: '320px' }}>
+        <img src="/images/futuristic_tower1.jpg" />
+      </Card>
       <Box sx={{ width: '100%' }}>
         <Box sx={wrapperStyle}>
           <Typography
