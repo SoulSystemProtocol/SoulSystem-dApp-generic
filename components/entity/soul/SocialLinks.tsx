@@ -1,14 +1,14 @@
 import { MailOutlineRounded } from '@mui/icons-material';
 import { Stack } from '@mui/material';
 import Link from 'components/utils/Link';
-import { AttributeHelper } from 'helpers/AttributeHelper';
+import { MetaAttrHelper } from 'helpers/MetaAttrHelper';
 import { PROFILE_TRAITS, Trait } from './ProfileTraits';
 
 /**
  * Social Links Display
  */
 export default function SocialLinks({ soul, sx }: any): JSX.Element {
-  const email = AttributeHelper.extractValue(
+  const email = MetaAttrHelper.extractValue(
     soul?.metadata?.attributes,
     'email',
   );
@@ -28,10 +28,8 @@ export default function SocialLinks({ soul, sx }: any): JSX.Element {
       {Object.keys(PROFILE_TRAITS).map((name: string) => {
         const item: Trait = PROFILE_TRAITS[name];
         const value =
-          AttributeHelper.extractValue(
-            soul?.metadata?.attributes,
-            item.label,
-          ) || AttributeHelper.extractValue(soul?.metadata?.attributes, name);
+          MetaAttrHelper.extractValue(soul?.metadata?.attributes, item.label) ||
+          MetaAttrHelper.extractValue(soul?.metadata?.attributes, name);
         return !value ? null : (
           <Link
             href={item.baseURL ? item.baseURL + value : value}

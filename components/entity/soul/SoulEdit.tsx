@@ -6,7 +6,7 @@ import CoverInput from 'components/form/widget/CoverInput';
 import ImageInput from 'components/form/widget/ImageInput';
 import SoulAttributesInput from 'components/form/widget/SoulAttributesInput';
 import { PROFILE_TRAIT_TYPE } from 'constants/metadata';
-import { AttributeHelper } from 'helpers/AttributeHelper';
+import { MetaAttrHelper } from 'helpers/MetaAttrHelper';
 import useSoulContract from 'hooks/contracts/useSoulContract';
 import useError from 'hooks/useError';
 import useIpfs from 'hooks/useIpfs';
@@ -76,16 +76,16 @@ export default function SoulEdit({ soul }: any) {
       setStatus(STATUS.isUploadingToIpfs);
 
       let metadata = formData;
-      let uriFirstName = AttributeHelper.extractValue(
+      let uriFirstName = MetaAttrHelper.extractValue(
         metadata?.attributes,
         PROFILE_TRAIT_TYPE.firstName,
       );
-      let uriLastName = AttributeHelper.extractValue(
+      let uriLastName = MetaAttrHelper.extractValue(
         metadata?.attributes,
         PROFILE_TRAIT_TYPE.lastName,
       );
       metadata.name = nameSoul({ uriFirstName, uriLastName });
-      metadata.description = AttributeHelper.extractValue(
+      metadata.description = MetaAttrHelper.extractValue(
         metadata?.attributes,
         'Description',
       );
