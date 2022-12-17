@@ -75,4 +75,5 @@ export const AttributeHelper = {
     console.error('Attribute not found', item);
     return attributes;
   },
+  
 };
