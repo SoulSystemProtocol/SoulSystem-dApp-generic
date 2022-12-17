@@ -20,6 +20,10 @@ export default function useError() {
       isErrorToastRequired = false;
       showToastError({ message: 'Contract/Chain Error' });
     }
+    if (typeof error == 'object' && error?.code == -32603) {
+      isErrorToastRequired = false;
+      showToastError({ message: 'Metamask error: Transaction underpriced' });
+    }
     //For User
     if (isErrorToastRequired) showToastError(error);
   };
