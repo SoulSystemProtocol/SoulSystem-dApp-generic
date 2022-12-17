@@ -12,7 +12,7 @@ import {
 import { CLAIM_ROLE, SOUL_TYPE } from 'constants/contracts';
 import useDao from 'hooks/useDao';
 import useError from 'hooks/useError';
-import useSoul from 'hooks/useSoul';
+import useSouls from 'hooks/useSouls';
 import useTask from 'hooks/useTask';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
@@ -21,7 +21,7 @@ import { soulImage } from 'utils/converters';
 export default function TaskAcceptedApplications({ task, sx }: any) {
   const { handleError } = useError();
   const { getSoulsByRole } = useTask();
-  const { getSouls } = useSoul();
+  const { getSouls } = useSouls();
   const [acceptedSouls, setAcceptedSouls] = useState<Array<any>>([]);
 
   useEffect(() => {
