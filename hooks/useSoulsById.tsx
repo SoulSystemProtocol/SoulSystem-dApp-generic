@@ -25,11 +25,6 @@ export default function useSoulsById(
     } else {
       try {
         setSouls(data?.souls?.map((soul: any) => normalizeGraphEntity(soul)));
-        // console.log('[DEV] useSoulsById() query Return:', {
-        //   params: { ids, first, skip },
-        //   souls,
-        //   data,
-        // });
       } catch (error) {
         console.error(error);
       }
