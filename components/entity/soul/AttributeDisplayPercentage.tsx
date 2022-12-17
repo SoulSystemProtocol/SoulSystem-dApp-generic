@@ -9,6 +9,7 @@ export default function AttributeDisplayPercentage({
 }: {
   item: MetadataAttribute;
 }): JSX.Element {
+  if (!item) return <></>;
   return (
     <Card variant="outlined" sx={{ py: 1 }}>
       <Stack direction="column" sx={{ alignItems: 'center' }}>
