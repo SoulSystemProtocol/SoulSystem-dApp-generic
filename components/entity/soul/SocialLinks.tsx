@@ -4,6 +4,9 @@ import Link from 'components/utils/Link';
 import { AttributeHelper } from 'helpers/AttributeHelper';
 import { PROFILE_TRAITS, Trait } from './ProfileTraits';
 
+/**
+ * Social Links Display
+ */
 export default function SocialLinks({ soul, sx }: any): JSX.Element {
   const email = AttributeHelper.extractValue(
     soul?.metadata?.attributes,
@@ -22,7 +25,6 @@ export default function SocialLinks({ soul, sx }: any): JSX.Element {
           <MailOutlineRounded />
         </Link>
       )}
-      {/* {PROFILE_TRAITS.map((item: any, index: number) => { */}
       {Object.keys(PROFILE_TRAITS).map((name: string) => {
         const item: Trait = PROFILE_TRAITS[name];
         const value =
