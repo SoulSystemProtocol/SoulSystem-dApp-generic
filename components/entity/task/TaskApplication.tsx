@@ -1,9 +1,8 @@
 import { Save } from '@mui/icons-material';
 import { LoadingButton } from '@mui/lab';
 import { Typography, Button, Stack } from '@mui/material';
-import { SOUL_TYPE, PROC_STAGE } from 'constants/contracts';
+import { PROC_STAGE } from 'constants/contracts';
 import { DataContext } from 'contexts/data';
-import useDao from 'hooks/useDao';
 import useError from 'hooks/useError';
 import useSubgraph from 'hooks/useSubgraph';
 import useTask from 'hooks/useTask';
@@ -24,10 +23,8 @@ export default function TaskApplication({
   const { accountSoul } = useContext(DataContext);
   const { handleError } = useError();
   const { showToastSuccess } = useToast();
-  const { getDaoById } = useDao();
   const { getSoulById } = useSubgraph();
   const { acceptSoulForTask } = useTask();
-  const [nominatedDao, setNominatedDao] = useState<any | null>(null);
   const [nominatedSoul, setNominatedSoul] = useState<any | null>(null);
   const [isProcessing, setIsProcessing] = useState(false);
   const [isProcessed, setIsProcessed] = useState(false);
@@ -47,13 +44,6 @@ export default function TaskApplication({
 
   useEffect(() => {
     console.log('TaskApplication: nomination', nomination);
-    // Load nominated DAO if type is game
-    if (nomination.nominated.type === SOUL_TYPE.game) {
-      getDaoById(nomination.nominated.owner)
-        .then((dao) => setNominatedDao(dao))
-        .catch((error: any) => handleError(error, true));
-    }
-
     getSoulById(nomination.nominated.id).then((soul) => setNominatedSoul(soul));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [nomination]);
@@ -81,7 +71,7 @@ export default function TaskApplication({
               ) : isProcessing ? (
                 <LoadingButton
                   size="small"
-                  loading
+                  loading={isProcessing}
                   loadingPosition="start"
                   startIcon={<Save />}
                 >

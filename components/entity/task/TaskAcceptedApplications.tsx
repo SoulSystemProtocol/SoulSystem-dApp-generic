@@ -9,8 +9,7 @@ import {
   ListItemAvatar,
   Typography,
 } from '@mui/material';
-import { CLAIM_ROLE, SOUL_TYPE } from 'constants/contracts';
-import useDao from 'hooks/useDao';
+import { CLAIM_ROLE } from 'constants/contracts';
 import useError from 'hooks/useError';
 import useSouls from 'hooks/useSouls';
 import useTask from 'hooks/useTask';
@@ -51,43 +50,21 @@ export default function TaskAcceptedApplications({ task, sx }: any) {
 
 function TaskAcceptedApplication({ soul }: any) {
   const { handleError } = useError();
-  const { getDaoById } = useDao();
-  const [soulDao, setSoulDao] = useState<any | null>(null);
 
-  useEffect(() => {
-    // Load soul DAO if type is game
-    if (soul.type === SOUL_TYPE.game) {
-      getDaoById(soul.owner)
-        .then((dao) => setSoulDao(dao))
-        .catch((error: any) => handleError(error, true));
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [soul]);
-
-  // console.log('stuff img:', { img: soulImage(soulDao), soul, soulDao });
   return (
     <ListItem sx={{ flex: '1 0', minWidth: '200px' }}>
-      {soulDao ? (
-        <>
-          <ListItemAvatar>
-            <Avatar src={soulImage(soulDao)}>
-              <CheckOutlined />
-            </Avatar>
-          </ListItemAvatar>
-          <Link href={`/soul/${soulDao.id}`} passHref>
-            <MuiLink underline="none">
-              <Typography>{soulDao.name}</Typography>
-            </MuiLink>
-          </Link>
-        </>
-      ) : (
-        <>
-          <Avatar>
+      <>
+        <ListItemAvatar>
+          <Avatar src={soulImage(soul)}>
             <CheckOutlined />
           </Avatar>
-          <Typography>...</Typography>
-        </>
-      )}
+        </ListItemAvatar>
+        <Link href={`/soul/${soul.owner}`} passHref>
+          <MuiLink underline="none">
+            <Typography>{soul.name || '...'}</Typography>
+          </MuiLink>
+        </Link>
+      </>
     </ListItem>
   );
 }

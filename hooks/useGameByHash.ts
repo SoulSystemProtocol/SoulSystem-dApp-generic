@@ -22,5 +22,5 @@ export default function useGameByHash(hash: string): any {
     }
   }, [data, error, loading]);
 
-  return { game };
+  return { game, error, loading };
 }
