@@ -52,9 +52,11 @@ export default function SoulDetail({ soul, sx }: any) {
           ...sx,
         }}
       >
-        <Box
+        <Stack
+          direction="column"
           sx={{
             margin: '0 auto',
+            justifyContent: 'center',
           }}
         >
           <EntityImage
@@ -66,7 +68,12 @@ export default function SoulDetail({ soul, sx }: any) {
               mt: '-60px',
             }}
           />
-          <Stack key="buttons" direction="column" spacing={2} sx={{ mt: 2 }}>
+          <Stack
+            key="buttons"
+            direction={{ xs: 'row', md: 'column' }}
+            spacing={2}
+            sx={{ mt: 2 }}
+          >
             <FundDialogButton
               address={soul.owner}
               disabled={isOwned}
@@ -77,14 +84,20 @@ export default function SoulDetail({ soul, sx }: any) {
                 <Button
                   size="small"
                   variant="outlined"
-                  sx={{ mt: 2, width: '100%', margin: 0 }}
+                  sx={{
+                    mt: 2,
+                    width: { md: '100%', xs: 'auto' },
+                    margin: 0,
+                    display: 'block',
+                    minWidth: '120px',
+                  }}
                 >
                   Edit
                 </Button>
               </Link>
             )}
           </Stack>
-        </Box>
+        </Stack>
 
         <Stack
           direction="column"
