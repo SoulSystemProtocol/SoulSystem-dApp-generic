@@ -19,6 +19,7 @@ import Sidebar from './Sidebar';
 import Footer from './Footer';
 import useLocalStorage from 'hooks/useLocalStorage';
 import { nameEntity } from 'hooks/utils';
+import HeaderLogo from './HeaderLogo';
 
 const top_links: any = [
   //TODO: Support Hiding
@@ -133,12 +134,14 @@ export default function Layout({ children, title }: any) {
         <meta name="viewport" content="initial-scale=1, width=device-width" />
       </Head>
 
-      {process.env.NEXT_PUBLIC_FEATURE_SIDEBAR == 'true' && (
+      {process.env.NEXT_PUBLIC_FEATURE_SIDEBAR == 'true' ? (
         <Sidebar
           links={menu_side_links}
           toggler={toggleDrawer}
           isOpen={isOpen}
         />
+      ) : (
+        <HeaderLogo />
       )}
       <Container sx={{ minHeight: '100vh', m: '0 auto' }} maxWidth="xl">
         <Header open={isOpen} toggleDrawer={toggleDrawer} links={top_links} />
