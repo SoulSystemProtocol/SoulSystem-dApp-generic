@@ -1,5 +1,5 @@
 import { createTheme } from '@mui/material/styles';
-
+export const sidebarWidth = 240;
 export const darkTheme = createTheme({
   palette: {
     mode: 'dark',

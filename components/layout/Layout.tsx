@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import {
   PersonOutlineOutlined,
   SchoolOutlined,
@@ -17,9 +18,7 @@ import Head from 'next/head';
 import Header from './Header';
 import Sidebar from './Sidebar';
 import Footer from './Footer';
-import useLocalStorage from 'hooks/useLocalStorage';
 import { nameEntity } from 'hooks/utils';
-import HeaderLogo from './HeaderLogo';
 
 const top_links: any = [
   //TODO: Support Hiding
@@ -120,7 +119,7 @@ const footer_icons: { route: string; label: string; icon: JSX.Element }[] = [
 
 export default function Layout({ children, title }: any) {
   // const theme = useTheme();
-  const [isOpen, setIsOpen] = useLocalStorage('isOpen', false);
+  const [isOpen, setIsOpen] = useState(false);
 
   const toggleDrawer = () => {
     setIsOpen(!isOpen);
@@ -136,13 +135,11 @@ export default function Layout({ children, title }: any) {
 
       {process.env.NEXT_PUBLIC_FEATURE_SIDEBAR == 'true' ? (
         <Sidebar
-          links={menu_side_links}
           toggler={toggleDrawer}
           isOpen={isOpen}
+          links={menu_side_links}
         />
-      ) : (
-        <HeaderLogo />
-      )}
+      ) : null}
       <Container sx={{ minHeight: '100vh', m: '0 auto' }} maxWidth="xl">
         <Header open={isOpen} toggleDrawer={toggleDrawer} links={top_links} />
         <Container

@@ -12,30 +12,11 @@ import ConnectButton from 'components/web3/connect/ConnectButton';
 import Link from 'components/utils/Link';
 import SettingsMenu from './SettingsMenu';
 import HeaderLogo from './HeaderLogo';
-
-const drawerWidth = 240;
+import { sidebarWidth } from 'constants/theme';
 
 interface AppBarProps extends MuiAppBarProps {
   open?: boolean;
 }
-
-const AppBar = styled(MuiAppBar, {
-  shouldForwardProp: (prop) => prop !== 'open',
-})<AppBarProps>(({ theme, open }) => ({
-  zIndex: theme.zIndex.drawer + 1,
-  transition: theme.transitions.create(['width', 'margin'], {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  ...(open && {
-    marginLeft: drawerWidth,
-    width: `calc(100% - ${drawerWidth}px)`,
-    transition: theme.transitions.create(['width', 'margin'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  }),
-}));
 
 interface IHeaderProps {
   open: boolean;
@@ -45,16 +26,34 @@ interface IHeaderProps {
 }
 
 /**
- * Component with a header.
+ * Site Header Component
  */
 export default function Header({
   open,
-  toggleDrawer,
   links = [],
   sx,
+  toggleDrawer,
 }: IHeaderProps): JSX.Element {
   const { account } = useContext(Web3Context);
   const { accountSoul } = useContext(DataContext);
+
+  const AppBar = styled(MuiAppBar, {
+    shouldForwardProp: (prop) => prop !== 'open',
+  })<AppBarProps>(({ theme, open }) => ({
+    zIndex: theme.zIndex.drawer + 1,
+    transition: theme.transitions.create(['width', 'margin'], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+    ...(open && {
+      marginLeft: sidebarWidth,
+      width: `calc(100% - ${sidebarWidth}px)`,
+      transition: theme.transitions.create(['width', 'margin'], {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.enteringScreen,
+      }),
+    }),
+  }));
 
   return (
     <AppBar

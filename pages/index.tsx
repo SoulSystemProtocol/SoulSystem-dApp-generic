@@ -46,13 +46,13 @@ export default function Landing() {
           </Typography>
         </Box>
 
-        {!account && (
+        {/* {!account && (
           <Box mt={4} textAlign="center">
             <Typography fontSize="1.2em" letterSpacing="0.02em">
               Connect wallet to explore mDAOs <ConnectButton sx={{ ml: 4 }} />
             </Typography>
           </Box>
-        )}
+        )} */}
         {account && (
           <Box
             sx={{

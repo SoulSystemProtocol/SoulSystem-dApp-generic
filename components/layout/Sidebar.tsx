@@ -14,11 +14,10 @@ import ListItemText from '@mui/material/ListItemText';
 import { CSSObject, styled, Theme, useTheme } from '@mui/material/styles';
 import Link from 'components/utils/Link';
 import * as React from 'react';
-
-const drawerWidth = 240;
+import { sidebarWidth } from 'constants/theme';
 
 const openedMixin = (theme: Theme): CSSObject => ({
-  width: drawerWidth,
+  width: sidebarWidth,
   transition: theme.transitions.create('width', {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.enteringScreen,
@@ -45,12 +44,13 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   padding: theme.spacing(0, 1),
   // necessary for content to be below app bar
   ...theme.mixins.toolbar,
+  borderRadius: 0,
 }));
 
 const Drawer = styled(MuiDrawer, {
   shouldForwardProp: (prop) => prop !== 'open',
 })(({ theme, open }) => ({
-  width: drawerWidth,
+  width: sidebarWidth,
   flexShrink: 0,
   whiteSpace: 'nowrap',
   boxSizing: 'border-box',
@@ -69,14 +69,18 @@ interface MenuItem {
   label: string;
   route: string;
   icon: JSX.Element;
-  hide: Boolean | undefined;
+  hide?: boolean;
 }
 
 export default function Sidebar({
   links = [],
   isOpen,
   toggler,
-}: any): JSX.Element {
+}: {
+  links: MenuItem[];
+  isOpen: boolean;
+  toggler: () => void;
+}): JSX.Element {
   const theme = useTheme();
   const router = useRouter();
   const renderMenu = links.map(
