@@ -1,7 +1,6 @@
 import { Contract } from 'ethers';
 import { useContext } from 'react';
 import { Web3Context } from 'contexts/Web3Context';
-//ABIs
 import ABI_Game from 'contracts/abi/Game.json';
 import ABI_Task from 'contracts/abi/Task.json';
 import ABI_Hub from 'contracts/abi/Hub.json';
@@ -18,11 +17,11 @@ import NoWalletError from 'errors/NoWalletError';
  * Hook for workin with contracts.
  */
 export default function useContract() {
-  const { provider, isNetworkChainIdCorrect } = useContext(Web3Context);
+  const { account, provider, isNetworkChainIdCorrect } = useContext(Web3Context);
 
   /// Common Validations
   function validateChain() {
-    if (isNetworkChainIdCorrect === null) throw new NoWalletError();
+    if (!account) throw new NoWalletError();
     if (!isNetworkChainIdCorrect) throw new WrongNetworkError();
   }
 
@@ -35,13 +34,12 @@ export default function useContract() {
 
   /// Action Repo Contract (history)
   function getContractActions() {
-    console.warn('isNetworkChainIdCorrect', isNetworkChainIdCorrect);
     validateChain();
     const address = process.env.NEXT_PUBLIC_ACTION_REPO_CONTRACT_ADDRESS;
     return new Contract(String(address), ABI_Action, provider?.getSigner());
   }
 
-  /* TBD
+  /* [TBD]
   /// Data Repo Contract
   function getContractData() {
     validateChain();

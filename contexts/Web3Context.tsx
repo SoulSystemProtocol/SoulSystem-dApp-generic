@@ -54,6 +54,10 @@ export function Web3Provider({ children }: any) {
       instance.addListener('accountsChanged', (accounts: any) => {
         if (accounts && accounts.length > 0) {
           setAccount(accounts[0]);
+        } else {
+          console.log('Wallet Disconnected');
+          setAccount(null);
+          // setProvider(null); //Or maybe this...
         }
       });
 
