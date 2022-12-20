@@ -22,14 +22,14 @@ export default function useSoulContract() {
     if (!isNetworkChainIdCorrect) {
       throw new WrongNetworkError();
     }
-    return await getContract(provider?.getSigner()).mint(tokenUri);
+    return getContract(provider?.getSigner()).mint(tokenUri);
   }
 
   async function update(tokenId: string, tokenUri: string) {
     if (!isNetworkChainIdCorrect) {
       throw new WrongNetworkError();
     }
-    return await getContract(provider?.getSigner()).update(tokenId, tokenUri);
+    return getContract(provider?.getSigner()).update(tokenId, tokenUri);
   }
 
   return {

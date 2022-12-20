@@ -1,7 +1,8 @@
-import { createContext } from 'react';
+import { createContext, useContext } from 'react';
 import useSoulById from 'hooks/useSoulById';
 import useSoulByHash from 'hooks/useSoulByOwner';
 import { isNumber } from 'hooks/utils';
+import { DataContext } from './data';
 
 interface ISelectedSoulContext {
   soul: any;
@@ -20,6 +21,17 @@ export const SelectedSoulContext = createContext<Partial<ISelectedSoulContext>>(
  * Wrapper for Soul Context Provider
  */
 export function SelectedSoulProvider({ slug, children }: any) {
+  const { accountSoul: soul, loading, error } = useContext(DataContext);
+
+  if (slug == soul?.id || slug == soul?.owner) {
+    //Current Soul
+    return (
+      <SelectedSoulContext.Provider value={{ soul, loading, error }}>
+        {children}
+      </SelectedSoulContext.Provider>
+    );
+  }
+
   return isNumber(slug as string) ? (
     <SelectedSoulById id={slug}>{children}</SelectedSoulById>
   ) : (

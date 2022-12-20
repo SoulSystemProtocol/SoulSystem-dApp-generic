@@ -17,11 +17,14 @@ import NoWalletError from 'errors/NoWalletError';
  * Hook for workin with contracts.
  */
 export default function useContract() {
-  const { account, provider, isNetworkChainIdCorrect } = useContext(Web3Context);
+  const { account, provider, isNetworkChainIdCorrect, isReady } = useContext(Web3Context);
 
   /// Common Validations
   function validateChain() {
-    if (!account) throw new NoWalletError();
+    if (!isReady){
+      console.error("[DEBUG] Not ready -- is Wallet Connected?", account);
+      throw new NoWalletError();
+    }
     if (!isNetworkChainIdCorrect) throw new WrongNetworkError();
   }
 

@@ -31,10 +31,8 @@ export default function SoulAttributesInput(props: WidgetProps): JSX.Element {
     useState<Array<MetadataAttribute>>(propsAttributes); //MetaAttrHelper.sort(propsAttributes), // What for?
 
   useEffect(() => {
-    console.warn('Reeceived attributes: ', { propsAttributes, attributes });
     // Update data on parent (form)
     propsOnChange(attributes);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [attributes]);
 
   /**

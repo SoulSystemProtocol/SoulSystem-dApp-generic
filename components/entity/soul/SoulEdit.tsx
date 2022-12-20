@@ -5,15 +5,15 @@ import { MuiForm5 as Form } from '@rjsf/material-ui';
 import CoverInput from 'components/form/widget/CoverInput';
 import ImageInput from 'components/form/widget/ImageInput';
 import SoulAttributesInput from 'components/form/widget/SoulAttributesInput';
-import { PROFILE_TRAIT_TYPE } from 'constants/metadata';
-import { MetaAttrHelper } from 'helpers/MetaAttrHelper';
-import useSoulContract from 'hooks/contracts/useSoulContract';
+import { DataContext } from 'contexts/data';
+import { prepMetadata } from 'helpers/metadata';
+import useContract from 'hooks/useContract';
 import useError from 'hooks/useError';
 import useIpfs from 'hooks/useIpfs';
 import useToast from 'hooks/useToast';
 import { JSONSchema7 } from 'json-schema';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { nameSoul } from 'utils/converters';
 
 /**
@@ -21,18 +21,22 @@ import { nameSoul } from 'utils/converters';
  */
 export default function SoulEdit({ soul }: any) {
   const STATUS = {
-    isAvailable: 'isAvailable',
-    isUploadingToIpfs: 'isUploadingToIpfs',
-    isUsingContract: 'isUsingContract',
+    available: 1,
+    ipfsUpload: 2,
+    waitForChain: 3,
   };
 
   const router = useRouter();
   const { showToastSuccess } = useToast();
   const { uploadJsonToIPFS } = useIpfs();
   const { handleError } = useError();
-  const { mint: createSoul, update: editSoul } = useSoulContract();
 
-  const [status, setStatus] = useState(STATUS.isAvailable);
+  const { metadataUpdate } = useContext(DataContext);
+
+  // const { mint: createSoul, update: editSoul } = useSoulContract();
+  const { getContractSoul } = useContract();
+
+  const [status, setStatus] = useState<number>(STATUS.available);
   const [formData, setFormData] = useState(soul?.metadata || {});
 
   const schema: JSONSchema7 = {
@@ -72,47 +76,36 @@ export default function SoulEdit({ soul }: any) {
     try {
       // Update form data
       setFormData(formData);
-      // Upload json with form data to IPFS
-      setStatus(STATUS.isUploadingToIpfs);
-
-      let metadata = formData;
-      let uriFirstName = MetaAttrHelper.extractValue(
-        metadata?.attributes,
-        PROFILE_TRAIT_TYPE.firstName,
-      );
-      let uriLastName = MetaAttrHelper.extractValue(
-        metadata?.attributes,
-        PROFILE_TRAIT_TYPE.lastName,
-      );
-      metadata.name = nameSoul({ uriFirstName, uriLastName });
-      metadata.description = MetaAttrHelper.extractValue(
-        metadata?.attributes,
-        'Description',
-      );
+      //Status: Uploading to IPFS
+      setStatus(STATUS.ipfsUpload);
+      //Prep Metadata Object
+      let metadata = prepMetadata(formData);
+      //Save to IPFS
       const { url: metadataUrl } = await uploadJsonToIPFS(metadata);
-      // eslint-disable-next-line prettier/prettier
-      console.log("Saving Soul's Metadata", {
-        formData,
-        metadata,
-        metadataUrl,
-      });
-      // Use contract
-      setStatus(STATUS.isUsingContract);
+
+      //Status: Using contract / Wait for Chain
+      setStatus(STATUS.waitForChain);
+
       if (soul) {
-        await editSoul(soul.id, metadataUrl);
+        let tx = await getContractSoul().update(soul.id, metadataUrl);
         showToastSuccess(
           'Update has been sent to chain and will be processed shortly',
         );
+        await tx.wait();
+        metadataUpdate?.(metadata);
         router.push('/soul/' + soul.id);
       } else {
-        await createSoul(metadataUrl);
+        // await createSoul(metadataUrl);
+        let tx = await getContractSoul().mint(metadataUrl);
         showToastSuccess('Your new soul is on its way');
+        await tx.wait();
         router.push('/');
       }
     } catch (error: any) {
       handleError(error, true);
-      setStatus(STATUS.isAvailable);
     }
+    //Status: Ready
+    setStatus(STATUS.available);
   }
 
   return (
@@ -127,14 +120,14 @@ export default function SoulEdit({ soul }: any) {
         formData={formData}
         onSubmit={submit}
         widgets={widgets}
-        disabled={status !== STATUS.isAvailable ? true : false}
+        disabled={status !== STATUS.available ? true : false}
       >
-        {status === STATUS.isAvailable && (
+        {status === STATUS.available && (
           <Button variant="contained" type="submit">
             {soul ? 'Save' : 'Create'}
           </Button>
         )}
-        {status === STATUS.isUploadingToIpfs && (
+        {status === STATUS.ipfsUpload && (
           <LoadingButton
             loading
             loadingPosition="start"
@@ -144,14 +137,14 @@ export default function SoulEdit({ soul }: any) {
             Uploading to IPFS
           </LoadingButton>
         )}
-        {status === STATUS.isUsingContract && (
+        {status === STATUS.waitForChain && (
           <LoadingButton
             loading
             loadingPosition="start"
             startIcon={<Save />}
             variant="outlined"
           >
-            {soul ? 'Updating' : 'Creating'}
+            {soul ? 'Updating Chain' : 'Minting New Soul'}
           </LoadingButton>
         )}
       </Form>
