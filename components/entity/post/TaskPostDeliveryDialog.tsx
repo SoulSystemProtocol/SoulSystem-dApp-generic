@@ -37,15 +37,15 @@ export default function TaskPostDeliveryDialog({
 
   const schema: JSONSchema7 = {
     type: 'object',
-    required: ['account', 'text'],
+    required: ['account', 'link'],
     properties: {
-      // daoId: {
-      //   type: 'string',
-      //   title: 'Address of your DAO',
-      // },
       account: {
         type: 'string',
         title: 'Deliver as',
+      },
+      link: {
+        type: 'string',
+        title: 'Proof Of Delivery (Link)',
       },
       text: {
         type: 'string',
