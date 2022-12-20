@@ -12,6 +12,15 @@ import ABI_Soul from 'contracts/abi/Soul.json';
 import ABI_Action from 'contracts/abi/ActionRepo.json';
 import WrongNetworkError from 'errors/WrongNetworkError';
 import NoWalletError from 'errors/NoWalletError';
+import { HubUpgradable } from '../typechain-types/contracts/HubUpgradable';
+import { ActionRepoTrackerUp } from '../typechain-types/ActionRepoTrackerUp';
+import { SoulUpgradable } from '../typechain-types/contracts/SoulUpgradable';
+import { GameUpgradable } from '../typechain-types/contracts/GameUpgradable';
+import { CourtExt } from '../typechain-types/contracts/extensions/CourtExt';
+import { MicroDAOExt } from '../typechain-types/contracts/extensions/MicroDAOExt';
+import { ProjectExt } from '../typechain-types/contracts/extensions/ProjectExt';
+import { RuleExt } from '../typechain-types/contracts/extensions/RuleExt';
+import { TaskUpgradable } from '../typechain-types/contracts/TaskUpgradable';
 
 /**
  * Hook for workin with contracts.
@@ -29,17 +38,17 @@ export default function useContract() {
   }
 
   /// Hub Contract
-  function getContractHub() {
+  function getContractHub(): HubUpgradable {
     validateChain();
     const address = process.env.NEXT_PUBLIC_HUB_CONTRACT_ADDRESS;
-    return new Contract(String(address), ABI_Hub, provider?.getSigner());
+    return new Contract(String(address), ABI_Hub, provider?.getSigner()) as HubUpgradable;
   }
 
   /// Action Repo Contract (history)
-  function getContractActions() {
+  function getContractActions(): ActionRepoTrackerUp {
     validateChain();
     const address = process.env.NEXT_PUBLIC_ACTION_REPO_CONTRACT_ADDRESS;
-    return new Contract(String(address), ABI_Action, provider?.getSigner());
+    return new Contract(String(address), ABI_Action, provider?.getSigner()) as ActionRepoTrackerUp;
   }
 
   /* [TBD]
@@ -52,46 +61,46 @@ export default function useContract() {
   */
 
   /// SBT Contract
-  function getContractSoul() {
+  function getContractSoul(): SoulUpgradable {
     validateChain();
     const address = process.env.NEXT_PUBLIC_SOUL_CONTRACT_ADDRESS;
-    return new Contract(String(address), ABI_Soul, provider?.getSigner());
+    return new Contract(String(address), ABI_Soul, provider?.getSigner()) as SoulUpgradable;
   }
 
   /// Game Contract
-  function getContractGame(address: string) {
+  function getContractGame(address: string): GameUpgradable {
     validateChain();
-    return new Contract(address, ABI_Game, provider?.getSigner());
+    return new Contract(address, ABI_Game, provider?.getSigner()) as GameUpgradable;
   }
 
   /// Game Extension: Court
-  function getContractGameCourt(address: string) {
+  function getContractGameCourt(address: string): CourtExt {
     validateChain();
-    return new Contract(address, ABI_extCourt, provider?.getSigner());
+    return new Contract(address, ABI_extCourt, provider?.getSigner()) as CourtExt;
   }
 
   /// Game Extension: mDAO
-  function getContractGameMDAO(address: string) {
+  function getContractGameMDAO(address: string): MicroDAOExt {
     validateChain();
-    return new Contract(address, ABI_extMDAO, provider?.getSigner());
+    return new Contract(address, ABI_extMDAO, provider?.getSigner()) as MicroDAOExt;
   }
 
   /// Game Extension: Project
-  function getContractGameProject(address: string) {
+  function getContractGameProject(address: string): ProjectExt {
     validateChain();
-    return new Contract(address, ABI_extProject, provider?.getSigner());
+    return new Contract(address, ABI_extProject, provider?.getSigner()) as ProjectExt;
   }
 
   /// Game Extension: Rules
-  function getContractGameRules(address: string) {
+  function getContractGameRules(address: string): RuleExt {
     validateChain();
-    return new Contract(address, ABI_extRules, provider?.getSigner());
+    return new Contract(address, ABI_extRules, provider?.getSigner()) as RuleExt;
   }
 
   /// Task Contract
-  function getContractTask(address: string) {
+  function getContractTask(address: string): TaskUpgradable {
     validateChain();
-    return new Contract(address, ABI_Task, provider?.getSigner());
+    return new Contract(address, ABI_Task, provider?.getSigner()) as TaskUpgradable;
   }
 
   return {
