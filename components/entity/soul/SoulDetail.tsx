@@ -29,6 +29,7 @@ export default function SoulDetail({ soul, sx }: any) {
   if (!soul) return <Loading />;
   const coverImageSrc =
     resolveLink(soul?.metadata?.cover) || '/images/default_cover.jpg';
+  console.log('SoulDetail: coverImageSrc', soul);
   return (
     <>
       <div
@@ -62,7 +63,7 @@ export default function SoulDetail({ soul, sx }: any) {
         >
           <EntityImage
             // item={soul}
-            imgSrc={soul.image || '/images/default_avatar.jpg'}
+            imgSrc={soul.image || soul.uriImage || '/images/default_avatar.jpg'}
             icon={<PersonOutlineOutlined sx={{ fontSize: '50px' }} />}
             sx={{
               borderRadius: '50%',
