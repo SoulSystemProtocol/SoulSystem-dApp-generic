@@ -35,7 +35,7 @@ export default function EntityImage({
       }}
       src={resolveLink(url as string)}
     >
-      {icon || <AutoAwesomeOutlined />}
+      {icon || <AutoAwesomeOutlined sx={{ fontSize: '50px' }} />}
     </Avatar>
   );
 }

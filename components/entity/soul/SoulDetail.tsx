@@ -27,7 +27,8 @@ export default function SoulDetail({ soul, sx }: any) {
   }, [soul, account]);
 
   if (!soul) return <Loading />;
-  const coverImageSrc = resolveLink(soul?.metadata?.cover);
+  const coverImageSrc =
+    resolveLink(soul?.metadata?.cover) || '/images/default_cover.jpg';
   return (
     <>
       <div
@@ -60,8 +61,9 @@ export default function SoulDetail({ soul, sx }: any) {
           }}
         >
           <EntityImage
-            item={soul}
-            icon={<PersonOutlineOutlined />}
+            // item={soul}
+            imgSrc={soul.image || '/images/default_avatar.jpg'}
+            icon={<PersonOutlineOutlined sx={{ fontSize: '50px' }} />}
             sx={{
               borderRadius: '50%',
               border: '5px solid ' + theme.palette.background.default,
@@ -69,6 +71,7 @@ export default function SoulDetail({ soul, sx }: any) {
               ml: 'auto',
               mr: 'auto',
             }}
+            // icon={<img src="/images/default_avatar.jpg" alt="" />}
           />
           <Stack
             key="buttons"
@@ -78,7 +81,10 @@ export default function SoulDetail({ soul, sx }: any) {
           >
             <FundDialogButton
               address={soul.owner}
-              disabled={isOwned}
+              disabled={
+                isOwned ||
+                soul.owner == process.env.NEXT_PUBLIC_SOUL_CONTRACT_ADDRESS
+              }
               text={'Fund ' + nameEntity(soul.role)}
             />
             {isOwned && (
