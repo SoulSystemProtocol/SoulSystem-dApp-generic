@@ -31,7 +31,7 @@ export default function GameAdminActions({ sx }: { sx: SxProps }): JSX.Element {
         size="small"
         variant="outlined"
         onClick={() =>
-          showDialog?.(<GameManageDialog dao={game} onClose={closeDialog} />)
+          showDialog?.(<GameManageDialog game={game} onClose={closeDialog} />)
         }
       >
         Edit
@@ -42,7 +42,7 @@ export default function GameAdminActions({ sx }: { sx: SxProps }): JSX.Element {
         variant="outlined"
         onClick={() =>
           showDialog?.(
-            <GameRoleManageDialog dao={game} onClose={closeDialog} />,
+            <GameRoleManageDialog game={game} onClose={closeDialog} />,
           )
         }
       >

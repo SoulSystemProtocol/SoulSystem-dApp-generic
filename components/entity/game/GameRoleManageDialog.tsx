@@ -28,16 +28,16 @@ declare module 'json-schema' {
 }
 
 interface DialogParams {
-  dao: any;
+  game: any;
   onClose: any;
   isClose?: boolean;
 }
 
 /**
- * A dialog for assign or remove DAO role for a specified soul.
+ * Assign or remove roles
  */
 export default function GameRoleManageDialog({
-  dao,
+  game,
   isClose,
   onClose,
 }: DialogParams): JSX.Element {
@@ -96,12 +96,12 @@ export default function GameRoleManageDialog({
     try {
       setFormData(formData);
       if (formData.action === 'assignRole') {
-        await getContractGame(dao.id).roleAssignToToken(
+        await getContractGame(game.id).roleAssignToToken(
           formData.soulId,
           formData.roleName,
         );
       } else if (formData.action === 'removeRole') {
-        await getContractGame(dao.id).roleRemoveFromToken(
+        await getContractGame(game.id).roleRemoveFromToken(
           formData.soulId,
           formData.roleName,
         );

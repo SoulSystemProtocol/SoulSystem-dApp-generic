@@ -16,6 +16,7 @@ import useToast from 'hooks/useToast';
 import useIpfs from 'hooks/useIpfs';
 import useContract from 'hooks/useContract';
 import { GAME_TYPE } from 'constants/contracts';
+
 /**
  * A dialog for creating or editing DAO.
  */
@@ -83,17 +84,15 @@ export default function GameManageDialog({ game, isClose, onClose }: any) {
     try {
       setFormData(formData);
       setIsLoading(true);
-      const { url: metadataUrl } = await uploadJsonToIPFS(
-        formData, //All Data
-      );
+      const { url: metadataUri } = await uploadJsonToIPFS(formData);
       if (game) {
-        // await editDao(game.id, metadataUrl);
+        // await editDao(game.id, metadataUri);
         console.error('No Mapped Function. Should Use Soul Edit');
       } else {
         await getContractHub().makeGame(
           GAME_TYPE.mdao,
           formData.name,
-          metadataUrl,
+          metadataUri,
         );
       }
       showToastSuccess('Success! Data will be updated soon');

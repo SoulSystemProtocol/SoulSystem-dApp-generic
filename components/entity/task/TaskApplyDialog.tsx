@@ -12,12 +12,11 @@ import MySoulsBox from 'components/form/widget/MySoulsBox';
 import { DataContext } from 'contexts/data';
 import useContract from 'hooks/useContract';
 import useError from 'hooks/useError';
-import useSubgraph from 'hooks/useSubgraph';
 import useToast from 'hooks/useToast';
+import useIpfs from 'hooks/useIpfs';
+import { nameEntity } from 'hooks/utils';
 import { JSONSchema7 } from 'json-schema';
 import { useContext, useState } from 'react';
-import useIpfs from 'hooks/useIpfs';
-import { nameEntity } from '../../../hooks/utils';
 
 /**
  * A dialog for apply for a task.
@@ -25,7 +24,6 @@ import { nameEntity } from '../../../hooks/utils';
 export default function TaskApplyDialog({ task, isClose, onClose }: any) {
   const { showToastSuccess } = useToast();
   const { handleError } = useError();
-  const { getSoulById } = useSubgraph();
   const { getContractTask, getContractGameMDAO } = useContract();
   const [isLoading, setIsLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(!isClose);

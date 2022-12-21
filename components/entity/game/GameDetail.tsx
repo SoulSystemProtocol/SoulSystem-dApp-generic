@@ -51,7 +51,6 @@ export default function GameDetail({ sx }: any): JSX.Element {
           Balance: <AccountBalance address={game?.id} />{' '}
           {process.env.NEXT_PUBLIC_NETWORK_CURRENCY_SYMBOL}
         </Typography>
-
         {!!process.env.NEXT_PUBLIC_FEATURE_DEV && (
           <Typography variant="caption" color="text.secondary">
             Role: {game?.role}
