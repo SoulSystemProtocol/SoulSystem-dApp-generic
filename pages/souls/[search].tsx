@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import { Button } from '@mui/material';
 import { DataContext } from 'contexts/data';
 import { Web3Context } from 'contexts/Web3Context';
@@ -7,7 +7,7 @@ import Layout from '../../components/layout/Layout';
 import { getPageTitle } from '../../utils';
 import { soulCardContent } from 'utils/cardContents';
 import PaginatedList from 'components/PaginatedList';
-import SoulSearchBox from 'components/form/widget/SoulSearchBox';
+import SoulSearchBox from 'components/entity/soul/SoulSearchBox';
 import SoulsOpenInj from 'queries/SoulsOpenInj';
 import { useRouter } from 'next/router';
 
@@ -40,7 +40,7 @@ export default function SoulsSearch({ type = '' }: any) {
   search && queryFilters.push(`searchField_contains_nocase: "${search}"`);
   // let searchQueryParams = ` type: "${type}" `;
   let searchQueryParams = queryFilters.join(', ');
-  console.log('searchQueryParams', searchQueryParams);
+  console.log('Soul searchQueryParams', searchQueryParams);
 
   return (
     <Layout title={getPageTitle(CONF.PAGE_TITLE)}>
