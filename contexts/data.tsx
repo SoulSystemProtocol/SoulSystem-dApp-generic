@@ -9,6 +9,7 @@ interface IDataContext {
   accountSoul: any;
   loading: boolean;
   error: any;
+  isReady: boolean;
   metadataUpdate: (metadata: any) => void;
 }
 
@@ -42,6 +43,7 @@ export function DataProvider({ children }: any) {
   return (
     <DataContext.Provider
       value={{
+        isReady,
         accountSoul,
         loading,
         error,

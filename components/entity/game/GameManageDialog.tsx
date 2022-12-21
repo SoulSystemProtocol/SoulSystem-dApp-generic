@@ -1,13 +1,7 @@
-import {
-  Button,
-  Dialog,
-  DialogContent,
-  DialogTitle,
-  Stack,
-} from '@mui/material';
+import { Button, Stack } from '@mui/material';
 import ImageInput from 'components/form/widget/ImageInput';
 import useError from 'hooks/useError';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { MuiForm5 as Form } from '@rjsf/material-ui';
 import { LoadingButton } from '@mui/lab';
 import { Save } from '@mui/icons-material';
@@ -16,6 +10,8 @@ import useToast from 'hooks/useToast';
 import useIpfs from 'hooks/useIpfs';
 import useContract from 'hooks/useContract';
 import { GAME_TYPE } from 'constants/contracts';
+import DialogWrapper from 'components/layout/DialogWrapper';
+import { DialogContext } from 'contexts/dialog';
 
 /**
  * A dialog for creating or editing DAO.
@@ -25,8 +21,8 @@ export default function GameManageDialog({ game, isClose, onClose }: any) {
   const { uploadJsonToIPFS } = useIpfs();
   const { handleError } = useError();
   const [isLoading, setIsLoading] = useState(false);
-  const [isOpen, setIsOpen] = useState(!isClose);
   const { getContractHub } = useContract();
+  const { closeDialog } = useContext(DialogContext);
   const [formData, setFormData] = useState({
     ...(game && {
       image: game.metadata?.image,
@@ -73,13 +69,6 @@ export default function GameManageDialog({ game, isClose, onClose }: any) {
     ImageInput: ImageInput,
   };
 
-  async function close() {
-    setFormData({});
-    setIsLoading(false);
-    setIsOpen(false);
-    onClose();
-  }
-
   async function submit({ formData }: any) {
     try {
       setFormData(formData);
@@ -104,47 +93,42 @@ export default function GameManageDialog({ game, isClose, onClose }: any) {
   }
 
   return (
-    <Dialog
-      open={isOpen}
-      onClose={isLoading ? () => {} : close}
+    <DialogWrapper
+      onClose={() => setFormData({})}
       maxWidth="xs"
-      fullWidth
+      title={game ? 'Edit DAO' : 'Create DAO'}
+      isClose={false}
     >
-      <DialogTitle sx={{ pb: 0 }}>
-        {game ? 'Edit DAO' : 'Create DAO'}
-      </DialogTitle>
-      <DialogContent>
-        <Form
-          schema={schema}
-          formData={formData}
-          uiSchema={uiSchema}
-          widgets={widgets}
-          onSubmit={submit}
-          disabled={isLoading}
-        >
-          <Stack direction="row" spacing={1} sx={{ mt: 2 }}>
-            {isLoading ? (
-              <LoadingButton
-                loading
-                loadingPosition="start"
-                startIcon={<Save />}
-                variant="outlined"
-              >
-                Processing
-              </LoadingButton>
-            ) : (
-              <>
-                <Button variant="contained" type="submit">
-                  {game ? 'Save' : 'Create'}
-                </Button>
-                <Button variant="outlined" onClick={onClose}>
-                  Cancel
-                </Button>
-              </>
-            )}
-          </Stack>
-        </Form>
-      </DialogContent>
-    </Dialog>
+      <Form
+        schema={schema}
+        formData={formData}
+        uiSchema={uiSchema}
+        widgets={widgets}
+        onSubmit={submit}
+        disabled={isLoading}
+      >
+        <Stack direction="row" spacing={1} sx={{ mt: 2 }}>
+          {isLoading ? (
+            <LoadingButton
+              loading
+              loadingPosition="start"
+              startIcon={<Save />}
+              variant="outlined"
+            >
+              Processing
+            </LoadingButton>
+          ) : (
+            <>
+              <Button variant="contained" type="submit">
+                {game ? 'Save' : 'Create'}
+              </Button>
+              <Button variant="outlined" onClick={closeDialog}>
+                Cancel
+              </Button>
+            </>
+          )}
+        </Stack>
+      </Form>
+    </DialogWrapper>
   );
 }

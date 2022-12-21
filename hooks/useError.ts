@@ -6,7 +6,7 @@ import useToast from './useToast';
 export default function useError() {
   const { showToastError } = useToast();
 
-  let handleError = function (
+  const handleError = function (
     error: any,
     isErrorToastRequired: boolean = true,
   ) {
