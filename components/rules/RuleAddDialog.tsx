@@ -167,13 +167,13 @@ export default function RuleAddDialog({ item, isClose, onClose }: any) {
       setFormData(formData);
       setIsLoading(true);
       const { url: ruleMetadataUri } = await uploadJsonToIPFS(formData); //This should be good enough
-
       await getContractGame(item.id).ruleAdd(
         {
           about: formData.about,
           affected: formData.affected,
           negation: formData.negation,
           uri: ruleMetadataUri,
+          disabled: false,
         },
         {
           ruling: formData.ruling,
