@@ -7,12 +7,12 @@ import {
   Typography,
 } from '@mui/material';
 import { Box } from '@mui/system';
-import { useEffect, useState } from 'react';
+import { ReactElement, useEffect, useState } from 'react';
 
 /**
  * A widget to select icon (name).
  */
-export default function IconSelect(props: any): JSX.Element {
+export default function IconSelect(props: any): ReactElement {
   const propsLabel = props.label;
   const propsRequired = props.required;
   const propsValue = props.value;

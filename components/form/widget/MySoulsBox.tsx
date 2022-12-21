@@ -1,7 +1,7 @@
 import { Autocomplete, Box, TextField } from '@mui/material';
 import SoulCompactCard from 'components/entity/soul/SoulCompactCard';
 import useError from 'hooks/useError';
-import { ReactNode, useContext, useEffect, useState } from 'react';
+import { ReactElement, useContext, useEffect, useState } from 'react';
 import { nameSoul } from 'utils/converters';
 import { useQuery } from '@apollo/client';
 import { DataContext } from 'contexts/data';
@@ -22,7 +22,7 @@ export default function SoulSearchBox({
   disabled = false,
   onChange = () => {},
   onKeyDown = () => {},
-}: WidgetProps): ReactNode {
+}: WidgetProps): ReactElement {
   const { accountSoul } = useContext(DataContext);
   const [isDisabled, setIsDisabled] = useState(disabled);
   const [selectedSoul, setSelectedSoul] = useState(accountSoul);

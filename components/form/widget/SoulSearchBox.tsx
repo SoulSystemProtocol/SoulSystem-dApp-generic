@@ -1,7 +1,7 @@
 import { Autocomplete, Box, TextField } from '@mui/material';
 import SoulCompactCard from 'components/entity/soul/SoulCompactCard';
 import useError from 'hooks/useError';
-import { useEffect, useState } from 'react';
+import { ReactElement, useEffect, useState } from 'react';
 import { nameSoul } from 'utils/converters';
 import { useQuery } from '@apollo/client';
 import SoulsOpenInj from 'queries/SoulsOpenInj';
@@ -27,7 +27,7 @@ export default function SoulSearchBox({
   onKeyDown = () => {},
   type = '', //TODO: Should Maybe Also Allow Games...
   role = '',
-}: TProps): JSX.Element {
+}: TProps): ReactElement {
   // console.log('SoulSearchBox Started W/', {
   //   options,
   //   sx,

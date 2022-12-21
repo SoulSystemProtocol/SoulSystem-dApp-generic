@@ -11,13 +11,13 @@ import PROFILE_TRAITS, { Trait } from 'components/entity/soul/ProfileTraits';
 import { PROFILE_TRAIT_TYPE } from 'constants/metadata';
 import { MetaAttrHelper } from 'helpers/MetaAttrHelper';
 import { MetadataAttribute } from 'helpers/metadata';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, ReactElement } from 'react';
 
 /**
  *
  * Form Widget: Select a Soul or an mDAO
  */
-export default function SoulAndDaoSelect(props: WidgetProps): JSX.Element {
+export default function SoulAndDaoSelect(props: WidgetProps): ReactElement {
   const propsAttributes = props.value;
   const propsOnChange = props.onChange;
   const [attributes, setAttributes] =

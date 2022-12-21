@@ -10,13 +10,13 @@ import { Box } from '@mui/system';
 import { WidgetProps } from '@rjsf/core';
 import useError from 'hooks/useError';
 import useIpfs from 'hooks/useIpfs';
-import { ReactNode, useState } from 'react';
+import { ReactElement, ReactNode, useState } from 'react';
 import { resolveLink } from 'helpers/IPFS';
 
 /**
  * A widget to input an image, upload it to IPFS, and get URI.
  */
-export default function CoverInput(props: WidgetProps) {
+export default function CoverInput(props: WidgetProps): ReactElement {
   const propsDisabled = props.disabled;
   const propsSx = props.options?.sx;
   const propsHeader = props.options?.header;

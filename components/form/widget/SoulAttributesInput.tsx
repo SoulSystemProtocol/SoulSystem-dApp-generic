@@ -11,7 +11,7 @@ import { Box } from '@mui/system';
 import { WidgetProps } from '@rjsf/core';
 import { PROFILE_TRAIT_TYPE } from 'constants/metadata';
 import { PROFILE_TRAITS, Trait } from 'components/entity/soul/ProfileTraits';
-import { useContext, useEffect, useState } from 'react';
+import { ReactElement, useContext, useEffect, useState } from 'react';
 import { MetadataAttribute } from 'helpers/metadata';
 import _ from 'lodash';
 import { MetaAttrHelper } from 'helpers/MetaAttrHelper';
@@ -22,7 +22,7 @@ import AttributeDisplayPercentage from 'components/entity/soul/AttributeDisplayP
 /**
  * Form Widget: input Soul's attributes.
  */
-export default function SoulAttributesInput(props: WidgetProps): JSX.Element {
+export default function SoulAttributesInput(props: WidgetProps): ReactElement {
   const propsAttributes = props.value;
   const propsOnChange = props.onChange;
   const { showDialog, closeDialog }: Partial<TDialogContext> =

@@ -9,7 +9,7 @@ import {
 import { Box } from '@mui/system';
 import useAction from 'hooks/useAction';
 import useError from 'hooks/useError';
-import { useEffect, useState } from 'react';
+import { ReactElement, useEffect, useState } from 'react';
 import { formatActionName, addressToShortAddress } from 'utils/converters';
 
 /**
@@ -17,7 +17,7 @@ import { formatActionName, addressToShortAddress } from 'utils/converters';
  *
  * TODO: Replace with "CaseActionSelect" and use name "ActionSelect".
  */
-export default function ActionSelect(props: any): JSX.Element {
+export default function ActionSelect(props: any): ReactElement {
   const propsValue = props.value;
   const propsRequired = props.required;
   const propsOnChange = props.onChange;
