@@ -1,6 +1,5 @@
 // import LoadingBackdrop from 'components/backdrop/LoadingBackdrop';
 import useError from 'hooks/useError';
-import useSoul from 'hooks/useSouls';
 import { createContext, useContext, useEffect, useState } from 'react';
 import { Web3Context } from 'contexts/Web3Context';
 import useSoulByHash from 'hooks/useSoulByOwner';

@@ -7,7 +7,12 @@ import { Web3Context } from 'contexts/Web3Context';
 /**
  * Fetch Single Soul by Hash
  */
-export default function useSoulByOwner(hash: string): any {
+export default function useSoulByOwner(hash: string): {
+  soul: any,
+  loading: boolean,
+  error: any,
+  isOwned: boolean,
+} {
   const [soul, setSoul] = useState<any | null>(null);
   const [isOwned, setIsOwned] = useState<boolean>(false);
   const { account } = useContext(Web3Context);

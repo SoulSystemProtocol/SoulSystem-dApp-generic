@@ -47,12 +47,16 @@ export default function GameDetail({ sx }: any): JSX.Element {
       >
         <Typography variant="h1">{game?.name}</Typography>
         <AddressHash address={game?.id} sx={{ float: 'right' }} />
-        <Typography color="text.secondary" variant="body2">
+        <Typography variant="body2" color="text.secondary">
           Balance: <AccountBalance address={game?.id} />{' '}
           {process.env.NEXT_PUBLIC_NETWORK_CURRENCY_SYMBOL}
         </Typography>
 
-        <>({game?.role})</>
+        {!!process.env.NEXT_PUBLIC_FEATURE_DEV && (
+          <Typography variant="caption" color="text.secondary">
+            Role: {game?.role}
+          </Typography>
+        )}
         <Typography sx={{ mt: 1 }}>{game?.metadata?.description}</Typography>
         <SoulDescription soul={soul} sx={{ mt: 1 }} />
         <SocialLinks key="SocialLinks" soul={soul} sx={{ mt: 2 }} />

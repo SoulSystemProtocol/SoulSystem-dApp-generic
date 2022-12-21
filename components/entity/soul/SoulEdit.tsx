@@ -13,18 +13,17 @@ import useIpfs from 'hooks/useIpfs';
 import useToast from 'hooks/useToast';
 import { JSONSchema7 } from 'json-schema';
 import { useRouter } from 'next/router';
-import { useContext, useState } from 'react';
+import { ReactElement, useContext, useState } from 'react';
 
 /**
- * Component: create or edit Soul.
+ * Create or edit Soul.
  */
-export default function SoulEdit({ soul }: any) {
+export default function SoulEdit({ soul }: any): ReactElement {
   const STATUS = {
     available: 1,
     ipfsUpload: 2,
     waitForChain: 3,
   };
-
   const router = useRouter();
   const { showToastSuccess } = useToast();
   const { uploadJsonToIPFS } = useIpfs();
