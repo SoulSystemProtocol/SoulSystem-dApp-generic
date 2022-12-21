@@ -16,7 +16,7 @@ import { resolveLink } from 'helpers/IPFS';
 /**
  * A widget to input an image, upload it to IPFS, and get URI.
  */
-export default function ImageInput(props: WidgetProps) {
+export default function ImageInput(props: WidgetProps): ReactNode {
   const propsDisabled = props.disabled;
   const propsSx = props.options?.sx;
   const propsHeader = props.options?.header;
