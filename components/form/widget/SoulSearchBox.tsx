@@ -7,7 +7,22 @@ import { useQuery } from '@apollo/client';
 import SoulsOpenInj from 'queries/SoulsOpenInj';
 import { WidgetProps } from '@rjsf/core';
 
-interface TProps extends WidgetProps {
+// interface TProps extends WidgetProps {
+//   type?: string;
+//   role?: string;
+// }
+
+interface TProps {
+  options?: any;
+  label: string;
+  sx: any;
+  size?: 'small' | 'medium';
+  disabled?: boolean;
+  required?: boolean;
+  value?: string;
+  id?: string;
+  onChange?: (id: any) => void;
+  onKeyDown?: (e: any) => void;
   type?: string;
   role?: string;
 }
