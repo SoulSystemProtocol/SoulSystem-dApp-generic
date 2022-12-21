@@ -15,7 +15,7 @@ import { WidgetProps } from '@rjsf/core';
 interface TProps {
   options?: any;
   label: string;
-  sx: any;
+  // sx: any;
   size?: 'small' | 'medium';
   disabled?: boolean;
   required?: boolean;
@@ -32,7 +32,7 @@ interface TProps {
  */
 export default function SoulSearchBox({
   options,
-  sx = {},
+  // sx = {},
   value = '',
   size,
   label,
@@ -102,7 +102,7 @@ export default function SoulSearchBox({
   }, [data]);
 
   return (
-    <Box sx={{ ...sx }}>
+    <Box>
       <>
         {options?.header && options.header}
         <Autocomplete
