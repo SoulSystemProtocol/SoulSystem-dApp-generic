@@ -1,23 +1,15 @@
 import { Autocomplete, Box, TextField } from '@mui/material';
 import SoulCompactCard from 'components/entity/soul/SoulCompactCard';
 import useError from 'hooks/useError';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { nameSoul } from 'utils/converters';
 import { useQuery } from '@apollo/client';
 import SoulsOpenInj from 'queries/SoulsOpenInj';
+import { WidgetProps } from '@rjsf/core';
 
-interface TProps {
-  options?: any;
-  label: string;
-  sx: any;
-  size?: 'small' | 'medium';
-  disabled?: boolean;
-  required?: boolean;
-  value?: string;
+interface TProps extends WidgetProps {
   type?: string;
   role?: string;
-  onChange?: (id: any) => void;
-  onKeyDown?: (e: any) => void;
 }
 
 /**
@@ -29,12 +21,12 @@ export default function SoulSearchBox({
   value = '',
   size,
   label,
-  type = '',
-  role = '',
   required = false,
   disabled = false,
   onChange = () => {},
   onKeyDown = () => {},
+  type = '', //TODO: Should Maybe Also Allow Games...
+  role = '',
 }: TProps): JSX.Element {
   // console.log('SoulSearchBox Started W/', {
   //   options,
@@ -59,8 +51,8 @@ export default function SoulSearchBox({
   useEffect(() => {
     let queryFilters: string[] = [];
     // queryFilters.push(`type: "" `);
-    if (type !== undefined) queryFilters.push(`type: "${type}" `);
-    role && queryFilters.push(`role: "${role}""`);
+    if (type !== undefined) queryFilters.push(`type: "${type}"`);
+    role && queryFilters.push(`role: "${role}"`);
     inputValue &&
       queryFilters.push(`searchField_contains_nocase: "${inputValue}"`);
     let searchQueryParams = queryFilters.join(', ');
@@ -96,52 +88,54 @@ export default function SoulSearchBox({
 
   return (
     <Box sx={{ ...sx }}>
-      {options?.header && options.header}
-      <Autocomplete
-        disabled={isDisabled}
-        getOptionLabel={(option) => nameSoul(option)}
-        // filterOptions={(x) => x}
-        options={items}
-        value={selectedSoul}
-        onChange={(_, newValue: any) => {
-          // console.log('onChange', newValue);
-          //ID Changed
-          setSelectedSoul(newValue);
-          onChange(newValue?.id);
-        }}
-        onInputChange={(_, newInputValue) => {
-          // console.log('Input Changed to: ', newInputValue);
-          //Text Value Changed
-          setInputValue(newInputValue);
-        }}
-        isOptionEqualToValue={(option: any, value: any) =>
-          option?.id === value?.id
-        }
-        renderInput={(params) => (
-          <TextField
-            // fullWidth
-            {...params}
-            size={size}
-            label={label || 'Soul Search'}
-            placeholder={'Search by name or address'}
-            required={required || false}
-            onKeyDown={onKeyDown}
-          />
-        )}
-        renderOption={(props, option) => {
-          return (
-            <li {...props}>
-              <SoulCompactCard
-                profile={option}
-                disableAddress={false}
-                disableLink={true}
-                disableRating={true}
-                sx={{ my: 0.6 }}
-              />
-            </li>
-          );
-        }}
-      />
+      <>
+        {options?.header && options.header}
+        <Autocomplete
+          disabled={isDisabled}
+          getOptionLabel={(option) => nameSoul(option)}
+          // filterOptions={(x) => x}
+          options={items}
+          value={selectedSoul}
+          onChange={(_, newValue: any) => {
+            // console.log('onChange', newValue);
+            //ID Changed
+            setSelectedSoul(newValue);
+            onChange(newValue?.id);
+          }}
+          onInputChange={(_, newInputValue) => {
+            // console.log('Input Changed to: ', newInputValue);
+            //Text Value Changed
+            setInputValue(newInputValue);
+          }}
+          isOptionEqualToValue={(option: any, value: any) =>
+            option?.id === value?.id
+          }
+          renderInput={(params) => (
+            <TextField
+              // fullWidth
+              {...params}
+              size={size}
+              label={label || 'Soul Search'}
+              placeholder={'Search by name or address'}
+              required={required || false}
+              onKeyDown={onKeyDown}
+            />
+          )}
+          renderOption={(props, option) => {
+            return (
+              <li {...props}>
+                <SoulCompactCard
+                  profile={option}
+                  disableAddress={false}
+                  disableLink={true}
+                  disableRating={true}
+                  sx={{ my: 0.6 }}
+                />
+              </li>
+            );
+          }}
+        />
+      </>
     </Box>
   );
 }

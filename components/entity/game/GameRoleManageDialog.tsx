@@ -8,6 +8,7 @@ import {
   Stack,
 } from '@mui/material';
 import { MuiForm5 as Form } from '@rjsf/material-ui';
+import SoulSearchBox from 'components/form/widget/SoulSearchBox';
 import useContract from 'hooks/useContract';
 import useError from 'hooks/useError';
 import useToast from 'hooks/useToast';
@@ -48,19 +49,16 @@ export default function GameRoleManageDialog({
   const { getContractGame } = useContract();
 
   const schema: JSONSchema7 = {
+    description: 'Mint or burn NFTs that represent a organizational roles',
     type: 'object',
     required: ['soulId', 'action', 'roleName'],
     properties: {
-      soulId: {
-        type: 'string',
-        title: 'Soul ID',
-      },
       action: {
         type: 'string',
         title: 'Action',
         default: 'assignRole',
         enum: ['assignRole', 'removeRole'],
-        enumNames: ['Assign Role', 'Remove Role'],
+        enumNames: ['Assign (Mint)', 'Remove (Burn)'],
       },
       roleName: {
         type: 'string',
@@ -69,7 +67,21 @@ export default function GameRoleManageDialog({
         enum: ['member', 'admin'],
         enumNames: [capitalize('member'), capitalize('admin')],
       },
+      soulId: {
+        type: 'string',
+        title: 'Soul ID',
+      },
     },
+  };
+
+  const uiSchema = {
+    soulId: {
+      'ui:widget': 'SoulSearchBox',
+    },
+  };
+
+  const widgets = {
+    SoulSearchBox,
   };
 
   async function close() {
@@ -113,6 +125,8 @@ export default function GameRoleManageDialog({
       <DialogContent>
         <Form
           schema={schema}
+          uiSchema={uiSchema}
+          widgets={widgets}
           formData={formData}
           onSubmit={submit}
           disabled={isLoading}
