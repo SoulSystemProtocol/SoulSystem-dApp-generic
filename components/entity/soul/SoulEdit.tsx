@@ -14,7 +14,6 @@ import useToast from 'hooks/useToast';
 import { JSONSchema7 } from 'json-schema';
 import { useRouter } from 'next/router';
 import { useContext, useState } from 'react';
-import { nameSoul } from 'utils/converters';
 
 /**
  * Component: create or edit Soul.
@@ -30,25 +29,22 @@ export default function SoulEdit({ soul }: any) {
   const { showToastSuccess } = useToast();
   const { uploadJsonToIPFS } = useIpfs();
   const { handleError } = useError();
-
   const { metadataUpdate } = useContext(DataContext);
-
-  // const { mint: createSoul, update: editSoul } = useSoulContract();
   const { getContractSoul } = useContract();
-
   const [status, setStatus] = useState<number>(STATUS.available);
   const [formData, setFormData] = useState(soul?.metadata || {});
 
   const schema: JSONSchema7 = {
+    // description: "Soul's metadata",
     type: 'object',
     properties: {
       cover: {
         type: 'string',
-        title: 'cover',
+        title: 'Cover Image',
       },
       image: {
         type: 'string',
-        title: '',
+        title: 'Photo',
       },
       attributes: {
         type: 'array',

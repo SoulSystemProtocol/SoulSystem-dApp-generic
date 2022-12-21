@@ -1,5 +1,11 @@
 import { AddOutlined } from '@mui/icons-material';
-import { Avatar, CircularProgress, Input } from '@mui/material';
+import {
+  Avatar,
+  CircularProgress,
+  Input,
+  Stack,
+  Typography,
+} from '@mui/material';
 import { Box } from '@mui/system';
 import { WidgetProps } from '@rjsf/core';
 import useError from 'hooks/useError';
@@ -78,7 +84,14 @@ export default function ImageInput(props: WidgetProps) {
           }}
           src={!isLoading ? resolveLink(propsImage) : undefined}
         >
-          {isLoading ? <CircularProgress /> : <AddOutlined />}
+          {isLoading ? (
+            <CircularProgress />
+          ) : (
+            <Stack direction="column" alignItems="center" marginTop={2}>
+              <AddOutlined />
+              <Typography variant="subtitle2">{props.label}</Typography>
+            </Stack>
+          )}
         </Avatar>
         <Input
           onChange={onChange}
