@@ -3,8 +3,6 @@
 /* eslint-disable */
 import type * as erc1155TrackerUpMinSol from "./ERC1155TrackerUpMin.sol";
 export type { erc1155TrackerUpMinSol };
-import type * as multiCall2Sol from "./MultiCall2.sol";
-export type { multiCall2Sol };
 import type * as votesUpgradableSol from "./VotesUpgradable.sol";
 export type { votesUpgradableSol };
 export type { CTXEntityUpgradable } from "./CTXEntityUpgradable";
@@ -15,7 +13,6 @@ export type { ERC1155TrackerUpgradable } from "./ERC1155TrackerUpgradable";
 export type { ERC721TrackerUpgradable } from "./ERC721TrackerUpgradable";
 export type { Escrow } from "./Escrow";
 export type { GameExtension } from "./GameExtension";
-export type { Multicall } from "./Multicall";
 export type { Opinions } from "./Opinions";
 export type { Posts } from "./Posts";
 export type { Procedure } from "./Procedure";

@@ -92,8 +92,6 @@ export type { GameExtension } from "./contracts/abstract/GameExtension";
 export { GameExtension__factory } from "./factories/contracts/abstract/GameExtension__factory";
 export type { Multicall } from "./contracts/abstract/Multicall";
 export { Multicall__factory } from "./factories/contracts/abstract/Multicall__factory";
-export type { MultiCall } from "./contracts/abstract/MultiCall2.sol/MultiCall";
-export { MultiCall__factory } from "./factories/contracts/abstract/MultiCall2.sol/MultiCall__factory";
 export type { Opinions } from "./contracts/abstract/Opinions";
 export { Opinions__factory } from "./factories/contracts/abstract/Opinions__factory";
 export type { Posts } from "./contracts/abstract/Posts";

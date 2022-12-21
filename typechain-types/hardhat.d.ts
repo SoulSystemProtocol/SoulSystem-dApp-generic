@@ -189,10 +189,6 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.Multicall__factory>;
     getContractFactory(
-      name: "MultiCall",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.MultiCall__factory>;
-    getContractFactory(
       name: "Opinions",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.Opinions__factory>;
@@ -709,11 +705,6 @@ declare module "hardhat/types/runtime" {
       address: string,
       signer?: ethers.Signer
     ): Promise<Contracts.Multicall>;
-    getContractAt(
-      name: "MultiCall",
-      address: string,
-      signer?: ethers.Signer
-    ): Promise<Contracts.MultiCall>;
     getContractAt(
       name: "Opinions",
       address: string,
