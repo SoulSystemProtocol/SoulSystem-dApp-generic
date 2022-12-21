@@ -78,7 +78,6 @@ export default function SoulEdit({ soul }: any) {
       let metadata = prepMetadata(formData);
       //Save to IPFS
       const { url: metadataUrl } = await uploadJsonToIPFS(metadata);
-
       //Status: Using contract / Wait for Chain
       setStatus(STATUS.waitForChain);
 
