@@ -106,14 +106,14 @@ export default function SoulAttributesInput(props: WidgetProps): ReactElement {
                 <TextField
                   variant="outlined"
                   onChange={onChange}
-                  label="Email"
+                  label="Email (Publicly Visible)"
                   name={PROFILE_TRAIT_TYPE.email}
                   disabled={props.disabled}
                   value={MetaAttrHelper.extractValue(
                     attributes,
                     PROFILE_TRAIT_TYPE.email,
                   )}
-                  placeholder="email@site.com"
+                  placeholder="email@domain.com"
                 />
                 <TextField
                   variant="outlined"

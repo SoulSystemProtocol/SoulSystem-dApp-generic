@@ -8,6 +8,7 @@ import GameManageDialog from './GameManageDialog';
 import GameRoleManageDialog from './GameRoleManageDialog';
 import { isSoulHasRole } from 'hooks/utils';
 import ConditionalButton from 'components/layout/ConditionalButton';
+import { useRouter } from 'next/router';
 
 /**
  * Game Admin Actions
@@ -18,6 +19,7 @@ export default function GameAdminActions({ sx }: { sx: SxProps }): JSX.Element {
   const { soul } = useContext(SelectedSoulContext);
   const { showDialog, closeDialog } = useContext(DialogContext);
   const [isSoulAdmin, setIsSoulAdmin] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     setIsSoulAdmin(
@@ -33,7 +35,8 @@ export default function GameAdminActions({ sx }: { sx: SxProps }): JSX.Element {
         size="small"
         variant="outlined"
         onClick={() =>
-          showDialog?.(<GameManageDialog soul={soul} game={game} />)
+          // showDialog?.(<GameManageDialog soul={soul} game={game} />)
+          router.push('/soul/edit/' + soul.owner)
         }
       >
         Edit

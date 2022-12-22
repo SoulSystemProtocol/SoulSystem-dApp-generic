@@ -36,7 +36,7 @@ export const USER_PROFILE_TRAITS: string[] = [
 export const PROFILE_TRAITS: { [key: string]: Trait } = {
   twitter: {
     label: 'Twitter',
-    placeholder: 'handle',
+    placeholder: 'hashtag',
     icon: <Twitter color="primary" />,
     baseURL: 'https://twitter.com/',
   },
@@ -79,7 +79,7 @@ export const PROFILE_TRAITS: { [key: string]: Trait } = {
   website: {
     label: 'Webite',
     type: 'url',
-    placeholder: 'https://example.com',
+    placeholder: 'example.com',
     icon: <Language color="primary" />,
   },
   // {

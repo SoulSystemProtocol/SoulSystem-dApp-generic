@@ -12,6 +12,15 @@ export const darkTheme = createTheme({
         },
       },
     },
+    MuiTextField: {
+      styleOverrides: {
+        root: {
+        '&::placeholder': {
+          color: 'blue'
+        },
+      },
+      },
+    },
     MuiPaper: {
       styleOverrides: {
         root: {

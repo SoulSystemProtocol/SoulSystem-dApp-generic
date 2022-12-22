@@ -36,18 +36,21 @@ export const normalizeGraphEntity = (subgraphEntity: any): any => {
  * Prep Metadata
  */
 export const prepMetadata = (metadata: any): any => {
-  let uriFirstName = MetaAttrHelper.extractValue(
+  const uriFirstName = MetaAttrHelper.extractValue(
     metadata?.attributes,
     PROFILE_TRAIT_TYPE.firstName,
   );
-  let uriLastName = MetaAttrHelper.extractValue(
+  const uriLastName = MetaAttrHelper.extractValue(
     metadata?.attributes,
     PROFILE_TRAIT_TYPE.lastName,
   );
-  metadata.name = nameSoul({ uriFirstName, uriLastName });
+  metadata.name = nameSoul({ uriFirstName, uriLastName } || MetaAttrHelper.extractValue(
+    metadata?.attributes,
+    'name',
+  ));
   metadata.description = MetaAttrHelper.extractValue(
     metadata?.attributes,
-    'Description',
+    'description',
   );
   return metadata;
 }
