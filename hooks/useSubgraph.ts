@@ -142,7 +142,7 @@ export default function useSubgraph() {
    * Find Action entities
    */
   const findActionEntities = async function (
-    guids: string[],
+    guids?: string[],
   ): Promise<Array<any>> {
     const response = await makeSubgraphQuery(getFindActionEntitiesQuery(guids));
     return response.actions;
@@ -362,11 +362,9 @@ function getFindClaimsQuery(
 }
 
 ///
-function getFindActionEntitiesQuery(guids: string[]) {
+function getFindActionEntitiesQuery(guids?: string[]) {
   let queryParams = `first: 100`;
-  if (guids !== undefined && guids.length > 0) {
-    //   queryParams = `where: {id: ""}`;
-    // }
+  if (guids && guids.length > 0) {
     if (guids.length == 1) {
       queryParams = `where: {id: "${guids[0]}"}`;
     } else if (guids.length > 1) {

@@ -33,7 +33,7 @@ export default function ProjectTabs({ item, sx }: any) {
           }}
         >
           <Tab label="Posts" value="1" />
-          <Tab label="Applications" value="2" />
+          <Tab label="Deliveries" value="2" />
           <Tab label="Members" value="3" />
         </TabList>
         <TabPanel value="1" sx={{ px: 0 }}>

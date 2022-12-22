@@ -40,6 +40,7 @@ export default function SoulEditForm({
   const { handleError } = useError();
   const { metadataUpdate } = useContext(DataContext);
   const { getContractSoul } = useContract();
+  const { getContractGame } = useContract();
   const [status, setStatus] = useState<number>(STATUS.available);
   const [formData, setFormData] = useState(soul?.metadata || {});
 
@@ -91,14 +92,19 @@ export default function SoulEditForm({
       //Status: Uploading to IPFS
       setStatus(STATUS.ipfsUpload);
       //Prep Metadata Object  //TODO: Should probably get rid of this
-      let metadata = soul.type == '' ? prepMetadata(formData) : formData;
+      let metadata = soul?.type == '' ? prepMetadata(formData) : formData;
       //Save to IPFS
       const { url: metadataUrl } = await uploadJsonToIPFS(metadata);
       //Status: Using contract / Wait for Chain
       setStatus(STATUS.waitForChain);
 
       if (soul) {
-        let tx = await getContractSoul().update(soul.id, metadataUrl);
+        let tx =
+          !soul.type && !soul.role
+            ? //Human Soul
+              await getContractSoul().update(soul.id, metadataUrl)
+            : //Contract Soul
+              await getContractGame(soul.owner).setContractURI(metadataUrl);
         showToastSuccess(
           'Update has been sent to chain and will be processed shortly',
         );

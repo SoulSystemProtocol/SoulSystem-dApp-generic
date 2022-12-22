@@ -87,7 +87,7 @@ export default function TaskDetail({ item, sx }: any) {
           {taskStageToString(item)}{' '}
           {fund ? ` | ${fund} ${getChainData()?.native}` : ''}
         </Typography>
-        <Typography sx={{ mt: 1 }}>{item.metadata?.description}</Typography>
+        <Typography sx={{ mt: 1 }}>{item?.metadata?.description}</Typography>
         <Stack direction="row" spacing={2} sx={{ mt: 2 }}>
           {(item.stage === null || item.stage >= PROC_STAGE.pending) && (
             <FundDialogButton

@@ -24,7 +24,7 @@ export default function PostSingleDisplay({
               sx={{ fontWeight: 'normal' }}
               gutterBottom
             >
-              {post.metadata.text}
+              {post?.metadata?.text}
             </Typography>
             {children}
           </Stack>

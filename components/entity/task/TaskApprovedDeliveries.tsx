@@ -1,7 +1,6 @@
 import { Save, StarBorderOutlined } from '@mui/icons-material';
 import { LoadingButton } from '@mui/lab';
 import {
-  Button,
   Avatar,
   Box,
   Divider,
@@ -9,7 +8,6 @@ import {
   List,
   ListItem,
   ListItemAvatar,
-  ListSubheader,
   Stack,
   Typography,
 } from '@mui/material';
@@ -22,9 +20,12 @@ import useToast from 'hooks/useToast';
 import Link from 'next/link';
 import { useContext, useEffect, useState } from 'react';
 import { soulImage } from 'utils/converters';
-import useSoulById from 'hooks/useSoulById';
 import useSubgraph from 'hooks/useSubgraph';
+import ConditionalButton from 'components/layout/ConditionalButton';
 
+/**
+ * Approved Deliveries Display
+ */
 export default function TaskApprovedDeliveries({ task, sx }: any) {
   const { accountSoul } = useContext(DataContext);
   const { handleError } = useError();
@@ -54,7 +55,7 @@ export default function TaskApprovedDeliveries({ task, sx }: any) {
         <Typography variant="h5">Winners:</Typography>
         <List>
           {subjectSouls.map((soul: any, index: number) => (
-            <TaskApprovedDelivery key={index} task={task} />
+            <TaskApprovedDelivery key={index} />
           ))}
         </List>
         {/* Button to disburse funds */}
@@ -72,13 +73,13 @@ export default function TaskApprovedDeliveries({ task, sx }: any) {
                 Processing
               </LoadingButton>
             ) : (
-              <Button
+              <ConditionalButton
                 size="small"
                 variant="outlined"
                 onClick={() => disburseFunds()}
               >
                 Disburse Funds To Winners
-              </Button>
+              </ConditionalButton>
             )}
           </>
         )}
@@ -88,10 +89,12 @@ export default function TaskApprovedDeliveries({ task, sx }: any) {
   return <></>;
 }
 
+/**
+ * Single Approved Delivery Item
+ */
 function TaskApprovedDelivery({ soulId }: any) {
   const { handleError } = useError();
   const { getSoulById } = useSubgraph();
-  // const { soul, loading, error } = useSoulById(soulId as string);
   const { getDaoById } = useDao();
   const [soulDao, setSoulDao] = useState<any | null>(null);
 

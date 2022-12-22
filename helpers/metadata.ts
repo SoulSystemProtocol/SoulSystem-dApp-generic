@@ -44,16 +44,16 @@ export const prepMetadata = (metadata: any): any => {
     metadata?.attributes,
     PROFILE_TRAIT_TYPE.lastName,
   );
-  metadata.name = nameSoul({ uriFirstName, uriLastName } || MetaAttrHelper.extractValue(
-    metadata?.attributes,
-    'name',
-  ));
+  metadata.name = nameSoul(
+    { uriFirstName, uriLastName } ||
+      MetaAttrHelper.extractValue(metadata?.attributes, 'name'),
+  );
   metadata.description = MetaAttrHelper.extractValue(
     metadata?.attributes,
     'description',
   );
   return metadata;
-}
+};
 
 /**
  * Update a Soul Entity on metadata update
@@ -61,9 +61,9 @@ export const prepMetadata = (metadata: any): any => {
 export const updateSoul = (soul: any, metadata: any) => {
   console.warn('Running updateSoul', { soul, metadata });
   // if (!soul) return soul;
-  if (!soul) soul = {name: 'Unknown'};
+  if (!soul) soul = { name: 'Unknown' };
   soul.metadata = metadata;
   soul.name = metadata?.name;
   soul.uriImage = metadata?.image;
   return soul;
-}
+};

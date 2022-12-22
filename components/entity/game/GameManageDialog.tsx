@@ -9,16 +9,18 @@ import DialogWrapper from 'components/layout/DialogWrapper';
 import { DialogContext } from 'contexts/dialog';
 import SoulEditForm from 'components/form/SoulEditForm';
 
-/**
+/** [DEPRECATED]
  * A dialog for creating or editing DAO.
  */
 export default function GameManageDialog({ soul, game }: any): JSX.Element {
-  const { showToastSuccess } = useToast();
-  const { uploadJsonToIPFS } = useIpfs();
-  const { handleError } = useError();
-  const [isLoading, setIsLoading] = useState(false);
-  const { getContractHub } = useContract();
+  // const { showToastSuccess } = useToast();
+  // const { uploadJsonToIPFS } = useIpfs();
+  // const { handleError } = useError();
+  // const [isLoading, setIsLoading] = useState(false);
+  // const { getContractHub } = useContract();
   const { closeDialog } = useContext(DialogContext);
+
+  //This isn't right...
   const [formData, setFormData] = useState({
     ...(game && {
       image: game.metadata?.image,

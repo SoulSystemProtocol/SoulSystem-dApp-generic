@@ -63,7 +63,7 @@ export const gameCardContent = (item: any): CardItem => {
 
 // Process Soul
 export const processCardContent = (soul: any): CardItem => {
-  let metadata = hexStringToJson(soul.metadata);
+  let metadata = hexStringToJson(soul?.metadata);
   let ret = {
     id: soul.id,
     imgSrc: 'PARENT_IMAGE',
@@ -91,7 +91,7 @@ export const containedProcContent = (relation: any): CardItem => {
     metadata,
     link: `/soul/${soul?.owner}`,
     children: soul && <TaskSoulCardDetails address={soul?.owner} />,
-    linkSX: { display: { xs: 'none', sm: 'block' } },
+    linkSX: { display: { xs: 'none', md: 'block' } },
   };
   // console.log('Task soul', { ret, soul, owner: soul.owner });
   return ret;
