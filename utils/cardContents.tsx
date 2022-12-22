@@ -3,6 +3,7 @@ import { addressToShortAddress, hexStringToJson, nameSoul } from './converters';
 import { resolveLink } from 'helpers/IPFS';
 import TaskSoulCardDetails from 'components/entity/task/TaskSoulCardDetails';
 import { normalizeGraphEntity } from 'helpers/metadata';
+import { SxProps } from '@mui/material';
 
 export interface CardItem {
   id: string;
@@ -14,6 +15,7 @@ export interface CardItem {
   avatarIcon?: any;
   baseRoute?: string;
   children?: any;
+  linkSX?: SxProps;
 }
 
 /**
@@ -77,7 +79,7 @@ export const processCardContent = (soul: any): CardItem => {
 };
 
 // Relation to Container Soul
-export const containedCardContent = (relation: any): CardItem => {
+export const containedProcContent = (relation: any): CardItem => {
   const soul = relation?.aEnd;
   let metadata = hexStringToJson(soul?.metadata);
   let ret = {
@@ -89,6 +91,7 @@ export const containedCardContent = (relation: any): CardItem => {
     metadata,
     link: `/soul/${soul?.owner}`,
     children: soul && <TaskSoulCardDetails address={soul?.owner} />,
+    linkSX: { display: { xs: 'none', sm: 'block' } },
   };
   // console.log('Task soul', { ret, soul, owner: soul.owner });
   return ret;

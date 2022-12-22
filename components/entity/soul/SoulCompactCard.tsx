@@ -50,9 +50,7 @@ export default function SoulCompactCard({
             {disableLink ? (
               <>{nameSoul(profile)}</>
             ) : (
-              <Link href={`/soul/${profile.id}`} underline="none">
-                {nameSoul(profile)}
-              </Link>
+              <Link href={`/soul/${profile.id}`}>{nameSoul(profile)}</Link>
             )}
           </Typography>
           {!disableAddress && (

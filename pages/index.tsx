@@ -73,9 +73,7 @@ export default function Landing() {
                 Mumbai Testnet Faucet
               </Link>
               {/* <Link href={`https://optimismfaucet.xyz/`} passHref>
-                <MuiLink underline="none" target="_blank">
                   Optimistic Kovan Faucet
-                </MuiLink>
               </Link> */}
             </Typography>
           </Box>

@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { SelectedSoulContext } from 'contexts/SelectedSoul';
-import { containedCardContent } from 'utils/cardContents';
+import { containedProcContent } from 'utils/cardContents';
 import PaginatedList from 'components/PaginatedList';
 import SoulContainedQuery from 'queries/SoulContainedQuery';
 
@@ -15,7 +15,7 @@ export default function ProjectTaskList({ sx }: any) {
       Arole: 'bounty',
     },
     entityName: 'soulAssocs',
-    getCardContent: containedCardContent,
+    getCardContent: containedProcContent,
     gridMD: 12,
     gridLG: 12,
     query: SoulContainedQuery,

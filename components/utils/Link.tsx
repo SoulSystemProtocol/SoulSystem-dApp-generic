@@ -12,7 +12,7 @@ export default function Link({
   title,
   sx = {},
 }: {
-  children: ReactElement | ReactElement[];
+  children: string | ReactElement | ReactElement[];
   href: string;
   target?: string;
   title?: string;
@@ -20,7 +20,7 @@ export default function Link({
 }): JSX.Element {
   return (
     <NextLink href={href} passHref>
-      <MuiLink underline="none" target={target} sx={sx} title={title}>
+      <MuiLink target={target} sx={sx} title={title}>
         {children}
       </MuiLink>
     </NextLink>

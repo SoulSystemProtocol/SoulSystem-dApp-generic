@@ -19,6 +19,7 @@ export default function GridCard({
   roles = [],
   baseRoute,
   children,
+  linkSX,
 }: CardItem) {
   // if (!id)  return null;
   const datalink = link || `/${baseRoute}/${id}`;
@@ -32,7 +33,7 @@ export default function GridCard({
           sx={{ alignItems: 'center', display: 'flex', flexDirection: 'row' }}
         >
           <Stack direction="row">
-            <Link href={datalink}>
+            <Link href={datalink} sx={linkSX}>
               <EntityImage
                 imgSrc={imgSrc}
                 icon={avatarIcon || <SchoolOutlined />}
@@ -44,9 +45,7 @@ export default function GridCard({
               />
             </Link>
             <Box sx={{ ml: 2 }}>
-              <Link href={datalink} underline="none">
-                {title}
-              </Link>
+              <Link href={datalink}>{title}</Link>
               {label && (
                 <Typography
                   variant="body2"
@@ -55,7 +54,6 @@ export default function GridCard({
                 >
                   <Link
                     href={datalink}
-                    underline="none"
                     sx={{
                       color: 'inherit',
                       overflow: 'hidden',

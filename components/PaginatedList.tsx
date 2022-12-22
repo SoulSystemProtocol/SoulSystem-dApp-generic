@@ -58,7 +58,6 @@ export default function PaginatedList({
   useEffect(() => {
     if (error) {
       console.error('PaginatedList() query failed', { data, error, variables });
-      //Clear Items
       setItems([]);
     } else {
       // console.log('PaginatedList() query ', {
