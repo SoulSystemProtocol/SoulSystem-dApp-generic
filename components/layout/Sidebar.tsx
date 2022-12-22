@@ -1,7 +1,5 @@
 import { useRouter } from 'next/router';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import { ListSubheader, Typography } from '@mui/material';
+import { ListSubheader, Stack, Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import MuiDrawer from '@mui/material/Drawer';
@@ -15,6 +13,7 @@ import { CSSObject, styled, Theme, useTheme } from '@mui/material/styles';
 import Link from 'components/utils/Link';
 import * as React from 'react';
 import { sidebarWidth } from 'constants/theme';
+import MenuIcon from '@mui/icons-material/Menu';
 
 const openedMixin = (theme: Theme): CSSObject => ({
   width: sidebarWidth,
@@ -38,9 +37,9 @@ const closedMixin = (theme: Theme): CSSObject => ({
 });
 
 const DrawerHeader = styled('div')(({ theme }) => ({
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'flex-end',
+  // display: 'flex',
+  // alignItems: 'center',
+  // justifyContent: 'flex-end',
   padding: theme.spacing(0, 1),
   // necessary for content to be below app bar
   ...theme.mixins.toolbar,
@@ -153,32 +152,47 @@ export default function Sidebar({
   return (
     <Drawer variant="permanent" open={isOpen}>
       <DrawerHeader>
-        <Box sx={{ display: 'flex', flexGrow: 1, flexDirection: 'row' }}>
-          <Box sx={{ display: 'flex', flexGrow: 1 }}>
+        <Box
+          sx={{
+            display: 'flex',
+            width: sidebarWidth,
+            flexGrow: 0,
+            flexShrink: 0,
+            flexDirection: 'row',
+            mt: '11px',
+            ml: '4px',
+          }}
+        >
+          <IconButton onClick={toggler}>
+            <MenuIcon />
+          </IconButton>
+          <Box sx={{ display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
             {/* Logo */}
             &nbsp;
           </Box>
-          <Box sx={{ display: 'flex', flexGrow: 1 }}>
-            <Link href="/">
-              <Typography>{process.env.NEXT_PUBLIC_APP_NAME}</Typography>
-            </Link>
-            <Typography
-              sx={{
-                color: 'text.secondary',
-                pl: 1,
-              }}
-            >
-              {process.env.NEXT_PUBLIC_VERSION}
-            </Typography>
-          </Box>
+          <Stack
+            direction="column"
+            sx={{
+              mt: '5px',
+              flexGrow: 1,
+              justifyContent: 'center',
+            }}
+          >
+            <Stack direction="row">
+              <Link href="/">
+                <Typography>{process.env.NEXT_PUBLIC_APP_NAME}</Typography>
+              </Link>
+              <Typography
+                sx={{
+                  color: 'text.secondary',
+                  pl: 1,
+                }}
+              >
+                {process.env.NEXT_PUBLIC_VERSION}
+              </Typography>
+            </Stack>
+          </Stack>
         </Box>
-        <IconButton onClick={toggler}>
-          {theme.direction === 'rtl' ? (
-            <ChevronRightIcon />
-          ) : (
-            <ChevronLeftIcon />
-          )}
-        </IconButton>
       </DrawerHeader>
       <Divider />
       <List>{renderMenu}</List>
