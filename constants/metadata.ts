@@ -3,13 +3,6 @@ export const PROFILE_TRAIT_TYPE: { [key: string]: string } = {
   lastName: 'Last Name',
   description: 'Description',
   email: 'Email',
-  // site: 'Site',
-  // twitter: 'Twitter',
-  // telegram: 'Telegram',
-  // facebook: 'Facebook',
-  // instagram: 'Instagram',
-  // github: 'GitHub',
-  // linkedin: 'LinkedIn',
   isEmailNotificationsEnabled: 'Is Email Notifications Enabled',
 };
 

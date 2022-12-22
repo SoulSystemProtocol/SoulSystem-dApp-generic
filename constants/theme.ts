@@ -14,11 +14,11 @@ export const darkTheme = createTheme({
     },
     MuiTextField: {
       styleOverrides: {
-        root: {
-        '&::placeholder': {
-          color: 'blue'
+        root: { //Doesn't Work...
+          '&::placeholder': {
+            color: 'blue',
+          },
         },
-      },
       },
     },
     MuiPaper: {

@@ -73,7 +73,7 @@ export default function FundDialog({
         //TODO: Should try to use ethers.utils to format the amount
       };
       let receipt = await provider.getSigner().sendTransaction(tx);
-      showToastSuccess('Success! Funds are on their way');
+      showToastSuccess('Funds are on their way');
       close();
     } catch (error: any) {
       handleError(error, true);

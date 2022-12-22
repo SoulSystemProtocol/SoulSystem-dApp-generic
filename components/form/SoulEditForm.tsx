@@ -38,7 +38,7 @@ export default function SoulEditForm({
   const { showToastSuccess } = useToast();
   const { uploadJsonToIPFS } = useIpfs();
   const { handleError } = useError();
-  const { metadataUpdate } = useContext(DataContext);
+  const { metadataUpdate, accountSoul } = useContext(DataContext);
   const { getContractSoul } = useContract();
   const { getContractGame } = useContract();
   const [status, setStatus] = useState<number>(STATUS.available);
@@ -99,23 +99,28 @@ export default function SoulEditForm({
       setStatus(STATUS.waitForChain);
 
       if (soul) {
-        let tx =
-          !soul.type && !soul.role
-            ? //Human Soul
-              await getContractSoul().update(soul.id, metadataUrl)
-            : //Contract Soul
-              await getContractGame(soul.owner).setContractURI(metadataUrl);
+        // let tx =
+        !soul.type && !soul.role
+          ? //Human Soul
+            await getContractSoul().update(soul.id, metadataUrl)
+          : //Contract Soul
+            await getContractGame(soul.owner).setContractURI(metadataUrl);
         showToastSuccess(
           'Update has been sent to chain and will be processed shortly',
         );
-        await tx.wait();
-        metadataUpdate?.(metadata);
+        // await tx.wait(); //No need...
+        //Update Current Soul's Metadata
+        soul.id == accountSoul.id && metadataUpdate?.(metadata);
+        //TODO: Optimistic Updates for Non-current Souls
+
+        //Redirect out of edit mode
         router.push('/soul/' + soul.id);
       } else {
         let tx = await getContractSoul().mint(metadataUrl);
         showToastSuccess('Your new soul is on its way');
         await tx.wait();
         router.push('/');
+        //TODO: Optimistic Updates for New AccountSoul
       }
     } catch (error: any) {
       handleError(error, true);

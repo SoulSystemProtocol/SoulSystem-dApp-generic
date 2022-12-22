@@ -159,7 +159,7 @@ export default function Sidebar({
             flexGrow: 0,
             flexShrink: 0,
             flexDirection: 'row',
-            mt: '11px',
+            mt: '10px',
             ml: '4px',
           }}
         >
