@@ -1,4 +1,4 @@
-import { Box, Container, IconButton } from '@mui/material';
+import { Box, Container, IconButton, Stack } from '@mui/material';
 import Link from 'components/utils/Link';
 
 interface FooterProps {
@@ -22,10 +22,10 @@ export default function Footer({ links, icons }: FooterProps): JSX.Element {
         component="p"
       >
       </Typography> */}
-      <Box
+      <Stack
+        direction="row"
         sx={{
-          display: 'flex',
-          justifyContent: 'center',
+          justifyContent: 'space-evenly',
           borderTop: '1px solid rgba(255, 255, 255, 0.12)',
           pt: 2,
         }}
@@ -35,16 +35,17 @@ export default function Footer({ links, icons }: FooterProps): JSX.Element {
           <Link
             key={route}
             href={route}
-            underline="none"
             target="_blank"
             title={label}
             sx={{
+              display: 'grid',
               p: 0,
               mx: 1,
               color: '#fbfbfb',
               borderRadius: '50%',
               borderColor: '#fbfbfb',
               position: 'relative',
+              underline: 'none',
             }}
           >
             <IconButton aria-label="delete" sx={{ p: '0.5rem' }}>
@@ -53,7 +54,7 @@ export default function Footer({ links, icons }: FooterProps): JSX.Element {
             {label}
           </Link>
         ))}
-      </Box>
+      </Stack>
     </Container>
   );
 }

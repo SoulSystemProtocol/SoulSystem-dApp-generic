@@ -12,7 +12,7 @@ export default function Link({
   title,
   sx = {},
 }: {
-  children: ReactElement;
+  children: ReactElement | ReactElement[];
   href: string;
   target?: string;
   title?: string;
