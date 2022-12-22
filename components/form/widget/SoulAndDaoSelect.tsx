@@ -7,7 +7,7 @@ import {
   InputAdornment,
 } from '@mui/material';
 import { WidgetProps } from '@rjsf/core';
-import PROFILE_TRAITS, { Trait } from 'components/entity/soul/ProfileTraits';
+import { PROFILE_TRAITS, Trait } from 'components/entity/soul/ProfileTraits';
 import { PROFILE_TRAIT_TYPE } from 'constants/metadata';
 import { MetaAttrHelper } from 'helpers/MetaAttrHelper';
 import { MetadataAttribute } from 'helpers/metadata';

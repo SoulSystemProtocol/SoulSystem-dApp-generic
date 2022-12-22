@@ -1,6 +1,6 @@
 import { Save } from '@mui/icons-material';
 import { LoadingButton } from '@mui/lab';
-import { Button } from '@mui/material';
+import { Button, Stack } from '@mui/material';
 import { MuiForm5 as Form } from '@rjsf/material-ui';
 import CoverInput from 'components/form/widget/CoverInput';
 import ImageInput from 'components/form/widget/ImageInput';
@@ -18,7 +18,17 @@ import { ReactElement, useContext, useState } from 'react';
 /**
  * Create or edit Soul.
  */
-export default function SoulEditForm({ soul }: any): ReactElement {
+export default function SoulEditForm({
+  soul,
+  children,
+  schema,
+  uiSchema,
+}: {
+  soul?: any;
+  children?: ReactElement;
+  schema?: JSONSchema7;
+  uiSchema?: any;
+}): ReactElement {
   const STATUS = {
     available: 1,
     ipfsUpload: 2,
@@ -33,7 +43,7 @@ export default function SoulEditForm({ soul }: any): ReactElement {
   const [status, setStatus] = useState<number>(STATUS.available);
   const [formData, setFormData] = useState(soul?.metadata || {});
 
-  const schema: JSONSchema7 = {
+  const defaultSchema: JSONSchema7 = {
     // description: "Soul's metadata",
     type: 'object',
     properties: {
@@ -53,15 +63,22 @@ export default function SoulEditForm({ soul }: any): ReactElement {
     },
   };
 
-  const uiSchema = {
+  if ((!!soul?.type || !!soul?.role) && defaultSchema?.properties?.cover) {
+    delete defaultSchema.properties.cover;
+    // console.log('cover removed', defaultSchema);
+  }
+
+  const defaultUiSchema = {
     image: {
       'ui:widget': 'ImageInput',
     },
     cover: {
       'ui:widget': 'CoverInput',
+      'ui:options': { soul },
     },
     attributes: {
       'ui:widget': 'SoulAttributesInput',
+      'ui:options': { soul },
     },
   };
 
@@ -89,7 +106,6 @@ export default function SoulEditForm({ soul }: any): ReactElement {
         metadataUpdate?.(metadata);
         router.push('/soul/' + soul.id);
       } else {
-        // await createSoul(metadataUrl);
         let tx = await getContractSoul().mint(metadataUrl);
         showToastSuccess('Your new soul is on its way');
         await tx.wait();
@@ -104,38 +120,41 @@ export default function SoulEditForm({ soul }: any): ReactElement {
 
   return (
     <Form
-      schema={schema}
-      uiSchema={uiSchema}
+      schema={schema || defaultSchema}
+      uiSchema={uiSchema || defaultUiSchema}
       formData={formData}
       onSubmit={submit}
       widgets={widgets}
       disabled={status !== STATUS.available ? true : false}
     >
-      {status === STATUS.available && (
-        <Button variant="contained" type="submit">
-          {soul ? 'Save' : 'Create'}
-        </Button>
-      )}
-      {status === STATUS.ipfsUpload && (
-        <LoadingButton
-          loading
-          loadingPosition="start"
-          startIcon={<Save />}
-          variant="outlined"
-        >
-          Uploading to IPFS
-        </LoadingButton>
-      )}
-      {status === STATUS.waitForChain && (
-        <LoadingButton
-          loading
-          loadingPosition="start"
-          startIcon={<Save />}
-          variant="outlined"
-        >
-          {soul ? 'Updating Chain' : 'Minting New Soul'}
-        </LoadingButton>
-      )}
+      <Stack direction="row" spacing={2} sx={{ mt: 2 }}>
+        {status === STATUS.available && (
+          <Button variant="contained" type="submit">
+            {soul ? 'Save' : 'Create'}
+          </Button>
+        )}
+        {status === STATUS.ipfsUpload && (
+          <LoadingButton
+            loading
+            loadingPosition="start"
+            startIcon={<Save />}
+            variant="outlined"
+          >
+            Uploading to IPFS
+          </LoadingButton>
+        )}
+        {status === STATUS.waitForChain && (
+          <LoadingButton
+            loading
+            loadingPosition="start"
+            startIcon={<Save />}
+            variant="outlined"
+          >
+            {soul ? 'Updating Chain' : 'Minting New Soul'}
+          </LoadingButton>
+        )}
+        {children}
+      </Stack>
     </Form>
   );
 }

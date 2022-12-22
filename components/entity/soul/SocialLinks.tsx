@@ -28,8 +28,8 @@ export default function SocialLinks({ soul, sx }: any): JSX.Element {
       {Object.keys(PROFILE_TRAITS).map((name: string) => {
         const item: Trait = PROFILE_TRAITS[name];
         const value =
-          MetaAttrHelper.extractValue(soul?.metadata?.attributes, item.label) ||
-          MetaAttrHelper.extractValue(soul?.metadata?.attributes, name);
+          MetaAttrHelper.extractValue(soul?.metadata?.attributes, name) ||
+          MetaAttrHelper.extractValue(soul?.metadata?.attributes, item.label); //Backward Compatibility
         return !value ? null : (
           <Link
             href={item.baseURL ? item.baseURL + value : value}

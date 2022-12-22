@@ -14,13 +14,16 @@ export default function useError() {
     console.error('Error Encountered:', { error });
     //** Custom Exceptions
     if (typeof error == 'object' && error?.code == 'ACTION_REJECTED') {
+      //Rejected by User
       isErrorToastRequired = false;
     }
     if (typeof error == 'object' && error?.code == 'UNPREDICTABLE_GAS_LIMIT') {
+      //Generic Chain Error
       isErrorToastRequired = false;
-      showToastError({ message: 'Contract/Chain Error' });
+      showToastError({ message: 'Contract Error' });
     }
     if (typeof error == 'object' && error?.code == -32603) {
+      //Insuficient Gas
       isErrorToastRequired = false;
       showToastError({ message: 'Metamask: Transaction underpriced' });
     }

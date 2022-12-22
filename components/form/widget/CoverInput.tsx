@@ -67,7 +67,6 @@ export default function CoverInput(props: WidgetProps): ReactElement {
       setIsLoading(false);
     }
   }
-  console.log('pROPS', props);
   return (
     <Box sx={{ ...(propsSx as object) }}>
       {propsHeader as ReactNode}

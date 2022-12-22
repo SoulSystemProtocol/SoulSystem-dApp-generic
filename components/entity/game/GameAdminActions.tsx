@@ -1,11 +1,12 @@
 import { Stack, SxProps } from '@mui/material';
 import { DataContext } from 'contexts/data';
 import { DialogContext } from 'contexts/dialog';
+import { SelectedSoulContext } from 'contexts/SelectedSoul';
+import { SelectedGameContext } from 'contexts/SelectedGame';
 import { useContext, useEffect, useState } from 'react';
 import GameManageDialog from './GameManageDialog';
 import GameRoleManageDialog from './GameRoleManageDialog';
 import { isSoulHasRole } from 'hooks/utils';
-import { SelectedGameContext } from 'contexts/SelectedGame';
 import ConditionalButton from 'components/layout/ConditionalButton';
 
 /**
@@ -14,6 +15,7 @@ import ConditionalButton from 'components/layout/ConditionalButton';
 export default function GameAdminActions({ sx }: { sx: SxProps }): JSX.Element {
   const { accountSoul } = useContext(DataContext);
   const { game } = useContext(SelectedGameContext);
+  const { soul } = useContext(SelectedSoulContext);
   const { showDialog, closeDialog } = useContext(DialogContext);
   const [isSoulAdmin, setIsSoulAdmin] = useState(false);
 
@@ -30,7 +32,9 @@ export default function GameAdminActions({ sx }: { sx: SxProps }): JSX.Element {
         disabled={!isSoulAdmin}
         size="small"
         variant="outlined"
-        onClick={() => showDialog?.(<GameManageDialog game={game} />)}
+        onClick={() =>
+          showDialog?.(<GameManageDialog soul={soul} game={game} />)
+        }
       >
         Edit
       </ConditionalButton>
