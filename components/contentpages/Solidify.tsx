@@ -1,17 +1,10 @@
 import { useContext } from 'react';
 import Link from 'components/utils/Link';
 import ConnectButton from 'components/web3/connect/ConnectButton';
-import { Box, Card, CardMedia, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { Web3Context } from 'contexts/Web3Context';
 import { APP_CONFIGS } from 'constants/app';
 import ImageBox from 'components/utils/ImageBox';
-
-const wrapperStyle = {
-  color: '#fff',
-  textAlign: 'center',
-  px: { xs: 2, md: 4 },
-  pt: { xs: 2, md: 4 },
-};
 
 /**
  * Home Page
@@ -28,7 +21,14 @@ export default function SolidifyLanding() {
         }}
       />
       <Box sx={{ width: '100%' }}>
-        <Box sx={wrapperStyle}>
+        <Box
+          sx={{
+            color: '#fff',
+            textAlign: 'center',
+            px: { xs: 2, md: 4 },
+            pt: { xs: 2, md: 4 },
+          }}
+        >
           <Typography
             gutterBottom
             variant="h1"
