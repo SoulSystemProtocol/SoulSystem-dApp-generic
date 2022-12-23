@@ -34,10 +34,7 @@ export default function GameAdminActions({ sx }: { sx: SxProps }): JSX.Element {
         disabled={!isSoulAdmin}
         size="small"
         variant="outlined"
-        onClick={() =>
-          // showDialog?.(<GameManageDialog soul={soul} game={game} />)
-          router.push('/soul/edit/' + soul.owner)
-        }
+        onClick={() => router.push('/soul/edit/' + soul.owner)}
       >
         Edit
       </ConditionalButton>

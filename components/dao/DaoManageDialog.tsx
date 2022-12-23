@@ -86,7 +86,7 @@ export default function DaoManageDialog({ dao, isClose, onClose }: any) {
       setIsLoading(true);
       const { url: metadataUrl } = await uploadJsonToIPFS(formData);
       if (dao) {
-        //Edit mDAO's URI
+        //Update URI
         await getContractGame(dao.id).setContractURI(metadataUrl);
       } else {
         //Create a new MDAO
