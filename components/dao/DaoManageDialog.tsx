@@ -70,7 +70,7 @@ export default function DaoManageDialog({ dao, isClose, onClose }: any) {
   };
 
   const widgets = {
-    ImageInput: ImageInput,
+    ImageInput,
   };
 
   async function close() {

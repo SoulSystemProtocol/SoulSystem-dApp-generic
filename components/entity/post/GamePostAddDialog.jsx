@@ -10,7 +10,7 @@ import {
 } from '@mui/material';
 import { MuiForm5 as Form } from '@rjsf/material-ui';
 import { CLAIM_ROLE } from 'constants/contracts';
-import { POST_TYPE } from 'constants/metadata';
+import { POST_TYPE } from 'constants/entities';
 import { DataContext } from 'contexts/data';
 import { roleIdToName } from 'utils/converters';
 import useContract from 'hooks/useContract';

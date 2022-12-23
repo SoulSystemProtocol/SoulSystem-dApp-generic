@@ -20,25 +20,6 @@ export default function GameManageDialog({ soul, game }: any): JSX.Element {
     }),
   });
 
-  const schema: JSONSchema7 = {
-    // description: "Soul's metadata",
-    type: 'object',
-    properties: {
-      // cover: {
-      //   type: 'string',
-      //   title: 'Cover Image',
-      // },
-      image: {
-        type: 'string',
-        title: 'Photo',
-      },
-      attributes: {
-        type: 'array',
-        title: '',
-        items: [{}],
-      },
-    },
-  };
   console.log('Running SoulEditForm w/', { soul, game });
   return (
     <DialogWrapper
@@ -46,7 +27,7 @@ export default function GameManageDialog({ soul, game }: any): JSX.Element {
       title={game ? 'Edit DAO' : 'Create DAO'}
       isClose={false}
     >
-      <SoulEditForm soul={soul} schema={schema}>
+      <SoulEditForm soul={soul}>
         <Button variant="outlined" onClick={closeDialog}>
           Cancel
         </Button>

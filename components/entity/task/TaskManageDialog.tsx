@@ -15,6 +15,8 @@ import useToast from 'hooks/useToast';
 import { JSONSchema7 } from 'json-schema';
 import { useState } from 'react';
 import { GAME_TYPE } from 'constants/contracts';
+import OpenTags from 'components/form/widget/OpenTags';
+import { TASK_TAGS } from 'constants/entities';
 
 /**
  * A dialog for creating or editing tasks.
@@ -50,6 +52,11 @@ export default function TaskManageDialog({
         type: 'string',
         title: 'Description',
       },
+      tags: {
+        type: 'array',
+        title: 'Tags',
+        items: [{}],
+      },
     },
   };
 
@@ -63,6 +70,16 @@ export default function TaskManageDialog({
         rows: 5,
       },
     },
+    tags: {
+      'ui:widget': 'OpenTags',
+      'ui:options': {
+        options: TASK_TAGS,
+      },
+    },
+  };
+
+  const widgets = {
+    OpenTags,
   };
 
   async function close() {
@@ -110,6 +127,7 @@ export default function TaskManageDialog({
           schema={schema}
           formData={formData}
           uiSchema={uiSchema}
+          widgets={widgets}
           onSubmit={submit}
           disabled={isLoading}
         >

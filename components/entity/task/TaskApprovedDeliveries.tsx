@@ -111,7 +111,7 @@ function TaskApprovedDelivery({ soulId }: any) {
   }, [soulId]);
 
   console.error('TODO: Enable and Test New Soul Hook!');
-  // useEffect(() => {  //TODO: Enable and Test This!
+  // useEffect(() => {  //TODO: use Effect Listener -- Enable and Test This!
   //   // Try load post DAO
   //   if (soul) {
   //     getDaoById(soul.owner)
