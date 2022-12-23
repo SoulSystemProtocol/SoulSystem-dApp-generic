@@ -1,6 +1,6 @@
 import { createTheme, responsiveFontSizes } from '@mui/material/styles';
 export const sidebarWidth = 240;
-const darkThemeRaw = createTheme({
+export const darkTheme = createTheme({
   palette: {
     mode: 'dark',
   },
@@ -76,14 +76,3 @@ const darkThemeRaw = createTheme({
     body2: {},
   },
 });
-
-// darkThemeRaw.typography.h4 = {
-//   fontFamily: '"Montserrat", Open Sans',
-//   fontSize: '1.2rem',
-//   [darkThemeRaw.breakpoints.up('md')]: {
-//     fontSize: '1.4rem',
-//   },
-// };
-
-//Automatic Reponsive Fonts
-export const darkTheme = responsiveFontSizes(darkThemeRaw);

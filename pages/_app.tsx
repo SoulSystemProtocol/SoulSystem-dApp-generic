@@ -1,4 +1,4 @@
-import { ThemeProvider } from '@mui/material/styles';
+import { responsiveFontSizes, ThemeProvider } from '@mui/material/styles';
 import { DataProvider } from 'contexts/data';
 import { DialogProvider } from 'contexts/dialog';
 import { Web3Provider } from 'contexts/Web3Context';
@@ -20,7 +20,7 @@ const client = new ApolloClient({
 export default function App({ Component, pageProps }: AppProps): JSX.Element {
   return (
     <ApolloProvider client={client}>
-      <ThemeProvider theme={theme}>
+      <ThemeProvider theme={responsiveFontSizes(theme)}>
         <SnackbarProvider maxSnack={3}>
           <Web3Provider>
             <DataProvider>
