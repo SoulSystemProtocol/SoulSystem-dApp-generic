@@ -8,7 +8,7 @@ import Layout from 'components/layout/Layout';
 import PaginatedList from 'components/PaginatedList';
 import SoulsByTypeRoleQuery from 'queries/SoulsByTypeRoleQuery';
 import { gameCardContent } from 'utils/cardContents';
-import { nameEntity } from 'hooks/utils';
+import { nameEntity } from 'helpers/utils';
 import { GAME_DESC } from 'constants/contracts';
 
 const CONF = {

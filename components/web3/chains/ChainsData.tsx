@@ -1,5 +1,6 @@
 import React from 'react';
 import { AvaxLogo, PolygonLogo, BSCLogo, ETHLogo } from './Logos';
+import { isNumber, toHex } from 'helpers/utils';
 
 //Chain Data Interface
 export interface ChainData {
@@ -19,10 +20,20 @@ export interface ChainData {
   decimals?: any;
   openSeaUrl?: string;
   wrapped?: string;
+  ERC20?: {
+    address: string;
+    label: string;
+    decimals?: number;
+  }[]; //Whitelisted ERC20 Tokens
 }
 
-//Fetch Chain Data Function
-export const getChainData = (chainId?: string): any => {
+/**
+ * Fetch Chain Data Function
+ * Default to Default Chain
+ */
+export const getChainData = (chainId?: string | number): any => {
+  //Normalize
+  if (!!chainId && isNumber(chainId)) chainId = toHex(Number(chainId));
   if (!!chainId) return ChainsData[chainId];
   if (!!process.env.NEXT_PUBLIC_NETWORK_CHAIN_ID_HEX)
     return ChainsData[process.env.NEXT_PUBLIC_NETWORK_CHAIN_ID_HEX];
@@ -147,6 +158,7 @@ export const ChainsData: { [key: string]: ChainData } = {
     rpc: 'https://rpc-mumbai.maticvigil.com/',
     // rpc: 'https://rpc-mumbai.matic.today/',
     decimals: 18,
+    ERC20: [],
   },
   '0xa86a': {
     key: '0xa86a',

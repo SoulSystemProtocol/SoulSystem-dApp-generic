@@ -18,7 +18,7 @@ import Head from 'next/head';
 import Header from './Header';
 import Sidebar from './Sidebar';
 import Footer from './Footer';
-import { nameEntity } from 'hooks/utils';
+import { nameEntity } from 'helpers/utils';
 
 const top_links: any = [
   //TODO: Support Hiding

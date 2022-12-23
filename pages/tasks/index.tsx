@@ -2,7 +2,7 @@ import { getPageTitle } from '../../utils';
 import Layout from 'components/layout/Layout';
 import { processCardContent } from 'utils/cardContents';
 import { GAME_DESC } from 'constants/contracts';
-import { nameEntity } from 'hooks/utils';
+import { nameEntity } from 'helpers/utils';
 import PaginatedList from 'components/PaginatedList';
 import SoulsByTypeRoleQuery from 'queries/SoulsByTypeRoleQuery';
 

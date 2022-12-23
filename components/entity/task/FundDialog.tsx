@@ -17,6 +17,7 @@ import AddressHash from 'components/web3/AddressHash';
 import useContract from 'hooks/useContract';
 import { DialogParams } from 'contexts/dialog';
 import { ethers } from 'ethers';
+import { Typography } from '@mui/material';
 
 interface FundParams extends DialogParams {
   address: string;
@@ -85,7 +86,10 @@ export default function FundDialog({
       fullWidth
     >
       <DialogTitle sx={{ pb: 0 }}>
-        {title} <AddressHash address={address} />
+        {title}
+        <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+          <AddressHash address={address} />
+        </Typography>
       </DialogTitle>
       <DialogContent>
         <Form

@@ -1,7 +1,7 @@
 import { createContext, useContext } from 'react';
 import useSoulById from 'hooks/useSoulById';
 import useSoulByHash from 'hooks/useSoulByOwner';
-import { isNumber } from 'hooks/utils';
+import { isNumber } from 'helpers/utils';
 import { DataContext } from './data';
 
 interface ISelectedSoulContext {

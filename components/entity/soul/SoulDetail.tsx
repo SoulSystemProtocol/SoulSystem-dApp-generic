@@ -9,7 +9,7 @@ import EntityImage from 'components/entity/EntityImage';
 import SoulDescription from './SoulDescription';
 import SocialLinks from './SocialLinks';
 import Loading from 'components/layout/Loading';
-import { nameEntity } from 'hooks/utils';
+import { nameEntity } from 'helpers/utils';
 import Link from 'components/utils/Link';
 import { resolveLink } from 'helpers/IPFS';
 import { darkTheme as theme } from 'constants/theme';

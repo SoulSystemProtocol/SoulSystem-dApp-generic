@@ -7,7 +7,7 @@ import DaoManageDialog from 'components/dao/DaoManageDialog';
 import Layout from 'components/layout/Layout';
 import { GAME_DESC } from 'constants/contracts';
 import { gameCardContent } from 'utils/cardContents';
-import { nameEntity } from 'hooks/utils';
+import { nameEntity } from 'helpers/utils';
 import PaginatedList from 'components/PaginatedList';
 import SoulsByTypeRoleQuery from 'queries/SoulsByTypeRoleQuery';
 

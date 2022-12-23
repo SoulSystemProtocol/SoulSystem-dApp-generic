@@ -10,7 +10,7 @@ import SocialLinks from 'components/entity/soul/SocialLinks';
 import Link from 'components/utils/Link';
 import { SelectedSoulContext } from 'contexts/SelectedSoul';
 import { useContext } from 'react';
-import { nameEntity } from 'hooks/utils';
+import { nameEntity } from 'helpers/utils';
 import { SelectedGameContext } from 'contexts/SelectedGame';
 
 /**

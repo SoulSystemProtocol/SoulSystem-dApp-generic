@@ -1,5 +1,5 @@
 import Link from 'components/utils/Link';
-import { nameEntity } from 'hooks/utils';
+import { nameEntity } from 'helpers/utils';
 
 /**
  * Description by Entity Type

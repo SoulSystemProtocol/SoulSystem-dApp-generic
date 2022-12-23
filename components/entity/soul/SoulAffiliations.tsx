@@ -1,7 +1,7 @@
 import { Box, Typography } from '@mui/material';
 import { GAME_TYPE } from 'constants/contracts';
 import { SelectedSoulContext } from 'contexts/SelectedSoul';
-import { nameEntity } from 'hooks/utils';
+import { nameEntity } from 'helpers/utils';
 import { useContext } from 'react';
 import {
   CardItem,

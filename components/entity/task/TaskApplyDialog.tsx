@@ -14,7 +14,7 @@ import useContract from 'hooks/useContract';
 import useError from 'hooks/useError';
 import useToast from 'hooks/useToast';
 import useIpfs from 'hooks/useIpfs';
-import { nameEntity } from 'hooks/utils';
+import { nameEntity } from 'helpers/utils';
 import { JSONSchema7 } from 'json-schema';
 import { useContext, useState } from 'react';
 

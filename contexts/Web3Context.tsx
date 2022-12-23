@@ -18,6 +18,7 @@ interface IWeb3Context {
   disconnectWallet: Function;
   switchNetwork: Function;
   getBalance: (account: string) => Promise<string>;
+  curChainData: any;
 }
 
 export const Web3Context = createContext<Partial<IWeb3Context>>({});
@@ -27,6 +28,7 @@ export function Web3Provider({ children }: any) {
   const [isReady, setIsReady] = useState(false);
   const [instance, setInstance] = useState<any>(null);
   const [provider, setProvider] = useState<any>(null);
+  const [curChainData, setCurChainData] = useState<any>({});
   const [defaultProvider, setDefaultProvider] = useState<any>(null);
   const [account, setAccount] = useState<any>(null);
   const [networkChainId, setNetworkChainId] = useState<number | null>(null);
@@ -215,6 +217,19 @@ export function Web3Provider({ children }: any) {
   }, []);
 
   useEffect(() => {
+    setCurChainData(
+      getChainData(networkChainId ? networkChainId.toString() : ''),
+    );
+    // let asHex = networkChainId
+    //   ? ethers.utils.isHexString(networkChainId)
+    //     ? networkChainId
+    //     : ethers.utils.hexlify(Number(networkChainId))
+    //   : ' NONE';
+    console.warn(
+      '[TEST] Setting CHain Data for' + networkChainId,
+      getChainData(networkChainId ? networkChainId.toString() : ''),
+    );
+
     if (networkChainId === null) {
       setIsNetworkChainCorrect(null);
     } else
@@ -236,6 +251,7 @@ export function Web3Provider({ children }: any) {
         disconnectWallet,
         switchNetwork,
         getBalance,
+        curChainData,
       }}
     >
       {children}

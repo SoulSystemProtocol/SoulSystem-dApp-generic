@@ -2,7 +2,7 @@ import { TabContext, TabList, TabPanel } from '@mui/lab';
 import { Box, Tab } from '@mui/material';
 import EntityComments from 'components/entity/post/EntityPosts';
 import GameMembers from 'components/entity/game/GameMembers';
-import { nameEntity } from 'hooks/utils';
+import { nameEntity } from 'helpers/utils';
 import { useState } from 'react';
 import ProjectAddTaskButton from '../../project/ProjectAddTaskButton';
 import ProjectTaskList from '../../project/ProjectTaskList';

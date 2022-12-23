@@ -2,7 +2,7 @@ import { Box } from '@mui/material';
 import SoulList from 'components/entity/soul/SoulList';
 import useError from 'hooks/useError';
 import useSoulsById from 'hooks/useSoulsById';
-import { nameRole } from 'hooks/utils';
+import { nameRole } from 'helpers/utils';
 import { union } from 'lodash';
 import { useEffect, useState } from 'react';
 

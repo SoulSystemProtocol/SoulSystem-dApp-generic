@@ -8,12 +8,13 @@ import AddressHash from 'components/web3/AddressHash';
 import { DataContext } from 'contexts/data';
 import { useContext, useEffect, useState } from 'react';
 import FundDialogButton from 'components/web3/FundDialogButton';
-import { isSoulHasRole, nameEntity } from 'hooks/utils';
+import { isSoulHasRole } from 'hooks/utils';
 import useWeb3NativeBalance from 'hooks/useWeb3NativeBalance';
 import ConditionalButton from 'components/layout/ConditionalButton';
 import { SelectedSoulContext } from 'contexts/SelectedSoul';
 import useContainerImage from 'hooks/useContainerImage';
 import { getChainData } from 'components/web3/chains/ChainsData';
+import { nameEntity } from 'helpers/utils';
 
 /**
  * Component: project details.
