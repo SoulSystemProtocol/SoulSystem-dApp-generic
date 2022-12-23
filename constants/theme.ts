@@ -76,3 +76,12 @@ export const darkTheme = createTheme({
     body2: {},
   },
 });
+
+darkTheme.typography.h4 = {
+  fontFamily: '"Montserrat", Open Sans',
+  fontSize: '1.2rem',
+  [darkTheme.breakpoints.up('md')]: {
+    fontSize: '1.4rem',
+  },
+};
+

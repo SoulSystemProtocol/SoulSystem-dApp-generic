@@ -17,10 +17,10 @@ export default function SolidifyLanding() {
       <ImageBox
         src="/images/futuristic_tower1.jpg"
         sx={{
-          height: { xs: '200px', md: '320px' },
+          height: { xs: '160px', md: '320px' },
         }}
       />
-      <Box sx={{ width: '100%' }}>
+      <Box>
         <Box
           sx={{
             color: '#fff',
@@ -34,11 +34,15 @@ export default function SolidifyLanding() {
             variant="h1"
             fontWeight={700}
             letterSpacing="0.1em"
-            sx={{ fontSize: { md: '5rem', sm: '2rem' } }}
+            sx={{ fontSize: { sm: '5rem', xs: '3rem' } }}
           >
             {APP_CONFIGS.NAME}
           </Typography>
-          <Typography variant="h4" fontSize="2em" letterSpacing="0.05em">
+          <Typography
+            variant="h4"
+            sx={{ fontSize: { xs: '1.2rem', sm: '2rem' } }}
+            letterSpacing="0.05em"
+          >
             On-chain low-code framework for structuring socio-economic systems
           </Typography>
         </Box>
@@ -54,13 +58,14 @@ export default function SolidifyLanding() {
           <Box
             sx={{
               mt: 3,
+              p: 2,
               justifyContent: 'center',
               border: '1px solid #333',
               borderRadius: 2,
               textAlign: 'center',
             }}
           >
-            <Typography variant="h6" mr={1}>
+            <Typography variant="h6" mb={1}>
               Need some test tokens?
             </Typography>
             <Typography sx={{ marginTop: '5px' }}>
