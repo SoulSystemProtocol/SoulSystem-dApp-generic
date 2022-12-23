@@ -25,7 +25,7 @@ export default function CoverInput(props: WidgetProps): ReactElement {
   const { handleError } = useError();
   const { uploadFileToIPFS } = useIpfs();
   const [isLoading, setIsLoading] = useState(false);
-  const size = 164;
+  const size = '230px';
   const elId = 'coverInput';
 
   /// Input File Validation
