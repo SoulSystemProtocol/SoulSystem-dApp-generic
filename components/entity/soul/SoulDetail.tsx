@@ -13,6 +13,7 @@ import { nameEntity } from 'hooks/utils';
 import Link from 'components/utils/Link';
 import { resolveLink } from 'helpers/IPFS';
 import { darkTheme as theme } from 'constants/theme';
+import ImageBox from 'components/utils/ImageBox';
 
 /**
  * Soul details
@@ -32,20 +33,7 @@ export default function SoulDetail({ soul, sx }: any) {
   console.log('SoulDetail: coverImageSrc', soul);
   return (
     <>
-      <div
-        className="cover"
-        style={{
-          width: '100%',
-          height: '230px',
-          overflow: 'hidden',
-          backgroundSize: 'cover',
-          backgroundRepeat: 'no-repeat',
-          backgroundPosition: 'center',
-          borderRadius: '12px',
-          background:
-            'url(' + coverImageSrc + ') center center / cover no-repeat',
-        }}
-      ></div>
+      <ImageBox sx={{ height: '230px' }} src={coverImageSrc} />
       <Box
         sx={{
           display: 'flex',

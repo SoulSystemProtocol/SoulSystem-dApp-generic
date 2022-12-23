@@ -4,6 +4,7 @@ import ConnectButton from 'components/web3/connect/ConnectButton';
 import { Box, Card, CardMedia, Typography } from '@mui/material';
 import { Web3Context } from 'contexts/Web3Context';
 import { APP_CONFIGS } from 'constants/app';
+import ImageBox from 'components/utils/ImageBox';
 
 const wrapperStyle = {
   color: '#fff',
@@ -20,22 +21,20 @@ export default function SolidifyLanding() {
 
   return (
     <>
-      <Card sx={{ height: '320px' }}>
-        <CardMedia
-          component="img"
-          width="100%"
-          image="/images/futuristic_tower1.jpg"
-          alt="skyscraper architecture"
-        />
-      </Card>
+      <ImageBox
+        src="/images/futuristic_tower1.jpg"
+        sx={{
+          height: { xs: '200px', md: '320px' },
+        }}
+      />
       <Box sx={{ width: '100%' }}>
         <Box sx={wrapperStyle}>
           <Typography
             gutterBottom
             variant="h1"
             fontWeight={700}
-            fontSize="5rem"
             letterSpacing="0.1em"
+            sx={{ fontSize: { md: '5rem', sm: '2rem' } }}
           >
             {APP_CONFIGS.NAME}
           </Typography>
@@ -55,16 +54,15 @@ export default function SolidifyLanding() {
           <Box
             sx={{
               mt: 3,
-              display: 'flex',
               justifyContent: 'center',
               border: '1px solid #333',
               borderRadius: 2,
+              textAlign: 'center',
             }}
           >
             <Typography variant="h6" mr={1}>
               Need some test tokens?
             </Typography>
-            <br />
             <Typography sx={{ marginTop: '5px' }}>
               Request some from the{' '}
               <Link href={`https://faucet.polygon.technology/`} target="_blank">
