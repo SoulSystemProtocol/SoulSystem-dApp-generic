@@ -32,9 +32,8 @@ export function Web3Provider({ children }: any) {
   const [defaultProvider, setDefaultProvider] = useState<any>(null);
   const [account, setAccount] = useState<any>(null);
   const [networkChainId, setNetworkChainId] = useState<number | null>(null);
-  const [isNetworkChainIdCorrect, setIsNetworkChainCorrect] = useState<
-    boolean | null
-  >(null);
+  const [isNetworkChainIdCorrect, setIsNetworkChainCorrect] =
+    useState<boolean>(false);
 
   async function initContext() {
     if (!web3ModalRef.current) {
@@ -95,7 +94,7 @@ export function Web3Provider({ children }: any) {
       setProvider(null);
       setAccount(null);
       setNetworkChainId(null);
-      setIsNetworkChainCorrect(null);
+      setIsNetworkChainCorrect(false);
     } catch (error: any) {
       console.error(error);
     } finally {
@@ -134,7 +133,7 @@ export function Web3Provider({ children }: any) {
     const chainData = getChainData(
       process.env.NEXT_PUBLIC_NETWORK_CHAIN_ID_HEX,
     );
-    console.log('[TEST] Current Chain Data', chainData);
+    console.log('Supported Chain Data', chainData);
     try {
       await instance.request({
         method: 'wallet_addEthereumChain',
@@ -217,25 +216,18 @@ export function Web3Provider({ children }: any) {
   }, []);
 
   useEffect(() => {
+    //Set Chain Data
     setCurChainData(
       getChainData(networkChainId ? networkChainId.toString() : ''),
     );
-    // let asHex = networkChainId
-    //   ? ethers.utils.isHexString(networkChainId)
-    //     ? networkChainId
-    //     : ethers.utils.hexlify(Number(networkChainId))
-    //   : ' NONE';
-    console.warn(
-      '[TEST] Setting CHain Data for' + networkChainId,
-      getChainData(networkChainId ? networkChainId.toString() : ''),
-    );
-
-    if (networkChainId === null) {
-      setIsNetworkChainCorrect(null);
-    } else
-      setIsNetworkChainCorrect(
+    //Check if supported chain
+    // if (networkChainId === null) {
+    //   setIsNetworkChainCorrect(null);
+    // } else
+    setIsNetworkChainCorrect(
+      !!networkChainId &&
         networkChainId?.toString() === process.env.NEXT_PUBLIC_NETWORK_CHAIN_ID,
-      );
+    );
   }, [networkChainId]);
 
   return (
