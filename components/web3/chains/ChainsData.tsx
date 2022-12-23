@@ -158,7 +158,9 @@ export const ChainsData: { [key: string]: ChainData } = {
     rpc: 'https://rpc-mumbai.maticvigil.com/',
     // rpc: 'https://rpc-mumbai.matic.today/',
     decimals: 18,
-    ERC20: [],
+    ERC20: [
+      { address: '0x326C977E6efc84E512bB9C30f76E30c160eD06FB', label: 'LINK' },
+    ],
   },
   '0xa86a': {
     key: '0xa86a',
