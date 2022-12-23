@@ -28,7 +28,7 @@ export default function TaskManageDialog({
   const { showToastSuccess } = useToast();
   const { uploadJsonToIPFS } = useIpfs();
   const { handleError } = useError();
-  const { getContractGameProject } = useContract();
+  const { getContractGameProject, getContractTask } = useContract();
   const [isLoading, setIsLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(!isClose);
   const [formData, setFormData] = useState({
@@ -78,8 +78,8 @@ export default function TaskManageDialog({
       setIsLoading(true);
       const { url: metadataUrl } = await uploadJsonToIPFS(formData);
       if (task) {
-        // TODO: Implement this feature
-        console.warn('[TODO] Implement Task Edit');
+        //Update URI
+        await getContractTask(task.id).setContractURI(metadataUrl);
       } else {
         await getContractGameProject(project.id).makeTask(
           GAME_TYPE.task,
