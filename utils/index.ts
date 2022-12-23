@@ -1,4 +1,4 @@
-import { APP_CONFIGS } from '../constants';
+import { APP_CONFIGS } from '../constants/app';
 import axios from 'axios';
 
 ///Generate Page Title
