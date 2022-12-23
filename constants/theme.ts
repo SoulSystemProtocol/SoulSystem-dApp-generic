@@ -12,6 +12,18 @@ export const darkTheme = createTheme({
         },
       },
     },
+    MuiLink: {
+      styleOverrides: {
+        root: {
+          textDecoration: 'none',
+        },
+        // underlineHover: {
+        //   '&:hover': {
+        //     textDecoration: 'none',
+        //   },
+        // },
+      },
+    },
     MuiTextField: {
       styleOverrides: {
         root: { //Doesn't Work...
