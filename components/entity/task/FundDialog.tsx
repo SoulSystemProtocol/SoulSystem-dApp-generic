@@ -18,6 +18,7 @@ import { JSONSchema7 } from 'json-schema';
 import AddressHash from 'components/web3/AddressHash';
 import useContract from 'hooks/useContract';
 import { DialogParams } from 'contexts/dialog';
+import { ethers } from 'ethers';
 
 interface FundParams extends DialogParams {
   address: string;
@@ -35,7 +36,6 @@ export default function FundDialog({
   const { showToastSuccess } = useToast();
   const { handleError } = useError();
   const { validateChain } = useContract();
-  // const { applyForTaskAsDao } = useTask();
   const [isLoading, setIsLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(!isClose);
   const [formData, setFormData] = useState({});
@@ -66,13 +66,10 @@ export default function FundDialog({
       setIsLoading(true);
       let tx = {
         to: address,
-        value: (formData.amount * 10 ** 18).toString(), //Works
-        // value: Number(BigNumber.from(formData.amount)), //Fails
-        // value: BigNumber.from(formData.amount).toHexString(), //Fails
-        // value: ethers.utils.formatEther(formData.amount).toString(), //Wrong amount
-        //TODO: Should try to use ethers.utils to format the amount
+        value: ethers.utils.parseEther(formData.amount.toString()),
       };
-      let receipt = await provider.getSigner().sendTransaction(tx);
+      // let receipt =
+      await provider.getSigner().sendTransaction(tx);
       showToastSuccess('Funds are on their way');
       close();
     } catch (error: any) {
