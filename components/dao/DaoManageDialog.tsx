@@ -24,7 +24,7 @@ export default function DaoManageDialog({ dao, isClose, onClose }: any) {
   const { showToastSuccess } = useToast();
   const { uploadJsonToIPFS } = useIpfs();
   const { handleError } = useError();
-  const { getContractHub, getContractGameMDAO } = useContract();
+  const { getContractHub, getContractGame } = useContract();
   const [isLoading, setIsLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(!isClose);
   const [formData, setFormData] = useState({
@@ -86,9 +86,8 @@ export default function DaoManageDialog({ dao, isClose, onClose }: any) {
       setIsLoading(true);
       const { url: metadataUrl } = await uploadJsonToIPFS(formData);
       if (dao) {
-        //Edit MDAO's URI   //TODO!! Change this to Soul Edit
-        // await getContractGameMDAO(dao.id).setContractURI(metadataUrl);
-        console.error('DEPRECATED -- Change this to Soul Edit');
+        //Edit mDAO's URI
+        await getContractGame(dao.id).setContractURI(metadataUrl);
       } else {
         //Create a new MDAO
         await getContractHub().makeGame(
