@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { Button } from '@mui/material';
+import { Box, Button } from '@mui/material';
 import { DialogContext } from 'contexts/dialog';
 import { DataContext } from 'contexts/data';
 import { getPageTitle } from '../../utils';
@@ -24,15 +24,17 @@ export default function ProjectsPage({}: any) {
   const { accountSoul } = useContext(DataContext);
   const { showDialog, closeDialog } = useContext(DialogContext);
   const renderActions = (
-    <Button
-      disabled={!accountSoul}
-      onClick={() =>
-        showDialog?.(<ProjectManageDialog onClose={closeDialog} />)
-      }
-      variant="outlined"
-    >
-      Create Project
-    </Button>
+    <Box>
+      <Button
+        disabled={!accountSoul}
+        onClick={() =>
+          showDialog?.(<ProjectManageDialog onClose={closeDialog} />)
+        }
+        variant="outlined"
+      >
+        Create Project
+      </Button>
+    </Box>
   );
 
   const listProps = {

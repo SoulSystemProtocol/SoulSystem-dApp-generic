@@ -3,7 +3,7 @@ import { Box, Tab } from '@mui/material';
 import EntityComments from 'components/entity/post/EntityPosts';
 import GameMembers from 'components/entity/game/GameMembers';
 import { useState } from 'react';
-import TaskAcceptedApplications from './TaskAcceptedApplications';
+// import TaskAcceptedApplications from './TaskAcceptedApplications';
 import TaskApplications from './TaskApplications';
 import TaskApprovedDeliveries from './TaskApprovedDeliveries';
 import TaskPostedDeliveries from '../post/TaskPostedDeliveries';

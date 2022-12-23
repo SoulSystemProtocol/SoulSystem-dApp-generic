@@ -1,6 +1,9 @@
 import Link from 'components/utils/Link';
 import { nameEntity } from 'hooks/utils';
 
+/**
+ * Description by Entity Type
+ */
 export const GAME_DESC: any = {
   mdao: `Mentor DAOs consist of a mentor and mentees that work on bounties
   together, as a team.`,
@@ -13,7 +16,13 @@ export const GAME_DESC: any = {
       to produce products.
     </>
   ),
-  task: 'Bounties are tasks you can do for a reward.',
+  task: `Here ${nameEntity(
+    'project',
+    true,
+  )} post things they need done, and ${nameEntity('', true)} and ${nameEntity(
+    'mdao',
+    true,
+  )} deliver them for a bounty.`,
   dao: '',
 };
 
