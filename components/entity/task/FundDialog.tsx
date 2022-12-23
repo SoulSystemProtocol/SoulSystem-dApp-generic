@@ -1,5 +1,4 @@
 import { useContext, useState } from 'react';
-// import { BigNumber, ethers } from 'ethers';
 import { Web3Context } from 'contexts/Web3Context';
 import { Save } from '@mui/icons-material';
 import { LoadingButton } from '@mui/lab';
@@ -12,7 +11,6 @@ import {
 } from '@mui/material';
 import { MuiForm5 as Form } from '@rjsf/material-ui';
 import useError from 'hooks/useError';
-// import useTask from 'hooks/useTask';
 import useToast from 'hooks/useToast';
 import { JSONSchema7 } from 'json-schema';
 import AddressHash from 'components/web3/AddressHash';
