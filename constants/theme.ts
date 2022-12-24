@@ -5,6 +5,13 @@ export const darkTheme = createTheme({
     mode: 'dark',
   },
   components: {
+    MuiButton: {
+      styleOverrides: {
+        // rounded: {
+        //   borderRadius: '16px',
+        // },
+      },
+    },
     MuiCard: {
       styleOverrides: {
         root: {

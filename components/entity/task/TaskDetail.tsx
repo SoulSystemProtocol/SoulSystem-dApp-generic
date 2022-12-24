@@ -15,6 +15,7 @@ import { SelectedSoulContext } from 'contexts/SelectedSoul';
 import useContainerImage from 'hooks/useContainerImage';
 import { getChainData } from 'components/web3/chains/ChainsData';
 import { nameEntity } from 'helpers/utils';
+import TokenBalance from 'components/web3/TokenBalance';
 
 /**
  * Component: project details.
@@ -86,7 +87,8 @@ export default function TaskDetail({ item, sx }: any) {
         <AddressHash address={item.id} sx={{ float: 'right' }} />
         <Typography color="text.secondary" variant="body2" sx={{ mt: 1 }}>
           {taskStageToString(item)}{' '}
-          {fund ? ` | ${fund} ${getChainData()?.native}` : ''}
+          {fund ? ` | ${fund} ${getChainData()?.native}` : ''} |{' '}
+          <TokenBalance account={item.id} />
         </Typography>
         <Typography sx={{ mt: 1 }}>{item?.metadata?.description}</Typography>
         <Stack direction="row" spacing={2} sx={{ mt: 2 }}>

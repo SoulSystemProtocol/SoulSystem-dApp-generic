@@ -8,6 +8,7 @@ import {
   MenuItem,
 } from '@mui/material';
 import ConnectButton from 'components/web3/connect/ConnectButton';
+import { DataContext } from 'contexts/data';
 import { Web3Context } from 'contexts/Web3Context';
 import { useContext, useState } from 'react';
 import { nameSoul, soulImage, addressToShortAddress } from 'utils/converters';
@@ -18,6 +19,7 @@ import { nameSoul, soulImage, addressToShortAddress } from 'utils/converters';
  */
 export default function SettingsMenu({ profile }: any): JSX.Element {
   const { account } = useContext(Web3Context);
+  const { accountSoul } = useContext(DataContext);
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {

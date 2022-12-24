@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import MenuIcon from '@mui/icons-material/Menu';
-import { Toolbar, Typography } from '@mui/material';
+import { Button, Toolbar, Tooltip, Typography } from '@mui/material';
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
 import IconButton from '@mui/material/IconButton';
 import { Box } from '@mui/system';
@@ -110,8 +110,24 @@ export default function Header({
             <Typography sx={{ mr: 1 }}>{nameSoul(accountSoul)}</Typography>
           </Link>
         )}
-        {!account && <ConnectButton />}
-        {account && <SettingsMenu profile={accountSoul} />}
+        {!account ? (
+          <ConnectButton />
+        ) : !accountSoul ? (
+          <Tooltip title="Mint yourself a Soul to be represented in the verse">
+            <Link href="/soul/create">
+              <Button
+                variant="outlined"
+                size="small"
+                sx={{ borderRadius: '16px' }}
+                title="Mint yourself a Soul to be represented in the verse"
+              >
+                Create Profile
+              </Button>
+            </Link>
+          </Tooltip>
+        ) : (
+          <SettingsMenu profile={accountSoul} />
+        )}
       </Toolbar>
     </AppBar>
   );

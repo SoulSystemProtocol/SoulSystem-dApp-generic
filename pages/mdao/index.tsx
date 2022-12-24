@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { Box, Button } from '@mui/material';
+import { Box, Button, Tooltip } from '@mui/material';
 import { DialogContext } from 'contexts/dialog';
 import { DataContext } from 'contexts/data';
 import { getPageTitle } from '../../utils';
@@ -20,20 +20,24 @@ const CONF = {
 /**
  * Page for a list of mDAO Games
  */
-export default function DaosPage({}: any) {
+export default function DaosPage(): JSX.Element {
   const { accountSoul } = useContext(DataContext);
   const { showDialog, closeDialog } = useContext(DialogContext);
   // const { handleError } = useError();
 
   const renderActions = (
     <Box>
-      <Button
-        disabled={!accountSoul}
-        onClick={() => showDialog?.(<DaoManageDialog onClose={closeDialog} />)}
-        variant="outlined"
-      >
-        Create {nameEntity('mdao')}
-      </Button>
+      <Tooltip title="Create a new mDAO">
+        <Button
+          disabled={!accountSoul}
+          onClick={() =>
+            showDialog?.(<DaoManageDialog onClose={closeDialog} />)
+          }
+          variant="outlined"
+        >
+          {'Create ' + nameEntity('mdao')}
+        </Button>
+      </Tooltip>
     </Box>
   );
 

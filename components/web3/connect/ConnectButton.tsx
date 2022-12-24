@@ -1,11 +1,15 @@
 import { useContext } from 'react';
 import { Web3Context } from 'contexts/Web3Context';
-import { Button } from '@mui/material';
+import { Button, SxProps } from '@mui/material';
 
 /**
  * Wallet Connect Button
  */
-export default function ConnectButton({ sx = {} }): JSX.Element {
+export default function ConnectButton({
+  sx = {},
+}: {
+  sx?: SxProps;
+}): JSX.Element {
   const { account, connectWallet, disconnectWallet } = useContext(Web3Context);
 
   if (!account) {
@@ -16,7 +20,7 @@ export default function ConnectButton({ sx = {} }): JSX.Element {
         onClick={() => {
           connectWallet?.();
         }}
-        sx={{ cursor: 'pointer', ...sx }}
+        sx={{ cursor: 'pointer', borderRadius: '16px', ...sx }}
       >
         Connect Wallet
       </Button>
@@ -27,7 +31,7 @@ export default function ConnectButton({ sx = {} }): JSX.Element {
         variant="outlined"
         size="small"
         onClick={() => disconnectWallet?.()}
-        sx={{ cursor: 'pointer', ...sx }}
+        sx={{ cursor: 'pointer', borderRadius: '16px', ...sx }}
       >
         Disconnect Wallet
       </Button>
