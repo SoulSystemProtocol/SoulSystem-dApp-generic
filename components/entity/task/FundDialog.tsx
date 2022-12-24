@@ -88,7 +88,11 @@ export default function FundDialog({
       <DialogTitle sx={{ pb: 0 }}>
         {title}
         <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-          <AddressHash address={address} />
+          <AddressHash
+            address={address}
+            displayLink={true}
+            displayCopy={false}
+          />
         </Typography>
       </DialogTitle>
       <DialogContent>
