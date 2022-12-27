@@ -1,16 +1,18 @@
 import { createTheme } from '@mui/material/styles';
-import { purple } from '@mui/material/colors';
+import { purple, blue, indigo } from '@mui/material/colors';
 export const sidebarWidth = 240;
-const accent = '#8d39ec'; //Purple (Button)
-// const accent = purple[500];
+// const accent = '#8E54E9'; //Purple (Button)
+// const accent = purple['A200'];
+// const accent = blue['500'];
+const accent = indigo['A100'];
 const accentDisabled = '#ae71f2'; //Purple disabled
 
 export const darkTheme = createTheme({
   palette: {
     mode: 'dark',
-    // primary: {
-    // main: accent,
-    // },
+    primary: {
+      main: accent,
+    },
     secondary: {
       main: '#f44336',
     },
