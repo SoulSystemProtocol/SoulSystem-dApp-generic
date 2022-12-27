@@ -119,7 +119,7 @@ export default function Header({
                 <Button
                   variant="contained"
                   size="small"
-                  sx={{ borderRadius: '16px' }}
+                  sx={{ borderRadius: '16px', px: '26px' }}
                 >
                   Mint Profile
                 </Button>
