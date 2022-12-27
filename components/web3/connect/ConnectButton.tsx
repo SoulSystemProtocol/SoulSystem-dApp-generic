@@ -15,7 +15,7 @@ export default function ConnectButton({
   if (!account) {
     return (
       <Button
-        variant="outlined"
+        variant="contained"
         size="small"
         onClick={() => {
           connectWallet?.();

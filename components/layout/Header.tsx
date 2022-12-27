@@ -113,17 +113,18 @@ export default function Header({
         {!account ? (
           <ConnectButton />
         ) : !accountSoul ? (
-          <Tooltip title="Mint yourself a Soul to be represented in the verse">
-            <Link href="/soul/create">
-              <Button
-                variant="outlined"
-                size="small"
-                sx={{ borderRadius: '16px' }}
-                title="Mint yourself a Soul to be represented in the verse"
-              >
-                Create Profile
-              </Button>
-            </Link>
+          <Tooltip title="Mint yourself a Soul to act in the verse">
+            <span>
+              <Link href="/soul/create">
+                <Button
+                  variant="contained"
+                  size="small"
+                  sx={{ borderRadius: '16px' }}
+                >
+                  Mint Profile
+                </Button>
+              </Link>
+            </span>
           </Tooltip>
         ) : (
           <SettingsMenu profile={accountSoul} />

@@ -26,12 +26,13 @@ import { TaskUpgradable } from '../typechain-types/contracts/TaskUpgradable';
  * Hook for workin with contracts.
  */
 export default function useContract() {
-  const { account, provider, isNetworkChainIdCorrect, isReady } = useContext(Web3Context);
+  const { account, provider, isNetworkChainIdCorrect, isReady } =
+    useContext(Web3Context);
 
   /// Common Validations
   function validateChain() {
-    if (!isReady){
-      console.error("[DEBUG] Not ready -- is Wallet Connected?", account);
+    if (!isReady) {
+      console.error('[DEBUG] Not ready -- is Wallet Connected?', account);
       throw new NoWalletError();
     }
     if (!isNetworkChainIdCorrect) throw new WrongNetworkError();
@@ -41,14 +42,22 @@ export default function useContract() {
   function getContractHub(): HubUpgradable {
     validateChain();
     const address = process.env.NEXT_PUBLIC_HUB_CONTRACT_ADDRESS;
-    return new Contract(String(address), ABI_Hub, provider?.getSigner()) as HubUpgradable;
+    return new Contract(
+      String(address),
+      ABI_Hub,
+      provider?.getSigner(),
+    ) as HubUpgradable;
   }
 
   /// Action Repo Contract (history)
   function getContractActions(): ActionRepoTrackerUp {
     validateChain();
     const address = process.env.NEXT_PUBLIC_ACTION_REPO_CONTRACT_ADDRESS;
-    return new Contract(String(address), ABI_Action, provider?.getSigner()) as ActionRepoTrackerUp;
+    return new Contract(
+      String(address),
+      ABI_Action,
+      provider?.getSigner(),
+    ) as ActionRepoTrackerUp;
   }
 
   /* [TBD]
@@ -64,43 +73,71 @@ export default function useContract() {
   function getContractSoul(): SoulUpgradable {
     validateChain();
     const address = process.env.NEXT_PUBLIC_SOUL_CONTRACT_ADDRESS;
-    return new Contract(String(address), ABI_Soul, provider?.getSigner()) as SoulUpgradable;
+    return new Contract(
+      String(address),
+      ABI_Soul,
+      provider?.getSigner(),
+    ) as SoulUpgradable;
   }
 
   /// Game Contract
   function getContractGame(address: string): GameUpgradable {
     validateChain();
-    return new Contract(address, ABI_Game, provider?.getSigner()) as GameUpgradable;
+    return new Contract(
+      address,
+      ABI_Game,
+      provider?.getSigner(),
+    ) as GameUpgradable;
   }
 
   /// Game Extension: Court
   function getContractGameCourt(address: string): CourtExt {
     validateChain();
-    return new Contract(address, ABI_extCourt, provider?.getSigner()) as CourtExt;
+    return new Contract(
+      address,
+      ABI_extCourt,
+      provider?.getSigner(),
+    ) as CourtExt;
   }
 
   /// Game Extension: mDAO
   function getContractGameMDAO(address: string): MicroDAOExt {
     validateChain();
-    return new Contract(address, ABI_extMDAO, provider?.getSigner()) as MicroDAOExt;
+    return new Contract(
+      address,
+      ABI_extMDAO,
+      provider?.getSigner(),
+    ) as MicroDAOExt;
   }
 
   /// Game Extension: Project
   function getContractGameProject(address: string): ProjectExt {
     validateChain();
-    return new Contract(address, ABI_extProject, provider?.getSigner()) as ProjectExt;
+    return new Contract(
+      address,
+      ABI_extProject,
+      provider?.getSigner(),
+    ) as ProjectExt;
   }
 
   /// Game Extension: Rules
   function getContractGameRules(address: string): RuleExt {
     validateChain();
-    return new Contract(address, ABI_extRules, provider?.getSigner()) as RuleExt;
+    return new Contract(
+      address,
+      ABI_extRules,
+      provider?.getSigner(),
+    ) as RuleExt;
   }
 
   /// Task Contract
   function getContractTask(address: string): TaskUpgradable {
     validateChain();
-    return new Contract(address, ABI_Task, provider?.getSigner()) as TaskUpgradable;
+    return new Contract(
+      address,
+      ABI_Task,
+      provider?.getSigner(),
+    ) as TaskUpgradable;
   }
 
   return {

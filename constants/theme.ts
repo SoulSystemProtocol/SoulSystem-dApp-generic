@@ -1,15 +1,37 @@
-import { createTheme, responsiveFontSizes } from '@mui/material/styles';
+import { createTheme } from '@mui/material/styles';
+import { purple } from '@mui/material/colors';
 export const sidebarWidth = 240;
+const accent = '#8d39ec'; //Purple (Button)
+// const accent = purple[500];
+const accentDisabled = '#ae71f2'; //Purple disabled
+
 export const darkTheme = createTheme({
   palette: {
     mode: 'dark',
+    // primary: {
+    // main: accent,
+    // },
+    secondary: {
+      main: '#f44336',
+    },
   },
+
   components: {
     MuiButton: {
       styleOverrides: {
         // rounded: {
         //   borderRadius: '16px',
         // },
+        contained: {
+          // backgroundImage:
+          //   'linear-gradient(to right, #f6d365 0%, #fda085 51%, #f6d365 100%)',
+          background: 'linear-gradient(to right bottom, #4776E6, #8E54E9)',
+          color: '#eee',
+          padding: '8px 15px 6px',
+        },
+        outlined: {
+          border: '-webkit-linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
+        },
       },
     },
     MuiCard: {
@@ -33,7 +55,8 @@ export const darkTheme = createTheme({
     },
     MuiTextField: {
       styleOverrides: {
-        root: { //Doesn't Work...
+        root: {
+          //Doesn't Work...
           '&::placeholder': {
             color: 'blue',
           },
