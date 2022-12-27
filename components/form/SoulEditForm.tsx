@@ -14,6 +14,7 @@ import useToast from 'hooks/useToast';
 import { JSONSchema7 } from 'json-schema';
 import { useRouter } from 'next/router';
 import { ReactElement, useContext, useState } from 'react';
+import { analyticsEvent } from 'utils/analytics';
 
 /**
  * Create or edit Soul.
@@ -111,6 +112,7 @@ export default function SoulEditForm({
         // await tx.wait(); //No need...
         //Update Current Soul's Metadata
         soul.id == accountSoul.id && metadataUpdate?.(metadata);
+        analyticsEvent('soulMint', { id: soul.id });
         //TODO: Optimistic Updates for Non-current Souls
 
         //Redirect out of edit mode
@@ -118,6 +120,7 @@ export default function SoulEditForm({
       } else {
         let tx = await getContractSoul().mint(metadataUrl);
         showToastSuccess('Your new soul is on its way');
+        analyticsEvent('soulMint');
         await tx.wait();
         router.push('/');
         //TODO: Optimistic Updates for New AccountSoul
