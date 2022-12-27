@@ -1,3 +1,4 @@
+import { analyticsCatchErrorEvent } from 'utils/analytics';
 import useToast from './useToast';
 
 /**
@@ -12,17 +13,23 @@ export default function useError() {
   ) {
     //To Console
     console.error('Error Encountered:', { error });
+    analyticsCatchErrorEvent(error);
     //** Custom Exceptions
     if (typeof error == 'object' && error?.code == 'ACTION_REJECTED') {
       //Rejected by User
       isErrorToastRequired = false;
-    }
-    if (typeof error == 'object' && error?.code == 'UNPREDICTABLE_GAS_LIMIT') {
+      // analyticsCatchErrorEvent(error, {
+      //   source: 'metamask',
+      //   type: 'action_rejected',
+      // });
+    } else if (
+      typeof error == 'object' &&
+      error?.code == 'UNPREDICTABLE_GAS_LIMIT'
+    ) {
       //Generic Chain Error
       isErrorToastRequired = false;
       showToastError({ message: 'Contract Error' });
-    }
-    if (typeof error == 'object' && error?.code == -32603) {
+    } else if (typeof error == 'object' && error?.code == -32603) {
       //Insuficient Gas
       isErrorToastRequired = false;
       showToastError({ message: 'Metamask: Transaction underpriced' });

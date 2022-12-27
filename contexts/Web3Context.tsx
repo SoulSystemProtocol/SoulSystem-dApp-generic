@@ -6,6 +6,10 @@ import { ethers } from 'ethers';
 import { createContext, useEffect, useRef, useState } from 'react';
 import Web3Modal from 'web3modal';
 import { getChainData } from 'components/web3/chains/ChainsData';
+import {
+  analyticsCatchErrorEvent,
+  analyticsConnectAccountEvent,
+} from 'utils/analytics';
 
 interface IWeb3Context {
   isReady: any;
@@ -71,6 +75,7 @@ export function Web3Provider({ children }: any) {
       setNetworkChainId(Number(networkChainId));
     } catch (error: any) {
       console.error(error);
+      analyticsCatchErrorEvent(error, { type: 'web3_init' });
     } finally {
       setIsReady(true);
     }
@@ -97,6 +102,7 @@ export function Web3Provider({ children }: any) {
       setIsNetworkChainCorrect(false);
     } catch (error: any) {
       console.error(error);
+      analyticsCatchErrorEvent(error, { type: 'clear_context' });
     } finally {
       setIsReady(true);
     }
@@ -118,6 +124,7 @@ export function Web3Provider({ children }: any) {
       });
     } catch (error: any) {
       console.error(error);
+      analyticsCatchErrorEvent(error, { type: 'switch_network' });
       if (
         error?.code === 4902 ||
         error?.message?.toLowerCase()?.includes('unrecognized chain id')
@@ -164,6 +171,7 @@ export function Web3Provider({ children }: any) {
       });
     } catch (error: any) {
       console.error(error);
+      analyticsCatchErrorEvent(error, { type: 'add_chain' });
     }
   }
 
@@ -173,6 +181,9 @@ export function Web3Provider({ children }: any) {
   const getBalance = async function (address: string): Promise<string> {
     if (!ethers.utils.isAddress(address)) {
       console.error('Not a Valid Address', address);
+      analyticsCatchErrorEvent(new Error('Not a Valid Address'), {
+        type: 'invalid address',
+      });
       return '';
     }
     const balance = await defaultProvider.getBalance(address);
@@ -221,14 +232,16 @@ export function Web3Provider({ children }: any) {
       getChainData(networkChainId ? networkChainId.toString() : ''),
     );
     //Check if supported chain
-    // if (networkChainId === null) {
-    //   setIsNetworkChainCorrect(null);
-    // } else
     setIsNetworkChainCorrect(
       !!networkChainId &&
         networkChainId?.toString() === process.env.NEXT_PUBLIC_NETWORK_CHAIN_ID,
     );
   }, [networkChainId]);
+
+  useEffect(() => {
+    //Analytics Wallet Connect Event
+    account && analyticsConnectAccountEvent(account);
+  }, [account]);
 
   return (
     <Web3Context.Provider
