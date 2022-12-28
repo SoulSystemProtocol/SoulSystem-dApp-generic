@@ -50,7 +50,12 @@ const menu_side_links = [
   {
     route: '/souls',
     label: nameEntity('', true),
-    icon: <PersonOutlineOutlined color="warning" />,
+    icon: (
+      <PersonOutlineOutlined
+        color="warning"
+        sx={{ fill: 'url(#linearColors)' }}
+      />
+    ),
     hide: process.env.NEXT_PUBLIC_FEATURE_SOUL == 'false',
   },
   // {
@@ -59,60 +64,62 @@ const menu_side_links = [
   // {
   //   route: '/daos',
   //   label: nameEntity('DAO', true),
-  //   icon: <GroupWork color="warning" />,
+  //   icon: <GroupWork color="warning" sx={{ fill: 'url(#linearColors)' }} />,
   // },
 
   // {
   //   route: '/grants',
   //   label: 'Grants',
-  //   icon: <VolunteerActivism color="warning" />,
+  //   icon: <VolunteerActivism color="warning" sx={{ fill: 'url(#linearColors)' }} />,
   // },
   // {
   //   route: '/events',
   //   label: 'Hackathons',
-  //   icon: <Festival color="warning" />,
+  //   icon: <Festival color="warning" sx={{ fill: 'url(#linearColors)' }} />,
   // },
   // {
   //   route: '/sponsors',
   //   label: 'Sponsors',
-  //   icon: <EmojiEmotions color="warning" />,
+  //   icon: <EmojiEmotions color="warning" sx={{ fill: 'url(#linearColors)' }} />,
   // },
   {
     label: 'SafeNFT',
     route: '/erc',
     hide: process.env.NEXT_PUBLIC_FEATURE_NFT == 'false',
-    icon: <LockIcon color="warning" />,
+    icon: <LockIcon color="warning" sx={{ fill: 'url(#linearColors)' }} />,
   },
   {
     label: 'Action Repo',
     route: '/actions',
-    icon: <DirectionsRunIcon color="warning" />,
+    icon: (
+      <DirectionsRunIcon color="warning" sx={{ fill: 'url(#linearColors)' }} />
+    ),
   },
 ];
 const footer_links: { route: string; label: string; icon: JSX.Element }[] = [];
 const footer_icons: { route: string; label: string; icon: JSX.Element }[] = [
   {
     route: 'https://github.com/SolidifyETH',
-    icon: <GitHubIcon />,
+    icon: <GitHubIcon sx={{ fill: 'url(#linearColors)' }} />,
     label: 'Code',
   },
   {
     route: 'https://miro.com/app/board/uXjVOH541VI=/',
-    icon: <ArchitectureIcon />,
+    icon: <ArchitectureIcon sx={{ fill: 'url(#linearColors)' }} />,
     label: 'Architecture',
   },
   {
     // eslint-disable-next-line prettier/prettier
     route:
       'https://virtualbrick.notion.site/Contracts-4e383eb032e34cd08d5f035dee2dd9bb',
-    icon: <ArticleIcon />,
+    icon: <ArticleIcon sx={{ fill: 'url(#linearColors)' }} />,
     label: 'Docs',
   },
   {
     // eslint-disable-next-line prettier/prettier
     route:
       'https://thegraph.com/hosted-service/subgraph/toledoroy/solidify_mumbai',
-    icon: <AcUnit />,
+    icon: <AcUnit sx={{ fill: 'url(#linearColors)' }} />,
     label: 'SubGraph',
   },
 ];
@@ -133,6 +140,17 @@ export default function Layout({ children, title }: any) {
         <meta name="viewport" content="initial-scale=1, width=device-width" />
       </Head>
 
+      <>
+        <svg width={0} height={0}>
+          <linearGradient id="linearColors" x1={1} y1={0} x2={1} y2={1}>
+            {/* <stop offset={0} stopColor="#4776E6" />
+            <stop offset={1} stopColor="#8E54E9" /> */}
+            <stop offset={0} stopColor="rgba(241,184,74,1)" />
+            <stop offset={1} stopColor="rgba(207,113,8,1)" />
+          </linearGradient>
+        </svg>
+        {/* <TaskAlt sx={{ fill: 'url(#linearColors)' }} /> */}
+      </>
       {process.env.NEXT_PUBLIC_FEATURE_SIDEBAR == 'true' ? (
         <Sidebar
           toggler={toggleDrawer}
