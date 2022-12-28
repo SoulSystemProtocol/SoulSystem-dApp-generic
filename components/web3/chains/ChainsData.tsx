@@ -11,7 +11,8 @@ export interface ChainData {
   nId: string;
   live?: boolean;
   supported: boolean;
-  blockExplorerUrl?: any;
+  blockExplorerURL?: any;
+  faucetURL?: string;
   chain_id?: any;
   chain_id_hex?: any;
   rpc?: any;
@@ -54,7 +55,7 @@ export const ChainsData: { [key: string]: ChainData } = {
     nId: 'ND-2H0ETHMainNet',
     live: true,
     supported: false,
-    blockExplorerUrl: 'https://etherscan.io/',
+    blockExplorerURL: 'https://etherscan.io/',
     openSeaUrl: 'https://opensea.io/assets/',
     wrapped: '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2',
   },
@@ -66,7 +67,7 @@ export const ChainsData: { [key: string]: ChainData } = {
     nId: '',
     live: false,
     supported: false,
-    blockExplorerUrl: 'https://ropsten.etherscan.io/',
+    blockExplorerURL: 'https://ropsten.etherscan.io/',
   },
   '0x4': {
     key: '0x4',
@@ -76,7 +77,7 @@ export const ChainsData: { [key: string]: ChainData } = {
     nId: '',
     live: false,
     supported: true,
-    blockExplorerUrl: 'https://rinkeby.etherscan.io/',
+    blockExplorerURL: 'https://rinkeby.etherscan.io/',
     openSeaUrl: 'https://testnets.opensea.io/assets/',
   },
   '0x2a': {
@@ -87,7 +88,7 @@ export const ChainsData: { [key: string]: ChainData } = {
     nId: '',
     live: false,
     supported: false,
-    blockExplorerUrl: 'https://kovan.etherscan.io/',
+    blockExplorerURL: 'https://kovan.etherscan.io/',
   },
   '0x5': {
     key: '0x5',
@@ -97,7 +98,7 @@ export const ChainsData: { [key: string]: ChainData } = {
     nId: '',
     live: false,
     supported: false,
-    blockExplorerUrl: 'https://goerli.etherscan.io/',
+    blockExplorerURL: 'https://goerli.etherscan.io/',
   },
   // '0x539': {
   //   key: '0x539',
@@ -117,7 +118,7 @@ export const ChainsData: { [key: string]: ChainData } = {
     live: true,
     supported: false,
     rpc: 'https://bsc-dataseed.binance.org/',
-    blockExplorerUrl: 'https://bscscan.com/',
+    blockExplorerURL: 'https://bscscan.com/',
     wrapped: '0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c',
   },
   '0x61': {
@@ -129,7 +130,7 @@ export const ChainsData: { [key: string]: ChainData } = {
     live: false,
     supported: false,
     rpc: 'https://data-seed-prebsc-1-s1.binance.org:8545/',
-    blockExplorerUrl: 'https://testnet.bscscan.com/',
+    blockExplorerURL: 'https://testnet.bscscan.com/',
   },
   '0x89': {
     key: '0x89',
@@ -139,7 +140,7 @@ export const ChainsData: { [key: string]: ChainData } = {
     nId: 'ND-2H0MaticMainNet',
     live: true,
     supported: false,
-    blockExplorerUrl: 'https://explorer-mainnet.maticvigil.com/',
+    blockExplorerURL: 'https://explorer-mainnet.maticvigil.com/',
     rpc: 'https://rpc-mainnet.maticvigil.com/',
     wrapped: '0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270',
     openSeaUrl: 'https://opensea.io/assets/matic/',
@@ -152,7 +153,8 @@ export const ChainsData: { [key: string]: ChainData } = {
     nId: '',
     live: false,
     supported: false,
-    blockExplorerUrl: 'https://mumbai.polygonscan.com/',
+    blockExplorerURL: 'https://mumbai.polygonscan.com/',
+    faucetURL: 'https://faucet.polygon.technology/',
     chain_id: 80001,
     chain_id_hex: 0x13881,
     rpc: 'https://rpc-mumbai.maticvigil.com/',
@@ -171,7 +173,7 @@ export const ChainsData: { [key: string]: ChainData } = {
     live: true,
     supported: false,
     rpc: 'https://api.avax.network/ext/bc/C/rpc',
-    blockExplorerUrl: 'https://cchain.explorer.avax.network/',
+    blockExplorerURL: 'https://cchain.explorer.avax.network/',
   },
   '0xa869': {
     key: '0xa869',
@@ -181,8 +183,12 @@ export const ChainsData: { [key: string]: ChainData } = {
     nId: '',
     live: false,
     supported: true,
-    blockExplorerUrl: 'https://testnet.snowtrace.io/',
+    blockExplorerURL: 'https://testnet.snowtrace.io/',
   },
+  // '???': {
+  //   name: 'Optimism Kovan',
+  //   faucetURL: 'https://optimismfaucet.xyz/',
+  // },
 };
 
 export default ChainsData;

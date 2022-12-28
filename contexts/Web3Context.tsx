@@ -162,9 +162,9 @@ export function Web3Provider({ children }: any) {
                 chainData.decimals,
               ),
             },
-            blockExplorerUrls: [
+            blockExplorerURLs: [
               // process.env.NEXT_PUBLIC_NETWORK_BLOCK_EXPLORER_URL,
-              chainData.blockExplorerUrl,
+              chainData.blockExplorerURL,
             ],
           },
         ],

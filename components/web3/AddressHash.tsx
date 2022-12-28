@@ -67,7 +67,7 @@ export default function AddressHash({
         <Tooltip title="Block explorer">
           <Link
             target="_blank"
-            href={`${curChainData.blockExplorerUrl}address/${address}`}
+            href={`${curChainData.blockExplorerURL}address/${address}`}
           >
             <IconButton sx={{ p: '3px', mb: '7px' }}>
               <LaunchIcon sx={{ fontSize: '10px' }} />
