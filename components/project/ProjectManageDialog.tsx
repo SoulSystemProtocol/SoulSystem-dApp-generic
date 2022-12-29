@@ -16,6 +16,7 @@ import useToast from 'hooks/useToast';
 import { JSONSchema7 } from 'json-schema';
 import { useState } from 'react';
 import useContract from 'hooks/useContract';
+import { nameEntity } from 'helpers/utils';
 
 /**
  * A dialog for creating a new project
@@ -116,7 +117,9 @@ export default function ProjectManageDialog({
       fullWidth
     >
       <DialogTitle sx={{ pb: 0 }}>
-        {project ? 'Edit Project' : 'Create Project'}
+        {project
+          ? 'Edit ' + nameEntity('project')
+          : 'Create ' + nameEntity('project')}
       </DialogTitle>
       <DialogContent>
         <Form

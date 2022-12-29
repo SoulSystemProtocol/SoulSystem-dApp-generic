@@ -1,4 +1,4 @@
-import { Box, Paper, SxProps, Grid } from '@mui/material';
+import { Button, Box, Paper, SxProps, Grid, Tooltip } from '@mui/material';
 import { DataContext } from 'contexts/data';
 import { useEffect, useState, useContext } from 'react';
 import { DialogContext } from 'contexts/dialog';
@@ -6,7 +6,6 @@ import GamePostAddDialog from './GamePostAddDialog';
 import useError from 'hooks/useError';
 import useSubgraph from 'hooks/useSubgraph';
 import { normalizeGraphEntity } from 'helpers/metadata';
-import ConditionalButton from 'components/layout/ConditionalButton';
 import PostSingleDisplay from './PostSingleDisplay';
 
 /**
@@ -81,21 +80,25 @@ export default function EntityPosts({
       {/* //item?.stage === PROC_STAGE.open &&    //TODO: Enable this on Protocol version 0.5.3 (Disply only if has a soul in a role) */}
 
       <Box sx={{ mt: 2 }}>
-        <ConditionalButton
-          variant="outlined"
-          disabled={!hasAnyRole}
-          onClick={() =>
-            showDialog?.(
-              <GamePostAddDialog
-                item={item}
-                postType={'comment'}
-                onClose={closeDialog}
-              />,
-            )
-          }
-        >
-          Add Post
-        </ConditionalButton>
+        <Tooltip title={!hasAnyRole ? 'Members Only' : ''}>
+          <span>
+            <Button
+              variant="outlined"
+              disabled={!hasAnyRole}
+              onClick={() =>
+                showDialog?.(
+                  <GamePostAddDialog
+                    item={item}
+                    postType={'comment'}
+                    onClose={closeDialog}
+                  />,
+                )
+              }
+            >
+              Add Post
+            </Button>
+          </span>
+        </Tooltip>
       </Box>
     </Box>
   );

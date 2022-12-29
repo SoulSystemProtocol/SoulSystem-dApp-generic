@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { Box, Button } from '@mui/material';
+import { Box, Button, Tooltip } from '@mui/material';
 import { DialogContext } from 'contexts/dialog';
 import { DataContext } from 'contexts/data';
 import { getPageTitle } from '../../utils';
@@ -10,6 +10,7 @@ import SoulsByTypeRoleQuery from 'queries/SoulsByTypeRoleQuery';
 import { gameCardContent } from 'utils/cardContents';
 import { nameEntity } from 'helpers/utils';
 import { GAME_DESC } from 'constants/contracts';
+import { noSoulMsg } from 'constants/texts';
 
 const CONF = {
   PAGE_TITLE: nameEntity('project', true),
@@ -18,22 +19,26 @@ const CONF = {
 };
 
 /**
- * Page for a list of projects
+ * Project List Page
  */
 export default function ProjectsPage({}: any) {
   const { accountSoul } = useContext(DataContext);
   const { showDialog, closeDialog } = useContext(DialogContext);
   const renderActions = (
     <Box>
-      <Button
-        disabled={!accountSoul}
-        onClick={() =>
-          showDialog?.(<ProjectManageDialog onClose={closeDialog} />)
-        }
-        variant="outlined"
-      >
-        Create Project
-      </Button>
+      <Tooltip title={!accountSoul ? noSoulMsg : ''}>
+        <span>
+          <Button
+            disabled={!accountSoul}
+            onClick={() =>
+              showDialog?.(<ProjectManageDialog onClose={closeDialog} />)
+            }
+            variant="outlined"
+          >
+            Create {nameEntity('project')}
+          </Button>
+        </span>
+      </Tooltip>
     </Box>
   );
 

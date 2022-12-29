@@ -1,11 +1,13 @@
 import { Box, Typography } from '@mui/material';
+import { getChainData } from 'components/web3/chains/ChainsData';
 import useWeb3NativeBalance from 'hooks/useWeb3NativeBalance';
 import { taskStageToString } from 'utils/converters';
 
 /**
- * Task Card Details
+ * Task Card - Additional Details
+ * TODO: Add Whitelisted ERC20 Tokens
  */
-export default function TaskCardDetails({ task, sx }: any): JSX.Element {
+export default function TaskCardDetails({ task }: { task: any }): JSX.Element {
   const { balance: fund } = useWeb3NativeBalance(task?.id);
   return (
     <Box sx={{ textAlign: 'center' }}>
@@ -17,11 +19,11 @@ export default function TaskCardDetails({ task, sx }: any): JSX.Element {
         {task && taskStageToString(task)}
       </Typography>
       <Typography
-        variant="body2"
+        variant="caption"
         color="text.secondary"
-        sx={{ textTransform: 'capitalize' }}
+        sx={{ whiteSpace: 'nowrap' }}
       >
-        {fund} {process.env.NEXT_PUBLIC_NETWORK_CURRENCY_NAME}
+        {fund} {getChainData()?.native}
       </Typography>
     </Box>
   );

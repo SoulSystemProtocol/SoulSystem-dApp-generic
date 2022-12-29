@@ -5,6 +5,7 @@ import { Box, Typography } from '@mui/material';
 import { Web3Context } from 'contexts/Web3Context';
 import { APP_CONFIGS } from 'constants/app';
 import ImageBox from 'components/utils/ImageBox';
+import { getChainData } from 'components/web3/chains/ChainsData';
 
 /**
  * Home Page
@@ -17,7 +18,7 @@ export default function SolidifyLanding() {
       <ImageBox
         src="/images/futuristic_tower1.jpg"
         sx={{
-          height: { xs: '160px', md: '320px' },
+          height: { xs: '160px', md: '260px' },
         }}
       />
       <Box>
@@ -43,10 +44,13 @@ export default function SolidifyLanding() {
             sx={{ fontSize: { xs: '1.2rem', sm: '2rem' } }}
             letterSpacing="0.05em"
           >
-            On-chain low-code framework for structuring socio-economic systems
+            Compose fully decentralized socio-economic systems with no code
           </Typography>
         </Box>
 
+        <Typography variant="h3" sx={{ mt: 4, textAlign: 'center' }}>
+          This is a WIP demo dApp for the solidify low-code protocol
+        </Typography>
         {/* {!account && (
           <Box mt={4} textAlign="center">
             <Typography fontSize="1.2em" letterSpacing="0.02em">
@@ -54,7 +58,7 @@ export default function SolidifyLanding() {
             </Typography>
           </Box>
         )} */}
-        {account && (
+        {account && getChainData()?.faucetURL && (
           <Box
             sx={{
               mt: 3,
@@ -70,19 +74,13 @@ export default function SolidifyLanding() {
             </Typography>
             <Typography sx={{ marginTop: '5px' }}>
               Request some from the{' '}
-              <Link href={`https://faucet.polygon.technology/`} target="_blank">
-                Mumbai Testnet Faucet
+              <Link href={getChainData()?.faucetURL} target="_blank">
+                {getChainData()?.name} Testnet Faucet
               </Link>
-              {/* <Link href={`https://optimismfaucet.xyz/`} passHref>
-                  Optimistic Kovan Faucet
-              </Link> */}
             </Typography>
           </Box>
         )}
 
-        <Typography variant="h4" sx={{ mt: 4 }}>
-          [WIP] This is a demo dApp for the solidify low-code protocol
-        </Typography>
         <Box>
           <Typography variant="h4" sx={{ mt: 4 }}>
             Featuring soul-systems - a cluster of composible primitives

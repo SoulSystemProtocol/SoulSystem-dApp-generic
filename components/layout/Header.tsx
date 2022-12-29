@@ -121,7 +121,7 @@ export default function Header({
                   size="small"
                   sx={{ borderRadius: '16px', px: '26px' }}
                 >
-                  Mint Profile
+                  Claim NFT Profile
                 </Button>
               </Link>
             </span>

@@ -20,7 +20,7 @@ export default function ConnectButton({
         onClick={() => {
           connectWallet?.();
         }}
-        sx={{ cursor: 'pointer', borderRadius: '16px', ...sx }}
+        sx={{ cursor: 'pointer', borderRadius: '16px', px: '24px', ...sx }}
       >
         Connect Wallet
       </Button>

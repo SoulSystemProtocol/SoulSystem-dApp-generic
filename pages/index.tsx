@@ -3,12 +3,16 @@ import { getPageTitle } from '../utils';
 import SolidifyLanding from 'components/contentpages/Solidify';
 
 /**
- * Home Page
+ * Configurable Home Page
  */
 export default function Landing() {
   return (
     <Layout title={getPageTitle('Home')}>
-      <SolidifyLanding />
+      {process.env.NEXT_PUBLIC_HOMEPAGE === 'Solidify' ? (
+        <SolidifyLanding />
+      ) : (
+        <SolidifyLanding />
+      )}
     </Layout>
   );
 }

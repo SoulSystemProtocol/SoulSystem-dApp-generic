@@ -3,11 +3,12 @@ import { SelectedSoulContext } from 'contexts/SelectedSoul';
 import { containedProcContent } from 'utils/cardContents';
 import PaginatedList from 'components/PaginatedList';
 import SoulContainedQuery from 'queries/SoulContainedQuery';
+import { SxProps } from '@mui/material';
 
 /**
  * List of project's tasks
  */
-export default function ProjectTaskList({ sx }: any) {
+export default function ProjectTaskList({ sx }: { sx?: SxProps }) {
   const { soul } = useContext(SelectedSoulContext);
   const listProps = {
     variables: {

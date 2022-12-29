@@ -12,6 +12,7 @@ import useError from 'hooks/useError';
 import useIpfs from 'hooks/useIpfs';
 import { ReactElement, ReactNode, useState } from 'react';
 import { resolveLink } from 'helpers/IPFS';
+import InvalidFileError from 'errors/InvalidFileError';
 
 /**
  * A widget to input an image, upload it to IPFS, and get URI.
@@ -53,11 +54,7 @@ export default function ImageInput(props: WidgetProps): ReactElement {
     if (!file) return;
     // Upload file to IPFS
     try {
-      if (!isFileValid(file)) {
-        throw new Error(
-          'Sorry, Only JPG/PNG/GIF files with size smaller than 2MB are currently supported',
-        );
-      }
+      if (!isFileValid(file)) throw new InvalidFileError();
       setIsLoading(true);
       const { url } = await uploadFileToIPFS(file);
       propsOnChange(url);

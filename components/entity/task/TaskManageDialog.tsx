@@ -17,6 +17,7 @@ import { useState } from 'react';
 import { GAME_TYPE } from 'constants/contracts';
 import OpenTags from 'components/form/widget/OpenTags';
 import { TASK_TAGS } from 'constants/entities';
+import { nameEntity } from 'helpers/utils';
 
 /**
  * A dialog for creating or editing tasks.
@@ -120,7 +121,7 @@ export default function TaskManageDialog({
       fullWidth
     >
       <DialogTitle sx={{ pb: 0 }}>
-        {task ? 'Edit Task' : 'Create Task'}
+        {task ? 'Edit ' + nameEntity('task') : 'Create ' + nameEntity('task')}
       </DialogTitle>
       <DialogContent>
         <Form

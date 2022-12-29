@@ -19,7 +19,6 @@ export const nameRole = function (name: string, type: string): string {
   return name;
 };
 
-
 /**
  * Name an entity
  * 'MDAO', 'PROJECT',

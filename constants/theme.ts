@@ -5,6 +5,7 @@ export const sidebarWidth = 240;
 // const accent = purple['A200'];
 // const accent = blue['500'];
 const accent = indigo['A100'];
+// const accent = '#FE6B8B'; //Pink
 const accentDisabled = '#ae71f2'; //Purple disabled
 
 export const darkTheme = createTheme({
@@ -83,7 +84,8 @@ export const darkTheme = createTheme({
   typography: {
     h1: {
       fontFamily: '"Montserrat", Open Sans',
-      background: '-webkit-linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
+      // background: '-webkit-linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
+      background: 'linear-gradient(to right bottom, #8c9eff, #4776E6, #8E54E9)',
       WebkitBackgroundClip: 'text',
       WebkitTextFillColor: 'transparent',
       fontSize: '2.25rem',

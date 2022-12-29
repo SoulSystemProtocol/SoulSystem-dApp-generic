@@ -59,8 +59,8 @@ export default function GridCard({
                       overflow: 'hidden',
                       textOverflow: 'ellipsis',
                       display: '-webkit-box',
-                      lineClamp: 3,
-                      WebkitLineClamp: 3,
+                      lineClamp: 2,
+                      WebkitLineClamp: 2,
                       WebkitBoxOrient: 'vertical',
                     }}
                   >
