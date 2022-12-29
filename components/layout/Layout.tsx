@@ -11,7 +11,8 @@ import ArticleIcon from '@mui/icons-material/Article';
 import LockIcon from '@mui/icons-material/Lock';
 import DirectionsRunIcon from '@mui/icons-material/DirectionsRun';
 import ArchitectureIcon from '@mui/icons-material/Architecture';
-import { Container, Toolbar } from '@mui/material';
+import EmojiPeopleIcon from '@mui/icons-material/EmojiPeople';
+import { Container, Typography, Toolbar } from '@mui/material';
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
 import Head from 'next/head';
@@ -19,6 +20,8 @@ import Header from './Header';
 import Sidebar from './Sidebar';
 import Footer from './Footer';
 import { nameEntity } from 'helpers/utils';
+import NavBar from './NavBar';
+import Link from 'components/utils/Link';
 
 const top_links: any = [
   //TODO: Support Hiding
@@ -45,7 +48,9 @@ const top_links: any = [
   },
 ];
 
-//Define Sidemenu Links
+/** [DISABLED]
+ * Define Sidemenu Links
+ */
 const menu_side_links = [
   {
     route: '/souls',
@@ -99,9 +104,14 @@ const menu_side_links = [
 const footer_links: { route: string; label: string; icon: JSX.Element }[] = [];
 const footer_icons: { route: string; label: string; icon: JSX.Element }[] = [
   {
+    route: '/souls',
+    label: 'Souls',
+    icon: <EmojiPeopleIcon sx={{ fill: 'url(#linearColors)' }} />,
+  },
+  {
     route: 'https://github.com/SolidifyETH',
-    icon: <GitHubIcon sx={{ fill: 'url(#linearColors)' }} />,
     label: 'Code',
+    icon: <GitHubIcon sx={{ fill: 'url(#linearColors)' }} />,
   },
   {
     route: 'https://miro.com/app/board/uXjVOH541VI=/',
@@ -151,15 +161,23 @@ export default function Layout({ children, title }: any) {
         </svg>
         {/* <TaskAlt sx={{ fill: 'url(#linearColors)' }} /> */}
       </>
-      {process.env.NEXT_PUBLIC_FEATURE_SIDEBAR == 'true' ? (
+      {/* {process.env.NEXT_PUBLIC_FEATURE_SIDEBAR == 'true' ? (
         <Sidebar
           toggler={toggleDrawer}
           isOpen={isOpen}
           links={menu_side_links}
         />
-      ) : null}
-      <Container sx={{ minHeight: '100vh', m: '0 auto' }} maxWidth="xl">
-        <Header open={isOpen} toggleDrawer={toggleDrawer} links={top_links} />
+      ) : null} */}
+      <Container
+        maxWidth={false}
+        disableGutters
+        sx={{
+          minHeight: '100vh',
+        }}
+      >
+        {/* <Header open={isOpen} toggleDrawer={toggleDrawer} links={top_links} /> */}
+        <NavBar links={top_links} />
+
         <Container
           sx={{
             display: 'flex',

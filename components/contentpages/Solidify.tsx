@@ -3,7 +3,6 @@ import Link from 'components/utils/Link';
 import ConnectButton from 'components/web3/connect/ConnectButton';
 import { Box, Typography } from '@mui/material';
 import { Web3Context } from 'contexts/Web3Context';
-import { APP_CONFIGS } from 'constants/app';
 import ImageBox from 'components/utils/ImageBox';
 import { getChainData } from 'components/web3/chains/ChainsData';
 
@@ -37,20 +36,26 @@ export default function SolidifyLanding() {
             letterSpacing="0.1em"
             sx={{ fontSize: { sm: '5rem', xs: '3rem' } }}
           >
-            {APP_CONFIGS.NAME}
+            {/* {APP_CONFIGS.NAME} */}
+            Soul-System Protocol Demo
           </Typography>
           <Typography
             variant="h4"
-            sx={{ fontSize: { xs: '1.2rem', sm: '2rem' } }}
-            letterSpacing="0.05em"
+            sx={{ fontSize: { xs: '1.2rem', sm: '1.8rem' } }}
+            letterSpacing="0.02em"
           >
-            Compose fully decentralized socio-economic systems with no code
+            You can compose fully decentralized socio-economic systems without
+            having to write any code
           </Typography>
         </Box>
 
-        <Typography variant="h3" sx={{ mt: 4, textAlign: 'center' }}>
+        <Typography
+          variant="h3"
+          sx={{ mt: 4, textAlign: 'center', color: 'text.secondary' }}
+        >
           This is a WIP demo dApp for the solidify low-code protocol
         </Typography>
+
         {/* {!account && (
           <Box mt={4} textAlign="center">
             <Typography fontSize="1.2em" letterSpacing="0.02em">
@@ -69,6 +74,7 @@ export default function SolidifyLanding() {
               textAlign: 'center',
             }}
           >
+            {/* //TODO: Check account balance */}
             <Typography variant="h6" mb={1}>
               Need some test tokens?
             </Typography>
@@ -88,20 +94,27 @@ export default function SolidifyLanding() {
           </Typography>
           <ul>
             <li>Mint SBT profiles as wallet abstraction</li>
-            <li>Create Games as a context containing SBT profiles</li>
-            <li>Set up Rules and design an interaction flow</li>
+            <li>Create Organiztions</li>
+            <ul>
+              <li>Assign organizational roles and permissions via NFTs</li>
+              <li>Track experience, reputation, contribution & equity</li>
+            </ul>
+            <li>Create automated incentives procedures by custom rules</li>
+            <ul>
+              <li>Set up rules and design an interaction flow</li>
+              <li>
+                Automatically reward participants with all kinds of Tokens
+              </li>
+            </ul>
+            <li>Soul-system moderation</li>
+            <ul>
+              <li>
+                Ban bad actors, and recover lost or stolen assets (Safe NFTs)
+              </li>
+            </ul>
             <li>
-              Create automated incentives and attach them to the rules of the
-              context
-            </li>
-            <li>
-              Modarate your soul-system. Ban bad actors, and recover lost or
-              stolen assets (Safe NFTs)
-            </li>
-            <li>Track experience & reputation</li>
-            <li>
-              Extend games with customized affordences that fit your specific
-              requirements with minimal development effort
+              Fully composible, extendable, and compatible with all token
+              standards
             </li>
           </ul>
         </Box>

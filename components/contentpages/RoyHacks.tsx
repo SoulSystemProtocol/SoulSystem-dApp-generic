@@ -1,6 +1,5 @@
 import { Box, Typography } from '@mui/material';
 import ImageBox from 'components/utils/ImageBox';
-import { APP_CONFIGS } from 'constants/app';
 
 /**
  * Home Page

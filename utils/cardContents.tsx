@@ -2,6 +2,7 @@ import { WorkOutlineOutlined } from '@mui/icons-material';
 import { addressToShortAddress, hexStringToJson, nameSoul } from './converters';
 import { resolveLink } from 'helpers/IPFS';
 import TaskSoulCardDetails from 'components/entity/task/TaskSoulCardDetails';
+import PersonIcon from '@mui/icons-material/Person';
 import { normalizeGraphEntity } from 'helpers/metadata';
 import { SxProps } from '@mui/material';
 
@@ -36,7 +37,7 @@ export const soulCardProcessedContent = (
   let ret = {
     id: item.id,
     imgSrc: resolveLink(item?.metadata?.image),
-    // avatarIcon: <PersonOutlineOutlined />,
+    avatarIcon: <PersonIcon />,
     label: addressToShortAddress(item.owner),
     title: nameSoul(item),
     link: `/soul/${item.id}`,
@@ -57,7 +58,6 @@ export const gameCardContent = (item: any): CardItem => {
     link: `/soul/${item.owner}`,
     avatarIcon: <WorkOutlineOutlined />,
   };
-  // ret.avatarIcon = (<WorkOutlineOutlined />);
   return ret;
 };
 
@@ -67,7 +67,7 @@ export const processCardContent = (soul: any): CardItem => {
   let ret = {
     id: soul.id,
     imgSrc: 'PARENT_IMAGE',
-    avatarIcon: <WorkOutlineOutlined />,
+    // avatarIcon: <WorkOutlineOutlined />,
     label: metadata?.description,
     title: metadata?.name,
     metadata,

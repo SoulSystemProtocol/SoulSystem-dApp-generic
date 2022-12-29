@@ -7,6 +7,7 @@ import {
   Typography,
   MenuItem,
 } from '@mui/material';
+import Link from 'components/utils/Link';
 import ConnectButton from 'components/web3/connect/ConnectButton';
 import { DataContext } from 'contexts/data';
 import { Web3Context } from 'contexts/Web3Context';
@@ -60,11 +61,15 @@ export default function SettingsMenu({ profile }: any): JSX.Element {
           <Box
             sx={{
               display: 'flex',
-              flexDirection: 'row',
+              flexDirection: 'column',
+              textAlign: 'center',
               justifyContent: 'center',
               mr: 2,
             }}
           >
+            <Link href={`/soul/${accountSoul.id}`}>
+              <Typography sx={{ mr: 1 }}>{nameSoul(accountSoul)}</Typography>
+            </Link>
             <Typography>{addressToShortAddress(account)}</Typography>
           </Box>
         )}

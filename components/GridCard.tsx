@@ -45,12 +45,26 @@ export default function GridCard({
               />
             </Link>
             <Box sx={{ ml: 2 }}>
-              <Link href={datalink}>{title}</Link>
+              <Link
+                href={datalink}
+                sx={{
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                  display: '-webkit-box',
+                  lineClamp: 2,
+                  WebkitLineClamp: 2,
+                  WebkitBoxOrient: 'vertical',
+                }}
+              >
+                {title}
+              </Link>
               {label && (
                 <Typography
                   variant="body2"
                   color="text.secondary"
-                  sx={{ mt: '1px' }}
+                  sx={{
+                    mt: '1px',
+                  }}
                 >
                   <Link
                     href={datalink}

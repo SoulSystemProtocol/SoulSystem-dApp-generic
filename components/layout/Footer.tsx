@@ -41,7 +41,7 @@ export default function Footer({ links, icons }: FooterProps): JSX.Element {
               display: 'grid',
               p: 0,
               mx: 1,
-              color: '#fbfbfb',
+              color: 'text.secondary',
               borderRadius: '50%',
               borderColor: '#fbfbfb',
               position: 'relative',

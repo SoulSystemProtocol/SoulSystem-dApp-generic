@@ -20,7 +20,13 @@ export default function ConnectButton({
         onClick={() => {
           connectWallet?.();
         }}
-        sx={{ cursor: 'pointer', borderRadius: '16px', px: '24px', ...sx }}
+        sx={{
+          cursor: 'pointer',
+          borderRadius: '16px',
+          px: '24px',
+          whiteSpace: 'nowrap',
+          ...sx,
+        }}
       >
         Connect Wallet
       </Button>
@@ -31,7 +37,12 @@ export default function ConnectButton({
         variant="outlined"
         size="small"
         onClick={() => disconnectWallet?.()}
-        sx={{ cursor: 'pointer', borderRadius: '16px', ...sx }}
+        sx={{
+          cursor: 'pointer',
+          borderRadius: '16px',
+          whiteSpace: 'nowrap',
+          ...sx,
+        }}
       >
         Disconnect Wallet
       </Button>

@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { Button } from '@mui/material';
+import { Box, Button } from '@mui/material';
 import { DataContext } from 'contexts/data';
 import { Web3Context } from 'contexts/Web3Context';
 import Link from 'next/link';
@@ -28,9 +28,11 @@ export default function SoulsSearch({ type = '' }: any) {
   };
 
   const renderActions = account && !accountSoul && (
-    <Link href={`/soul/create`} passHref>
-      <Button variant="outlined">Create Soul</Button>
-    </Link>
+    <Box>
+      <Link href={`/soul/create`} passHref>
+        <Button variant="outlined">Create Soul</Button>
+      </Link>
+    </Box>
   );
 
   //Query Structure: { type: $type, role: $role, searchField_contains_nocase: $text }

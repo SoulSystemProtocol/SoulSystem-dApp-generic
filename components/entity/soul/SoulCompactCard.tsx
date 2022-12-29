@@ -8,7 +8,7 @@ import {
   Typography,
   SxProps,
 } from '@mui/material';
-import { PersonOutlineOutlined } from '@mui/icons-material';
+import PersonIcon from '@mui/icons-material/Person';
 import { addressToShortAddress, nameSoul, soulImage } from 'utils/converters';
 
 /**
@@ -44,7 +44,7 @@ export default function SoulCompactCard({
       {!isLoading && profile && (
         <>
           <Avatar src={soulImage(profile)} sx={{ width: 24, height: 24 }}>
-            <PersonOutlineOutlined sx={{ width: '24', heigth: '24' }} />
+            <PersonIcon sx={{ width: 24, heigth: 24 }} />
           </Avatar>
           <Typography variant="body2" sx={{ fontWeight: 'normal', ml: 1 }}>
             {disableLink ? (
@@ -78,7 +78,7 @@ export default function SoulCompactCard({
       {!isLoading && !profile && (
         <>
           <Avatar sx={{ width: 24, height: 24 }}>
-            <PersonOutlineOutlined sx={{ width: 24, height: 24 }} />
+            <PersonIcon sx={{ width: 24, height: 24 }} />
           </Avatar>
           <Typography variant="body2" sx={{ fontWeight: 'bold', ml: 1 }}>
             Profile not found
