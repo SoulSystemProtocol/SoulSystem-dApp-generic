@@ -16,6 +16,7 @@ type TPaginatedList = {
   itemsProcessing?: (items: any[]) => CardItem[];
   renderActions?: JSX.Element;
   entityName?: string;
+  gridSM?: number;
   gridMD?: number;
   gridLG?: number;
 };
@@ -40,6 +41,7 @@ export default function PaginatedList({
   getCardContent = (item) => item,
   itemsProcessing = (items): CardItem[] => items,
   entityName = 'souls',
+  gridSM = 12,
   gridMD = 6,
   gridLG = 4,
 }: TPaginatedList) {
@@ -111,7 +113,14 @@ export default function PaginatedList({
               {items.map((dataItem: any, index: number) => {
                 const cardData: CardItem = getCardContent(dataItem);
                 return (
-                  <Grid key={index} item xs={12} md={gridMD} lg={gridLG}>
+                  <Grid
+                    key={index}
+                    item
+                    xs={12}
+                    sm={gridSM}
+                    md={gridMD}
+                    lg={gridLG}
+                  >
                     {cardData.imgSrc == 'PARENT_IMAGE' ? (
                       <GridCardTask {...cardData} />
                     ) : (

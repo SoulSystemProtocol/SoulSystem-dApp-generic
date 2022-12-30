@@ -64,6 +64,7 @@ export default function SoulsSearch({ type = '' }: any) {
         subtitle={CONF.SUBTITLE}
         title={CONF.TITLE}
         query={SoulsOpenInj(searchQueryParams)}
+        gridSM={6}
       />
     </Layout>
   );
