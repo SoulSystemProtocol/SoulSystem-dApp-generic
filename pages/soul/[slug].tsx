@@ -53,7 +53,12 @@ function SoulSinglePageContent(): JSX.Element {
     marginLeft: '-18px',
   };
 
-  if (error) return <>Failed to Load Entity</>;
+  if (error)
+    return (
+      <Layout title={getPageTitle(CONF.PAGE_TITLE)}>
+        Failed to Load Entity
+      </Layout>
+    );
 
   return (
     <Layout title={getPageTitle(CONF.PAGE_TITLE)}>
@@ -73,13 +78,12 @@ function SoulSinglePageContent(): JSX.Element {
           {/* <Grid key={'header'} item xs={12}>
             <Typography variant="h4">Skills</Typography>
           </Grid> */}
-          {soul?.metadata?.attributes.map(
-            (item: MetadataAttribute, index: number) =>
-              item && item.display_type != 'boost_percentage' ? null : (
-                <Grid key={item.trait_type} item xs={4} sm={2} lg={2}>
-                  <AttributeDisplayPercentage item={item} />
-                </Grid>
-              ),
+          {soul?.metadata?.attributes.map((item: MetadataAttribute) =>
+            !item || item.display_type != 'boost_percentage' ? null : (
+              <Grid key={item.trait_type} item xs={4} sm={2} lg={2}>
+                <AttributeDisplayPercentage item={item} />
+              </Grid>
+            ),
           )}
         </Grid>
       )}

@@ -200,8 +200,8 @@ export default function SoulAttributesInput(props: WidgetProps): ReactElement {
           <Grid key={'header'} item xs={12}>
             <Typography variant="h6">Skills</Typography>
           </Grid>
-          {attributes.map((item: MetadataAttribute, index: number) => {
-            return item?.display_type != 'boost_percentage' ? null : (
+          {attributes.map((item: MetadataAttribute) => {
+            return !item || item.display_type != 'boost_percentage' ? null : (
               <Grid key={item.trait_type} item xs={4} sm={2} lg={2}>
                 <Button
                   title="Remove Skill"
