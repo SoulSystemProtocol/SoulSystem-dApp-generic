@@ -58,7 +58,7 @@ export const GAME_ROLE = {
   },
 };
 
-export const PROC_STAGE: any = {
+export const PROC_STAGE_REV: any = {
   pending: 0,
   open: 1,
   decision: 2,

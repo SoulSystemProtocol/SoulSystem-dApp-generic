@@ -6,7 +6,7 @@ export const POST_TYPE: { [key: string]: string } = {
 };
 
 // Default Task Tags
-export const TASK_TAGS: any = [
+export const TASK_TAGS: string[] = [
   'Dev',
   'Design',
   'Marketing',
@@ -14,4 +14,15 @@ export const TASK_TAGS: any = [
   'Writing',
   'Translation',
   'Hiring',
+];
+
+export const PROC_STAGE: string[] = [
+  'Draft',
+  'Open',
+  'Decision',
+  'Action',
+  'Appeal',
+  'Execution',
+  'Closed',
+  'Cancelled',
 ];

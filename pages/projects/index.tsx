@@ -10,7 +10,7 @@ import SoulsByTypeRoleQuery from 'queries/SoulsByTypeRoleQuery';
 import { gameCardContent } from 'utils/cardContents';
 import { nameEntity } from 'helpers/utils';
 import { GAME_DESC } from 'constants/contracts';
-import { noSoulMsg } from 'constants/texts';
+import { NO_SOUL_MSG } from 'constants/texts';
 
 const CONF = {
   PAGE_TITLE: nameEntity('project', true),
@@ -25,7 +25,7 @@ export default function ProjectsPage({}: any) {
   const { accountSoul } = useContext(DataContext);
   const { showDialog, closeDialog } = useContext(DialogContext);
   const renderActions = (
-    <Tooltip title={!accountSoul ? noSoulMsg : ''}>
+    <Tooltip title={!accountSoul ? NO_SOUL_MSG : ''}>
       <span>
         <Button
           disabled={!accountSoul}

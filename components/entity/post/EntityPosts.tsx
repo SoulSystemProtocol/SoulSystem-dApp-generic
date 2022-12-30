@@ -77,7 +77,7 @@ export default function EntityPosts({
           </>
         )}
       </Grid>
-      {/* //item?.stage === PROC_STAGE.open &&    //TODO: Enable this on Protocol version 0.5.3 (Disply only if has a soul in a role) */}
+      {/* //item?.stage === PROC_STAGE_REV.open &&    //TODO: Enable this on Protocol version 0.5.3 (Disply only if has a soul in a role) */}
 
       <Box sx={{ mt: 2 }}>
         <Tooltip title={!hasAnyRole ? 'Members Only' : ''}>

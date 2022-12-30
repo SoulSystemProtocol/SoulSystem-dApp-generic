@@ -11,7 +11,7 @@ import {
   Typography,
 } from '@mui/material';
 import Link from 'components/utils/Link';
-import { CLAIM_POST_ENTITY_TYPE, PROC_STAGE } from 'constants/contracts';
+import { CLAIM_POST_ENTITY_TYPE, PROC_STAGE_REV } from 'constants/contracts';
 import { DataContext } from 'contexts/data';
 import { DialogContext } from 'contexts/dialog';
 import { normalizeGraphEntity } from 'helpers/metadata';
@@ -61,7 +61,7 @@ export default function TaskPostedDeliveries({ task, sx }: any) {
             </ListItem>
           )}
         </Grid>
-        {task.stage !== PROC_STAGE.closed && accountSoul && (
+        {task.stage !== PROC_STAGE_REV.closed && accountSoul && (
           <Button
             size="small"
             variant="outlined"
@@ -108,7 +108,7 @@ function TaskPostedDelivery({ task, post }: any) {
 
   useEffect(() => {
     setCanAdmin(
-      task.stage !== PROC_STAGE.closed &&
+      task.stage !== PROC_STAGE_REV.closed &&
         accountSoul &&
         isSoulHasRole(task, accountSoul.id, 'admin'),
     );

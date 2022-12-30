@@ -1,7 +1,7 @@
 import { Save } from '@mui/icons-material';
 import { LoadingButton } from '@mui/lab';
 import { Typography, Button, Stack } from '@mui/material';
-import { PROC_STAGE } from 'constants/contracts';
+import { PROC_STAGE_REV } from 'constants/contracts';
 import { DataContext } from 'contexts/data';
 import useError from 'hooks/useError';
 import useSubgraph from 'hooks/useSubgraph';
@@ -52,7 +52,7 @@ export default function TaskApplication({
 
   useEffect(() => {
     setCanAdmin(
-      task.stage !== PROC_STAGE.closed &&
+      task.stage !== PROC_STAGE_REV.closed &&
         accountSoul &&
         isSoulHasRole(task, accountSoul.id, 'admin'),
     );

@@ -6,11 +6,17 @@ import { gql } from '@apollo/client';
  * $role container soul role
  */
 const query = gql`
-  query SoulPartsQuery($id: ID!, $role: String, $first: Int, $skip: Int) {
+  query SoulPartsQuery(
+    $id: ID!
+    $role: String
+    $stage: Int
+    $first: Int
+    $skip: Int
+  ) {
     soulParts(
       first: $first
       skip: $skip
-      where: { bEnd_: { id: $id }, aEnd_: { role: $role } }
+      where: { bEnd_: { id: $id }, aEnd_: { role: $role, stage: $stage } }
     ) {
       id
       qty
@@ -21,6 +27,7 @@ const query = gql`
         metadata
         name
         owner
+        stage
       }
       bEnd {
         id

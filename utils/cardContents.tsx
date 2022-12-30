@@ -5,6 +5,7 @@ import TaskSoulCardDetails from 'components/entity/task/TaskSoulCardDetails';
 import PersonIcon from '@mui/icons-material/Person';
 import { normalizeGraphEntity } from 'helpers/metadata';
 import { SxProps } from '@mui/material';
+import StageDisplay from 'components/entity/task/StageDisplay';
 
 export interface CardItem {
   id: string;
@@ -135,6 +136,7 @@ export const soulPartTaskCardContent = (item: any): CardItem => {
     metadata,
     link: `/soul/${item.aEnd.owner}`,
     roles: item?.roles,
+    children: item && <StageDisplay proc={item.aEnd} />,
   };
   return ret;
 };

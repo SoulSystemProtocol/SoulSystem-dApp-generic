@@ -1,4 +1,4 @@
-import { PROC_STAGE, GAME_ROLE } from 'constants/contracts';
+import { PROC_STAGE_REV, GAME_ROLE } from 'constants/contracts';
 import { truncate } from 'lodash';
 import _ from 'lodash';
 import { resolveLink } from 'helpers/IPFS';
@@ -71,8 +71,8 @@ export function soulImage(soul: any): string {
  * Convert task stage to readable string.
  */
 export function taskStageToString(task: any): string {
-  for (let stageName in PROC_STAGE) {
-    if (PROC_STAGE[stageName] == task.stage) return stageName;
+  for (let stageName in PROC_STAGE_REV) {
+    if (PROC_STAGE_REV[stageName] == task.stage) return stageName;
   }
   console.warn('Unhandled Task Stage:' + task.stage, task);
   return 'Open';

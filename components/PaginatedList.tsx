@@ -6,6 +6,7 @@ import Loader from './Loader';
 import GridCard from './GridCard';
 import { CardItem } from 'utils/cardContents';
 import GridCardTask from './GridCardTask';
+import { NO_RESULTS } from 'constants/texts';
 
 type TPaginatedList = {
   query: any;
@@ -106,7 +107,9 @@ export default function PaginatedList({
         <Grid container spacing={2}>
           {!items?.length ? (
             <Grid item xs={12}>
-              <Typography>No Results</Typography>
+              <Typography variant="caption" color="text.secondary">
+                {NO_RESULTS}
+              </Typography>
             </Grid>
           ) : (
             <>

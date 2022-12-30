@@ -10,7 +10,7 @@ import { nameEntity } from 'helpers/utils';
 import { GAME_DESC } from 'constants/contracts';
 import PaginatedList from 'components/PaginatedList';
 import SoulsByTypeRoleQuery from 'queries/SoulsByTypeRoleQuery';
-import { noSoulMsg } from 'constants/texts';
+import { NO_SOUL_MSG } from 'constants/texts';
 
 const CONF = {
   PAGE_TITLE: nameEntity('mdao', true),
@@ -28,7 +28,7 @@ export default function DaosPage(): JSX.Element {
 
   const renderActions = (
     <Tooltip
-      title={accountSoul ? 'Create a new ' + nameEntity('mdao') : noSoulMsg}
+      title={accountSoul ? 'Create a new ' + nameEntity('mdao') : NO_SOUL_MSG}
     >
       <Button
         disabled={!accountSoul}

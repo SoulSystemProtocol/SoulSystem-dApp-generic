@@ -28,6 +28,8 @@ export default function SoulAffiliations(): JSX.Element {
             variables={{
               id: soul?.id,
               role: GAME_TYPE.mdao,
+              stage: 0, //for consistency
+              // type: 'GAME',
             }}
             itemsProcessing={(items: any): CardItem[] => {
               console.log('Parts Items', items);
@@ -54,7 +56,7 @@ export default function SoulAffiliations(): JSX.Element {
         )}
       </Box>
 
-      <Box sx={{ my: 2 }}>
+      {/* <Box sx={{ my: 2 }}>
         <Typography variant="h4">
           Works on {nameEntity('project', true)}
         </Typography>
@@ -63,6 +65,40 @@ export default function SoulAffiliations(): JSX.Element {
             variables={{
               id: soul?.id,
               role: GAME_TYPE.project,
+            }}
+            itemsProcessing={(items: any): CardItem[] => {
+              //Merge Participant Roles (SoulPartsQuery)
+              let outputs: any = {};
+              for (let item of items) {
+                //By Container
+                let elId = item.aEnd.id;
+                // Role Names Only
+                if (!outputs[elId]) {
+                  outputs[elId] = {
+                    id: item.id,
+                    aEnd: item.aEnd,
+                    roles: [],
+                  };
+                }
+                //Add Role
+                outputs[elId].roles.push(item.role);
+              }
+              return Object.values(outputs);
+            }}
+            getCardContent={soulPartCardContent}
+          />
+        )}
+      </Box> */}
+
+      <Box sx={{ my: 2 }}>
+        <Typography variant="h4">{nameEntity('task', true)} Applied</Typography>
+        {soul?.id && (
+          <SoulParts
+            gridLG={6}
+            variables={{
+              id: soul?.id,
+              role: GAME_TYPE.task,
+              stage: 1,
             }}
             itemsProcessing={(items: any): CardItem[] => {
               //Merge Participant Roles (SoulPartsQuery)
@@ -83,19 +119,55 @@ export default function SoulAffiliations(): JSX.Element {
               }
               return Object.values(outputs);
             }}
-            getCardContent={soulPartCardContent}
+            getCardContent={soulPartTaskCardContent}
           />
         )}
       </Box>
-
       <Box sx={{ my: 2 }}>
-        <Typography variant="h4">{nameEntity('task', true)}</Typography>
+        <Typography variant="h4">
+          {nameEntity('task', true)} in Progress
+        </Typography>
         {soul?.id && (
           <SoulParts
             gridLG={6}
             variables={{
               id: soul?.id,
               role: GAME_TYPE.task,
+              stage: 3,
+            }}
+            itemsProcessing={(items: any): CardItem[] => {
+              //Merge Participant Roles (SoulPartsQuery)
+              let outputs: any = {};
+              for (let item of items) {
+                //By Container
+                let elId = item.aEnd.id;
+                /* Role Names Only */
+                if (!outputs[elId]) {
+                  outputs[elId] = {
+                    id: item.id,
+                    aEnd: item.aEnd,
+                    roles: [],
+                  };
+                }
+                //Add Role
+                outputs[elId].roles.push(item.role);
+              }
+              return Object.values(outputs);
+            }}
+            getCardContent={soulPartTaskCardContent}
+          />
+        )}
+      </Box>
+
+      <Box sx={{ my: 2 }}>
+        <Typography variant="h4">{nameEntity('task', true)} Won</Typography>
+        {soul?.id && (
+          <SoulParts
+            gridLG={6}
+            variables={{
+              id: soul?.id,
+              role: GAME_TYPE.task,
+              stage: 7,
             }}
             itemsProcessing={(items: any): CardItem[] => {
               //Merge Participant Roles (SoulPartsQuery)

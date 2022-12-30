@@ -2,10 +2,9 @@ import { gql } from '@apollo/client';
 
 /**
  * Unsafe GQL Injector
- * 
  */
 const injectedGQL = (where: string) => {
-  /** 
+  /**
    * Soul Query By Type, Role, & Text
    */
   const query = gql`
@@ -32,7 +31,7 @@ const injectedGQL = (where: string) => {
     }
   `;
   return query;
-}
+};
 
 // const query = injectedGQL(`{ type: "" }`);
 

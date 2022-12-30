@@ -3,7 +3,7 @@ import useError from 'hooks/useError';
 import useContract from 'hooks/useContract';
 import { taskStageToString, nameSoul } from 'utils/converters';
 import EntityImage from '../EntityImage';
-import { PROC_STAGE } from 'constants/contracts';
+import { PROC_STAGE_REV } from 'constants/contracts';
 import AddressHash from 'components/web3/AddressHash';
 import { DataContext } from 'contexts/data';
 import { useContext, useEffect, useState } from 'react';
@@ -92,7 +92,7 @@ export default function TaskDetail({ item, sx }: any) {
         </Typography>
         <Typography sx={{ mt: 1 }}>{item?.metadata?.description}</Typography>
         <Stack direction="row" spacing={2} sx={{ mt: 2 }}>
-          {(item.stage === null || item.stage >= PROC_STAGE.pending) && (
+          {(item.stage === null || item.stage >= PROC_STAGE_REV.pending) && (
             <FundDialogButton
               text={`Fund ${nameEntity('task')}`}
               address={item.id}
@@ -104,8 +104,8 @@ export default function TaskDetail({ item, sx }: any) {
             disabled={
               !(
                 (isSoulAdmin || isSoulAuthority) &&
-                item.stage > PROC_STAGE.decision &&
-                item.stage < PROC_STAGE.closed
+                item.stage > PROC_STAGE_REV.decision &&
+                item.stage < PROC_STAGE_REV.closed
               )
             }
             size="small"
@@ -116,7 +116,7 @@ export default function TaskDetail({ item, sx }: any) {
           </ConditionalButton>
 
           <ConditionalButton
-            disabled={!isSoulAdmin || item.stage != PROC_STAGE.execute}
+            disabled={!isSoulAdmin || item.stage != PROC_STAGE_REV.execute}
             size="small"
             variant="outlined"
             onClick={() => getContractTask(item.id).stageExecusion(tokens)}
@@ -125,7 +125,7 @@ export default function TaskDetail({ item, sx }: any) {
           </ConditionalButton>
 
           <ConditionalButton
-            disabled={!(item.stage > PROC_STAGE.execute)}
+            disabled={!(item.stage > PROC_STAGE_REV.execute)}
             size="small"
             variant="outlined"
             onClick={() => getContractTask(item.id).disburse(tokens)}
@@ -134,7 +134,7 @@ export default function TaskDetail({ item, sx }: any) {
           </ConditionalButton>
 
           <ConditionalButton
-            disabled={!(item.stage > PROC_STAGE.cancelled)}
+            disabled={!(item.stage > PROC_STAGE_REV.cancelled)}
             size="small"
             variant="outlined"
             onClick={() => getContractTask(item.id).refund(tokens)}

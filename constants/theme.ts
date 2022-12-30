@@ -91,17 +91,17 @@ export const darkTheme = createTheme({
       fontSize: '2.25rem',
     },
     h2: {
-      fontSize: '2rem',
+      fontSize: '1.8rem',
     },
     h3: {
-      fontSize: '1.6rem',
+      fontSize: '1.5rem',
     },
     h4: {
-      fontSize: '1.4rem',
+      fontSize: '1.3rem',
       fontFamily: '"Montserrat", Open Sans',
     },
     h5: {
-      fontSize: '1.2rem',
+      fontSize: '1.1rem',
     },
     subtitle1: {
       opacity: 0.75,

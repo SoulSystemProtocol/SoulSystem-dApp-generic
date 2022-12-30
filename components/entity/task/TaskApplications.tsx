@@ -1,5 +1,5 @@
 import { Box, Grid, Typography } from '@mui/material';
-import { PROC_STAGE } from 'constants/contracts';
+import { PROC_STAGE_REV } from 'constants/contracts';
 import { DataContext } from 'contexts/data';
 import { DialogContext } from 'contexts/dialog';
 import { useContext } from 'react';
@@ -29,7 +29,8 @@ export default function TaskApplications({
         disabled={
           !accountSoul ||
           (task.stage !== null &&
-            (task.stage < PROC_STAGE.open || task.stage > PROC_STAGE.closed))
+            (task.stage < PROC_STAGE_REV.open ||
+              task.stage > PROC_STAGE_REV.closed))
         }
         size="small"
         variant="outlined"
