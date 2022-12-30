@@ -27,7 +27,7 @@ export default function HeaderLogo(): JSX.Element {
       >
         {process.env.NEXT_PUBLIC_FEATURE_DEV
           ? 'v' + process.env.NEXT_PUBLIC_VERSION
-          : 'beta'}
+          : 'alpha'}
       </Typography>
     </Box>
   );
