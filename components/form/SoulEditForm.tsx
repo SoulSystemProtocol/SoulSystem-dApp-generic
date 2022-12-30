@@ -94,6 +94,17 @@ export default function SoulEditForm({
       setStatus(STATUS.ipfsUpload);
       //Prep Metadata Object  //TODO: Should probably get rid of this
       let metadata = soul?.type == '' ? prepMetadata(formData) : formData;
+      //Sanitize -- Clean Empty Attributes (Automatically added by form)
+      if (!!metadata.attributes) {
+        for (let i = metadata.attributes.length - 1; i >= 0; i--) {
+          if (
+            !metadata.attributes[i] ||
+            typeof metadata.attributes[i] !== 'object'
+          ) {
+            metadata.attributes.splice(i, 1);
+          }
+        }
+      }
       //Save to IPFS
       const { url: metadataUrl } = await uploadJsonToIPFS(metadata);
       //Status: Using contract / Wait for Chain
