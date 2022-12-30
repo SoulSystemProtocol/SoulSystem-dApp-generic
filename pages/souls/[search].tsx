@@ -1,8 +1,7 @@
 import { useContext } from 'react';
-import { Box, Button } from '@mui/material';
+import { Button } from '@mui/material';
 import { DataContext } from 'contexts/data';
 import { Web3Context } from 'contexts/Web3Context';
-import Link from 'next/link';
 import Layout from '../../components/layout/Layout';
 import { getPageTitle } from '../../utils';
 import { soulCardContent } from 'utils/cardContents';
@@ -10,6 +9,7 @@ import PaginatedList from 'components/PaginatedList';
 import SoulSearchBox from 'components/entity/soul/SoulSearchBox';
 import SoulsOpenInj from 'queries/SoulsOpenInj';
 import { useRouter } from 'next/router';
+import Link from 'components/utils/Link';
 
 /**
  * Page for a list of souls
@@ -28,11 +28,9 @@ export default function SoulsSearch({ type = '' }: any) {
   };
 
   const renderActions = account && !accountSoul && (
-    <Box>
-      <Link href={`/soul/create`} passHref>
-        <Button variant="outlined">Create Soul</Button>
-      </Link>
-    </Box>
+    <Link href={`/soul/create`}>
+      <Button variant="outlined">Create Soul</Button>
+    </Link>
   );
 
   //Query Structure: { type: $type, role: $role, searchField_contains_nocase: $text }

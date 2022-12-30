@@ -33,11 +33,10 @@ export const soulCardProcessedContent = (
   item: any,
   roles?: any[],
 ): CardItem => {
-  // console.warn('Start with item', item);
   let ret = {
     id: item.id,
     imgSrc: resolveLink(item?.metadata?.image),
-    avatarIcon: <PersonIcon />,
+    avatarIcon: <PersonIcon sx={{ fontSize: 50 }} />,
     label: addressToShortAddress(item.owner),
     title: nameSoul(item),
     link: `/soul/${item.id}`,
@@ -46,7 +45,7 @@ export const soulCardProcessedContent = (
   return ret;
 };
 
-// Game Card Processing
+/// Game Card Processing
 export const gameCardContent = (item: any): CardItem => {
   let metadata = hexStringToJson(item.metadata);
   let ret = {
@@ -61,7 +60,7 @@ export const gameCardContent = (item: any): CardItem => {
   return ret;
 };
 
-// Process Soul
+/// Process Soul
 export const processCardContent = (soul: any): CardItem => {
   let metadata = hexStringToJson(soul?.metadata);
   let ret = {
@@ -74,7 +73,6 @@ export const processCardContent = (soul: any): CardItem => {
     link: `/soul/${soul.owner}`,
     children: soul && <TaskSoulCardDetails address={soul.owner} />,
   };
-  // console.log('Task soul', { ret, soul, owner: soul.owner });
   return ret;
 };
 
@@ -93,7 +91,6 @@ export const containedProcContent = (relation: any): CardItem => {
     children: soul && <TaskSoulCardDetails address={soul?.owner} />,
     linkSX: { display: { xs: 'none', md: 'block' } },
   };
-  // console.log('Task soul', { ret, soul, owner: soul.owner });
   return ret;
 };
 
@@ -109,14 +106,12 @@ export const soulPartCardContent = (item: any): CardItem => {
     link: `/soul/${item.aEnd.owner}`,
     roles: item?.roles,
   };
-  // console.log('soulPartCardContent() Soul Part', { metadata, item, ret });
   return ret;
 };
 
 // Game Participant
 export const gamePartCardContent = (item: any): CardItem => {
   let metadata = hexStringToJson(item.entity.metadata);
-  // console.log('Game Participant', { metadata, item });
   let ret = {
     id: item.entity.id,
     imgSrc: resolveLink(metadata?.image),
@@ -138,10 +133,8 @@ export const soulPartTaskCardContent = (item: any): CardItem => {
     label: metadata?.description,
     title: metadata?.name,
     metadata,
-    // link: `/tasks/${item.aEnd.owner}`,
     link: `/soul/${item.aEnd.owner}`,
     roles: item?.roles,
   };
-  // console.log('soulPartTaskCardContent() Soul Part', { metadata, item, ret });
   return ret;
 };

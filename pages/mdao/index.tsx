@@ -27,21 +27,17 @@ export default function DaosPage(): JSX.Element {
   // const { handleError } = useError();
 
   const renderActions = (
-    <Box>
-      <Tooltip
-        title={accountSoul ? 'Create a new ' + nameEntity('mdao') : noSoulMsg}
+    <Tooltip
+      title={accountSoul ? 'Create a new ' + nameEntity('mdao') : noSoulMsg}
+    >
+      <Button
+        disabled={!accountSoul}
+        onClick={() => showDialog?.(<DaoManageDialog onClose={closeDialog} />)}
+        variant="outlined"
       >
-        <Button
-          disabled={!accountSoul}
-          onClick={() =>
-            showDialog?.(<DaoManageDialog onClose={closeDialog} />)
-          }
-          variant="outlined"
-        >
-          {'Create ' + nameEntity('mdao')}
-        </Button>
-      </Tooltip>
-    </Box>
+        {'Create ' + nameEntity('mdao')}
+      </Button>
+    </Tooltip>
   );
 
   const listProps = {

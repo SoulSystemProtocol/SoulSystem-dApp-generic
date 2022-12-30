@@ -94,7 +94,9 @@ export default function PaginatedList({
             )}
           </Box>
         )}
-        {!!renderActions && renderActions}
+        {!!renderActions && (
+          <Box sx={{ whiteSpace: 'nowrap' }}>{renderActions}</Box>
+        )}
       </Box>
       {loading ? (
         <Loader />

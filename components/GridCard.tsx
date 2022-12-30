@@ -2,12 +2,12 @@ import { Card, CardContent, Stack, Typography } from '@mui/material';
 import Link from 'components/utils/Link';
 import { Box } from '@mui/system';
 import { CardItem } from 'utils/cardContents';
-import { SchoolOutlined } from '@mui/icons-material';
+import { AutoAwesomeOutlined } from '@mui/icons-material';
 import EntityImage from './entity/EntityImage';
 import { SoulRoles } from './entity/soul/SoulRoles';
 
 /**
- * Dashboard card component.
+ * Dashboard Card Component
  */
 export default function GridCard({
   id,
@@ -20,8 +20,7 @@ export default function GridCard({
   baseRoute,
   children,
   linkSX,
-}: CardItem) {
-  // if (!id)  return null;
+}: CardItem): JSX.Element {
   const datalink = link || `/${baseRoute}/${id}`;
   if (!datalink) console.error('Item missing a link', { link, datalink });
   return (
@@ -36,7 +35,7 @@ export default function GridCard({
             <Link href={datalink} sx={linkSX}>
               <EntityImage
                 imgSrc={imgSrc}
-                icon={avatarIcon || <SchoolOutlined />}
+                icon={avatarIcon || <AutoAwesomeOutlined />}
                 sx={{
                   cursor: 'pointer',
                   width: 82,

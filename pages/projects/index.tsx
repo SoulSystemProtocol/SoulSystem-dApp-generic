@@ -25,21 +25,19 @@ export default function ProjectsPage({}: any) {
   const { accountSoul } = useContext(DataContext);
   const { showDialog, closeDialog } = useContext(DialogContext);
   const renderActions = (
-    <Box>
-      <Tooltip title={!accountSoul ? noSoulMsg : ''}>
-        <span>
-          <Button
-            disabled={!accountSoul}
-            onClick={() =>
-              showDialog?.(<ProjectManageDialog onClose={closeDialog} />)
-            }
-            variant="outlined"
-          >
-            Create {nameEntity('project')}
-          </Button>
-        </span>
-      </Tooltip>
-    </Box>
+    <Tooltip title={!accountSoul ? noSoulMsg : ''}>
+      <span>
+        <Button
+          disabled={!accountSoul}
+          onClick={() =>
+            showDialog?.(<ProjectManageDialog onClose={closeDialog} />)
+          }
+          variant="outlined"
+        >
+          Create {nameEntity('project')}
+        </Button>
+      </span>
+    </Tooltip>
   );
 
   const listProps = {

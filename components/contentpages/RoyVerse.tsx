@@ -2,9 +2,9 @@ import { Box, Typography } from '@mui/material';
 import ImageBox from 'components/utils/ImageBox';
 
 /**
- * Home Page
+ * RoyVerse Landing Page
  */
-export default function RoyHacks() {
+export default function RoyVerse(): JSX.Element {
   return (
     <>
       <ImageBox

@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { Box, Button } from '@mui/material';
+import { Button } from '@mui/material';
 import { DialogContext } from 'contexts/dialog';
 import { DataContext } from 'contexts/data';
 import { getPageTitle } from '../../utils';
@@ -26,15 +26,13 @@ export default function DaosPage({}: any) {
   // const { handleError } = useError();
 
   const renderActions = (
-    <Box>
-      <Button
-        disabled={!accountSoul}
-        onClick={() => showDialog?.(<DaoManageDialog onClose={closeDialog} />)}
-        variant="outlined"
-      >
-        Create DAO
-      </Button>
-    </Box>
+    <Button
+      disabled={!accountSoul}
+      onClick={() => showDialog?.(<DaoManageDialog onClose={closeDialog} />)}
+      variant="outlined"
+    >
+      Create DAO
+    </Button>
   );
 
   const listProps = {

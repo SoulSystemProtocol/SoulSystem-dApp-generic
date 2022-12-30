@@ -1,6 +1,5 @@
 import { useContext } from 'react';
 import Link from 'components/utils/Link';
-import ConnectButton from 'components/web3/connect/ConnectButton';
 import { Box, Typography } from '@mui/material';
 import { Web3Context } from 'contexts/Web3Context';
 import ImageBox from 'components/utils/ImageBox';

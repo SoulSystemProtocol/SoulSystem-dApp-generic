@@ -25,7 +25,6 @@ export const CopyIcon = (args) => (
  */
 export const LogoSVG = (args) => (
   <svg
-    
     fill="#ffffff"
     height="800px"
     width="800px"
