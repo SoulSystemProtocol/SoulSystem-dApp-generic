@@ -134,7 +134,7 @@ export default function useSubgraph() {
     );
     return gameRules.map((ruleEntity: any) => ({
       ...ruleEntity,
-      metadata: hexStringToJson(ruleEntity.metadata),
+      metadata: hexStringToJson(ruleEntity?.metadata),
     }));
   };
 

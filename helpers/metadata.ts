@@ -19,6 +19,8 @@ export interface MetadataAttribute {
  * Normalize graph entity before use
  */
 export const normalizeGraphEntity = (subgraphEntity: any): any => {
+  //Validations
+  if (!subgraphEntity) return null;
   if (!subgraphEntity?.metadata)
     console.error(
       subgraphEntity.role + ' Entity missing Metadata',
@@ -36,18 +38,7 @@ export const normalizeGraphEntity = (subgraphEntity: any): any => {
  * Prep Metadata
  */
 export const prepMetadata = (metadata: any): any => {
-  const uriFirstName = MetaAttrHelper.extractValue(
-    metadata?.attributes,
-    PROFILE_TRAIT_TYPE.firstName,
-  );
-  const uriLastName = MetaAttrHelper.extractValue(
-    metadata?.attributes,
-    PROFILE_TRAIT_TYPE.lastName,
-  );
-  metadata.name = nameSoul(
-    { uriFirstName, uriLastName } ||
-      MetaAttrHelper.extractValue(metadata?.attributes, 'name'),
-  );
+  metadata.name = MetaAttrHelper.extractName(metadata?.attributes);
   metadata.description = MetaAttrHelper.extractValue(
     metadata?.attributes,
     'description',

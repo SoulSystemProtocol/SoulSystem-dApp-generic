@@ -1,4 +1,5 @@
 import { findIndex, isEmpty } from 'lodash';
+import { nameSoul } from 'utils/converters';
 import { MetadataAttribute } from './metadata';
 
 /**
@@ -49,6 +50,23 @@ export const MetaAttrHelper: any = {
   extractValue(attributes: MetadataAttribute[], traitType: string): string {
     let index = MetaAttrHelper.getIndex(attributes, traitType);
     return index !== -1 ? attributes[index].value : '';
+  },
+
+  /**
+   * Name extraction from attributes (Backward Compatible)
+   */
+  extractName(attributes: MetadataAttribute[]): string {
+    let fauxSoul: any = {};
+    fauxSoul.uriFirstName = MetaAttrHelper.extractValue(
+      attributes,
+      'last name',
+    );
+    fauxSoul.uriLastName = MetaAttrHelper.extractValue(
+      attributes,
+      'first name',
+    );
+    fauxSoul.name = MetaAttrHelper.extractValue(attributes, 'name');
+    return nameSoul(fauxSoul);
   },
 
   /**

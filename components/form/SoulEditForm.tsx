@@ -93,7 +93,8 @@ export default function SoulEditForm({
       //Status: Uploading to IPFS
       setStatus(STATUS.ipfsUpload);
       //Prep Metadata Object  //TODO: Should probably get rid of this
-      let metadata = soul?.type == '' ? prepMetadata(formData) : formData;
+      // let metadata = soul?.type == '' ? prepMetadata(formData) : formData;
+      let metadata = prepMetadata(formData);
       //Sanitize -- Clean Empty Attributes (Automatically added by form)
       if (!!metadata.attributes) {
         for (let i = metadata.attributes.length - 1; i >= 0; i--) {

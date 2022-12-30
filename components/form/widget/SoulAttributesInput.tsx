@@ -60,11 +60,6 @@ export default function SoulAttributesInput(props: WidgetProps): ReactElement {
       value: trait_value !== null ? trait_value : '',
     };
     let newAttributes = MetaAttrHelper.attributeSet([...attributes], newAttr);
-    // console.log('New Attr: ', {
-    //   newAttr,
-    //   newAttributes,
-    //   curVal: MetaAttrHelper.extractValue(attributes, trait_type),
-    // });
     setAttributes(newAttributes);
   };
 

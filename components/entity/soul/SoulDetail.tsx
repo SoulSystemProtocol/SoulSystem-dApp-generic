@@ -21,7 +21,10 @@ import ImageBox from 'components/utils/ImageBox';
 export default function SoulDetail({ soul, sx }: any) {
   const { account } = useContext(Web3Context);
   const [isOwned, setIsOwned] = useState<boolean>(false);
+  const [soulName, setSoulName] = useState<string>('');
+
   useEffect(() => {
+    setSoulName(nameSoul(soul));
     setIsOwned(
       !!account && soul?.owner?.toLowerCase() === account?.toLowerCase(),
     );
@@ -101,7 +104,7 @@ export default function SoulDetail({ soul, sx }: any) {
           spacing={1}
           sx={{ flexGrow: 1, mt: { xs: 2, md: 0 }, ml: { md: 4 } }}
         >
-          <Typography variant="h1">{nameSoul(soul)}</Typography>
+          <Typography variant="h1">{soulName}</Typography>
           <AddressHash address={soul.owner} sx={{ mt: 1 }} />
           <SoulDescription soul={soul} sx={{ mt: 1 }} />
           <SocialLinks key="SocialLinks" soul={soul} sx={{ mt: 2 }} />
