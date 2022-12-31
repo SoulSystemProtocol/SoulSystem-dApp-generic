@@ -16,19 +16,16 @@ import { Container, Typography, Toolbar } from '@mui/material';
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
 import Head from 'next/head';
-import Header from './Header';
-import Sidebar from './Sidebar';
 import Footer from './Footer';
 import { nameEntity } from 'helpers/utils';
 import NavBar from './NavBar';
-import Link from 'components/utils/Link';
+// import Header from './Header';
+// import Sidebar from './Sidebar';
+// import Link from 'components/utils/Link';
 
 const top_links: any = [
-  //TODO: Support Hiding
-
   // { label: 'Hackathons', route: 'hackathons' },
   // { label: 'Grants', route: 'grants' },
-
   {
     route: '/mdao',
     label: nameEntity('mdao', true),
@@ -99,6 +96,7 @@ const menu_side_links = [
     icon: (
       <DirectionsRunIcon color="warning" sx={{ fill: 'url(#linearColors)' }} />
     ),
+    hide: process.env.NEXT_PUBLIC_FEATURE_DEV != 'false',
   },
 ];
 const footer_links: { route: string; label: string; icon: JSX.Element }[] = [];
@@ -109,7 +107,7 @@ const footer_icons: { route: string; label: string; icon: JSX.Element }[] = [
     icon: <EmojiPeopleIcon sx={{ fill: 'url(#linearColors)' }} />,
   },
   {
-    route: 'https://github.com/SolidifyETH',
+    route: 'https://github.com/SoulSystemProtocol',
     label: 'Code',
     icon: <GitHubIcon sx={{ fill: 'url(#linearColors)' }} />,
   },
