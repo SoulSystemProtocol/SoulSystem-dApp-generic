@@ -99,22 +99,6 @@ export default function TaskDetail({ item, sx }: any) {
             />
           )}
 
-          {/* //TODO: Add reason for cancellation in URI */}
-          <ConditionalButton
-            disabled={
-              !(
-                (isSoulAdmin || isSoulAuthority) &&
-                item.stage > PROC_STAGE_REV.decision &&
-                item.stage < PROC_STAGE_REV.closed
-              )
-            }
-            size="small"
-            variant="outlined"
-            onClick={() => getContractTask(item.id).cancel('TEST_URI', tokens)}
-          >
-            Cancel Bounty
-          </ConditionalButton>
-
           <ConditionalButton
             disabled={!isSoulAdmin || item.stage != PROC_STAGE_REV.execute}
             size="small"
@@ -133,6 +117,21 @@ export default function TaskDetail({ item, sx }: any) {
             Disburse Funds
           </ConditionalButton>
 
+          {/* //TODO: Add reason for cancellation in URI */}
+          <ConditionalButton
+            disabled={
+              !(
+                (isSoulAdmin || isSoulAuthority) &&
+                item.stage > PROC_STAGE_REV.decision &&
+                item.stage < PROC_STAGE_REV.closed
+              )
+            }
+            size="small"
+            variant="outlined"
+            onClick={() => getContractTask(item.id).cancel('TEST_URI', tokens)}
+          >
+            Cancel {nameEntity('task')}
+          </ConditionalButton>
           <ConditionalButton
             disabled={!(item.stage > PROC_STAGE_REV.cancelled)}
             size="small"
