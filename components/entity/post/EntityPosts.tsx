@@ -1,4 +1,12 @@
-import { Button, Box, Paper, SxProps, Grid, Tooltip } from '@mui/material';
+import {
+  Button,
+  Box,
+  Paper,
+  SxProps,
+  Grid,
+  Tooltip,
+  Typography,
+} from '@mui/material';
 import { DataContext } from 'contexts/data';
 import { useEffect, useState, useContext } from 'react';
 import { DialogContext } from 'contexts/dialog';
@@ -7,6 +15,7 @@ import useError from 'hooks/useError';
 import useSubgraph from 'hooks/useSubgraph';
 import { normalizeGraphEntity } from 'helpers/metadata';
 import PostSingleDisplay from './PostSingleDisplay';
+import { NO_RESULTS } from 'constants/texts';
 
 /**
  * Display Multiple Posts By Entity
@@ -57,7 +66,9 @@ export default function EntityPosts({
         {/* Comments */}
         {commentPosts.length == 0 ? (
           <Grid item key="empty" xs={12}>
-            <Paper sx={{ p: 2 }}>No updates yet...</Paper>
+            <Paper sx={{ p: 2 }}>
+              <Typography variant="caption">{NO_RESULTS}</Typography>
+            </Paper>
           </Grid>
         ) : (
           <>
