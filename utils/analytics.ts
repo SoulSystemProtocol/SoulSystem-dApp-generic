@@ -62,18 +62,6 @@ export const analyticsCatchErrorEvent = (error: Error, additional: any = {}) =>
   });
 
 /**
- * Handle create own profile event.
- */
-export const analyticsCreateOwnProfileEvent = () =>
-  analyticsEvent('createdOwnProfile');
-
-/**
- * Handle edit own profile event.
- */
-export const analyticsEditOwnProfileEvent = () =>
-  analyticsEvent('editedOwnProfile');
-
-/**
  * Handle create case event.
  */
 export const analyticsCreateCaseEvent = () => analyticsEvent('createdCase');
@@ -86,34 +74,10 @@ export const analyticsNominateToCaseEvent = (caseId: string, nominated, role) =>
     });
 
 /**
- * Handle add case evidence event.
- */
-export const analyticsAddCaseEvidenceEvent = (caseId: string) =>
-  analyticsEvent('addedCaseEvidence', { case: caseId });
-
-/**
  * Handle comment case event.
  */
-export const analyticsCommentCaseEvent = (caseId: string) =>
-  analyticsEvent('commentedCase', { case: caseId });
-
-/**
- * Handle confirm case event.
- */
-export const analyticsConfirmCaseEvent = (caseId: string) =>
-  analyticsEvent('confirmedCase', { case: caseId });
-
-/**
- * Handle make case verdict event.
- */
-export const analyticsMakeCaseVerdictEvent = (caseId: string) =>
-  analyticsEvent('madeCaseVerdict', { case: caseId });
-
-/**
- * Handle cancel case event.
- */
-export const analyticsCancelCaseEvent = (caseId: string) =>
-  analyticsEvent('canceledCase', { case: caseId });
+export const analyticsCommentCaseEvent = (ctxId: string) =>
+  analyticsEvent('post', { ctx: ctxId });
 
 /**
  * Handle join game event.
@@ -126,14 +90,3 @@ export const analyticsJoinGameEvent = (game: string) =>
  */
 export const analyticsLeaveGameEvent = (game: string) =>
   analyticsEvent('leftGame', { game });
-
-/**
- * Handle make game event
- */
-export const analyticsMakeGame = () => analyticsEvent('madeGame');
-
-/**
- * Handle set game uri event.
- */
-export const analyticsSetGameUri = (game: string) =>
-  analyticsEvent('setGameUri', { game });
