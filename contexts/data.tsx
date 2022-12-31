@@ -11,8 +11,8 @@ interface IDataContext {
   loading: boolean;
   error: any;
   isReady: boolean;
-  metadataUpdate: (metadata: any) => void;
-  accountSoulInject: (metadata: any, additional?: any) => void;
+  injectMetadata: (metadata: any) => void;
+  injectSoul: (metadata: any, additional?: any) => void;
 }
 
 export const DataContext = createContext<Partial<IDataContext>>({});
@@ -31,11 +31,11 @@ export function DataProvider({ children }: any) {
   useEffect(() => setSoul(accountSoul), [accountSoul]);
 
   /// Inject metadata update [optimistic updates]
-  const metadataUpdate = (metadata: any): void =>
+  const injectMetadata = (metadata: any): void =>
     setSoul(updateSoul(soul, metadata));
 
   /// Inject current account's Soul [optimistic updates]
-  const accountSoulInject = (metadata: any, additional: any = {}): void => {
+  const injectSoul = (metadata: any, additional: any = {}): void => {
     additional.owner = account;
     const fauxSoul = genFauxSoul(metadata, additional);
     console.warn('Set Faux accountSoul', fauxSoul);
@@ -49,8 +49,8 @@ export function DataProvider({ children }: any) {
         accountSoul: soul,
         loading,
         error,
-        metadataUpdate,
-        accountSoulInject,
+        injectMetadata,
+        injectSoul,
       }}
     >
       {/* This waits untill metamask connects */}
