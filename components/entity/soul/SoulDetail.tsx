@@ -105,7 +105,7 @@ export default function SoulDetail({ soul, sx }: any) {
         <Stack
           direction="column"
           spacing={1}
-          sx={{ flexGrow: 1, mt: { xs: 2, md: 0 }, ml: { md: 4 } }}
+          sx={{ flexGrow: 1, mt: { xs: 2, md: 2 }, ml: { md: 4 } }}
         >
           <Typography variant="h1">{soulName}</Typography>
           <AddressHash address={soul.owner} sx={{ mt: 1 }} />
