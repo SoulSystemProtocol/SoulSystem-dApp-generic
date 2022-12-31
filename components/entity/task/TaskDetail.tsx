@@ -17,6 +17,7 @@ import { getChainData } from 'components/web3/chains/ChainsData';
 import { nameEntity } from 'helpers/utils';
 import TokenBalance from 'components/web3/TokenBalance';
 import TooltipButton from 'components/layout/TooltipButton';
+import SoulDescription from '../soul/SoulDescription';
 
 /**
  * Component: project details.
@@ -31,6 +32,7 @@ export default function TaskDetail({ item, sx }: any) {
   const [isSoulAuthority, setIsSoulAuthority] = useState(false);
   const tokens: string[] = []; //Supported ERC20 Tokens
   const { balance: fund } = useWeb3NativeBalance(item?.id);
+
   const loadData = () => {
     if (accountSoul && item) {
       try {
@@ -91,7 +93,7 @@ export default function TaskDetail({ item, sx }: any) {
           {fund ? ` | ${fund} ${getChainData()?.native}` : ''} |{' '}
           <TokenBalance account={item.id} />
         </Typography>
-        <Typography sx={{ mt: 1 }}>{item?.metadata?.description}</Typography>
+        <SoulDescription soul={soul} sx={{ mt: 1 }} />
         <Stack direction="row" spacing={2} sx={{ mt: 2 }}>
           {(item.stage === null || item.stage >= PROC_STAGE_REV.pending) && (
             <FundDialogButton

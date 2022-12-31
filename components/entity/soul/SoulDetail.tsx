@@ -24,6 +24,7 @@ export default function SoulDetail({ soul, sx }: any) {
   const [soulName, setSoulName] = useState<string>('');
 
   useEffect(() => {
+    console.warn('set soul name', nameSoul(soul), soul);
     setSoulName(nameSoul(soul));
     setIsOwned(
       !!account && soul?.owner?.toLowerCase() === account?.toLowerCase(),

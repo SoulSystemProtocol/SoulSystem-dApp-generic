@@ -9,9 +9,10 @@ import SoulDescription from 'components/entity/soul/SoulDescription';
 import SocialLinks from 'components/entity/soul/SocialLinks';
 import Link from 'components/utils/Link';
 import { SelectedSoulContext } from 'contexts/SelectedSoul';
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { nameEntity } from 'helpers/utils';
 import { SelectedGameContext } from 'contexts/SelectedGame';
+import { nameSoul } from 'utils/converters';
 
 /**
  * Game Detail Page
@@ -19,6 +20,12 @@ import { SelectedGameContext } from 'contexts/SelectedGame';
 export default function GameDetail({ sx }: any): JSX.Element {
   const { soul } = useContext(SelectedSoulContext);
   const { game } = useContext(SelectedGameContext);
+  const [soulName, setSoulName] = useState<string>('');
+
+  useEffect(() => {
+    console.warn('set soul name', nameSoul(soul), { game, soul });
+    setSoulName(nameSoul(soul));
+  }, [soul]);
 
   // if (!game) return <></>;
   return (
@@ -45,18 +52,17 @@ export default function GameDetail({ sx }: any): JSX.Element {
         spacing={1}
         sx={{ flexGrow: 1, mt: { xs: 2, md: 0 }, ml: { md: 4 } }}
       >
-        <Typography variant="h1">{game?.name}</Typography>
-        <AddressHash address={game?.id} sx={{ float: 'right' }} />
+        <Typography variant="h1">{soulName}</Typography>
+        <AddressHash address={soul.owner} sx={{ float: 'right' }} />
         <Typography variant="body2" color="text.secondary">
           Balance: <AccountBalance address={game?.id} />{' '}
           {process.env.NEXT_PUBLIC_NETWORK_CURRENCY_SYMBOL}
         </Typography>
         {!!process.env.NEXT_PUBLIC_FEATURE_DEV && (
           <Typography variant="caption" color="text.secondary">
-            Role: {game?.role}
+            Role: {soul?.role}
           </Typography>
         )}
-        <Typography sx={{ mt: 1 }}>{game?.metadata?.description}</Typography>
         <SoulDescription soul={soul} sx={{ mt: 1 }} />
         <SocialLinks key="SocialLinks" soul={soul} sx={{ mt: 2 }} />
         <Stack key="buttons" direction="row" spacing={2} sx={{ mt: 2 }}>
