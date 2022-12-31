@@ -72,7 +72,7 @@ export default function SoulAttributesInput(props: WidgetProps): ReactElement {
             General Info (Public)
           </Typography>
           <Stack spacing={2}>
-            {soul?.type == '' ? (
+            {!soul?.type ? (
               <>
                 <TextField
                   variant="outlined"
@@ -190,7 +190,7 @@ export default function SoulAttributesInput(props: WidgetProps): ReactElement {
           </Grid>
         </Grid>
       </Grid>
-      {soul?.type == '' && (
+      {!soul?.type && (
         <Grid container spacing={2} sx={{ mb: 4 }}>
           <Grid key={'header'} item xs={12}>
             <Typography variant="h6">Skills</Typography>
