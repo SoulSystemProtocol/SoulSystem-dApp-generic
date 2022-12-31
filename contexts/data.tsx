@@ -1,69 +1,58 @@
-import Soul from 'classes/Soul';
-import LoadingBackdrop from 'components/backdrop/LoadingBackdrop';
+// import LoadingBackdrop from 'components/backdrop/LoadingBackdrop';
 import useError from 'hooks/useError';
-import useSoul from 'hooks/useSoul';
 import { createContext, useContext, useEffect, useState } from 'react';
 import { Web3Context } from 'contexts/Web3Context';
+import useSoulByHash from 'hooks/useSoulByOwner';
+import { updateSoul } from 'helpers/metadata';
+import { genFauxSoul } from 'utils/converters';
 
 interface IDataContext {
   accountSoul: any;
+  loading: boolean;
+  error: any;
+  isReady: boolean;
+  injectMetadata: (metadata: any) => void;
+  injectSoul: (metadata: any, additional?: any) => void;
 }
 
 export const DataContext = createContext<Partial<IDataContext>>({});
 
 export function DataProvider({ children }: any) {
-  const { isReady: isWebContextReady, account } = useContext(Web3Context);
+  const { isReady, account } = useContext(Web3Context);
+  const [soul, setSoul] = useState<any | null>(null);
   const { handleError } = useError();
-  const { getSoulByOwner } = useSoul();
-  const [isReady, setIsReady] = useState(false);
-  const [accountSoul, setAccountSoul] = useState<Soul | null>(null);
+  const {
+    soul: accountSoul,
+    loading,
+    error,
+  } = useSoulByHash(account?.toLowerCase());
 
-  async function updateContext() {
-    if (!account) {
-      // Clear context
-      clearContext();
-    } else {
-      // Load account data
-      try {
-        // Define data
-        const accountSoul = await getSoulByOwner(account);
-        // Clear context if account does not have soul
-        if (accountSoul) {
-          // Update states
-          setAccountSoul(accountSoul);
-        } else {
-          clearContext();
-        }
-      } catch (error: any) {
-        handleError(error, false);
-      }
-    }
-  }
+  useEffect(() => error && handleError(error, false), [error]);
+  useEffect(() => setSoul(accountSoul), [accountSoul]);
 
-  async function clearContext() {
-    setAccountSoul(null);
-  }
+  /// Inject metadata update [optimistic updates]
+  const injectMetadata = (metadata: any): void =>
+    setSoul(updateSoul(soul, metadata));
 
-  /**
-   * Update context if web3 context is ready.
-   */
-  useEffect(() => {
-    setIsReady(false);
-    if (isWebContextReady) {
-      updateContext().then(() => setIsReady(true));
-    }
-  }, [isWebContextReady]);
-
-  /**
-   * Update context if context is ready and account is changed.
-   */
-  useEffect(() => {
-    if (isReady) updateContext();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [account]);
+  /// Inject current account's Soul [optimistic updates]
+  const injectSoul = (metadata: any, additional: any = {}): void => {
+    additional.owner = account;
+    const fauxSoul = genFauxSoul(metadata, additional);
+    console.warn('Set Faux accountSoul', fauxSoul);
+    setSoul(fauxSoul);
+  };
 
   return (
-    <DataContext.Provider value={{ accountSoul: accountSoul }}>
+    <DataContext.Provider
+      value={{
+        isReady,
+        accountSoul: soul,
+        loading,
+        error,
+        injectMetadata,
+        injectSoul,
+      }}
+    >
       {/* This waits untill metamask connects */}
       {/* {isReady ? <>{children}</> : <LoadingBackdrop />} */}
       {children}

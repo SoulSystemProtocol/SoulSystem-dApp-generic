@@ -4,13 +4,16 @@ import { useSnackbar } from 'notistack';
 import { useContext } from 'react';
 import { Web3Context } from 'contexts/Web3Context';
 import WrongNetworkError from 'errors/WrongNetworkError';
+import NoWalletError from 'errors/NoWalletError';
+// import ConnectButton from 'components/web3/connect/ConnectButton';
 
 /**
  * Hook for work with toasts.
+ * @todo close toast on icon click
  */
 export default function useToast() {
   const { enqueueSnackbar } = useSnackbar();
-  const { switchNetwork } = useContext(Web3Context);
+  const { switchNetwork, connectWallet } = useContext(Web3Context);
   const autoHideDuration = 10000;
 
   const showToast = function (message: string) {
@@ -41,7 +44,24 @@ export default function useToast() {
 
   const showToastError = function (error: any) {
     //Error Message Overrides
-    if (error instanceof WrongNetworkError) {
+    if (error instanceof NoWalletError) {
+      const action = (
+        <Button
+          variant="outlined"
+          size="small"
+          onClick={() => {
+            connectWallet?.();
+          }}
+          sx={{ cursor: 'pointer' }}
+        >
+          Connect Wallet
+        </Button>
+      );
+      enqueueSnackbar(error.message, {
+        action,
+        autoHideDuration: autoHideDuration,
+      });
+    } else if (error instanceof WrongNetworkError) {
       const message = `You are connected to the wrong network. Please switch to ${process.env.NEXT_PUBLIC_NETWORK_NAME}`;
       const action = (
         <Button

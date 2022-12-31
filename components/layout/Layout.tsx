@@ -1,120 +1,162 @@
-// import { useState } from 'react';
+import { useState } from 'react';
 import {
   PersonOutlineOutlined,
   SchoolOutlined,
   WorkOutlineOutlined,
   TaskAlt,
-  VolunteerActivism,
-  EmojiEmotions,
-  Festival,
-  GroupWork,
   AcUnit,
 } from '@mui/icons-material';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import ArticleIcon from '@mui/icons-material/Article';
+import LockIcon from '@mui/icons-material/Lock';
+import DirectionsRunIcon from '@mui/icons-material/DirectionsRun';
 import ArchitectureIcon from '@mui/icons-material/Architecture';
-import { Container, Toolbar } from '@mui/material';
+import EmojiPeopleIcon from '@mui/icons-material/EmojiPeople';
+import { Container, Typography, Toolbar } from '@mui/material';
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
 import Head from 'next/head';
-import Header from './Header';
-import Sidebar from './Sidebar';
 import Footer from './Footer';
-import useLocalStorage from 'hooks/useLocalStorage';
-import { GAME_NAME } from 'constants/contracts';
+import { nameEntity } from 'helpers/utils';
+import NavBar from './NavBar';
+// import Header from './Header';
+// import Sidebar from './Sidebar';
+// import Link from 'components/utils/Link';
 
-const top_links: any = [
-  // ...((account && [{ label: 'Dashboards', route: 'daos' }]) || []),
+interface MenuLink {
+  route: string;
+  label: string;
+  icon: JSX.Element;
+  hide?: boolean;
+}
+
+const top_links: MenuLink[] = [
   // { label: 'Hackathons', route: 'hackathons' },
   // { label: 'Grants', route: 'grants' },
   {
-    label: 'SafeNFT',
-    route: 'erc',
-    hide: process.env.NEXT_PUBLIC_FEATURE_NFT == 'false',
-    //TODO: Support Hiding
-  },
-  {
-    label: 'Action Repo',
-    route: 'actions',
-    //TODO: Support Hiding
-  },
-];
-
-//Define Sidemenu Links
-const menu_side_links = [
-  {
-    route: '/souls',
-    label: 'SBT Profiles',
-    icon: <PersonOutlineOutlined color="warning" />,
-    hide: process.env.NEXT_PUBLIC_FEATURE_SOUL == 'false',
-  },
-  // {
-  //   route: '/daos',
-  //   label: GAME_NAME.dao,
-  //   icon: <GroupWork color="warning" />,
-  // },
-  {
     route: '/mdao',
-    label: GAME_NAME.mdao,
+    label: nameEntity('mdao', true),
     icon: <SchoolOutlined color="warning" />,
   },
   {
     route: '/projects',
-    label: GAME_NAME.project,
+    label: nameEntity('project', true),
     icon: <WorkOutlineOutlined color="warning" />,
     hide: process.env.NEXT_PUBLIC_FEATURE_PROJECT == 'false',
   },
   {
     route: '/tasks',
-    label: GAME_NAME.tasks,
+    label: nameEntity('task', true),
     icon: <TaskAlt color="warning" />,
     hide: process.env.NEXT_PUBLIC_FEATURE_SOUL == 'false',
   },
+];
+
+/** [DISABLED]
+ * Define Sidemenu Links
+ */
+const menu_side_links = [
+  {
+    route: '/souls',
+    label: nameEntity('', true),
+    icon: (
+      <PersonOutlineOutlined
+        color="warning"
+        sx={{ fill: 'url(#linearColors)' }}
+      />
+    ),
+    hide: process.env.NEXT_PUBLIC_FEATURE_SOUL == 'false',
+  },
+  // {
+  //   label: 'dOrgs',
+  // },
+  // {
+  //   route: '/daos',
+  //   label: nameEntity('DAO', true),
+  //   icon: <GroupWork color="warning" sx={{ fill: 'url(#linearColors)' }} />,
+  // },
+
   // {
   //   route: '/grants',
   //   label: 'Grants',
-  //   icon: <VolunteerActivism color="warning" />,
+  //   icon: <VolunteerActivism color="warning" sx={{ fill: 'url(#linearColors)' }} />,
   // },
   // {
   //   route: '/events',
   //   label: 'Hackathons',
-  //   icon: <Festival color="warning" />,
+  //   icon: <Festival color="warning" sx={{ fill: 'url(#linearColors)' }} />,
   // },
   // {
   //   route: '/sponsors',
   //   label: 'Sponsors',
-  //   icon: <EmojiEmotions color="warning" />,
+  //   icon: <EmojiEmotions color="warning" sx={{ fill: 'url(#linearColors)' }} />,
   // },
-];
-const footer_links: { route: string; label: string; icon: JSX.Element }[] = [];
-const footer_icons: { route: string; label: string; icon: JSX.Element }[] = [
   {
-    route: 'https://github.com/SolidifyETH',
-    icon: <GitHubIcon />,
+    label: 'SafeNFT',
+    route: '/erc',
+    hide: process.env.NEXT_PUBLIC_FEATURE_NFT == 'false',
+    icon: <LockIcon color="warning" sx={{ fill: 'url(#linearColors)' }} />,
+  },
+  {
+    label: 'Action Repo',
+    route: '/actions',
+    icon: (
+      <DirectionsRunIcon color="warning" sx={{ fill: 'url(#linearColors)' }} />
+    ),
+    hide: process.env.NEXT_PUBLIC_FEATURE_DEV != 'false',
+  },
+];
+const footer_links: MenuLink[] = [];
+const footer_icons: MenuLink[] = [
+  {
+    route: '/souls',
+    label: 'Souls',
+    icon: <EmojiPeopleIcon sx={{ fill: 'url(#linearColors)' }} />,
+  },
+  {
+    route: 'https://github.com/SoulSystemProtocol',
     label: 'Code',
+    icon: <GitHubIcon sx={{ fill: 'url(#linearColors)' }} />,
   },
   {
     route: 'https://miro.com/app/board/uXjVOH541VI=/',
-    icon: <ArchitectureIcon />,
+    icon: <ArchitectureIcon sx={{ fill: 'url(#linearColors)' }} />,
     label: 'Architecture',
   },
   {
     // eslint-disable-next-line prettier/prettier
-    route: 'https://virtualbrick.notion.site/Contracts-4e383eb032e34cd08d5f035dee2dd9bb',
-    icon: <ArticleIcon />,
+    route:
+      'https://virtualbrick.notion.site/Contracts-4e383eb032e34cd08d5f035dee2dd9bb',
+    icon: <ArticleIcon sx={{ fill: 'url(#linearColors)' }} />,
     label: 'Docs',
   },
   {
     // eslint-disable-next-line prettier/prettier
-    route: 'https://thegraph.com/hosted-service/subgraph/toledoroy/bountyprotocol',
-    icon: <AcUnit />,
+    route:
+      'https://thegraph.com/hosted-service/subgraph/toledoroy/solidify_mumbai',
+    icon: <AcUnit sx={{ fill: 'url(#linearColors)' }} />,
     label: 'SubGraph',
+  },
+
+  {
+    label: 'SafeNFT',
+    route: '/erc',
+    hide: process.env.NEXT_PUBLIC_FEATURE_NFT == 'false',
+    icon: <LockIcon color="warning" sx={{ fill: 'url(#linearColors)' }} />,
+  },
+  {
+    label: 'Action Repo',
+    route: '/actions',
+    icon: (
+      <DirectionsRunIcon color="warning" sx={{ fill: 'url(#linearColors)' }} />
+    ),
+    hide: process.env.NEXT_PUBLIC_FEATURE_DEV != 'false',
   },
 ];
 
 export default function Layout({ children, title }: any) {
   // const theme = useTheme();
-  const [isOpen, setIsOpen] = useLocalStorage('isOpen', false);
+  const [isOpen, setIsOpen] = useState(false);
 
   const toggleDrawer = () => {
     setIsOpen(!isOpen);
@@ -127,9 +169,35 @@ export default function Layout({ children, title }: any) {
         <title>{title || process.env.NEXT_PUBLIC_APP_NAME}</title>
         <meta name="viewport" content="initial-scale=1, width=device-width" />
       </Head>
-      <Sidebar links={menu_side_links} toggler={toggleDrawer} isOpen={isOpen} />
-      <Container sx={{ minHeight: '100vh', m: '0 auto' }} maxWidth="xl">
-        <Header open={isOpen} toggleDrawer={toggleDrawer} links={top_links} />
+
+      <>
+        <svg width={0} height={0}>
+          <linearGradient id="linearColors" x1={1} y1={0} x2={1} y2={1}>
+            {/* <stop offset={0} stopColor="#4776E6" />
+            <stop offset={1} stopColor="#8E54E9" /> */}
+            <stop offset={0} stopColor="rgba(241,184,74,1)" />
+            <stop offset={1} stopColor="rgba(207,113,8,1)" />
+          </linearGradient>
+        </svg>
+        {/* <TaskAlt sx={{ fill: 'url(#linearColors)' }} /> */}
+      </>
+      {/* {process.env.NEXT_PUBLIC_FEATURE_SIDEBAR == 'true' ? (
+        <Sidebar
+          toggler={toggleDrawer}
+          isOpen={isOpen}
+          links={menu_side_links}
+        />
+      ) : null} */}
+      <Container
+        maxWidth={false}
+        disableGutters
+        sx={{
+          minHeight: '100vh',
+        }}
+      >
+        {/* <Header open={isOpen} toggleDrawer={toggleDrawer} links={top_links} /> */}
+        <NavBar links={top_links} />
+
         <Container
           sx={{
             display: 'flex',

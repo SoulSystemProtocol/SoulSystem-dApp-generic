@@ -11,7 +11,7 @@ import {
 } from '@mui/material';
 import { Box } from '@mui/system';
 import RuleEffects from 'components/rules/RuleEffects';
-import { DialogContext, IDialogParams } from 'contexts/dialog';
+import { DialogContext, TDialogContext } from 'contexts/dialog';
 import { useContext, useState } from 'react';
 import { formatActionName } from 'utils/converters';
 
@@ -92,7 +92,7 @@ function LawAction({ law }: any) {
 }
 
 function LawRules({ law, isCommentsEnabled, sx }: any): JSX.Element {
-  const { showDialog, closeDialog }: Partial<IDialogParams> =
+  const { showDialog, closeDialog }: Partial<TDialogContext> =
     useContext(DialogContext);
 
   if (law?.rules) {
@@ -141,13 +141,13 @@ function LawRules({ law, isCommentsEnabled, sx }: any): JSX.Element {
                       </Typography>
                     )}
                     <Typography sx={{ fontWeight: 'bold', mr: 1 }}>
-                      {rule?.rule?.uriData?.name || 'None Name'}
+                      {rule?.rule?.metadata?.name || 'None Name'}
                     </Typography>
                   </Box>
                   {/* Description */}
-                  {rule?.rule?.uriData?.description && (
+                  {rule?.rule?.metadata?.description && (
                     <Typography variant="body2" sx={{ mt: 0.3 }}>
-                      {rule.rule.uriData.description}
+                      {rule.rule.metadata.description}
                     </Typography>
                   )}
                 </Box>

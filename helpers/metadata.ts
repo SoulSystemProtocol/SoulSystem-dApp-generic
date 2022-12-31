@@ -1,39 +1,60 @@
-import { EditAttributesOutlined } from '@mui/icons-material';
+import { PROFILE_TRAIT_TYPE } from 'constants/metadata';
 import _ from 'lodash';
+import { hexStringToJson, nameSoul } from 'utils/converters';
+import { MetaAttrHelper } from './MetaAttrHelper';
 
-/**
- * Get a trait value from metadata attributes.
- */
-export function getAttribute(
-  attributes: Array<object> | null,
-  traitType: string,
-): string {
-  const attribute: any = attributes?.find(
-    (attribute: any) => attribute?.trait_type === traitType,
-  );
-  return attribute?.value || '';
+export type MetadataAttributeType =
+  | 'date'
+  | 'boost_number'
+  | 'boost_percentage'
+  | 'number';
+
+export interface MetadataAttribute {
+  trait_type: string;
+  value: any;
+  display_type?: MetadataAttributeType;
 }
 
-//Get Trait Value by Key
-export const getMetadataTraitValue = (metadata: any, key: string) => {
-  return getAttribute(metadata?.attributes, key);
+/**
+ * Normalize graph entity before use
+ */
+export const normalizeGraphEntity = (subgraphEntity: any): any => {
+  //Validations
+  if (!subgraphEntity) return null;
+  if (!subgraphEntity?.metadata)
+    console.error(
+      subgraphEntity.role + ' Entity missing Metadata',
+      subgraphEntity,
+    );
+  return subgraphEntity
+    ? {
+        ...subgraphEntity,
+        metadata: hexStringToJson(subgraphEntity?.metadata),
+      }
+    : null;
 };
 
 /**
- * Set the value of an attribute
+ * Prep Metadata
  */
-export const attributeSet = (
-  attributes: any[],
-  key: string,
-  value: { [key: string]: any },
-) => {
-  let index = _.findIndex(attributes, { trait_type: key });
-  if (index == -1) {
-    //Add
-    attributes.push(value);
-  } else {
-    //Update
-    attributes[index] = value;
-  }
-  return attributes;
+export const prepMetadata = (metadata: any): any => {
+  metadata.name = MetaAttrHelper.extractName(metadata?.attributes);
+  metadata.description = MetaAttrHelper.extractValue(
+    metadata?.attributes,
+    'description',
+  );
+  return metadata;
+};
+
+/**
+ * Update a Soul Entity on metadata update
+ */
+export const updateSoul = (soul: any, metadata: any) => {
+  console.warn('Running updateSoul', { soul, metadata });
+  // if (!soul) return soul;
+  if (!soul) soul = { name: 'Unknown' };
+  soul.metadata = metadata;
+  soul.name = metadata?.name;
+  soul.uriImage = metadata?.image;
+  return soul;
 };

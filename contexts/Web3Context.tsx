@@ -6,6 +6,10 @@ import { ethers } from 'ethers';
 import { createContext, useEffect, useRef, useState } from 'react';
 import Web3Modal from 'web3modal';
 import { getChainData } from 'components/web3/chains/ChainsData';
+import {
+  analyticsCatchErrorEvent,
+  analyticsConnectAccountEvent,
+} from 'utils/analytics';
 
 interface IWeb3Context {
   isReady: any;
@@ -17,6 +21,8 @@ interface IWeb3Context {
   connectWallet: Function;
   disconnectWallet: Function;
   switchNetwork: Function;
+  getBalance: (account: string) => Promise<string>;
+  curChainData: any;
 }
 
 export const Web3Context = createContext<Partial<IWeb3Context>>({});
@@ -26,12 +32,12 @@ export function Web3Provider({ children }: any) {
   const [isReady, setIsReady] = useState(false);
   const [instance, setInstance] = useState<any>(null);
   const [provider, setProvider] = useState<any>(null);
+  const [curChainData, setCurChainData] = useState<any>({});
   const [defaultProvider, setDefaultProvider] = useState<any>(null);
   const [account, setAccount] = useState<any>(null);
   const [networkChainId, setNetworkChainId] = useState<number | null>(null);
-  const [isNetworkChainIdCorrect, setIsNetworkChainCorrect] = useState<
-    boolean | null
-  >(null);
+  const [isNetworkChainIdCorrect, setIsNetworkChainCorrect] =
+    useState<boolean>(false);
 
   async function initContext() {
     if (!web3ModalRef.current) {
@@ -53,6 +59,10 @@ export function Web3Provider({ children }: any) {
       instance.addListener('accountsChanged', (accounts: any) => {
         if (accounts && accounts.length > 0) {
           setAccount(accounts[0]);
+        } else {
+          console.log('Wallet Disconnected');
+          setAccount(null);
+          // setProvider(null); //Or maybe this...
         }
       });
 
@@ -65,6 +75,7 @@ export function Web3Provider({ children }: any) {
       setNetworkChainId(Number(networkChainId));
     } catch (error: any) {
       console.error(error);
+      analyticsCatchErrorEvent(error, { type: 'web3_init' });
     } finally {
       setIsReady(true);
     }
@@ -88,9 +99,10 @@ export function Web3Provider({ children }: any) {
       setProvider(null);
       setAccount(null);
       setNetworkChainId(null);
-      setIsNetworkChainCorrect(null);
+      setIsNetworkChainCorrect(false);
     } catch (error: any) {
       console.error(error);
+      analyticsCatchErrorEvent(error, { type: 'clear_context' });
     } finally {
       setIsReady(true);
     }
@@ -112,6 +124,7 @@ export function Web3Provider({ children }: any) {
       });
     } catch (error: any) {
       console.error(error);
+      analyticsCatchErrorEvent(error, { type: 'switch_network' });
       if (
         error?.code === 4902 ||
         error?.message?.toLowerCase()?.includes('unrecognized chain id')
@@ -127,7 +140,7 @@ export function Web3Provider({ children }: any) {
     const chainData = getChainData(
       process.env.NEXT_PUBLIC_NETWORK_CHAIN_ID_HEX,
     );
-    console.log('[TEST] Current Chain Data', chainData);
+    console.log('Supported Chain Data', chainData);
     try {
       await instance.request({
         method: 'wallet_addEthereumChain',
@@ -149,17 +162,33 @@ export function Web3Provider({ children }: any) {
                 chainData.decimals,
               ),
             },
-            blockExplorerUrls: [
+            blockExplorerURLs: [
               // process.env.NEXT_PUBLIC_NETWORK_BLOCK_EXPLORER_URL,
-              chainData.blockExplorerUrl,
+              chainData.blockExplorerURL,
             ],
           },
         ],
       });
     } catch (error: any) {
       console.error(error);
+      analyticsCatchErrorEvent(error, { type: 'add_chain' });
     }
   }
+
+  /**
+   * Get Native Balance for Address
+   */
+  const getBalance = async function (address: string): Promise<string> {
+    if (!ethers.utils.isAddress(address)) {
+      console.error('Not a Valid Address', address);
+      analyticsCatchErrorEvent(new Error('Not a Valid Address'), {
+        type: 'invalid address',
+      });
+      return '';
+    }
+    const balance = await defaultProvider.getBalance(address);
+    return ethers.utils.formatEther(balance);
+  };
 
   useEffect(() => {
     // Init default provider
@@ -198,13 +227,21 @@ export function Web3Provider({ children }: any) {
   }, []);
 
   useEffect(() => {
-    if (networkChainId === null) {
-      setIsNetworkChainCorrect(null);
-    } else
-      setIsNetworkChainCorrect(
+    //Set Chain Data
+    setCurChainData(
+      getChainData(networkChainId ? networkChainId.toString() : ''),
+    );
+    //Check if supported chain
+    setIsNetworkChainCorrect(
+      !!networkChainId &&
         networkChainId?.toString() === process.env.NEXT_PUBLIC_NETWORK_CHAIN_ID,
-      );
+    );
   }, [networkChainId]);
+
+  useEffect(() => {
+    //Analytics Wallet Connect Event
+    account && analyticsConnectAccountEvent(account);
+  }, [account]);
 
   return (
     <Web3Context.Provider
@@ -218,6 +255,8 @@ export function Web3Provider({ children }: any) {
         connectWallet,
         disconnectWallet,
         switchNetwork,
+        getBalance,
+        curChainData,
       }}
     >
       {children}

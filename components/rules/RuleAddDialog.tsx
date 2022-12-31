@@ -167,19 +167,13 @@ export default function RuleAddDialog({ item, isClose, onClose }: any) {
       setFormData(formData);
       setIsLoading(true);
       const { url: ruleMetadataUri } = await uploadJsonToIPFS(formData); //This should be good enough
-      // const { url: ruleMetadataUri } = await uploadJsonToIPFS({
-      //   name: formData.name,
-      //   description: formData.description,
-      //   icon: formData.icon,
-      //   evidenceDescription: formData.evidenceDescription,
-      // });
-
       await getContractGame(item.id).ruleAdd(
         {
           about: formData.about,
           affected: formData.affected,
           negation: formData.negation,
           uri: ruleMetadataUri,
+          disabled: false,
         },
         {
           ruling: formData.ruling,
@@ -188,24 +182,6 @@ export default function RuleAddDialog({ item, isClose, onClose }: any) {
         },
         formData.effects,
       );
-
-      /* DEPRECATED CALL
-      await addRule(
-        item?.id,
-        {
-          about: formData.about,
-          affected: formData.affected,
-          negation: formData.negation,
-          uri: ruleMetadataUri,
-        },
-        {
-          ruling: formData.ruling,
-          evidence: formData.evidence,
-          witness: formData.witness,
-        },
-        formData.effects,
-      );
-      */
 
       showToastSuccess('Success! Data will be updated soon.');
       close();

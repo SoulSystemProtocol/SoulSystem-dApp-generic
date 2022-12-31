@@ -1,5 +1,4 @@
-import Task from 'classes/Task';
-import { CLAIM_STAGE, GAME_ROLE } from 'constants/contracts';
+import { PROC_STAGE_REV, GAME_ROLE } from 'constants/contracts';
 import { truncate } from 'lodash';
 import _ from 'lodash';
 import { resolveLink } from 'helpers/IPFS';
@@ -8,9 +7,7 @@ import { resolveLink } from 'helpers/IPFS';
  * Convert hex string to json.
  */
 export function hexStringToJson(hexString: string): any {
-  if (!hexString || hexString.length === 0) {
-    return null;
-  }
+  if (!hexString || hexString.length === 0) return null;
   try {
     var hex = hexString.toString();
     if (hex.startsWith('0x')) {
@@ -49,8 +46,9 @@ export function addressToShortAddress(address: string): string {
 /**
  * Get first name and last name of soul.
  */
-export function soulToFirstLastNameString(soul: any, length = 36): string {
-  if (soul?.uriData?.name) return soul.uriData.name;
+export function nameSoul(soul: any, length: number = 36): string {
+  if (soul?.name) return soul.name;
+  if (soul?.metadata?.name) return soul.metadata.name;
   let firstLastName = 'Anonymous';
   if (soul?.uriFirstName || soul?.uriLastName) {
     firstLastName = (soul.uriFirstName || '') + ' ' + (soul.uriLastName || '');
@@ -62,7 +60,7 @@ export function soulToFirstLastNameString(soul: any, length = 36): string {
  * Get iamge of soul.
  */
 export function soulImage(soul: any): string {
-  if (soul?.uriData?.image) return resolveLink(soul.uriData.image);
+  if (soul?.metadata?.image) return resolveLink(soul.metadata.image);
   if (soul?.metadata?.image) return resolveLink(soul.metadata.image);
   return soul?.uriImage ? resolveLink(soul.uriImage) : '';
 }
@@ -70,9 +68,9 @@ export function soulImage(soul: any): string {
 /**
  * Convert task stage to readable string.
  */
-export function taskStageToString(task: Task): string {
-  for (let stageName in CLAIM_STAGE) {
-    if (CLAIM_STAGE[stageName] == task.stage) return stageName;
+export function taskStageToString(task: any): string {
+  for (let stageName in PROC_STAGE_REV) {
+    if (PROC_STAGE_REV[stageName] == task.stage) return stageName;
   }
   console.warn('Unhandled Task Stage:' + task.stage, task);
   return 'Open';
@@ -99,5 +97,19 @@ export function formatActionName(action: {
  * Fetch Role Name by ID
  */
 export function roleIdToName(role: string): string | undefined {
+  console.error("CALLED DEPRECATED FUNCTION: 'roleIdToName'");
   return Object.values(GAME_ROLE).find((element) => element.id == role)?.name;
+}
+
+/**
+ * Structure a faux soul entity for optimistic updates
+ */
+export function genFauxSoul(metadata: any, additional: any = {}): any {
+  const soulFaux: any = {
+    metadata,
+    name: nameSoul({ metadata }),
+    image: soulImage({ metadata }),
+    ...additional,
+  };
+  return soulFaux;
 }

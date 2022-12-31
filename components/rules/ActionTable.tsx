@@ -1,8 +1,13 @@
 import { DataObjectOutlined } from '@mui/icons-material';
 import { Box } from '@mui/system';
-import { DataGrid, GridActionsCellItem, GridToolbar } from '@mui/x-data-grid';
+import {
+  DataGrid,
+  GridActionsCellItem,
+  GridRowParams,
+  GridToolbar,
+} from '@mui/x-data-grid';
 import JsonViewDialog from 'components/json/JsonViewDialog';
-import { DialogContext, IDialogParams } from 'contexts/dialog';
+import { DialogContext, TDialogContext } from 'contexts/dialog';
 import useAction from 'hooks/useAction';
 import useError from 'hooks/useError';
 import { capitalize } from 'lodash';
@@ -13,7 +18,8 @@ import { useContext, useEffect, useState } from 'react';
  */
 export default function ActionTable({ sx }: any): JSX.Element {
   // eslint-disable-next-line prettier/prettier
-  const { showDialog, closeDialog }: Partial<IDialogParams> = useContext(DialogContext);
+  const { showDialog, closeDialog }: Partial<TDialogContext> =
+    useContext(DialogContext);
   const { handleError } = useError();
   const { getActions } = useAction();
   const [isLoading, setIsLoading] = useState(true);
@@ -25,22 +31,21 @@ export default function ActionTable({ sx }: any): JSX.Element {
       type: 'actions',
       headerName: '',
       width: 60,
-      getActions: (params: any) => {
+      getActions: (params: GridRowParams) => {
         // console.log('[DEBUG] params', params);
-        const actions = [
-          <GridActionsCellItem
-            key="viewJson"
-            icon={<DataObjectOutlined />}
-            label="View as JSON"
-            title="View as JSON"
-            onClick={() =>
-              showDialog?.(
-                <JsonViewDialog json={params.row} onClose={closeDialog} />,
-              )
-            }
-          />,
+        return [
+          // <GridActionsCellItem
+          //   key="viewJson"
+          //   icon={<DataObjectOutlined />}
+          //   label="View as JSON"
+          //   title="View as JSON"
+          //   onClick={() =>
+          //     showDialog?.(
+          //       <JsonViewDialog json={params.row} onClose={closeDialog} />,
+          //     )
+          //   }
+          // />,
         ];
-        return actions;
       },
     },
     {

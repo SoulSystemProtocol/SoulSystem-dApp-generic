@@ -1,38 +1,38 @@
-import { Button } from '@mui/material';
 import { Box } from '@mui/system';
-import TaskManageDialog from 'components/task/TaskManageDialog';
-import { GAME_ROLE } from 'constants/contracts';
+import TaskManageDialog from 'components/entity/task/TaskManageDialog';
+import ConditionalButton from 'components/layout/ConditionalButton';
 import { DataContext } from 'contexts/data';
-import { DialogContext, IDialogParams } from 'contexts/dialog';
-import useDao from 'hooks/useDao';
-import { useContext } from 'react';
+import { DialogContext } from 'contexts/dialog';
+import { isSoulHasRole } from 'hooks/utils';
+import { useContext, useEffect, useState } from 'react';
 
 /**
- * Component: button to add a project task.
+ * Button to add a project task.
  */
 export default function ProjectAddTaskButton({ project, sx }: any) {
   const { accountSoul } = useContext(DataContext);
   const { showDialog, closeDialog } = useContext(DialogContext);
-  const { isSoulHasRole } = useDao();
+  const [disabled, setDisabled] = useState<boolean>(true);
 
-  if (
-    accountSoul &&
-    isSoulHasRole(project, accountSoul.id, GAME_ROLE.admin.id)
-  ) {
-    return (
-      <Box sx={{ ...sx }}>
-        <Button
-          variant="outlined"
-          onClick={() =>
-            showDialog?.(
-              <TaskManageDialog project={project} onClose={closeDialog} />,
-            )
-          }
-        >
-          Add Task
-        </Button>
-      </Box>
+  useEffect(() => {
+    setDisabled(
+      !(accountSoul && isSoulHasRole(project, accountSoul.id, 'admin')),
     );
-  }
-  return <></>;
+  }, [accountSoul, project]);
+
+  return (
+    <Box sx={{ ...sx }}>
+      <ConditionalButton
+        variant="outlined"
+        disabled={disabled}
+        onClick={() =>
+          showDialog?.(
+            <TaskManageDialog project={project} onClose={closeDialog} />,
+          )
+        }
+      >
+        Add Task
+      </ConditionalButton>
+    </Box>
+  );
 }

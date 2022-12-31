@@ -1,38 +1,46 @@
 import { useContext } from 'react';
-import { Button } from '@mui/material';
+import { Box, Button, Tooltip } from '@mui/material';
 import { DialogContext } from 'contexts/dialog';
 import { DataContext } from 'contexts/data';
 import { getPageTitle } from '../../utils';
 import DaoManageDialog from 'components/dao/DaoManageDialog';
 import Layout from 'components/layout/Layout';
-import SoulListGQ from 'components/soul/DAOListGQ';
-import { GAME_NAME, GAME_DESC } from 'constants/contracts';
 import { gameCardContent } from 'utils/cardContents';
+import { nameEntity } from 'helpers/utils';
+import { GAME_DESC } from 'constants/contracts';
+import PaginatedList from 'components/PaginatedList';
+import SoulsByTypeRoleQuery from 'queries/SoulsByTypeRoleQuery';
+import { NO_SOUL_MSG } from 'constants/texts';
 
 const CONF = {
-  PAGE_TITLE: GAME_NAME.mdao,
-  TITLE: GAME_NAME.mdao,
+  PAGE_TITLE: nameEntity('mdao', true),
+  TITLE: nameEntity('mdao', true),
   SUBTITLE: GAME_DESC.mdao,
 };
 
 /**
- * Page for a list of mDAO Games
+ * Game:mDAO List Page
  */
-export default function DaosPage({}: any) {
+export default function DaosPage(): JSX.Element {
   const { accountSoul } = useContext(DataContext);
   const { showDialog, closeDialog } = useContext(DialogContext);
   // const { handleError } = useError();
 
-  const renderActions = accountSoul && (
-    <Button
-      onClick={() => showDialog?.(<DaoManageDialog onClose={closeDialog} />)}
-      variant="outlined"
+  const renderActions = (
+    <Tooltip
+      title={accountSoul ? 'Create a new ' + nameEntity('mdao') : NO_SOUL_MSG}
     >
-      Create Service
-    </Button>
+      <Button
+        disabled={!accountSoul}
+        onClick={() => showDialog?.(<DaoManageDialog onClose={closeDialog} />)}
+        variant="outlined"
+      >
+        {'Create ' + nameEntity('mdao')}
+      </Button>
+    </Tooltip>
   );
 
-  const daosListProps = {
+  const listProps = {
     variables: {
       type: 'GAME',
       role: 'MDAO',
@@ -45,7 +53,7 @@ export default function DaosPage({}: any) {
 
   return (
     <Layout title={getPageTitle(CONF.PAGE_TITLE)}>
-      <SoulListGQ {...daosListProps} />
+      <PaginatedList {...listProps} query={SoulsByTypeRoleQuery} />
     </Layout>
   );
 }

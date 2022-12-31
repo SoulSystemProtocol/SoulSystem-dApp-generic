@@ -1,18 +1,12 @@
-import {
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
-  Stack,
-  Typography,
-} from '@mui/material';
+import { FormControl, InputLabel, Select } from '@mui/material';
 import { Box } from '@mui/system';
-import { useEffect, useState } from 'react';
+import { WidgetProps } from '@rjsf/core';
+import { ReactElement, useEffect, useState } from 'react';
 
 /**
  * A widget to select icon (name).
  */
-export default function IconSelect(props: any): JSX.Element {
+export default function IconSelect(props: WidgetProps): ReactElement {
   const propsLabel = props.label;
   const propsRequired = props.required;
   const propsValue = props.value;

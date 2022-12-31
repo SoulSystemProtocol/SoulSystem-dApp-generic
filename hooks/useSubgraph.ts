@@ -1,7 +1,5 @@
 import axios from 'axios';
-// import { DocumentNode, gql, useQuery } from '@apollo/client';
 import { IS_GAMES_CREATED_BY_NOT_HUB_DISABLED } from 'constants/features';
-import { unionWith } from 'lodash';
 import { hexStringToJson } from 'utils/converters';
 
 /**
@@ -58,10 +56,6 @@ export default function useSubgraph() {
       }
     `;
     const response = await makeSubgraphQuery(queryGQL, { sbt, gameId });
-    // console.log('Response:', response, response.gameParticipants, {
-    //   sbt,
-    //   gameId,
-    // });
     return response.gameParticipants.length > 0;
   };
 
@@ -93,7 +87,7 @@ export default function useSubgraph() {
 
   /**
    * Search for Game's Rules
-   */
+   * /
   let searchGameRulesByQuery = async function (
     containerId: string,
     isPositive?: boolean,
@@ -140,7 +134,7 @@ export default function useSubgraph() {
     );
     return gameRules.map((ruleEntity: any) => ({
       ...ruleEntity,
-      metadata: hexStringToJson(ruleEntity.uriData),
+      metadata: hexStringToJson(ruleEntity?.metadata),
     }));
   };
 
@@ -148,13 +142,22 @@ export default function useSubgraph() {
    * Find Action entities
    */
   const findActionEntities = async function (
-    guids: string[],
+    guids?: string[],
   ): Promise<Array<any>> {
     const response = await makeSubgraphQuery(getFindActionEntitiesQuery(guids));
     return response.actions;
   };
 
+  /**
+   * Fetch a Specific Soul by ID
+   */
+  const getSoulById = async (id: string): Promise<any> => {
+    const response = await makeSubgraphQuery(SoulByIdQuery(id));
+    return response?.soul;
+  };
+
   return {
+    getSoulById,
     isGamePart,
     findSouls,
     findGames,
@@ -164,6 +167,9 @@ export default function useSubgraph() {
   };
 }
 
+/**
+ * Run a GQL string query against the subgraph.
+ */
 async function makeSubgraphQuery(query: string, variables = {}) {
   try {
     const response = await axios.post(
@@ -181,6 +187,29 @@ async function makeSubgraphQuery(query: string, variables = {}) {
       `Could not query the subgraph: ${JSON.stringify(error.message)}`,
     );
   }
+}
+
+/**
+ * Basic Soul Fetc by ID
+ */
+function SoulByIdQuery(id: string) {
+  return `{ 
+    soul(id: ${id}) {
+      id
+      owner
+      type
+      role
+      uri
+      metadata
+      uriImage
+      name
+      attrs {
+        id
+        role
+        bEnd
+      }
+    }
+  }`;
 }
 
 function getFindSoulsQuery(
@@ -201,10 +230,9 @@ function getFindSoulsQuery(
         owner
         type
         uri
-        uriData
+        metadata
         uriImage
-        uriFirstName
-        uriLastName
+        name
         participantGame {
           id
           roles
@@ -236,8 +264,6 @@ function getFindGamesQuery(
       name
       type
       role
-      uri
-      uriData
       roles {
         id
         roleId
@@ -262,6 +288,8 @@ function getFindGamesQuery(
         author {
           id
           owner
+          name
+          uriImage
         }
         uri
         metadata
@@ -287,13 +315,12 @@ function getFindClaimsQuery(
       id
       name
       stage
-      uri
-      uriData
       type
       game {
         id
         name
-        uriData
+        type
+        role
       }
       roles {
         id
@@ -304,6 +331,7 @@ function getFindClaimsQuery(
       }
       nominations {
         id
+        uri
         createdDate
         nominator {
           id
@@ -323,6 +351,8 @@ function getFindClaimsQuery(
         author {
           id
           owner
+          name
+          uriImage
         }
         uri
         metadata
@@ -332,11 +362,9 @@ function getFindClaimsQuery(
 }
 
 ///
-function getFindActionEntitiesQuery(guids: string[]) {
+function getFindActionEntitiesQuery(guids?: string[]) {
   let queryParams = `first: 100`;
-  if (guids !== undefined && guids.length > 0) {
-    //   queryParams = `where: {id: ""}`;
-    // }
+  if (guids && guids.length > 0) {
     if (guids.length == 1) {
       queryParams = `where: {id: "${guids[0]}"}`;
     } else if (guids.length > 1) {
@@ -352,6 +380,7 @@ function getFindActionEntitiesQuery(guids: string[]) {
       tool
       uri
       uriData
+      metadata
       rules {
         id
         affected
@@ -397,6 +426,7 @@ function findGameRulesQuery(
       affected
       uri
       uriData
+      metadata
       negation
       confirmationRuling
       confirmationEvidence
@@ -438,6 +468,7 @@ function findGameRulesQueryMulti(
     affected
     uri
     uriData
+    metadata
     negation
     confirmationRuling
     confirmationEvidence

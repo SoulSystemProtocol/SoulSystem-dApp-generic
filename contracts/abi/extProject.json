@@ -43,7 +43,7 @@
         "type": "string"
       }
     ],
-    "name": "taskMake",
+    "name": "makeTask",
     "outputs": [
       {
         "internalType": "address",

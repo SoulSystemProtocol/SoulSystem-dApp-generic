@@ -1,17 +1,19 @@
 import { useContext } from 'react';
 import { Button } from '@mui/material';
-import { DialogContext, IDialogParams } from 'contexts/dialog';
+import { DialogContext } from 'contexts/dialog';
 import { DataContext } from 'contexts/data';
 import { getPageTitle } from '../../utils';
 import DaoManageDialog from 'components/dao/DaoManageDialog';
 import Layout from 'components/layout/Layout';
-import SoulListGQ from 'components/soul/DAOListGQ';
-import { GAME_NAME, GAME_DESC } from 'constants/contracts';
+import { GAME_DESC } from 'constants/contracts';
 import { gameCardContent } from 'utils/cardContents';
+import { nameEntity } from 'helpers/utils';
+import PaginatedList from 'components/PaginatedList';
+import SoulsByTypeRoleQuery from 'queries/SoulsByTypeRoleQuery';
 
 const CONF = {
-  PAGE_TITLE: GAME_NAME.dao,
-  TITLE: GAME_NAME.dao,
+  PAGE_TITLE: nameEntity('dao', true),
+  TITLE: nameEntity('dao', true),
   SUBTITLE: GAME_DESC.dao,
 };
 
@@ -23,8 +25,9 @@ export default function DaosPage({}: any) {
   const { showDialog, closeDialog } = useContext(DialogContext);
   // const { handleError } = useError();
 
-  const renderActions = accountSoul && (
+  const renderActions = (
     <Button
+      disabled={!accountSoul}
       onClick={() => showDialog?.(<DaoManageDialog onClose={closeDialog} />)}
       variant="outlined"
     >
@@ -32,7 +35,7 @@ export default function DaosPage({}: any) {
     </Button>
   );
 
-  const daosListProps = {
+  const listProps = {
     variables: {
       type: 'GAME',
       role: 'DAO',
@@ -45,7 +48,7 @@ export default function DaosPage({}: any) {
 
   return (
     <Layout title={getPageTitle(CONF.PAGE_TITLE)}>
-      <SoulListGQ {...daosListProps} />
+      <PaginatedList {...listProps} query={SoulsByTypeRoleQuery} />
     </Layout>
   );
 }

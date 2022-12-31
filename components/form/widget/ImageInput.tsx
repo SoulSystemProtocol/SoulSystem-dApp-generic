@@ -1,16 +1,23 @@
 import { AddOutlined } from '@mui/icons-material';
-import { Avatar, CircularProgress, Input } from '@mui/material';
+import {
+  Avatar,
+  CircularProgress,
+  Input,
+  Stack,
+  Typography,
+} from '@mui/material';
 import { Box } from '@mui/system';
 import { WidgetProps } from '@rjsf/core';
 import useError from 'hooks/useError';
 import useIpfs from 'hooks/useIpfs';
-import { ReactNode, useState } from 'react';
+import { ReactElement, ReactNode, useState } from 'react';
 import { resolveLink } from 'helpers/IPFS';
+import InvalidFileError from 'errors/InvalidFileError';
 
 /**
  * A widget to input an image, upload it to IPFS, and get URI.
  */
-export default function ImageInput(props: WidgetProps) {
+export default function ImageInput(props: WidgetProps): ReactElement {
   const propsDisabled = props.disabled;
   const propsSx = props.options?.sx;
   const propsHeader = props.options?.header;
@@ -20,6 +27,7 @@ export default function ImageInput(props: WidgetProps) {
   const { uploadFileToIPFS } = useIpfs();
   const [isLoading, setIsLoading] = useState(false);
   const size = 164;
+  const elId = 'imageInput';
 
   /// Input File Validation
   function isFileValid(file: any) {
@@ -29,6 +37,7 @@ export default function ImageInput(props: WidgetProps) {
       file.type === 'image/jpeg' ||
       file.type === 'image/png' ||
       file.type === 'image/gif' ||
+      file.type === 'image/webp' ||
       file.type === 'image/svg+xml';
     if (!isJpgOrPng) return false;
     //Validate Size
@@ -45,11 +54,7 @@ export default function ImageInput(props: WidgetProps) {
     if (!file) return;
     // Upload file to IPFS
     try {
-      if (!isFileValid(file)) {
-        throw new Error(
-          'Sorry, Only JPG/PNG/GIF files with size smaller than 2MB are currently supported',
-        );
-      }
+      if (!isFileValid(file)) throw new InvalidFileError();
       setIsLoading(true);
       const { url } = await uploadFileToIPFS(file);
       propsOnChange(url);
@@ -63,22 +68,32 @@ export default function ImageInput(props: WidgetProps) {
   return (
     <Box sx={{ ...(propsSx as object) }}>
       {propsHeader as ReactNode}
-      <label htmlFor="input" style={{ width: size, height: size }}>
+      <label
+        htmlFor={elId}
+        style={{ display: 'block', width: size, height: size }}
+      >
         <Avatar
           sx={{
             cursor: !isLoading && !propsDisabled ? 'pointer' : null,
             width: size,
             height: size,
-            borderRadius: '24px',
+            borderRadius: '50%',
           }}
           src={!isLoading ? resolveLink(propsImage) : undefined}
         >
-          {isLoading ? <CircularProgress /> : <AddOutlined />}
+          {isLoading ? (
+            <CircularProgress />
+          ) : (
+            <Stack direction="column" alignItems="center" marginTop={2}>
+              <AddOutlined />
+              <Typography variant="subtitle2">{props.label}</Typography>
+            </Stack>
+          )}
         </Avatar>
         <Input
           onChange={onChange}
           sx={{ display: 'none' }}
-          id="input"
+          id={elId}
           type="file"
           disabled={isLoading || propsDisabled}
         />

@@ -1,57 +1,46 @@
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { responsiveFontSizes, ThemeProvider } from '@mui/material/styles';
 import { DataProvider } from 'contexts/data';
 import { DialogProvider } from 'contexts/dialog';
 import { Web3Provider } from 'contexts/Web3Context';
-import type { AppProps } from 'next/app';
+import { AppProps } from 'next/app';
 import NextNProgress from 'nextjs-progressbar';
 import { SnackbarProvider } from 'notistack';
-import '../styles/globals.css';
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
+import { darkTheme as theme } from '../constants/theme';
+import '../styles/globals.css';
+import { useEffect } from 'react';
+import { analyticsPageViewEvent, initAnalytics } from 'utils/analytics';
+import router from 'next/router';
 
 const client = new ApolloClient({
   uri: process.env.NEXT_PUBLIC_SUBGRAPH_API,
   cache: new InMemoryCache(),
 });
 
-const darkTheme = createTheme({
-  palette: {
-    mode: 'dark',
-  },
-  typography: {
-    h1: {
-      fontFamily: '"Montserrat", Open Sans',
-      background: '-webkit-linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
-      WebkitBackgroundClip: 'text',
-      WebkitTextFillColor: 'transparent',
-      fontSize: '2.25rem',
-    },
-    h2: {
-      fontSize: '2rem',
-    },
-    h3: {
-      fontSize: '1.6rem',
-    },
-    h4: {
-      fontSize: '1.4rem',
-      fontFamily: '"Montserrat", Open Sans',
-    },
-    h5: {
-      fontSize: '1.2rem',
-    },
-    subtitle1: {
-      opacity: 0.75,
-      fontWeight: 400,
-    },
-  },
-});
-
 /**
  * Component with an app.
  */
-export default function App({ Component, pageProps }: AppProps) {
+export default function App({ Component, pageProps }: AppProps): JSX.Element {
+  useEffect(() => {
+    /// Init analytics
+    initAnalytics();
+  }, []);
+
+  /**
+   * Send page view event to analytics if page changed via router
+   */
+  useEffect(() => {
+    // const handleRouteChange = function () { analyticsPageViewEvent(); };
+    router.events.on('routeChangeComplete', analyticsPageViewEvent);
+    return () => {
+      router.events.off('routeChangeComplete', analyticsPageViewEvent);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [router.events]);
+
   return (
     <ApolloProvider client={client}>
-      <ThemeProvider theme={darkTheme}>
+      <ThemeProvider theme={responsiveFontSizes(theme)}>
         <SnackbarProvider maxSnack={3}>
           <Web3Provider>
             <DataProvider>

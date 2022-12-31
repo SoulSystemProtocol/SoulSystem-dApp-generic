@@ -1,11 +1,3 @@
-// import { useContext, useEffect, useState } from 'react';
-// import { Button, Stack } from '@mui/material';
-// import { GAME_ROLE } from 'constants/contracts';
-// import { DataContext } from 'contexts/data';
-// import { DialogContext, IDialogParams } from 'contexts/dialog';
-// import useError from 'hooks/useError';
-// import useToast from 'hooks/useToast';
-
 import { Box, Typography, Stack, Grid } from '@mui/material';
 import AutoAwesomeMotionIcon from '@mui/icons-material/AutoAwesomeMotion';
 import SquareRoundedIcon from '@mui/icons-material/SquareRounded';

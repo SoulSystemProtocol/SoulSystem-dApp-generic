@@ -1,33 +1,27 @@
-import Task from 'classes/Task';
-import TaskList from 'components/task/TaskList';
-import useError from 'hooks/useError';
-import useTask from 'hooks/useTask';
-import { useEffect, useState } from 'react';
+import { useContext } from 'react';
+import { SelectedSoulContext } from 'contexts/SelectedSoul';
+import { containedProcContent } from 'utils/cardContents';
+import PaginatedList from 'components/PaginatedList';
+import SoulContainedQuery from 'queries/SoulContainedQuery';
+import { SxProps } from '@mui/material';
 
 /**
- * Component: a list of project tasks.
+ * List of project's tasks
  */
-export default function ProjectTaskList({ project, sx }: any) {
-  const { handleError } = useError();
-  const { getTasks } = useTask();
-  const [tasks, setTasks] = useState<Array<Task> | null>(null);
+export default function ProjectTaskList({ sx }: { sx?: SxProps }) {
+  const { soul } = useContext(SelectedSoulContext);
+  const listProps = {
+    variables: {
+      Bid: soul?.id,
+      Arole: 'bounty',
+    },
+    entityName: 'soulAssocs',
+    getCardContent: containedProcContent,
+    gridMD: 12,
+    gridLG: 12,
+    query: SoulContainedQuery,
+    sx,
+  };
 
-  async function loadData() {
-    try {
-      // Update states
-      setTasks(null);
-      // Load tasks
-      const tasks = await getTasks(undefined, undefined, project.id);
-      setTasks(tasks);
-    } catch (error: any) {
-      handleError(error, true);
-    }
-  }
-
-  useEffect(() => {
-    if (project) loadData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [project]);
-
-  return <TaskList tasks={tasks} sx={{ ...sx }} />;
+  return <PaginatedList {...listProps} />;
 }

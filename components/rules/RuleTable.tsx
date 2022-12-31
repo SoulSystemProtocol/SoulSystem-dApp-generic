@@ -2,7 +2,7 @@ import { BlockOutlined, DataObjectOutlined } from '@mui/icons-material';
 import { Stack, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import { DataGrid, GridActionsCellItem, GridToolbar } from '@mui/x-data-grid';
-import { DialogContext, IDialogParams } from 'contexts/dialog';
+import { DialogContext, TDialogContext } from 'contexts/dialog';
 import useAction from 'hooks/useAction';
 import useError from 'hooks/useError';
 import useSubgraph from 'hooks/useSubgraph';
@@ -15,9 +15,10 @@ import JsonViewDialog from 'components/json/JsonViewDialog';
 /**
  * Component: Games's Rules in Table Display
  */
-export default function RuleTable({ jurisdiction, sx }: any) {
+export default function RuleTable({ item, sx }: any) {
   // eslint-disable-next-line prettier/prettier
-  const { showDialog, closeDialog }: Partial<IDialogParams> = useContext(DialogContext);
+  const { showDialog, closeDialog }: Partial<TDialogContext> =
+    useContext(DialogContext);
   const { handleError } = useError();
   const { getActions } = useAction();
   const { getGameRules } = useSubgraph();
@@ -30,42 +31,42 @@ export default function RuleTable({ jurisdiction, sx }: any) {
       type: 'actions',
       headerName: '',
       width: 100,
-      getActions: (params: any) => {
-        const viewAsJsonAction = (
-          <GridActionsCellItem
-            key="viewJson"
-            icon={<DataObjectOutlined />}
-            label="View as JSON"
-            title="View as JSON"
-            onClick={() =>
-              showDialog?.(
-                <JsonViewDialog json={params.row} onClose={closeDialog} />,
-              )
-            }
-          />
-        );
-        const disableAction = (
-          <GridActionsCellItem
-            key="disable"
-            icon={<BlockOutlined />}
-            label="Mark as Obsolete"
-            title="Mark as Obsolete"
-            onClick={() =>
-              showDialog?.(
-                <RuleDisableDialog
-                  jurisdiction={jurisdiction}
-                  rule={params.row.rule}
-                  onClose={closeDialog}
-                />,
-              )
-            }
-          />
-        );
-        return [
-          viewAsJsonAction,
-          ...(params.row.rule.isDisabled ? [] : [disableAction]),
-        ];
-      },
+      // getActions: (params: any) => {
+      //   const viewAsJsonAction = (
+      //     <GridActionsCellItem
+      //       key="viewJson"
+      //       icon={<DataObjectOutlined />}
+      //       label="View as JSON"
+      //       title="View as JSON"
+      //       onClick={() =>
+      //         showDialog?.(
+      //           <JsonViewDialog json={params.row} onClose={closeDialog} />,
+      //         )
+      //       }
+      //     />
+      //   );
+      //   const disableAction = (
+      //     <GridActionsCellItem
+      //       key="disable"
+      //       icon={<BlockOutlined />}
+      //       label="Mark as Obsolete"
+      //       title="Mark as Obsolete"
+      //       onClick={() =>
+      //         showDialog?.(
+      //           <RuleDisableDialog
+      //             item={item}
+      //             rule={params.row.rule}
+      //             onClose={closeDialog}
+      //           />,
+      //         )
+      //       }
+      //     />
+      //   );
+      //   return [
+      //     viewAsJsonAction,
+      //     ...(params.row.rule.isDisabled ? [] : [disableAction]),
+      //   ];
+      // },
     },
     {
       field: 'id',
@@ -100,21 +101,21 @@ export default function RuleTable({ jurisdiction, sx }: any) {
       headerName: 'Name to display',
       width: 320,
       valueGetter: (params: any) =>
-        `${params.row.rule.rule.uriData?.name || ''}`,
+        `${params.row.rule.rule?.metadata?.name || ''}`,
     },
     {
       field: 'description',
       headerName: 'Description to display',
       width: 320,
       valueGetter: (params: any) =>
-        `${params.row.rule.rule.uriData?.description || ''}`,
+        `${params.row.rule.rule?.metadata?.description || ''}`,
     },
     {
       field: 'icon',
       headerName: 'Icon to display',
       width: 120,
       valueGetter: (params: any) =>
-        `${params.row.rule.rule.uriData?.icon || ''}`,
+        `${params.row.rule.rule?.metadata?.icon || ''}`,
       renderCell: (params: any) => '[RuleIcon]',
     },
     {
@@ -122,7 +123,7 @@ export default function RuleTable({ jurisdiction, sx }: any) {
       headerName: 'Evidence description',
       width: 320,
       valueGetter: (params: any) =>
-        `${params.row.rule.rule.uriData?.evidenceDescription || ''}`,
+        `${params.row.rule.rule?.metadata?.evidenceDescription || ''}`,
     },
     {
       field: 'affected',
@@ -200,7 +201,7 @@ export default function RuleTable({ jurisdiction, sx }: any) {
       setRows([]);
       setIsLoading(true);
       const rows = [];
-      const rules = await getGameRules([], jurisdiction.id);
+      const rules = await getGameRules([], item.id);
       // const actionGuids = new Set();
       const actionGuids = new Array();
       for (const rule of rules) {
@@ -221,11 +222,10 @@ export default function RuleTable({ jurisdiction, sx }: any) {
   }
 
   useEffect(() => {
-    if (jurisdiction) {
-      loadData();
-    }
+    if (item) loadData();
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [jurisdiction]);
+  }, [item]);
 
   return (
     <Box sx={{ height: 800, ...sx }}>

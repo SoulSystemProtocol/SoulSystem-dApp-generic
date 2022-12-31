@@ -2,6 +2,14 @@ import { AutoAwesomeOutlined } from '@mui/icons-material';
 import { Avatar } from '@mui/material';
 import { resolveLink } from 'helpers/IPFS';
 
+export interface EntityImageProps {
+  item?: any;
+  title?: string;
+  alt?: string;
+  icon?: any;
+  imgSrc?: string;
+  sx?: any;
+}
 /**
  * Generic entity image component.
  */
@@ -10,9 +18,11 @@ export default function EntityImage({
   title,
   alt,
   icon,
+  imgSrc,
   sx = {},
-}: any): JSX.Element {
-  const url = item?.image || item?.metadata?.image;
+}: EntityImageProps): JSX.Element {
+  //Extract Image Link
+  const url = imgSrc || item?.image || item?.uriImage || item?.metadata?.image;
   return (
     <Avatar
       title={title}
@@ -23,9 +33,9 @@ export default function EntityImage({
         borderRadius: '12%',
         ...sx,
       }}
-      src={resolveLink(url)}
+      src={resolveLink(url as string)}
     >
-      {icon || <AutoAwesomeOutlined />}
+      {icon || <AutoAwesomeOutlined sx={{ fontSize: '50px' }} />}
     </Avatar>
   );
 }

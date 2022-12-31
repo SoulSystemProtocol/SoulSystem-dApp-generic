@@ -1,95 +1,142 @@
-import {
-  PersonOutlineOutlined,
-  WorkOutlineOutlined,
-} from '@mui/icons-material';
-import {
-  addressToShortAddress,
-  hexStringToJson,
-  soulToFirstLastNameString,
-} from './converters';
+import { WorkOutlineOutlined } from '@mui/icons-material';
+import { addressToShortAddress, hexStringToJson, nameSoul } from './converters';
 import { resolveLink } from 'helpers/IPFS';
+import TaskSoulCardDetails from 'components/entity/task/TaskSoulCardDetails';
+import PersonIcon from '@mui/icons-material/Person';
+import { normalizeGraphEntity } from 'helpers/metadata';
+import { SxProps } from '@mui/material';
+import StageDisplay from 'components/entity/task/StageDisplay';
 
-// Item Processing Function
-export const soulCardContent = (item: any) => {
-  let metadata = hexStringToJson(item.uriData);
+export interface CardItem {
+  id: string;
+  title: string;
+  label: string;
+  link: string;
+  imgSrc: string;
+  roles?: any[];
+  avatarIcon?: any;
+  baseRoute?: string;
+  children?: any;
+  linkSX?: SxProps;
+}
 
+/**
+ * Card Item Processing Functions
+ */
+
+/// Soul
+export const soulCardContent = (item: any, roles?: any[]): CardItem => {
+  return soulCardProcessedContent(normalizeGraphEntity(item));
+};
+
+/// Soul Card with Item that has Already Been Processed
+export const soulCardProcessedContent = (
+  item: any,
+  roles?: any[],
+): CardItem => {
   let ret = {
     id: item.id,
-    imgSrc: resolveLink(metadata.image),
-    avatarIcon: <PersonOutlineOutlined />,
+    imgSrc: resolveLink(item?.metadata?.image),
+    avatarIcon: <PersonIcon sx={{ fontSize: 50 }} />,
     label: addressToShortAddress(item.owner),
-
-    //DEPRECATE soulToFirstLastNameString() Usage here. That should be stored in  metadata.name
-    title: metadata?.name || soulToFirstLastNameString(item),
-
-    metadata,
-    link: `/souls/${item.id}`,
-    // roles: [], // TODO: add roles logic
+    title: nameSoul(item),
+    link: `/soul/${item.id}`,
+    roles,
   };
-
-  // console.log('soul', ret);
   return ret;
 };
 
-// Game Card Processing
-export const gameCardContent = (item: any) => {
-  let metadata = hexStringToJson(item.uriData);
+/// Game Card Processing
+export const gameCardContent = (item: any): CardItem => {
+  let metadata = hexStringToJson(item.metadata);
   let ret = {
     id: item.id,
-    imgSrc: resolveLink(metadata.image),
+    imgSrc: resolveLink(metadata?.image),
     label: metadata?.description,
     title: metadata?.name,
     metadata,
-    link: `/game/${item.owner}`,
+    link: `/soul/${item.owner}`,
     avatarIcon: <WorkOutlineOutlined />,
   };
-  // ret.avatarIcon = (<WorkOutlineOutlined />);
   return ret;
 };
 
-// Process Card Processing
-export const processCardContent = (item: any) => {
-  let metadata = hexStringToJson(item.uriData);
+/// Process Soul
+export const processCardContent = (soul: any): CardItem => {
+  let metadata = hexStringToJson(soul?.metadata);
   let ret = {
-    id: item.id,
-    imgSrc: resolveLink(metadata.image),
+    id: soul.id,
+    imgSrc: 'PARENT_IMAGE',
+    // avatarIcon: <WorkOutlineOutlined />,
+    label: metadata?.description,
+    title: metadata?.name,
+    metadata,
+    link: `/soul/${soul.owner}`,
+    children: soul && <TaskSoulCardDetails address={soul.owner} />,
+  };
+  return ret;
+};
+
+// Relation to Container Soul
+export const containedProcContent = (relation: any): CardItem => {
+  const soul = relation?.aEnd;
+  let metadata = hexStringToJson(soul?.metadata);
+  let ret = {
+    id: soul?.id,
+    imgSrc: 'PARENT_IMAGE',
     avatarIcon: <WorkOutlineOutlined />,
     label: metadata?.description,
     title: metadata?.name,
     metadata,
-    link: `/task/${item.owner}`,
+    link: `/soul/${soul?.owner}`,
+    children: soul && <TaskSoulCardDetails address={soul?.owner} />,
+    linkSX: { display: { xs: 'none', md: 'block' } },
   };
-  console.log('Task Item', { ret, item });
+  return ret;
+};
+
+// Soul Part
+export const soulPartCardContent = (item: any): CardItem => {
+  let metadata = hexStringToJson(item.aEnd.metadata);
+  let ret = {
+    id: item.aEnd.id,
+    imgSrc: resolveLink(metadata?.image),
+    label: metadata?.description,
+    title: metadata?.name,
+    metadata,
+    link: `/soul/${item.aEnd.owner}`,
+    roles: item?.roles,
+  };
   return ret;
 };
 
 // Game Participant
-export const gamePartCardContent = (item: any) => {
+export const gamePartCardContent = (item: any): CardItem => {
   let metadata = hexStringToJson(item.entity.metadata);
   let ret = {
     id: item.entity.id,
-    imgSrc: resolveLink(metadata.image),
+    imgSrc: resolveLink(metadata?.image),
     label: metadata?.description,
     title: metadata?.name,
     metadata,
-    link: `/game/${item.entity.id}`,
+    link: `/soul/${item.entity.id}`,
     roles: item?.roles,
   };
   return ret;
 };
 
-// Task Participant
-export const taskPartCardContent = (item: any) => {
-  let gameMetadata = hexStringToJson(item.entity.game.metadata);
-  let metadata = hexStringToJson(item.entity.metadata);
+// Soul Part for Tasks (Using Parent's Image)
+export const soulPartTaskCardContent = (item: any): CardItem => {
+  let metadata = hexStringToJson(item.aEnd.metadata);
   let ret = {
-    id: item.entity.id,
-    imgSrc: resolveLink(gameMetadata.image),
+    id: item.aEnd.id,
+    imgSrc: 'PARENT_IMAGE',
     label: metadata?.description,
     title: metadata?.name,
     metadata,
-    link: `/tasks/${item.entity.id}`,
+    link: `/soul/${item.aEnd.owner}`,
     roles: item?.roles,
+    children: item && <StageDisplay proc={item.aEnd} />,
   };
   return ret;
 };
