@@ -5,8 +5,11 @@ import { nameEntity } from 'helpers/utils';
  * Description by Entity Type
  */
 export const GAME_DESC: any = {
-  mdao: `Mentor DAOs consist of a mentor and mentees that work on bounties
-  together, as a team.`,
+  mdao:
+    //`Mentor DAOs consist of a mentor and mentees that work on bounties together, as a team.`,
+    `A ${nameEntity(
+      'mdao',
+    )} is a MicroDAO – a small cross-functional team of people that decide, work, and earn together.`,
   project: (
     <>
       Projects post{' '}
@@ -19,10 +22,10 @@ export const GAME_DESC: any = {
   task: `Here ${nameEntity(
     'project',
     true,
-  )} post things they need done, and ${nameEntity('', true)} and ${nameEntity(
+  )} post things they need done. ${nameEntity('', true)} and ${nameEntity(
     'mdao',
     true,
-  )} deliver them for a bounty.`,
+  )} can deliver those for a bounty.`,
   dao: '',
 };
 
