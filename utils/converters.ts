@@ -7,9 +7,7 @@ import { resolveLink } from 'helpers/IPFS';
  * Convert hex string to json.
  */
 export function hexStringToJson(hexString: string): any {
-  if (!hexString || hexString.length === 0) {
-    return null;
-  }
+  if (!hexString || hexString.length === 0) return null;
   try {
     var hex = hexString.toString();
     if (hex.startsWith('0x')) {
@@ -48,7 +46,7 @@ export function addressToShortAddress(address: string): string {
 /**
  * Get first name and last name of soul.
  */
-export function nameSoul(soul: any, length = 36): string {
+export function nameSoul(soul: any, length: number = 36): string {
   if (soul?.name) return soul.name;
   if (soul?.metadata?.name) return soul.metadata.name;
   let firstLastName = 'Anonymous';
@@ -101,4 +99,17 @@ export function formatActionName(action: {
 export function roleIdToName(role: string): string | undefined {
   console.error("CALLED DEPRECATED FUNCTION: 'roleIdToName'");
   return Object.values(GAME_ROLE).find((element) => element.id == role)?.name;
+}
+
+/**
+ * Structure a faux soul entity for optimistic updates
+ */
+export function genFauxSoul(metadata: any, additional: any = {}): any {
+  const soulFaux: any = {
+    metadata,
+    name: nameSoul({ metadata }),
+    image: soulImage({ metadata }),
+    ...additional,
+  };
+  return soulFaux;
 }

@@ -39,7 +39,8 @@ export default function SoulEditForm({
   const { showToastSuccess } = useToast();
   const { uploadJsonToIPFS } = useIpfs();
   const { handleError } = useError();
-  const { metadataUpdate, accountSoul } = useContext(DataContext);
+  const { accountSoul, metadataUpdate, accountSoulInject } =
+    useContext(DataContext);
   const { getContractSoul } = useContract();
   const { getContractGame } = useContract();
   const [status, setStatus] = useState<number>(STATUS.available);
@@ -123,7 +124,7 @@ export default function SoulEditForm({
         // await tx.wait(); //No need...
         //Update Current Soul's Metadata
         soul.id == accountSoul.id && metadataUpdate?.(metadata);
-        analyticsEvent('soulMint', { id: soul.id });
+        analyticsEvent('soulEdit', { id: soul.id });
         //TODO: Optimistic Updates for Non-current Souls
 
         //Redirect out of edit mode
@@ -133,8 +134,14 @@ export default function SoulEditForm({
         showToastSuccess('Your new soul is on its way');
         analyticsEvent('soulMint');
         await tx.wait();
+
+        //Optimistic injection for new accountSoul
+        let nextTokenId = await getContractSoul().callStatic.mint(metadataUrl);
+        accountSoulInject?.(metadata, {
+          id: Number(nextTokenId),
+        });
+
         router.push('/');
-        //TODO: Optimistic Updates for New AccountSoul
       }
     } catch (error: any) {
       handleError(error, true);

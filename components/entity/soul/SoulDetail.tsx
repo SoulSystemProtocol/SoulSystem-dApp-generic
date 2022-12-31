@@ -53,8 +53,12 @@ export default function SoulDetail({ soul, sx }: any) {
           }}
         >
           <EntityImage
-            // item={soul}
-            imgSrc={soul.image || soul.uriImage || '/images/default_avatar.jpg'}
+            imgSrc={
+              soul.image ||
+              soul.uriImage ||
+              soul?.metadata?.image ||
+              '/images/default_avatar.jpg'
+            }
             icon={<PersonOutlineOutlined sx={{ fontSize: '50px' }} />}
             sx={{
               borderRadius: '50%',
@@ -63,7 +67,6 @@ export default function SoulDetail({ soul, sx }: any) {
               ml: 'auto',
               mr: 'auto',
             }}
-            // icon={<img src="/images/default_avatar.jpg" alt="" />}
           />
           <Stack
             key="buttons"

@@ -5,10 +5,11 @@ import { useContext } from 'react';
 import { Web3Context } from 'contexts/Web3Context';
 import WrongNetworkError from 'errors/WrongNetworkError';
 import NoWalletError from 'errors/NoWalletError';
-import ConnectButton from 'components/web3/connect/ConnectButton';
+// import ConnectButton from 'components/web3/connect/ConnectButton';
 
 /**
  * Hook for work with toasts.
+ * @todo close toast on icon click
  */
 export default function useToast() {
   const { enqueueSnackbar } = useSnackbar();
