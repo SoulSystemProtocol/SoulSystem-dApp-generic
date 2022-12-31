@@ -31,22 +31,22 @@ export default function ActionTable({ sx }: any): JSX.Element {
       type: 'actions',
       headerName: '',
       width: 60,
-      // getActions: (params: GridRowParams) => {
-      //   // console.log('[DEBUG] params', params);
-      //   return [
-      //     <GridActionsCellItem
-      //       key="viewJson"
-      //       icon={<DataObjectOutlined />}
-      //       label="View as JSON"
-      //       title="View as JSON"
-      //       onClick={() =>
-      //         showDialog?.(
-      //           <JsonViewDialog json={params.row} onClose={closeDialog} />,
-      //         )
-      //       }
-      //     />,
-      //   ];
-      // },
+      getActions: (params: GridRowParams) => {
+        // console.log('[DEBUG] params', params);
+        return [
+          // <GridActionsCellItem
+          //   key="viewJson"
+          //   icon={<DataObjectOutlined />}
+          //   label="View as JSON"
+          //   title="View as JSON"
+          //   onClick={() =>
+          //     showDialog?.(
+          //       <JsonViewDialog json={params.row} onClose={closeDialog} />,
+          //     )
+          //   }
+          // />,
+        ];
+      },
     },
     {
       field: 'guid',
