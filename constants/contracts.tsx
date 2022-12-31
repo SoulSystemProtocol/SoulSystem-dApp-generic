@@ -12,7 +12,7 @@ export const GAME_DESC: any = {
     )} is a MicroDAO – a small cross-functional team of people that decide, work, and earn together.`,
   project: (
     <>
-      Projects post{' '}
+      {nameEntity('project', true)} post{' '}
       <Link href="/tasks/" sx={{ color: '#f8f8f8' }}>
         {nameEntity('task', true)}
       </Link>{' '}
