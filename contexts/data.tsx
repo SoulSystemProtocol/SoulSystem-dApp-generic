@@ -27,11 +27,7 @@ export function DataProvider({ children }: any) {
     error,
   } = useSoulByHash(account?.toLowerCase());
 
-  /**
-   * Update context if web3 context is ready.
-   */
   useEffect(() => error && handleError(error, false), [error]);
-
   useEffect(() => setSoul(accountSoul), [accountSoul]);
 
   /// Inject metadata update [optimistic updates]
