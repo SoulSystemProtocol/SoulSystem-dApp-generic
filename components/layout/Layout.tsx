@@ -23,7 +23,14 @@ import NavBar from './NavBar';
 // import Sidebar from './Sidebar';
 // import Link from 'components/utils/Link';
 
-const top_links: any = [
+interface MenuLink {
+  route: string;
+  label: string;
+  icon: JSX.Element;
+  hide?: boolean;
+}
+
+const top_links: MenuLink[] = [
   // { label: 'Hackathons', route: 'hackathons' },
   // { label: 'Grants', route: 'grants' },
   {
@@ -99,8 +106,8 @@ const menu_side_links = [
     hide: process.env.NEXT_PUBLIC_FEATURE_DEV != 'false',
   },
 ];
-const footer_links: { route: string; label: string; icon: JSX.Element }[] = [];
-const footer_icons: { route: string; label: string; icon: JSX.Element }[] = [
+const footer_links: MenuLink[] = [];
+const footer_icons: MenuLink[] = [
   {
     route: '/souls',
     label: 'Souls',
@@ -129,6 +136,21 @@ const footer_icons: { route: string; label: string; icon: JSX.Element }[] = [
       'https://thegraph.com/hosted-service/subgraph/toledoroy/solidify_mumbai',
     icon: <AcUnit sx={{ fill: 'url(#linearColors)' }} />,
     label: 'SubGraph',
+  },
+
+  {
+    label: 'SafeNFT',
+    route: '/erc',
+    hide: process.env.NEXT_PUBLIC_FEATURE_NFT == 'false',
+    icon: <LockIcon color="warning" sx={{ fill: 'url(#linearColors)' }} />,
+  },
+  {
+    label: 'Action Repo',
+    route: '/actions',
+    icon: (
+      <DirectionsRunIcon color="warning" sx={{ fill: 'url(#linearColors)' }} />
+    ),
+    hide: process.env.NEXT_PUBLIC_FEATURE_DEV != 'false',
   },
 ];
 
