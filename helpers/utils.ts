@@ -2,7 +2,12 @@
  * Check if a value is a numeric
  */
 export const isNumber = (value: string | number): boolean => {
-  return /^-{0,1}\d+$/.test(value.toString());
+  try {
+    return /^-{0,1}\d+$/.test(value.toString());
+  } catch (error) {
+    console.error('[CAUGHT] isNumber()', { value, error });
+    return false;
+  }
 };
 
 /**
