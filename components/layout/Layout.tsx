@@ -141,7 +141,7 @@ const footer_icons: MenuLink[] = [
   {
     label: 'SafeNFT',
     route: '/erc',
-    hide: process.env.NEXT_PUBLIC_FEATURE_NFT == 'false',
+    hide: process.env.NEXT_PUBLIC_FEATURE_NFT != 'true',
     icon: <LockIcon color="warning" sx={{ fill: 'url(#linearColors)' }} />,
   },
   {
@@ -150,7 +150,7 @@ const footer_icons: MenuLink[] = [
     icon: (
       <DirectionsRunIcon color="warning" sx={{ fill: 'url(#linearColors)' }} />
     ),
-    hide: process.env.NEXT_PUBLIC_FEATURE_DEV != 'false',
+    hide: process.env.NEXT_PUBLIC_FEATURE_DEV != 'true',
   },
 ];
 
