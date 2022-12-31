@@ -1,4 +1,4 @@
-import { Box, Button, Stack, Typography } from '@mui/material';
+import { Box, Button, Stack, Typography, Tooltip } from '@mui/material';
 import useError from 'hooks/useError';
 import useContract from 'hooks/useContract';
 import { taskStageToString, nameSoul } from 'utils/converters';
@@ -16,6 +16,7 @@ import useContainerImage from 'hooks/useContainerImage';
 import { getChainData } from 'components/web3/chains/ChainsData';
 import { nameEntity } from 'helpers/utils';
 import TokenBalance from 'components/web3/TokenBalance';
+import TooltipButton from 'components/layout/TooltipButton';
 
 /**
  * Component: project details.
@@ -99,26 +100,36 @@ export default function TaskDetail({ item, sx }: any) {
             />
           )}
 
-          <ConditionalButton
+          <TooltipButton
             disabled={!isSoulAdmin || item.stage != PROC_STAGE_REV.execute}
+            tooltip={
+              !isSoulAdmin
+                ? 'Requires permissions'
+                : item.stage != PROC_STAGE_REV.execute
+                ? 'Wrong stage'
+                : null
+            }
             size="small"
             variant="outlined"
             onClick={() => getContractTask(item.id).stageExecusion(tokens)}
           >
             Disburse Prize
-          </ConditionalButton>
+          </TooltipButton>
 
-          <ConditionalButton
+          <TooltipButton
             disabled={!(item.stage > PROC_STAGE_REV.execute)}
+            tooltip={
+              !(item.stage > PROC_STAGE_REV.execute) ? 'Wrong stage' : null
+            }
             size="small"
             variant="outlined"
             onClick={() => getContractTask(item.id).disburse(tokens)}
           >
             Disburse Funds
-          </ConditionalButton>
+          </TooltipButton>
 
           {/* //TODO: Add reason for cancellation in URI */}
-          <ConditionalButton
+          <TooltipButton
             disabled={
               !(
                 (isSoulAdmin || isSoulAuthority) &&
@@ -126,20 +137,35 @@ export default function TaskDetail({ item, sx }: any) {
                 item.stage < PROC_STAGE_REV.closed
               )
             }
+            tooltip={
+              !isSoulAdmin && !isSoulAuthority
+                ? 'Requires permissions'
+                : !(
+                    item.stage > PROC_STAGE_REV.decision &&
+                    item.stage < PROC_STAGE_REV.closed
+                  )
+                ? 'Wrong stage'
+                : null
+            }
             size="small"
             variant="outlined"
             onClick={() => getContractTask(item.id).cancel('TEST_URI', tokens)}
           >
             Cancel {nameEntity('task')}
-          </ConditionalButton>
-          <ConditionalButton
+          </TooltipButton>
+          <TooltipButton
             disabled={!(item.stage > PROC_STAGE_REV.cancelled)}
+            tooltip={
+              item.stage <= PROC_STAGE_REV.cancelled
+                ? 'Available after cancelation'
+                : null
+            }
             size="small"
             variant="outlined"
             onClick={() => getContractTask(item.id).refund(tokens)}
           >
             Refund
-          </ConditionalButton>
+          </TooltipButton>
         </Stack>
       </Stack>
     </Box>
