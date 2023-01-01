@@ -4,7 +4,6 @@ import {
   Avatar,
   Box,
   Divider,
-  Link as MuiLink,
   List,
   ListItem,
   ListItemAvatar,
@@ -13,15 +12,19 @@ import {
 } from '@mui/material';
 import { CLAIM_ROLE, PROC_STAGE_REV } from 'constants/contracts';
 import { DataContext } from 'contexts/data';
-import useDao from 'hooks/useDao';
 import useError from 'hooks/useError';
 import useTask from 'hooks/useTask';
 import useToast from 'hooks/useToast';
-import Link from 'next/link';
 import { useContext, useEffect, useState } from 'react';
 import { soulImage } from 'utils/converters';
 import useSubgraph from 'hooks/useSubgraph';
-import ConditionalButton from 'components/layout/ConditionalButton';
+// import { SelectedSoulContext } from 'contexts/SelectedSoul';
+// import useContainerEntity from 'hooks/useContainerEntity';
+import Loading from 'components/layout/Loading';
+import TooltipButton from 'components/layout/TooltipButton';
+import { NO_SOUL_MSG } from 'constants/texts';
+import useContract from 'hooks/useContract';
+import Link from 'components/utils/Link';
 
 /**
  * Approved Deliveries Display
@@ -31,14 +34,21 @@ export default function TaskApprovedDeliveries({ task, sx }: any) {
   const { handleError } = useError();
   const { showToastSuccess } = useToast();
   const { getSoulsByRole, disburseFundsToWinners } = useTask();
-  const subjectSouls = getSoulsByRole(task, CLAIM_ROLE.subject.id);
+  const { getContractTask } = useContract();
+
+  const approvedSouls = getSoulsByRole(task, CLAIM_ROLE.subject.id);
   const [isProcessing, setIsProcessing] = useState(false);
   const [isProcessed, setIsProcessed] = useState(false);
 
+  // console.log('TaskApprovedDeliveries: task', { approvedSouls });
   async function disburseFunds() {
     try {
       setIsProcessing(true);
-      await disburseFundsToWinners(task.id);
+
+      const tokens: string[] = [];
+      await getContractTask(task.id).stageExecusion(tokens);
+      // await disburseFundsToWinners(task.id);
+
       showToastSuccess('Success! Data will be updated soon');
       setIsProcessed(true);
     } catch (error: any) {
@@ -48,40 +58,43 @@ export default function TaskApprovedDeliveries({ task, sx }: any) {
     }
   }
 
-  if (subjectSouls.length > 0) {
+  if (approvedSouls.length > 0) {
     return (
       <Box sx={{ ...sx }}>
         <Divider sx={{ mb: 1 }} />
-        <Typography variant="h5">Winners:</Typography>
+        <Typography variant="h4">Winners</Typography>
         <List>
-          {subjectSouls.map((soul: any, index: number) => (
-            <TaskApprovedDelivery key={index} />
+          {approvedSouls.map((soulId: string, index: number) => (
+            <TaskApprovedDelivery key={index} soulId={soulId} />
           ))}
         </List>
-        {/* Button to disburse funds */}
-        {task.stage === PROC_STAGE_REV.execution && accountSoul && (
-          <>
-            {isProcessed ? (
-              <></>
-            ) : isProcessing ? (
-              <LoadingButton
-                size="small"
-                loading
-                loadingPosition="start"
-                startIcon={<Save />}
-              >
-                Processing
-              </LoadingButton>
-            ) : (
-              <ConditionalButton
-                size="small"
-                variant="outlined"
-                onClick={() => disburseFunds()}
-              >
-                Disburse Funds To Winners
-              </ConditionalButton>
-            )}
-          </>
+        {isProcessed ? (
+          <></>
+        ) : isProcessing ? (
+          <LoadingButton
+            size="small"
+            loading
+            loadingPosition="start"
+            startIcon={<Save />}
+          >
+            Processing
+          </LoadingButton>
+        ) : (
+          <TooltipButton
+            size="small"
+            variant="contained"
+            disabled={!accountSoul || task.stage != PROC_STAGE_REV.execution}
+            tooltip={
+              !accountSoul
+                ? NO_SOUL_MSG
+                : task.stage != PROC_STAGE_REV.execution
+                ? `Waiting for execution stage`
+                : `Close bounty and distribute funds`
+            }
+            onClick={() => disburseFunds()}
+          >
+            Distribute Funds To Winners
+          </TooltipButton>
         )}
       </Box>
     );
@@ -95,52 +108,33 @@ export default function TaskApprovedDeliveries({ task, sx }: any) {
 function TaskApprovedDelivery({ soulId }: any) {
   const { handleError } = useError();
   const { getSoulById } = useSubgraph();
-  const { getDaoById } = useDao();
-  const [soulDao, setSoulDao] = useState<any | null>(null);
+  const [soul, setSoul] = useState<any | null>(null);
 
   useEffect(() => {
-    // Try load post DAO
     if (soulId) {
       getSoulById(soulId)
-        //TODO: Maybe get GameBySoulId
-        .then((soul) => (soul ? getDaoById(soul.owner) : null))
-        .then((dao) => setSoulDao(dao))
+        .then((soul) => setSoul(soul))
         .catch((error: any) => handleError(error, true));
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    } else setSoul(null);
   }, [soulId]);
-
-  console.error('TODO: Enable and Test New Soul Hook!');
-  // useEffect(() => {  //TODO: use Effect Listener -- Enable and Test This!
-  //   // Try load post DAO
-  //   if (soul) {
-  //     getDaoById(soul.owner)
-  //       .then((dao) => setSoulDao(dao))
-  //       .catch((error: any) => handleError(error, true));
-  //   }
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [soul]);
 
   return (
     <ListItem>
-      {soulDao ? (
+      {soul ? (
         <>
           <ListItemAvatar>
-            <Avatar src={soulImage(soulDao)}>
+            <Avatar src={soulImage(soul)}>
               <StarBorderOutlined />
             </Avatar>
           </ListItemAvatar>
           <Stack direction="row" spacing={1}>
-            <Typography>Delivery posted by</Typography>
-            <Link href={`/soul/${soulDao.id}`} passHref>
-              <MuiLink underline="none">
-                <Typography>{soulDao.name}</Typography>
-              </MuiLink>
+            <Link href={`/soul/${soul?.owner}`}>
+              <Typography>{soul?.name}</Typography>
             </Link>
           </Stack>
         </>
       ) : (
-        <Typography>...</Typography>
+        <Loading />
       )}
     </ListItem>
   );

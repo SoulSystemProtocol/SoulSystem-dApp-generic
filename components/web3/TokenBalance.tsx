@@ -13,7 +13,6 @@ export default function TokenBalance({ account, sx = {} }: any): JSX.Element {
   return (
     <>
       {curChainData.ERC20.map((token: any) => {
-        console.warn('token: ', { token, account });
         return (
           <Stack
             direction="row"

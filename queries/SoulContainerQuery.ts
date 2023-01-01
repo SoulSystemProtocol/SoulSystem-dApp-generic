@@ -14,6 +14,7 @@ const query = gql`
       bEnd {
         id
         uriImage
+        name
       }
     }
   }

@@ -1,5 +1,5 @@
 import { resolveLink } from 'helpers/IPFS';
-import useContainerImage from 'hooks/useContainerImage';
+import useContainerEntity from 'hooks/useContainerEntity';
 import { CardItem } from 'utils/cardContents';
 import GridCard from './GridCard';
 
@@ -8,7 +8,7 @@ import GridCard from './GridCard';
  */
 export default function GridCardTask(props: CardItem) {
   //Fetch Container's Image
-  const containerImageSrc = useContainerImage(props.id);
+  const { containerName, containerImageSrc } = useContainerEntity(props.id);
   //Override Image
   return <GridCard {...props} imgSrc={resolveLink(containerImageSrc)} />;
 }

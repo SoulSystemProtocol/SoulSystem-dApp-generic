@@ -93,6 +93,7 @@ export default function GameApplicationGridCard({
             size="small"
             disabled={!isSoulAdmin}
             onClick={() => assignAsMember()}
+            sx={{ whiteSpace: 'nowrap' }}
           >
             Accept Applicant
           </ConditionalButton>

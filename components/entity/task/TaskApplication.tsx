@@ -1,6 +1,6 @@
 import { Save } from '@mui/icons-material';
 import { LoadingButton } from '@mui/lab';
-import { Typography, Button, Stack } from '@mui/material';
+import { Typography, Button, Stack, Chip } from '@mui/material';
 import { PROC_STAGE_REV } from 'constants/contracts';
 import { DataContext } from 'contexts/data';
 import useError from 'hooks/useError';
@@ -81,7 +81,7 @@ export default function TaskApplication({
         {canAdmin && (
           <Stack direction="column" justifyContent="center">
             {isProcessed ? (
-              <>Accepted</>
+              <Chip label="Winner" size="small" sx={{ mr: 2 }} />
             ) : isProcessing ? (
               <LoadingButton
                 size="small"
@@ -96,6 +96,7 @@ export default function TaskApplication({
                 variant="outlined"
                 size="small"
                 disabled={isProcessed}
+                sx={{ whiteSpace: 'nowrap' }}
                 onClick={() => {
                   acceptNomination(nomination.nominated.id);
                 }}

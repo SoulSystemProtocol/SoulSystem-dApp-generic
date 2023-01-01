@@ -35,7 +35,8 @@ export default function RoyVerse(): JSX.Element {
           sx={{ fontSize: { xs: '1.2rem', sm: '2rem' } }}
           letterSpacing="0.05em"
         >
-          Compose fully decentralized socio-economic systems with no code
+          Want to Compose fully decentralized socio-economic system with no
+          code?
         </Typography>
       </Box>
 

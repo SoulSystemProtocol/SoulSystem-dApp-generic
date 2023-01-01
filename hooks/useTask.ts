@@ -56,6 +56,7 @@ export default function useTask() {
     return deliveryApprove(taskId, soulId);
   };
 
+  /// [DEPRECATED]
   const disburseFundsToWinners = async function (taskId: string) {
     return stageExecusion(taskId, []);
   };

@@ -15,9 +15,7 @@ export default function useTaskContract() {
   }
 
   async function acceptApplicant(contractAddress: string, sbtId: string) {
-    if (!isNetworkChainIdCorrect) {
-      throw new WrongNetworkError();
-    }
+    if (!isNetworkChainIdCorrect) throw new WrongNetworkError();
     return await getContract(
       contractAddress,
       provider?.getSigner(),
@@ -25,9 +23,7 @@ export default function useTaskContract() {
   }
 
   async function deliveryApprove(contractAddress: string, sbtId: string) {
-    if (!isNetworkChainIdCorrect) {
-      throw new WrongNetworkError();
-    }
+    if (!isNetworkChainIdCorrect) throw new WrongNetworkError();
     return await getContract(
       contractAddress,
       provider?.getSigner(),
@@ -38,9 +34,7 @@ export default function useTaskContract() {
     contractAddress: string,
     tokens: Array<string>,
   ) {
-    if (!isNetworkChainIdCorrect) {
-      throw new WrongNetworkError();
-    }
+    if (!isNetworkChainIdCorrect) throw new WrongNetworkError();
     return await getContract(
       contractAddress,
       provider?.getSigner(),

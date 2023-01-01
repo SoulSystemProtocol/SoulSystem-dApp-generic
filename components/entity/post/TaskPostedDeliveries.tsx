@@ -10,11 +10,14 @@ import {
   Stack,
   Typography,
 } from '@mui/material';
+import TooltipButton from 'components/layout/TooltipButton';
 import Link from 'components/utils/Link';
 import { CLAIM_POST_ENTITY_TYPE, PROC_STAGE_REV } from 'constants/contracts';
+import { NO_SOUL_MSG } from 'constants/texts';
 import { DataContext } from 'contexts/data';
 import { DialogContext } from 'contexts/dialog';
 import { normalizeGraphEntity } from 'helpers/metadata';
+import { nameEntity } from 'helpers/utils';
 import useError from 'hooks/useError';
 import useTask from 'hooks/useTask';
 import useToast from 'hooks/useToast';
@@ -24,7 +27,7 @@ import PostSingleDisplay from './PostSingleDisplay';
 import TaskPostDeliveryDialog from './TaskPostDeliveryDialog';
 
 /**
- *
+ * Task Posted Deliveries Display
  */
 export default function TaskPostedDeliveries({ task, sx }: any) {
   const { accountSoul } = useContext(DataContext);
@@ -45,9 +48,10 @@ export default function TaskPostedDeliveries({ task, sx }: any) {
     return (
       <Box sx={{ ...sx }}>
         <Divider sx={{ mb: 1 }} />
-        <Typography variant="h5" sx={{ mb: 1 }}>
-          Posted Deliveries:
+        <Typography variant="h4" sx={{ mb: 1 }}>
+          Deliveries
         </Typography>
+
         <Grid container spacing={2} sx={{ mb: 2 }}>
           {applicantPosts.length > 0 ? (
             <>
@@ -61,19 +65,25 @@ export default function TaskPostedDeliveries({ task, sx }: any) {
             </ListItem>
           )}
         </Grid>
-        {task.stage !== PROC_STAGE_REV.closed && accountSoul && (
-          <Button
-            size="small"
-            variant="outlined"
-            onClick={() =>
-              showDialog?.(
-                <TaskPostDeliveryDialog task={task} onClose={closeDialog} />,
-              )
-            }
-          >
-            Post Delivery
-          </Button>
-        )}
+        <TooltipButton
+          disabled={!accountSoul || task.stage >= PROC_STAGE_REV.closed}
+          tooltip={
+            !accountSoul
+              ? NO_SOUL_MSG
+              : task.stage >= PROC_STAGE_REV.closed
+              ? `${nameEntity('task', false)} closed`
+              : null
+          }
+          size="small"
+          variant="outlined"
+          onClick={() =>
+            showDialog?.(
+              <TaskPostDeliveryDialog task={task} onClose={closeDialog} />,
+            )
+          }
+        >
+          Post Delivery
+        </TooltipButton>
       </Box>
     );
   }
@@ -121,7 +131,7 @@ function TaskPostedDelivery({ task, post }: any) {
     <PostSingleDisplay post={post}>
       <Box>
         {isProcessed ? (
-          <>Accepted</>
+          <>Approved</>
         ) : isProcessing ? (
           <LoadingButton
             size="small"
@@ -137,8 +147,9 @@ function TaskPostedDelivery({ task, post }: any) {
             variant="outlined"
             disabled={!canAdmin}
             onClick={() => approveDelivery(post.author.id)}
+            sx={{ whiteSpace: 'nowrap' }}
           >
-            Approve
+            Approve Delivery
           </Button>
         )}
       </Box>

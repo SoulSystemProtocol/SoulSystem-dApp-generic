@@ -10,9 +10,8 @@ import { useContext, useEffect, useState } from 'react';
 import FundDialogButton from 'components/web3/FundDialogButton';
 import { isSoulHasRole } from 'hooks/utils';
 import useWeb3NativeBalance from 'hooks/useWeb3NativeBalance';
-import ConditionalButton from 'components/layout/ConditionalButton';
 import { SelectedSoulContext } from 'contexts/SelectedSoul';
-import useContainerImage from 'hooks/useContainerImage';
+import useContainerEntity from 'hooks/useContainerEntity';
 import { getChainData } from 'components/web3/chains/ChainsData';
 import { nameEntity } from 'helpers/utils';
 import TokenBalance from 'components/web3/TokenBalance';
@@ -24,7 +23,7 @@ import SoulDescription from '../soul/SoulDescription';
  */
 export default function TaskDetail({ item, sx }: any) {
   const { soul } = useContext(SelectedSoulContext);
-  const containerImageSrc = useContainerImage(soul.id);
+  const { containerName, containerImageSrc } = useContainerEntity(soul.id);
   const { getContractTask } = useContract();
   const { handleError } = useError();
   const { accountSoul } = useContext(DataContext);
@@ -47,9 +46,7 @@ export default function TaskDetail({ item, sx }: any) {
     setIsSoulAuthority(false);
   };
 
-  useEffect(() => {
-    loadData();
-  }, [item, accountSoul]);
+  useEffect(() => loadData(), [item, accountSoul]);
 
   if (!soul || !item) return <></>;
   return (
@@ -67,9 +64,9 @@ export default function TaskDetail({ item, sx }: any) {
           flexGrow: 0,
         }}
       >
-        <EntityImage imgSrc={containerImageSrc} title={item?.game?.name} />
+        <EntityImage imgSrc={containerImageSrc} title={containerName} />
         {/* <Typography sx={{ mx: '16px' }}>
-          {item?.game?.name ? `By: ${item.game.name}` : ''}
+          {containerName ? `By: ${containerName}` : ''}
         </Typography> */}
         {/* {isOwned && ( */}
         {/* //TODO: Support editing other souls */}
@@ -87,9 +84,21 @@ export default function TaskDetail({ item, sx }: any) {
         sx={{ flexGrow: 1, mt: { xs: 2, md: 0 }, ml: { md: 4 } }}
       >
         <Typography variant="h1">{nameSoul(soul)}</Typography>
-        <AddressHash address={item.id} sx={{ float: 'right' }} />
+        <AddressHash
+          address={item.id}
+          sx={{ color: 'text.secondary', float: 'right' }}
+        />
+        <Typography color="text.secondary" variant="body2">
+          {containerName ? (
+            <>
+              By: <span>{containerName}</span>
+            </>
+          ) : (
+            ''
+          )}
+        </Typography>
         <Typography color="text.secondary" variant="body2" sx={{ mt: 1 }}>
-          {taskStageToString(item)}{' '}
+          <span>{taskStageToString(item)}</span>
           {fund ? ` | ${fund} ${getChainData()?.native}` : ''} |{' '}
           <TokenBalance account={item.id} />
         </Typography>

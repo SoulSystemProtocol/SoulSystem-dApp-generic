@@ -180,7 +180,9 @@ export default function ResponsiveAppBar({
 
           <Box sx={{ flexGrow: 0 }}>
             {!account ? (
-              <ConnectButton />
+              <Tooltip title="Connect your wallet to claim your profile NFT">
+                <ConnectButton />
+              </Tooltip>
             ) : !accountSoul ? (
               <Tooltip title="Mint yourself a Soul to act in the verse">
                 <span>
