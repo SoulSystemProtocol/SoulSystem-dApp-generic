@@ -5,21 +5,18 @@ import {
   Button,
   Divider,
   Grid,
-  List,
   ListItem,
-  Stack,
   Typography,
 } from '@mui/material';
 import TooltipButton from 'components/layout/TooltipButton';
-import Link from 'components/utils/Link';
 import { CLAIM_POST_ENTITY_TYPE, PROC_STAGE_REV } from 'constants/contracts';
 import { NO_SOUL_MSG } from 'constants/texts';
 import { DataContext } from 'contexts/data';
 import { DialogContext } from 'contexts/dialog';
 import { normalizeGraphEntity } from 'helpers/metadata';
 import { nameEntity } from 'helpers/utils';
+import useContract from 'hooks/useContract';
 import useError from 'hooks/useError';
-import useTask from 'hooks/useTask';
 import useToast from 'hooks/useToast';
 import { getSoulsByRole, isSoulHasRole } from 'hooks/utils';
 import { useContext, useEffect, useState } from 'react';
@@ -94,15 +91,15 @@ function TaskPostedDelivery({ task, post }: any) {
   const { accountSoul } = useContext(DataContext);
   const { handleError } = useError();
   const { showToastSuccess } = useToast();
-  const { approveSoulDelivery } = useTask();
   const [isProcessing, setIsProcessing] = useState(false);
   const [isProcessed, setIsProcessed] = useState(false);
   const [canAdmin, setCanAdmin] = useState<boolean>(false);
+  const { getContractTask } = useContract();
 
   async function approveDelivery(soulId: string) {
     try {
       setIsProcessing(true);
-      await approveSoulDelivery(task.id, soulId);
+      await getContractTask(task.id).deliveryApprove(soulId);
       showToastSuccess('Success! Data will be updated soon');
       setIsProcessed(true);
     } catch (error: any) {

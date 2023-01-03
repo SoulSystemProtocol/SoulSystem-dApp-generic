@@ -5,13 +5,13 @@ import { PROC_STAGE_REV } from 'constants/contracts';
 import { DataContext } from 'contexts/data';
 import useError from 'hooks/useError';
 import useSubgraph from 'hooks/useSubgraph';
-import useTask from 'hooks/useTask';
 import useToast from 'hooks/useToast';
 import { isSoulHasRole } from 'hooks/utils';
 import { useContext, useState, useEffect } from 'react';
 import { loadJsonFromIPFS, resolveLink } from 'helpers/IPFS';
 import { soulCardContent } from 'utils/cardContents';
 import GridCard from 'components/GridCard';
+import useContract from 'hooks/useContract';
 
 /**
  * Task Application
@@ -24,7 +24,7 @@ export default function TaskApplication({
   const { handleError } = useError();
   const { showToastSuccess } = useToast();
   const { getSoulById } = useSubgraph();
-  const { acceptSoulForTask } = useTask();
+  const { getContractTask } = useContract();
   const [nominatedSoul, setNominatedSoul] = useState<any | null>(null);
   const [isProcessing, setIsProcessing] = useState(false);
   const [isProcessed, setIsProcessed] = useState(false);
@@ -36,7 +36,7 @@ export default function TaskApplication({
   async function acceptNomination(soulId: string) {
     try {
       setIsProcessing(true);
-      await acceptSoulForTask(task.id, soulId);
+      await getContractTask(task.id).acceptApplicant(soulId);
       showToastSuccess('Success! Data will be updated soon');
       setIsProcessed(true);
     } catch (error: any) {

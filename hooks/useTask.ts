@@ -1,22 +1,17 @@
-// import { ethers } from 'ethers';
-import useTaskContract from './contracts/useTaskContract';
-import useContract from './useContract';
 import useSubgraph from './useSubgraph';
 
 /**
  * Hook for work with task.
  */
 export default function useTask() {
-  const { acceptApplicant, deliveryApprove } = useTaskContract();
   const { findClaims } = useSubgraph();
-  const { getContractGameMDAO } = useContract();
 
-  let getTaskById = async function (id: string): Promise<any | null> {
+  const getTaskById = async function (id: string): Promise<any | null> {
     const items = await getTasks([id], undefined);
     return items.length > 0 ? items[0] : null;
   };
 
-  let getTasks = async function (
+  const getTasks = async function (
     ids?: Array<string>,
     type?: string,
     projectId?: string,
@@ -43,25 +38,10 @@ export default function useTask() {
     return taskRole?.souls || [];
   };
 
-  const applyForTaskAsDao = async function (taskId: string, daoId: string) {
-    return await getContractGameMDAO(daoId).applyToTask(taskId, '');
-  };
-
-  const acceptSoulForTask = async function (taskId: string, soulId: string) {
-    return acceptApplicant(taskId, soulId);
-  };
-
-  const approveSoulDelivery = async function (taskId: string, soulId: string) {
-    return deliveryApprove(taskId, soulId);
-  };
-
   return {
     getTaskById,
     getTasks,
     isSoulHasRole,
     getSoulsByRole,
-    applyForTaskAsDao,
-    acceptSoulForTask,
-    approveSoulDelivery,
   };
 }
