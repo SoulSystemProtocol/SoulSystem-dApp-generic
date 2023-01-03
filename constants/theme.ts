@@ -33,7 +33,12 @@ export const darkTheme = createTheme({
           padding: '8px 15px 6px',
         },
         outlined: {
-          borderImage: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%) 1',
+          //Attempt at rounded gradient border
+          // borderImage: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%) 1',
+          // borderImage: 'linear-gradient(to right bottom, #4776E6, #8E54E9) 1',
+          // background: `linear-gradient(${this.palette.background.default}, ${theme.palette.background.default}) padding-box, linear-gradient(to right, darkblue, darkorchid) border-box`,
+          // borderRadius: '20px',
+          // border: '3px solid transparent',
         },
       },
     },
