@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import AppBar from '@mui/material/AppBar';
-import { Box, Link, Toolbar, Menu, MenuItem, Tooltip } from '@mui/material';
+import { Box, Toolbar, Menu, MenuItem, Tooltip, Stack } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -15,6 +15,8 @@ import { DataContext } from 'contexts/data';
 import { Web3Context } from 'contexts/Web3Context';
 import HeaderLogo from './HeaderLogo';
 import SettingsMenu from './SettingsMenu';
+import { addressToShortAddress } from 'utils/converters';
+import Link from 'components/utils/Link';
 
 /**
  * Main Naviation Bar
@@ -27,6 +29,7 @@ export default function ResponsiveAppBar({
   const { account } = useContext(Web3Context);
   const { accountSoul } = useContext(DataContext);
   const [anchorElNav, setAnchorElNav] = React.useState(null);
+  const { curChainData } = useContext(Web3Context);
   const handleOpenNavMenu = (event: any) => {
     setAnchorElNav(event.currentTarget);
   };
@@ -34,53 +37,47 @@ export default function ResponsiveAppBar({
     setAnchorElNav(null);
   };
 
-  /* Possible Search Stuff   https://mui.com/components/app-bar/
-    const Search = styled('div')(({ theme }) => ({
-        position: 'relative',
-        borderRadius: theme.shape.borderRadius,
-        backgroundColor: alpha(theme.palette.common.white, 0.15),
-        '&:hover': {
-        backgroundColor: alpha(theme.palette.common.white, 0.25),
-        },
-        marginRight: theme.spacing(2),
-        marginLeft: 0,
-        width: '100%',
-        [theme.breakpoints.up('sm')]: {
-        marginLeft: theme.spacing(3),
-        width: 'auto',
-        },
-    }));
+  /* TODO: Add Soul-Search   https://mui.com/components/app-bar/
+  const Search = styled('div')(({ theme }) => ({
+      position: 'relative',
+      borderRadius: theme.shape.borderRadius,
+      backgroundColor: alpha(theme.palette.common.white, 0.15),
+      '&:hover': {
+      backgroundColor: alpha(theme.palette.common.white, 0.25),
+      },
+      marginRight: theme.spacing(2),
+      marginLeft: 0,
+      width: '100%',
+      [theme.breakpoints.up('sm')]: {
+      marginLeft: theme.spacing(3),
+      width: 'auto',
+      },
+  }));
 
-    const SearchIconWrapper = styled('div')(({ theme }) => ({
-        padding: theme.spacing(0, 2),
-        height: '100%',
-        position: 'absolute',
-        pointerEvents: 'none',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-    }));
+  const SearchIconWrapper = styled('div')(({ theme }) => ({
+      padding: theme.spacing(0, 2),
+      height: '100%',
+      position: 'absolute',
+      pointerEvents: 'none',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+  }));
 
-    const StyledInputBase = styled(InputBase)(({ theme }) => ({
-        color: 'inherit',
-        '& .MuiInputBase-input': {
-        padding: theme.spacing(1, 1, 1, 0),
-        // vertical padding + font size from searchIcon
-        paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-        transition: theme.transitions.create('width'),
-        width: '100%',
-        [theme.breakpoints.up('md')]: {
-            width: '20ch',
-        },
-        },
-    }));
-*/
-  const linkSX = {
-    // fontWeight: '600',
-    // background: 'linear-gradient(to right bottom, #8c9eff, #4776E6)',
-    // WebkitBackgroundClip: 'text',
-    // WebkitTextFillColor: 'transparent',
-  };
+  const StyledInputBase = styled(InputBase)(({ theme }) => ({
+      color: 'inherit',
+      '& .MuiInputBase-input': {
+      padding: theme.spacing(1, 1, 1, 0),
+      // vertical padding + font size from searchIcon
+      paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+      transition: theme.transitions.create('width'),
+      width: '100%',
+      [theme.breakpoints.up('md')]: {
+          width: '20ch',
+      },
+      },
+  }));
+  */
 
   return (
     <AppBar
@@ -170,7 +167,7 @@ export default function ResponsiveAppBar({
               if (hide) return <></>;
               return (
                 <Link key={index} href={route}>
-                  <Typography mr={4} textAlign="center" sx={linkSX}>
+                  <Typography mr={4} textAlign="center">
                     {label}
                   </Typography>
                 </Link>
@@ -202,7 +199,34 @@ export default function ResponsiveAppBar({
                 </span>
               </Tooltip>
             ) : (
-              <SettingsMenu profile={accountSoul} />
+              <Stack direction="row">
+                {account && (
+                  <Stack direction="column" justifyContent="center">
+                    <Link
+                      target="_blank"
+                      href={`${curChainData.blockExplorerURL}address/${account}`}
+                    >
+                      <Button
+                        variant="contained"
+                        size="small"
+                        sx={{
+                          cursor: 'pointer',
+                          textTransform: 'initial',
+                          borderRadius: '25px',
+                          whiteSpace: 'nowrap',
+                          fontFamily: '"Inter custom",sans-serif',
+                          pr: '26px',
+                          mr: '-24px',
+                          height: '36px',
+                        }}
+                      >
+                        {addressToShortAddress(account)}
+                      </Button>
+                    </Link>
+                  </Stack>
+                )}
+                <SettingsMenu profile={accountSoul} />
+              </Stack>
             )}
           </Box>
         </Toolbar>

@@ -68,9 +68,10 @@ export default function SettingsMenu({ profile }: any): JSX.Element {
             }}
           >
             <Link href={`/soul/${accountSoul.id}`}>
-              <Typography sx={{ mr: 1 }}>{nameSoul(accountSoul)}</Typography>
+              <Typography sx={{ mr: 1, color: 'text.primary' }}>
+                {nameSoul(accountSoul)}
+              </Typography>
             </Link>
-            <Typography>{addressToShortAddress(account)}</Typography>
           </Box>
         )}
         <MenuItem key="disconnect" onClick={handleCloseUserMenu}>

@@ -40,7 +40,7 @@ export function addressToShortAddress(address: string): string {
       address.length - 4,
     )}`;
   }
-  return shortAddress.toLowerCase();
+  return shortAddress;
 }
 
 /**

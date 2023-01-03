@@ -1,21 +1,12 @@
-import {
-  Box,
-  IconButton,
-  Link,
-  Tooltip,
-  Typography,
-  SxProps,
-} from '@mui/material';
+import { Box, IconButton, Link, Tooltip, SxProps } from '@mui/material';
 import { addressToShortAddress } from 'utils/converters';
 import { CopyIcon } from 'components/icons';
 import LaunchIcon from '@mui/icons-material/Launch';
-
-import ContentCopyIcon from '@mui/icons-material/ContentCopyRounded';
 import { Web3Context } from 'contexts/Web3Context';
 import useToast from 'hooks/useToast';
 import { useContext } from 'react';
-
-import { ChainData } from './chains/ChainsData';
+// import ContentCopyIcon from '@mui/icons-material/ContentCopyRounded';
+// import { ChainData } from './chains/ChainsData';
 
 /**
  * A component for Address Hash Display
