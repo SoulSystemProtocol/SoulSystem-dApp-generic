@@ -32,7 +32,9 @@ export default function TaskDetail({ item, sx }: any) {
   const [isSoulAuthority, setIsSoulAuthority] = useState(false);
   const { balance: fund } = useWeb3NativeBalance(item?.id);
   const { curChainData } = useContext(Web3Context);
-  const tokens: string[] = curChainData.ERC20; //Supported ERC20 Tokens
+  const tokens: string[] = curChainData.ERC20.map(
+    (token: any) => token.address,
+  ); //Supported ERC20 Tokens
 
   const loadData = () => {
     if (accountSoul && item) {
@@ -107,18 +109,21 @@ export default function TaskDetail({ item, sx }: any) {
         <SoulDescription soul={soul} sx={{ mt: 1 }} />
         <Stack direction="row" spacing={2} sx={{ mt: 2 }}>
           {(item.stage === null || item.stage >= PROC_STAGE_REV.pending) && (
-            <FundDialogButton
-              text={`Fund ${nameEntity('task')}`}
-              address={item.id}
-            />
+            <Tooltip title={`Anyone can fund this ${nameEntity('task')}`}>
+              <span>
+                <FundDialogButton
+                  text={`Fund ${nameEntity('task')}`}
+                  address={item.id}
+                />
+              </span>
+            </Tooltip>
           )}
-
           <TooltipButton
-            disabled={!isSoulAdmin || item.stage != PROC_STAGE_REV.execute}
+            disabled={!isSoulAdmin || item.stage != PROC_STAGE_REV.execution}
             tooltip={
               !isSoulAdmin
                 ? 'Requires permissions'
-                : item.stage != PROC_STAGE_REV.execute
+                : item.stage != PROC_STAGE_REV.execution
                 ? 'Wrong stage'
                 : `Close bounty and distribute funds`
             }
@@ -130,10 +135,10 @@ export default function TaskDetail({ item, sx }: any) {
           </TooltipButton>
 
           <TooltipButton
-            disabled={!(item.stage > PROC_STAGE_REV.execute)}
+            disabled={item.stage <= PROC_STAGE_REV.execution}
             tooltip={
-              !(item.stage > PROC_STAGE_REV.execute)
-                ? 'Wrong stage'
+              item.stage <= PROC_STAGE_REV.execution
+                ? 'Only after execution'
                 : `Late Distribution option`
             }
             size="small"
@@ -148,23 +153,21 @@ export default function TaskDetail({ item, sx }: any) {
             disabled={
               !(
                 (isSoulAdmin || isSoulAuthority) &&
-                item.stage > PROC_STAGE_REV.decision &&
-                item.stage < PROC_STAGE_REV.closed
+                item.stage <= PROC_STAGE_REV.decision
               )
             }
             tooltip={
               !isSoulAdmin && !isSoulAuthority
                 ? 'Requires permissions'
-                : !(
-                    item.stage > PROC_STAGE_REV.decision &&
-                    item.stage < PROC_STAGE_REV.closed
-                  )
-                ? 'Wrong stage'
+                : item.stage > PROC_STAGE_REV.decision
+                ? "Can't cancel after a decision was made"
                 : null
             }
             size="small"
             variant="outlined"
-            onClick={() => getContractTask(item.id).cancel('TEST_URI', tokens)}
+            onClick={() => {
+              getContractTask(item.id).cancel('TEST_URI', tokens);
+            }}
           >
             Cancel {nameEntity('task')}
           </TooltipButton>

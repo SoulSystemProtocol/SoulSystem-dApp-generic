@@ -1,4 +1,4 @@
-import { Box, Grid, Typography } from '@mui/material';
+import { Box, Grid, Stack, Typography } from '@mui/material';
 import { PROC_STAGE_REV } from 'constants/contracts';
 import { DataContext } from 'contexts/data';
 import { DialogContext } from 'contexts/dialog';
@@ -24,25 +24,27 @@ export default function TaskApplications({
   console.warn('[DEV] TaskApplications() Task Item:', task);
   return (
     <Box sx={{ sm: 12 }}>
-      {/* <Typography variant="h4" sx={{ mb: 1 }}>
-        Applications
-      </Typography> */}
-      <ConditionalButton
-        sx={{ ml: 'auto' }}
-        disabled={
-          !accountSoul ||
-          (task.stage !== null &&
-            (task.stage < PROC_STAGE_REV.open ||
-              task.stage > PROC_STAGE_REV.closed))
-        }
-        size="small"
-        variant="outlined"
-        onClick={() =>
-          showDialog?.(<TaskApplyDialog task={task} onClose={closeDialog} />)
-        }
-      >
-        Apply
-      </ConditionalButton>
+      <Stack spacing={2} direction="row" justifyContent="space-between">
+        <Typography variant="h4" sx={{ mb: 1 }}>
+          Applications
+        </Typography>
+        <ConditionalButton
+          sx={{ ml: 'auto' }}
+          disabled={
+            !accountSoul ||
+            (task.stage !== null &&
+              (task.stage < PROC_STAGE_REV.open ||
+                task.stage > PROC_STAGE_REV.closed))
+          }
+          size="small"
+          variant="contained"
+          onClick={() =>
+            showDialog?.(<TaskApplyDialog task={task} onClose={closeDialog} />)
+          }
+        >
+          Submit Application
+        </ConditionalButton>
+      </Stack>
       <Grid container spacing={2} sx={{ ...sx }}>
         {task.nominations.length > 0 ? (
           <>
