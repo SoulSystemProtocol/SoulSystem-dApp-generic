@@ -6,8 +6,8 @@ import { useContext, useState, useEffect } from 'react';
 /**
  * A component Account's Balance
  */
-export default function AccountBalance({ address }: any) {
-  const [balance, setBalance] = useState('_');
+export default function AccountBalance({ address }: any): JSX.Element {
+  const [balance, setBalance] = useState<string>('_');
   const { provider, isNetworkChainIdCorrect } = useContext(Web3Context);
   const { handleError } = useError();
 
