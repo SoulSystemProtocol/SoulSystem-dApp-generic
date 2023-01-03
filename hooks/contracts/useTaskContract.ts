@@ -30,20 +30,8 @@ export default function useTaskContract() {
     ).deliveryApprove(sbtId);
   }
 
-  async function stageExecusion(
-    contractAddress: string,
-    tokens: Array<string>,
-  ) {
-    if (!isNetworkChainIdCorrect) throw new WrongNetworkError();
-    return await getContract(
-      contractAddress,
-      provider?.getSigner(),
-    ).stageExecusion(tokens);
-  }
-
   return {
     acceptApplicant,
     deliveryApprove,
-    stageExecusion,
   };
 }

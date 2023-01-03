@@ -33,7 +33,7 @@ export default function TaskApprovedDeliveries({ task, sx }: any) {
   const { accountSoul } = useContext(DataContext);
   const { handleError } = useError();
   const { showToastSuccess } = useToast();
-  const { getSoulsByRole, disburseFundsToWinners } = useTask();
+  const { getSoulsByRole } = useTask();
   const { getContractTask } = useContract();
 
   const approvedSouls = getSoulsByRole(task, CLAIM_ROLE.subject.id);
@@ -47,8 +47,6 @@ export default function TaskApprovedDeliveries({ task, sx }: any) {
 
       const tokens: string[] = [];
       await getContractTask(task.id).stageExecusion(tokens);
-      // await disburseFundsToWinners(task.id);
-
       showToastSuccess('Success! Data will be updated soon');
       setIsProcessed(true);
     } catch (error: any) {

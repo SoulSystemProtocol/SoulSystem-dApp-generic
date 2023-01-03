@@ -7,8 +7,7 @@ import useSubgraph from './useSubgraph';
  * Hook for work with task.
  */
 export default function useTask() {
-  const { acceptApplicant, deliveryApprove, stageExecusion } =
-    useTaskContract();
+  const { acceptApplicant, deliveryApprove } = useTaskContract();
   const { findClaims } = useSubgraph();
   const { getContractGameMDAO } = useContract();
 
@@ -56,11 +55,6 @@ export default function useTask() {
     return deliveryApprove(taskId, soulId);
   };
 
-  /// [DEPRECATED]
-  const disburseFundsToWinners = async function (taskId: string) {
-    return stageExecusion(taskId, []);
-  };
-
   return {
     getTaskById,
     getTasks,
@@ -69,6 +63,5 @@ export default function useTask() {
     applyForTaskAsDao,
     acceptSoulForTask,
     approveSoulDelivery,
-    disburseFundsToWinners,
   };
 }
