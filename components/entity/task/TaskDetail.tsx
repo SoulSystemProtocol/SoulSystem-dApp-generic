@@ -126,19 +126,21 @@ export default function TaskDetail({ item, sx }: any) {
             variant="outlined"
             onClick={() => getContractTask(item.id).stageExecusion(tokens)}
           >
-            Disburse Prize
+            Close & Distribute
           </TooltipButton>
 
           <TooltipButton
             disabled={!(item.stage > PROC_STAGE_REV.execute)}
             tooltip={
-              !(item.stage > PROC_STAGE_REV.execute) ? 'Wrong stage' : null
+              !(item.stage > PROC_STAGE_REV.execute)
+                ? 'Wrong stage'
+                : `Late Distribution option`
             }
             size="small"
             variant="outlined"
             onClick={() => getContractTask(item.id).disburse(tokens)}
           >
-            Disburse Funds
+            Distribute Funds
           </TooltipButton>
 
           {/* //TODO: Add reason for cancellation in URI */}
