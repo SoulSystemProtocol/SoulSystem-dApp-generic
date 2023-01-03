@@ -2,7 +2,7 @@ import { ethers } from 'ethers';
 import { Web3Context } from 'contexts/Web3Context';
 import { useContext, useEffect, useState } from 'react';
 import ERC20_ABI from 'contracts/abi/ERC20_Simple.json';
-import { Typography, Stack } from '@mui/material';
+import { Stack } from '@mui/material';
 
 /**
  * ERC20 Token Balance for multiple tokens

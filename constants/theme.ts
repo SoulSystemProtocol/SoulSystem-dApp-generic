@@ -33,7 +33,7 @@ export const darkTheme = createTheme({
           padding: '8px 15px 6px',
         },
         outlined: {
-          border: '-webkit-linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
+          borderImage: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%) 1',
         },
       },
     },
