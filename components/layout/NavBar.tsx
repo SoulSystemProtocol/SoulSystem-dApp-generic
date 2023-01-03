@@ -217,6 +217,7 @@ export default function ResponsiveAppBar({
                           fontFamily: '"Inter custom",sans-serif',
                           pr: '26px',
                           mr: '-24px',
+                          pl: '12px',
                           height: '36px',
                         }}
                       >
