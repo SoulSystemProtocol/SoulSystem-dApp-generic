@@ -34,6 +34,11 @@ const top_links: MenuLink[] = [
   // { label: 'Hackathons', route: 'hackathons' },
   // { label: 'Grants', route: 'grants' },
   {
+    route: '/souls',
+    label: 'Souls',
+    icon: <EmojiPeopleIcon sx={{ fill: 'url(#linearColors)' }} />,
+  },
+  {
     route: '/mdao',
     label: nameEntity('mdao', true),
     icon: <SchoolOutlined color="warning" />,
@@ -109,11 +114,6 @@ const menu_side_links = [
 const footer_links: MenuLink[] = [];
 const footer_icons: MenuLink[] = [
   {
-    route: '/souls',
-    label: 'Souls',
-    icon: <EmojiPeopleIcon sx={{ fill: 'url(#linearColors)' }} />,
-  },
-  {
     route: 'https://github.com/SoulSystemProtocol',
     label: 'Code',
     icon: <GitHubIcon sx={{ fill: 'url(#linearColors)' }} />,
@@ -156,11 +156,8 @@ const footer_icons: MenuLink[] = [
 
 export default function Layout({ children, title }: any) {
   // const theme = useTheme();
+  // const toggleDrawer = () => setIsOpen(!isOpen);
   const [isOpen, setIsOpen] = useState(false);
-
-  const toggleDrawer = () => {
-    setIsOpen(!isOpen);
-  };
 
   return (
     <Box sx={{ display: 'flex', minHeight: '100vh' }}>
