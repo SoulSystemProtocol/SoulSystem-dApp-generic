@@ -15,7 +15,7 @@ export default function useWeb3NativeBalance(address: string): {
   useEffect(() => {
     if (address && getBalance) {
       getBalance(address)
-        .then((fund: string) => setBalance(fund))
+        .then((balance: string) => setBalance(balance))
         .catch((error: any) => {
           setBalance(null);
           handleError(error, true);

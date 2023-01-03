@@ -1,15 +1,18 @@
 import { useContext } from 'react';
 import Link from 'components/utils/Link';
-import { Box, Typography } from '@mui/material';
+import { Box, Typography, useTheme } from '@mui/material';
 import { Web3Context } from 'contexts/Web3Context';
 import ImageBox from 'components/utils/ImageBox';
 import { getChainData } from 'components/web3/chains/ChainsData';
+import useWeb3NativeBalance from 'hooks/useWeb3NativeBalance';
 
 /**
  * Home Page
  */
 export default function SolidifyLanding() {
-  const { account } = useContext(Web3Context);
+  const { account, isNetworkChainIdCorrect } = useContext(Web3Context);
+  const { balance } = useWeb3NativeBalance(account);
+  const theme = useTheme();
 
   return (
     <>
@@ -36,15 +39,15 @@ export default function SolidifyLanding() {
             sx={{ fontSize: { sm: '5rem', xs: '3rem' } }}
           >
             {/* {APP_CONFIGS.NAME} */}
-            Soul-System Protocol Demo
+            Soul-System Boilerplate
           </Typography>
           <Typography
             variant="h4"
             sx={{ fontSize: { xs: '1.2rem', sm: '1.8rem' } }}
             letterSpacing="0.02em"
           >
-            You can compose fully decentralized socio-economic systems without
-            having to write any code
+            The magic of composable fully decentralized socio-economic systems
+            with no-code
           </Typography>
         </Box>
 
@@ -62,29 +65,33 @@ export default function SolidifyLanding() {
             </Typography>
           </Box>
         )} */}
-        {account && getChainData()?.faucetURL && (
-          <Box
-            sx={{
-              mt: 3,
-              p: 2,
-              justifyContent: 'center',
-              border: '1px solid #333',
-              borderRadius: 2,
-              textAlign: 'center',
-            }}
-          >
-            {/* //TODO: Check account balance */}
-            <Typography variant="h6" mb={1}>
-              Need some test tokens?
-            </Typography>
-            <Typography sx={{ marginTop: '5px' }}>
-              Request some from the{' '}
-              <Link href={getChainData()?.faucetURL} target="_blank">
-                {getChainData()?.name} Testnet Faucet
-              </Link>
-            </Typography>
-          </Box>
-        )}
+        {account &&
+          isNetworkChainIdCorrect &&
+          getChainData()?.faucetURL &&
+          Number(balance) < 0.1 && (
+            <Box
+              sx={{
+                mt: 3,
+                p: 2,
+                justifyContent: 'center',
+                // border: '1px solid #333',
+                background: `linear-gradient(${theme.palette.background.default}, ${theme.palette.background.default}) padding-box, linear-gradient(to right, darkblue, darkorchid) border-box`,
+                borderRadius: '20px',
+                border: '3px solid transparent',
+                textAlign: 'center',
+              }}
+            >
+              <Typography variant="h6" mb={1}>
+                Your balance is low
+              </Typography>
+              <Typography sx={{ marginTop: '5px' }}>
+                Get some free test tokens from the{' '}
+                <Link href={getChainData()?.faucetURL} target="_blank">
+                  {getChainData()?.name} Testnet Faucet
+                </Link>
+              </Typography>
+            </Box>
+          )}
 
         <Box>
           <Typography variant="h4" sx={{ mt: 4 }}>

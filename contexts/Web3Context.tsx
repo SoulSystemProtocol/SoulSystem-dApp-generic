@@ -17,7 +17,7 @@ interface IWeb3Context {
   provider: any;
   account: any;
   networkChainId: any;
-  isNetworkChainIdCorrect: any;
+  isNetworkChainIdCorrect: boolean;
   connectWallet: Function;
   disconnectWallet: Function;
   switchNetwork: Function;
