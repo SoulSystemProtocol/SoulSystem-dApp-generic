@@ -17,6 +17,7 @@ import { nameEntity } from 'helpers/utils';
 import TokenBalance from 'components/web3/TokenBalance';
 import TooltipButton from 'components/layout/TooltipButton';
 import SoulDescription from '../soul/SoulDescription';
+import { Web3Context } from 'contexts/Web3Context';
 
 /**
  * Component: project details.
@@ -29,8 +30,9 @@ export default function TaskDetail({ item, sx }: any) {
   const { accountSoul } = useContext(DataContext);
   const [isSoulAdmin, setIsSoulAdmin] = useState(false);
   const [isSoulAuthority, setIsSoulAuthority] = useState(false);
-  const tokens: string[] = []; //Supported ERC20 Tokens
   const { balance: fund } = useWeb3NativeBalance(item?.id);
+  const { curChainData } = useContext(Web3Context);
+  const tokens: string[] = curChainData.ERC20; //Supported ERC20 Tokens
 
   const loadData = () => {
     if (accountSoul && item) {
@@ -118,7 +120,7 @@ export default function TaskDetail({ item, sx }: any) {
                 ? 'Requires permissions'
                 : item.stage != PROC_STAGE_REV.execute
                 ? 'Wrong stage'
-                : null
+                : `Close bounty and distribute funds`
             }
             size="small"
             variant="outlined"
