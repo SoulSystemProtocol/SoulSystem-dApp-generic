@@ -68,6 +68,7 @@ export default function SolidifyLanding() {
         {account &&
           isNetworkChainIdCorrect &&
           getChainData()?.faucetURL &&
+          !!balance &&
           Number(balance) < 0.1 && (
             <Box
               sx={{
