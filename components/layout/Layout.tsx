@@ -12,7 +12,7 @@ import LockIcon from '@mui/icons-material/Lock';
 import DirectionsRunIcon from '@mui/icons-material/DirectionsRun';
 import ArchitectureIcon from '@mui/icons-material/Architecture';
 import EmojiPeopleIcon from '@mui/icons-material/EmojiPeople';
-import { Container, Typography, Toolbar } from '@mui/material';
+import { Container, Toolbar } from '@mui/material';
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
 import Head from 'next/head';

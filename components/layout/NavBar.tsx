@@ -6,10 +6,6 @@ import Typography from '@mui/material/Typography';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
-
-//SearchBar
-// import { styled, alpha } from '@mui/material/styles';
-// import SearchIcon from '@mui/icons-material/Search';
 import ConnectButton from '../web3/connect/ConnectButton';
 import { DataContext } from 'contexts/data';
 import { Web3Context } from 'contexts/Web3Context';
@@ -17,6 +13,9 @@ import HeaderLogo from './HeaderLogo';
 import SettingsMenu from './SettingsMenu';
 import { addressToShortAddress } from 'utils/converters';
 import Link from 'components/utils/Link';
+//TODO: Add Search
+// import { styled, alpha } from '@mui/material/styles';
+// import SearchIcon from '@mui/icons-material/Search';
 
 /**
  * Main Naviation Bar

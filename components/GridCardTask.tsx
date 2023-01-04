@@ -8,7 +8,7 @@ import GridCard from './GridCard';
  */
 export default function GridCardTask(props: CardItem) {
   //Fetch Container's Image
-  const { containerName, containerImageSrc } = useContainerEntity(props.id);
+  const { containerImageSrc } = useContainerEntity(props.id);
   //Override Image
   return <GridCard {...props} imgSrc={resolveLink(containerImageSrc)} />;
 }

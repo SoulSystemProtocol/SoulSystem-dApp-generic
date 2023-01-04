@@ -2,7 +2,6 @@ import { useState } from 'react';
 import {
   Avatar,
   Box,
-  Chip,
   Link,
   Skeleton,
   Typography,
