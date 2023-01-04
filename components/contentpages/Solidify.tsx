@@ -1,18 +1,14 @@
 import { useContext } from 'react';
-import Link from 'components/utils/Link';
-import { Box, Typography, useTheme } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { Web3Context } from 'contexts/Web3Context';
 import ImageBox from 'components/utils/ImageBox';
-import { getChainData } from 'components/web3/chains/ChainsData';
-import useWeb3NativeBalance from 'hooks/useWeb3NativeBalance';
+import FaucetCallout from 'components/web3/FaucetCallout';
 
 /**
  * Home Page
  */
 export default function SolidifyLanding() {
-  const { account, isNetworkChainIdCorrect } = useContext(Web3Context);
-  const { balance } = useWeb3NativeBalance(account);
-  const theme = useTheme();
+  const { account } = useContext(Web3Context);
 
   return (
     <>
@@ -25,7 +21,6 @@ export default function SolidifyLanding() {
       <Box>
         <Box
           sx={{
-            color: '#fff',
             textAlign: 'center',
             px: { xs: 2, md: 4 },
             pt: { xs: 2, md: 4 },
@@ -57,34 +52,8 @@ export default function SolidifyLanding() {
             </Typography>
           </Box>
         )} */}
-        {account &&
-          isNetworkChainIdCorrect &&
-          getChainData()?.faucetURL &&
-          !!balance &&
-          Number(balance) < 0.1 && (
-            <Box
-              sx={{
-                mt: 3,
-                p: 2,
-                justifyContent: 'center',
-                // border: '1px solid #333',
-                background: `linear-gradient(${theme.palette.background.default}, ${theme.palette.background.default}) padding-box, linear-gradient(to right, darkblue, darkorchid) border-box`,
-                borderRadius: '20px',
-                border: '3px solid transparent',
-                textAlign: 'center',
-              }}
-            >
-              <Typography variant="h6" mb={1}>
-                Your balance is low
-              </Typography>
-              <Typography sx={{ marginTop: '5px' }}>
-                Get some free test tokens from the{' '}
-                <Link href={getChainData()?.faucetURL} target="_blank">
-                  {getChainData()?.name} Testnet Faucet
-                </Link>
-              </Typography>
-            </Box>
-          )}
+
+        <FaucetCallout minBalance={0.1} />
 
         <Box>
           <Typography variant="h4" sx={{ mt: 4 }}>

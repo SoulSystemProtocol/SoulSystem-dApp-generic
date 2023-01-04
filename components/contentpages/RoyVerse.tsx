@@ -1,5 +1,6 @@
 import { Box, Typography } from '@mui/material';
 import ImageBox from 'components/utils/ImageBox';
+import FaucetCallout from 'components/web3/FaucetCallout';
 
 /**
  * RoyVerse Landing Page
@@ -15,7 +16,6 @@ export default function RoyVerse(): JSX.Element {
       />
       <Box
         sx={{
-          color: '#fff',
           textAlign: 'center',
           px: { xs: 2, md: 4 },
           pt: { xs: 2, md: 4 },
@@ -32,12 +32,13 @@ export default function RoyVerse(): JSX.Element {
         </Typography>
         <Typography
           variant="h4"
-          sx={{ fontSize: { xs: '1.2rem', sm: '2rem' } }}
-          letterSpacing="0.05em"
+          sx={{ fontSize: { xs: '1.2rem', sm: '1.8rem' } }}
+          letterSpacing="0.02em"
         >
           Want to Compose fully decentralized socio-economic system with no
           code?
         </Typography>
+        <FaucetCallout minBalance={0.1} />
       </Box>
 
       <Box>RoyHacks Text...</Box>
