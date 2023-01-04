@@ -50,14 +50,6 @@ export default function SolidifyLanding() {
             with no-code
           </Typography>
         </Box>
-
-        <Typography
-          variant="h3"
-          sx={{ mt: 4, textAlign: 'center', color: 'text.secondary' }}
-        >
-          This is a WIP demo dApp for the solidify low-code protocol
-        </Typography>
-
         {/* {!account && (
           <Box mt={4} textAlign="center">
             <Typography fontSize="1.2em" letterSpacing="0.02em">
@@ -100,28 +92,29 @@ export default function SolidifyLanding() {
             structured around an SBT contract that allows you to
           </Typography>
           <ul>
-            <li>Mint SBT profiles as wallet abstraction</li>
+            <li>Use Soulbound NFT profiles as wallet abstraction</li>
             <li>Create Organiztions</li>
             <ul>
-              <li>Assign organizational roles and permissions via NFTs</li>
-              <li>Track experience, reputation, contribution & equity</li>
-            </ul>
-            <li>Create automated incentives procedures by custom rules</li>
-            <ul>
-              <li>Set up rules and design an interaction flow</li>
               <li>
-                Automatically reward participants with all kinds of Tokens
+                Assign NFTs as organizational roles and manage permissions
               </li>
+              <li>
+                Track experience, reputation, contribution & equity over
+                different organizations in one place
+              </li>
+            </ul>
+            <li>Create automated incentives procedures with custom rules</li>
+            <ul>
+              <li>Set up rules and design a interaction flows</li>
+              <li>Automatically reward actions with all kinds of Tokens</li>
             </ul>
             <li>Soul-system moderation</li>
             <ul>
-              <li>
-                Ban bad actors, and recover lost or stolen assets (Safe NFTs)
-              </li>
+              <li>Ban bad actors</li>
+              <li>recover lost or stolen assets (Safe NFTs)</li>
             </ul>
             <li>
-              Fully composible, extendable, and compatible with all token
-              standards
+              Fully composible, extendable, and compatible with token standards
             </li>
           </ul>
         </Box>
