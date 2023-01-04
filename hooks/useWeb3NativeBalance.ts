@@ -20,7 +20,7 @@ export default function useWeb3NativeBalance(address: string): {
           setBalance(null);
           handleError(error, true);
         });
-    }
+    } else setBalance(null);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [address, getBalance]);
 
