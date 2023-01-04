@@ -12,7 +12,7 @@ import ConnectButton from 'components/web3/connect/ConnectButton';
 import { DataContext } from 'contexts/data';
 import { Web3Context } from 'contexts/Web3Context';
 import { useContext, useState } from 'react';
-import { nameSoul, soulImage, addressToShortAddress } from 'utils/converters';
+import { nameSoul, soulImage } from 'utils/converters';
 
 /**
  * User Settings Menu
@@ -23,17 +23,17 @@ export default function SettingsMenu({ profile }: any): JSX.Element {
   const { accountSoul } = useContext(DataContext);
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 
-  const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
+  const handleCloseUserMenu = () => setAnchorElUser(null);
+  const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) =>
     setAnchorElUser(event.currentTarget);
-  };
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
 
   return (
     <Box sx={{ flexGrow: 0 }}>
       <Tooltip title="Open settings">
-        <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+        <IconButton
+          onClick={handleOpenUserMenu}
+          sx={{ p: 0, border: '2px solid #272727' }}
+        >
           <Avatar
             alt={nameSoul(profile)}
             src={soulImage(profile)}
