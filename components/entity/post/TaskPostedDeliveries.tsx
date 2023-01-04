@@ -22,23 +22,30 @@ import { getSoulsByRole, isSoulHasRole } from 'hooks/utils';
 import { useContext, useEffect, useState } from 'react';
 import PostSingleDisplay from './PostSingleDisplay';
 import TaskPostDeliveryDialog from './TaskPostDeliveryDialog';
+import { SxProps } from '@mui/material';
 
 /**
  * Task Posted Deliveries Display
  */
-export default function TaskPostedDeliveries({ task, sx }: any) {
+export default function TaskPostedDeliveries({
+  task,
+  sx,
+}: {
+  task: any;
+  sx?: SxProps;
+}): JSX.Element {
   const { accountSoul } = useContext(DataContext);
   const { showDialog, closeDialog } = useContext(DialogContext);
   const [applicantPosts, setApplicantPosts] = useState([]);
 
   useEffect(() => {
-    if (task) {
-      setApplicantPosts(
-        task.posts.filter(
-          (post: any) => post.entityRole == CLAIM_POST_ENTITY_TYPE.applicant,
-        ),
-      );
-    }
+    setApplicantPosts(
+      task
+        ? task.posts.filter(
+            (post: any) => post.entityRole == CLAIM_POST_ENTITY_TYPE.applicant,
+          )
+        : [],
+    );
   }, [task]);
 
   if (getSoulsByRole(task, 'applicant').length > 0) {
