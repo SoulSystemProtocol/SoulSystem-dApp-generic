@@ -51,7 +51,7 @@ export default function Footer({ links, icons }: FooterProps): JSX.Element {
                   underline: 'none',
                 }}
               >
-                <IconButton aria-label="delete" sx={{ p: '0.5rem' }}>
+                <IconButton aria-label="delete" sx={{ p: '0.5rem', m: 'auto' }}>
                   {icon}
                 </IconButton>
                 {label}
