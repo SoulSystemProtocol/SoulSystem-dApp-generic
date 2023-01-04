@@ -1,5 +1,6 @@
 import { PersonOutlineOutlined } from '@mui/icons-material';
 import { Box, Button, Stack, Typography } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 import { Web3Context } from 'contexts/Web3Context';
 import { useContext, useEffect, useState } from 'react';
 import { nameSoul } from 'utils/converters';
@@ -12,16 +13,16 @@ import Loading from 'components/layout/Loading';
 import { nameEntity } from 'helpers/utils';
 import Link from 'components/utils/Link';
 import { resolveLink } from 'helpers/IPFS';
-import { darkTheme as theme } from 'constants/theme';
 import ImageBox from 'components/utils/ImageBox';
 
 /**
- * Soul details
+ * Display Soul details
  */
 export default function SoulDetail({ soul, sx }: any) {
   const { account } = useContext(Web3Context);
   const [isOwned, setIsOwned] = useState<boolean>(false);
   const [soulName, setSoulName] = useState<string>('');
+  const theme = useTheme();
 
   useEffect(() => {
     console.warn('set soul name', nameSoul(soul), soul);

@@ -71,7 +71,7 @@ export default function TaskApplication({
     <GridCard {...soulCardContent(nominatedSoul)}>
       <Stack
         direction="column"
-        sx={{ textAlign: 'center', flex: 1, alignSelf: 'flex-start' }}
+        sx={{ ml: 2, flex: 1, alignSelf: 'flex-start' }}
       >
         <TaskApplicationUriDisplay nomination={nomination} />
       </Stack>
