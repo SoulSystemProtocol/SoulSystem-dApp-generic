@@ -1,6 +1,5 @@
 import { useState, useContext } from 'react';
 import { Button } from '@mui/material';
-import { JSONSchema7 } from 'json-schema';
 import DialogWrapper from 'components/layout/DialogWrapper';
 import { DialogContext } from 'contexts/dialog';
 import SoulEditForm from 'components/form/SoulEditForm';

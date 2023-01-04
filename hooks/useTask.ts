@@ -1,6 +1,6 @@
 import useSubgraph from './useSubgraph';
 
-/**
+/** [DEPRECATE]
  * Hook for work with task.
  */
 export default function useTask() {

@@ -13,7 +13,11 @@ import { useRouter } from 'next/router';
 /**
  * Game Admin Actions
  */
-export default function GameAdminActions({ sx }: { sx: SxProps }): JSX.Element {
+export default function GameAdminActions({
+  sx,
+}: {
+  sx?: SxProps;
+}): JSX.Element {
   const { accountSoul } = useContext(DataContext);
   const { game } = useContext(SelectedGameContext);
   const { soul } = useContext(SelectedSoulContext);
