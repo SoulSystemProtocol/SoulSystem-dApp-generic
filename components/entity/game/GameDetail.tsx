@@ -2,7 +2,6 @@ import { Box, Stack, Typography, Button } from '@mui/material';
 import GameAdminActions from 'components/entity/game/GameAdminActions';
 import EntityImage from '../EntityImage';
 import AddressHash from 'components/web3/AddressHash';
-import AccountBalance from 'components/web3/AccountBalance';
 import FundDialogButton from 'components/web3/FundDialogButton';
 import GameMembershipActions from 'components/entity/game/GameMembershipActions';
 import SoulDescription from 'components/entity/soul/SoulDescription';
@@ -13,6 +12,7 @@ import { useContext, useEffect, useState } from 'react';
 import { nameEntity } from 'helpers/utils';
 import { SelectedGameContext } from 'contexts/SelectedGame';
 import { nameSoul } from 'utils/converters';
+import useWeb3NativeBalance from 'hooks/useWeb3NativeBalance';
 
 /**
  * Game Detail Page
@@ -20,10 +20,10 @@ import { nameSoul } from 'utils/converters';
 export default function GameDetail({ sx }: any): JSX.Element {
   const { soul } = useContext(SelectedSoulContext);
   const { game } = useContext(SelectedGameContext);
+  const { balance } = useWeb3NativeBalance(game?.id);
   const [soulName, setSoulName] = useState<string>('');
 
   useEffect(() => {
-    console.warn('set soul name', nameSoul(soul), { game, soul });
     setSoulName(nameSoul(soul));
   }, [soul]);
 
@@ -55,7 +55,7 @@ export default function GameDetail({ sx }: any): JSX.Element {
         <Typography variant="h1">{soulName}</Typography>
         <AddressHash address={soul.owner} sx={{ float: 'right' }} />
         <Typography variant="body2" color="text.secondary">
-          Balance: <AccountBalance address={game?.id} />{' '}
+          Balance: {balance}
           {process.env.NEXT_PUBLIC_NETWORK_CURRENCY_SYMBOL}
         </Typography>
         {!!process.env.NEXT_PUBLIC_FEATURE_DEV && (
