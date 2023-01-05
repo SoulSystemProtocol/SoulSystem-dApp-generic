@@ -31,7 +31,7 @@ export default function useContract() {
 
   /// Common Validations
   function validateChain() {
-    if (!isReady) {
+    if (!account) {
       console.error('[DEBUG] Not ready -- is Wallet Connected?', account);
       throw new NoWalletError();
     }
