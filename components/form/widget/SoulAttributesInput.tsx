@@ -66,9 +66,9 @@ export default function SoulAttributesInput(props: WidgetProps): ReactElement {
   if (!attributes) return <></>;
   return (
     <Box sx={{ mt: 3 }}>
-      <Grid container spacing={2}>
+      <Grid container spacing={2} sx={{ mb: 4 }}>
         <Grid key={1} item xs={12} md={6}>
-          <Typography variant="h6" sx={{ mb: 2 }}>
+          <Typography variant="h4" sx={{ mb: 2 }}>
             General Info (Public)
           </Typography>
           <Stack spacing={2}>
@@ -160,7 +160,7 @@ export default function SoulAttributesInput(props: WidgetProps): ReactElement {
         <Grid key={2} item xs={12} md={6}>
           <Grid container spacing={2}>
             <Grid key={'header'} item xs={12}>
-              <Typography variant="h6">Socials</Typography>
+              <Typography variant="h4">Socials</Typography>
             </Grid>
             {socials.map((name: any, index: number) => {
               const item: Trait = PROFILE_TRAITS[name];
@@ -191,9 +191,9 @@ export default function SoulAttributesInput(props: WidgetProps): ReactElement {
         </Grid>
       </Grid>
       {!soul?.type && (
-        <Grid container spacing={2} sx={{ mb: 4 }}>
+        <Grid container spacing={0} sx={{ mb: 4 }}>
           <Grid key={'header'} item xs={12}>
-            <Typography variant="h6">Skills</Typography>
+            <Typography variant="h4">Skills</Typography>
           </Grid>
           {attributes.map((item: MetadataAttribute) => {
             return !item || item.display_type != 'boost_percentage' ? null : (
