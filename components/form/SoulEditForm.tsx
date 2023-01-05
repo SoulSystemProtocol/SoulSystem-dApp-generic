@@ -86,13 +86,13 @@ export default function SoulEditForm({
 
   const widgets = { CoverInput, ImageInput, SoulAttributesInput };
 
-  async function submit({ formData }: any) {
+  async function submit({ formData }: any): Promise<void> {
     try {
       // Update form data
       setFormData(formData);
       //Status: Uploading to IPFS
       setStatus(STATUS.ipfsUpload);
-      //Prep Metadata Object  //TODO: Should probably get rid of this
+      //Prep Metadata Object
       let metadata = prepMetadata(formData);
       //Sanitize -- Clean Empty Attributes (Automatically added by form)
       if (!!metadata.attributes) {
@@ -161,7 +161,7 @@ export default function SoulEditForm({
       <Stack direction="row" spacing={2} sx={{ mt: 2 }}>
         {status === STATUS.available && (
           <Button variant="contained" type="submit">
-            {soul ? 'Save' : 'Create'}
+            {soul ? 'Save' : 'Mint Soul'}
           </Button>
         )}
         {status === STATUS.ipfsUpload && (

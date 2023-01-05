@@ -5,7 +5,6 @@ import { useContext } from 'react';
 import { Web3Context } from 'contexts/Web3Context';
 import WrongNetworkError from 'errors/WrongNetworkError';
 import NoWalletError from 'errors/NoWalletError';
-// import ConnectButton from 'components/web3/connect/ConnectButton';
 
 /**
  * Hook for work with toasts.
@@ -16,18 +15,18 @@ export default function useToast() {
   const { switchNetwork, connectWallet } = useContext(Web3Context);
   const autoHideDuration = 10000;
 
-  const showToast = function (message: string) {
+  const showToast = (message: string): void => {
     enqueueSnackbar(message, { autoHideDuration: autoHideDuration });
   };
 
-  const showToastSuccess = function (message: string) {
+  const showToastSuccess = (message: string): void => {
     enqueueSnackbar(message, {
       variant: 'success',
       autoHideDuration: autoHideDuration,
     });
   };
 
-  const showToastSuccessLink = function (message: string, link: string) {
+  const showToastSuccessLink = (message: string, link: string): void => {
     enqueueSnackbar(message, {
       action: (
         <Button
@@ -42,17 +41,17 @@ export default function useToast() {
     });
   };
 
-  const showToastError = function (error: any) {
+  const showToastError = (error: any): void => {
     //Error Message Overrides
     if (error instanceof NoWalletError) {
       const action = (
         <Button
-          variant="outlined"
+          variant="contained"
           size="small"
           onClick={() => {
             connectWallet?.();
           }}
-          sx={{ cursor: 'pointer' }}
+          sx={{ cursor: 'pointer', borderRadius: '12px' }}
         >
           Connect Wallet
         </Button>
