@@ -50,7 +50,6 @@ export function TokenBalanceSingle({
 
   useEffect(() => {
     getSingleTokenBalance(token, account).then((res) => {
-      console.warn('Got balance: ', res, ethers.utils.formatEther(res));
       setBalance(ethers.utils.formatEther(res));
     });
   }, [account, token]);

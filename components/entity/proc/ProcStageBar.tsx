@@ -49,18 +49,22 @@ export default function ProcStageBar({
               }}
             >
               <span>{label}</span>
-              {index < PROC_STAGE.length - 2 && <ProcStageBarSep />}
-              {index == stage && (
-                <ArrowForwardIosIcon
-                  sx={{
-                    color: emptyBG,
-                    verticalAlign: 'middle',
-                    my: '-80px',
-                    mr: '-75px',
-                    ml: '-85px',
-                    fontSize: '160px',
-                  }}
-                />
+              {index < PROC_STAGE.length - 2 && (
+                <>
+                  <ProcStageBarSep />
+                  {index == stage && (
+                    <ArrowForwardIosIcon
+                      sx={{
+                        color: emptyBG,
+                        verticalAlign: 'middle',
+                        my: '-80px',
+                        mr: '-75px',
+                        ml: '-85px',
+                        fontSize: '160px',
+                      }}
+                    />
+                  )}
+                </>
               )}
             </span>
           );

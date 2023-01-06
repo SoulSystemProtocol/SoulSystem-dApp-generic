@@ -25,22 +25,21 @@ import TooltipButton from 'components/layout/TooltipButton';
 import { NO_SOUL_MSG } from 'constants/texts';
 import useContract from 'hooks/useContract';
 import Link from 'components/utils/Link';
+import { nameEntity } from 'helpers/utils';
 
 /**
  * Approved Deliveries Display
  */
-export default function TaskApprovedDeliveries({ task, sx }: any) {
+export default function TaskApprovedDeliveries({ task, sx }: any): JSX.Element {
   const { accountSoul } = useContext(DataContext);
   const { handleError } = useError();
   const { showToastSuccess } = useToast();
   const { getSoulsByRole } = useTask();
   const { getContractTask } = useContract();
-
   const approvedSouls = getSoulsByRole(task, CLAIM_ROLE.subject.id);
   const [isProcessing, setIsProcessing] = useState(false);
   const [isProcessed, setIsProcessed] = useState(false);
 
-  // console.log('TaskApprovedDeliveries: task', { approvedSouls });
   async function disburseFunds() {
     try {
       setIsProcessing(true);
@@ -85,8 +84,10 @@ export default function TaskApprovedDeliveries({ task, sx }: any) {
             tooltip={
               !accountSoul
                 ? NO_SOUL_MSG
-                : task.stage != PROC_STAGE_REV.execution
+                : task.stage < PROC_STAGE_REV.execution
                 ? `Waiting for execution stage`
+                : task.stage > PROC_STAGE_REV.execution
+                ? `${nameEntity('task')} closed`
                 : `Close bounty and distribute funds`
             }
             onClick={() => disburseFunds()}
