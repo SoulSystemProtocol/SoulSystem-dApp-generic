@@ -40,6 +40,7 @@ export default function ProcStageBar({
       >
         {PROC_STAGE.map((label: string, index: number) => {
           if (index > stage && index == PROC_STAGE.length - 1) return null;
+          if (index == 4) return null;
           return (
             <span
               key={label + index}
