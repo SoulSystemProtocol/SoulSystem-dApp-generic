@@ -1,14 +1,10 @@
 import { createTheme } from '@mui/material/styles';
-import { purple, blue, indigo } from '@mui/material/colors';
+import { indigo } from '@mui/material/colors';
 export const sidebarWidth = 240;
-// const accent = '#8E54E9'; //Purple (Button)
-// const accent = purple['A200'];
-// const accent = blue['500'];
 const accent = indigo['A100'];
-// const accent = '#FE6B8B'; //Pink
-const accentDisabled = '#ae71f2'; //Purple disabled
 const calloutBackground = 'linear-gradient(to right bottom, #4776E6, #8E54E9)';
-//Add Custom Color to Theme
+
+//Define a Custom Color
 declare module '@mui/material/styles' {
   interface Palette {
     calloutBackground: string;
@@ -26,8 +22,7 @@ declare module '@mui/material/Button' {
 
 export const darkTheme = createTheme({
   palette: {
-    calloutBackground,
-
+    calloutBackground, //Custom Color
     mode: 'dark',
     primary: {
       main: accent,
@@ -40,12 +35,7 @@ export const darkTheme = createTheme({
   components: {
     MuiButton: {
       styleOverrides: {
-        // rounded: {
-        //   borderRadius: '16px',
-        // },
         contained: {
-          // backgroundImage:
-          //   'linear-gradient(to right, #f6d365 0%, #fda085 51%, #f6d365 100%)',
           background: calloutBackground,
           color: '#eee',
           padding: '8px 15px 6px',

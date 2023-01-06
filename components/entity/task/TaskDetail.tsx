@@ -1,4 +1,4 @@
-import { Box, Button, Stack, Typography, Tooltip } from '@mui/material';
+import { Box, Stack, Typography, Tooltip } from '@mui/material';
 import useError from 'hooks/useError';
 import useContract from 'hooks/useContract';
 import { taskStageToString, nameSoul } from 'utils/converters';
@@ -93,17 +93,12 @@ export default function TaskDetail({ item, sx }: any) {
           address={item.id}
           sx={{ color: 'text.secondary', float: 'right' }}
         />
-        <Typography color="text.secondary" variant="body2">
-          {containerName ? (
-            <>
-              By: <span>{containerName}</span>
-            </>
-          ) : (
-            ''
-          )}
-        </Typography>
-
-        <Typography color="text.secondary" variant="body2" sx={{ mt: 1 }}>
+        {containerName && (
+          <Typography color="text.secondary" variant="body2">
+            By: <span>{containerName}</span>
+          </Typography>
+        )}
+        <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
           <Box
             component="span"
             sx={{
