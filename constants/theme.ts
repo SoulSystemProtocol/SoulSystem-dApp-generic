@@ -7,9 +7,27 @@ export const sidebarWidth = 240;
 const accent = indigo['A100'];
 // const accent = '#FE6B8B'; //Pink
 const accentDisabled = '#ae71f2'; //Purple disabled
+const calloutBackground = 'linear-gradient(to right bottom, #4776E6, #8E54E9)';
+//Add Custom Color to Theme
+declare module '@mui/material/styles' {
+  interface Palette {
+    calloutBackground: string;
+  }
+  interface PaletteOptions {
+    calloutBackground: string;
+  }
+}
+
+declare module '@mui/material/Button' {
+  interface ButtonPropsColorOverrides {
+    calloutBackground: true;
+  }
+}
 
 export const darkTheme = createTheme({
   palette: {
+    calloutBackground,
+
     mode: 'dark',
     primary: {
       main: accent,
@@ -28,7 +46,7 @@ export const darkTheme = createTheme({
         contained: {
           // backgroundImage:
           //   'linear-gradient(to right, #f6d365 0%, #fda085 51%, #f6d365 100%)',
-          background: 'linear-gradient(to right bottom, #4776E6, #8E54E9)',
+          background: calloutBackground,
           color: '#eee',
           padding: '8px 15px 6px',
         },

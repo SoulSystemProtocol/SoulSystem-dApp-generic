@@ -18,6 +18,7 @@ import TokenBalance from 'components/web3/TokenBalance';
 import TooltipButton from 'components/layout/TooltipButton';
 import SoulDescription from '../soul/SoulDescription';
 import { Web3Context } from 'contexts/Web3Context';
+import ProcStageBar from '../proc/ProcStageBar';
 
 /**
  * Component: project details.
@@ -101,12 +102,26 @@ export default function TaskDetail({ item, sx }: any) {
             ''
           )}
         </Typography>
+
         <Typography color="text.secondary" variant="body2" sx={{ mt: 1 }}>
-          <span>{taskStageToString(item)}</span>
-          {fund ? ` | ${fund} ${getChainData()?.native}` : ''} |{' '}
+          <Box
+            component="span"
+            sx={{
+              textTransform: 'capitalize',
+              display: { xs: 'inline', sm: 'none' },
+            }}
+          >
+            {taskStageToString(item)} Stage |{' '}
+          </Box>
+          {fund ? `${fund} ${getChainData()?.native} | ` : ''}
           <TokenBalance account={item.id} />
         </Typography>
-        <SoulDescription soul={soul} sx={{ mt: 1 }} />
+
+        <ProcStageBar
+          stage={item.stage}
+          sx={{ display: { xs: 'none', sm: 'block' } }}
+        />
+
         <Stack direction="row" spacing={2} sx={{ mt: 2 }}>
           {(item.stage === null || item.stage >= PROC_STAGE_REV.pending) && (
             <Tooltip title={`Anyone can fund this ${nameEntity('task')}`}>
@@ -185,6 +200,7 @@ export default function TaskDetail({ item, sx }: any) {
             Refund
           </TooltipButton>
         </Stack>
+        <SoulDescription soul={soul} sx={{ mt: 1 }} />
       </Stack>
     </Box>
   );

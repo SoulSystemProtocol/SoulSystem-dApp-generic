@@ -7,7 +7,7 @@ import FaucetCallout from 'components/web3/FaucetCallout';
 /**
  * Home Page
  */
-export default function SolidifyLanding() {
+export default function SolidifyLanding(): JSX.Element {
   const { account } = useContext(Web3Context);
 
   return (

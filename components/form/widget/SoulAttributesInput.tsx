@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import {
   Button,
@@ -18,7 +19,6 @@ import {
 } from 'components/entity/soul/ProfileTraits';
 import { ReactElement, useContext, useEffect, useState } from 'react';
 import { MetadataAttribute } from 'helpers/metadata';
-import _ from 'lodash';
 import { MetaAttrHelper } from 'helpers/MetaAttrHelper';
 import { DialogContext, TDialogContext } from 'contexts/dialog';
 import AttributeAddDialog from 'components/entity/soul/AttributeAddDialog';
