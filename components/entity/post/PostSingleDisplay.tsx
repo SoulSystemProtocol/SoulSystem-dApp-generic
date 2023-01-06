@@ -21,7 +21,11 @@ export default function PostSingleDisplay({
           <Stack direction="row" spacing={1} justifyContent="space-between">
             <Typography
               variant="body2"
-              sx={{ fontWeight: 'normal', overflow: 'hidden' }}
+              sx={{
+                fontWeight: 'normal',
+                overflow: 'hidden',
+                fontSize: '0.8rem',
+              }}
               gutterBottom
             >
               {post?.metadata?.text}
