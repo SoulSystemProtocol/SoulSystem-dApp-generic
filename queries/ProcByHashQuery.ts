@@ -30,11 +30,13 @@ const query = gql`
           id
           owner
           type
+          name
         }
         nominated {
           id
           owner
           type
+          name
         }
         uri
         status

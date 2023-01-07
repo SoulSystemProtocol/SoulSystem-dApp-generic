@@ -15,6 +15,7 @@ import useContract from 'hooks/useContract';
 
 /**
  * Task Application
+ * TODO: Run a separate query for fetching only nomination
  */
 export default function TaskApplication({
   task,
@@ -73,7 +74,12 @@ export default function TaskApplication({
         direction="column"
         sx={{ ml: 2, flex: 1, alignSelf: 'flex-start' }}
       >
-        <TaskApplicationUriDisplay nomination={nomination} />
+        {nomination.nominator.map((nominator: any, index: number) => (
+          <Typography key={nomination.id + index} variant="subtitle2">
+            {nomination.nominator[index].name}:{' '}
+            <TaskApplicationUriDisplay uri={nomination.uri[index]} />
+          </Typography>
+        ))}
       </Stack>
 
       <Stack direction="column">
@@ -114,25 +120,12 @@ export default function TaskApplication({
 /**
  * Display Task Application Content
  */
-function TaskApplicationUriDisplay({
-  nomination,
-}: {
-  nomination: any;
-}): JSX.Element {
+function TaskApplicationUriDisplay({ uri }: { uri: any }): JSX.Element {
   const [data, setData] = useState<any | null>(null);
-  const [nominator, setNominator] = useState<any | null>(null);
-
   useEffect(() => {
-    for (let i = 0; i < nomination.uri.length; i++) {
-      console.log('nomination.uri[i]', nomination.uri[i]);
-      setNominator(nomination.nominator[i]);
-      loadJsonFromIPFS(resolveLink(nomination.uri[i])).then((data) => {
-        setData(data);
-      });
-    }
-  }, [nomination]);
-
-  return (
-    <Typography variant="subtitle2">&quot;{data?.description}&quot;</Typography>
-  );
+    loadJsonFromIPFS(resolveLink(uri)).then((data) => {
+      setData(data);
+    });
+  }, [uri]);
+  return <span>&quot;{data?.description}&quot;</span>;
 }
