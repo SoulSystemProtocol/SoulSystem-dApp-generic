@@ -57,12 +57,19 @@ export function nameSoul(soul: any, length: number = 36): string {
 }
 
 /**
- * Get iamge of soul.
+ * Get main image of soul.
  */
 export function soulImage(soul: any): string {
   if (soul?.metadata?.image) return resolveLink(soul.metadata.image);
   if (soul?.metadata?.image) return resolveLink(soul.metadata.image);
   return soul?.uriImage ? resolveLink(soul.uriImage) : '';
+}
+
+/**
+ * Generate soul link.
+ */
+export function soulLink(soul: any): string {
+  return `/soul/${soul.id}`;
 }
 
 /**
