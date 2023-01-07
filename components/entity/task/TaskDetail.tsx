@@ -106,7 +106,10 @@ export default function TaskDetail({ item, sx }: any) {
               display: { xs: 'inline', sm: 'none' },
             }}
           >
-            {taskStageToString(item)} Stage |{' '}
+            <Tooltip title="Current stage">
+              <span>{taskStageToString(item)}</span>
+            </Tooltip>
+            {' | '}
           </Box>
           {fund ? `${fund} ${getChainData()?.native} | ` : ''}
           <TokenBalance account={item.id} />
