@@ -7,6 +7,8 @@ import TaskApplyDialog from './TaskApplyDialog';
 import TaskApplication from './TaskApplication';
 import ConditionalButton from 'components/layout/ConditionalButton';
 import { SxProps } from '@mui/material';
+import TooltipButton from '../../layout/TooltipButton';
+import { nameEntity } from 'helpers/utils';
 
 /**
  * Task Applications
@@ -28,22 +30,29 @@ export default function TaskApplications({
         <Typography variant="h4" sx={{ mb: 1 }}>
           Applications
         </Typography>
-        <ConditionalButton
+        <TooltipButton
           sx={{ ml: 'auto' }}
           disabled={
             !accountSoul ||
             (task.stage !== null &&
               (task.stage < PROC_STAGE_REV.open ||
-                task.stage > PROC_STAGE_REV.closed))
+                task.stage >= PROC_STAGE_REV.closed))
           }
           size="small"
+          tooltip={
+            task.stage < PROC_STAGE_REV.open
+              ? nameEntity('task') + 'not yet open'
+              : task.stage >= PROC_STAGE_REV.closed
+              ? nameEntity('task') + ' closed'
+              : null
+          }
           variant="contained"
           onClick={() =>
             showDialog?.(<TaskApplyDialog task={task} onClose={closeDialog} />)
           }
         >
           Submit Application
-        </ConditionalButton>
+        </TooltipButton>
       </Stack>
       <Grid container spacing={2} sx={{ ...sx }}>
         {task.nominations.length > 0 ? (
