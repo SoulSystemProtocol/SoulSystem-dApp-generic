@@ -47,6 +47,7 @@ export default function ProcStageBar({
               style={{
                 backgroundColor: index > stage ? emptyBG : '',
                 padding: '0 12px',
+                fontSize: '0.95em',
               }}
             >
               <span>{label}</span>
@@ -88,7 +89,7 @@ function ProcStageBarSep(): JSX.Element {
         verticalAlign: 'middle',
         my: '-5px',
         mr: '-20px',
-        ml: '-5px',
+        ml: '-0px',
         fontSize: '34px',
       }}
     />
