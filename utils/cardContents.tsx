@@ -1,11 +1,12 @@
 import { WorkOutlineOutlined } from '@mui/icons-material';
-import { addressToShortAddress, hexStringToJson, nameSoul } from './converters';
 import { resolveLink } from 'helpers/IPFS';
 import TaskSoulCardDetails from 'components/entity/task/TaskSoulCardDetails';
 import PersonIcon from '@mui/icons-material/Person';
 import { normalizeGraphEntity } from 'helpers/metadata';
 import { SxProps } from '@mui/material';
 import StageDisplay from 'components/entity/task/StageDisplay';
+import { addressToShortAddress, hexStringToJson } from 'utils/converters';
+import { soulName } from 'utils/soul';
 
 export interface CardItem {
   id: string;
@@ -39,7 +40,7 @@ export const soulCardProcessedContent = (
     imgSrc: resolveLink(item?.metadata?.image),
     avatarIcon: <PersonIcon sx={{ fontSize: 50 }} />,
     label: addressToShortAddress(item.owner),
-    title: nameSoul(item),
+    title: soulName(item),
     link: `/soul/${item.id}`,
     roles,
   };

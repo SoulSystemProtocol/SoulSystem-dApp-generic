@@ -11,7 +11,7 @@ import { SelectedSoulContext } from 'contexts/SelectedSoul';
 import { useContext, useEffect, useState } from 'react';
 import { nameEntity } from 'helpers/utils';
 import { SelectedGameContext } from 'contexts/SelectedGame';
-import { nameSoul } from 'utils/converters';
+import { soulName } from 'utils/soul';
 import useWeb3NativeBalance from 'hooks/useWeb3NativeBalance';
 
 /**
@@ -21,11 +21,9 @@ export default function GameDetail({ sx }: any): JSX.Element {
   const { soul } = useContext(SelectedSoulContext);
   const { game } = useContext(SelectedGameContext);
   const { balance } = useWeb3NativeBalance(game?.id);
-  const [soulName, setSoulName] = useState<string>('');
+  const [name, setName] = useState<string>('');
 
-  useEffect(() => {
-    setSoulName(nameSoul(soul));
-  }, [soul]);
+  useEffect(() => setName(soulName(soul)), [soul]);
 
   // if (!game) return <></>;
   return (
@@ -52,7 +50,7 @@ export default function GameDetail({ sx }: any): JSX.Element {
         spacing={1}
         sx={{ flexGrow: 1, mt: { xs: 2, md: 0 }, ml: { md: 4 } }}
       >
-        <Typography variant="h1">{soulName}</Typography>
+        <Typography variant="h1">{name}</Typography>
         <AddressHash address={soul.owner} sx={{ float: 'right' }} />
         <Typography variant="body2" color="text.secondary">
           Balance: {balance}

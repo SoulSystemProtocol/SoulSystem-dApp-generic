@@ -4,7 +4,7 @@ import { createContext, useContext, useEffect, useState } from 'react';
 import { Web3Context } from 'contexts/Web3Context';
 import useSoulByHash from 'hooks/useSoulByOwner';
 import { updateSoul } from 'helpers/metadata';
-import { genFauxSoul } from 'utils/converters';
+import { genFauxSoul } from 'utils/soul';
 
 interface IDataContext {
   accountSoul: any;

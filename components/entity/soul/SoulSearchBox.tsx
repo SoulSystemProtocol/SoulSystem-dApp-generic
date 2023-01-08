@@ -2,7 +2,7 @@ import { Autocomplete, Box, TextField, SxProps } from '@mui/material';
 import SoulCompactCard from 'components/entity/soul/SoulCompactCard';
 import useError from 'hooks/useError';
 import { ReactElement, useEffect, useState } from 'react';
-import { nameSoul } from 'utils/converters';
+import { soulName } from 'utils/soul';
 import { useQuery } from '@apollo/client';
 import SoulsOpenInj from 'queries/SoulsOpenInj';
 
@@ -37,17 +37,6 @@ export default function SoulSearchBox({
   type = '', //TODO: Should Maybe Also Allow Games...
   role = '',
 }: TProps): ReactElement {
-  // console.log('SoulSearchBox Started W/', {
-  //   options,
-  //   sx,
-  //   value,
-  //   type,
-  //   role,
-  //   size,
-  //   label,
-  //   required,
-  //   disabled,
-  // });
   const [isDisabled, setIsDisabled] = useState(disabled);
   const [selectedSoul, setSelectedSoul] = useState(null);
   const [inputValue, setInputValue] = useState<string>(''); //Current text input value
@@ -99,7 +88,7 @@ export default function SoulSearchBox({
         {options?.header && options.header}
         <Autocomplete
           disabled={isDisabled}
-          getOptionLabel={(option) => nameSoul(option)}
+          getOptionLabel={(option) => soulName(option)}
           // filterOptions={(x) => x}
           options={items}
           value={selectedSoul}
@@ -119,7 +108,6 @@ export default function SoulSearchBox({
           }
           renderInput={(params) => (
             <TextField
-              // fullWidth
               {...params}
               size={size}
               label={label || 'Soul Search'}

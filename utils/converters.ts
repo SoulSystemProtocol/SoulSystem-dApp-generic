@@ -1,7 +1,5 @@
 import { PROC_STAGE_REV, GAME_ROLE } from 'constants/contracts';
-import { truncate } from 'lodash';
 import _ from 'lodash';
-import { resolveLink } from 'helpers/IPFS';
 
 /**
  * Convert hex string to json.
@@ -44,35 +42,6 @@ export function addressToShortAddress(address: string): string {
 }
 
 /**
- * Get first name and last name of soul.
- */
-export function nameSoul(soul: any, length: number = 36): string {
-  if (soul?.name) return soul.name;
-  if (soul?.metadata?.name) return soul.metadata.name;
-  let firstLastName = 'Anonymous';
-  if (soul?.uriFirstName || soul?.uriLastName) {
-    firstLastName = (soul.uriFirstName || '') + ' ' + (soul.uriLastName || '');
-  }
-  return truncate(firstLastName, { length: length });
-}
-
-/**
- * Get main image of soul.
- */
-export function soulImage(soul: any): string {
-  if (soul?.metadata?.image) return resolveLink(soul.metadata.image);
-  if (soul?.metadata?.image) return resolveLink(soul.metadata.image);
-  return soul?.uriImage ? resolveLink(soul.uriImage) : '';
-}
-
-/**
- * Generate soul link.
- */
-export function soulLink(soul: any): string {
-  return `/soul/${soul.id}`;
-}
-
-/**
  * Convert task stage to readable string.
  */
 export function taskStageToString(task: any): string {
@@ -106,17 +75,4 @@ export function formatActionName(action: {
 export function roleIdToName(role: string): string | undefined {
   console.error("CALLED DEPRECATED FUNCTION: 'roleIdToName'");
   return Object.values(GAME_ROLE).find((element) => element.id == role)?.name;
-}
-
-/**
- * Structure a faux soul entity for optimistic updates
- */
-export function genFauxSoul(metadata: any, additional: any = {}): any {
-  const soulFaux: any = {
-    metadata,
-    name: nameSoul({ metadata }),
-    image: soulImage({ metadata }),
-    ...additional,
-  };
-  return soulFaux;
 }

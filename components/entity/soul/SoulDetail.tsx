@@ -3,7 +3,7 @@ import { Box, Button, Stack, Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { Web3Context } from 'contexts/Web3Context';
 import { useContext, useEffect, useState } from 'react';
-import { nameSoul } from 'utils/converters';
+import { soulName } from 'utils/soul';
 import AddressHash from 'components/web3/AddressHash';
 import FundDialogButton from 'components/web3/FundDialogButton';
 import EntityImage from 'components/entity/EntityImage';
@@ -18,15 +18,15 @@ import ImageBox from 'components/utils/ImageBox';
 /**
  * Display Soul details
  */
-export default function SoulDetail({ soul, sx }: any) {
+export default function SoulDetail({ soul, sx }: any): JSX.Element {
   const { account } = useContext(Web3Context);
   const [isOwned, setIsOwned] = useState<boolean>(false);
-  const [soulName, setSoulName] = useState<string>('');
+  const [name, setName] = useState<string>('');
   const theme = useTheme();
 
   useEffect(() => {
-    console.warn('set soul name', nameSoul(soul), soul);
-    setSoulName(nameSoul(soul));
+    // console.warn('set soul name', soulName(soul), soul);
+    setName(soulName(soul));
     setIsOwned(
       !!account && soul?.owner?.toLowerCase() === account?.toLowerCase(),
     );
@@ -109,7 +109,7 @@ export default function SoulDetail({ soul, sx }: any) {
           spacing={1}
           sx={{ flexGrow: 1, mt: { xs: 2, md: 2 }, ml: { md: 4 } }}
         >
-          <Typography variant="h1">{soulName}</Typography>
+          <Typography variant="h1">{name}</Typography>
           <AddressHash address={soul.owner} sx={{ mt: 1 }} />
           <SoulDescription soul={soul} sx={{ mt: 1 }} />
           <SocialLinks key="SocialLinks" soul={soul} sx={{ mt: 2 }} />

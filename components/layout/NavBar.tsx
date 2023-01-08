@@ -11,8 +11,9 @@ import { DataContext } from 'contexts/data';
 import { Web3Context } from 'contexts/Web3Context';
 import HeaderLogo from './HeaderLogo';
 import SettingsMenu from './SettingsMenu';
-import { addressToShortAddress, soulLink } from 'utils/converters';
+import { addressToShortAddress } from 'utils/converters';
 import Link from 'components/utils/Link';
+import { soulLink } from 'utils/soul';
 //TODO: Add Search
 // import { styled, alpha } from '@mui/material/styles';
 // import SearchIcon from '@mui/icons-material/Search';

@@ -1,5 +1,5 @@
 import { findIndex, isEmpty } from 'lodash';
-import { nameSoul } from 'utils/converters';
+import { soulName } from 'utils/soul';
 import { MetadataAttribute } from './metadata';
 
 /**
@@ -66,7 +66,7 @@ export const MetaAttrHelper: any = {
       'first name',
     );
     fauxSoul.name = MetaAttrHelper.extractValue(attributes, 'name');
-    return nameSoul(fauxSoul);
+    return soulName(fauxSoul);
   },
 
   /**

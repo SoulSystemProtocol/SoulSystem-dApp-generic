@@ -8,7 +8,8 @@ import {
   SxProps,
 } from '@mui/material';
 import PersonIcon from '@mui/icons-material/Person';
-import { addressToShortAddress, nameSoul, soulImage } from 'utils/converters';
+import { addressToShortAddress } from 'utils/converters';
+import { soulName, soulImage } from 'utils/soul';
 
 /**
  * Passive Component for a compact profile card
@@ -47,9 +48,9 @@ export default function SoulCompactCard({
           </Avatar>
           <Typography variant="body2" sx={{ fontWeight: 'normal', ml: 1 }}>
             {disableLink ? (
-              <>{nameSoul(profile)}</>
+              <>{soulName(profile)}</>
             ) : (
-              <Link href={`/soul/${profile.id}`}>{nameSoul(profile)}</Link>
+              <Link href={`/soul/${profile.id}`}>{soulName(profile)}</Link>
             )}
           </Typography>
           {!disableAddress && (

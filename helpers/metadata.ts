@@ -1,6 +1,5 @@
-import { PROFILE_TRAIT_TYPE } from 'constants/metadata';
 import _ from 'lodash';
-import { hexStringToJson, nameSoul } from 'utils/converters';
+import { hexStringToJson } from 'utils/converters';
 import { MetaAttrHelper } from './MetaAttrHelper';
 
 export type MetadataAttributeType =

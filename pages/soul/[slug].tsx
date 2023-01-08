@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import Layout from 'components/layout/Layout';
 import SoulDetail from 'components/entity/soul/SoulDetail';
 import { useRouter } from 'next/router';
-import { nameSoul } from 'utils/converters';
+import { soulName } from 'utils/soul';
 import { getPageTitle } from 'utils';
 import { GAME_DESC } from 'constants/contracts';
 import { Box, Grid, Typography } from '@mui/material';
@@ -39,8 +39,8 @@ function SoulSinglePageContent(): JSX.Element {
   const { soul, loading, error } = useContext(SelectedSoulContext);
 
   const CONF = {
-    PAGE_TITLE: nameSoul(soul),
-    TITLE: nameSoul(soul),
+    PAGE_TITLE: soulName(soul),
+    TITLE: soulName(soul),
     SUBTITLE: GAME_DESC.dao,
   };
 

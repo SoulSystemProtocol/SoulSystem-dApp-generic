@@ -12,7 +12,7 @@ import ConnectButton from 'components/web3/connect/ConnectButton';
 import { DataContext } from 'contexts/data';
 import { Web3Context } from 'contexts/Web3Context';
 import { useContext, useState } from 'react';
-import { nameSoul, soulImage } from 'utils/converters';
+import { soulName, soulImage } from 'utils/soul';
 
 /**
  * User Settings Menu
@@ -35,7 +35,7 @@ export default function SettingsMenu({ profile }: any): JSX.Element {
           sx={{ p: 0, border: '2px solid #272727' }}
         >
           <Avatar
-            alt={nameSoul(profile)}
+            alt={soulName(profile)}
             src={soulImage(profile)}
             sx={{ width: 48, height: 48 }}
           />
@@ -69,7 +69,7 @@ export default function SettingsMenu({ profile }: any): JSX.Element {
           >
             <Link href={`/soul/${accountSoul.id}`}>
               <Typography sx={{ mr: 1, color: 'text.primary' }}>
-                {nameSoul(accountSoul)}
+                {soulName(accountSoul)}
               </Typography>
             </Link>
           </Box>

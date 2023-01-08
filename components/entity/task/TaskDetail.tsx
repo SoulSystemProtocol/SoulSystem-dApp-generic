@@ -1,7 +1,7 @@
 import { Box, Stack, Typography, Tooltip } from '@mui/material';
 import useError from 'hooks/useError';
 import useContract from 'hooks/useContract';
-import { taskStageToString, nameSoul } from 'utils/converters';
+import { taskStageToString } from 'utils/converters';
 import EntityImage from '../EntityImage';
 import { PROC_STAGE_REV } from 'constants/contracts';
 import AddressHash from 'components/web3/AddressHash';
@@ -19,6 +19,7 @@ import TooltipButton from 'components/layout/TooltipButton';
 import SoulDescription from '../soul/SoulDescription';
 import { Web3Context } from 'contexts/Web3Context';
 import ProcStageBar from '../proc/ProcStageBar';
+import { soulName } from 'utils/soul';
 
 /**
  * Component: project details.
@@ -88,7 +89,7 @@ export default function TaskDetail({ item, sx }: any) {
         spacing={1}
         sx={{ flexGrow: 1, mt: { xs: 2, md: 0 }, ml: { md: 4 } }}
       >
-        <Typography variant="h1">{nameSoul(soul)}</Typography>
+        <Typography variant="h1">{soulName(soul)}</Typography>
         <AddressHash
           address={item.id}
           sx={{ color: 'text.secondary', float: 'right' }}

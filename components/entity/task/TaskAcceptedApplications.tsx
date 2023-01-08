@@ -15,7 +15,7 @@ import useSouls from 'hooks/useSouls';
 import useTask from 'hooks/useTask';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import { soulImage } from 'utils/converters';
+import { soulImage } from 'utils/soul';
 
 /** [DEPRECATE?] What is this even for?!
  *

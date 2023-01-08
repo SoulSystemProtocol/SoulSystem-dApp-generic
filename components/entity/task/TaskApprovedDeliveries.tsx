@@ -16,7 +16,6 @@ import useError from 'hooks/useError';
 import useTask from 'hooks/useTask';
 import useToast from 'hooks/useToast';
 import { useContext, useEffect, useState } from 'react';
-import { soulImage } from 'utils/converters';
 import useSubgraph from 'hooks/useSubgraph';
 // import { SelectedSoulContext } from 'contexts/SelectedSoul';
 // import useContainerEntity from 'hooks/useContainerEntity';
@@ -26,6 +25,7 @@ import { NO_SOUL_MSG } from 'constants/texts';
 import useContract from 'hooks/useContract';
 import Link from 'components/utils/Link';
 import { nameEntity } from 'helpers/utils';
+import { soulImage } from 'utils/soul';
 
 /**
  * Approved Deliveries Display

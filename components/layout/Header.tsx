@@ -7,12 +7,13 @@ import { Box } from '@mui/system';
 import { styled } from '@mui/material/styles';
 import { DataContext } from 'contexts/data';
 import { Web3Context } from 'contexts/Web3Context';
-import { nameSoul } from 'utils/converters';
+import { soulName } from 'utils/soul';
 import ConnectButton from 'components/web3/connect/ConnectButton';
 import Link from 'components/utils/Link';
 import SettingsMenu from './SettingsMenu';
 import HeaderLogo from './HeaderLogo';
 import { sidebarWidth } from 'constants/theme';
+import { soulLink } from 'utils/soul';
 
 interface AppBarProps extends MuiAppBarProps {
   open?: boolean;
@@ -106,8 +107,8 @@ export default function Header({
           })}
         </Box>
         {accountSoul && (
-          <Link href={`/soul/${accountSoul.id}`}>
-            <Typography sx={{ mr: 1 }}>{nameSoul(accountSoul)}</Typography>
+          <Link href={soulLink(accountSoul)}>
+            <Typography sx={{ mr: 1 }}>{soulName(accountSoul)}</Typography>
           </Link>
         )}
         {!account ? (
