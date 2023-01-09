@@ -9,13 +9,13 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@apollo/client": "^3.7.2",
+    "@apollo/client": "^3.7.3",
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
     "@mui/icons-material": "^5.11.0",
     "@mui/lab": "^5.0.0-alpha.91",
-    "@mui/material": "^5.11.0",
-    "@mui/x-data-grid": "^5.17.16",
+    "@mui/material": "^5.11.3",
+    "@mui/x-data-grid": "^5.17.18",
     "@rjsf/core": "^4.2.3",
     "@rjsf/material-ui": "^4.2.3",
     "@walletconnect/web3-provider": "^1.8.0",
@@ -27,12 +27,12 @@
     "next": "12.2.2",
     "nextjs-progressbar": "^0.0.14",
     "notistack": "^2.0.8",
-    "posthog-js": "^1.39.0",
+    "posthog-js": "^1.39.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "styled-components": "^5.3.6",
     "validate.io-number": "^1.0.3",
-    "web3modal": "^1.9.10"
+    "web3modal": "^1.9.11"
   },
   "devDependencies": {
     "@types/lodash": "^4.14.191",
@@ -41,7 +41,7 @@
     "@types/react-dom": "18.0.6",
     "eslint": "8.20.0",
     "eslint-config-next": "12.2.2",
-    "eslint-config-prettier": "^8.5.0",
+    "eslint-config-prettier": "^8.6.0",
     "eslint-plugin-prettier": "^4.2.1",
     "prettier": "2.7.1",
     "typescript": "4.7.4"
