@@ -4,8 +4,8 @@ import {
   SchoolOutlined,
   WorkOutlineOutlined,
   TaskAlt,
-  AcUnit,
 } from '@mui/icons-material';
+import SensorOccupiedIcon from '@mui/icons-material/SensorOccupied';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import ArticleIcon from '@mui/icons-material/Article';
 import LockIcon from '@mui/icons-material/Lock';
@@ -135,7 +135,7 @@ const footer_icons: MenuLink[] = [
     // eslint-disable-next-line prettier/prettier
     route:
       'https://thegraph.com/hosted-service/subgraph/toledoroy/solidify_mumbai',
-    icon: <AcUnit sx={{ fill: 'url(#linearColors)' }} />,
+    icon: <SensorOccupiedIcon sx={{ fill: 'url(#linearColors)' }} />,
     label: 'SubGraph',
   },
 
