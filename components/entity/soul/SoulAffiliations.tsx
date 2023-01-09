@@ -167,7 +167,7 @@ export default function SoulAffiliations(): JSX.Element {
             variables={{
               id: soul?.id,
               role: GAME_TYPE.task,
-              stage: 7,
+              stage: 6,
             }}
             itemsProcessing={(items: any): CardItem[] => {
               //Merge Participant Roles (SoulPartsQuery)
