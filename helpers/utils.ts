@@ -33,7 +33,8 @@ export const nameEntity = function (
   plural: boolean = false,
 ): string {
   // if (entName == '') return plural ? 'SBT Profiles' : 'Profile';
-  if (entName == '') return plural ? 'Builders' : 'Builder';
+  // if (entName == '') return plural ? 'Builders' : 'Builder';
+  if (entName == '') return plural ? 'Devs' : 'Dev';
   if (entName.toLocaleLowerCase() == 'mdao') return plural ? 'Pods' : 'Pod';
   if (entName.toLocaleLowerCase() == 'project')
     // return plural ? 'Projects' : 'Project';
