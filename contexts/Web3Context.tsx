@@ -7,8 +7,10 @@ import { createContext, useEffect, useRef, useState } from 'react';
 import Web3Modal from 'web3modal';
 import { getChainData } from 'components/web3/chains/ChainsData';
 import {
+  analyticsAccountDisconnect,
   analyticsCatchErrorEvent,
-  analyticsConnectAccountEvent,
+  analyticsAccountConnect,
+  analyticsEvent,
 } from 'utils/analytics';
 
 interface IWeb3Context {
@@ -240,7 +242,7 @@ export function Web3Provider({ children }: any) {
 
   useEffect(() => {
     //Analytics Wallet Connect Event
-    account && analyticsConnectAccountEvent(account);
+    account ? analyticsAccountConnect(account) : analyticsAccountDisconnect();
   }, [account]);
 
   return (
