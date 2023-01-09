@@ -29,7 +29,11 @@ export const initAnalytics = () => {
  * Generic Analytic Event
  */
 export const analyticsEvent = (event: string, properties?: any): void => {
-  if (isAnalyticsEnabled()) posthog.capture(event, properties);
+  try {
+    if (isAnalyticsEnabled()) posthog.capture(event, properties);
+  } catch (e) {
+    console.error(e);
+  }
 };
 
 /**
@@ -41,11 +45,15 @@ export const analyticsPageViewEvent = () => analyticsEvent('pageView');
  * Connect account event
  */
 export const analyticsAccountConnect = (account: string): void => {
-  if (isAnalyticsEnabled()) {
-    analyticsEvent('accountConnect', {
-      account: account.toLowerCase(),
-    });
-    posthog.alias(account.toLowerCase());
+  try {
+    if (isAnalyticsEnabled()) {
+      analyticsEvent('accountConnect', {
+        account: account.toLowerCase(),
+      });
+      posthog.alias(account.toLowerCase());
+    }
+  } catch (e) {
+    console.error(e);
   }
 };
 
@@ -53,9 +61,13 @@ export const analyticsAccountConnect = (account: string): void => {
  * Log-Out Event
  */
 export const analyticsAccountDisconnect = (): void => {
-  if (isAnalyticsEnabled()) {
-    analyticsEvent('accountDisconnect');
-    // posthog.reset();
+  try {
+    if (isAnalyticsEnabled()) {
+      analyticsEvent('accountDisconnect');
+      // posthog.reset();
+    }
+  } catch (e) {
+    console.error(e);
   }
 };
 
