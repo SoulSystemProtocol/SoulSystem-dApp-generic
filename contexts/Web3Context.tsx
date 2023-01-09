@@ -12,6 +12,32 @@ import {
   analyticsAccountConnect,
 } from 'utils/analytics';
 
+/** WAGMI **/
+import { InjectedConnector } from 'wagmi/connectors/injected';
+import { configureChains, createClient, WagmiConfig } from 'wagmi';
+import { alchemyProvider } from 'wagmi/providers/alchemy';
+import { publicProvider } from 'wagmi/providers/public';
+import { mainnet, optimism, polygon, polygonMumbai } from '@wagmi/core/chains';
+const { chains, provider } = configureChains(
+  [mainnet, optimism, polygon, polygonMumbai],
+  [
+    alchemyProvider({
+      apiKey: process.env.NEXT_PUBLIC_ALCHEMY_API_KEY || '',
+    }),
+    // walletConnectProvider({
+    //   projectId: process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECTID || '',
+    // }),
+    publicProvider(),
+  ],
+);
+
+const wagmiClient = createClient({
+  autoConnect: true,
+  // connectors: [new InjectedConnector({ chains }) as any],
+  // connectors,
+  provider,
+});
+
 interface IWeb3Context {
   isReady: any;
   defaultProvider: any;
@@ -239,22 +265,24 @@ export function Web3Provider({ children }: { children: any }) {
   }, [account]);
 
   return (
-    <Web3Context.Provider
-      value={{
-        isReady,
-        defaultProvider,
-        provider,
-        account,
-        networkChainId,
-        isNetworkChainIdCorrect,
-        connectWallet,
-        disconnectWallet,
-        switchNetwork,
-        getBalance,
-        curChainData,
-      }}
-    >
-      {children}
-    </Web3Context.Provider>
+    <WagmiConfig client={wagmiClient}>
+      <Web3Context.Provider
+        value={{
+          isReady,
+          defaultProvider,
+          provider,
+          account,
+          networkChainId,
+          isNetworkChainIdCorrect,
+          connectWallet,
+          disconnectWallet,
+          switchNetwork,
+          getBalance,
+          curChainData,
+        }}
+      >
+        {children}
+      </Web3Context.Provider>
+    </WagmiConfig>
   );
 }
