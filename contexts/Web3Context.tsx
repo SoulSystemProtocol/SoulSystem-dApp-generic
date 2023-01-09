@@ -10,7 +10,6 @@ import {
   analyticsAccountDisconnect,
   analyticsCatchErrorEvent,
   analyticsAccountConnect,
-  analyticsEvent,
 } from 'utils/analytics';
 
 interface IWeb3Context {

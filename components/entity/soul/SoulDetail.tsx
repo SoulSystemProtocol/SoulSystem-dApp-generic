@@ -35,7 +35,6 @@ export default function SoulDetail({ soul, sx }: any): JSX.Element {
   if (!soul) return <Loading />;
   const coverImageSrc =
     resolveLink(soul?.metadata?.cover) || '/images/default_cover.jpg';
-  console.log('SoulDetail: coverImageSrc', soul);
   return (
     <>
       <ImageBox sx={{ height: '230px' }} src={coverImageSrc} />
