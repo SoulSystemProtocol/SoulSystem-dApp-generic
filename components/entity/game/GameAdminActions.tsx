@@ -9,6 +9,7 @@ import GameRoleManageDialog from './GameRoleManageDialog';
 import { isSoulHasRole } from 'hooks/utils';
 import ConditionalButton from 'components/layout/ConditionalButton';
 import { useRouter } from 'next/router';
+import TooltipButton from 'components/layout/TooltipButton';
 
 /**
  * Game Admin Actions
@@ -42,8 +43,9 @@ export default function GameAdminActions({
       >
         Edit
       </ConditionalButton>
-      <ConditionalButton
+      <TooltipButton
         disabled={!isSoulAdmin}
+        tooltip={'Manually assign and remove roles'}
         size="small"
         variant="outlined"
         onClick={() =>
@@ -53,7 +55,7 @@ export default function GameAdminActions({
         }
       >
         Manage Roles
-      </ConditionalButton>
+      </TooltipButton>
     </Stack>
   );
 }
