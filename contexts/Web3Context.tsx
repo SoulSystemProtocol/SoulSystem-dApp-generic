@@ -7,8 +7,10 @@ import { createContext, useEffect, useRef, useState } from 'react';
 import Web3Modal from 'web3modal';
 import { getChainData } from 'components/web3/chains/ChainsData';
 import {
+  analyticsAccountDisconnect,
   analyticsCatchErrorEvent,
-  analyticsConnectAccountEvent,
+  analyticsAccountConnect,
+  analyticsEvent,
 } from 'utils/analytics';
 
 interface IWeb3Context {
@@ -27,7 +29,7 @@ interface IWeb3Context {
 
 export const Web3Context = createContext<Partial<IWeb3Context>>({});
 
-export function Web3Provider({ children }: any) {
+export function Web3Provider({ children }: { children: any }) {
   const web3ModalRef = useRef<Web3Modal | null>(null);
   const [isReady, setIsReady] = useState(false);
   const [instance, setInstance] = useState<any>(null);
@@ -39,10 +41,8 @@ export function Web3Provider({ children }: any) {
   const [isNetworkChainIdCorrect, setIsNetworkChainCorrect] =
     useState<boolean>(false);
 
-  async function initContext() {
-    if (!web3ModalRef.current) {
-      return;
-    }
+  async function initContext(): Promise<void> {
+    if (!web3ModalRef.current) return;
     try {
       // Show web3 modal or autoconnect
       const instance = await web3ModalRef.current.connect();
@@ -81,7 +81,7 @@ export function Web3Provider({ children }: any) {
     }
   }
 
-  async function clearContext() {
+  async function clearContext(): Promise<void> {
     try {
       setIsReady(false);
       // Disconnect provider
@@ -108,13 +108,9 @@ export function Web3Provider({ children }: any) {
     }
   }
 
-  async function connectWallet() {
-    initContext();
-  }
+  const connectWallet = () => initContext();
 
-  async function disconnectWallet() {
-    clearContext();
-  }
+  const disconnectWallet = () => clearContext();
 
   async function switchNetwork() {
     try {
@@ -240,7 +236,7 @@ export function Web3Provider({ children }: any) {
 
   useEffect(() => {
     //Analytics Wallet Connect Event
-    account && analyticsConnectAccountEvent(account);
+    account ? analyticsAccountConnect(account) : analyticsAccountDisconnect();
   }, [account]);
 
   return (

@@ -35,7 +35,8 @@ const top_links: MenuLink[] = [
   // { label: 'Grants', route: 'grants' },
   {
     route: '/souls',
-    label: 'Souls',
+    // label: 'Souls',
+    label: nameEntity('', true),
     icon: <EmojiPeopleIcon sx={{ fill: 'url(#linearColors)' }} />,
   },
   {

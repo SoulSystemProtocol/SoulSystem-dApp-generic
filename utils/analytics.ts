@@ -28,23 +28,21 @@ export const initAnalytics = () => {
 /**
  * Generic Analytic Event
  */
-export const analyticsEvent = (event: string, properties?: any) => {
+export const analyticsEvent = (event: string, properties?: any): void => {
   if (isAnalyticsEnabled()) posthog.capture(event, properties);
 };
 
 /**
- * Handle page view event.
+ * Page view event.
  */
 export const analyticsPageViewEvent = () => analyticsEvent('pageView');
 
 /**
- * Handle connect account event.
- *
- * @param {string} account Account address.
+ * Connect account event
  */
-export const analyticsConnectAccountEvent = (account: string) => {
+export const analyticsAccountConnect = (account: string): void => {
   if (isAnalyticsEnabled()) {
-    posthog.capture('connectedAccount', {
+    analyticsEvent('accountConnect', {
       account: account.toLowerCase(),
     });
     posthog.alias(account.toLowerCase());
@@ -52,41 +50,22 @@ export const analyticsConnectAccountEvent = (account: string) => {
 };
 
 /**
+ * Log-Out Event
+ */
+export const analyticsAccountDisconnect = (): void => {
+  analyticsEvent('accountDisconnect');
+  posthog.reset();
+};
+
+/**
  * Track Errors
  */
-export const analyticsCatchErrorEvent = (error: Error, additional: any = {}) =>
-  analyticsEvent('catchedError', {
+export const analyticsCatchErrorEvent = (
+  error: Error,
+  additional: any = {},
+): void =>
+  analyticsEvent('errorCaught', {
     errorMessage: error?.message,
     errorStack: error?.stack,
     ...additional,
   });
-
-/**
- * Handle create case event.
- */
-export const analyticsCreateCaseEvent = () => analyticsEvent('createdCase');
-
-/**
- * Handle nominate to case event.
- * /
-export const analyticsNominateToCaseEvent = (caseId: string, nominated, role) => analyticsEvent('nominatedToCase', { case nominated: nominated,
-      role: role,
-    });
-
-/**
- * Handle comment case event.
- */
-export const analyticsCommentCaseEvent = (ctxId: string) =>
-  analyticsEvent('post', { ctx: ctxId });
-
-/**
- * Handle join game event.
- */
-export const analyticsJoinGameEvent = (game: string) =>
-  analyticsEvent('joinedGame', { game });
-
-/**
- * Handle leave game event.
- */
-export const analyticsLeaveGameEvent = (game: string) =>
-  analyticsEvent('leftGame', { game });
