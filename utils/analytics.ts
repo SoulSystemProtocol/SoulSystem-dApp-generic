@@ -53,8 +53,10 @@ export const analyticsAccountConnect = (account: string): void => {
  * Log-Out Event
  */
 export const analyticsAccountDisconnect = (): void => {
-  analyticsEvent('accountDisconnect');
-  posthog.reset();
+  if (isAnalyticsEnabled()) {
+    analyticsEvent('accountDisconnect');
+    // posthog.reset();
+  }
 };
 
 /**
