@@ -45,6 +45,7 @@ export default function useContract() {
   /// Hub Contract
   function getContractHub(): HubUpgradable {
     validateChain();
+    if (!signer) throw new Error('Signer not avaliable');
     const address = process.env.NEXT_PUBLIC_HUB_CONTRACT_ADDRESS;
     return new Contract(String(address), ABI_Hub, signer) as HubUpgradable;
   }
@@ -52,6 +53,7 @@ export default function useContract() {
   /// Action Repo Contract (history)
   function getContractActions(): ActionRepoTrackerUp {
     validateChain();
+    if (!signer) throw new Error('Signer not avaliable');
     const address = process.env.NEXT_PUBLIC_ACTION_REPO_CONTRACT_ADDRESS;
     return new Contract(
       String(address),
@@ -64,6 +66,7 @@ export default function useContract() {
   /// Data Repo Contract
   function getContractData() {
     validateChain();
+    if (!signer) throw new Error('Signer not avaliable');
     const address = process.env.NEXT_PUBLIC_DATA_REPO_CONTRACT_ADDRESS;
     return new Contract(String(address), ABI_Action, signer);
   }
@@ -72,6 +75,7 @@ export default function useContract() {
   /// SBT Contract
   function getContractSoul(): SoulUpgradable {
     validateChain();
+    if (!signer) throw new Error('Signer not avaliable');
     const address = process.env.NEXT_PUBLIC_SOUL_CONTRACT_ADDRESS;
     return new Contract(String(address), ABI_Soul, signer) as SoulUpgradable;
   }
@@ -79,36 +83,42 @@ export default function useContract() {
   /// Game Contract
   function getContractGame(address: string): GameUpgradable {
     validateChain();
+    if (!signer) throw new Error('Signer not avaliable');
     return new Contract(address, ABI_Game, signer) as GameUpgradable;
   }
 
   /// Game Extension: Court
   function getContractGameCourt(address: string): CourtExt {
     validateChain();
+    if (!signer) throw new Error('Signer not avaliable');
     return new Contract(address, ABI_extCourt, signer) as CourtExt;
   }
 
   /// Game Extension: mDAO
   function getContractGameMDAO(address: string): MicroDAOExt {
     validateChain();
+    if (!signer) throw new Error('Signer not avaliable');
     return new Contract(address, ABI_extMDAO, signer) as MicroDAOExt;
   }
 
   /// Game Extension: Project
   function getContractGameProject(address: string): ProjectExt {
     validateChain();
+    if (!signer) throw new Error('Signer not avaliable');
     return new Contract(address, ABI_extProject, signer) as ProjectExt;
   }
 
   /// Game Extension: Rules
   function getContractGameRules(address: string): RuleExt {
     validateChain();
+    if (!signer) throw new Error('Signer not avaliable');
     return new Contract(address, ABI_extRules, signer) as RuleExt;
   }
 
   /// Task Contract
   function getContractTask(address: string): TaskUpgradable {
     validateChain();
+    if (!signer) throw new Error('Signer not avaliable');
     return new Contract(address, ABI_Task, signer) as TaskUpgradable;
   }
 
