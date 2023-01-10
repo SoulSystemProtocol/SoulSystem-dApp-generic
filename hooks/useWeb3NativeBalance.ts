@@ -2,7 +2,7 @@ import { Web3Context } from 'contexts/Web3Context';
 import { useContext, useState, useEffect } from 'react';
 import useError from './useError';
 
-/**
+/** [DEPRECATED] Use WGMI Balance instead
  * Hook to Get Native Balance of an Address.
  */
 export default function useWeb3NativeBalance(address: string): {

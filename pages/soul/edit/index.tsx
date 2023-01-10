@@ -14,9 +14,6 @@ export default function SoulEditPage() {
   const { accountSoul } = useContext(DataContext);
   const { account } = useContext(Web3Context);
 
-  // const { handleError } = useError();
-  // if (!account) handleError(new NoWalletError(), true);
-
   return (
     <Layout title={getPageTitle('Edit Soul')}>
       {!account ? (
