@@ -1,6 +1,6 @@
 import posthog from 'posthog-js';
 
-const ANALYTICS_LOCALHOST_ENABLE = true;
+const ANALYTICS_LOCALHOST_ENABLE = false;
 
 /**
  *
