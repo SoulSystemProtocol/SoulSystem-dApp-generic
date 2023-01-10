@@ -101,6 +101,7 @@ export default function SoulSearchBox({
           />
         )}
         renderOption={(props, option) => {
+          console.warn('props', props);
           return (
             <li {...props}>
               <SoulCompactCard

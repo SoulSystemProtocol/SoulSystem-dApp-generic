@@ -9,7 +9,6 @@ import { DataContext } from 'contexts/data';
 import { useContext, useEffect, useState } from 'react';
 import FundDialogButton from 'components/web3/FundDialogButton';
 import { isSoulHasRole } from 'hooks/utils';
-import useWeb3NativeBalance from 'hooks/useWeb3NativeBalance';
 import { SelectedSoulContext } from 'contexts/SelectedSoul';
 import useContainerEntity from 'hooks/useContainerEntity';
 import { getChainData } from 'components/web3/chains/ChainsData';
@@ -20,6 +19,8 @@ import SoulDescription from '../soul/SoulDescription';
 import { Web3Context } from 'contexts/Web3Context';
 import ProcStageBar from '../proc/ProcStageBar';
 import { soulName } from 'utils/soul';
+import NativeBalanceDisplay from 'components/web3/NativeBalanceDisplay';
+import { TokenBalanceSingle } from '../../web3/TokenBalance';
 
 /**
  * Component: project details.
@@ -32,7 +33,6 @@ export default function TaskDetail({ item, sx }: any) {
   const { accountSoul } = useContext(DataContext);
   const [isSoulAdmin, setIsSoulAdmin] = useState(false);
   const [isSoulAuthority, setIsSoulAuthority] = useState(false);
-  const { balance: fund } = useWeb3NativeBalance(item?.id);
   const { curChainData } = useContext(Web3Context);
   const tokens: string[] = curChainData.ERC20.map(
     (token: any) => token.address,
@@ -99,7 +99,12 @@ export default function TaskDetail({ item, sx }: any) {
             By: <span>{containerName}</span>
           </Typography>
         )}
-        <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
+        <Typography
+          component="div"
+          variant="body2"
+          color="text.secondary"
+          sx={{ mt: 1, fontSize: '0.75em' }}
+        >
           <Box
             component="span"
             sx={{
@@ -112,8 +117,32 @@ export default function TaskDetail({ item, sx }: any) {
             </Tooltip>
             {' | '}
           </Box>
-          {fund ? `${fund} ${getChainData()?.native} | ` : ''}
-          <TokenBalance account={item.id} />
+          <Stack
+            direction="row"
+            sx={{ display: 'inline' }}
+            divider={<span> | </span>}
+          >
+            <NativeBalanceDisplay address={item?.id} />
+            {/* <TokenBalance account={item.id} /> */}
+            {curChainData?.ERC20?.map((token: any) => {
+              return (
+                <Stack
+                  direction="row"
+                  key={token.address}
+                  spacing={1}
+                  sx={{ display: 'inline' }}
+                >
+                  <Box sx={{ display: 'inline' }}>
+                    <TokenBalanceSingle
+                      account={item.id}
+                      token={token.address}
+                    />
+                    <span> {token.label}</span>
+                  </Box>
+                </Stack>
+              );
+            })}
+          </Stack>
         </Typography>
 
         <ProcStageBar

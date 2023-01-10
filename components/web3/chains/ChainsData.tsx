@@ -187,6 +187,7 @@ export const ChainsData: { [key: string]: ChainData } = {
     decimals: 18,
     ERC20: [
       { address: '0x326C977E6efc84E512bB9C30f76E30c160eD06FB', label: 'LINK' },
+      { address: '0x4aAeB0c6523e7aa5Adc77EAD9b031ccdEA9cB1c3', label: 'USDT' },
     ],
   },
   '0xa86a': {

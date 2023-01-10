@@ -16,7 +16,6 @@ import SoulParts from './SoulParts';
 export default function SoulAffiliations(): JSX.Element {
   const { soul } = useContext(SelectedSoulContext);
 
-  console.log('Loaded Soul', soul);
   return (
     <>
       <Box sx={{ my: 2 }}>
@@ -160,7 +159,8 @@ export default function SoulAffiliations(): JSX.Element {
       </Box>
 
       <Box sx={{ my: 2 }}>
-        <Typography variant="h4">{nameEntity('task', true)} Won</Typography>
+        {/* <Typography variant="h4">{nameEntity('task', true)} Won</Typography> */}
+        <Typography variant="h4">Verified Portfolio</Typography>
         {soul?.id && (
           <SoulParts
             gridLG={6}

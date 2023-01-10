@@ -21,13 +21,15 @@ import { MicroDAOExt } from '../typechain-types/contracts/extensions/MicroDAOExt
 import { ProjectExt } from '../typechain-types/contracts/extensions/ProjectExt';
 import { RuleExt } from '../typechain-types/contracts/extensions/RuleExt';
 import { TaskUpgradable } from '../typechain-types/contracts/TaskUpgradable';
+import { useSigner } from 'wagmi';
 
 /**
  * Hook for workin with contracts.
  */
 export default function useContract() {
-  const { account, provider, isNetworkChainIdCorrect, isReady } =
+  const { account, provider, isNetworkChainIdCorrect } =
     useContext(Web3Context);
+  const { data: signer, isError, isLoading } = useSigner();
 
   /// Common Validations
   function validateChain() {
@@ -36,17 +38,15 @@ export default function useContract() {
       throw new NoWalletError();
     }
     if (!isNetworkChainIdCorrect) throw new WrongNetworkError();
+    // if(isLoading)
+    // if(isError)
   }
 
   /// Hub Contract
   function getContractHub(): HubUpgradable {
     validateChain();
     const address = process.env.NEXT_PUBLIC_HUB_CONTRACT_ADDRESS;
-    return new Contract(
-      String(address),
-      ABI_Hub,
-      provider?.getSigner(),
-    ) as HubUpgradable;
+    return new Contract(String(address), ABI_Hub, signer) as HubUpgradable;
   }
 
   /// Action Repo Contract (history)
@@ -56,7 +56,7 @@ export default function useContract() {
     return new Contract(
       String(address),
       ABI_Action,
-      provider?.getSigner(),
+      signer,
     ) as ActionRepoTrackerUp;
   }
 
@@ -65,7 +65,7 @@ export default function useContract() {
   function getContractData() {
     validateChain();
     const address = process.env.NEXT_PUBLIC_DATA_REPO_CONTRACT_ADDRESS;
-    return new Contract(String(address), ABI_Action, provider?.getSigner());
+    return new Contract(String(address), ABI_Action, signer);
   }
   */
 
@@ -73,71 +73,43 @@ export default function useContract() {
   function getContractSoul(): SoulUpgradable {
     validateChain();
     const address = process.env.NEXT_PUBLIC_SOUL_CONTRACT_ADDRESS;
-    return new Contract(
-      String(address),
-      ABI_Soul,
-      provider?.getSigner(),
-    ) as SoulUpgradable;
+    return new Contract(String(address), ABI_Soul, signer) as SoulUpgradable;
   }
 
   /// Game Contract
   function getContractGame(address: string): GameUpgradable {
     validateChain();
-    return new Contract(
-      address,
-      ABI_Game,
-      provider?.getSigner(),
-    ) as GameUpgradable;
+    return new Contract(address, ABI_Game, signer) as GameUpgradable;
   }
 
   /// Game Extension: Court
   function getContractGameCourt(address: string): CourtExt {
     validateChain();
-    return new Contract(
-      address,
-      ABI_extCourt,
-      provider?.getSigner(),
-    ) as CourtExt;
+    return new Contract(address, ABI_extCourt, signer) as CourtExt;
   }
 
   /// Game Extension: mDAO
   function getContractGameMDAO(address: string): MicroDAOExt {
     validateChain();
-    return new Contract(
-      address,
-      ABI_extMDAO,
-      provider?.getSigner(),
-    ) as MicroDAOExt;
+    return new Contract(address, ABI_extMDAO, signer) as MicroDAOExt;
   }
 
   /// Game Extension: Project
   function getContractGameProject(address: string): ProjectExt {
     validateChain();
-    return new Contract(
-      address,
-      ABI_extProject,
-      provider?.getSigner(),
-    ) as ProjectExt;
+    return new Contract(address, ABI_extProject, signer) as ProjectExt;
   }
 
   /// Game Extension: Rules
   function getContractGameRules(address: string): RuleExt {
     validateChain();
-    return new Contract(
-      address,
-      ABI_extRules,
-      provider?.getSigner(),
-    ) as RuleExt;
+    return new Contract(address, ABI_extRules, signer) as RuleExt;
   }
 
   /// Task Contract
   function getContractTask(address: string): TaskUpgradable {
     validateChain();
-    return new Contract(
-      address,
-      ABI_Task,
-      provider?.getSigner(),
-    ) as TaskUpgradable;
+    return new Contract(address, ABI_Task, signer) as TaskUpgradable;
   }
 
   return {

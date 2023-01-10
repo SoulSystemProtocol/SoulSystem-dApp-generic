@@ -1,10 +1,10 @@
 import { Button } from '@mui/material';
 import { truncate } from 'lodash';
 import { useSnackbar } from 'notistack';
-import { useContext } from 'react';
-import { Web3Context } from 'contexts/Web3Context';
 import WrongNetworkError from 'errors/WrongNetworkError';
 import NoWalletError from 'errors/NoWalletError';
+import { useWeb3Modal } from '@web3modal/react';
+import { useSwitchNetwork } from 'wagmi';
 
 /**
  * Hook for work with toasts.
@@ -12,7 +12,8 @@ import NoWalletError from 'errors/NoWalletError';
  */
 export default function useToast() {
   const { enqueueSnackbar } = useSnackbar();
-  const { switchNetwork, connectWallet } = useContext(Web3Context);
+  const { switchNetwork } = useSwitchNetwork();
+  const { open } = useWeb3Modal();
   const autoHideDuration = 10000;
 
   const showToast = (message: string): void => {
@@ -49,7 +50,7 @@ export default function useToast() {
           variant="contained"
           size="small"
           onClick={() => {
-            connectWallet?.();
+            open();
           }}
           sx={{ cursor: 'pointer', borderRadius: '12px' }}
         >
@@ -65,7 +66,9 @@ export default function useToast() {
       const action = (
         <Button
           onClick={() => {
-            switchNetwork?.();
+            switchNetwork?.(
+              Number(process.env.NEXT_PUBLIC_NETWORK_CHAIN_ID_HEX),
+            );
           }}
           color="inherit"
         >
