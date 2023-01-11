@@ -22,7 +22,7 @@ export const initAnalytics = () => {
         api_host: 'https://app.posthog.com',
       });
     } else console.error('Env:NEXT_PUBLIC_POSTHOG_KEY is missing');
-  }
+  } else console.log('Analytics Disabled');
 };
 
 /**
