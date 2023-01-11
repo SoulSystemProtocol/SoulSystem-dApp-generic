@@ -59,12 +59,9 @@ export const MetaAttrHelper: any = {
     let fauxSoul: any = {};
     fauxSoul.uriFirstName = MetaAttrHelper.extractValue(
       attributes,
-      'last name',
-    );
-    fauxSoul.uriLastName = MetaAttrHelper.extractValue(
-      attributes,
       'first name',
     );
+    fauxSoul.uriLastName = MetaAttrHelper.extractValue(attributes, 'last name');
     fauxSoul.name = MetaAttrHelper.extractValue(attributes, 'name');
     return soulName(fauxSoul);
   },
