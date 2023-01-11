@@ -51,14 +51,14 @@ export default function ProjectTabs({ item, sx }: any) {
         </TabPanel>
         <TabPanel value="2" sx={{ px: 0 }}>
           <Typography variant="body1" color="text.secondary" sx={{ mb: 2 }}>
-            Here participants can discuss the project, publically and immutably.
+            Here participants can discuss the project, publically and immutably
           </Typography>
           <EntityComments item={item} />
         </TabPanel>
         <TabPanel value="3" sx={{ px: 0 }}>
           <Typography variant="body1" color="text.secondary" sx={{ mb: 2 }}>
-            These are the stewards of this contract. They hold NFTs that
-            represent their roles.
+            These are the stewards of this contract who hold NFTs that represent
+            their roles
           </Typography>
           <GameMembers game={item} />
         </TabPanel>
