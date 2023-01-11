@@ -26,7 +26,6 @@ export default function SoulsSearch({ type = '' }: any) {
     SUBTITLE: `You can now be an NFT! interact with the soul-system, mint yourself a soulbound NFT avatar`,
     ROUTE: 'souls',
   };
-  console.warn('SoulsSearch: ', { account, accountSoul });
   const renderActions = accountSoul === null && (
     <Link href={`/soul/create`}>
       <TooltipButton
