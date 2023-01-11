@@ -136,8 +136,8 @@ export default function TaskDetail({ item, sx }: any) {
                     <TokenBalanceSingle
                       account={item.id}
                       token={token.address}
+                      symbol={token.label}
                     />
-                    <span> {token.label}</span>
                   </Box>
                 </Stack>
               );

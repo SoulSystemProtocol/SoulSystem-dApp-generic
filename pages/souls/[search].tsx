@@ -1,5 +1,4 @@
 import { useContext } from 'react';
-import { Button } from '@mui/material';
 import { DataContext } from 'contexts/data';
 import { Web3Context } from 'contexts/Web3Context';
 import Layout from '../../components/layout/Layout';
@@ -10,6 +9,7 @@ import SoulSearchBox from 'components/entity/soul/SoulSearchBox';
 import SoulsOpenInj from 'queries/SoulsOpenInj';
 import { useRouter } from 'next/router';
 import Link from 'components/utils/Link';
+import TooltipButton from 'components/layout/TooltipButton';
 
 /**
  * Page for a list of souls
@@ -17,7 +17,7 @@ import Link from 'components/utils/Link';
 export default function SoulsSearch({ type = '' }: any) {
   const router = useRouter();
   const { search } = router.query;
-  const { account } = useContext(Web3Context);
+  const { account, isReady } = useContext(Web3Context);
   const { accountSoul } = useContext(DataContext);
 
   const CONF = {
@@ -26,13 +26,22 @@ export default function SoulsSearch({ type = '' }: any) {
     SUBTITLE: `You can now be an NFT! interact with the soul-system, mint yourself a soulbound NFT avatar`,
     ROUTE: 'souls',
   };
-
-  const renderActions = account && !accountSoul && (
+  console.warn('SoulsSearch: ', { account, accountSoul });
+  const renderActions = accountSoul === null && (
     <Link href={`/soul/create`}>
-      <Button variant="outlined">Create Soul</Button>
+      <TooltipButton
+        variant="contained"
+        disabled={!account}
+        tooltip={
+          account
+            ? 'Mint your Profile as NFT'
+            : 'Connect Wallet to Create a Soul'
+        }
+      >
+        Claim Your NFT Profile
+      </TooltipButton>
     </Link>
   );
-
   //Query Structure: { type: $type, role: $role, searchField_contains_nocase: $text }
   let queryFilters: string[] = [];
   if (type !== undefined) queryFilters.push(`type: "${type}" `);
@@ -60,7 +69,7 @@ export default function SoulsSearch({ type = '' }: any) {
       />
       <PaginatedList
         getCardContent={soulCardContent}
-        renderActions={renderActions}
+        renderActions={renderActions || <></>}
         subtitle={CONF.SUBTITLE}
         title={CONF.TITLE}
         query={SoulsOpenInj(searchQueryParams)}

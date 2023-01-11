@@ -58,7 +58,7 @@ export default function TaskApprovedDeliveries({ task, sx }: any): JSX.Element {
   if (approvedSouls.length > 0) {
     return (
       <Box sx={{ ...sx }}>
-        <Divider sx={{ mb: 1 }} />
+        <Divider sx={{ my: 4 }} />
         <Typography variant="h4">Winners</Typography>
         <List>
           {approvedSouls.map((soulId: string, index: number) => (

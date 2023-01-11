@@ -48,6 +48,7 @@ export default function ProcStageBar({
                 backgroundColor: index > stage ? emptyBG : '',
                 padding: '0 12px',
                 fontSize: '0.95em',
+                lineHeight: '24px',
               }}
             >
               <span>{label}</span>

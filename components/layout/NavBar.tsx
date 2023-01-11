@@ -191,7 +191,7 @@ export default function ResponsiveAppBar({
               '' //Yet Unknown
             ) : accountSoul === null ? (
               <Link href="/soul/create">
-                <Tooltip title="Mint yourself a Soul to act   in the verse">
+                <Tooltip title="Mint yourself to participate in the verse">
                   <span>
                     <Button
                       variant="contained"
@@ -202,7 +202,7 @@ export default function ResponsiveAppBar({
                         px: { sm: '15px', md: '26px' },
                       }}
                     >
-                      Claim NFT Profile
+                      Claim Profile
                     </Button>
                   </span>
                 </Tooltip>

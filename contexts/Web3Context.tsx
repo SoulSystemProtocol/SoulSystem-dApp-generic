@@ -25,10 +25,6 @@ import { polygonMumbai } from '@wagmi/core/chains';
 import { validateEnv } from 'hooks/utils';
 // import { InjectedConnector } from 'wagmi/connectors/injected';
 
-//Validate Env
-validateEnv('NEXT_PUBLIC_ALCHEMY_KEY');
-validateEnv('NEXT_PUBLIC_WALLETCONNECT_PROJECTID');
-
 const { chains, provider } = configureChains(
   [polygonMumbai],
   [
@@ -52,9 +48,6 @@ const wagmiClient = createClient({
   provider,
 });
 
-// Web3Modal Ethereum Client
-const ethereumClient = new EthereumClient(wagmiClient, chains);
-
 interface IWeb3Context {
   isReady: any;
   account: any;
@@ -73,9 +66,22 @@ export function Web3Provider({ children }: { children: any }) {
   const [isNetworkChainIdCorrect, setIsNetworkChainCorrect] =
     useState<boolean>(false);
 
+  //Validate Env
+  validateEnv('NEXT_PUBLIC_ALCHEMY_KEY', process.env.NEXT_PUBLIC_ALCHEMY_KEY);
+  validateEnv(
+    'NEXT_PUBLIC_WALLETCONNECT_PROJECTID',
+    process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECTID,
+  );
+
   //WGMI
   const { address: account } = useAccount();
   const { chain } = useNetwork();
+  // const provider = useProvider({
+  //   chainId: polygonMumbai.id,
+  // });
+
+  // Web3Modal Ethereum Client
+  const ethereumClient = new EthereumClient(wagmiClient, chains);
 
   /// Workaround for the hydration problem
   useEffect(() => setIsReady(true), []);
@@ -98,9 +104,6 @@ export function Web3Provider({ children }: { children: any }) {
         networkChainId?.toString() === process.env.NEXT_PUBLIC_NETWORK_CHAIN_ID,
     );
   }, [networkChainId]);
-  const provider = useProvider({
-    chainId: polygonMumbai.id,
-  });
 
   return (
     <>

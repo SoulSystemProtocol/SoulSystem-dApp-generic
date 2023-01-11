@@ -39,8 +39,8 @@ export const isSoulHasRole = (
 /**
  * Validate ENV
  */
-export const validateEnv = (name: string): void => {
-  if (!process.env?.[name]) {
+export const validateEnv = (name: string, value?: string): void => {
+  if (!value) {
     console.error('Missing ENV:' + name);
     analyticsCatchErrorEvent(new Error('Missing ENV: ' + name), {
       type: 'missing env',

@@ -7,42 +7,17 @@ import { useProvider } from 'wagmi';
 // import { useBalance } from 'wagmi';
 import { ERC20 } from 'typechain-types/ERC20';
 
-/** [UNUSED]
- * ERC20 Token Balance for multiple tokens
- */
-export default function TokenBalance({ account, sx = {} }: any): JSX.Element {
-  const { curChainData } = useContext(Web3Context);
-
-  return (
-    <>
-      {curChainData?.ERC20?.map((token: any) => {
-        return (
-          <Stack
-            direction="row"
-            key={token.address}
-            spacing={1}
-            sx={{ display: 'inline' }}
-          >
-            <Box sx={{ display: 'inline' }}>
-              <TokenBalanceSingle account={account} token={token.address} />
-              <span> {token.label}</span>
-            </Box>
-          </Stack>
-        );
-      })}
-    </>
-  );
-}
-
 /**
  * ERC20 Token Balance
  */
 export function TokenBalanceSingle({
   account,
   token,
+  symbol,
 }: {
   account: string;
   token: string;
+  symbol?: string;
 }): JSX.Element {
   const [balance, setBalance] = useState<string>('0');
   const { networkChainId, isReady } = useContext(Web3Context);
@@ -85,5 +60,39 @@ export function TokenBalanceSingle({
     console.error('No account or token', { account, token });
     return <></>;
   }
-  return <>{balance}</>;
+  return (
+    <>
+      {balance} {symbol && <span>{symbol}</span>}
+    </>
+  );
+}
+
+/** [UNUSED]
+ * ERC20 Token Balance for multiple tokens
+ */
+export default function TokenBalance({ account, sx = {} }: any): JSX.Element {
+  const { curChainData } = useContext(Web3Context);
+
+  return (
+    <>
+      {curChainData?.ERC20?.map((token: any) => {
+        return (
+          <Stack
+            direction="row"
+            key={token.address}
+            spacing={1}
+            sx={{ display: 'inline' }}
+          >
+            <Box sx={{ display: 'inline' }}>
+              <TokenBalanceSingle
+                account={account}
+                token={token.address}
+                symbol={token.label}
+              />
+            </Box>
+          </Stack>
+        );
+      })}
+    </>
+  );
 }

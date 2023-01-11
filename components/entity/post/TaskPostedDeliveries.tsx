@@ -51,12 +51,12 @@ export default function TaskPostedDeliveries({
   if (getSoulsByRole(task, 'applicant').length > 0) {
     return (
       <Box sx={{ ...sx }}>
-        <Divider sx={{ mb: 1 }} />
+        <Divider sx={{ my: 4 }} />
         <Typography variant="h4" sx={{ mb: 1 }}>
           Deliveries
         </Typography>
 
-        <Grid container spacing={2} sx={{ mb: 2 }}>
+        <Grid container spacing={2} sx={{ my: 2 }}>
           {applicantPosts.length > 0 ? (
             <>
               {task.posts.map((post: any, index: number) => (
