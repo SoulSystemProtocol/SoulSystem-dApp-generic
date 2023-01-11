@@ -161,7 +161,7 @@ export default function SoulEditForm({
       <Stack direction="row" spacing={2} sx={{ mt: 2 }}>
         {status === STATUS.available && (
           <Button variant="contained" type="submit">
-            {soul ? 'Save' : 'Mint Soul'}
+            {soul ? 'Save' : 'Mint Your Soul'}
           </Button>
         )}
         {status === STATUS.ipfsUpload && (

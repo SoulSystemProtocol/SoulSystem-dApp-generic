@@ -93,7 +93,9 @@ export default function PaginatedList({
               </Typography>
             )}
             {subtitle && (
-              <Typography variant="subtitle1">{subtitle}</Typography>
+              <Typography variant="subtitle1" sx={{ mb: 2 }}>
+                {subtitle}
+              </Typography>
             )}
           </Box>
         )}

@@ -76,7 +76,7 @@ export default function TaskApplication({
       >
         {nomination.nominator.map((nominator: any, index: number) => (
           <Typography key={nomination.id + index} variant="subtitle2">
-            {nomination.nominator[index].name}:{' '}
+            {nominator.id != nominatedSoul.id && nominator.name + ': '}
             <TaskApplicationUriDisplay uri={nomination.uri[index]} />
           </Typography>
         ))}

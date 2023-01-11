@@ -182,7 +182,7 @@ export default function ResponsiveAppBar({
             {!isReady ? (
               '' //Before Hydration
             ) : !account ? (
-              <Tooltip title="Connect your wallet to claim your profile NFT">
+              <Tooltip title="Connect your wallet to claim your NFT Soul">
                 <span>
                   <ConnectButton />
                 </span>
@@ -191,7 +191,7 @@ export default function ResponsiveAppBar({
               '' //Yet Unknown
             ) : accountSoul === null ? (
               <Link href="/soul/create">
-                <Tooltip title="Mint yourself to participate in the verse">
+                <Tooltip title="Mint yourself a Soul to participate in the verse">
                   <span>
                     <Button
                       variant="contained"

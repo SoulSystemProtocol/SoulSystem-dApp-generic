@@ -55,6 +55,9 @@ export default function TaskPostedDeliveries({
         <Typography variant="h4" sx={{ mb: 1 }}>
           Deliveries
         </Typography>
+        {/* <Typography variant="body1" color="text.secondary" sx={{ mb: 2 }}>
+          Posted deliveries
+        </Typography> */}
 
         <Grid container spacing={2} sx={{ my: 2 }}>
           {applicantPosts.length > 0 ? (

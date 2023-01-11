@@ -106,7 +106,7 @@ export default function EntityPosts({
                 )
               }
             >
-              Add Post
+              Write Post
             </Button>
           </span>
         </Tooltip>

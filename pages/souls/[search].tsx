@@ -38,7 +38,7 @@ export default function SoulsSearch({ type = '' }: any) {
             : 'Connect Wallet to Create a Soul'
         }
       >
-        Claim Your NFT Profile
+        Claim Your NFT Soul
       </TooltipButton>
     </Link>
   );

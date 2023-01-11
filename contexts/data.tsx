@@ -28,7 +28,6 @@ export function DataProvider({ children }: any) {
 
   useEffect(() => error && handleError(error, false), [error]);
   useEffect(() => {
-    console.warn('Set Soul', { accountSoul, loading, soul, account });
     !loading && setSoul(accountSoul);
   }, [accountSoul, loading]);
 
