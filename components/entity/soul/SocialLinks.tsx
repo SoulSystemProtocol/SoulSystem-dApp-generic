@@ -32,6 +32,7 @@ export default function SocialLinks({ soul, sx }: any): JSX.Element {
           MetaAttrHelper.extractValue(soul?.metadata?.attributes, item.label); //Backward Compatibility
         return !value ? null : (
           <Link
+            key={name}
             href={item.baseURL ? item.baseURL + value : value}
             title={item.label}
             target="_blank"

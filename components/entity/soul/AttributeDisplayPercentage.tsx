@@ -22,7 +22,7 @@ export default function AttributeDisplayPercentage({
               variant="determinate"
               thickness={6}
               size={60}
-              value={item.value}
+              value={Math.round(item.value)}
             />
             <Box
               sx={{

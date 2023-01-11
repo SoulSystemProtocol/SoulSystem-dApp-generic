@@ -73,7 +73,7 @@ export default function SoulDetail({ soul, sx }: any): JSX.Element {
             key="buttons"
             direction={{ xs: 'row', md: 'column' }}
             spacing={2}
-            sx={{ mt: 2 }}
+            sx={{ mt: 2, justifyContent: 'center' }}
           >
             <FundDialogButton
               address={soul.owner}
@@ -81,7 +81,8 @@ export default function SoulDetail({ soul, sx }: any): JSX.Element {
                 isOwned ||
                 soul.owner == process.env.NEXT_PUBLIC_SOUL_CONTRACT_ADDRESS
               }
-              text={'Fund ' + nameEntity(soul.role)}
+              sx={{ px: '25px' }}
+              text={'Sponsor ' + nameEntity(soul.role)}
             />
             {isOwned && (
               <Link href={`/soul/edit`}>

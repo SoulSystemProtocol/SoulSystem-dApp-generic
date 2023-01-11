@@ -2,6 +2,31 @@ import React from 'react';
 import { AvaxLogo, PolygonLogo, BSCLogo, ETHLogo } from './Logos';
 import { isNumber, toHex } from 'helpers/utils';
 
+// WGMI Chain Data Example
+// import { Chain } from 'wagmi'
+// export const avalanche: Chain = {
+//   id: 43_114,
+//   name: 'Avalanche',
+//   network: 'avalanche',
+//   nativeCurrency: {
+//     decimals: 18,
+//     name: 'Avalanche',
+//     symbol: 'AVAX',
+//   },
+//   rpcUrls: {
+//     default: { http: ['https://api.avax.network/ext/bc/C/rpc'] },
+//   },
+//   blockExplorers: {
+//     etherscan: { name: 'SnowTrace', url: 'https://snowtrace.io' },
+//     default: { name: 'SnowTrace', url: 'https://snowtrace.io' },
+//   },
+//   contracts: {
+//     multicall3: {
+//       address: '0xca11bde05977b3631167028862be2a173976ca11',
+//       blockCreated: 11907934,
+//     },
+//   },
+// }
 //Chain Data Interface
 export interface ChainData {
   key: string;
@@ -162,6 +187,7 @@ export const ChainsData: { [key: string]: ChainData } = {
     decimals: 18,
     ERC20: [
       { address: '0x326C977E6efc84E512bB9C30f76E30c160eD06FB', label: 'LINK' },
+      { address: '0x4aAeB0c6523e7aa5Adc77EAD9b031ccdEA9cB1c3', label: 'USDT' },
     ],
   },
   '0xa86a': {

@@ -27,9 +27,14 @@ export default function TaskApplications({
   return (
     <Box sx={{ sm: 12 }}>
       <Stack spacing={2} direction="row" justifyContent="space-between">
-        <Typography variant="h4" sx={{ mb: 1 }}>
-          Applications
-        </Typography>
+        <Box>
+          <Typography variant="h4" sx={{ mb: 1 }}>
+            Applications
+          </Typography>
+          <Typography variant="body1" color="text.secondary" sx={{ mb: 2 }}>
+            Apply to work on this {nameEntity('task')}
+          </Typography>
+        </Box>
         <TooltipButton
           sx={{ ml: 'auto' }}
           disabled={

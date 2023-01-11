@@ -76,42 +76,37 @@ export default function TaskApplication({
       >
         {nomination.nominator.map((nominator: any, index: number) => (
           <Typography key={nomination.id + index} variant="subtitle2">
-            {nomination.nominator[index].name}:{' '}
+            {nominator.id != nominatedSoul.id && nominator.name + ': '}
             <TaskApplicationUriDisplay uri={nomination.uri[index]} />
           </Typography>
         ))}
       </Stack>
 
       <Stack direction="column">
-        {/* Application actions */}
-        {canAdmin && (
-          <Stack direction="column" justifyContent="center">
-            {isProcessed ? (
-              <Chip label="Winner" size="small" sx={{ mr: 2 }} />
-            ) : isProcessing ? (
-              <LoadingButton
-                size="small"
-                loading={isProcessing}
-                loadingPosition="start"
-                startIcon={<Save />}
-              >
-                Processing
-              </LoadingButton>
-            ) : (
-              <Button
-                variant="outlined"
-                size="small"
-                disabled={isProcessed}
-                sx={{ whiteSpace: 'nowrap' }}
-                onClick={() => {
-                  acceptNomination(nomination.nominated.id);
-                }}
-              >
-                Accept Application
-              </Button>
-            )}
-          </Stack>
-        )}
+        <Stack direction="column" justifyContent="center">
+          {isProcessed ? (
+            <Chip label="Accepted" size="small" sx={{ mr: 2 }} />
+          ) : isProcessing ? (
+            <LoadingButton
+              size="small"
+              loading={isProcessing}
+              loadingPosition="start"
+              startIcon={<Save />}
+            >
+              Processing
+            </LoadingButton>
+          ) : (
+            <Button
+              variant="outlined"
+              size="small"
+              disabled={!canAdmin}
+              sx={{ whiteSpace: 'nowrap' }}
+              onClick={() => acceptNomination(nomination.nominated.id)}
+            >
+              Accept Application
+            </Button>
+          )}
+        </Stack>
       </Stack>
     </GridCard>
   );

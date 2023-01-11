@@ -44,6 +44,7 @@ export default function GameAdminActions({
         Edit
       </ConditionalButton>
       <TooltipButton
+        sx={{ width: '100%' }}
         disabled={!isSoulAdmin}
         tooltip={'Manually assign and remove roles'}
         size="small"

@@ -12,9 +12,9 @@ export default function TooltipButton(
 ): JSX.Element {
   return (
     <Tooltip title={props.tooltip}>
-      <span>
+      <div>
         <Button {...props} />
-      </span>
+      </div>
     </Tooltip>
   );
 }

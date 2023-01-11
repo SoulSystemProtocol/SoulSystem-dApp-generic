@@ -48,7 +48,7 @@ export function taskStageToString(task: any): string {
   for (let stageName in PROC_STAGE_REV) {
     if (PROC_STAGE_REV[stageName] == task.stage) return stageName;
   }
-  console.warn('Unhandled Task Stage:' + task.stage, task);
+  console.error('Unhandled Task Stage:' + task.stage, task);
   return 'Open';
 }
 

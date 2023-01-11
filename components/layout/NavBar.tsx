@@ -13,7 +13,9 @@ import HeaderLogo from './HeaderLogo';
 import SettingsMenu from './SettingsMenu';
 import { addressToShortAddress } from 'utils/converters';
 import Link from 'components/utils/Link';
+// import Link from 'next/link';
 import { soulLink } from 'utils/soul';
+import { useAccount } from 'wagmi';
 //TODO: Add Search
 // import { styled, alpha } from '@mui/material/styles';
 // import SearchIcon from '@mui/icons-material/Search';
@@ -26,10 +28,11 @@ export default function ResponsiveAppBar({
 }: {
   links: any[];
 }): JSX.Element {
-  const { account } = useContext(Web3Context);
+  const { account, isReady } = useContext(Web3Context);
   const { accountSoul } = useContext(DataContext);
   const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const { curChainData } = useContext(Web3Context);
+  // const { curChainData } = useContext(Web3Context);
+  const { isConnected } = useAccount();
   const handleOpenNavMenu = (event: any) => {
     setAnchorElNav(event.currentTarget);
   };
@@ -176,14 +179,20 @@ export default function ResponsiveAppBar({
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
-            {!account ? (
-              <Tooltip title="Connect your wallet to claim your profile NFT">
-                <ConnectButton />
-              </Tooltip>
-            ) : !accountSoul ? (
-              <Tooltip title="Mint yourself a Soul to act in the verse">
+            {!isReady ? (
+              '' //Before Hydration
+            ) : !account ? (
+              <Tooltip title="Connect your wallet to claim your NFT Soul">
                 <span>
-                  <Link href="/soul/create">
+                  <ConnectButton />
+                </span>
+              </Tooltip>
+            ) : accountSoul === undefined ? (
+              '' //Yet Unknown
+            ) : accountSoul === null ? (
+              <Link href="/soul/create">
+                <Tooltip title="Mint yourself a Soul to participate in the verse">
+                  <span>
                     <Button
                       variant="contained"
                       size="small"
@@ -193,11 +202,11 @@ export default function ResponsiveAppBar({
                         px: { sm: '15px', md: '26px' },
                       }}
                     >
-                      Claim NFT Profile
+                      Claim Profile
                     </Button>
-                  </Link>
-                </span>
-              </Tooltip>
+                  </span>
+                </Tooltip>
+              </Link>
             ) : (
               <Stack direction="row">
                 {account && (

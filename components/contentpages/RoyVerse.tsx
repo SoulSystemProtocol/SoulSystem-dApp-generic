@@ -35,8 +35,7 @@ export default function RoyVerse(): JSX.Element {
           sx={{ fontSize: { xs: '1.2rem', sm: '1.8rem' } }}
           letterSpacing="0.02em"
         >
-          Want to Compose fully decentralized socio-economic system with no
-          code?
+          Automated collaborative bounties
         </Typography>
         <FaucetCallout minBalance={0.1} />
       </Box>

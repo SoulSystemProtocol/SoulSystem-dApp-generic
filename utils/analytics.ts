@@ -1,6 +1,6 @@
 import posthog from 'posthog-js';
 
-const ANALYTICS_LOCALHOST_ENABLE = true;
+const ANALYTICS_LOCALHOST_ENABLE = false;
 
 /**
  *
@@ -31,8 +31,8 @@ export const initAnalytics = () => {
 export const analyticsEvent = (event: string, properties?: any): void => {
   try {
     if (isAnalyticsEnabled()) posthog.capture(event, properties);
-  } catch (e) {
-    console.error(e);
+  } catch (error) {
+    console.error('[CAUGHT] ' + error);
   }
 };
 
@@ -52,8 +52,8 @@ export const analyticsAccountConnect = (account: string): void => {
       });
       posthog.alias(account.toLowerCase());
     }
-  } catch (e) {
-    console.error(e);
+  } catch (error) {
+    console.error('[CAUGHT] ' + error);
   }
 };
 
@@ -66,8 +66,8 @@ export const analyticsAccountDisconnect = (): void => {
       analyticsEvent('accountDisconnect');
       // posthog.reset();
     }
-  } catch (e) {
-    console.error(e);
+  } catch (error) {
+    console.error('[CAUGHT] ' + error);
   }
 };
 
@@ -77,9 +77,16 @@ export const analyticsAccountDisconnect = (): void => {
 export const analyticsCatchErrorEvent = (
   error: Error,
   additional: any = {},
-): void =>
-  analyticsEvent('errorCaught', {
-    errorMessage: error?.message,
-    errorStack: error?.stack,
-    ...additional,
-  });
+): void => {
+  try {
+    if (isAnalyticsEnabled()) {
+      analyticsEvent('errorCaught', {
+        errorMessage: error?.message,
+        errorStack: error?.stack,
+        ...additional,
+      });
+    }
+  } catch (error) {
+    console.error('[CAUGHT] ' + error);
+  }
+};

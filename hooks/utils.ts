@@ -1,3 +1,5 @@
+import { analyticsCatchErrorEvent } from 'utils/analytics';
+
 interface CTXEntity {
   roles: [{ id: string; roleId: string; name: string; souls: string[] }];
 }
@@ -33,3 +35,16 @@ export const isSoulHasRole = (
   soulId: string,
   roleName: string,
 ): boolean => getSoulsByRole(ctx, roleName).includes(soulId);
+
+/**
+ * Validate ENV
+ */
+export const validateEnv = (name: string, value?: string): void => {
+  if (!value) {
+    console.error('Missing ENV:' + name);
+    analyticsCatchErrorEvent(new Error('Missing ENV: ' + name), {
+      type: 'missing env',
+      name,
+    });
+  }
+};

@@ -1,5 +1,4 @@
-import { useContext, useState } from 'react';
-import { Web3Context } from 'contexts/Web3Context';
+import { useState } from 'react';
 import { Save } from '@mui/icons-material';
 import { LoadingButton } from '@mui/lab';
 import {
@@ -18,6 +17,7 @@ import useContract from 'hooks/useContract';
 import { DialogParams } from 'contexts/dialog';
 import { ethers } from 'ethers';
 import { Typography } from '@mui/material';
+import { useSigner } from 'wagmi';
 
 interface FundParams extends DialogParams {
   address: string;
@@ -38,7 +38,7 @@ export default function FundDialog({
   const [isLoading, setIsLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(!isClose);
   const [formData, setFormData] = useState({});
-  const { provider } = useContext(Web3Context);
+  const { data: signer } = useSigner();
 
   const schema: JSONSchema7 = {
     type: 'object',
@@ -59,6 +59,10 @@ export default function FundDialog({
   };
 
   const submit = async ({ formData }: any) => {
+    if (!signer) {
+      console.error('No Signer');
+      return;
+    }
     try {
       validateChain();
       setFormData(formData);
@@ -68,7 +72,7 @@ export default function FundDialog({
         value: ethers.utils.parseEther(formData.amount.toString()),
       };
       // let receipt =
-      await provider.getSigner().sendTransaction(tx);
+      await signer.sendTransaction(tx);
       showToastSuccess('Funds are on their way');
       close();
     } catch (error: any) {

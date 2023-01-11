@@ -12,7 +12,7 @@ import { useContext, useEffect, useState } from 'react';
 import { nameEntity } from 'helpers/utils';
 import { SelectedGameContext } from 'contexts/SelectedGame';
 import { soulName } from 'utils/soul';
-import useWeb3NativeBalance from 'hooks/useWeb3NativeBalance';
+import NativeBalanceDisplay from 'components/web3/NativeBalanceDisplay';
 
 /**
  * Game Detail Page
@@ -20,7 +20,8 @@ import useWeb3NativeBalance from 'hooks/useWeb3NativeBalance';
 export default function GameDetail({ sx }: any): JSX.Element {
   const { soul } = useContext(SelectedSoulContext);
   const { game } = useContext(SelectedGameContext);
-  const { balance } = useWeb3NativeBalance(game?.id);
+  // const { balance } = useWeb3NativeBalance(game?.id);
+
   const [name, setName] = useState<string>('');
 
   useEffect(() => setName(soulName(soul)), [soul]);
@@ -53,9 +54,9 @@ export default function GameDetail({ sx }: any): JSX.Element {
         <Typography variant="h1">{name}</Typography>
         <AddressHash address={soul.owner} sx={{ float: 'right' }} />
         <Typography variant="body2" color="text.secondary">
-          Balance: {balance}
-          {process.env.NEXT_PUBLIC_NETWORK_CURRENCY_SYMBOL}
+          Balance: <NativeBalanceDisplay address={game?.id} />
         </Typography>
+
         {!!process.env.NEXT_PUBLIC_FEATURE_DEV && (
           <Typography variant="caption" color="text.secondary">
             Role: {soul?.role}

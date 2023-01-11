@@ -1,9 +1,9 @@
 import { useTheme, Box, Typography } from '@mui/material';
 import { Web3Context } from 'contexts/Web3Context';
-import useWeb3NativeBalance from 'hooks/useWeb3NativeBalance';
 import Link from 'components/utils/Link';
 import { useContext } from 'react';
 import { getChainData } from './chains/ChainsData';
+import { useBalance } from 'wagmi';
 
 /**
  * Faucet Callout
@@ -14,7 +14,7 @@ export default function FaucetCallout({
   minBalance: number;
 }): JSX.Element {
   const { account, isNetworkChainIdCorrect } = useContext(Web3Context);
-  const { balance } = useWeb3NativeBalance(account);
+  const { data: balance } = useBalance({ address: account });
   const theme = useTheme();
 
   return (
@@ -22,8 +22,8 @@ export default function FaucetCallout({
       {account &&
         isNetworkChainIdCorrect &&
         getChainData()?.faucetURL &&
-        !!balance &&
-        Number(balance) < minBalance && (
+        balance?.formatted &&
+        Number(balance?.formatted) < minBalance && (
           <Box
             sx={{
               mt: 3,

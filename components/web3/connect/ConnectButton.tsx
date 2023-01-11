@@ -1,6 +1,8 @@
-import { useContext } from 'react';
-import { Web3Context } from 'contexts/Web3Context';
+import { LoadingButton } from '@mui/lab';
 import { Button, SxProps } from '@mui/material';
+import { useAccount, useDisconnect } from 'wagmi';
+// import { Web3Button } from '@web3modal/react';
+import { useWeb3Modal } from '@web3modal/react';
 
 /**
  * Wallet Connect Button
@@ -10,33 +12,42 @@ export default function ConnectButton({
 }: {
   sx?: SxProps;
 }): JSX.Element {
-  const { account, connectWallet, disconnectWallet } = useContext(Web3Context);
+  const { isOpen, open } = useWeb3Modal();
+  const { isConnected } = useAccount();
+  const { disconnect } = useDisconnect();
 
-  if (!account) {
+  if (!isConnected) {
     return (
-      <Button
-        variant="contained"
-        size="small"
-        onClick={() => {
-          connectWallet?.();
-        }}
-        sx={{
-          cursor: 'pointer',
-          borderRadius: '16px',
-          px: '24px',
-          whiteSpace: 'nowrap',
-          ...sx,
-        }}
-      >
-        Connect Wallet
-      </Button>
+      <>
+        <LoadingButton
+          variant="contained"
+          size="small"
+          // disabled={!connector.ready}
+          loading={isOpen}
+          // loadingPosition="start"
+          // startIcon={<Save />}
+          onClick={() => {
+            open();
+          }}
+          sx={{
+            cursor: 'pointer',
+            borderRadius: '16px',
+            px: '24px',
+            whiteSpace: 'nowrap',
+            ...sx,
+          }}
+        >
+          {isOpen ? <>&nbsp; Connecting...</> : 'Connect Wallet'}
+        </LoadingButton>
+        {/* <Web3Button icon="hide" label="Connect Wallet" balance="show" /> */}
+      </>
     );
   } else {
     return (
       <Button
         variant="outlined"
         size="small"
-        onClick={() => disconnectWallet?.()}
+        onClick={() => disconnect()}
         sx={{
           cursor: 'pointer',
           borderRadius: '16px',

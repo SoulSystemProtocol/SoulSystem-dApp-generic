@@ -10,7 +10,6 @@ interface IDataContext {
   accountSoul: any;
   loading: boolean;
   error: any;
-  isReady: boolean;
   injectMetadata: (metadata: any) => void;
   injectSoul: (metadata: any, additional?: any) => void;
 }
@@ -18,8 +17,8 @@ interface IDataContext {
 export const DataContext = createContext<Partial<IDataContext>>({});
 
 export function DataProvider({ children }: any) {
-  const { isReady, account } = useContext(Web3Context);
-  const [soul, setSoul] = useState<any | null>(null);
+  const { account } = useContext(Web3Context);
+  const [soul, setSoul] = useState<any | null>();
   const { handleError } = useError();
   const {
     soul: accountSoul,
@@ -28,7 +27,9 @@ export function DataProvider({ children }: any) {
   } = useSoulByHash(account?.toLowerCase());
 
   useEffect(() => error && handleError(error, false), [error]);
-  useEffect(() => setSoul(accountSoul), [accountSoul]);
+  useEffect(() => {
+    !loading && setSoul(accountSoul);
+  }, [accountSoul, loading]);
 
   /// Inject metadata update [optimistic updates]
   const injectMetadata = (metadata: any): void =>
@@ -45,7 +46,6 @@ export function DataProvider({ children }: any) {
   return (
     <DataContext.Provider
       value={{
-        isReady,
         accountSoul: soul,
         loading,
         error,

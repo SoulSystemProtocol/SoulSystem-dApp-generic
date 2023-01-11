@@ -18,13 +18,23 @@ import GameView from 'components/entity/game/GameView';
 import TaskView from 'components/entity/task/TaskView';
 import { MetadataAttribute } from 'helpers/metadata';
 import AttributeDisplayPercentage from 'components/entity/soul/AttributeDisplayPercentage';
+import Loading from 'components/layout/Loading';
 
 /**
- * Component: Single Soul Page
+ * Single Soul Page
  */
 export default function SoulSinglePage(): JSX.Element {
   const router = useRouter();
   const { slug } = router.query;
+
+  if (!router.isReady)
+    return (
+      <Layout title={'Soul'}>
+        <Loading />
+      </Layout>
+    );
+  if (!slug)
+    return <Layout title={'Soul Not Specified'}>Soul Not Specified</Layout>;
   return (
     <SelectedSoulProvider slug={slug}>
       <SoulSinglePageContent />
@@ -33,7 +43,7 @@ export default function SoulSinglePage(): JSX.Element {
 }
 
 /**
- * Component: Single Soul Page Content
+ * Single Soul Page Content
  */
 function SoulSinglePageContent(): JSX.Element {
   const { soul, loading, error } = useContext(SelectedSoulContext);
