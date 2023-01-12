@@ -18,6 +18,9 @@ import { DialogParams } from 'contexts/dialog';
 import { ethers } from 'ethers';
 import { Typography } from '@mui/material';
 import { useSigner } from 'wagmi';
+import { useNetwork } from 'wagmi';
+import { useAccount } from 'wagmi';
+import TooltipButton from 'components/layout/TooltipButton';
 
 interface FundParams extends DialogParams {
   address: string;
@@ -39,6 +42,8 @@ export default function FundDialog({
   const [isOpen, setIsOpen] = useState(!isClose);
   const [formData, setFormData] = useState({});
   const { data: signer } = useSigner();
+  const { chain } = useNetwork();
+  const account = useAccount();
 
   const schema: JSONSchema7 = {
     type: 'object',
@@ -80,7 +85,7 @@ export default function FundDialog({
       setIsLoading(false);
     }
   };
-
+  console.log('CHain', { account, chain });
   return (
     <Dialog
       open={isOpen}
@@ -91,6 +96,9 @@ export default function FundDialog({
     >
       <DialogTitle sx={{ pb: 0 }}>
         {title}
+        <Typography variant="body2">
+          Send {chain?.id ? chain.nativeCurrency.name : 'funds'} to this address
+        </Typography>
         <Typography variant="body2" sx={{ color: 'text.secondary' }}>
           <AddressHash
             address={address}
@@ -118,9 +126,18 @@ export default function FundDialog({
               </LoadingButton>
             ) : (
               <>
-                <Button variant="contained" type="submit">
+                <TooltipButton
+                  disabled={account.isDisconnected}
+                  tooltip={
+                    account.isDisconnected
+                      ? 'You must first connected your web3 wallet'
+                      : ''
+                  }
+                  variant="contained"
+                  type="submit"
+                >
                   Send
-                </Button>
+                </TooltipButton>
                 <Button
                   variant="outlined"
                   onClick={(e) => onClose && onClose(e)}
