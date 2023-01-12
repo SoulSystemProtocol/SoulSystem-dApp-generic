@@ -6,7 +6,7 @@ import { normalizeGraphEntity } from 'helpers/metadata';
 import { SxProps } from '@mui/material';
 import StageDisplay from 'components/entity/task/StageDisplay';
 import { addressToShortAddress, hexStringToJson } from 'utils/converters';
-import { soulName } from 'utils/soul';
+import { soulImage, soulName } from 'utils/soul';
 
 export interface CardItem {
   id: string;
@@ -37,7 +37,7 @@ export const soulCardProcessedContent = (
 ): CardItem => {
   let ret = {
     id: item.id,
-    imgSrc: resolveLink(item?.metadata?.image),
+    imgSrc: soulImage(item) || '/images/default_cover.jpg',
     avatarIcon: <PersonIcon sx={{ fontSize: 50 }} />,
     label: addressToShortAddress(item.owner),
     title: soulName(item),

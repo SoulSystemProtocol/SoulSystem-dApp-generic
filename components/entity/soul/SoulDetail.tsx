@@ -3,7 +3,7 @@ import { Box, Button, Stack, Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { Web3Context } from 'contexts/Web3Context';
 import { useContext, useEffect, useState } from 'react';
-import { soulName } from 'utils/soul';
+import { soulImage, soulName } from 'utils/soul';
 import AddressHash from 'components/web3/AddressHash';
 import FundDialogButton from 'components/web3/FundDialogButton';
 import EntityImage from 'components/entity/EntityImage';
@@ -14,6 +14,7 @@ import { nameEntity } from 'helpers/utils';
 import Link from 'components/utils/Link';
 import { resolveLink } from 'helpers/IPFS';
 import ImageBox from 'components/utils/ImageBox';
+import { DEFAULT_COVER } from 'constants/texts';
 
 /**
  * Display Soul details
@@ -33,8 +34,7 @@ export default function SoulDetail({ soul, sx }: any): JSX.Element {
   }, [soul, account]);
 
   if (!soul) return <Loading />;
-  const coverImageSrc =
-    resolveLink(soul?.metadata?.cover) || '/images/default_cover.jpg';
+  const coverImageSrc = resolveLink(soul?.metadata?.cover) || DEFAULT_COVER;
   return (
     <>
       <ImageBox sx={{ height: '230px' }} src={coverImageSrc} />
@@ -54,12 +54,7 @@ export default function SoulDetail({ soul, sx }: any): JSX.Element {
           }}
         >
           <EntityImage
-            imgSrc={
-              soul.image ||
-              soul.uriImage ||
-              soul?.metadata?.image ||
-              '/images/default_avatar.jpg'
-            }
+            imgSrc={soulImage(soul)}
             icon={<PersonOutlineOutlined sx={{ fontSize: '50px' }} />}
             sx={{
               borderRadius: '50%',

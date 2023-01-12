@@ -1,3 +1,4 @@
+import { DEFAULT_IMAGE } from 'constants/texts';
 import { resolveLink } from 'helpers/IPFS';
 import { MetaAttrHelper } from 'helpers/MetaAttrHelper';
 import { truncate } from 'lodash';
@@ -22,9 +23,9 @@ export function soulName(soul: any, length: number = 36): string {
  * Get main image of soul.
  */
 export function soulImage(soul: any): string {
+  if (soul?.image) return resolveLink(soul.image);
   if (soul?.metadata?.image) return resolveLink(soul.metadata.image);
-  if (soul?.metadata?.image) return resolveLink(soul.metadata.image);
-  return soul?.uriImage ? resolveLink(soul.uriImage) : '';
+  return soul?.uriImage ? resolveLink(soul.uriImage) : DEFAULT_IMAGE;
 }
 
 /**
