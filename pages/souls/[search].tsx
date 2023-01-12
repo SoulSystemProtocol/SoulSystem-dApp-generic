@@ -22,7 +22,7 @@ export default function SoulsSearch({ type = '' }: any) {
 
   const CONF = {
     PAGE_TITLE: search ? `Soul Search ` : 'SBT Profiles',
-    TITLE: search ? `Results for: ${search}` : 'SBT Profiles',
+    TITLE: search ? `Results for: ${search}` : 'Human Souls',
     SUBTITLE: `You can now be an NFT! interact with the soul-system, mint yourself a soulbound NFT avatar`,
     ROUTE: 'souls',
   };
