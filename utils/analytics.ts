@@ -6,7 +6,6 @@ const ANALYTICS_LOCALHOST_ENABLE = false;
  *
  */
 export const isAnalyticsEnabled = () => {
-  return true;
   const isLocalhost =
     window.location.href.includes('127.0.0.1') ||
     window.location.href.includes('localhost');
