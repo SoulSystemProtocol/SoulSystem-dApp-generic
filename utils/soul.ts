@@ -1,4 +1,5 @@
 import { resolveLink } from 'helpers/IPFS';
+import { MetaAttrHelper } from 'helpers/MetaAttrHelper';
 import { truncate } from 'lodash';
 
 /**
@@ -10,6 +11,9 @@ export function soulName(soul: any, length: number = 36): string {
   let firstLastName = 'Anonymous';
   if (soul?.uriFirstName || soul?.uriLastName) {
     firstLastName = (soul.uriFirstName || '') + ' ' + (soul.uriLastName || '');
+  } else if (soul?.metadata?.attributes) {
+    //Backwards compatibility
+    return MetaAttrHelper.extractName(soul.metadata.attributes);
   }
   return truncate(firstLastName, { length: length });
 }
