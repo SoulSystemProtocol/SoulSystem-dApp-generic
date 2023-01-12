@@ -12,6 +12,7 @@ import { loadJsonFromIPFS, resolveLink } from 'helpers/IPFS';
 import { soulCardContent } from 'utils/cardContents';
 import GridCard from 'components/GridCard';
 import useContract from 'hooks/useContract';
+import TooltipButton from 'components/layout/TooltipButton';
 
 /**
  * Task Application
@@ -60,7 +61,7 @@ export default function TaskApplication({
   }, [accountSoul, task]);
 
   useEffect(() => {
-    console.log('TaskApplication: nomination', nomination);
+    // console.log('TaskApplication: nomination', nomination);
     getSoulById(nomination.nominated.id).then((soul) => setNominatedSoul(soul));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [nomination]);
@@ -96,15 +97,16 @@ export default function TaskApplication({
               Processing
             </LoadingButton>
           ) : (
-            <Button
+            <TooltipButton
               variant="outlined"
               size="small"
               disabled={!canAdmin}
+              tooltip={!canAdmin ? 'Admins Only' : ''}
               sx={{ whiteSpace: 'nowrap' }}
               onClick={() => acceptNomination(nomination.nominated.id)}
             >
               Accept Application
-            </Button>
+            </TooltipButton>
           )}
         </Stack>
       </Stack>

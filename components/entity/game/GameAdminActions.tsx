@@ -7,7 +7,6 @@ import { useContext, useEffect, useState } from 'react';
 import GameManageDialog from './GameManageDialog';
 import GameRoleManageDialog from './GameRoleManageDialog';
 import { isSoulHasRole } from 'hooks/utils';
-import ConditionalButton from 'components/layout/ConditionalButton';
 import { useRouter } from 'next/router';
 import TooltipButton from 'components/layout/TooltipButton';
 
@@ -35,18 +34,24 @@ export default function GameAdminActions({
   if (!game) return <></>;
   return (
     <Stack direction="column" spacing={1} sx={{ ...sx }}>
-      <ConditionalButton
+      <TooltipButton
         disabled={!isSoulAdmin}
+        sx={{ width: '100%' }}
+        tooltip={isSoulAdmin ? 'Edit Info' : 'Admin Only'}
         size="small"
         variant="outlined"
         onClick={() => router.push('/soul/edit/' + soul.owner)}
       >
         Edit
-      </ConditionalButton>
+      </TooltipButton>
       <TooltipButton
-        sx={{ width: '100%' }}
         disabled={!isSoulAdmin}
-        tooltip={'Manually assign and remove roles'}
+        sx={{ width: '100%' }}
+        tooltip={
+          isSoulAdmin
+            ? 'Mint & Burn Role NFTs'
+            : 'Mint & Burn Role NFTs (Admin Only)'
+        }
         size="small"
         variant="outlined"
         onClick={() =>

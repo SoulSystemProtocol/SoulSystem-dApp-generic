@@ -7,9 +7,10 @@ import { nameEntity } from 'helpers/utils';
 export const GAME_DESC: any = {
   mdao:
     //`Mentor DAOs consist of a mentor and mentees that work on bounties together, as a team.`,
-    `A ${nameEntity(
-      'mdao',
-    )} is a MicroDAO – a small cross-functional team of people that decide, work, and earn together.`,
+    // `A ${nameEntity(
+    //   'mdao',
+    // )} is a MicroDAO – a small cross-functional team of people that work, decide, and earn together.`,
+    `A microDAO is a small cross-functional team of people that work, decide, and earn together.`,
   project: (
     <>
       {nameEntity('project', true)} post{' '}
