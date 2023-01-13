@@ -34,7 +34,7 @@ export default function SolidifyLanding(): JSX.Element {
             sx={{ fontSize: { sm: '5rem', xs: '3rem' } }}
           >
             {/* {APP_CONFIGS.NAME} */}
-            Soul-System Boilerplate
+            SoulSystem Boilerplate
           </Typography>
           <Typography
             variant="h4"
@@ -57,7 +57,7 @@ export default function SolidifyLanding(): JSX.Element {
 
         <Box>
           <Typography variant="h4" sx={{ mt: 4 }}>
-            Featuring soul-systems - a cluster of composible primitives
+            Featuring SoulSystems - a cluster of composible primitives
             structured around an SBT contract that allows you to
           </Typography>
           <ul>
@@ -77,7 +77,7 @@ export default function SolidifyLanding(): JSX.Element {
               <li>Set up rules and design a interaction flows</li>
               <li>Automatically reward actions with all kinds of Tokens</li>
             </ul>
-            <li>Soul-system moderation</li>
+            <li>SoulSystem moderation</li>
             <ul>
               <li>Ban bad actors</li>
               <li>recover lost or stolen assets (Safe NFTs)</li>
