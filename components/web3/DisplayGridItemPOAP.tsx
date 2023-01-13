@@ -5,7 +5,7 @@ import { SupervisedUserCircle } from '@mui/icons-material';
 /**
  * Component: Display Single NFT Item (w/Tootip)
  */
-export default function DisplayGridItem1({
+export default function DisplayGridItemPOAP({
   props,
   name,
   title,

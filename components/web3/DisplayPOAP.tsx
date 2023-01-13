@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Box, Button, Grid, Typography } from '@mui/material';
 import useError from 'hooks/useError';
-import DisplayGridItem1 from './DisplayGridItem1';
+import DisplayGridItemPOAP from './DisplayGridItemPOAP';
 
 /**
  * Component: Display POAP
@@ -81,7 +81,7 @@ export default function DisplayPOAP({
                 index >= displayCount && !isShowMore ? (
                   <></>
                 ) : (
-                  <DisplayGridItem1
+                  <DisplayGridItemPOAP
                     key={item.event.id.toString()}
                     props={{ key: item.event.id.toString(), xs: 2, md: 1 }}
                     image_url={item?.event?.image_url}
