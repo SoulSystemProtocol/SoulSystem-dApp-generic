@@ -49,7 +49,6 @@ export const prepMetadata = (metadata: any): any => {
  * Update a Soul Entity on metadata update
  */
 export const updateSoul = (soul: any, metadata: any) => {
-  console.warn('Running updateSoul', { soul, metadata });
   // if (!soul) return soul;
   if (!soul) soul = { name: 'Unknown' };
   soul.metadata = metadata;
