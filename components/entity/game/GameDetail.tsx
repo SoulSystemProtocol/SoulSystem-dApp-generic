@@ -54,7 +54,7 @@ export default function GameDetail({ sx }: any): JSX.Element {
         <Typography variant="h1">{name}</Typography>
         <AddressHash address={soul.owner} sx={{ float: 'right' }} />
         <Typography variant="body2" color="text.secondary">
-          Balance: <NativeBalanceDisplay address={game?.id} />
+          Balance: {game?.id && <NativeBalanceDisplay address={game.id} />}
         </Typography>
 
         {!!process.env.NEXT_PUBLIC_FEATURE_DEV && (

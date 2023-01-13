@@ -122,7 +122,7 @@ export default function TaskDetail({ item, sx }: any) {
             sx={{ display: 'inline' }}
             divider={<span> | </span>}
           >
-            <NativeBalanceDisplay address={item?.id} />
+            {item?.id && <NativeBalanceDisplay address={item.id} />}
             {/* <TokenBalance account={item.id} /> */}
             {curChainData?.ERC20?.map((token: any) => {
               return (
