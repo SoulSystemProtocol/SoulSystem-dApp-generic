@@ -21,10 +21,8 @@ const client = new ApolloClient({
  * Component with an app.
  */
 export default function App({ Component, pageProps }: AppProps): JSX.Element {
-  useEffect(() => {
-    /// Init analytics
-    initAnalytics();
-  }, []);
+  /// Init analytics
+  useEffect(() => initAnalytics(), []);
 
   /**
    * Send page view event to analytics if page changed via router
