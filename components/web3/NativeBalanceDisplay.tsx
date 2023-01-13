@@ -15,6 +15,7 @@ export default function NativeBalanceDisplay({
     console.error('Not a Valid Address', address);
     analyticsCatchErrorEvent(new Error('Not a Valid Address'), {
       type: 'invalid address',
+      data: { address },
     });
   }
   return (
