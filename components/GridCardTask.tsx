@@ -4,7 +4,7 @@ import { CardItem } from 'utils/cardContents';
 import GridCard from './GridCard';
 
 /**
- * A Dashboard card component that displays the container's image
+ * A List Card component that displays the container's image
  */
 export default function GridCardTask(props: CardItem) {
   //Fetch Container's Image

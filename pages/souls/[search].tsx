@@ -23,7 +23,7 @@ export default function SoulsSearch({ type = '' }: any) {
   const CONF = {
     PAGE_TITLE: search ? `Soul Search ` : 'SBT Profiles',
     TITLE: search ? `Results for: ${search}` : 'Human Souls',
-    SUBTITLE: `You can now be an NFT! interact with the SoulSystem, mint yourself a soulbound NFT avatar`,
+    SUBTITLE: `Become a part of the SoulSystem and eternalize yourself an NFT`,
     ROUTE: 'souls',
   };
   const renderActions = accountSoul === null && (
@@ -73,6 +73,8 @@ export default function SoulsSearch({ type = '' }: any) {
         title={CONF.TITLE}
         query={SoulsOpenInj(searchQueryParams)}
         gridSM={6}
+        gridMD={4}
+        gridLG={3}
       />
     </Layout>
   );

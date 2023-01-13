@@ -39,7 +39,7 @@ export function DataProvider({ children }: any) {
   const injectSoul = (metadata: any, additional: any = {}): void => {
     additional.owner = account;
     const fauxSoul = genFauxSoul(metadata, additional);
-    console.warn('Set Faux accountSoul', fauxSoul);
+    console.log('Set Faux accountSoul', fauxSoul);
     setSoul(fauxSoul);
   };
 

@@ -1,4 +1,4 @@
-import { DEFAULT_IMAGE } from 'constants/texts';
+import { DEFAULT_COVER, DEFAULT_IMAGE } from 'constants/texts';
 import { resolveLink } from 'helpers/IPFS';
 import { MetaAttrHelper } from 'helpers/MetaAttrHelper';
 import { truncate } from 'lodash';
@@ -26,6 +26,13 @@ export function soulImage(soul: any): string {
   if (soul?.image) return resolveLink(soul.image);
   if (soul?.metadata?.image) return resolveLink(soul.metadata.image);
   return soul?.uriImage ? resolveLink(soul.uriImage) : DEFAULT_IMAGE;
+}
+
+/**
+ * Get soul's cover image.
+ */
+export function soulCover(soul: any): string {
+  return resolveLink(soul?.metadata?.cover) || DEFAULT_COVER;
 }
 
 /**

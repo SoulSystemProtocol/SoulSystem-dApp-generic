@@ -3,7 +3,7 @@ import { Box, Button, Stack, Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { Web3Context } from 'contexts/Web3Context';
 import { useContext, useEffect, useState } from 'react';
-import { soulImage, soulName } from 'utils/soul';
+import { soulCover, soulImage, soulName } from 'utils/soul';
 import AddressHash from 'components/web3/AddressHash';
 import FundDialogButton from 'components/web3/FundDialogButton';
 import EntityImage from 'components/entity/EntityImage';
@@ -12,9 +12,7 @@ import SocialLinks from './SocialLinks';
 import Loading from 'components/layout/Loading';
 import { nameEntity } from 'helpers/utils';
 import Link from 'components/utils/Link';
-import { resolveLink } from 'helpers/IPFS';
 import ImageBox from 'components/utils/ImageBox';
-import { DEFAULT_COVER } from 'constants/texts';
 
 /**
  * Display Soul details
@@ -34,10 +32,9 @@ export default function SoulDetail({ soul, sx }: any): JSX.Element {
   }, [soul, account]);
 
   if (!soul) return <Loading />;
-  const coverImageSrc = resolveLink(soul?.metadata?.cover) || DEFAULT_COVER;
   return (
     <>
-      <ImageBox sx={{ height: '230px' }} src={coverImageSrc} />
+      <ImageBox sx={{ height: '230px' }} src={soulCover(soul)} />
       <Box
         sx={{
           display: 'flex',

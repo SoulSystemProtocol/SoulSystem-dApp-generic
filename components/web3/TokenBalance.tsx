@@ -6,6 +6,7 @@ import { Box, Stack } from '@mui/material';
 import { useProvider } from 'wagmi';
 // import { useBalance } from 'wagmi';
 import { ERC20 } from 'typechain-types/ERC20';
+import { fetchBalance } from '@wagmi/core';
 
 /**
  * ERC20 Token Balance
@@ -41,6 +42,7 @@ export function TokenBalanceSingle({
   };
 
   useEffect(() => {
+    // fetchBalance({ address: account, token }) //TODO: Maybe use this instead...
     getSingleTokenBalance(token, account)
       .then((res) => {
         setBalance(ethers.utils.formatEther(res));

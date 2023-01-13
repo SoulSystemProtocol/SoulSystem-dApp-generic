@@ -1,15 +1,24 @@
-import { Card, CardContent, Stack, Typography } from '@mui/material';
+import {
+  Card,
+  CardContent,
+  CardMedia,
+  Stack,
+  Typography,
+  useTheme,
+} from '@mui/material';
 import Link from 'components/utils/Link';
 import { Box } from '@mui/system';
 import { CardItem } from 'utils/cardContents';
 import { AutoAwesomeOutlined } from '@mui/icons-material';
 import EntityImage from './entity/EntityImage';
 import { SoulRoles } from './entity/soul/SoulRoles';
+import { soulCover } from 'utils/soul';
+import SoulDescription from './entity/soul/SoulDescription';
 
 /**
  * List Card
  */
-export default function GridCard({
+export default function GridCardUser({
   id,
   title,
   label,
@@ -20,11 +29,14 @@ export default function GridCard({
   baseRoute,
   children,
   linkSX,
+  entity,
 }: CardItem): JSX.Element {
   const datalink = link || `/${baseRoute}/${id}`;
   if (!datalink) console.error('Item missing a link', { link, datalink });
+  const theme = useTheme();
   return (
     <Card variant="outlined">
+      <CardMedia component="img" height="96" image={soulCover(entity)} alt="" />
       <CardContent>
         <Stack
           direction="row"
@@ -40,10 +52,15 @@ export default function GridCard({
                   cursor: 'pointer',
                   width: 82,
                   height: 82,
+                  borderRadius: '50%',
+                  border: '3px solid ' + theme.palette.background.default,
+                  mt: '-40px',
+                  ml: 'auto',
+                  mr: 'auto',
                 }}
               />
             </Link>
-            <Box sx={{ ml: 2 }}>
+            <Box sx={{ ml: 2, height: '95px' }}>
               <Link
                 href={datalink}
                 sx={{
@@ -77,7 +94,18 @@ export default function GridCard({
                       WebkitBoxOrient: 'vertical',
                     }}
                   >
-                    {label}
+                    <SoulDescription
+                      soul={entity}
+                      sx={{
+                        fontSize: '0.85em',
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
+                        display: '-webkit-box',
+                        lineClamp: 2,
+                        WebkitLineClamp: 2,
+                        WebkitBoxOrient: 'vertical',
+                      }}
+                    />
                   </Link>
                 </Typography>
               )}

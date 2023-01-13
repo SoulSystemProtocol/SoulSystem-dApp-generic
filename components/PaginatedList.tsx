@@ -6,6 +6,7 @@ import Loader from './Loader';
 import GridCard from './GridCard';
 import { CardItem } from 'utils/cardContents';
 import GridCardTask from './GridCardTask';
+import GridCardUser from './GridCardUser';
 import { NO_RESULTS } from 'constants/texts';
 
 type TPaginatedList = {
@@ -126,7 +127,9 @@ export default function PaginatedList({
                     md={gridMD}
                     lg={gridLG}
                   >
-                    {cardData.imgSrc == 'PARENT_IMAGE' ? (
+                    {cardData?.component == 'GridCardUser' ? (
+                      <GridCardUser {...cardData} />
+                    ) : cardData?.component == 'GridCardTask' ? (
                       <GridCardTask {...cardData} />
                     ) : (
                       <GridCard {...cardData} />
