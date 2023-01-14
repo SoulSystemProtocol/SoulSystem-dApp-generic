@@ -40,7 +40,7 @@ export default function RoyVerse(): JSX.Element {
         <FaucetCallout minBalance={0.1} />
       </Box>
 
-      <Box>RoyHacks Text...</Box>
+      <Box>Trustless Job Market | ProofOfFunds</Box>
     </>
   );
 }

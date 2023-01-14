@@ -7,7 +7,7 @@ import { union } from 'lodash';
 import { useEffect, useState } from 'react';
 
 /**
- * Display Game Members
+ * Display Game Members (CTX Parts)
  */
 export default function GameMembers({ game, sx }: any) {
   const { handleError } = useError();

@@ -34,7 +34,7 @@ export default function SoulsSearch({ type = '' }: any) {
         tooltip={
           account
             ? 'Mint your Profile as NFT'
-            : 'Connect Wallet to Create a Soul'
+            : 'Connect Wallet to mint your Soul'
         }
       >
         Claim Your NFT Soul
