@@ -81,12 +81,12 @@ export default function GridCardUser({
                   sx={{
                     mt: '1px',
                     fontSize: '0.85em',
-                        overflow: 'hidden',
-                        textOverflow: 'ellipsis',
-                        display: '-webkit-box',
-                        lineClamp: 2,
-                        WebkitLineClamp: 2,
-                        WebkitBoxOrient: 'vertical',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    display: '-webkit-box',
+                    lineClamp: 2,
+                    WebkitLineClamp: 2,
+                    WebkitBoxOrient: 'vertical',
                   }}
                 >
                   <Link
