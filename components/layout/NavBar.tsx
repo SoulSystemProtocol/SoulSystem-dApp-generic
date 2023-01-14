@@ -227,7 +227,7 @@ export default function ResponsiveAppBar({
                           pr: '26px',
                           mr: '-24px',
                           pl: '12px',
-                          height: '32px',
+                          height: '33px',
                         }}
                       >
                         {addressToShortAddress(account)}
