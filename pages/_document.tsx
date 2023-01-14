@@ -18,6 +18,13 @@ function Document() {
           href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap"
           rel="stylesheet"
         />
+        <script
+          type="text/javascript"
+          id="hs-script-loader"
+          async
+          defer
+          src="//js-na1.hs-scripts.com/23767716.js"
+        ></script>
       </Head>
       <body>
         <Main />

@@ -36,6 +36,15 @@ export function soulCover(soul: any): string {
 }
 
 /**
+ * Get soul's description.
+ */
+export function soulDescription(soul: any): string {
+  return soul?.metadata?.description
+    ? soul.metadata.description
+    : MetaAttrHelper.extractValue(soul?.metadata?.attributes, 'Description');
+}
+
+/**
  * Generate soul link.
  */
 export function soulLink(soul: any): string {
