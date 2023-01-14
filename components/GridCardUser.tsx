@@ -12,7 +12,7 @@ import { CardItem } from 'utils/cardContents';
 import { AutoAwesomeOutlined } from '@mui/icons-material';
 import EntityImage from './entity/EntityImage';
 import { SoulRoles } from './entity/soul/SoulRoles';
-import { soulCover } from 'utils/soul';
+import { soulCover, soulDescription } from 'utils/soul';
 import SoulDescription from './entity/soul/SoulDescription';
 
 /**
@@ -80,6 +80,13 @@ export default function GridCardUser({
                   color="text.secondary"
                   sx={{
                     mt: '1px',
+                    fontSize: '0.85em',
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
+                        display: '-webkit-box',
+                        lineClamp: 2,
+                        WebkitLineClamp: 2,
+                        WebkitBoxOrient: 'vertical',
                   }}
                 >
                   <Link
@@ -94,18 +101,7 @@ export default function GridCardUser({
                       WebkitBoxOrient: 'vertical',
                     }}
                   >
-                    <SoulDescription
-                      soul={entity}
-                      sx={{
-                        fontSize: '0.85em',
-                        overflow: 'hidden',
-                        textOverflow: 'ellipsis',
-                        display: '-webkit-box',
-                        lineClamp: 2,
-                        WebkitLineClamp: 2,
-                        WebkitBoxOrient: 'vertical',
-                      }}
-                    />
+                    {soulDescription(entity)}
                   </Link>
                 </Typography>
               )}
