@@ -1,8 +1,3 @@
-// import {
-//   default as WalletConnect,
-//   default as WalletConnectProvider,
-// } from '@walletconnect/web3-provider';
-// import { ethers } from 'ethers';
 import { createContext, useEffect, useState } from 'react';
 import { getChainData } from 'components/web3/chains/ChainsData';
 import {
