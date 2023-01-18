@@ -20,8 +20,6 @@ import NativeBalanceDisplay from 'components/web3/NativeBalanceDisplay';
 export default function GameDetail({ sx }: any): JSX.Element {
   const { soul } = useContext(SelectedSoulContext);
   const { game } = useContext(SelectedGameContext);
-  // const { balance } = useWeb3NativeBalance(game?.id);
-
   const [name, setName] = useState<string>('');
 
   useEffect(() => setName(soulName(soul)), [soul]);
