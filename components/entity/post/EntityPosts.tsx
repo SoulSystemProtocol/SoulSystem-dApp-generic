@@ -94,6 +94,7 @@ export default function EntityPosts({
         <Tooltip title={!hasAnyRole ? 'Members Only' : ''}>
           <span>
             <Button
+              size="small"
               variant="outlined"
               disabled={!hasAnyRole}
               onClick={() =>

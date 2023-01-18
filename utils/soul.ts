@@ -48,7 +48,7 @@ export function soulDescription(soul: any): string {
  * Generate soul link.
  */
 export function soulLink(soul: any): string {
-  return `/soul/${soul.id}`;
+  return `/soul/${soul.owner}`;
 }
 
 /**

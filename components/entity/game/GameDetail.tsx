@@ -72,7 +72,9 @@ export default function GameDetail({ sx }: any): JSX.Element {
           />
           {process.env.NEXT_PUBLIC_FEATURE_RULES === 'true' && (
             <Link href={`/game/${game?.id}/rules/manage`}>
-              <Button>Rules</Button>
+              <Button size="small" variant="outlined">
+                Rules
+              </Button>
             </Link>
           )}
         </Stack>

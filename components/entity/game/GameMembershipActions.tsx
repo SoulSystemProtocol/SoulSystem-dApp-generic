@@ -8,6 +8,8 @@ import { isSoulHasRole } from 'hooks/utils';
 import useError from 'hooks/useError';
 import useToast from 'hooks/useToast';
 import { useContext, useEffect, useState } from 'react';
+import { nameEntity } from 'helpers/utils';
+import TooltipButton from 'components/layout/TooltipButton';
 
 /**
  * TODO: Refactor
@@ -22,7 +24,7 @@ export default function GameMembershipActions({ dao, sx }: any) {
   const [isProcessing, setIsProcessing] = useState(false);
   const [isProcessed, setIsProcessed] = useState(false);
 
-  async function submit() {
+  const submit = async (): Promise<void> => {
     try {
       setIsProcessing(true);
       if (isSoulMember) await getContractGame(dao.id).leave();
@@ -34,7 +36,7 @@ export default function GameMembershipActions({ dao, sx }: any) {
     } finally {
       setIsProcessing(false);
     }
-  }
+  };
 
   useEffect(() => {
     setIsSoulMember(false);
@@ -51,29 +53,50 @@ export default function GameMembershipActions({ dao, sx }: any) {
 
   return (
     <Box sx={{ ...sx }}>
-      {!accountSoul || isProcessed ? (
+      {isProcessed ? (
         <></>
       ) : isProcessing ? (
         <LoadingButton
           loading
           loadingPosition="start"
           startIcon={<Save />}
+          size="small"
           variant="outlined"
         >
           Processing
         </LoadingButton>
       ) : isSoulMember ? (
-        <Button variant="outlined" onClick={() => submit()}>
+        <TooltipButton
+          size="small"
+          variant="outlined"
+          onClick={submit}
+          tooltip={`Leave ${nameEntity('project').toLowerCase()}`}
+        >
           Leave
-        </Button>
+        </TooltipButton>
       ) : isSoulSentApplication ? (
-        <Button variant="outlined" disabled>
+        <TooltipButton
+          size="small"
+          variant="outlined"
+          disabled={true}
+          tooltip="Waiting for your application to be accepted"
+        >
           Application Pending
-        </Button>
+        </TooltipButton>
       ) : (
-        <Button variant="outlined" onClick={() => submit()}>
+        <TooltipButton
+          size="small"
+          variant="outlined"
+          onClick={submit}
+          tooltip={
+            !accountSoul
+              ? 'Connect wallet & mint your soul to interact with the verse'
+              : `Requeste to join the  ${nameEntity(dao?.role).toLowerCase()}`
+          }
+          disabled={!accountSoul}
+        >
           Apply to Join
-        </Button>
+        </TooltipButton>
       )}
     </Box>
   );

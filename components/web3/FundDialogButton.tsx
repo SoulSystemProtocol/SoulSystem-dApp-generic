@@ -2,7 +2,7 @@ import { SxProps } from '@mui/material';
 import { DialogContext, TDialogContext } from 'contexts/dialog';
 import { useContext } from 'react';
 import FundDialog from 'components/entity/task/FundDialog';
-import ConditionalButton from 'components/layout/ConditionalButton';
+import TooltipButton from 'components/layout/TooltipButton';
 
 /**
  * A component Fund Dialog Button
@@ -21,11 +21,12 @@ export default function FundDialogButton({
   const { showDialog, closeDialog }: Partial<TDialogContext> =
     useContext(DialogContext);
   return (
-    <ConditionalButton
+    <TooltipButton
       size="small"
       variant="outlined"
       sx={sx}
       disabled={disabled}
+      tooltip="Transfer funds"
       onClick={() =>
         showDialog?.(
           <FundDialog address={address} title={text} onClose={closeDialog} />,
@@ -33,6 +34,6 @@ export default function FundDialogButton({
       }
     >
       {text}
-    </ConditionalButton>
+    </TooltipButton>
   );
 }
