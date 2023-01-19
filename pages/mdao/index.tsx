@@ -3,7 +3,7 @@ import { Box, Button, Tooltip } from '@mui/material';
 import { DialogContext } from 'contexts/dialog';
 import { DataContext } from 'contexts/data';
 import { getPageTitle } from '../../utils';
-import DaoManageDialog from 'components/dao/DaoManageDialog';
+import DaoManageDialog from 'components/entity/game/dao/DaoManageDialog';
 import Layout from 'components/layout/Layout';
 import { gameCardContent } from 'utils/cardContents';
 import { nameEntity } from 'helpers/utils';

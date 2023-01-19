@@ -3,7 +3,7 @@ import { Box, Tab } from '@mui/material';
 import GameMembers from 'components/entity/game/GameMembers';
 import EntityPosts from 'components/entity/post/EntityPosts';
 import { useState } from 'react';
-import GameApplications from '../../dao/GameApplications';
+import GameApplications from './dao/GameApplications';
 import SoulAffiliations from 'components/entity/soul/SoulAffiliations';
 import useError from 'hooks/useError';
 

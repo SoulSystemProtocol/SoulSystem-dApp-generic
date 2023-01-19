@@ -3,7 +3,7 @@ import { Button } from '@mui/material';
 import { DialogContext } from 'contexts/dialog';
 import { DataContext } from 'contexts/data';
 import { getPageTitle } from '../../utils';
-import DaoManageDialog from 'components/dao/DaoManageDialog';
+import DaoManageDialog from 'components/entity/game/dao/DaoManageDialog';
 import Layout from 'components/layout/Layout';
 import { GAME_DESC } from 'constants/contracts';
 import { gameCardContent } from 'utils/cardContents';
