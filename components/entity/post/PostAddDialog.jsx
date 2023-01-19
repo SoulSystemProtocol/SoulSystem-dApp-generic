@@ -22,7 +22,7 @@ import useToast from 'hooks/useToast';
 /**
  * Component: dialog for add case post (comment, confirmation).
  */
-export default function GamePostAddDialog({
+export default function PostAddDialog({
   item,
   postType = POST_TYPE.comment,
   isClose = true,

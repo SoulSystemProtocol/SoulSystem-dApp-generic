@@ -10,7 +10,7 @@ import {
 import { DataContext } from 'contexts/data';
 import { useEffect, useState, useContext } from 'react';
 import { DialogContext } from 'contexts/dialog';
-import GamePostAddDialog from './GamePostAddDialog';
+import PostAddDialog from './PostAddDialog';
 import useError from 'hooks/useError';
 import useSubgraph from 'hooks/useSubgraph';
 import { normalizeGraphEntity } from 'helpers/metadata';
@@ -91,7 +91,7 @@ export default function EntityPosts({
               disabled={!hasAnyRole}
               onClick={() =>
                 showDialog?.(
-                  <GamePostAddDialog
+                  <PostAddDialog
                     item={item}
                     postType={types ? types[0] : 'post'}
                     onClose={closeDialog}
