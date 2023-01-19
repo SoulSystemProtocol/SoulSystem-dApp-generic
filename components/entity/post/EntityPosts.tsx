@@ -31,23 +31,18 @@ export default function EntityPosts({
 }): JSX.Element {
   const { accountSoul } = useContext(DataContext);
   const { showDialog, closeDialog } = useContext(DialogContext);
-  const [commentPosts, setCommentsPosts] = useState([]);
-  const [hasAnyRole, setHasAnyRole] = useState(false);
-
   const { isGamePart } = useSubgraph();
   const { handleError } = useError();
+  const [postItems, setPostItems] = useState<Array<any>>([]);
+  const [hasAnyRole, setHasAnyRole] = useState<boolean>(false);
 
   useEffect(() => {
-    if (item) {
-      const commentPosts = item?.posts; //?.filter( (post) => post.uriType === 'comment', );
-      // commentPosts && console.log('commentPosts', commentPosts);
-      //Sort by Date
-      const sortedCommentPosts = commentPosts?.sort((a: any, b: any) =>
+    setPostItems(
+      //Posts, Sorted by Date
+      item?.posts?.sort((a: any, b: any) =>
         a?.createdDate?.localeCompare(b?.createdDate),
-      );
-      setCommentsPosts(sortedCommentPosts);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+      ) || [],
+    );
   }, [item]);
 
   useEffect(() => {
@@ -63,8 +58,7 @@ export default function EntityPosts({
   return (
     <Box sx={sx}>
       <Grid container spacing={2}>
-        {/* Comments */}
-        {commentPosts.length == 0 ? (
+        {postItems.length == 0 ? (
           <Grid item key="empty" xs={12}>
             <Paper sx={{ p: 2 }}>
               <Typography variant="caption">{NO_RESULTS}</Typography>
@@ -72,7 +66,7 @@ export default function EntityPosts({
           </Grid>
         ) : (
           <>
-            {commentPosts.map((post: any) => {
+            {postItems.map((post: any) => {
               //Process Entity
               post = normalizeGraphEntity(post);
               console.log('Render Post:', {
@@ -82,14 +76,12 @@ export default function EntityPosts({
                 isIn: types?.includes(post?.metadata?.type),
               });
               return !types || types.includes(post?.metadata?.type) ? (
-                <PostSingleDisplay post={post} />
+                <PostSingleDisplay key={post.id} post={post} />
               ) : null;
             })}
           </>
         )}
       </Grid>
-      {/* //item?.stage === PROC_STAGE_REV.open &&    //TODO: Enable this on Protocol version 0.5.3 (Disply only if has a soul in a role) */}
-
       <Box sx={{ mt: 2 }}>
         <Tooltip title={!hasAnyRole ? 'Members Only' : ''}>
           <span>
@@ -101,7 +93,7 @@ export default function EntityPosts({
                 showDialog?.(
                   <GamePostAddDialog
                     item={item}
-                    postType={'comment'}
+                    postType={types ? types[0] : 'post'}
                     onClose={closeDialog}
                   />,
                 )
