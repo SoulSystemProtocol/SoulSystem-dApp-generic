@@ -5,23 +5,24 @@ import EntityPosts from 'components/entity/post/EntityPosts';
 import { useState } from 'react';
 import GameApplications from '../../dao/GameApplications';
 import SoulAffiliations from 'components/entity/soul/SoulAffiliations';
+import useError from 'hooks/useError';
 
 /**
- * DAO tabs
+ * Tabs for Game type:DAO
  */
-export default function DaoTabs({ item: dao, sx }: any) {
+export default function DaoTabs({ item: game, sx }: any) {
   const [tabValue, setTabValue] = useState('1');
+  const { handleError } = useError();
 
-  function handleChange(_: any, newTabValue: any) {
-    setTabValue(newTabValue);
+  if (!game) {
+    handleError('Game Entity Missing', false);
+    return <>...</>;
   }
-
-  if (!dao) return <>...</>;
   return (
     <Box sx={{ width: '100%', ...sx }}>
       <TabContext value={tabValue}>
         <TabList
-          onChange={handleChange}
+          onChange={(_: any, newTabValue: any) => setTabValue(newTabValue)}
           variant="scrollable"
           scrollButtons="auto"
           sx={{
@@ -31,16 +32,16 @@ export default function DaoTabs({ item: dao, sx }: any) {
             maxWidth: 'calc(100vw - 32px)',
           }}
         >
-          <Tab label="Posts" value="1" />
+          <Tab label="Discussion" value="1" />
           <Tab label="Members" value="2" />
           <Tab label="Applicants" value="3" />
           <Tab label="Relations" value="4" />
         </TabList>
         <TabPanel value="1" sx={{ p: 0 }}>
-          <EntityPosts item={dao} types={['post', 'comment']} />
+          <EntityPosts item={game} types={['post', 'comment']} />
         </TabPanel>
         <TabPanel value="2" sx={{ px: 0 }}>
-          <GameMembers game={dao} />
+          <GameMembers game={game} />
         </TabPanel>
         <TabPanel value="3" sx={{ px: 0 }}>
           <GameApplications />
