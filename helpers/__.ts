@@ -37,8 +37,6 @@ export const __ = {
   /**
    * Match URI Function
    * Try to ignore similar IPFS URLs
-   * @param string uri1
-   * @param string uri2
    * @returns
    */
   matchURI: (uri1: string, uri2: string) => {
@@ -60,9 +58,6 @@ export const __ = {
 
   /**
    * Chop string to size & Add '...' at the end
-   * @param {string} str
-   * @param {number} n    Max number of chars
-   * @returns {string}
    */
   ellipsis: (str: string, n: number = 6): string => {
     return str.length > n ? `${str.trim().slice(0, n)}...` : str;
