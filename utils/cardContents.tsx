@@ -145,7 +145,7 @@ export const soulPartTaskCardContent = (item: any): CardItem => {
     metadata,
     link: `/soul/${item.aEnd.owner}`,
     roles: item?.roles,
-    children: item && <StageDisplay proc={item.aEnd} />,
+    // children: item && <StageDisplay proc={item.aEnd} />,
   };
   return ret;
 };
