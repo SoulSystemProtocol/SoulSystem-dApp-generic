@@ -121,7 +121,8 @@ const footer_icons: MenuLink[] = [
     icon: <GitHubIcon sx={{ fill: 'url(#linearColors)' }} />,
   },
   {
-    route: 'https://miro.com/app/board/uXjVOH541VI=/',
+    route:
+      'https://miro.com/app/board/uXjVOH541OI=/?share_link_id=612732936883',
     icon: <ArchitectureIcon sx={{ fill: 'url(#linearColors)' }} />,
     label: 'Architecture',
   },
