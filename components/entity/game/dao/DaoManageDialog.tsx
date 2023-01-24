@@ -16,11 +16,16 @@ import useToast from 'hooks/useToast';
 import useIpfs from 'hooks/useIpfs';
 import useContract from 'hooks/useContract';
 import { GAME_TYPE } from 'constants/contracts';
+import { nameEntity } from 'helpers/utils';
 
 /**
  * A dialog for creating or editing DAO.
  */
-export default function DaoManageDialog({ dao, isClose, onClose }: any) {
+export default function DaoManageDialog({
+  dao,
+  isClose,
+  onClose,
+}: any): JSX.Element {
   const { showToastSuccess } = useToast();
   const { uploadJsonToIPFS } = useIpfs();
   const { handleError } = useError();
@@ -34,6 +39,7 @@ export default function DaoManageDialog({ dao, isClose, onClose }: any) {
       description: dao.metadata?.description,
     }),
   });
+  const GAMETYPE = GAME_TYPE.mdao;
 
   const schema: JSONSchema7 = {
     type: 'object',
@@ -90,11 +96,7 @@ export default function DaoManageDialog({ dao, isClose, onClose }: any) {
         await getContractGame(dao.id).setContractURI(metadataUrl);
       } else {
         //Create a new MDAO
-        await getContractHub().makeGame(
-          GAME_TYPE.mdao,
-          formData.name,
-          metadataUrl,
-        );
+        await getContractHub().makeGame(GAMETYPE, formData.name, metadataUrl);
       }
       showToastSuccess('Success! Data will be updated soon');
       close();
@@ -108,11 +110,11 @@ export default function DaoManageDialog({ dao, isClose, onClose }: any) {
     <Dialog
       open={isOpen}
       onClose={isLoading ? () => {} : close}
-      maxWidth="xs"
+      maxWidth="md"
       fullWidth
     >
       <DialogTitle sx={{ pb: 0 }}>
-        {dao ? 'Edit Team' : 'Create Team'}
+        {!!dao ? 'Edit ' + nameEntity('mdao') : 'Create ' + nameEntity('mdao')}
       </DialogTitle>
       <DialogContent>
         <Form
