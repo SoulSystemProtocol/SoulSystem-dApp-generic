@@ -41,8 +41,7 @@ export default function SolidifyLanding(): JSX.Element {
             sx={{ fontSize: { xs: '1.2rem', sm: '1.8rem' } }}
             letterSpacing="0.02em"
           >
-            The magic of composable fully decentralized socio-economic systems
-            with no-code
+            A platform for democratizing services
           </Typography>
         </Box>
         {/* {!account && (
@@ -56,9 +55,9 @@ export default function SolidifyLanding(): JSX.Element {
         <FaucetCallout minBalance={0.1} />
 
         <Box>
-          <Typography variant="h4" sx={{ mt: 4 }}>
-            Featuring SoulSystems - a cluster of composible primitives
-            structured around an SBT contract that allows you to
+          <Typography variant="h4" sx={{ mt: 2, mb: 4 }}>
+            Access the magic of composable decentralized socio-economic
+            organizations with no-code
           </Typography>
           <ul>
             <li>Use Soulbound NFT profiles as wallet abstraction</li>
