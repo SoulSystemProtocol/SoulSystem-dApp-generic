@@ -35,7 +35,7 @@ export default function DaosPage(): JSX.Element {
         onClick={() => showDialog?.(<DaoManageDialog onClose={closeDialog} />)}
         variant="outlined"
       >
-        {'Create ' + nameEntity('mdao')}
+        {'Offer a ' + nameEntity('mdao')}
       </Button>
     </Tooltip>
   );

@@ -37,7 +37,9 @@ export const nameEntity = function (
   // if (entName == '') return plural ? 'Devs' : 'Dev';
   if (entName == '') return plural ? 'Souls' : 'Soul';
   // if (entName.toLocaleLowerCase() == 'mdao') return plural ? 'Pods' : 'Pod';
-  if (entName.toLocaleLowerCase() == 'mdao') return plural ? 'mDAOs' : 'mDAO';
+  // if (entName.toLocaleLowerCase() == 'mdao') return plural ? 'mDAOs' : 'mDAO';
+  if (entName.toLocaleLowerCase() == 'mdao')
+    return plural ? 'Services' : 'Service';
   if (entName.toLocaleLowerCase() == 'project')
     return plural ? 'Projects' : 'Project';
   // return plural ? 'Buidls' : 'Buidl';
