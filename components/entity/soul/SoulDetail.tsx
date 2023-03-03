@@ -24,7 +24,6 @@ export default function SoulDetail({ soul, sx }: any): JSX.Element {
   const theme = useTheme();
 
   useEffect(() => {
-    // console.warn('set soul name', soulName(soul), soul);
     setName(soulName(soul));
     setIsOwned(
       !!account && soul?.owner?.toLowerCase() === account?.toLowerCase(),
