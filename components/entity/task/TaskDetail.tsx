@@ -34,9 +34,9 @@ export default function TaskDetail({ item, sx }: any) {
   const [isSoulAdmin, setIsSoulAdmin] = useState(false);
   const [isSoulAuthority, setIsSoulAuthority] = useState(false);
   const { curChainData } = useContext(Web3Context);
-  const tokens: string[] = curChainData.ERC20.map(
-    (token: any) => token.address,
-  ); //Supported ERC20 Tokens
+  const tokens: string[] = curChainData?.ERC20
+    ? curChainData.ERC20.map((token: any) => token.address)
+    : []; //Supported ERC20 Tokens
 
   const loadData = () => {
     if (accountSoul && item) {
