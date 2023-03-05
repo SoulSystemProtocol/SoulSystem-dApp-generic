@@ -53,7 +53,7 @@ export const analyticsAccountConnect = (account: string): void => {
       posthog.alias(account.toLowerCase());
     }
   } catch (error) {
-    console.error('[CAUGHT] ' + error);
+    console.error('[CAUGHT] ' + error, { account });
   }
 };
 
