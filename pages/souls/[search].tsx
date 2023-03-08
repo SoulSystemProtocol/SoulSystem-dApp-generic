@@ -10,6 +10,7 @@ import SoulsOpenInj from 'queries/SoulsOpenInj';
 import { useRouter } from 'next/router';
 import Link from 'components/utils/Link';
 import TooltipButton from 'components/layout/TooltipButton';
+import { nameEntity } from 'helpers/utils';
 
 /**
  * Page for a list of souls
@@ -21,9 +22,10 @@ export default function SoulsSearch({ type = '' }: any) {
   const { accountSoul } = useContext(DataContext);
 
   const CONF = {
-    PAGE_TITLE: search ? `Soul Search ` : 'SBT Profiles',
-    TITLE: search ? `Results for: ${search}` : 'Human Souls',
-    SUBTITLE: `Become a part of the SoulSystem and eternalize yourself an NFT`,
+    // PAGE_TITLE: search ? `Soul Search ` : 'SBT Profiles',
+    PAGE_TITLE: search ? `Search ${nameEntity('', true)}` : 'SBT Profiles',
+    TITLE: search ? `Results for: ${search}` : nameEntity('', true), //'Human Souls',
+    SUBTITLE: `Become a part of the SoulSystem and own your NFT profile`,
     ROUTE: 'souls',
   };
   const renderActions = accountSoul === null && (

@@ -34,16 +34,10 @@ const top_links: MenuLink[] = [
   // { label: 'Hackathons', route: 'hackathons' },
   // { label: 'Grants', route: 'grants' },
   {
-    route: '/souls',
-    // label: 'Souls',
-    // label: 'People',
-    label: nameEntity('', true),
-    icon: <EmojiPeopleIcon sx={{ fill: 'url(#linearColors)' }} />,
-  },
-  {
-    route: '/mdao',
-    label: nameEntity('mdao', true),
-    icon: <SchoolOutlined color="warning" />,
+    route: '/tasks',
+    label: nameEntity('task', true),
+    icon: <TaskAlt color="warning" />,
+    hide: process.env.NEXT_PUBLIC_FEATURE_SOUL == 'false',
   },
   {
     route: '/projects',
@@ -52,10 +46,16 @@ const top_links: MenuLink[] = [
     hide: process.env.NEXT_PUBLIC_FEATURE_PROJECT == 'false',
   },
   {
-    route: '/tasks',
-    label: nameEntity('task', true),
-    icon: <TaskAlt color="warning" />,
-    hide: process.env.NEXT_PUBLIC_FEATURE_SOUL == 'false',
+    route: '/mdao',
+    label: nameEntity('mdao', true),
+    icon: <SchoolOutlined color="warning" />,
+  },
+  {
+    route: '/souls',
+    // label: 'Souls',
+    // label: 'People',
+    label: nameEntity('', true),
+    icon: <EmojiPeopleIcon sx={{ fill: 'url(#linearColors)' }} />,
   },
 ];
 
