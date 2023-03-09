@@ -13,6 +13,7 @@ import { nameEntity } from 'helpers/utils';
 import { SelectedGameContext } from 'contexts/SelectedGame';
 import { soulName } from 'utils/soul';
 import NativeBalanceDisplay from 'components/web3/NativeBalanceDisplay';
+import DevFundMsg from 'components/layout/DevFundMsg';
 
 /**
  * Game Detail Page
@@ -62,6 +63,7 @@ export default function GameDetail({ sx }: any): JSX.Element {
         )}
         <SoulDescription soul={soul} sx={{ mt: 1 }} />
         <SocialLinks key="SocialLinks" soul={soul} sx={{ mt: 2 }} />
+
         <Stack key="buttons" direction="row" spacing={2} sx={{ mt: 2 }}>
           <GameMembershipActions dao={game} />
           <FundDialogButton
@@ -76,6 +78,7 @@ export default function GameDetail({ sx }: any): JSX.Element {
             </Link>
           )}
         </Stack>
+        <DevFundMsg />
       </Stack>
     </Box>
   );
