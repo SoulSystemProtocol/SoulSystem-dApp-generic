@@ -9,7 +9,7 @@ import { useEffect, useState } from 'react';
 /**
  * Display Game Members (CTX Parts)
  */
-export default function GameMembers({ game, sx }: any) {
+export default function GameMembers({ game, sx }: any): JSX.Element {
   const { handleError } = useError();
   const [soulIds, setSoulIds] = useState<Array<string>>([]);
   const { souls } = useSoulsById(soulIds, 24);
