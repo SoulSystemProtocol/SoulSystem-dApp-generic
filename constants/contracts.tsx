@@ -71,7 +71,8 @@ export const PROC_STAGE_REV: any = {
   cancelled: 7,
 };
 
-//DEPRECATE
+//--- DEPRECATE
+
 export const CLAIM_ROLE: any = {
   admin: {
     id: '1',
@@ -86,17 +87,6 @@ export const CLAIM_ROLE: any = {
     name: 'applicant',
   },
 };
-
-export const CLAIM_POST_TYPE: any = {
-  message: 'message',
-  application: 'application',
-};
-
-export const CLAIM_POST_ENTITY_TYPE: any = {
-  applicant: 'applicant',
-};
-
-//--- DEPRECATE
 
 export const REPUTATION_DOMAIN = {
   environment: {

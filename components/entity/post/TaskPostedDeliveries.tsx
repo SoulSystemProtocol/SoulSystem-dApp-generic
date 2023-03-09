@@ -9,7 +9,7 @@ import {
   Typography,
 } from '@mui/material';
 import TooltipButton from 'components/layout/TooltipButton';
-import { CLAIM_POST_ENTITY_TYPE, PROC_STAGE_REV } from 'constants/contracts';
+import { PROC_STAGE_REV } from 'constants/contracts';
 import { NO_SOUL_MSG } from 'constants/texts';
 import { DataContext } from 'contexts/data';
 import { DialogContext } from 'contexts/dialog';
@@ -41,9 +41,7 @@ export default function TaskPostedDeliveries({
   useEffect(() => {
     setApplicantPosts(
       task
-        ? task.posts.filter(
-            (post: any) => post.entityRole == CLAIM_POST_ENTITY_TYPE.applicant,
-          )
+        ? task.posts.filter((post: any) => post.entityRole == 'applicant')
         : [],
     );
   }, [task]);

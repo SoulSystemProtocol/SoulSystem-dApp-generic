@@ -14,7 +14,6 @@ import useContract from 'hooks/useContract';
 import useToast from 'hooks/useToast';
 import { JSONSchema7 } from 'json-schema';
 import { useContext, useState } from 'react';
-import { CLAIM_POST_TYPE } from 'constants/contracts';
 import { DataContext } from 'contexts/data';
 import MySoulsBox from 'components/form/widget/MySoulsBox';
 
@@ -83,7 +82,7 @@ export default function TaskPostDeliveryDialog({
       setIsLoading(true);
       const { url: metadataUrl } = await uploadJsonToIPFS({
         ...formData,
-        type: CLAIM_POST_TYPE.application,
+        type: 'application',
       });
 
       if (formData.account == accountSoul.owner) {
