@@ -82,6 +82,7 @@ export default function SolidifyLanding(): JSX.Element {
             sx={{ fontSize: { xs: '1.2rem', sm: '2.4rem' } }}
             letterSpacing="0.02em"
           >
+            {/* All-dApp for the protocol for */}
             {/* A platform for democratizing services */}The protocol for
             protocols
           </Typography>
@@ -139,7 +140,7 @@ export default function SolidifyLanding(): JSX.Element {
               fontSize: { sm: '3rem', xs: '3rem' },
             }}
           >
-            Flow
+            Flows
           </Typography>
           <Typography variant="h4" sx={{ mt: 4 }}>
             Access the magic of composable decentralized socio-economic
