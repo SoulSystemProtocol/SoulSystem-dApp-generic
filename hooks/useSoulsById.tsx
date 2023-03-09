@@ -29,7 +29,7 @@ export default function useSoulsById(
         console.error(error);
       }
     }
-  }, [souls, error, loading]);
+  }, [data, error, loading]);
 
   return {
     souls,
