@@ -1,6 +1,6 @@
 import { TabContext, TabList, TabPanel } from '@mui/lab';
-import { Box, Tab } from '@mui/material';
-import EntityComments from 'components/entity/post/EntityPosts';
+import { Box, Tab, Typography } from '@mui/material';
+import EntityPosts from 'components/entity/post/EntityPosts';
 import GameMembers from 'components/entity/game/GameMembers';
 import { nameEntity } from 'helpers/utils';
 import { useState } from 'react';
@@ -13,15 +13,15 @@ import ProjectTaskList from '../../project/ProjectTaskList';
 export default function ProjectTabs({ item: project, sx }: any) {
   const [tabValue, setTabValue] = useState('1');
 
-  function handleChange(_: any, newTabValue: any) {
-    setTabValue(newTabValue);
-  }
-
   return (
     <Box sx={{ width: '100%', ...sx }}>
+      <Typography variant="h4" sx={{ mt: 4 }}>
+        Announcements
+      </Typography>
+      <EntityPosts item={project} sx={{ mb: 5, mt: 1 }} />
       <TabContext value={tabValue}>
         <TabList
-          onChange={handleChange}
+          onChange={(_: any, newTabValue: any) => setTabValue(newTabValue)}
           variant="scrollable"
           scrollButtons="auto"
           sx={{
@@ -31,14 +31,14 @@ export default function ProjectTabs({ item: project, sx }: any) {
             maxWidth: 'calc(100vw - 32px)',
           }}
         >
-          <Tab label="Anouncments" value="1" />
-          <Tab label={nameEntity('task', true)} value="2" />
+          {/* <Tab label="Announcements" value="1" /> */}
+          <Tab label={nameEntity('task', true)} value="1" />
           <Tab label="Members" value="3" />
         </TabList>
+        {/* <TabPanel value="1" sx={{ px: 0 }}>
+          <EntityPosts item={project} />
+        </TabPanel> */}
         <TabPanel value="1" sx={{ px: 0 }}>
-          <EntityComments item={project} />
-        </TabPanel>
-        <TabPanel value="2" sx={{ px: 0 }}>
           <ProjectAddTaskButton project={project} sx={{ mb: 4 }} />
           <ProjectTaskList />
         </TabPanel>

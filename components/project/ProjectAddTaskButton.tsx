@@ -24,6 +24,7 @@ export default function ProjectAddTaskButton({ project, sx }: any) {
     <Box sx={{ ...sx }}>
       <ConditionalButton
         variant="outlined"
+        size="small"
         disabled={disabled}
         onClick={() =>
           showDialog?.(
