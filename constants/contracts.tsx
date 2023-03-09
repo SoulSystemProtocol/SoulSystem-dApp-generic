@@ -71,6 +71,7 @@ export const PROC_STAGE_REV: any = {
   cancelled: 7,
 };
 
+//DEPRECATE
 export const CLAIM_ROLE: any = {
   admin: {
     id: '1',
