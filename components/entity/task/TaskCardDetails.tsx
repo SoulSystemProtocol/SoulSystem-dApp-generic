@@ -21,7 +21,7 @@ export default function TaskCardDetails({ task }: { task: any }): JSX.Element {
         color="text.secondary"
         sx={{ whiteSpace: 'nowrap' }}
       >
-        <NativeBalanceDisplay address={task?.id} />
+        {task?.id && <NativeBalanceDisplay address={task.id} />}
       </Typography>
     </Box>
   );
