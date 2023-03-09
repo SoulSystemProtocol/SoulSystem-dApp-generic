@@ -101,7 +101,7 @@ const menu_side_links: MenuLink[] = [
   {
     label: 'SafeNFT',
     route: '/erc',
-    hide: process.env.NEXT_PUBLIC_FEATURE_NFT == 'false',
+    hide: process.env.NEXT_PUBLIC_FEATURE_DEV == 'true',
     icon: <LockIcon color="warning" sx={{ fill: 'url(#linearColors)' }} />,
   },
   {
