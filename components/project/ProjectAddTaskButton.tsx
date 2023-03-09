@@ -9,7 +9,10 @@ import { useContext, useEffect, useState } from 'react';
 /**
  * Button to add a project task.
  */
-export default function ProjectAddTaskButton({ project, sx }: any) {
+export default function ProjectAddTaskButton({
+  project,
+  sx,
+}: any): JSX.Element {
   const { accountSoul } = useContext(DataContext);
   const { showDialog, closeDialog } = useContext(DialogContext);
   const [disabled, setDisabled] = useState<boolean>(true);

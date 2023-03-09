@@ -2,10 +2,9 @@ import { Box, Grid, Stack, Typography } from '@mui/material';
 import { PROC_STAGE_REV } from 'constants/contracts';
 import { DataContext } from 'contexts/data';
 import { DialogContext } from 'contexts/dialog';
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import TaskApplyDialog from './TaskApplyDialog';
 import TaskApplication from './TaskApplication';
-import ConditionalButton from 'components/layout/ConditionalButton';
 import { SxProps } from '@mui/material';
 import TooltipButton from '../../layout/TooltipButton';
 import { nameEntity } from 'helpers/utils';
@@ -22,6 +21,16 @@ export default function TaskApplications({
 }): JSX.Element {
   const { accountSoul } = useContext(DataContext);
   const { showDialog, closeDialog } = useContext(DialogContext);
+  const [isDisabled, setIsDisabled] = useState<boolean>(false);
+
+  useEffect(() => {
+    setIsDisabled(
+      !accountSoul ||
+        (task.stage !== null &&
+          (task.stage < PROC_STAGE_REV.open ||
+            task.stage >= PROC_STAGE_REV.closed)),
+    );
+  }, [task, accountSoul]);
 
   console.warn('[DEV] TaskApplications() Task Item:', task);
   return (
@@ -37,18 +46,15 @@ export default function TaskApplications({
         </Box>
         <TooltipButton
           sx={{ ml: 'auto' }}
-          disabled={
-            !accountSoul ||
-            (task.stage !== null &&
-              (task.stage < PROC_STAGE_REV.open ||
-                task.stage >= PROC_STAGE_REV.closed))
-          }
+          disabled={isDisabled}
           size="small"
           tooltip={
             task.stage < PROC_STAGE_REV.open
               ? nameEntity('task') + 'not yet open'
               : task.stage >= PROC_STAGE_REV.closed
               ? nameEntity('task') + ' closed'
+              : !accountSoul
+              ? 'First, connect your wallet and mint your identity'
               : null
           }
           variant="contained"
