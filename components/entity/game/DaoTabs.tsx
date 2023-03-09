@@ -21,7 +21,7 @@ export default function DaoTabs({ item: game, sx }: any) {
   return (
     <Box sx={{ width: '100%', ...sx }}>
       <Typography variant="h4" sx={{ mt: 4 }}>
-        Discussion
+        Announcements
       </Typography>
       <EntityPosts
         item={game}
