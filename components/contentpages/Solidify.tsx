@@ -72,7 +72,7 @@ export default function SolidifyLanding(): JSX.Element {
             variant="h1"
             fontWeight={700}
             letterSpacing="0.1em"
-            sx={{ fontSize: { sm: '5rem', xs: '3rem' } }}
+            sx={{ fontSize: { sm: '5rem', xs: '2.6rem' } }}
           >
             {/* {APP_CONFIGS.NAME} */}
             SoulSystem Boilerplate
