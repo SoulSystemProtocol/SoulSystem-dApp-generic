@@ -40,6 +40,19 @@ export const GAME_TYPE: any = {
   task: 'bounty',
 };
 
+export const PROC_STAGE_REV: any = {
+  pending: 0,
+  open: 1,
+  decision: 2,
+  action: 3,
+  appeal: 4,
+  execution: 5,
+  closed: 6,
+  cancelled: 7,
+};
+
+//--- DEPRECATE
+
 /* TODO: Role Token IDs aren't static/predetermind. Should fetch them from the contract directly */
 export const GAME_ROLE = {
   admin: {
@@ -59,19 +72,6 @@ export const GAME_ROLE = {
     name: 'applicant',
   },
 };
-
-export const PROC_STAGE_REV: any = {
-  pending: 0,
-  open: 1,
-  decision: 2,
-  action: 3,
-  appeal: 4,
-  execution: 5,
-  closed: 6,
-  cancelled: 7,
-};
-
-//--- DEPRECATE
 
 export const CLAIM_ROLE: any = {
   admin: {
