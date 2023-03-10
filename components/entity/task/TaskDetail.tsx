@@ -11,7 +11,6 @@ import FundDialogButton from 'components/web3/FundDialogButton';
 import { isSoulHasRole } from 'hooks/utils';
 import { SelectedSoulContext } from 'contexts/SelectedSoul';
 import useContainerEntity from 'hooks/useContainerEntity';
-import { getChainData } from 'components/web3/chains/ChainsData';
 import { nameEntity } from 'helpers/utils';
 import TokenBalance from 'components/web3/TokenBalance';
 import TooltipButton from 'components/layout/TooltipButton';
