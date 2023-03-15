@@ -104,6 +104,7 @@ export default function TaskDetail({ item, sx }: any) {
           color="text.secondary"
           sx={{ mt: 1, fontSize: '0.75em' }}
         >
+          Reward:{' '}
           <Box
             component="span"
             sx={{
