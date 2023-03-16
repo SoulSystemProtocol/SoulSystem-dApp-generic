@@ -94,6 +94,14 @@ export default function SoulEditForm({
       setStatus(STATUS.ipfsUpload);
       //Prep Metadata Object
       let metadata = prepMetadata(formData);
+
+      //[DEV] Validate
+      if (formData.name == 'Anonymous')
+        console.error('Saving Soul with a default name...', {
+          formData,
+          metadata,
+        });
+
       //Sanitize -- Clean Empty Attributes (Automatically added by form)
       if (!!metadata.attributes) {
         for (let i = metadata.attributes.length - 1; i >= 0; i--) {
