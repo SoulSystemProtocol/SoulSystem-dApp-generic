@@ -3,6 +3,7 @@ import { Stack } from '@mui/material';
 import Link from 'components/utils/Link';
 import { MetaAttrHelper } from 'helpers/MetaAttrHelper';
 import { PROFILE_TRAITS, Trait } from './ProfileTraits';
+import SoulLensProfile from './SoulLensProfile';
 
 /**
  * Social Links Display
@@ -41,6 +42,7 @@ export default function SocialLinks({ soul, sx }: any): JSX.Element {
           </Link>
         );
       })}
+      <SoulLensProfile address={soul.owner} />
     </Stack>
   );
 }

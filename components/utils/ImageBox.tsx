@@ -6,9 +6,11 @@ import { Box, SxProps } from '@mui/material';
 export default function ImageBox({
   src,
   sx = {},
+  title,
 }: {
   src: string;
   sx?: SxProps;
+  title?: string;
 }): JSX.Element {
   return (
     <Box
@@ -22,6 +24,7 @@ export default function ImageBox({
         background: 'url(' + src + ') center center / cover no-repeat',
         ...sx,
       }}
+      title={title}
     ></Box>
   );
 }
