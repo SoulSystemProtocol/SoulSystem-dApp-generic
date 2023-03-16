@@ -9,14 +9,16 @@ import { truncate } from 'lodash';
 export function soulName(soul: any, length: number = 36): string {
   if (soul?.name) return soul.name;
   if (soul?.metadata?.name) return soul.metadata.name;
-  let firstLastName = 'Anonymous';
   if (soul?.uriFirstName || soul?.uriLastName) {
-    firstLastName = (soul.uriFirstName || '') + ' ' + (soul.uriLastName || '');
-  } else if (soul?.metadata?.attributes) {
+    let name = (soul.uriFirstName || '') + ' ' + (soul.uriLastName || '');
+    return truncate(name, { length: length });
+  }
+  if (soul?.metadata?.attributes) {
     //Backwards compatibility
     return MetaAttrHelper.extractName(soul.metadata.attributes);
   }
-  return truncate(firstLastName, { length: length });
+  //No Name
+  return 'Anonymous';
 }
 
 /**
