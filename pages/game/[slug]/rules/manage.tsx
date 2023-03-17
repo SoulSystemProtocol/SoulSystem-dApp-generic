@@ -10,6 +10,7 @@ import ActionsDisplay from 'components/rules/ActionsDisplay';
 import useGameByHash from 'hooks/useGameByHash';
 import Loading from 'components/layout/Loading';
 import Link from 'components/utils/Link';
+import useSoulByHash from 'hooks/useSoulByOwner';
 
 /**
  * Component: Rule Managment
@@ -20,6 +21,7 @@ export default function RuleManage(): JSX.Element {
   const { showDialog, closeDialog } = useContext(DialogContext);
   const { handleError } = useError();
   const { game, loading, error } = useGameByHash(slug as string);
+  const { soul } = useSoulByHash(game?.id as string);
 
   if (error) {
     handleError(error, false);
@@ -32,7 +34,7 @@ export default function RuleManage(): JSX.Element {
         <Box>
           <Breadcrumbs aria-label="breadcrumb" sx={{ mb: 6 }}>
             <Link href={`/soul/${slug}`} sx={{ color: 'inherit' }}>
-              {game.name || 'DAO'}
+              {soul?.name || 'DAO'}
             </Link>
             <Typography color="text.primary">{'Rule Managment'}</Typography>
           </Breadcrumbs>
@@ -42,7 +44,7 @@ export default function RuleManage(): JSX.Element {
               Rules
             </Typography>
             <Typography gutterBottom>
-              Each rule consists of a general action and a reaction/judgment
+              Each rule consists of a general action and a reaction
             </Typography>
             <Divider />
             <Button
