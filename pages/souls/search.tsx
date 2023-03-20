@@ -15,9 +15,14 @@ import { nameEntity } from 'helpers/utils';
 /**
  * Page for a list of souls
  */
-export default function SoulsSearch({ type = '' }: any) {
+export default function SoulsSearch({
+  type = '',
+  role = '',
+  search = '',
+  displaySearchBox = true,
+}: any): JSX.Element {
   const router = useRouter();
-  const { search } = router.query;
+  // const { role: search } = router.query;
   const { account, isReady } = useContext(Web3Context);
   const { accountSoul } = useContext(DataContext);
 
@@ -45,8 +50,8 @@ export default function SoulsSearch({ type = '' }: any) {
   );
   //Query Structure: { type: $type, role: $role, searchField_contains_nocase: $text }
   let queryFilters: string[] = [];
-  if (type !== undefined) queryFilters.push(`type: "${type}" `);
-  // role && queryFilters.push(`role: "${role}""`);
+  if (type !== undefined) queryFilters.push(`type: "${type.toUpperCase()}" `);
+  role && queryFilters.push(`role: "${role.toUpperCase()}" `);
   search && queryFilters.push(`searchField_contains_nocase: "${search}"`);
   // let searchQueryParams = ` type: "${type}" `;
   let searchQueryParams = queryFilters.join(', ');
@@ -54,20 +59,22 @@ export default function SoulsSearch({ type = '' }: any) {
 
   return (
     <Layout title={getPageTitle(CONF.PAGE_TITLE)}>
-      <SoulSearchBox
-        label="Soul Search"
-        sx={{ width: { xs: 1, md: 520 }, margin: '30px auto 40px' }}
-        value={search as string}
-        onChange={(id) => {
-          console.log('Search Changed -- Go to Soul:', id);
-          router.push('/soul/' + id);
-        }}
-        onKeyDown={(e: any) => {
-          if (e.keyCode === 13) {
-            router.push('/souls/' + e.target.value);
-          }
-        }}
-      />
+      {displaySearchBox && (
+        <SoulSearchBox
+          label="Soul Search"
+          sx={{ width: { xs: 1, md: 520 }, margin: '30px auto 40px' }}
+          value={search as string}
+          onChange={(id) => {
+            console.log('Search Changed -- Go to Soul:', id);
+            router.push('/soul/' + id);
+          }}
+          onKeyDown={(e: any) => {
+            if (e.keyCode === 13) {
+              router.push('/souls/search/' + e.target.value);
+            }
+          }}
+        />
+      )}
       <PaginatedList
         getCardContent={soulCardContent}
         renderActions={renderActions || <></>}

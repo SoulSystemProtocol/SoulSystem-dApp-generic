@@ -68,11 +68,3 @@ export function formatActionName(action: {
   if (action.tool) ret += ' using a ' + action.tool;
   return _.capitalize(ret);
 }
-
-/**
- * Fetch Role Name by ID
- */
-export function roleIdToName(role: string): string | undefined {
-  console.error("CALLED DEPRECATED FUNCTION: 'roleIdToName'");
-  return Object.values(GAME_ROLE).find((element) => element.id == role)?.name;
-}

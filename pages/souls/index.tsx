@@ -1,4 +1,4 @@
-import SoulsSearch from './[search]';
+import SoulsSearch from './search.tsx';
 
 /**
  * Page for a list of souls
