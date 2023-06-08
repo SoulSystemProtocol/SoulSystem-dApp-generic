@@ -50,6 +50,8 @@ export const nameEntity = function (
   if (entName.toLocaleLowerCase() == 'task')
     // return plural ? 'Bounties' : 'Bounty';
     return plural ? 'Requests' : 'Request';
+  if (entName.toLocaleLowerCase() == 'review')
+    return plural ? 'Reviews' : 'Review';
   //Default
   return plural ? 'Entities' : 'Entity';
 };

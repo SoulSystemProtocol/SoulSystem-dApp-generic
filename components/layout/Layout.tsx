@@ -12,6 +12,7 @@ import LockIcon from '@mui/icons-material/Lock';
 import DirectionsRunIcon from '@mui/icons-material/DirectionsRun';
 import ArchitectureIcon from '@mui/icons-material/Architecture';
 import EmojiPeopleIcon from '@mui/icons-material/EmojiPeople';
+import ReviewsIcon from '@mui/icons-material/Reviews';
 import { Container, Toolbar } from '@mui/material';
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -56,6 +57,11 @@ const top_links: MenuLink[] = [
     // label: 'People',
     label: nameEntity('', true),
     icon: <EmojiPeopleIcon sx={{ fill: 'url(#linearColors)' }} />,
+  },
+  {
+    route: '/review',
+    label: nameEntity('review', true),
+    icon: <ReviewsIcon sx={{ fill: 'url(#linearColors)' }} />,
   },
 ];
 
