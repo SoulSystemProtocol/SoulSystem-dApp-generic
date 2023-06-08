@@ -1,6 +1,6 @@
 import { GAME_TYPE } from 'constants/contracts';
 import GameDetail from 'components/entity/game/GameDetail';
-import DaoTabs from 'components/entity/game/DaoTabs';
+import GameTabs from 'components/entity/game/GameTabs';
 import ProjectTabs from 'components/entity/game/ProjectTabs';
 import { SelectedGameContext } from 'contexts/SelectedGame';
 import { useContext } from 'react';
@@ -23,7 +23,7 @@ export default function GameView({ sx }: { sx?: SxProps }): JSX.Element {
   return (
     <Box sx={sx}>
       <GameDetail />
-      {game?.role == GAME_TYPE.mdao && <DaoTabs item={game} />}
+      {game?.role == GAME_TYPE.mdao && <GameTabs item={game} />}
       {game?.role == GAME_TYPE.project && <ProjectTabs item={game} />}
     </Box>
   );

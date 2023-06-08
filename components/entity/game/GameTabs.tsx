@@ -10,7 +10,7 @@ import useError from 'hooks/useError';
 /**
  * Tabs for Game type:DAO
  */
-export default function DaoTabs({ item: game, sx }: any) {
+export default function GameTabs({ item: game, sx }: any) {
   const [tabValue, setTabValue] = useState('1');
   const { handleError } = useError();
 
