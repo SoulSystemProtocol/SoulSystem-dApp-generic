@@ -26,3 +26,9 @@ export const PROC_STAGE: string[] = [
   'Closed',
   'Cancelled',
 ];
+
+export const FORM_STATUS: any = {
+  available: 1,
+  ipfsUpload: 2,
+  waitForChain: 3,
+};

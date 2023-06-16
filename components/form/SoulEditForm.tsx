@@ -5,6 +5,7 @@ import { MuiForm5 as Form } from '@rjsf/material-ui';
 import CoverInput from 'components/form/widget/CoverInput';
 import ImageInput from 'components/form/widget/ImageInput';
 import SoulAttributesInput from 'components/form/widget/SoulAttributesInput';
+import { FORM_STATUS } from 'constants/entities';
 import { DataContext } from 'contexts/data';
 import { prepMetadata } from 'helpers/metadata';
 import useContract from 'hooks/useContract';
@@ -30,11 +31,6 @@ export default function SoulEditForm({
   schema?: JSONSchema7;
   uiSchema?: any;
 }): ReactElement {
-  const STATUS = {
-    available: 1,
-    ipfsUpload: 2,
-    waitForChain: 3,
-  };
   const router = useRouter();
   const { showToastSuccess } = useToast();
   const { uploadJsonToIPFS } = useIpfs();
@@ -42,7 +38,7 @@ export default function SoulEditForm({
   const { accountSoul, injectMetadata, injectSoul } = useContext(DataContext);
   const { getContractSoul } = useContract();
   const { getContractGame } = useContract();
-  const [status, setStatus] = useState<number>(STATUS.available);
+  const [status, setStatus] = useState<number>(FORM_STATUS.available);
   const [formData, setFormData] = useState(soul?.metadata || {});
 
   const defaultSchema: JSONSchema7 = {
@@ -91,7 +87,7 @@ export default function SoulEditForm({
       // Update form data
       setFormData(formData);
       //Status: Uploading to IPFS
-      setStatus(STATUS.ipfsUpload);
+      setStatus(FORM_STATUS.ipfsUpload);
       //Prep Metadata Object
       let metadata = prepMetadata(formData);
 
@@ -116,7 +112,7 @@ export default function SoulEditForm({
       //Save to IPFS
       const { url: metadataUrl } = await uploadJsonToIPFS(metadata);
       //Status: Using contract / Wait for Chain
-      setStatus(STATUS.waitForChain);
+      setStatus(FORM_STATUS.waitForChain);
 
       if (soul) {
         // let tx =
@@ -154,7 +150,7 @@ export default function SoulEditForm({
       handleError(error, true);
     }
     //Status: Ready
-    setStatus(STATUS.available);
+    setStatus(FORM_STATUS.available);
   }
 
   return (
@@ -164,15 +160,15 @@ export default function SoulEditForm({
       formData={formData}
       onSubmit={submit}
       widgets={widgets}
-      disabled={status !== STATUS.available ? true : false}
+      disabled={status !== FORM_STATUS.available ? true : false}
     >
       <Stack direction="row" spacing={2} sx={{ mt: 2 }}>
-        {status === STATUS.available && (
+        {status === FORM_STATUS.available && (
           <Button variant="contained" type="submit">
             {soul ? 'Save' : 'Mint Your Soul'}
           </Button>
         )}
-        {status === STATUS.ipfsUpload && (
+        {status === FORM_STATUS.ipfsUpload && (
           <LoadingButton
             loading
             loadingPosition="start"
@@ -182,7 +178,7 @@ export default function SoulEditForm({
             Uploading to IPFS
           </LoadingButton>
         )}
-        {status === STATUS.waitForChain && (
+        {status === FORM_STATUS.waitForChain && (
           <LoadingButton
             loading
             loadingPosition="start"
