@@ -9,6 +9,8 @@ import GameRoleManageDialog from './GameRoleManageDialog';
 import { isSoulHasRole } from 'hooks/utils';
 import { useRouter } from 'next/router';
 import TooltipButton from 'components/layout/TooltipButton';
+import { nameEntity } from 'helpers/utils';
+import GameDeployTokenDialog from './GameDeployTokenDialog';
 
 /**
  * Game Admin Actions
@@ -61,6 +63,24 @@ export default function GameAdminActions({
         }
       >
         Manage Roles
+      </TooltipButton>
+      <TooltipButton
+        disabled={!isSoulAdmin}
+        sx={{ width: '100%' }}
+        tooltip={
+          isSoulAdmin
+            ? 'Deploy Community Token'
+            : 'Deploy Community Token (Admin Only)' //nameEntity(soul?.role)
+        }
+        size="small"
+        variant="outlined"
+        onClick={() =>
+          showDialog?.(
+            <GameDeployTokenDialog game={game} onClose={closeDialog} />,
+          )
+        }
+      >
+        Deploy Token
       </TooltipButton>
     </Stack>
   );
