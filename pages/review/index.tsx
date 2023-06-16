@@ -5,12 +5,17 @@ import Layout from 'components/layout/Layout';
 const CONF = {
   PAGE_TITLE: nameEntity('review', true),
   TITLE: nameEntity('dao', true),
-  // SUBTITLE: "?",
+  SUBTITLE: 'Verified User Reviews',
 };
 
 /**
  * Page for a list of mDAO Games
  */
 export default function ReviewsPage({}: any) {
-  return <Layout title={getPageTitle(CONF.PAGE_TITLE)}>Reviews</Layout>;
+  return (
+    <Layout title={getPageTitle(CONF.PAGE_TITLE)}>
+      Reviews
+      {/* <PaginatedList {...listProps} query={} /> */}
+    </Layout>
+  );
 }

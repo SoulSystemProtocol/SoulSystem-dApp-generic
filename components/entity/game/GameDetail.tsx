@@ -77,6 +77,13 @@ export default function GameDetail({ sx }: any): JSX.Element {
               </Button>
             </Link>
           )}
+          {process.env.NEXT_PUBLIC_FEATURE_REVIEWS === 'true' && (
+            <Link href={`/game/${game?.id}/review/add`}>
+              <Button size="small" variant="outlined">
+                Write Review
+              </Button>
+            </Link>
+          )}
         </Stack>
         <DevFundMsg />
       </Stack>

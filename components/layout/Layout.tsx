@@ -20,6 +20,7 @@ import Head from 'next/head';
 import Footer from './Footer';
 import { nameEntity } from 'helpers/utils';
 import NavBar from './NavBar';
+import Sidebar from './Sidebar';
 // import Header from './Header';
 // import Sidebar from './Sidebar';
 // import Link from 'components/utils/Link';
@@ -165,8 +166,8 @@ const footer_icons: MenuLink[] = [
 
 export default function Layout({ children, title }: any) {
   // const theme = useTheme();
-  // const toggleDrawer = () => setIsOpen(!isOpen);
-  const [isOpen, setIsOpen] = useState(false);
+  const toggleDrawer = () => setIsSidebarOpen(!isSidebarOpen);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   return (
     <Box sx={{ display: 'flex', minHeight: '100vh' }}>
@@ -190,13 +191,13 @@ export default function Layout({ children, title }: any) {
           </linearGradient>
         </svg>
       </>
-      {/* {process.env.NEXT_PUBLIC_FEATURE_SIDEBAR == 'true' ? (
+      {process.env.NEXT_PUBLIC_FEATURE_SIDEBAR == 'true' ? (
         <Sidebar
           toggler={toggleDrawer}
-          isOpen={isOpen}
+          isOpen={isSidebarOpen}
           links={menu_side_links}
         />
-      ) : null} */}
+      ) : null}
       <Container
         maxWidth={false}
         disableGutters
@@ -204,7 +205,7 @@ export default function Layout({ children, title }: any) {
           minHeight: '100vh',
         }}
       >
-        {/* <Header open={isOpen} toggleDrawer={toggleDrawer} links={top_links} /> */}
+        {/* <Header open={isSidebarOpen} toggleDrawer={toggleDrawer} links={top_links} /> */}
         <NavBar links={top_links} />
 
         <Container
