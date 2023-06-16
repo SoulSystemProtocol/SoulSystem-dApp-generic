@@ -6,6 +6,7 @@ import {
   Menu,
   Typography,
   MenuItem,
+  useTheme,
 } from '@mui/material';
 import Link from 'components/utils/Link';
 import ConnectButton from 'components/web3/connect/ConnectButton';
@@ -13,6 +14,7 @@ import { DataContext } from 'contexts/data';
 import { Web3Context } from 'contexts/Web3Context';
 import { useContext, useState } from 'react';
 import { soulName, soulImage } from 'utils/soul';
+import PersonIcon from '@mui/icons-material/Person';
 
 /**
  * User Settings Menu
@@ -22,6 +24,7 @@ export default function SettingsMenu({ profile }: any): JSX.Element {
   const { account } = useContext(Web3Context);
   const { accountSoul } = useContext(DataContext);
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
+  const theme = useTheme();
 
   const handleCloseUserMenu = () => setAnchorElUser(null);
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) =>
@@ -37,8 +40,13 @@ export default function SettingsMenu({ profile }: any): JSX.Element {
           <Avatar
             alt={soulName(profile)}
             src={soulImage(profile)}
-            sx={{ width: 48, height: 48 }}
-          />
+            sx={{
+              width: 48,
+              height: 48,
+            }}
+          >
+            <PersonIcon />
+          </Avatar>
         </IconButton>
       </Tooltip>
       <Menu
