@@ -216,6 +216,16 @@ export const ChainsData: { [key: string]: ChainData } = {
   //   name: 'Optimism Kovan',
   //   faucetURL: 'https://optimismfaucet.xyz/',
   // },
+  '0x4E454152': {
+    key: '0x4E454152',
+    name: 'Aurora',
+    icon: <ETHLogo />,
+    native: 'ETH',
+    nId: '',
+    live: true,
+    supported: true,
+    blockExplorerURL: 'https://aurorascan.dev/',
+  },
 };
 
 export default ChainsData;
