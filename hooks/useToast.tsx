@@ -66,9 +66,7 @@ export default function useToast() {
       const action = (
         <Button
           onClick={() => {
-            switchNetwork?.(
-              Number(process.env.NEXT_PUBLIC_NETWORK_CHAIN_ID_HEX),
-            );
+            switchNetwork?.(Number(process.env.NEXT_PUBLIC_NETWORK_CHAIN_ID));
           }}
           color="inherit"
         >
