@@ -14,6 +14,7 @@ import { SelectedGameContext } from 'contexts/SelectedGame';
 import { soulName } from 'utils/soul';
 import NativeBalanceDisplay from 'components/web3/NativeBalanceDisplay';
 import DevFundMsg from 'components/layout/DevFundMsg';
+import { getChainData } from 'components/web3/chains/ChainsData';
 
 /**
  * Game Detail Page
@@ -78,7 +79,7 @@ export default function GameDetail({ sx }: any): JSX.Element {
             </Link>
           )}
         </Stack>
-        <DevFundMsg />
+        {getChainData().live || <DevFundMsg />}
       </Stack>
     </Box>
   );

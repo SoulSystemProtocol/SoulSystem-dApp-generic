@@ -2,7 +2,7 @@ import { useTheme, Box, Typography, Button } from '@mui/material';
 import { Web3Context } from 'contexts/Web3Context';
 import Link from 'components/utils/Link';
 import { useContext } from 'react';
-import { getChainData } from './chains/ChainsData';
+import { getChainData } from 'components/web3/chains/ChainsData';
 import { useBalance } from 'wagmi';
 
 /**
