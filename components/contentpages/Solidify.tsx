@@ -164,14 +164,25 @@ export default function SolidifyLanding(): JSX.Element {
             </Typography>
           </Box>
         )} */}
-<Box>
-<Typography>
-In a world where digital interactions play an increasingly significant role in our lives, we recognize the need to establish a better relationship between communities and technology. Our platform harnesses the power of blockchain technology and tokenization to democratize the way communities are formed, organized, and incentivized.
-</Typography>
-<Typography>
-Imagine a platform where communities are not just virtual spaces, but living ecosystems with a transparent value system. Through our innovative approach, we enable communities to easily create and distribute their unique digital tokens. These tokens can act not only as a form of digital currency within the community, but also as a representation of their achievements, contributions, and collective identity.
-</Typography>
-</Box>
+        <Box>
+          <Typography>
+            In a world where digital interactions play an increasingly
+            significant role in our lives, we recognize the need to establish a
+            better relationship between communities and technology. Our platform
+            harnesses the power of blockchain technology and tokenization to
+            democratize the way communities are formed, organized, and
+            incentivized.
+          </Typography>
+          <Typography>
+            Imagine a platform where communities are not just virtual spaces,
+            but living ecosystems with a transparent value system. Through our
+            innovative approach, we enable communities to easily create and
+            distribute their unique digital tokens. These tokens can act not
+            only as a form of digital currency within the community, but also as
+            a representation of their achievements, contributions, and
+            collective identity.
+          </Typography>
+        </Box>
         <FaucetCallout minBalance={0.1} />
         <Box sx={{ mt: 4 }}>
           <Typography
