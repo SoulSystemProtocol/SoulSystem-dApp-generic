@@ -69,7 +69,7 @@ export default function GameRoleManageDialog({
       },
       soulId: {
         type: 'string',
-        title: 'Soul ID',
+        title: 'Soul',
       },
     },
   };
