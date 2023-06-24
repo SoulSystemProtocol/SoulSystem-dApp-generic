@@ -3,9 +3,9 @@ import SoulEdit from 'components/entity/soul/SoulEdit';
 import { getPageTitle } from 'utils';
 
 /**
- * Page where account can create soul.
+ * Page for creating a new Soul Profile
  */
-export default function SoulCreate() {
+export default function SoulCreate(): JSX.Element {
   return (
     <Layout title={getPageTitle('Create Soul')}>
       <SoulEdit />

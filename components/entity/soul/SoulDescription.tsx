@@ -4,7 +4,7 @@ import { soulDescription } from 'utils/soul';
 /**
  * Display Soul's description Field
  */
-export default function SoulDescription({ soul, sx }: any) {
+export default function SoulDescription({ soul, sx }: any): JSX.Element {
   const description = soulDescription(soul);
   if (description) {
     return (
