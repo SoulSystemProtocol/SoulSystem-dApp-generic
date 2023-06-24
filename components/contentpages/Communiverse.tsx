@@ -142,10 +142,10 @@ export default function Communiverse(): JSX.Element {
             variant="h1"
             fontWeight={700}
             letterSpacing="0.1em"
-            sx={{ fontSize: { xs: '5rem', sm: '2.6rem' } }}
+            sx={{ fontSize: { xs: '2.2rem', sm: '3.6rem' } }}
           >
             {/* {APP_CONFIGS.NAME} */}
-            SoulSystem Boilerplate
+            SoulSystem Community Builder
           </Typography>
         </Box>
 
@@ -156,7 +156,7 @@ export default function Communiverse(): JSX.Element {
               sx={{
                 textAlign: 'center',
                 pb: 2,
-                fontSize: { xs: '1.4rem', sm: '2.4rem' },
+                fontSize: { xs: '1.4rem', md: '1.8rem' },
               }}
               letterSpacing="0.02em"
             >
@@ -245,7 +245,7 @@ export default function Communiverse(): JSX.Element {
           <Typography
             variant="h1"
             sx={{
-              mb: 6,
+              mb: 2,
               mt: 10,
               textAlign: 'center',
               fontSize: { sm: '3rem', xs: '3rem' },
@@ -253,7 +253,9 @@ export default function Communiverse(): JSX.Element {
           >
             Features
           </Typography>
-
+          <Typography variant="h4" sx={{ mb: 2 }}>
+            {`What's so special about this?`}
+          </Typography>
           <Grid container spacing={7} sx={{ mt: -4 }}>
             {features.map((feature) => (
               <Grid item xs={12} md={6} key={feature.title} sx={{}}>
