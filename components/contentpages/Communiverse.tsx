@@ -142,20 +142,51 @@ export default function Communiverse(): JSX.Element {
             variant="h1"
             fontWeight={700}
             letterSpacing="0.1em"
-            sx={{ fontSize: { sm: '5rem', xs: '2.6rem' } }}
+            sx={{ fontSize: { xs: '5rem', sm: '2.6rem' } }}
           >
             {/* {APP_CONFIGS.NAME} */}
             SoulSystem Boilerplate
           </Typography>
-          <Typography
-            variant="h4"
-            sx={{ fontSize: { xs: '1.2rem', sm: '2.4rem' } }}
-            letterSpacing="0.02em"
-          >
-            {/* All-dApp for the protocol for */}
-            {/* A platform for democratizing services */}The protocol for
-            protocols
-          </Typography>
+        </Box>
+
+        <Box maxWidth="md" sx={{ mx: 'auto', my: 2 }}>
+          <Card sx={{ p: { xs: 2, md: 4 }, pb: 4 }}>
+            <Typography
+              variant="h4"
+              sx={{
+                textAlign: 'center',
+                pb: 2,
+                fontSize: { xs: '1.4rem', sm: '2.4rem' },
+              }}
+              letterSpacing="0.02em"
+            >
+              {/* A platform for democratizing communities */}A Protocol for
+              democratizing communities
+            </Typography>
+            <Typography
+              variant="body2"
+              sx={{ fontSize: '1.1rem', textAlign: 'center' }}
+            >
+              In a world where digital interactions play an increasingly
+              significant role in our lives, we recognize the need to establish
+              a better relationship between communities and technology. Our
+              platform harnesses the power of blockchain technology and
+              tokenization to democratize the way communities are formed,
+              organized, and incentivized.
+            </Typography>
+            <Typography
+              variant="body2"
+              sx={{ pt: 1, fontSize: '1.1rem', textAlign: 'center' }}
+            >
+              Imagine a platform where communities are not just virtual spaces,
+              but living ecosystems with a transparent value system. Through our
+              innovative approach, we enable communities to easily create and
+              distribute their unique digital tokens. These tokens can act not
+              only as a form of digital currency within the community, but also
+              as a representation of their achievements, contributions, and
+              collective identity.
+            </Typography>
+          </Card>
         </Box>
         {/* {!account && (
           <Box mt={4} textAlign="center">
@@ -164,7 +195,6 @@ export default function Communiverse(): JSX.Element {
             </Typography>
           </Box>
         )} */}
-
         <FaucetCallout minBalance={0.1} />
         <Box sx={{ mt: 4 }}>
           <Typography
@@ -224,7 +254,7 @@ export default function Communiverse(): JSX.Element {
             Features
           </Typography>
 
-          <Grid container spacing={7} sx={{ mt: -3 }}>
+          <Grid container spacing={7} sx={{ mt: -4 }}>
             {features.map((feature) => (
               <Grid item xs={12} md={6} key={feature.title} sx={{}}>
                 <Card
