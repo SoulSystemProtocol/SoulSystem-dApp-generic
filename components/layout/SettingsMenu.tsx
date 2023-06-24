@@ -35,7 +35,11 @@ export default function SettingsMenu({ profile }: any): JSX.Element {
       <Tooltip title="Open settings">
         <IconButton
           onClick={handleOpenUserMenu}
-          sx={{ p: 0, border: '2px solid #272727' }}
+          sx={{
+            p: 0,
+            border: '2px solid #272727',
+            backgroundColor: theme.palette.background.default,
+          }}
         >
           <Avatar
             alt={soulName(profile)}
