@@ -136,7 +136,7 @@ const footer_icons: MenuLink[] = [
   {
     // eslint-disable-next-line prettier/prettier
     route:
-      'https://thegraph.com/hosted-service/subgraph/toledoroy/solidify_mumbai',
+      'https://thegraph.com/hosted-service/subgraph/toledoroy/soulsystem_aurora',
     icon: <SensorOccupiedIcon sx={{ fill: 'url(#linearColors)' }} />,
     label: 'SubGraph',
   },

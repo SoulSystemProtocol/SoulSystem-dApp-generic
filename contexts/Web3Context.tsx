@@ -16,12 +16,39 @@ import {
 } from 'wagmi';
 import { alchemyProvider } from 'wagmi/providers/alchemy';
 import { publicProvider } from 'wagmi/providers/public';
+
 import { polygonMumbai } from '@wagmi/core/chains';
+// import { aurora } from '@wagmi/core/chains';
+import { Chain } from '@wagmi/core/chains';
+// const aurora: Chain = {
+  
+// };
+export const aurora: Chain = {
+  id: 1313161554,
+  name: 'Aurora',
+  network: 'aurora',
+  nativeCurrency: { name: 'Ethereum', symbol: 'ETH', decimals: 18 },
+  rpcUrls: {
+    default: { http: ['https://mainnet.aurora.dev/'] },
+  },
+  blockExplorers: {
+    default: { name: 'AuroraScan', url: 'https://aurorascan.dev' },
+  },
+
+  // contracts: {
+  //   multicall3: {
+  //     address: '0xca11bde05977b3631167028862be2a173976ca11',
+  //     blockCreated: 11907934,
+  //   },
+  // },
+}
+
 import { validateEnv } from 'hooks/utils';
 // import { InjectedConnector } from 'wagmi/connectors/injected';
 
 const { chains, provider } = configureChains(
-  [polygonMumbai],
+  // [polygonMumbai],
+  [aurora],
   [
     alchemyProvider({
       apiKey: process.env.NEXT_PUBLIC_ALCHEMY_KEY || '',
