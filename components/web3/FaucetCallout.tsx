@@ -13,18 +13,12 @@ export default function FaucetCallout({
 }: {
   minBalance?: number;
 }): JSX.Element {
-  const { account, isNetworkChainIdCorrect } = useContext(Web3Context);
-  const { data: balance } = useBalance({ address: account });
-  const theme = useTheme();
-
-  console.log('getChainData()', getChainData());
-
   if (getChainData()?.key == '0x13881') {
     //Mumbai
     return <FaucetCalloutMumbai minBalance={minBalance} />;
   } else if (getChainData()?.key == '0x4E454152') {
     //Aurora
-    return <FaucetCalloutAurora minBalance={minBalance} />;
+    return <FaucetCalloutAurora />;
   }
   return <></>;
 }
@@ -32,13 +26,7 @@ export default function FaucetCallout({
 /**
  * Faucet Callout - Aurora
  */
-function FaucetCalloutAurora({
-  minBalance = 0.1,
-}: {
-  minBalance?: number;
-}): JSX.Element {
-  const { account, isNetworkChainIdCorrect } = useContext(Web3Context);
-  const { data: balance } = useBalance({ address: account });
+function FaucetCalloutAurora(): JSX.Element {
   const theme = useTheme();
 
   return (
@@ -48,18 +36,12 @@ function FaucetCalloutAurora({
           mt: 3,
           p: 2,
           justifyContent: 'center',
-          // border: '1px solid #333',
           background: `linear-gradient(${theme.palette.background.default}, ${theme.palette.background.default}) padding-box, linear-gradient(to right, darkblue, darkorchid) border-box`,
           borderRadius: '20px',
           border: '3px solid transparent',
           textAlign: 'center',
         }}
       >
-        {/*balance?.formatted && Number(balance?.formatted) < minBalance && (
-            <Typography variant="h6" mb={1}>
-              Your balance is low 
-            </Typography>
-          )*/}
         <Typography variant="h6" mb={2}>
           No need to pay!
         </Typography>
@@ -88,7 +70,7 @@ function FaucetCalloutMumbai({
 }: {
   minBalance: number;
 }): JSX.Element {
-  const { account, isNetworkChainIdCorrect } = useContext(Web3Context);
+  const { account } = useContext(Web3Context);
   const { data: balance } = useBalance({ address: account });
   const theme = useTheme();
 
