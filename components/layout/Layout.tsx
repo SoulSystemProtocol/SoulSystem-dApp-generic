@@ -34,12 +34,6 @@ const top_links: MenuLink[] = [
   // { label: 'Hackathons', route: 'hackathons' },
   // { label: 'Grants', route: 'grants' },
   {
-    route: '/tasks',
-    label: nameEntity('task', true),
-    icon: <TaskAlt color="warning" />,
-    hide: process.env.NEXT_PUBLIC_FEATURE_SOUL == 'false',
-  },
-  {
     route: '/projects',
     label: nameEntity('project', true),
     icon: <WorkOutlineOutlined color="warning" />,
@@ -49,6 +43,12 @@ const top_links: MenuLink[] = [
     route: '/mdao',
     label: nameEntity('mdao', true),
     icon: <SchoolOutlined color="warning" />,
+  },
+  {
+    route: '/tasks',
+    label: nameEntity('task', true),
+    icon: <TaskAlt color="warning" />,
+    hide: process.env.NEXT_PUBLIC_FEATURE_SOUL == 'false',
   },
   {
     route: '/souls',
