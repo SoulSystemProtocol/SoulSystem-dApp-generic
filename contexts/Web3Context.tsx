@@ -16,13 +16,9 @@ import {
 } from 'wagmi';
 import { alchemyProvider } from 'wagmi/providers/alchemy';
 import { publicProvider } from 'wagmi/providers/public';
-
-import { polygonMumbai } from '@wagmi/core/chains';
-// import { aurora } from '@wagmi/core/chains';
+// import { polygonMumbai } from '@wagmi/core/chains';
+// import { aurora } from '@wagmi/core/chains'; //No such. Myabe update WAGMI?
 import { Chain } from '@wagmi/core/chains';
-// const aurora: Chain = {
-  
-// };
 export const aurora: Chain = {
   id: 1313161554,
   name: 'Aurora',
