@@ -180,41 +180,6 @@ const _abi = [
         type: "uint256",
       },
       {
-        components: [
-          {
-            internalType: "string",
-            name: "ruling",
-            type: "string",
-          },
-          {
-            internalType: "bool",
-            name: "evidence",
-            type: "bool",
-          },
-          {
-            internalType: "uint256",
-            name: "witness",
-            type: "uint256",
-          },
-        ],
-        internalType: "struct DataTypes.Confirmation",
-        name: "confirmation",
-        type: "tuple",
-      },
-    ],
-    name: "ruleConfirmationUpdate",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "id",
-        type: "uint256",
-      },
-      {
         internalType: "bool",
         name: "disabled",
         type: "bool",
@@ -334,6 +299,41 @@ const _abi = [
       },
     ],
     name: "ruleUpdate",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "id",
+        type: "uint256",
+      },
+      {
+        components: [
+          {
+            internalType: "string",
+            name: "ruling",
+            type: "string",
+          },
+          {
+            internalType: "bool",
+            name: "evidence",
+            type: "bool",
+          },
+          {
+            internalType: "uint256",
+            name: "witness",
+            type: "uint256",
+          },
+        ],
+        internalType: "struct DataTypes.Confirmation",
+        name: "confirmation",
+        type: "tuple",
+      },
+    ],
+    name: "ruleUpdateConfirmation",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",

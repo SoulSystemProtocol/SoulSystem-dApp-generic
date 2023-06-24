@@ -1082,7 +1082,7 @@ export interface TaskUpgradable extends BaseContract {
     ): Promise<ContractTransaction>;
 
     setContractURI(
-      contract_uri: PromiseOrValue<string>,
+      contractUri: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
@@ -1372,7 +1372,7 @@ export interface TaskUpgradable extends BaseContract {
   ): Promise<ContractTransaction>;
 
   setContractURI(
-    contract_uri: PromiseOrValue<string>,
+    contractUri: PromiseOrValue<string>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
@@ -1660,7 +1660,7 @@ export interface TaskUpgradable extends BaseContract {
     ): Promise<void>;
 
     setContractURI(
-      contract_uri: PromiseOrValue<string>,
+      contractUri: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -2153,7 +2153,7 @@ export interface TaskUpgradable extends BaseContract {
     ): Promise<BigNumber>;
 
     setContractURI(
-      contract_uri: PromiseOrValue<string>,
+      contractUri: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
@@ -2444,7 +2444,7 @@ export interface TaskUpgradable extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     setContractURI(
-      contract_uri: PromiseOrValue<string>,
+      contractUri: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 

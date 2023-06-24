@@ -54,6 +54,13 @@ export interface IOpenRepoInterface extends utils.Interface {
     "stringGetOf(address,string)": FunctionFragment;
     "stringRemove(string,string)": FunctionFragment;
     "stringSet(string,string)": FunctionFragment;
+    "uintAdd(string,uint256)": FunctionFragment;
+    "uintGet(string)": FunctionFragment;
+    "uintGetIndex(string,uint256)": FunctionFragment;
+    "uintGetIndexOf(address,string,uint256)": FunctionFragment;
+    "uintGetOf(address,string)": FunctionFragment;
+    "uintRemove(string,uint256)": FunctionFragment;
+    "uintSet(string,uint256)": FunctionFragment;
   };
 
   getFunction(
@@ -83,6 +90,13 @@ export interface IOpenRepoInterface extends utils.Interface {
       | "stringGetOf"
       | "stringRemove"
       | "stringSet"
+      | "uintAdd"
+      | "uintGet"
+      | "uintGetIndex"
+      | "uintGetIndexOf"
+      | "uintGetOf"
+      | "uintRemove"
+      | "uintSet"
   ): FunctionFragment;
 
   encodeFunctionData(
@@ -201,6 +215,38 @@ export interface IOpenRepoInterface extends utils.Interface {
     functionFragment: "stringSet",
     values: [PromiseOrValue<string>, PromiseOrValue<string>]
   ): string;
+  encodeFunctionData(
+    functionFragment: "uintAdd",
+    values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "uintGet",
+    values: [PromiseOrValue<string>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "uintGetIndex",
+    values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "uintGetIndexOf",
+    values: [
+      PromiseOrValue<string>,
+      PromiseOrValue<string>,
+      PromiseOrValue<BigNumberish>
+    ]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "uintGetOf",
+    values: [PromiseOrValue<string>, PromiseOrValue<string>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "uintRemove",
+    values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "uintSet",
+    values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>]
+  ): string;
 
   decodeFunctionResult(functionFragment: "addressAdd", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "addressGet", data: BytesLike): Result;
@@ -266,6 +312,19 @@ export interface IOpenRepoInterface extends utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "stringSet", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "uintAdd", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "uintGet", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "uintGetIndex",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "uintGetIndexOf",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(functionFragment: "uintGetOf", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "uintRemove", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "uintSet", data: BytesLike): Result;
 
   events: {
     "AddressAdd(address,string,address)": EventFragment;
@@ -277,6 +336,9 @@ export interface IOpenRepoInterface extends utils.Interface {
     "StringAdd(address,string,string)": EventFragment;
     "StringRemoved(address,string,string)": EventFragment;
     "StringSet(address,string,string)": EventFragment;
+    "UintAdd(address,string,uint256)": EventFragment;
+    "UintRemoved(address,string,uint256)": EventFragment;
+    "UintSet(address,string,uint256)": EventFragment;
   };
 
   getEvent(nameOrSignatureOrTopic: "AddressAdd"): EventFragment;
@@ -288,6 +350,9 @@ export interface IOpenRepoInterface extends utils.Interface {
   getEvent(nameOrSignatureOrTopic: "StringAdd"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "StringRemoved"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "StringSet"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "UintAdd"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "UintRemoved"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "UintSet"): EventFragment;
 }
 
 export interface AddressAddEventObject {
@@ -397,6 +462,42 @@ export type StringSetEvent = TypedEvent<
 >;
 
 export type StringSetEventFilter = TypedEventFilter<StringSetEvent>;
+
+export interface UintAddEventObject {
+  originContract: string;
+  key: string;
+  value: BigNumber;
+}
+export type UintAddEvent = TypedEvent<
+  [string, string, BigNumber],
+  UintAddEventObject
+>;
+
+export type UintAddEventFilter = TypedEventFilter<UintAddEvent>;
+
+export interface UintRemovedEventObject {
+  originContract: string;
+  key: string;
+  value: BigNumber;
+}
+export type UintRemovedEvent = TypedEvent<
+  [string, string, BigNumber],
+  UintRemovedEventObject
+>;
+
+export type UintRemovedEventFilter = TypedEventFilter<UintRemovedEvent>;
+
+export interface UintSetEventObject {
+  originContract: string;
+  key: string;
+  value: BigNumber;
+}
+export type UintSetEvent = TypedEvent<
+  [string, string, BigNumber],
+  UintSetEventObject
+>;
+
+export type UintSetEventFilter = TypedEventFilter<UintSetEvent>;
 
 export interface IOpenRepo extends BaseContract {
   connect(signerOrProvider: Signer | Provider | string): this;
@@ -574,6 +675,48 @@ export interface IOpenRepo extends BaseContract {
       value: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
+
+    uintAdd(
+      key: PromiseOrValue<string>,
+      value: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
+
+    uintGet(
+      key: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber]>;
+
+    uintGetIndex(
+      key: PromiseOrValue<string>,
+      index: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber]>;
+
+    uintGetIndexOf(
+      originContract: PromiseOrValue<string>,
+      key: PromiseOrValue<string>,
+      index: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber]>;
+
+    uintGetOf(
+      originContract: PromiseOrValue<string>,
+      key: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber]>;
+
+    uintRemove(
+      key: PromiseOrValue<string>,
+      value: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
+
+    uintSet(
+      key: PromiseOrValue<string>,
+      value: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
   };
 
   addressAdd(
@@ -723,6 +866,48 @@ export interface IOpenRepo extends BaseContract {
   stringSet(
     key: PromiseOrValue<string>,
     value: PromiseOrValue<string>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
+
+  uintAdd(
+    key: PromiseOrValue<string>,
+    value: PromiseOrValue<BigNumberish>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
+
+  uintGet(
+    key: PromiseOrValue<string>,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>;
+
+  uintGetIndex(
+    key: PromiseOrValue<string>,
+    index: PromiseOrValue<BigNumberish>,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>;
+
+  uintGetIndexOf(
+    originContract: PromiseOrValue<string>,
+    key: PromiseOrValue<string>,
+    index: PromiseOrValue<BigNumberish>,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>;
+
+  uintGetOf(
+    originContract: PromiseOrValue<string>,
+    key: PromiseOrValue<string>,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>;
+
+  uintRemove(
+    key: PromiseOrValue<string>,
+    value: PromiseOrValue<BigNumberish>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
+
+  uintSet(
+    key: PromiseOrValue<string>,
+    value: PromiseOrValue<BigNumberish>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
@@ -876,6 +1061,48 @@ export interface IOpenRepo extends BaseContract {
       value: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<void>;
+
+    uintAdd(
+      key: PromiseOrValue<string>,
+      value: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    uintGet(
+      key: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    uintGetIndex(
+      key: PromiseOrValue<string>,
+      index: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    uintGetIndexOf(
+      originContract: PromiseOrValue<string>,
+      key: PromiseOrValue<string>,
+      index: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    uintGetOf(
+      originContract: PromiseOrValue<string>,
+      key: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    uintRemove(
+      key: PromiseOrValue<string>,
+      value: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    uintSet(
+      key: PromiseOrValue<string>,
+      value: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<void>;
   };
 
   filters: {
@@ -977,6 +1204,39 @@ export interface IOpenRepo extends BaseContract {
       key?: null,
       value?: null
     ): StringSetEventFilter;
+
+    "UintAdd(address,string,uint256)"(
+      originContract?: null,
+      key?: null,
+      value?: null
+    ): UintAddEventFilter;
+    UintAdd(
+      originContract?: null,
+      key?: null,
+      value?: null
+    ): UintAddEventFilter;
+
+    "UintRemoved(address,string,uint256)"(
+      originContract?: null,
+      key?: null,
+      value?: null
+    ): UintRemovedEventFilter;
+    UintRemoved(
+      originContract?: null,
+      key?: null,
+      value?: null
+    ): UintRemovedEventFilter;
+
+    "UintSet(address,string,uint256)"(
+      originContract?: null,
+      key?: null,
+      value?: null
+    ): UintSetEventFilter;
+    UintSet(
+      originContract?: null,
+      key?: null,
+      value?: null
+    ): UintSetEventFilter;
   };
 
   estimateGas: {
@@ -1129,6 +1389,48 @@ export interface IOpenRepo extends BaseContract {
       value: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
+
+    uintAdd(
+      key: PromiseOrValue<string>,
+      value: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
+
+    uintGet(
+      key: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    uintGetIndex(
+      key: PromiseOrValue<string>,
+      index: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    uintGetIndexOf(
+      originContract: PromiseOrValue<string>,
+      key: PromiseOrValue<string>,
+      index: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    uintGetOf(
+      originContract: PromiseOrValue<string>,
+      key: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    uintRemove(
+      key: PromiseOrValue<string>,
+      value: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
+
+    uintSet(
+      key: PromiseOrValue<string>,
+      value: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
   };
 
   populateTransaction: {
@@ -1279,6 +1581,48 @@ export interface IOpenRepo extends BaseContract {
     stringSet(
       key: PromiseOrValue<string>,
       value: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
+    uintAdd(
+      key: PromiseOrValue<string>,
+      value: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
+    uintGet(
+      key: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    uintGetIndex(
+      key: PromiseOrValue<string>,
+      index: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    uintGetIndexOf(
+      originContract: PromiseOrValue<string>,
+      key: PromiseOrValue<string>,
+      index: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    uintGetOf(
+      originContract: PromiseOrValue<string>,
+      key: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    uintRemove(
+      key: PromiseOrValue<string>,
+      value: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
+    uintSet(
+      key: PromiseOrValue<string>,
+      value: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
   };

@@ -929,7 +929,7 @@ const _abi = [
     inputs: [
       {
         internalType: "string",
-        name: "contract_uri",
+        name: "contractUri",
         type: "string",
       },
     ],

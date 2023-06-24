@@ -66,6 +66,14 @@ export interface OpenRepoUpgradableInterface extends utils.Interface {
     "supportsInterface(bytes4)": FunctionFragment;
     "symbol()": FunctionFragment;
     "transferOwnership(address)": FunctionFragment;
+    "uintAdd(string,uint256)": FunctionFragment;
+    "uintGet(string)": FunctionFragment;
+    "uintGetAll(string)": FunctionFragment;
+    "uintGetIndex(string,uint256)": FunctionFragment;
+    "uintGetIndexOf(address,string,uint256)": FunctionFragment;
+    "uintGetOf(address,string)": FunctionFragment;
+    "uintRemove(string,uint256)": FunctionFragment;
+    "uintSet(string,uint256)": FunctionFragment;
     "upgradeTo(address)": FunctionFragment;
     "upgradeToAndCall(address,bytes)": FunctionFragment;
   };
@@ -108,6 +116,14 @@ export interface OpenRepoUpgradableInterface extends utils.Interface {
       | "supportsInterface"
       | "symbol"
       | "transferOwnership"
+      | "uintAdd"
+      | "uintGet"
+      | "uintGetAll"
+      | "uintGetIndex"
+      | "uintGetIndexOf"
+      | "uintGetOf"
+      | "uintRemove"
+      | "uintSet"
       | "upgradeTo"
       | "upgradeToAndCall"
   ): FunctionFragment;
@@ -264,6 +280,42 @@ export interface OpenRepoUpgradableInterface extends utils.Interface {
     values: [PromiseOrValue<string>]
   ): string;
   encodeFunctionData(
+    functionFragment: "uintAdd",
+    values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "uintGet",
+    values: [PromiseOrValue<string>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "uintGetAll",
+    values: [PromiseOrValue<string>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "uintGetIndex",
+    values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "uintGetIndexOf",
+    values: [
+      PromiseOrValue<string>,
+      PromiseOrValue<string>,
+      PromiseOrValue<BigNumberish>
+    ]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "uintGetOf",
+    values: [PromiseOrValue<string>, PromiseOrValue<string>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "uintRemove",
+    values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "uintSet",
+    values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>]
+  ): string;
+  encodeFunctionData(
     functionFragment: "upgradeTo",
     values: [PromiseOrValue<string>]
   ): string;
@@ -365,6 +417,20 @@ export interface OpenRepoUpgradableInterface extends utils.Interface {
     functionFragment: "transferOwnership",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(functionFragment: "uintAdd", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "uintGet", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "uintGetAll", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "uintGetIndex",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "uintGetIndexOf",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(functionFragment: "uintGetOf", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "uintRemove", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "uintSet", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "upgradeTo", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "upgradeToAndCall",
@@ -386,6 +452,9 @@ export interface OpenRepoUpgradableInterface extends utils.Interface {
     "StringAdd(address,string,string)": EventFragment;
     "StringRemoved(address,string,string)": EventFragment;
     "StringSet(address,string,string)": EventFragment;
+    "UintAdd(address,string,uint256)": EventFragment;
+    "UintRemoved(address,string,uint256)": EventFragment;
+    "UintSet(address,string,uint256)": EventFragment;
     "Upgraded(address)": EventFragment;
   };
 
@@ -403,6 +472,9 @@ export interface OpenRepoUpgradableInterface extends utils.Interface {
   getEvent(nameOrSignatureOrTopic: "StringAdd"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "StringRemoved"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "StringSet"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "UintAdd"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "UintRemoved"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "UintSet"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "Upgraded"): EventFragment;
 }
 
@@ -560,6 +632,42 @@ export type StringSetEvent = TypedEvent<
 >;
 
 export type StringSetEventFilter = TypedEventFilter<StringSetEvent>;
+
+export interface UintAddEventObject {
+  originContract: string;
+  key: string;
+  value: BigNumber;
+}
+export type UintAddEvent = TypedEvent<
+  [string, string, BigNumber],
+  UintAddEventObject
+>;
+
+export type UintAddEventFilter = TypedEventFilter<UintAddEvent>;
+
+export interface UintRemovedEventObject {
+  originContract: string;
+  key: string;
+  value: BigNumber;
+}
+export type UintRemovedEvent = TypedEvent<
+  [string, string, BigNumber],
+  UintRemovedEventObject
+>;
+
+export type UintRemovedEventFilter = TypedEventFilter<UintRemovedEvent>;
+
+export interface UintSetEventObject {
+  originContract: string;
+  key: string;
+  value: BigNumber;
+}
+export type UintSetEvent = TypedEvent<
+  [string, string, BigNumber],
+  UintSetEventObject
+>;
+
+export type UintSetEventFilter = TypedEventFilter<UintSetEvent>;
 
 export interface UpgradedEventObject {
   implementation: string;
@@ -783,6 +891,53 @@ export interface OpenRepoUpgradable extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
+    uintAdd(
+      key: PromiseOrValue<string>,
+      value: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
+
+    uintGet(
+      key: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber]>;
+
+    uintGetAll(
+      key: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber[]]>;
+
+    uintGetIndex(
+      key: PromiseOrValue<string>,
+      index: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber]>;
+
+    uintGetIndexOf(
+      originContract: PromiseOrValue<string>,
+      key: PromiseOrValue<string>,
+      index: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber]>;
+
+    uintGetOf(
+      originContract: PromiseOrValue<string>,
+      key: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber]>;
+
+    uintRemove(
+      key: PromiseOrValue<string>,
+      value: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
+
+    uintSet(
+      key: PromiseOrValue<string>,
+      value: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
+
     upgradeTo(
       newImplementation: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
@@ -983,6 +1138,53 @@ export interface OpenRepoUpgradable extends BaseContract {
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
+  uintAdd(
+    key: PromiseOrValue<string>,
+    value: PromiseOrValue<BigNumberish>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
+
+  uintGet(
+    key: PromiseOrValue<string>,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>;
+
+  uintGetAll(
+    key: PromiseOrValue<string>,
+    overrides?: CallOverrides
+  ): Promise<BigNumber[]>;
+
+  uintGetIndex(
+    key: PromiseOrValue<string>,
+    index: PromiseOrValue<BigNumberish>,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>;
+
+  uintGetIndexOf(
+    originContract: PromiseOrValue<string>,
+    key: PromiseOrValue<string>,
+    index: PromiseOrValue<BigNumberish>,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>;
+
+  uintGetOf(
+    originContract: PromiseOrValue<string>,
+    key: PromiseOrValue<string>,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>;
+
+  uintRemove(
+    key: PromiseOrValue<string>,
+    value: PromiseOrValue<BigNumberish>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
+
+  uintSet(
+    key: PromiseOrValue<string>,
+    value: PromiseOrValue<BigNumberish>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
+
   upgradeTo(
     newImplementation: PromiseOrValue<string>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
@@ -1179,6 +1381,53 @@ export interface OpenRepoUpgradable extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
+    uintAdd(
+      key: PromiseOrValue<string>,
+      value: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    uintGet(
+      key: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    uintGetAll(
+      key: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber[]>;
+
+    uintGetIndex(
+      key: PromiseOrValue<string>,
+      index: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    uintGetIndexOf(
+      originContract: PromiseOrValue<string>,
+      key: PromiseOrValue<string>,
+      index: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    uintGetOf(
+      originContract: PromiseOrValue<string>,
+      key: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    uintRemove(
+      key: PromiseOrValue<string>,
+      value: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    uintSet(
+      key: PromiseOrValue<string>,
+      value: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
     upgradeTo(
       newImplementation: PromiseOrValue<string>,
       overrides?: CallOverrides
@@ -1321,6 +1570,39 @@ export interface OpenRepoUpgradable extends BaseContract {
       key?: null,
       value?: null
     ): StringSetEventFilter;
+
+    "UintAdd(address,string,uint256)"(
+      originContract?: null,
+      key?: null,
+      value?: null
+    ): UintAddEventFilter;
+    UintAdd(
+      originContract?: null,
+      key?: null,
+      value?: null
+    ): UintAddEventFilter;
+
+    "UintRemoved(address,string,uint256)"(
+      originContract?: null,
+      key?: null,
+      value?: null
+    ): UintRemovedEventFilter;
+    UintRemoved(
+      originContract?: null,
+      key?: null,
+      value?: null
+    ): UintRemovedEventFilter;
+
+    "UintSet(address,string,uint256)"(
+      originContract?: null,
+      key?: null,
+      value?: null
+    ): UintSetEventFilter;
+    UintSet(
+      originContract?: null,
+      key?: null,
+      value?: null
+    ): UintSetEventFilter;
 
     "Upgraded(address)"(
       implementation?: PromiseOrValue<string> | null
@@ -1516,6 +1798,53 @@ export interface OpenRepoUpgradable extends BaseContract {
 
     transferOwnership(
       newOwner: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
+
+    uintAdd(
+      key: PromiseOrValue<string>,
+      value: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
+
+    uintGet(
+      key: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    uintGetAll(
+      key: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    uintGetIndex(
+      key: PromiseOrValue<string>,
+      index: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    uintGetIndexOf(
+      originContract: PromiseOrValue<string>,
+      key: PromiseOrValue<string>,
+      index: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    uintGetOf(
+      originContract: PromiseOrValue<string>,
+      key: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    uintRemove(
+      key: PromiseOrValue<string>,
+      value: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
+
+    uintSet(
+      key: PromiseOrValue<string>,
+      value: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
@@ -1717,6 +2046,53 @@ export interface OpenRepoUpgradable extends BaseContract {
 
     transferOwnership(
       newOwner: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
+    uintAdd(
+      key: PromiseOrValue<string>,
+      value: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
+    uintGet(
+      key: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    uintGetAll(
+      key: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    uintGetIndex(
+      key: PromiseOrValue<string>,
+      index: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    uintGetIndexOf(
+      originContract: PromiseOrValue<string>,
+      key: PromiseOrValue<string>,
+      index: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    uintGetOf(
+      originContract: PromiseOrValue<string>,
+      key: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    uintRemove(
+      key: PromiseOrValue<string>,
+      value: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
+    uintSet(
+      key: PromiseOrValue<string>,
+      value: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 

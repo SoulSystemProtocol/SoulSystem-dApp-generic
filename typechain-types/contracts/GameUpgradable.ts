@@ -28,6 +28,16 @@ import type {
 } from "../common";
 
 export declare namespace DataTypes {
+  export type ConditionStruct = {
+    repo: PromiseOrValue<string>;
+    id: PromiseOrValue<BytesLike>;
+  };
+
+  export type ConditionStructOutput = [string, string] & {
+    repo: string;
+    id: string;
+  };
+
   export type ConfirmationStruct = {
     ruling: PromiseOrValue<string>;
     evidence: PromiseOrValue<boolean>;
@@ -79,6 +89,7 @@ export interface GameUpgradableInterface extends utils.Interface {
     "balanceOfToken(uint256,uint256)": FunctionFragment;
     "claimDisable(address)": FunctionFragment;
     "claimHas(address)": FunctionFragment;
+    "conditionsGet(uint256)": FunctionFragment;
     "confGet(string)": FunctionFragment;
     "confSet(string,string)": FunctionFragment;
     "confirmationGet(uint256)": FunctionFragment;
@@ -113,11 +124,13 @@ export interface GameUpgradableInterface extends utils.Interface {
     "roleToId(string)": FunctionFragment;
     "roleURI(string)": FunctionFragment;
     "rolesHas(address,string[])": FunctionFragment;
-    "ruleAdd((bytes32,string,bool,string,bool),(string,bool,uint256),(string,int256,bool)[])": FunctionFragment;
-    "ruleConfirmationUpdate(uint256,(string,bool,uint256))": FunctionFragment;
+    "ruleAdd((bytes32,string,bool,string,bool),(string,int256,bool)[],(string,bool,uint256))": FunctionFragment;
     "ruleDisable(uint256,bool)": FunctionFragment;
     "ruleGet(uint256)": FunctionFragment;
-    "ruleUpdate(uint256,(bytes32,string,bool,string,bool),(string,int256,bool)[])": FunctionFragment;
+    "ruleUpdateConditions(uint256,(string,bytes32)[])": FunctionFragment;
+    "ruleUpdateConfirmation(uint256,(string,bool,uint256))": FunctionFragment;
+    "ruleUpdateEffects(uint256,(string,int256,bool)[])": FunctionFragment;
+    "ruleUpdateURI(uint256,string)": FunctionFragment;
     "setApprovalForAll(address,bool)": FunctionFragment;
     "setContractURI(string)": FunctionFragment;
     "setHub(address)": FunctionFragment;
@@ -142,6 +155,7 @@ export interface GameUpgradableInterface extends utils.Interface {
       | "balanceOfToken"
       | "claimDisable"
       | "claimHas"
+      | "conditionsGet"
       | "confGet"
       | "confSet"
       | "confirmationGet"
@@ -177,10 +191,12 @@ export interface GameUpgradableInterface extends utils.Interface {
       | "roleURI"
       | "rolesHas"
       | "ruleAdd"
-      | "ruleConfirmationUpdate"
       | "ruleDisable"
       | "ruleGet"
-      | "ruleUpdate"
+      | "ruleUpdateConditions"
+      | "ruleUpdateConfirmation"
+      | "ruleUpdateEffects"
+      | "ruleUpdateURI"
       | "setApprovalForAll"
       | "setContractURI"
       | "setHub"
@@ -226,6 +242,10 @@ export interface GameUpgradableInterface extends utils.Interface {
   encodeFunctionData(
     functionFragment: "claimHas",
     values: [PromiseOrValue<string>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "conditionsGet",
+    values: [PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
     functionFragment: "confGet",
@@ -368,13 +388,9 @@ export interface GameUpgradableInterface extends utils.Interface {
     functionFragment: "ruleAdd",
     values: [
       DataTypes.RuleStruct,
-      DataTypes.ConfirmationStruct,
-      DataTypes.RepChangeStruct[]
+      DataTypes.RepChangeStruct[],
+      DataTypes.ConfirmationStruct
     ]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "ruleConfirmationUpdate",
-    values: [PromiseOrValue<BigNumberish>, DataTypes.ConfirmationStruct]
   ): string;
   encodeFunctionData(
     functionFragment: "ruleDisable",
@@ -385,12 +401,20 @@ export interface GameUpgradableInterface extends utils.Interface {
     values: [PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
-    functionFragment: "ruleUpdate",
-    values: [
-      PromiseOrValue<BigNumberish>,
-      DataTypes.RuleStruct,
-      DataTypes.RepChangeStruct[]
-    ]
+    functionFragment: "ruleUpdateConditions",
+    values: [PromiseOrValue<BigNumberish>, DataTypes.ConditionStruct[]]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "ruleUpdateConfirmation",
+    values: [PromiseOrValue<BigNumberish>, DataTypes.ConfirmationStruct]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "ruleUpdateEffects",
+    values: [PromiseOrValue<BigNumberish>, DataTypes.RepChangeStruct[]]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "ruleUpdateURI",
+    values: [PromiseOrValue<BigNumberish>, PromiseOrValue<string>]
   ): string;
   encodeFunctionData(
     functionFragment: "setApprovalForAll",
@@ -458,6 +482,10 @@ export interface GameUpgradableInterface extends utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "claimHas", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "conditionsGet",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "confGet", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "confSet", data: BytesLike): Result;
   decodeFunctionResult(
@@ -539,15 +567,26 @@ export interface GameUpgradableInterface extends utils.Interface {
   decodeFunctionResult(functionFragment: "rolesHas", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "ruleAdd", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "ruleConfirmationUpdate",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
     functionFragment: "ruleDisable",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "ruleGet", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "ruleUpdate", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "ruleUpdateConditions",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "ruleUpdateConfirmation",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "ruleUpdateEffects",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "ruleUpdateURI",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(
     functionFragment: "setApprovalForAll",
     data: BytesLike
@@ -882,6 +921,11 @@ export interface GameUpgradable extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[boolean]>;
 
+    conditionsGet(
+      ruleId: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<[DataTypes.ConditionStructOutput[]]>;
+
     confGet(
       key: PromiseOrValue<string>,
       overrides?: CallOverrides
@@ -901,7 +945,7 @@ export interface GameUpgradable extends BaseContract {
     contractURI(overrides?: CallOverrides): Promise<[string]>;
 
     effectsGet(
-      effectId: PromiseOrValue<BigNumberish>,
+      ruleId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<[DataTypes.RepChangeStructOutput[]]>;
 
@@ -1048,13 +1092,7 @@ export interface GameUpgradable extends BaseContract {
 
     ruleAdd(
       rule: DataTypes.RuleStruct,
-      confirmation: DataTypes.ConfirmationStruct,
       effects: DataTypes.RepChangeStruct[],
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<ContractTransaction>;
-
-    ruleConfirmationUpdate(
-      id: PromiseOrValue<BigNumberish>,
       confirmation: DataTypes.ConfirmationStruct,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
@@ -1070,10 +1108,27 @@ export interface GameUpgradable extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[DataTypes.RuleStructOutput]>;
 
-    ruleUpdate(
+    ruleUpdateConditions(
+      ruleId: PromiseOrValue<BigNumberish>,
+      conditions: DataTypes.ConditionStruct[],
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
+
+    ruleUpdateConfirmation(
       id: PromiseOrValue<BigNumberish>,
-      rule: DataTypes.RuleStruct,
+      confirmation: DataTypes.ConfirmationStruct,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
+
+    ruleUpdateEffects(
+      ruleId: PromiseOrValue<BigNumberish>,
       effects: DataTypes.RepChangeStruct[],
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
+
+    ruleUpdateURI(
+      ruleId: PromiseOrValue<BigNumberish>,
+      uri: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
@@ -1084,7 +1139,7 @@ export interface GameUpgradable extends BaseContract {
     ): Promise<ContractTransaction>;
 
     setContractURI(
-      contract_uri: PromiseOrValue<string>,
+      contractUri: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
@@ -1182,6 +1237,11 @@ export interface GameUpgradable extends BaseContract {
     overrides?: CallOverrides
   ): Promise<boolean>;
 
+  conditionsGet(
+    ruleId: PromiseOrValue<BigNumberish>,
+    overrides?: CallOverrides
+  ): Promise<DataTypes.ConditionStructOutput[]>;
+
   confGet(
     key: PromiseOrValue<string>,
     overrides?: CallOverrides
@@ -1201,7 +1261,7 @@ export interface GameUpgradable extends BaseContract {
   contractURI(overrides?: CallOverrides): Promise<string>;
 
   effectsGet(
-    effectId: PromiseOrValue<BigNumberish>,
+    ruleId: PromiseOrValue<BigNumberish>,
     overrides?: CallOverrides
   ): Promise<DataTypes.RepChangeStructOutput[]>;
 
@@ -1348,13 +1408,7 @@ export interface GameUpgradable extends BaseContract {
 
   ruleAdd(
     rule: DataTypes.RuleStruct,
-    confirmation: DataTypes.ConfirmationStruct,
     effects: DataTypes.RepChangeStruct[],
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
-  ): Promise<ContractTransaction>;
-
-  ruleConfirmationUpdate(
-    id: PromiseOrValue<BigNumberish>,
     confirmation: DataTypes.ConfirmationStruct,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
@@ -1370,10 +1424,27 @@ export interface GameUpgradable extends BaseContract {
     overrides?: CallOverrides
   ): Promise<DataTypes.RuleStructOutput>;
 
-  ruleUpdate(
+  ruleUpdateConditions(
+    ruleId: PromiseOrValue<BigNumberish>,
+    conditions: DataTypes.ConditionStruct[],
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
+
+  ruleUpdateConfirmation(
     id: PromiseOrValue<BigNumberish>,
-    rule: DataTypes.RuleStruct,
+    confirmation: DataTypes.ConfirmationStruct,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
+
+  ruleUpdateEffects(
+    ruleId: PromiseOrValue<BigNumberish>,
     effects: DataTypes.RepChangeStruct[],
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
+
+  ruleUpdateURI(
+    ruleId: PromiseOrValue<BigNumberish>,
+    uri: PromiseOrValue<string>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
@@ -1384,7 +1455,7 @@ export interface GameUpgradable extends BaseContract {
   ): Promise<ContractTransaction>;
 
   setContractURI(
-    contract_uri: PromiseOrValue<string>,
+    contractUri: PromiseOrValue<string>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
@@ -1482,6 +1553,11 @@ export interface GameUpgradable extends BaseContract {
       overrides?: CallOverrides
     ): Promise<boolean>;
 
+    conditionsGet(
+      ruleId: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<DataTypes.ConditionStructOutput[]>;
+
     confGet(
       key: PromiseOrValue<string>,
       overrides?: CallOverrides
@@ -1501,7 +1577,7 @@ export interface GameUpgradable extends BaseContract {
     contractURI(overrides?: CallOverrides): Promise<string>;
 
     effectsGet(
-      effectId: PromiseOrValue<BigNumberish>,
+      ruleId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<DataTypes.RepChangeStructOutput[]>;
 
@@ -1642,16 +1718,10 @@ export interface GameUpgradable extends BaseContract {
 
     ruleAdd(
       rule: DataTypes.RuleStruct,
-      confirmation: DataTypes.ConfirmationStruct,
       effects: DataTypes.RepChangeStruct[],
+      confirmation: DataTypes.ConfirmationStruct,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
-
-    ruleConfirmationUpdate(
-      id: PromiseOrValue<BigNumberish>,
-      confirmation: DataTypes.ConfirmationStruct,
-      overrides?: CallOverrides
-    ): Promise<void>;
 
     ruleDisable(
       id: PromiseOrValue<BigNumberish>,
@@ -1664,10 +1734,27 @@ export interface GameUpgradable extends BaseContract {
       overrides?: CallOverrides
     ): Promise<DataTypes.RuleStructOutput>;
 
-    ruleUpdate(
+    ruleUpdateConditions(
+      ruleId: PromiseOrValue<BigNumberish>,
+      conditions: DataTypes.ConditionStruct[],
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    ruleUpdateConfirmation(
       id: PromiseOrValue<BigNumberish>,
-      rule: DataTypes.RuleStruct,
+      confirmation: DataTypes.ConfirmationStruct,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    ruleUpdateEffects(
+      ruleId: PromiseOrValue<BigNumberish>,
       effects: DataTypes.RepChangeStruct[],
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    ruleUpdateURI(
+      ruleId: PromiseOrValue<BigNumberish>,
+      uri: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -1678,7 +1765,7 @@ export interface GameUpgradable extends BaseContract {
     ): Promise<void>;
 
     setContractURI(
-      contract_uri: PromiseOrValue<string>,
+      contractUri: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -1945,6 +2032,11 @@ export interface GameUpgradable extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    conditionsGet(
+      ruleId: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
     confGet(
       key: PromiseOrValue<string>,
       overrides?: CallOverrides
@@ -1964,7 +2056,7 @@ export interface GameUpgradable extends BaseContract {
     contractURI(overrides?: CallOverrides): Promise<BigNumber>;
 
     effectsGet(
-      effectId: PromiseOrValue<BigNumberish>,
+      ruleId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -2111,13 +2203,7 @@ export interface GameUpgradable extends BaseContract {
 
     ruleAdd(
       rule: DataTypes.RuleStruct,
-      confirmation: DataTypes.ConfirmationStruct,
       effects: DataTypes.RepChangeStruct[],
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<BigNumber>;
-
-    ruleConfirmationUpdate(
-      id: PromiseOrValue<BigNumberish>,
       confirmation: DataTypes.ConfirmationStruct,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
@@ -2133,10 +2219,27 @@ export interface GameUpgradable extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    ruleUpdate(
+    ruleUpdateConditions(
+      ruleId: PromiseOrValue<BigNumberish>,
+      conditions: DataTypes.ConditionStruct[],
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
+
+    ruleUpdateConfirmation(
       id: PromiseOrValue<BigNumberish>,
-      rule: DataTypes.RuleStruct,
+      confirmation: DataTypes.ConfirmationStruct,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
+
+    ruleUpdateEffects(
+      ruleId: PromiseOrValue<BigNumberish>,
       effects: DataTypes.RepChangeStruct[],
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
+
+    ruleUpdateURI(
+      ruleId: PromiseOrValue<BigNumberish>,
+      uri: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
@@ -2147,7 +2250,7 @@ export interface GameUpgradable extends BaseContract {
     ): Promise<BigNumber>;
 
     setContractURI(
-      contract_uri: PromiseOrValue<string>,
+      contractUri: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
@@ -2246,6 +2349,11 @@ export interface GameUpgradable extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
+    conditionsGet(
+      ruleId: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
     confGet(
       key: PromiseOrValue<string>,
       overrides?: CallOverrides
@@ -2265,7 +2373,7 @@ export interface GameUpgradable extends BaseContract {
     contractURI(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     effectsGet(
-      effectId: PromiseOrValue<BigNumberish>,
+      ruleId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -2412,13 +2520,7 @@ export interface GameUpgradable extends BaseContract {
 
     ruleAdd(
       rule: DataTypes.RuleStruct,
-      confirmation: DataTypes.ConfirmationStruct,
       effects: DataTypes.RepChangeStruct[],
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<PopulatedTransaction>;
-
-    ruleConfirmationUpdate(
-      id: PromiseOrValue<BigNumberish>,
       confirmation: DataTypes.ConfirmationStruct,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
@@ -2434,10 +2536,27 @@ export interface GameUpgradable extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    ruleUpdate(
+    ruleUpdateConditions(
+      ruleId: PromiseOrValue<BigNumberish>,
+      conditions: DataTypes.ConditionStruct[],
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
+    ruleUpdateConfirmation(
       id: PromiseOrValue<BigNumberish>,
-      rule: DataTypes.RuleStruct,
+      confirmation: DataTypes.ConfirmationStruct,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
+    ruleUpdateEffects(
+      ruleId: PromiseOrValue<BigNumberish>,
       effects: DataTypes.RepChangeStruct[],
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
+    ruleUpdateURI(
+      ruleId: PromiseOrValue<BigNumberish>,
+      uri: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
@@ -2448,7 +2567,7 @@ export interface GameUpgradable extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     setContractURI(
-      contract_uri: PromiseOrValue<string>,
+      contractUri: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 

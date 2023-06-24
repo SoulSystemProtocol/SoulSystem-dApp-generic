@@ -11,6 +11,7 @@ export { ERC1155TrackerUpgradable__factory } from "./ERC1155TrackerUpgradable__f
 export { ERC721TrackerUpgradable__factory } from "./ERC721TrackerUpgradable__factory";
 export { Escrow__factory } from "./Escrow__factory";
 export { GameExtension__factory } from "./GameExtension__factory";
+export { Multicall__factory } from "./Multicall__factory";
 export { Opinions__factory } from "./Opinions__factory";
 export { Posts__factory } from "./Posts__factory";
 export { Procedure__factory } from "./Procedure__factory";

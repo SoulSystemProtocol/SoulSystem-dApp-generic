@@ -74,10 +74,10 @@ export interface RulesInterface extends utils.Interface {
     "confirmationGet(uint256)": FunctionFragment;
     "effectsGet(uint256)": FunctionFragment;
     "ruleAdd((bytes32,string,bool,string,bool),(string,bool,uint256),(string,int256,bool)[])": FunctionFragment;
-    "ruleConfirmationUpdate(uint256,(string,bool,uint256))": FunctionFragment;
     "ruleDisable(uint256,bool)": FunctionFragment;
     "ruleGet(uint256)": FunctionFragment;
     "ruleUpdate(uint256,(bytes32,string,bool,string,bool),(string,int256,bool)[])": FunctionFragment;
+    "ruleUpdateConfirmation(uint256,(string,bool,uint256))": FunctionFragment;
   };
 
   getFunction(
@@ -85,10 +85,10 @@ export interface RulesInterface extends utils.Interface {
       | "confirmationGet"
       | "effectsGet"
       | "ruleAdd"
-      | "ruleConfirmationUpdate"
       | "ruleDisable"
       | "ruleGet"
       | "ruleUpdate"
+      | "ruleUpdateConfirmation"
   ): FunctionFragment;
 
   encodeFunctionData(
@@ -108,10 +108,6 @@ export interface RulesInterface extends utils.Interface {
     ]
   ): string;
   encodeFunctionData(
-    functionFragment: "ruleConfirmationUpdate",
-    values: [PromiseOrValue<BigNumberish>, DataTypes.ConfirmationStruct]
-  ): string;
-  encodeFunctionData(
     functionFragment: "ruleDisable",
     values: [PromiseOrValue<BigNumberish>, PromiseOrValue<boolean>]
   ): string;
@@ -127,6 +123,10 @@ export interface RulesInterface extends utils.Interface {
       DataTypes.RepChangeStruct[]
     ]
   ): string;
+  encodeFunctionData(
+    functionFragment: "ruleUpdateConfirmation",
+    values: [PromiseOrValue<BigNumberish>, DataTypes.ConfirmationStruct]
+  ): string;
 
   decodeFunctionResult(
     functionFragment: "confirmationGet",
@@ -135,15 +135,15 @@ export interface RulesInterface extends utils.Interface {
   decodeFunctionResult(functionFragment: "effectsGet", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "ruleAdd", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "ruleConfirmationUpdate",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
     functionFragment: "ruleDisable",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "ruleGet", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "ruleUpdate", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "ruleUpdateConfirmation",
+    data: BytesLike
+  ): Result;
 
   events: {
     "Claim(uint256,bytes32)": EventFragment;
@@ -271,12 +271,6 @@ export interface Rules extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
-    ruleConfirmationUpdate(
-      id: PromiseOrValue<BigNumberish>,
-      confirmation: DataTypes.ConfirmationStruct,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<ContractTransaction>;
-
     ruleDisable(
       id: PromiseOrValue<BigNumberish>,
       disabled: PromiseOrValue<boolean>,
@@ -292,6 +286,12 @@ export interface Rules extends BaseContract {
       id: PromiseOrValue<BigNumberish>,
       rule: DataTypes.RuleStruct,
       effects: DataTypes.RepChangeStruct[],
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
+
+    ruleUpdateConfirmation(
+      id: PromiseOrValue<BigNumberish>,
+      confirmation: DataTypes.ConfirmationStruct,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
   };
@@ -313,12 +313,6 @@ export interface Rules extends BaseContract {
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
-  ruleConfirmationUpdate(
-    id: PromiseOrValue<BigNumberish>,
-    confirmation: DataTypes.ConfirmationStruct,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
-  ): Promise<ContractTransaction>;
-
   ruleDisable(
     id: PromiseOrValue<BigNumberish>,
     disabled: PromiseOrValue<boolean>,
@@ -334,6 +328,12 @@ export interface Rules extends BaseContract {
     id: PromiseOrValue<BigNumberish>,
     rule: DataTypes.RuleStruct,
     effects: DataTypes.RepChangeStruct[],
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
+
+  ruleUpdateConfirmation(
+    id: PromiseOrValue<BigNumberish>,
+    confirmation: DataTypes.ConfirmationStruct,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
@@ -355,12 +355,6 @@ export interface Rules extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    ruleConfirmationUpdate(
-      id: PromiseOrValue<BigNumberish>,
-      confirmation: DataTypes.ConfirmationStruct,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
     ruleDisable(
       id: PromiseOrValue<BigNumberish>,
       disabled: PromiseOrValue<boolean>,
@@ -376,6 +370,12 @@ export interface Rules extends BaseContract {
       id: PromiseOrValue<BigNumberish>,
       rule: DataTypes.RuleStruct,
       effects: DataTypes.RepChangeStruct[],
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    ruleUpdateConfirmation(
+      id: PromiseOrValue<BigNumberish>,
+      confirmation: DataTypes.ConfirmationStruct,
       overrides?: CallOverrides
     ): Promise<void>;
   };
@@ -461,12 +461,6 @@ export interface Rules extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
-    ruleConfirmationUpdate(
-      id: PromiseOrValue<BigNumberish>,
-      confirmation: DataTypes.ConfirmationStruct,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<BigNumber>;
-
     ruleDisable(
       id: PromiseOrValue<BigNumberish>,
       disabled: PromiseOrValue<boolean>,
@@ -482,6 +476,12 @@ export interface Rules extends BaseContract {
       id: PromiseOrValue<BigNumberish>,
       rule: DataTypes.RuleStruct,
       effects: DataTypes.RepChangeStruct[],
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
+
+    ruleUpdateConfirmation(
+      id: PromiseOrValue<BigNumberish>,
+      confirmation: DataTypes.ConfirmationStruct,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
   };
@@ -504,12 +504,6 @@ export interface Rules extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
-    ruleConfirmationUpdate(
-      id: PromiseOrValue<BigNumberish>,
-      confirmation: DataTypes.ConfirmationStruct,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<PopulatedTransaction>;
-
     ruleDisable(
       id: PromiseOrValue<BigNumberish>,
       disabled: PromiseOrValue<boolean>,
@@ -525,6 +519,12 @@ export interface Rules extends BaseContract {
       id: PromiseOrValue<BigNumberish>,
       rule: DataTypes.RuleStruct,
       effects: DataTypes.RepChangeStruct[],
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
+    ruleUpdateConfirmation(
+      id: PromiseOrValue<BigNumberish>,
+      confirmation: DataTypes.ConfirmationStruct,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
   };

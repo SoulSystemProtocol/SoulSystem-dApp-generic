@@ -13,6 +13,7 @@ export type { ERC1155TrackerUpgradable } from "./ERC1155TrackerUpgradable";
 export type { ERC721TrackerUpgradable } from "./ERC721TrackerUpgradable";
 export type { Escrow } from "./Escrow";
 export type { GameExtension } from "./GameExtension";
+export type { Multicall } from "./Multicall";
 export type { Opinions } from "./Opinions";
 export type { Posts } from "./Posts";
 export type { Procedure } from "./Procedure";

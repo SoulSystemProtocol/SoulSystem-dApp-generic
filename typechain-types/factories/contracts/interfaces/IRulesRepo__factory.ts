@@ -22,17 +22,23 @@ const _abi = [
       {
         indexed: true,
         internalType: "uint256",
-        name: "id",
+        name: "ruleId",
         type: "uint256",
       },
       {
         indexed: false,
+        internalType: "string",
+        name: "repo",
+        type: "string",
+      },
+      {
+        indexed: false,
         internalType: "bytes32",
-        name: "claimId",
+        name: "id",
         type: "bytes32",
       },
     ],
-    name: "Claim",
+    name: "Condition",
     type: "event",
   },
   {
@@ -47,7 +53,7 @@ const _abi = [
       {
         indexed: true,
         internalType: "uint256",
-        name: "id",
+        name: "ruleId",
         type: "uint256",
       },
       {
@@ -84,7 +90,45 @@ const _abi = [
       {
         indexed: true,
         internalType: "uint256",
-        name: "id",
+        name: "ruleId",
+        type: "uint256",
+      },
+    ],
+    name: "RemovedConditions",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "address",
+        name: "originAddress",
+        type: "address",
+      },
+      {
+        indexed: true,
+        internalType: "uint256",
+        name: "ruleId",
+        type: "uint256",
+      },
+    ],
+    name: "RemovedEffects",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "address",
+        name: "originAddress",
+        type: "address",
+      },
+      {
+        indexed: true,
+        internalType: "uint256",
+        name: "ruleId",
         type: "uint256",
       },
       {
@@ -127,7 +171,7 @@ const _abi = [
       {
         indexed: false,
         internalType: "uint256",
-        name: "id",
+        name: "ruleId",
         type: "uint256",
       },
       {
@@ -152,7 +196,7 @@ const _abi = [
       {
         indexed: true,
         internalType: "uint256",
-        name: "id",
+        name: "ruleId",
         type: "uint256",
       },
       {
@@ -183,7 +227,7 @@ const _abi = [
       {
         indexed: true,
         internalType: "uint256",
-        name: "id",
+        name: "ruleId",
         type: "uint256",
       },
     ],
@@ -191,10 +235,102 @@ const _abi = [
     type: "event",
   },
   {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "address",
+        name: "originAddress",
+        type: "address",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "ruleId",
+        type: "uint256",
+      },
+      {
+        indexed: false,
+        internalType: "string",
+        name: "uri",
+        type: "string",
+      },
+    ],
+    name: "RuleURI",
+    type: "event",
+  },
+  {
     inputs: [
       {
         internalType: "uint256",
-        name: "id",
+        name: "ruleId",
+        type: "uint256",
+      },
+    ],
+    name: "conditionsGet",
+    outputs: [
+      {
+        components: [
+          {
+            internalType: "string",
+            name: "repo",
+            type: "string",
+          },
+          {
+            internalType: "bytes32",
+            name: "id",
+            type: "bytes32",
+          },
+        ],
+        internalType: "struct DataTypes.Condition[]",
+        name: "",
+        type: "tuple[]",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "ownerAddress",
+        type: "address",
+      },
+      {
+        internalType: "uint256",
+        name: "ruleId",
+        type: "uint256",
+      },
+    ],
+    name: "conditionsGetOf",
+    outputs: [
+      {
+        components: [
+          {
+            internalType: "string",
+            name: "repo",
+            type: "string",
+          },
+          {
+            internalType: "bytes32",
+            name: "id",
+            type: "bytes32",
+          },
+        ],
+        internalType: "struct DataTypes.Condition[]",
+        name: "",
+        type: "tuple[]",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "ruleId",
         type: "uint256",
       },
     ],
@@ -229,8 +365,49 @@ const _abi = [
   {
     inputs: [
       {
+        internalType: "address",
+        name: "ownerAddress",
+        type: "address",
+      },
+      {
         internalType: "uint256",
-        name: "id",
+        name: "ruleId",
+        type: "uint256",
+      },
+    ],
+    name: "confirmationGetOf",
+    outputs: [
+      {
+        components: [
+          {
+            internalType: "string",
+            name: "ruling",
+            type: "string",
+          },
+          {
+            internalType: "bool",
+            name: "evidence",
+            type: "bool",
+          },
+          {
+            internalType: "uint256",
+            name: "witness",
+            type: "uint256",
+          },
+        ],
+        internalType: "struct DataTypes.Confirmation",
+        name: "",
+        type: "tuple",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "ruleId",
         type: "uint256",
       },
     ],
@@ -341,6 +518,28 @@ const _abi = [
         components: [
           {
             internalType: "string",
+            name: "domain",
+            type: "string",
+          },
+          {
+            internalType: "int256",
+            name: "value",
+            type: "int256",
+          },
+          {
+            internalType: "bool",
+            name: "disabled",
+            type: "bool",
+          },
+        ],
+        internalType: "struct DataTypes.RepChange[]",
+        name: "effects",
+        type: "tuple[]",
+      },
+      {
+        components: [
+          {
+            internalType: "string",
             name: "ruling",
             type: "string",
           },
@@ -358,6 +557,43 @@ const _abi = [
         internalType: "struct DataTypes.Confirmation",
         name: "confirmation",
         type: "tuple",
+      },
+    ],
+    name: "ruleAdd",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "ruleId",
+        type: "uint256",
+      },
+      {
+        internalType: "bool",
+        name: "disabled",
+        type: "bool",
+      },
+    ],
+    name: "ruleDisable",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "ruleId",
+        type: "uint256",
       },
       {
         components: [
@@ -382,48 +618,7 @@ const _abi = [
         type: "tuple[]",
       },
     ],
-    name: "ruleAdd",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "id",
-        type: "uint256",
-      },
-      {
-        components: [
-          {
-            internalType: "string",
-            name: "ruling",
-            type: "string",
-          },
-          {
-            internalType: "bool",
-            name: "evidence",
-            type: "bool",
-          },
-          {
-            internalType: "uint256",
-            name: "witness",
-            type: "uint256",
-          },
-        ],
-        internalType: "struct DataTypes.Confirmation",
-        name: "confirmation",
-        type: "tuple",
-      },
-    ],
-    name: "ruleConfirmationUpdate",
+    name: "ruleEffectsUpdate",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
@@ -432,25 +627,7 @@ const _abi = [
     inputs: [
       {
         internalType: "uint256",
-        name: "id",
-        type: "uint256",
-      },
-      {
-        internalType: "bool",
-        name: "disabled",
-        type: "bool",
-      },
-    ],
-    name: "ruleDisable",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "id",
+        name: "ruleId",
         type: "uint256",
       },
     ],
@@ -496,65 +673,81 @@ const _abi = [
     inputs: [
       {
         internalType: "uint256",
-        name: "id",
+        name: "ruleId",
         type: "uint256",
       },
       {
         components: [
           {
+            internalType: "string",
+            name: "repo",
+            type: "string",
+          },
+          {
             internalType: "bytes32",
-            name: "about",
+            name: "id",
             type: "bytes32",
           },
-          {
-            internalType: "string",
-            name: "affected",
-            type: "string",
-          },
-          {
-            internalType: "bool",
-            name: "negation",
-            type: "bool",
-          },
-          {
-            internalType: "string",
-            name: "uri",
-            type: "string",
-          },
-          {
-            internalType: "bool",
-            name: "disabled",
-            type: "bool",
-          },
         ],
-        internalType: "struct DataTypes.Rule",
-        name: "rule",
-        type: "tuple",
+        internalType: "struct DataTypes.Condition[]",
+        name: "conditions",
+        type: "tuple[]",
+      },
+    ],
+    name: "ruleUpdateConditions",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "ruleId",
+        type: "uint256",
       },
       {
         components: [
           {
             internalType: "string",
-            name: "domain",
+            name: "ruling",
             type: "string",
           },
           {
-            internalType: "int256",
-            name: "value",
-            type: "int256",
-          },
-          {
             internalType: "bool",
-            name: "disabled",
+            name: "evidence",
             type: "bool",
           },
+          {
+            internalType: "uint256",
+            name: "witness",
+            type: "uint256",
+          },
         ],
-        internalType: "struct DataTypes.RepChange[]",
-        name: "effects",
-        type: "tuple[]",
+        internalType: "struct DataTypes.Confirmation",
+        name: "confirmation",
+        type: "tuple",
       },
     ],
-    name: "ruleUpdate",
+    name: "ruleUpdateConfirmation",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "ruleId",
+        type: "uint256",
+      },
+      {
+        internalType: "string",
+        name: "uri",
+        type: "string",
+      },
+    ],
+    name: "ruleUpdateURI",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",

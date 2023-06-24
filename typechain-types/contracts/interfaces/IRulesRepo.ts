@@ -28,6 +28,16 @@ import type {
 } from "../../common";
 
 export declare namespace DataTypes {
+  export type ConditionStruct = {
+    repo: PromiseOrValue<string>;
+    id: PromiseOrValue<BytesLike>;
+  };
+
+  export type ConditionStructOutput = [string, string] & {
+    repo: string;
+    id: string;
+  };
+
   export type ConfirmationStruct = {
     ruling: PromiseOrValue<string>;
     evidence: PromiseOrValue<boolean>;
@@ -71,31 +81,53 @@ export declare namespace DataTypes {
 
 export interface IRulesRepoInterface extends utils.Interface {
   functions: {
+    "conditionsGet(uint256)": FunctionFragment;
+    "conditionsGetOf(address,uint256)": FunctionFragment;
     "confirmationGet(uint256)": FunctionFragment;
+    "confirmationGetOf(address,uint256)": FunctionFragment;
     "effectsGet(uint256)": FunctionFragment;
     "effectsGetOf(address,uint256)": FunctionFragment;
-    "ruleAdd((bytes32,string,bool,string,bool),(string,bool,uint256),(string,int256,bool)[])": FunctionFragment;
-    "ruleConfirmationUpdate(uint256,(string,bool,uint256))": FunctionFragment;
+    "ruleAdd((bytes32,string,bool,string,bool),(string,int256,bool)[],(string,bool,uint256))": FunctionFragment;
     "ruleDisable(uint256,bool)": FunctionFragment;
+    "ruleEffectsUpdate(uint256,(string,int256,bool)[])": FunctionFragment;
     "ruleGet(uint256)": FunctionFragment;
-    "ruleUpdate(uint256,(bytes32,string,bool,string,bool),(string,int256,bool)[])": FunctionFragment;
+    "ruleUpdateConditions(uint256,(string,bytes32)[])": FunctionFragment;
+    "ruleUpdateConfirmation(uint256,(string,bool,uint256))": FunctionFragment;
+    "ruleUpdateURI(uint256,string)": FunctionFragment;
   };
 
   getFunction(
     nameOrSignatureOrTopic:
+      | "conditionsGet"
+      | "conditionsGetOf"
       | "confirmationGet"
+      | "confirmationGetOf"
       | "effectsGet"
       | "effectsGetOf"
       | "ruleAdd"
-      | "ruleConfirmationUpdate"
       | "ruleDisable"
+      | "ruleEffectsUpdate"
       | "ruleGet"
-      | "ruleUpdate"
+      | "ruleUpdateConditions"
+      | "ruleUpdateConfirmation"
+      | "ruleUpdateURI"
   ): FunctionFragment;
 
   encodeFunctionData(
+    functionFragment: "conditionsGet",
+    values: [PromiseOrValue<BigNumberish>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "conditionsGetOf",
+    values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>]
+  ): string;
+  encodeFunctionData(
     functionFragment: "confirmationGet",
     values: [PromiseOrValue<BigNumberish>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "confirmationGetOf",
+    values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
     functionFragment: "effectsGet",
@@ -109,33 +141,49 @@ export interface IRulesRepoInterface extends utils.Interface {
     functionFragment: "ruleAdd",
     values: [
       DataTypes.RuleStruct,
-      DataTypes.ConfirmationStruct,
-      DataTypes.RepChangeStruct[]
+      DataTypes.RepChangeStruct[],
+      DataTypes.ConfirmationStruct
     ]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "ruleConfirmationUpdate",
-    values: [PromiseOrValue<BigNumberish>, DataTypes.ConfirmationStruct]
   ): string;
   encodeFunctionData(
     functionFragment: "ruleDisable",
     values: [PromiseOrValue<BigNumberish>, PromiseOrValue<boolean>]
   ): string;
   encodeFunctionData(
+    functionFragment: "ruleEffectsUpdate",
+    values: [PromiseOrValue<BigNumberish>, DataTypes.RepChangeStruct[]]
+  ): string;
+  encodeFunctionData(
     functionFragment: "ruleGet",
     values: [PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
-    functionFragment: "ruleUpdate",
-    values: [
-      PromiseOrValue<BigNumberish>,
-      DataTypes.RuleStruct,
-      DataTypes.RepChangeStruct[]
-    ]
+    functionFragment: "ruleUpdateConditions",
+    values: [PromiseOrValue<BigNumberish>, DataTypes.ConditionStruct[]]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "ruleUpdateConfirmation",
+    values: [PromiseOrValue<BigNumberish>, DataTypes.ConfirmationStruct]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "ruleUpdateURI",
+    values: [PromiseOrValue<BigNumberish>, PromiseOrValue<string>]
   ): string;
 
   decodeFunctionResult(
+    functionFragment: "conditionsGet",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "conditionsGetOf",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
     functionFragment: "confirmationGet",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "confirmationGetOf",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "effectsGet", data: BytesLike): Result;
@@ -145,48 +193,66 @@ export interface IRulesRepoInterface extends utils.Interface {
   ): Result;
   decodeFunctionResult(functionFragment: "ruleAdd", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "ruleConfirmationUpdate",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
     functionFragment: "ruleDisable",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(
+    functionFragment: "ruleEffectsUpdate",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "ruleGet", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "ruleUpdate", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "ruleUpdateConditions",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "ruleUpdateConfirmation",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "ruleUpdateURI",
+    data: BytesLike
+  ): Result;
 
   events: {
-    "Claim(address,uint256,bytes32)": EventFragment;
+    "Condition(address,uint256,string,bytes32)": EventFragment;
     "Confirmation(address,uint256,string,bool,uint256)": EventFragment;
+    "RemovedConditions(address,uint256)": EventFragment;
+    "RemovedEffects(address,uint256)": EventFragment;
     "Rule(address,uint256,bytes32,string,string,bool)": EventFragment;
     "RuleDisabled(address,uint256,bool)": EventFragment;
     "RuleEffect(address,uint256,string,int256)": EventFragment;
     "RuleRemoved(address,uint256)": EventFragment;
+    "RuleURI(address,uint256,string)": EventFragment;
   };
 
-  getEvent(nameOrSignatureOrTopic: "Claim"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "Condition"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "Confirmation"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "RemovedConditions"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "RemovedEffects"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "Rule"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "RuleDisabled"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "RuleEffect"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "RuleRemoved"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "RuleURI"): EventFragment;
 }
 
-export interface ClaimEventObject {
+export interface ConditionEventObject {
   originAddress: string;
-  id: BigNumber;
-  claimId: string;
+  ruleId: BigNumber;
+  repo: string;
+  id: string;
 }
-export type ClaimEvent = TypedEvent<
-  [string, BigNumber, string],
-  ClaimEventObject
+export type ConditionEvent = TypedEvent<
+  [string, BigNumber, string, string],
+  ConditionEventObject
 >;
 
-export type ClaimEventFilter = TypedEventFilter<ClaimEvent>;
+export type ConditionEventFilter = TypedEventFilter<ConditionEvent>;
 
 export interface ConfirmationEventObject {
   originAddress: string;
-  id: BigNumber;
+  ruleId: BigNumber;
   ruling: string;
   evidence: boolean;
   witness: BigNumber;
@@ -198,9 +264,32 @@ export type ConfirmationEvent = TypedEvent<
 
 export type ConfirmationEventFilter = TypedEventFilter<ConfirmationEvent>;
 
+export interface RemovedConditionsEventObject {
+  originAddress: string;
+  ruleId: BigNumber;
+}
+export type RemovedConditionsEvent = TypedEvent<
+  [string, BigNumber],
+  RemovedConditionsEventObject
+>;
+
+export type RemovedConditionsEventFilter =
+  TypedEventFilter<RemovedConditionsEvent>;
+
+export interface RemovedEffectsEventObject {
+  originAddress: string;
+  ruleId: BigNumber;
+}
+export type RemovedEffectsEvent = TypedEvent<
+  [string, BigNumber],
+  RemovedEffectsEventObject
+>;
+
+export type RemovedEffectsEventFilter = TypedEventFilter<RemovedEffectsEvent>;
+
 export interface RuleEventObject {
   originAddress: string;
-  id: BigNumber;
+  ruleId: BigNumber;
   about: string;
   affected: string;
   uri: string;
@@ -215,7 +304,7 @@ export type RuleEventFilter = TypedEventFilter<RuleEvent>;
 
 export interface RuleDisabledEventObject {
   originAddress: string;
-  id: BigNumber;
+  ruleId: BigNumber;
   disabled: boolean;
 }
 export type RuleDisabledEvent = TypedEvent<
@@ -227,7 +316,7 @@ export type RuleDisabledEventFilter = TypedEventFilter<RuleDisabledEvent>;
 
 export interface RuleEffectEventObject {
   originAddress: string;
-  id: BigNumber;
+  ruleId: BigNumber;
   domain: string;
   value: BigNumber;
 }
@@ -240,7 +329,7 @@ export type RuleEffectEventFilter = TypedEventFilter<RuleEffectEvent>;
 
 export interface RuleRemovedEventObject {
   originAddress: string;
-  id: BigNumber;
+  ruleId: BigNumber;
 }
 export type RuleRemovedEvent = TypedEvent<
   [string, BigNumber],
@@ -248,6 +337,18 @@ export type RuleRemovedEvent = TypedEvent<
 >;
 
 export type RuleRemovedEventFilter = TypedEventFilter<RuleRemovedEvent>;
+
+export interface RuleURIEventObject {
+  originAddress: string;
+  ruleId: BigNumber;
+  uri: string;
+}
+export type RuleURIEvent = TypedEvent<
+  [string, BigNumber, string],
+  RuleURIEventObject
+>;
+
+export type RuleURIEventFilter = TypedEventFilter<RuleURIEvent>;
 
 export interface IRulesRepo extends BaseContract {
   connect(signerOrProvider: Signer | Provider | string): this;
@@ -276,13 +377,30 @@ export interface IRulesRepo extends BaseContract {
   removeListener: OnEvent<this>;
 
   functions: {
+    conditionsGet(
+      ruleId: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<[DataTypes.ConditionStructOutput[]]>;
+
+    conditionsGetOf(
+      ownerAddress: PromiseOrValue<string>,
+      ruleId: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<[DataTypes.ConditionStructOutput[]]>;
+
     confirmationGet(
-      id: PromiseOrValue<BigNumberish>,
+      ruleId: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<[DataTypes.ConfirmationStructOutput]>;
+
+    confirmationGetOf(
+      ownerAddress: PromiseOrValue<string>,
+      ruleId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<[DataTypes.ConfirmationStructOutput]>;
 
     effectsGet(
-      id: PromiseOrValue<BigNumberish>,
+      ruleId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<[DataTypes.RepChangeStructOutput[]]>;
 
@@ -294,43 +412,71 @@ export interface IRulesRepo extends BaseContract {
 
     ruleAdd(
       rule: DataTypes.RuleStruct,
-      confirmation: DataTypes.ConfirmationStruct,
       effects: DataTypes.RepChangeStruct[],
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<ContractTransaction>;
-
-    ruleConfirmationUpdate(
-      id: PromiseOrValue<BigNumberish>,
       confirmation: DataTypes.ConfirmationStruct,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     ruleDisable(
-      id: PromiseOrValue<BigNumberish>,
+      ruleId: PromiseOrValue<BigNumberish>,
       disabled: PromiseOrValue<boolean>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
+    ruleEffectsUpdate(
+      ruleId: PromiseOrValue<BigNumberish>,
+      effects: DataTypes.RepChangeStruct[],
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
+
     ruleGet(
-      id: PromiseOrValue<BigNumberish>,
+      ruleId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<[DataTypes.RuleStructOutput]>;
 
-    ruleUpdate(
-      id: PromiseOrValue<BigNumberish>,
-      rule: DataTypes.RuleStruct,
-      effects: DataTypes.RepChangeStruct[],
+    ruleUpdateConditions(
+      ruleId: PromiseOrValue<BigNumberish>,
+      conditions: DataTypes.ConditionStruct[],
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
+
+    ruleUpdateConfirmation(
+      ruleId: PromiseOrValue<BigNumberish>,
+      confirmation: DataTypes.ConfirmationStruct,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
+
+    ruleUpdateURI(
+      ruleId: PromiseOrValue<BigNumberish>,
+      uri: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
   };
 
+  conditionsGet(
+    ruleId: PromiseOrValue<BigNumberish>,
+    overrides?: CallOverrides
+  ): Promise<DataTypes.ConditionStructOutput[]>;
+
+  conditionsGetOf(
+    ownerAddress: PromiseOrValue<string>,
+    ruleId: PromiseOrValue<BigNumberish>,
+    overrides?: CallOverrides
+  ): Promise<DataTypes.ConditionStructOutput[]>;
+
   confirmationGet(
-    id: PromiseOrValue<BigNumberish>,
+    ruleId: PromiseOrValue<BigNumberish>,
+    overrides?: CallOverrides
+  ): Promise<DataTypes.ConfirmationStructOutput>;
+
+  confirmationGetOf(
+    ownerAddress: PromiseOrValue<string>,
+    ruleId: PromiseOrValue<BigNumberish>,
     overrides?: CallOverrides
   ): Promise<DataTypes.ConfirmationStructOutput>;
 
   effectsGet(
-    id: PromiseOrValue<BigNumberish>,
+    ruleId: PromiseOrValue<BigNumberish>,
     overrides?: CallOverrides
   ): Promise<DataTypes.RepChangeStructOutput[]>;
 
@@ -342,43 +488,71 @@ export interface IRulesRepo extends BaseContract {
 
   ruleAdd(
     rule: DataTypes.RuleStruct,
-    confirmation: DataTypes.ConfirmationStruct,
     effects: DataTypes.RepChangeStruct[],
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
-  ): Promise<ContractTransaction>;
-
-  ruleConfirmationUpdate(
-    id: PromiseOrValue<BigNumberish>,
     confirmation: DataTypes.ConfirmationStruct,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   ruleDisable(
-    id: PromiseOrValue<BigNumberish>,
+    ruleId: PromiseOrValue<BigNumberish>,
     disabled: PromiseOrValue<boolean>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
-  ruleGet(
-    id: PromiseOrValue<BigNumberish>,
-    overrides?: CallOverrides
-  ): Promise<DataTypes.RuleStructOutput>;
-
-  ruleUpdate(
-    id: PromiseOrValue<BigNumberish>,
-    rule: DataTypes.RuleStruct,
+  ruleEffectsUpdate(
+    ruleId: PromiseOrValue<BigNumberish>,
     effects: DataTypes.RepChangeStruct[],
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
+  ruleGet(
+    ruleId: PromiseOrValue<BigNumberish>,
+    overrides?: CallOverrides
+  ): Promise<DataTypes.RuleStructOutput>;
+
+  ruleUpdateConditions(
+    ruleId: PromiseOrValue<BigNumberish>,
+    conditions: DataTypes.ConditionStruct[],
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
+
+  ruleUpdateConfirmation(
+    ruleId: PromiseOrValue<BigNumberish>,
+    confirmation: DataTypes.ConfirmationStruct,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
+
+  ruleUpdateURI(
+    ruleId: PromiseOrValue<BigNumberish>,
+    uri: PromiseOrValue<string>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
+
   callStatic: {
+    conditionsGet(
+      ruleId: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<DataTypes.ConditionStructOutput[]>;
+
+    conditionsGetOf(
+      ownerAddress: PromiseOrValue<string>,
+      ruleId: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<DataTypes.ConditionStructOutput[]>;
+
     confirmationGet(
-      id: PromiseOrValue<BigNumberish>,
+      ruleId: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<DataTypes.ConfirmationStructOutput>;
+
+    confirmationGetOf(
+      ownerAddress: PromiseOrValue<string>,
+      ruleId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<DataTypes.ConfirmationStructOutput>;
 
     effectsGet(
-      id: PromiseOrValue<BigNumberish>,
+      ruleId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<DataTypes.RepChangeStructOutput[]>;
 
@@ -390,66 +564,97 @@ export interface IRulesRepo extends BaseContract {
 
     ruleAdd(
       rule: DataTypes.RuleStruct,
-      confirmation: DataTypes.ConfirmationStruct,
       effects: DataTypes.RepChangeStruct[],
+      confirmation: DataTypes.ConfirmationStruct,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    ruleConfirmationUpdate(
-      id: PromiseOrValue<BigNumberish>,
-      confirmation: DataTypes.ConfirmationStruct,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
     ruleDisable(
-      id: PromiseOrValue<BigNumberish>,
+      ruleId: PromiseOrValue<BigNumberish>,
       disabled: PromiseOrValue<boolean>,
       overrides?: CallOverrides
     ): Promise<void>;
 
+    ruleEffectsUpdate(
+      ruleId: PromiseOrValue<BigNumberish>,
+      effects: DataTypes.RepChangeStruct[],
+      overrides?: CallOverrides
+    ): Promise<void>;
+
     ruleGet(
-      id: PromiseOrValue<BigNumberish>,
+      ruleId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<DataTypes.RuleStructOutput>;
 
-    ruleUpdate(
-      id: PromiseOrValue<BigNumberish>,
-      rule: DataTypes.RuleStruct,
-      effects: DataTypes.RepChangeStruct[],
+    ruleUpdateConditions(
+      ruleId: PromiseOrValue<BigNumberish>,
+      conditions: DataTypes.ConditionStruct[],
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    ruleUpdateConfirmation(
+      ruleId: PromiseOrValue<BigNumberish>,
+      confirmation: DataTypes.ConfirmationStruct,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    ruleUpdateURI(
+      ruleId: PromiseOrValue<BigNumberish>,
+      uri: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<void>;
   };
 
   filters: {
-    "Claim(address,uint256,bytes32)"(
+    "Condition(address,uint256,string,bytes32)"(
       originAddress?: PromiseOrValue<string> | null,
-      id?: PromiseOrValue<BigNumberish> | null,
-      claimId?: null
-    ): ClaimEventFilter;
-    Claim(
+      ruleId?: PromiseOrValue<BigNumberish> | null,
+      repo?: null,
+      id?: null
+    ): ConditionEventFilter;
+    Condition(
       originAddress?: PromiseOrValue<string> | null,
-      id?: PromiseOrValue<BigNumberish> | null,
-      claimId?: null
-    ): ClaimEventFilter;
+      ruleId?: PromiseOrValue<BigNumberish> | null,
+      repo?: null,
+      id?: null
+    ): ConditionEventFilter;
 
     "Confirmation(address,uint256,string,bool,uint256)"(
       originAddress?: PromiseOrValue<string> | null,
-      id?: PromiseOrValue<BigNumberish> | null,
+      ruleId?: PromiseOrValue<BigNumberish> | null,
       ruling?: null,
       evidence?: null,
       witness?: null
     ): ConfirmationEventFilter;
     Confirmation(
       originAddress?: PromiseOrValue<string> | null,
-      id?: PromiseOrValue<BigNumberish> | null,
+      ruleId?: PromiseOrValue<BigNumberish> | null,
       ruling?: null,
       evidence?: null,
       witness?: null
     ): ConfirmationEventFilter;
 
+    "RemovedConditions(address,uint256)"(
+      originAddress?: PromiseOrValue<string> | null,
+      ruleId?: PromiseOrValue<BigNumberish> | null
+    ): RemovedConditionsEventFilter;
+    RemovedConditions(
+      originAddress?: PromiseOrValue<string> | null,
+      ruleId?: PromiseOrValue<BigNumberish> | null
+    ): RemovedConditionsEventFilter;
+
+    "RemovedEffects(address,uint256)"(
+      originAddress?: PromiseOrValue<string> | null,
+      ruleId?: PromiseOrValue<BigNumberish> | null
+    ): RemovedEffectsEventFilter;
+    RemovedEffects(
+      originAddress?: PromiseOrValue<string> | null,
+      ruleId?: PromiseOrValue<BigNumberish> | null
+    ): RemovedEffectsEventFilter;
+
     "Rule(address,uint256,bytes32,string,string,bool)"(
       originAddress?: PromiseOrValue<string> | null,
-      id?: PromiseOrValue<BigNumberish> | null,
+      ruleId?: PromiseOrValue<BigNumberish> | null,
       about?: null,
       affected?: null,
       uri?: null,
@@ -457,7 +662,7 @@ export interface IRulesRepo extends BaseContract {
     ): RuleEventFilter;
     Rule(
       originAddress?: PromiseOrValue<string> | null,
-      id?: PromiseOrValue<BigNumberish> | null,
+      ruleId?: PromiseOrValue<BigNumberish> | null,
       about?: null,
       affected?: null,
       uri?: null,
@@ -466,46 +671,74 @@ export interface IRulesRepo extends BaseContract {
 
     "RuleDisabled(address,uint256,bool)"(
       originAddress?: PromiseOrValue<string> | null,
-      id?: null,
+      ruleId?: null,
       disabled?: null
     ): RuleDisabledEventFilter;
     RuleDisabled(
       originAddress?: PromiseOrValue<string> | null,
-      id?: null,
+      ruleId?: null,
       disabled?: null
     ): RuleDisabledEventFilter;
 
     "RuleEffect(address,uint256,string,int256)"(
       originAddress?: PromiseOrValue<string> | null,
-      id?: PromiseOrValue<BigNumberish> | null,
+      ruleId?: PromiseOrValue<BigNumberish> | null,
       domain?: null,
       value?: null
     ): RuleEffectEventFilter;
     RuleEffect(
       originAddress?: PromiseOrValue<string> | null,
-      id?: PromiseOrValue<BigNumberish> | null,
+      ruleId?: PromiseOrValue<BigNumberish> | null,
       domain?: null,
       value?: null
     ): RuleEffectEventFilter;
 
     "RuleRemoved(address,uint256)"(
       originAddress?: PromiseOrValue<string> | null,
-      id?: PromiseOrValue<BigNumberish> | null
+      ruleId?: PromiseOrValue<BigNumberish> | null
     ): RuleRemovedEventFilter;
     RuleRemoved(
       originAddress?: PromiseOrValue<string> | null,
-      id?: PromiseOrValue<BigNumberish> | null
+      ruleId?: PromiseOrValue<BigNumberish> | null
     ): RuleRemovedEventFilter;
+
+    "RuleURI(address,uint256,string)"(
+      originAddress?: PromiseOrValue<string> | null,
+      ruleId?: null,
+      uri?: null
+    ): RuleURIEventFilter;
+    RuleURI(
+      originAddress?: PromiseOrValue<string> | null,
+      ruleId?: null,
+      uri?: null
+    ): RuleURIEventFilter;
   };
 
   estimateGas: {
+    conditionsGet(
+      ruleId: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    conditionsGetOf(
+      ownerAddress: PromiseOrValue<string>,
+      ruleId: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
     confirmationGet(
-      id: PromiseOrValue<BigNumberish>,
+      ruleId: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    confirmationGetOf(
+      ownerAddress: PromiseOrValue<string>,
+      ruleId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     effectsGet(
-      id: PromiseOrValue<BigNumberish>,
+      ruleId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -517,44 +750,72 @@ export interface IRulesRepo extends BaseContract {
 
     ruleAdd(
       rule: DataTypes.RuleStruct,
-      confirmation: DataTypes.ConfirmationStruct,
       effects: DataTypes.RepChangeStruct[],
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<BigNumber>;
-
-    ruleConfirmationUpdate(
-      id: PromiseOrValue<BigNumberish>,
       confirmation: DataTypes.ConfirmationStruct,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     ruleDisable(
-      id: PromiseOrValue<BigNumberish>,
+      ruleId: PromiseOrValue<BigNumberish>,
       disabled: PromiseOrValue<boolean>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
+    ruleEffectsUpdate(
+      ruleId: PromiseOrValue<BigNumberish>,
+      effects: DataTypes.RepChangeStruct[],
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
+
     ruleGet(
-      id: PromiseOrValue<BigNumberish>,
+      ruleId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    ruleUpdate(
-      id: PromiseOrValue<BigNumberish>,
-      rule: DataTypes.RuleStruct,
-      effects: DataTypes.RepChangeStruct[],
+    ruleUpdateConditions(
+      ruleId: PromiseOrValue<BigNumberish>,
+      conditions: DataTypes.ConditionStruct[],
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
+
+    ruleUpdateConfirmation(
+      ruleId: PromiseOrValue<BigNumberish>,
+      confirmation: DataTypes.ConfirmationStruct,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
+
+    ruleUpdateURI(
+      ruleId: PromiseOrValue<BigNumberish>,
+      uri: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
   };
 
   populateTransaction: {
+    conditionsGet(
+      ruleId: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    conditionsGetOf(
+      ownerAddress: PromiseOrValue<string>,
+      ruleId: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
     confirmationGet(
-      id: PromiseOrValue<BigNumberish>,
+      ruleId: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    confirmationGetOf(
+      ownerAddress: PromiseOrValue<string>,
+      ruleId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     effectsGet(
-      id: PromiseOrValue<BigNumberish>,
+      ruleId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -566,32 +827,43 @@ export interface IRulesRepo extends BaseContract {
 
     ruleAdd(
       rule: DataTypes.RuleStruct,
-      confirmation: DataTypes.ConfirmationStruct,
       effects: DataTypes.RepChangeStruct[],
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<PopulatedTransaction>;
-
-    ruleConfirmationUpdate(
-      id: PromiseOrValue<BigNumberish>,
       confirmation: DataTypes.ConfirmationStruct,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     ruleDisable(
-      id: PromiseOrValue<BigNumberish>,
+      ruleId: PromiseOrValue<BigNumberish>,
       disabled: PromiseOrValue<boolean>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
+    ruleEffectsUpdate(
+      ruleId: PromiseOrValue<BigNumberish>,
+      effects: DataTypes.RepChangeStruct[],
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
     ruleGet(
-      id: PromiseOrValue<BigNumberish>,
+      ruleId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    ruleUpdate(
-      id: PromiseOrValue<BigNumberish>,
-      rule: DataTypes.RuleStruct,
-      effects: DataTypes.RepChangeStruct[],
+    ruleUpdateConditions(
+      ruleId: PromiseOrValue<BigNumberish>,
+      conditions: DataTypes.ConditionStruct[],
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
+    ruleUpdateConfirmation(
+      ruleId: PromiseOrValue<BigNumberish>,
+      confirmation: DataTypes.ConfirmationStruct,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
+    ruleUpdateURI(
+      ruleId: PromiseOrValue<BigNumberish>,
+      uri: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
   };
