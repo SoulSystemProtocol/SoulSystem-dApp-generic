@@ -175,12 +175,12 @@ export default function RuleAddDialog({ item, isClose, onClose }: any) {
           uri: ruleMetadataUri,
           disabled: false,
         },
+        formData.effects,
         {
           ruling: formData.ruling,
           evidence: formData.evidence,
           witness: formData.witness,
         },
-        formData.effects,
       );
 
       showToastSuccess('Success! Data will be updated soon.');

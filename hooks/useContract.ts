@@ -13,7 +13,7 @@ import ABI_Action from 'contracts/abi/ActionRepo.json';
 import WrongNetworkError from 'errors/WrongNetworkError';
 import NoWalletError from 'errors/NoWalletError';
 import { HubUpgradable } from '../typechain-types/contracts/HubUpgradable';
-import { ActionRepoTrackerUp } from '../typechain-types/ActionRepoTrackerUp';
+import { ActionRepoTrackerUp } from '../typechain-types/contracts/ActionRepoTrackerUp';
 import { SoulUpgradable } from '../typechain-types/contracts/SoulUpgradable';
 import { GameUpgradable } from '../typechain-types/contracts/GameUpgradable';
 import { CourtExt } from '../typechain-types/contracts/extensions/CourtExt';
