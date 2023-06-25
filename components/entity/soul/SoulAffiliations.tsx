@@ -19,8 +19,8 @@ export default function SoulAffiliations(): JSX.Element {
   return (
     <>
       <Box sx={{ my: 2 }}>
-        <Typography variant="h4">
-          Member of {nameEntity('mdao', true)}
+        <Typography variant="h4" sx={{ mb: 1 }}>
+          {nameEntity('mdao', true)}
         </Typography>
         {soul?.id && (
           <SoulParts
@@ -31,12 +31,12 @@ export default function SoulAffiliations(): JSX.Element {
               // type: 'GAME',
             }}
             itemsProcessing={(items: any): CardItem[] => {
-              console.log('Parts Items', items);
+              // console.log('Parts Items', items);
               //Merge Participant Roles (SoulPartsQuery)
               let outputs: any = {};
               for (let item of items) {
                 //By Container
-                let elId = item.aEnd.id;
+                const elId = item.aEnd.id;
                 /* Role Names Only */
                 if (!outputs[elId]) {
                   outputs[elId] = {
@@ -55,9 +55,9 @@ export default function SoulAffiliations(): JSX.Element {
         )}
       </Box>
 
-      {/* <Box sx={{ my: 2 }}>
-        <Typography variant="h4">
-          Works on {nameEntity('project', true)}
+      <Box sx={{ my: 2 }}>
+        <Typography variant="h4" sx={{ mb: 1 }}>
+          {nameEntity('project', true)}
         </Typography>
         {soul?.id && (
           <SoulParts
@@ -70,7 +70,7 @@ export default function SoulAffiliations(): JSX.Element {
               let outputs: any = {};
               for (let item of items) {
                 //By Container
-                let elId = item.aEnd.id;
+                const elId = item.aEnd.id;
                 // Role Names Only
                 if (!outputs[elId]) {
                   outputs[elId] = {
@@ -87,10 +87,12 @@ export default function SoulAffiliations(): JSX.Element {
             getCardContent={soulPartCardContent}
           />
         )}
-      </Box> */}
+      </Box>
 
       <Box sx={{ my: 2 }}>
-        <Typography variant="h4">{nameEntity('task', true)} Applied</Typography>
+        <Typography variant="h4" sx={{ mb: 1 }}>
+          {nameEntity('task', true)} Applied
+        </Typography>
         {soul?.id && (
           <SoulParts
             gridLG={6}
@@ -104,7 +106,7 @@ export default function SoulAffiliations(): JSX.Element {
               let outputs: any = {};
               for (let item of items) {
                 //By Container
-                let elId = item.aEnd.id;
+                const elId = item.aEnd.id;
                 /* Role Names Only */
                 if (!outputs[elId]) {
                   outputs[elId] = {
@@ -123,7 +125,7 @@ export default function SoulAffiliations(): JSX.Element {
         )}
       </Box>
       <Box sx={{ my: 2 }}>
-        <Typography variant="h4">
+        <Typography variant="h4" sx={{ mb: 1 }}>
           {nameEntity('task', true)} in Progress
         </Typography>
         {soul?.id && (
@@ -139,7 +141,7 @@ export default function SoulAffiliations(): JSX.Element {
               let outputs: any = {};
               for (let item of items) {
                 //By Container
-                let elId = item.aEnd.id;
+                const elId = item.aEnd.id;
                 /* Role Names Only */
                 if (!outputs[elId]) {
                   outputs[elId] = {
@@ -159,8 +161,10 @@ export default function SoulAffiliations(): JSX.Element {
       </Box>
 
       <Box sx={{ my: 2 }}>
-        {/* <Typography variant="h4">{nameEntity('task', true)} Won</Typography> */}
-        <Typography variant="h4">Verified Portfolio</Typography>
+        {/* <Typography variant="h4" sx={{mb:1}}>{nameEntity('task', true)} Won</Typography> */}
+        <Typography variant="h4" sx={{ mb: 1 }}>
+          Verified Portfolio
+        </Typography>
         {soul?.id && (
           <SoulParts
             gridLG={6}
@@ -174,7 +178,7 @@ export default function SoulAffiliations(): JSX.Element {
               let outputs: any = {};
               for (let item of items) {
                 //By Container
-                let elId = item.aEnd.id;
+                const elId = item.aEnd.id;
                 /* Role Names Only */
                 if (!outputs[elId]) {
                   outputs[elId] = {
