@@ -64,8 +64,10 @@ export default function SoulAffiliations(): JSX.Element {
             variables={{
               id: soul?.id,
               role: GAME_TYPE.project,
+              stage: 0, //for consistency
             }}
             itemsProcessing={(items: any): CardItem[] => {
+              console.log('Parts Items', items);
               //Merge Participant Roles (SoulPartsQuery)
               let outputs: any = {};
               for (let item of items) {
