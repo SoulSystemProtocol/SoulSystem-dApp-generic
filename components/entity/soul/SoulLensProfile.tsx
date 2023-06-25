@@ -35,7 +35,7 @@ export default function SoulLensProfile({
           )}`,
         );
       }
-      console.warn('[DEV] Graph Response:', { response, url, query });
+      // console.warn('[DEV] Graph Response:', { response, url, query });
       return response.data.data;
     } catch (error: any) {
       throw new Error(
@@ -55,15 +55,10 @@ export default function SoulLensProfile({
         createdOn
       }
     }`;
-    console.warn('[DEV] RUn runQuery() :', { address, query });
     address &&
       runQuery(query, graphURL)
         .then((res: any) => {
           const profile = res?.profiles?.[0];
-          console.warn('[DEV] runQuery() return:', {
-            res,
-            profile,
-          });
           setProfile(profile || null);
         })
         .catch((error) => {
