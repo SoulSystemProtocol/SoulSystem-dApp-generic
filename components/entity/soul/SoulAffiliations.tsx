@@ -107,7 +107,7 @@ export default function SoulAffiliations(): JSX.Element {
               for (let item of items) {
                 //By Container
                 const elId = item.aEnd.id;
-                /* Role Names Only */
+                // Role Names Only
                 if (!outputs[elId]) {
                   outputs[elId] = {
                     id: item.id,
