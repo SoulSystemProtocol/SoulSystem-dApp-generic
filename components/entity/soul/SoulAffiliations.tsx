@@ -89,9 +89,9 @@ export default function SoulAffiliations(): JSX.Element {
         )}
       </Box>
 
-      <Box sx={{ my: 2 }}>
+      {/* <Box sx={{ my: 2 }}>
         <Typography variant="h4" sx={{ mb: 1 }}>
-          {nameEntity('task', true)} Applied
+          {nameEntity('task', true)}
         </Typography>
         {soul?.id && (
           <SoulParts
@@ -123,7 +123,7 @@ export default function SoulAffiliations(): JSX.Element {
             getCardContent={soulPartTaskCardContent}
           />
         )}
-      </Box>
+      </Box> */}
       <Box sx={{ my: 2 }}>
         <Typography variant="h4" sx={{ mb: 1 }}>
           {nameEntity('task', true)} in Progress
