@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client';
 
-/**
+/** [DEPRECATED] use SoulPartsQuery
  * Get Roles (token types) by Game ID
  */
 const query = gql`
