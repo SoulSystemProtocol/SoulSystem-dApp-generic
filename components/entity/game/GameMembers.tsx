@@ -36,7 +36,11 @@ export default function GameMembers({ game, sx }: any): JSX.Element {
             //Init Element
             if (!roles[soulId]) roles[soulId] = Array();
             //Register Roles
-            roles[soulId].push(nameRole(game.roles[i].name, 'game'));
+            // roles[soulId].push(nameRole(game.roles[i].name, 'game'));
+            roles[soulId].push({
+              id: game.roles[i].roleId,
+              name: nameRole(game.roles[i].name, 'game'),
+            });
           }
         }
         setSoulIds(allSouls);

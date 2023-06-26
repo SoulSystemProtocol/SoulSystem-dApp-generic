@@ -73,7 +73,6 @@ export default function SoulAffiliations(): JSX.Element {
               for (let item of items) {
                 //By Container
                 const elId = item.aEnd.id;
-                // Role Names Only
                 if (!outputs[elId]) {
                   outputs[elId] = {
                     id: item.id,
@@ -81,8 +80,9 @@ export default function SoulAffiliations(): JSX.Element {
                     roles: [],
                   };
                 }
-                //Add Role
-                outputs[elId].roles.push(item.role);
+                // Role Names Only
+                // outputs[elId].roles.push(item.role);
+                outputs[elId].roles.push({ name: item.role, qty: item.qty });
               }
               return Object.values(outputs);
             }}
