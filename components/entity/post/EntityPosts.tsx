@@ -69,12 +69,12 @@ export default function EntityPosts({
             {postItems.map((post: any) => {
               //Process Entity
               post = normalizeGraphEntity(post);
-              console.log('Render Post:', {
-                post,
-                type: post?.metadata?.type,
-                types,
-                isIn: types?.includes(post?.metadata?.type),
-              });
+              // console.log('[DEV] Render Post:', {
+              //   post,
+              //   type: post?.metadata?.type,
+              //   types,
+              //   isIn: types?.includes(post?.metadata?.type),
+              // });
               return !types || types.includes(post?.metadata?.type) ? (
                 <PostSingleDisplay key={post.id} post={post} />
               ) : null;

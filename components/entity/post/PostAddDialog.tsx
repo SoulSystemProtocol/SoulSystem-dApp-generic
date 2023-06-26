@@ -139,8 +139,7 @@ export default function PostAddDialog({
     if (accountSoul && item) {
       const caseRoleNames: string[] = Object.values(CLAIM_ROLE)
         .filter((caseRole: any) => {
-          console.warn('caseRole', caseRole);
-
+          // console.warn('caseRole', caseRole);
           return isSoulHasRole(item, accountSoul.id, caseRole.id);
         })
         .map((caseRole: any) => caseRole.name);
