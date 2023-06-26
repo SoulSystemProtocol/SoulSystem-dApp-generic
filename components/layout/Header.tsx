@@ -84,7 +84,9 @@ export default function Header({
             <MenuIcon />
           </IconButton>
         ) : (
-          <HeaderLogo />
+          <Box sx={{ display: { xs: 'none', sm: 'flex' } }}>
+            <HeaderLogo />ss
+          </Box>
         )}
         <Box
           sx={{

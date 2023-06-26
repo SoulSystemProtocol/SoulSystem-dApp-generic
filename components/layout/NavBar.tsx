@@ -145,6 +145,13 @@ export default function ResponsiveAppBar({
                 display: { xs: 'block', md: 'none' },
               }}
             >
+              <MenuItem
+                key="logo"
+                onClick={handleCloseNavMenu}
+                sx={{ display: { xs: 'flex', sm: 'none' } }}
+              >
+                <HeaderLogo />
+              </MenuItem>
               {links.map(({ route, label, hide }: any, index: number) => {
                 if (hide) return <></>;
                 return (
@@ -161,11 +168,14 @@ export default function ResponsiveAppBar({
             variant="h6"
             noWrap
             component="div"
-            sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}
+            sx={{
+              flexGrow: 1,
+              display: { xs: 'none', sm: 'flex', md: 'none' },
+            }}
           >
             <HeaderLogo />
           </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+          <Box sx={{ flexGrow: 1, display: { xs: 'none', sm: 'flex' } }}>
             {links.map(({ route, label, hide }: any, index: number) => {
               if (hide) return <></>;
               return (

@@ -18,7 +18,7 @@ export default function HeaderLogo(): JSX.Element {
       <Typography
         variant="caption"
         sx={{
-          display: { xs: 'none', sm: 'flex' },
+          display: { xs: 'flex', sm: 'flex' },
           alignItems: 'center',
           flexDirection: 'column',
           justifyContent: 'space-around',
