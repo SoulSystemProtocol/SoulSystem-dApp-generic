@@ -1,7 +1,7 @@
 import { TabContext, TabList, TabPanel } from '@mui/lab';
 import { Box, Tab, Typography } from '@mui/material';
 import EntityPosts from 'components/entity/post/EntityPosts';
-import GameMembers from 'components/entity/game/GameMembers';
+import CTXParts from 'components/entity/game/CTXParts';
 import { nameEntity } from 'helpers/utils';
 import { useState } from 'react';
 import ProjectAddTaskButton from '../../project/ProjectAddTaskButton';
@@ -43,7 +43,7 @@ export default function ProjectTabs({ item: project, sx }: any) {
           <ProjectTaskList />
         </TabPanel>
         <TabPanel value="3" sx={{ px: 0 }}>
-          <GameMembers game={project} />
+          <CTXParts />
         </TabPanel>
       </TabContext>
     </Box>

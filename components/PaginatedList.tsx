@@ -64,12 +64,18 @@ export default function PaginatedList({
       console.error('PaginatedList() query failed', { data, error, variables });
       setItems([]);
     } else {
-      // console.log('PaginatedList() query ', {
+      // console.warn('[DEBUG] PaginatedList() query ', {
       //   data,
       //   entityName,
       //   variables,
       //   entities: data?.[entityName],
       // });
+      //Validate
+      if (data && !data.hasOwnProperty(entityName))
+        console.error("Query Result doesn't have requested entity name", {
+          entityName,
+          data,
+        });
       //Extract Items
       let items = data ? data?.[entityName] : [];
       //Process Items & Set

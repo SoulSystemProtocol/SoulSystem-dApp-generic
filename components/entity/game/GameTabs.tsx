@@ -1,6 +1,6 @@
 import { TabContext, TabList, TabPanel } from '@mui/lab';
 import { Box, Tab, Typography } from '@mui/material';
-import GameMembers from 'components/entity/game/GameMembers';
+import CTXParts from 'components/entity/game/CTXParts';
 import EntityPosts from 'components/entity/post/EntityPosts';
 import { useState } from 'react';
 import GameApplications from './dao/GameApplications';
@@ -49,7 +49,7 @@ export default function GameTabs({ item: game, sx }: any) {
           <EntityPosts item={game} types={['post', 'comment']} />
         </TabPanel> */}
         <TabPanel value="1" sx={{ px: 0 }}>
-          <GameMembers game={game} />
+          <CTXParts />
         </TabPanel>
         <TabPanel value="3" sx={{ px: 0 }}>
           <GameApplications />

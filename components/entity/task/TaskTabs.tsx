@@ -1,13 +1,12 @@
 import { TabContext, TabList, TabPanel } from '@mui/lab';
-import { Box, Divider, Stack, Tab, Typography } from '@mui/material';
+import { Box, Stack, Tab, Typography } from '@mui/material';
 import EntityComments from 'components/entity/post/EntityPosts';
-import GameMembers from 'components/entity/game/GameMembers';
+import CTXParts from 'components/entity/game/CTXParts';
 import { useState } from 'react';
 // import TaskAcceptedApplications from './TaskAcceptedApplications';
 import TaskApplications from './TaskApplications';
 import TaskApprovedDeliveries from './TaskApprovedDeliveries';
 import TaskPostedDeliveries from '../post/TaskPostedDeliveries';
-import { nameEntity } from 'helpers/utils';
 
 /**
  * Task tabs
@@ -60,7 +59,7 @@ export default function ProjectTabs({ item, sx }: any) {
             These are the stewards of this contract who hold NFTs that represent
             their roles
           </Typography>
-          <GameMembers game={item} />
+          <CTXParts />
         </TabPanel>
       </TabContext>
     </Box>

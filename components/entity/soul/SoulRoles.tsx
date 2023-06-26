@@ -9,7 +9,7 @@ export function SoulRoles({ roles, sx = {} }: any) {
           <Tooltip
             key={index}
             title={role?.qty ? 'X' + role.qty : ''}
-            placement="top"
+            placement="right"
           >
             <Chip
               label={capitalize(role?.name || role)}

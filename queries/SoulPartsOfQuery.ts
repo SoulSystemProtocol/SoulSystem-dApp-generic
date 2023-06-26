@@ -5,22 +5,16 @@ import { gql } from '@apollo/client';
  */
 const query = gql`
   query SoulPartsOfQuery($id: ID!, $first: Int, $skip: Int) {
-    soulParts(first: $first, skip: $skip, where: { aEnd_: { id: $id } })
-    id
-    qty
-    role
-    aEnd {
+    soulParts(first: $first, skip: $skip, where: { aEnd_: { id: $id } }) {
       id
-      type
+      qty
       role
-      metadata
-      name
-    }
-    bEnd {
-      id
-      name
-      metadata
-      owner
+      bEnd {
+        id
+        name
+        metadata
+        owner
+      }
     }
   }
 `;

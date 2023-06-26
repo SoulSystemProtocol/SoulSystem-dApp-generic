@@ -7,7 +7,7 @@ import EntityImage from './entity/EntityImage';
 import { SoulRoles } from './entity/soul/SoulRoles';
 
 /**
- * List Card
+ * Grid/List Card
  */
 export default function GridCard({
   id,

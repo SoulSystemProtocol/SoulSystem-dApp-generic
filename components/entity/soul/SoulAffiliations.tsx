@@ -41,12 +41,12 @@ export default function SoulAffiliations(): JSX.Element {
                 if (!outputs[elId]) {
                   outputs[elId] = {
                     id: item.id,
-                    aEnd: item.aEnd,
+                    ent: item.aEnd,
                     roles: [],
                   };
                 }
                 //Add Role
-                outputs[elId].roles.push(item.role);
+                outputs[elId].roles.push({ name: item.role, qty: item.qty });
               }
               return Object.values(outputs);
             }}
@@ -76,12 +76,11 @@ export default function SoulAffiliations(): JSX.Element {
                 if (!outputs[elId]) {
                   outputs[elId] = {
                     id: item.id,
-                    aEnd: item.aEnd,
+                    ent: item.aEnd,
                     roles: [],
                   };
                 }
                 // Role Names Only
-                // outputs[elId].roles.push(item.role);
                 outputs[elId].roles.push({ name: item.role, qty: item.qty });
               }
               return Object.values(outputs);
@@ -113,12 +112,12 @@ export default function SoulAffiliations(): JSX.Element {
                 if (!outputs[elId]) {
                   outputs[elId] = {
                     id: item.id,
-                    aEnd: item.aEnd,
+                    ent: item.aEnd,
                     roles: [],
                   };
                 }
                 //Add Role
-                outputs[elId].roles.push(item.role);
+                outputs[elId].roles.push({ name: item.role, qty: item.qty });
               }
               return Object.values(outputs);
             }}
@@ -148,12 +147,12 @@ export default function SoulAffiliations(): JSX.Element {
                 if (!outputs[elId]) {
                   outputs[elId] = {
                     id: item.id,
-                    aEnd: item.aEnd,
+                    ent: item.aEnd,
                     roles: [],
                   };
                 }
                 //Add Role
-                outputs[elId].roles.push(item.role);
+                outputs[elId].roles.push({ name: item.role, qty: item.qty });
               }
               return Object.values(outputs);
             }}
@@ -185,12 +184,12 @@ export default function SoulAffiliations(): JSX.Element {
                 if (!outputs[elId]) {
                   outputs[elId] = {
                     id: item.id,
-                    aEnd: item.aEnd,
+                    ent: item.aEnd,
                     roles: [],
                   };
                 }
                 //Add Role
-                outputs[elId].roles.push(item.role);
+                outputs[elId].roles.push({ name: item.role, qty: item.qty });
               }
               return Object.values(outputs);
             }}

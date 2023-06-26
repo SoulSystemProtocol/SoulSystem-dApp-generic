@@ -103,22 +103,22 @@ export const containedProcContent = (relation: any): CardItem => {
   return ret;
 };
 
-// Soul Part
+/// Soul Part
 export const soulPartCardContent = (item: any): CardItem => {
-  let metadata = hexStringToJson(item.aEnd.metadata);
+  let metadata = hexStringToJson(item.ent.metadata);
   const ret = {
-    id: item.aEnd.id,
+    id: item.ent?.id,
     imgSrc: resolveLink(metadata?.image),
     label: metadata?.description,
     title: metadata?.name,
     metadata,
-    link: `/soul/${item.aEnd.owner}`,
+    link: `/soul/${item.ent.owner}`,
     roles: item?.roles,
   };
   return ret;
 };
 
-// Game Participant
+/// Game Participant
 export const gamePartCardContent = (item: any): CardItem => {
   let metadata = hexStringToJson(item.entity.metadata);
   const ret = {
@@ -133,19 +133,19 @@ export const gamePartCardContent = (item: any): CardItem => {
   return ret;
 };
 
-// Soul Part for Tasks (Using Parent's Image)
+/// Soul Part for Tasks (Using Parent's Image)
 export const soulPartTaskCardContent = (item: any): CardItem => {
-  let metadata = hexStringToJson(item.aEnd.metadata);
+  let metadata = hexStringToJson(item.ent.metadata);
   const ret = {
-    id: item.aEnd.id,
+    id: item.ent.id,
     imgSrc: 'PARENT_IMAGE',
     component: 'GridCardTask',
     label: metadata?.description,
     title: metadata?.name,
     metadata,
-    link: `/soul/${item.aEnd.owner}`,
+    link: `/soul/${item.ent.owner}`,
     roles: item?.roles,
-    // children: item && <StageDisplay proc={item.aEnd} />,
+    // children: item && <StageDisplay proc={item.ent} />,
   };
   return ret;
 };
