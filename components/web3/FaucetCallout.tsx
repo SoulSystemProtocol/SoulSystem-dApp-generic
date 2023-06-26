@@ -7,6 +7,7 @@ import { useBalance } from 'wagmi';
 
 /**
  * Faucet Callout
+ * (by Default Chain)
  */
 export default function FaucetCallout({
   minBalance = 0.1,

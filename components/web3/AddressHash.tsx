@@ -54,7 +54,7 @@ export default function AddressHash({
           </IconButton>
         </Tooltip>
       )}
-      {displayLink && (
+      {displayLink && curChainData?.blockExplorerURL && (
         <Tooltip title="Block explorer">
           <Link
             target="_blank"

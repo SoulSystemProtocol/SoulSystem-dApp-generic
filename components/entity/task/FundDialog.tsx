@@ -85,7 +85,7 @@ export default function FundDialog({
       setIsLoading(false);
     }
   };
-  console.log('CHain', { account, chain });
+
   return (
     <Dialog
       open={isOpen}

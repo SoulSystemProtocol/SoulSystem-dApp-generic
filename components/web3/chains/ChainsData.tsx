@@ -60,10 +60,14 @@ export interface ChainData {
 export const getChainData = (chainId?: string | number): any => {
   //Normalize
   if (!!chainId && isNumber(chainId)) chainId = toHex(Number(chainId));
-  if (!!chainId) return ChainsData[chainId];
+  if (!!chainId) {
+    if (!!ChainsData[chainId]) return ChainsData[chainId];
+    else console.error('Chain Data Missing', { chainId, ChainsData });
+  }
+  //Return Default Chain
   if (!!process.env.NEXT_PUBLIC_NETWORK_CHAIN_ID_HEX)
     return ChainsData[process.env.NEXT_PUBLIC_NETWORK_CHAIN_ID_HEX];
-  console.error('Chain Data Missing', {
+  console.error('No Chain to Return', {
     chainId,
     envChain: process.env.NEXT_PUBLIC_NETWORK_CHAIN_ID_HEX,
   });
@@ -216,8 +220,8 @@ export const ChainsData: { [key: string]: ChainData } = {
   //   name: 'Optimism Kovan',
   //   faucetURL: 'https://optimismfaucet.xyz/',
   // },
-  '0x4E454152': {
-    key: '0x4E454152',
+  '0x4e454152': {
+    key: '0x4e454152',
     name: 'Aurora',
     icon: <ETHLogo />,
     native: 'ETH',
