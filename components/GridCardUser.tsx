@@ -13,7 +13,7 @@ import { AutoAwesomeOutlined } from '@mui/icons-material';
 import EntityImage from './entity/EntityImage';
 import { SoulRoles } from './entity/soul/SoulRoles';
 import { soulCover, soulDescription } from 'utils/soul';
-import SoulDescription from './entity/soul/SoulDescription';
+// import SoulDescription from './entity/soul/SoulDescription';
 
 /**
  * List Card
