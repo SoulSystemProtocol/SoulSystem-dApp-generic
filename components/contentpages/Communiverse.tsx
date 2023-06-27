@@ -160,8 +160,9 @@ export default function Communiverse(): JSX.Element {
               }}
               letterSpacing="0.02em"
             >
-              {/* A platform for democratizing communities */}A Protocol for
-              democratizing communities
+              {/* A platform for democratizing communities */}
+              {/* A Protocol for democratizing communities */}
+              Community of Communities
             </Typography>
             <Typography
               variant="body2"
@@ -173,18 +174,6 @@ export default function Communiverse(): JSX.Element {
               platform harnesses the power of blockchain technology and
               tokenization to democratize the way communities are formed,
               organized, and incentivized.
-            </Typography>
-            <Typography
-              variant="body2"
-              sx={{ pt: 1, fontSize: '1.1rem', textAlign: 'center' }}
-            >
-              Imagine a platform where communities are not just virtual spaces,
-              but living ecosystems with a transparent value system. Through our
-              innovative approach, we enable communities to easily create and
-              distribute their unique digital tokens. These tokens can act not
-              only as a form of digital currency within the community, but also
-              as a representation of their achievements, contributions, and
-              collective identity.
             </Typography>
           </Card>
         </Box>
