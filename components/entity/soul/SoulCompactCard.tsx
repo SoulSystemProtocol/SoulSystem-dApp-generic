@@ -6,6 +6,7 @@ import {
   Skeleton,
   Typography,
   SxProps,
+  Stack,
 } from '@mui/material';
 import PersonIcon from '@mui/icons-material/Person';
 import { addressToShortAddress } from 'utils/converters';
@@ -43,16 +44,18 @@ export default function SoulCompactCard({
       {/* If profile is loaded successfully */}
       {!isLoading && profile && (
         <>
-          <Avatar src={soulImage(profile)} sx={{ width: 24, height: 24 }}>
-            <PersonIcon sx={{ width: 24, heigth: 24 }} />
-          </Avatar>
-          <Typography variant="body2" sx={{ fontWeight: 'normal', ml: 1 }}>
-            {disableLink ? (
-              <>{soulName(profile)}</>
-            ) : (
-              <Link href={`/soul/${profile.id}`}>{soulName(profile)}</Link>
-            )}
-          </Typography>
+          <Stack direction="row">
+            <Avatar src={soulImage(profile)} sx={{ width: 24, height: 24 }}>
+              <PersonIcon sx={{ width: 24, heigth: 24 }} />
+            </Avatar>
+            <Typography variant="body2" sx={{ fontWeight: 'normal', ml: 1 }}>
+              {disableLink ? (
+                <>{soulName(profile)}</>
+              ) : (
+                <Link href={`/soul/${profile.id}`}>{soulName(profile)}</Link>
+              )}
+            </Typography>
+          </Stack>
           {!disableAddress && (
             <Typography sx={{ color: 'text.secondary', ml: 1 }}>
               ({addressToShortAddress(profile.owner)})

@@ -118,7 +118,7 @@ export default function SoulSearchBox({
           )}
           renderOption={(props, option) => {
             return (
-              <li {...props}>
+              <li {...props} style={{ display: 'block' }}>
                 <SoulCompactCard
                   profile={option}
                   disableAddress={false}
