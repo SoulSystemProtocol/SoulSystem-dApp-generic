@@ -64,8 +64,13 @@ export default function GameRoleManageDialog({
         type: 'string',
         title: 'Role',
         default: 'member',
-        enum: ['member', 'admin'],
-        enumNames: [capitalize('member'), capitalize('admin')],
+        enum: ['member', 'admin', 'contributor', 'investor'],
+        enumNames: [
+          capitalize('member'),
+          capitalize('admin'),
+          capitalize('contributor'),
+          capitalize('investor'),
+        ],
       },
       soulId: {
         type: 'string',
