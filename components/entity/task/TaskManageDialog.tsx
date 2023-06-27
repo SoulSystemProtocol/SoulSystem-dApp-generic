@@ -121,7 +121,7 @@ export default function TaskManageDialog({
       fullWidth
     >
       <DialogTitle sx={{ pb: 0 }}>
-        {task ? 'Edit ' + nameEntity('task') : 'Create ' + nameEntity('task')}
+        {task ? 'Edit ' + nameEntity('task') : 'Deploy ' + nameEntity('task')}
       </DialogTitle>
       <DialogContent>
         <Form

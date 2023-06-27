@@ -119,7 +119,7 @@ export default function ProjectManageDialog({
       <DialogTitle sx={{ pb: 0 }}>
         {project
           ? 'Edit ' + nameEntity('project')
-          : 'Create ' + nameEntity('project')}
+          : 'Deploy ' + nameEntity('project')}
       </DialogTitle>
       <DialogContent>
         <Form

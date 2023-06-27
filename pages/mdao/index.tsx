@@ -31,11 +31,11 @@ export default function DaosPage(): JSX.Element {
       title={accountSoul ? 'Create a new ' + nameEntity('mdao') : NO_SOUL_MSG}
     >
       <Button
-        disabled={!accountSoul}
+        // disabled={!accountSoul}
         onClick={() => showDialog?.(<DaoManageDialog onClose={closeDialog} />)}
         variant="outlined"
       >
-        {'Offer a ' + nameEntity('mdao')}
+        {'Deploy a ' + nameEntity('mdao')}
       </Button>
     </Tooltip>
   );

@@ -28,13 +28,13 @@ export default function ProjectsPage({}: any) {
     <Tooltip title={!accountSoul ? NO_SOUL_MSG : ''}>
       <span>
         <Button
-          disabled={!accountSoul}
+          // disabled={!accountSoul}
           onClick={() =>
             showDialog?.(<ProjectManageDialog onClose={closeDialog} />)
           }
           variant="outlined"
         >
-          Create {nameEntity('project')}
+          Deploy {nameEntity('project')}
         </Button>
       </span>
     </Tooltip>
