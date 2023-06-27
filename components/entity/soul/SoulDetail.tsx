@@ -22,7 +22,7 @@ export default function SoulDetail({
   sx,
 }: {
   soul: any;
-  sx: any;
+  sx?: any;
 }): JSX.Element {
   const { account } = useContext(Web3Context);
   const [isOwned, setIsOwned] = useState<boolean>(false);
