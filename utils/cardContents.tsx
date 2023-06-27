@@ -54,7 +54,7 @@ export const soulCardProcessedContent = (
 
 /// Game Card Processing
 export const gameCardContent = (item: any): CardItem => {
-  let metadata = hexStringToJson(item.metadata);
+  const metadata = hexStringToJson(item.metadata);
   const ret = {
     id: item.id,
     imgSrc: resolveLink(metadata?.image),
@@ -69,7 +69,7 @@ export const gameCardContent = (item: any): CardItem => {
 
 /// Process Soul
 export const processCardContent = (soul: any): CardItem => {
-  let metadata = hexStringToJson(soul?.metadata);
+  const metadata = hexStringToJson(soul?.metadata);
   const ret = {
     id: soul.id,
     imgSrc: 'PARENT_IMAGE',
@@ -87,7 +87,7 @@ export const processCardContent = (soul: any): CardItem => {
 // Relation to Container Soul
 export const containedProcContent = (relation: any): CardItem => {
   const soul = relation?.aEnd;
-  let metadata = hexStringToJson(soul?.metadata);
+  const metadata = hexStringToJson(soul?.metadata);
   const ret = {
     id: soul?.id,
     imgSrc: 'PARENT_IMAGE',
@@ -136,7 +136,7 @@ export const gamePartCardContent = (item: any): CardItem => {
 
 /// Soul Part for Tasks (Using Parent's Image)
 export const soulPartTaskCardContent = (item: any): CardItem => {
-  let metadata = hexStringToJson(item.ent.metadata);
+  const metadata = hexStringToJson(item.ent.metadata);
   const ret = {
     id: item.ent.id,
     imgSrc: 'PARENT_IMAGE',
