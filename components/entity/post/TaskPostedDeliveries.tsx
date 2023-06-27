@@ -107,7 +107,7 @@ function TaskPostedDelivery({ task, post }: any) {
   async function approveDelivery(soulId: string) {
     try {
       setIsProcessing(true);
-      await getContractTask(task.id).deliveryApprove(soulId);
+      await getContractTask(task.id).deliveryApprove(soulId, 1);
       showToastSuccess('Success! Data will be updated soon');
       setIsProcessed(true);
     } catch (error: any) {

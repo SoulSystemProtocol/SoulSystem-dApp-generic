@@ -54,6 +54,7 @@ export default function GameApplicationGridCard({
         await getContractGame(game.id).roleAssignToToken(
           nominatedSoul.id,
           'member',
+          1,
         );
         setIsProcessed(true);
       }

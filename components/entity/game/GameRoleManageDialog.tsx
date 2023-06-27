@@ -76,6 +76,11 @@ export default function GameRoleManageDialog({
         type: 'string',
         title: 'Soul',
       },
+      amount: {
+        type: 'number',
+        title: 'Amount',
+        default: 1,
+      },
     },
   };
 
@@ -104,11 +109,13 @@ export default function GameRoleManageDialog({
         await getContractGame(game.id).roleAssignToToken(
           formData.soulId,
           formData.roleName,
+          formData.amount,
         );
       } else if (formData.action === 'removeRole') {
         await getContractGame(game.id).roleRemoveFromToken(
           formData.soulId,
           formData.roleName,
+          formData.amount,
         );
       } else console.error('Unknown action: ' + formData.action);
       showToastSuccess('Success! Data will be updated soon');

@@ -790,6 +790,11 @@
         "internalType": "uint256",
         "name": "sbtId",
         "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
       }
     ],
     "name": "deliveryApprove",
@@ -1047,6 +1052,11 @@
         "internalType": "string",
         "name": "role",
         "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
       }
     ],
     "name": "roleAssign",
@@ -1065,6 +1075,11 @@
         "internalType": "string",
         "name": "role",
         "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
       }
     ],
     "name": "roleAssignToToken",
@@ -1088,6 +1103,11 @@
         "internalType": "string",
         "name": "roleNew",
         "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
       }
     ],
     "name": "roleChange",
@@ -1186,6 +1206,11 @@
         "internalType": "string",
         "name": "role",
         "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
       }
     ],
     "name": "roleRemove",
@@ -1204,6 +1229,11 @@
         "internalType": "string",
         "name": "role",
         "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
       }
     ],
     "name": "roleRemoveFromToken",
@@ -1295,7 +1325,7 @@
     "inputs": [
       {
         "internalType": "string",
-        "name": "contract_uri",
+        "name": "contractUri",
         "type": "string"
       }
     ],
