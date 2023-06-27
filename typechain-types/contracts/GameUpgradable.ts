@@ -112,15 +112,15 @@ export interface GameUpgradableInterface extends utils.Interface {
     "post(string,uint256,string)": FunctionFragment;
     "renounceOwnership()": FunctionFragment;
     "reportEvent(uint256,address,string)": FunctionFragment;
-    "roleAssign(address,string)": FunctionFragment;
-    "roleAssignToToken(uint256,string)": FunctionFragment;
-    "roleChange(address,string,string)": FunctionFragment;
+    "roleAssign(address,string,uint256)": FunctionFragment;
+    "roleAssignToToken(uint256,string,uint256)": FunctionFragment;
+    "roleChange(address,string,string,uint256)": FunctionFragment;
     "roleCreate(string)": FunctionFragment;
     "roleExist(string)": FunctionFragment;
     "roleHas(address,string)": FunctionFragment;
     "roleHasByToken(uint256,string)": FunctionFragment;
-    "roleRemove(address,string)": FunctionFragment;
-    "roleRemoveFromToken(uint256,string)": FunctionFragment;
+    "roleRemove(address,string,uint256)": FunctionFragment;
+    "roleRemoveFromToken(uint256,string,uint256)": FunctionFragment;
     "roleToId(string)": FunctionFragment;
     "roleURI(string)": FunctionFragment;
     "rolesHas(address,string[])": FunctionFragment;
@@ -334,18 +334,27 @@ export interface GameUpgradableInterface extends utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "roleAssign",
-    values: [PromiseOrValue<string>, PromiseOrValue<string>]
+    values: [
+      PromiseOrValue<string>,
+      PromiseOrValue<string>,
+      PromiseOrValue<BigNumberish>
+    ]
   ): string;
   encodeFunctionData(
     functionFragment: "roleAssignToToken",
-    values: [PromiseOrValue<BigNumberish>, PromiseOrValue<string>]
+    values: [
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<string>,
+      PromiseOrValue<BigNumberish>
+    ]
   ): string;
   encodeFunctionData(
     functionFragment: "roleChange",
     values: [
       PromiseOrValue<string>,
       PromiseOrValue<string>,
-      PromiseOrValue<string>
+      PromiseOrValue<string>,
+      PromiseOrValue<BigNumberish>
     ]
   ): string;
   encodeFunctionData(
@@ -366,11 +375,19 @@ export interface GameUpgradableInterface extends utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "roleRemove",
-    values: [PromiseOrValue<string>, PromiseOrValue<string>]
+    values: [
+      PromiseOrValue<string>,
+      PromiseOrValue<string>,
+      PromiseOrValue<BigNumberish>
+    ]
   ): string;
   encodeFunctionData(
     functionFragment: "roleRemoveFromToken",
-    values: [PromiseOrValue<BigNumberish>, PromiseOrValue<string>]
+    values: [
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<string>,
+      PromiseOrValue<BigNumberish>
+    ]
   ): string;
   encodeFunctionData(
     functionFragment: "roleToId",
@@ -1024,12 +1041,14 @@ export interface GameUpgradable extends BaseContract {
     roleAssign(
       account: PromiseOrValue<string>,
       role: PromiseOrValue<string>,
+      amount: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     roleAssignToToken(
       sbt: PromiseOrValue<BigNumberish>,
       role: PromiseOrValue<string>,
+      amount: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
@@ -1037,6 +1056,7 @@ export interface GameUpgradable extends BaseContract {
       account: PromiseOrValue<string>,
       roleOld: PromiseOrValue<string>,
       roleNew: PromiseOrValue<string>,
+      amount: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
@@ -1065,12 +1085,14 @@ export interface GameUpgradable extends BaseContract {
     roleRemove(
       account: PromiseOrValue<string>,
       role: PromiseOrValue<string>,
+      amount: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     roleRemoveFromToken(
       sbt: PromiseOrValue<BigNumberish>,
       role: PromiseOrValue<string>,
+      amount: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
@@ -1340,12 +1362,14 @@ export interface GameUpgradable extends BaseContract {
   roleAssign(
     account: PromiseOrValue<string>,
     role: PromiseOrValue<string>,
+    amount: PromiseOrValue<BigNumberish>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   roleAssignToToken(
     sbt: PromiseOrValue<BigNumberish>,
     role: PromiseOrValue<string>,
+    amount: PromiseOrValue<BigNumberish>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
@@ -1353,6 +1377,7 @@ export interface GameUpgradable extends BaseContract {
     account: PromiseOrValue<string>,
     roleOld: PromiseOrValue<string>,
     roleNew: PromiseOrValue<string>,
+    amount: PromiseOrValue<BigNumberish>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
@@ -1381,12 +1406,14 @@ export interface GameUpgradable extends BaseContract {
   roleRemove(
     account: PromiseOrValue<string>,
     role: PromiseOrValue<string>,
+    amount: PromiseOrValue<BigNumberish>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   roleRemoveFromToken(
     sbt: PromiseOrValue<BigNumberish>,
     role: PromiseOrValue<string>,
+    amount: PromiseOrValue<BigNumberish>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
@@ -1650,12 +1677,14 @@ export interface GameUpgradable extends BaseContract {
     roleAssign(
       account: PromiseOrValue<string>,
       role: PromiseOrValue<string>,
+      amount: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<void>;
 
     roleAssignToToken(
       sbt: PromiseOrValue<BigNumberish>,
       role: PromiseOrValue<string>,
+      amount: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -1663,6 +1692,7 @@ export interface GameUpgradable extends BaseContract {
       account: PromiseOrValue<string>,
       roleOld: PromiseOrValue<string>,
       roleNew: PromiseOrValue<string>,
+      amount: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -1691,12 +1721,14 @@ export interface GameUpgradable extends BaseContract {
     roleRemove(
       account: PromiseOrValue<string>,
       role: PromiseOrValue<string>,
+      amount: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<void>;
 
     roleRemoveFromToken(
       sbt: PromiseOrValue<BigNumberish>,
       role: PromiseOrValue<string>,
+      amount: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -2135,12 +2167,14 @@ export interface GameUpgradable extends BaseContract {
     roleAssign(
       account: PromiseOrValue<string>,
       role: PromiseOrValue<string>,
+      amount: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     roleAssignToToken(
       sbt: PromiseOrValue<BigNumberish>,
       role: PromiseOrValue<string>,
+      amount: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
@@ -2148,6 +2182,7 @@ export interface GameUpgradable extends BaseContract {
       account: PromiseOrValue<string>,
       roleOld: PromiseOrValue<string>,
       roleNew: PromiseOrValue<string>,
+      amount: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
@@ -2176,12 +2211,14 @@ export interface GameUpgradable extends BaseContract {
     roleRemove(
       account: PromiseOrValue<string>,
       role: PromiseOrValue<string>,
+      amount: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     roleRemoveFromToken(
       sbt: PromiseOrValue<BigNumberish>,
       role: PromiseOrValue<string>,
+      amount: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
@@ -2452,12 +2489,14 @@ export interface GameUpgradable extends BaseContract {
     roleAssign(
       account: PromiseOrValue<string>,
       role: PromiseOrValue<string>,
+      amount: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     roleAssignToToken(
       sbt: PromiseOrValue<BigNumberish>,
       role: PromiseOrValue<string>,
+      amount: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
@@ -2465,6 +2504,7 @@ export interface GameUpgradable extends BaseContract {
       account: PromiseOrValue<string>,
       roleOld: PromiseOrValue<string>,
       roleNew: PromiseOrValue<string>,
+      amount: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
@@ -2493,12 +2533,14 @@ export interface GameUpgradable extends BaseContract {
     roleRemove(
       account: PromiseOrValue<string>,
       role: PromiseOrValue<string>,
+      amount: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     roleRemoveFromToken(
       sbt: PromiseOrValue<BigNumberish>,
       role: PromiseOrValue<string>,
+      amount: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 

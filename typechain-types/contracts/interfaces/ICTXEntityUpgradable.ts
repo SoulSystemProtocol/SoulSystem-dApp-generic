@@ -32,12 +32,12 @@ export interface ICTXEntityUpgradableInterface extends utils.Interface {
     "confGet(string)": FunctionFragment;
     "confSet(string,string)": FunctionFragment;
     "nominate(uint256,string)": FunctionFragment;
-    "roleAssign(address,string)": FunctionFragment;
-    "roleAssignToToken(uint256,string)": FunctionFragment;
-    "roleChange(address,string,string)": FunctionFragment;
+    "roleAssign(address,string,uint256)": FunctionFragment;
+    "roleAssignToToken(uint256,string,uint256)": FunctionFragment;
+    "roleChange(address,string,string,uint256)": FunctionFragment;
     "roleCreate(string)": FunctionFragment;
-    "roleRemove(address,string)": FunctionFragment;
-    "roleRemoveFromToken(uint256,string)": FunctionFragment;
+    "roleRemove(address,string,uint256)": FunctionFragment;
+    "roleRemoveFromToken(uint256,string,uint256)": FunctionFragment;
     "setContractURI(string)": FunctionFragment;
     "setRoleURI(string,string)": FunctionFragment;
     "uri(uint256)": FunctionFragment;
@@ -73,18 +73,27 @@ export interface ICTXEntityUpgradableInterface extends utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "roleAssign",
-    values: [PromiseOrValue<string>, PromiseOrValue<string>]
+    values: [
+      PromiseOrValue<string>,
+      PromiseOrValue<string>,
+      PromiseOrValue<BigNumberish>
+    ]
   ): string;
   encodeFunctionData(
     functionFragment: "roleAssignToToken",
-    values: [PromiseOrValue<BigNumberish>, PromiseOrValue<string>]
+    values: [
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<string>,
+      PromiseOrValue<BigNumberish>
+    ]
   ): string;
   encodeFunctionData(
     functionFragment: "roleChange",
     values: [
       PromiseOrValue<string>,
       PromiseOrValue<string>,
-      PromiseOrValue<string>
+      PromiseOrValue<string>,
+      PromiseOrValue<BigNumberish>
     ]
   ): string;
   encodeFunctionData(
@@ -93,11 +102,19 @@ export interface ICTXEntityUpgradableInterface extends utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "roleRemove",
-    values: [PromiseOrValue<string>, PromiseOrValue<string>]
+    values: [
+      PromiseOrValue<string>,
+      PromiseOrValue<string>,
+      PromiseOrValue<BigNumberish>
+    ]
   ): string;
   encodeFunctionData(
     functionFragment: "roleRemoveFromToken",
-    values: [PromiseOrValue<BigNumberish>, PromiseOrValue<string>]
+    values: [
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<string>,
+      PromiseOrValue<BigNumberish>
+    ]
   ): string;
   encodeFunctionData(
     functionFragment: "setContractURI",
@@ -200,12 +217,14 @@ export interface ICTXEntityUpgradable extends BaseContract {
     roleAssign(
       account: PromiseOrValue<string>,
       role: PromiseOrValue<string>,
+      amount: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     roleAssignToToken(
       toToken: PromiseOrValue<BigNumberish>,
       role: PromiseOrValue<string>,
+      amount: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
@@ -213,6 +232,7 @@ export interface ICTXEntityUpgradable extends BaseContract {
       account: PromiseOrValue<string>,
       roleOld: PromiseOrValue<string>,
       roleNew: PromiseOrValue<string>,
+      amount: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
@@ -224,12 +244,14 @@ export interface ICTXEntityUpgradable extends BaseContract {
     roleRemove(
       account: PromiseOrValue<string>,
       role: PromiseOrValue<string>,
+      amount: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     roleRemoveFromToken(
       sbt: PromiseOrValue<BigNumberish>,
       role: PromiseOrValue<string>,
+      amount: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
@@ -270,12 +292,14 @@ export interface ICTXEntityUpgradable extends BaseContract {
   roleAssign(
     account: PromiseOrValue<string>,
     role: PromiseOrValue<string>,
+    amount: PromiseOrValue<BigNumberish>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   roleAssignToToken(
     toToken: PromiseOrValue<BigNumberish>,
     role: PromiseOrValue<string>,
+    amount: PromiseOrValue<BigNumberish>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
@@ -283,6 +307,7 @@ export interface ICTXEntityUpgradable extends BaseContract {
     account: PromiseOrValue<string>,
     roleOld: PromiseOrValue<string>,
     roleNew: PromiseOrValue<string>,
+    amount: PromiseOrValue<BigNumberish>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
@@ -294,12 +319,14 @@ export interface ICTXEntityUpgradable extends BaseContract {
   roleRemove(
     account: PromiseOrValue<string>,
     role: PromiseOrValue<string>,
+    amount: PromiseOrValue<BigNumberish>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   roleRemoveFromToken(
     sbt: PromiseOrValue<BigNumberish>,
     role: PromiseOrValue<string>,
+    amount: PromiseOrValue<BigNumberish>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
@@ -340,12 +367,14 @@ export interface ICTXEntityUpgradable extends BaseContract {
     roleAssign(
       account: PromiseOrValue<string>,
       role: PromiseOrValue<string>,
+      amount: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<void>;
 
     roleAssignToToken(
       toToken: PromiseOrValue<BigNumberish>,
       role: PromiseOrValue<string>,
+      amount: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -353,6 +382,7 @@ export interface ICTXEntityUpgradable extends BaseContract {
       account: PromiseOrValue<string>,
       roleOld: PromiseOrValue<string>,
       roleNew: PromiseOrValue<string>,
+      amount: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -364,12 +394,14 @@ export interface ICTXEntityUpgradable extends BaseContract {
     roleRemove(
       account: PromiseOrValue<string>,
       role: PromiseOrValue<string>,
+      amount: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<void>;
 
     roleRemoveFromToken(
       sbt: PromiseOrValue<BigNumberish>,
       role: PromiseOrValue<string>,
+      amount: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -424,12 +456,14 @@ export interface ICTXEntityUpgradable extends BaseContract {
     roleAssign(
       account: PromiseOrValue<string>,
       role: PromiseOrValue<string>,
+      amount: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     roleAssignToToken(
       toToken: PromiseOrValue<BigNumberish>,
       role: PromiseOrValue<string>,
+      amount: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
@@ -437,6 +471,7 @@ export interface ICTXEntityUpgradable extends BaseContract {
       account: PromiseOrValue<string>,
       roleOld: PromiseOrValue<string>,
       roleNew: PromiseOrValue<string>,
+      amount: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
@@ -448,12 +483,14 @@ export interface ICTXEntityUpgradable extends BaseContract {
     roleRemove(
       account: PromiseOrValue<string>,
       role: PromiseOrValue<string>,
+      amount: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     roleRemoveFromToken(
       sbt: PromiseOrValue<BigNumberish>,
       role: PromiseOrValue<string>,
+      amount: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
@@ -495,12 +532,14 @@ export interface ICTXEntityUpgradable extends BaseContract {
     roleAssign(
       account: PromiseOrValue<string>,
       role: PromiseOrValue<string>,
+      amount: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     roleAssignToToken(
       toToken: PromiseOrValue<BigNumberish>,
       role: PromiseOrValue<string>,
+      amount: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
@@ -508,6 +547,7 @@ export interface ICTXEntityUpgradable extends BaseContract {
       account: PromiseOrValue<string>,
       roleOld: PromiseOrValue<string>,
       roleNew: PromiseOrValue<string>,
+      amount: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
@@ -519,12 +559,14 @@ export interface ICTXEntityUpgradable extends BaseContract {
     roleRemove(
       account: PromiseOrValue<string>,
       role: PromiseOrValue<string>,
+      amount: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     roleRemoveFromToken(
       sbt: PromiseOrValue<BigNumberish>,
       role: PromiseOrValue<string>,
+      amount: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 

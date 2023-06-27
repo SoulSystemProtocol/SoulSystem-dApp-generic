@@ -51,15 +51,15 @@ export interface ProcedureInterface extends utils.Interface {
     "owner()": FunctionFragment;
     "post(string,uint256,string)": FunctionFragment;
     "renounceOwnership()": FunctionFragment;
-    "roleAssign(address,string)": FunctionFragment;
-    "roleAssignToToken(uint256,string)": FunctionFragment;
-    "roleChange(address,string,string)": FunctionFragment;
+    "roleAssign(address,string,uint256)": FunctionFragment;
+    "roleAssignToToken(uint256,string,uint256)": FunctionFragment;
+    "roleChange(address,string,string,uint256)": FunctionFragment;
     "roleCreate(string)": FunctionFragment;
     "roleExist(string)": FunctionFragment;
     "roleHas(address,string)": FunctionFragment;
     "roleHasByToken(uint256,string)": FunctionFragment;
-    "roleRemove(address,string)": FunctionFragment;
-    "roleRemoveFromToken(uint256,string)": FunctionFragment;
+    "roleRemove(address,string,uint256)": FunctionFragment;
+    "roleRemoveFromToken(uint256,string,uint256)": FunctionFragment;
     "roleToId(string)": FunctionFragment;
     "roleURI(string)": FunctionFragment;
     "rolesHas(address,string[])": FunctionFragment;
@@ -216,18 +216,27 @@ export interface ProcedureInterface extends utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "roleAssign",
-    values: [PromiseOrValue<string>, PromiseOrValue<string>]
+    values: [
+      PromiseOrValue<string>,
+      PromiseOrValue<string>,
+      PromiseOrValue<BigNumberish>
+    ]
   ): string;
   encodeFunctionData(
     functionFragment: "roleAssignToToken",
-    values: [PromiseOrValue<BigNumberish>, PromiseOrValue<string>]
+    values: [
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<string>,
+      PromiseOrValue<BigNumberish>
+    ]
   ): string;
   encodeFunctionData(
     functionFragment: "roleChange",
     values: [
       PromiseOrValue<string>,
       PromiseOrValue<string>,
-      PromiseOrValue<string>
+      PromiseOrValue<string>,
+      PromiseOrValue<BigNumberish>
     ]
   ): string;
   encodeFunctionData(
@@ -248,11 +257,19 @@ export interface ProcedureInterface extends utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "roleRemove",
-    values: [PromiseOrValue<string>, PromiseOrValue<string>]
+    values: [
+      PromiseOrValue<string>,
+      PromiseOrValue<string>,
+      PromiseOrValue<BigNumberish>
+    ]
   ): string;
   encodeFunctionData(
     functionFragment: "roleRemoveFromToken",
-    values: [PromiseOrValue<BigNumberish>, PromiseOrValue<string>]
+    values: [
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<string>,
+      PromiseOrValue<BigNumberish>
+    ]
   ): string;
   encodeFunctionData(
     functionFragment: "roleToId",
@@ -802,12 +819,14 @@ export interface Procedure extends BaseContract {
     roleAssign(
       account: PromiseOrValue<string>,
       role: PromiseOrValue<string>,
+      amount: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     roleAssignToToken(
       ownerToken: PromiseOrValue<BigNumberish>,
       role: PromiseOrValue<string>,
+      amount: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
@@ -815,6 +834,7 @@ export interface Procedure extends BaseContract {
       account: PromiseOrValue<string>,
       roleOld: PromiseOrValue<string>,
       roleNew: PromiseOrValue<string>,
+      amount: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
@@ -843,12 +863,14 @@ export interface Procedure extends BaseContract {
     roleRemove(
       account: PromiseOrValue<string>,
       role: PromiseOrValue<string>,
+      amount: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     roleRemoveFromToken(
       sbt: PromiseOrValue<BigNumberish>,
       role: PromiseOrValue<string>,
+      amount: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
@@ -1036,12 +1058,14 @@ export interface Procedure extends BaseContract {
   roleAssign(
     account: PromiseOrValue<string>,
     role: PromiseOrValue<string>,
+    amount: PromiseOrValue<BigNumberish>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   roleAssignToToken(
     ownerToken: PromiseOrValue<BigNumberish>,
     role: PromiseOrValue<string>,
+    amount: PromiseOrValue<BigNumberish>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
@@ -1049,6 +1073,7 @@ export interface Procedure extends BaseContract {
     account: PromiseOrValue<string>,
     roleOld: PromiseOrValue<string>,
     roleNew: PromiseOrValue<string>,
+    amount: PromiseOrValue<BigNumberish>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
@@ -1077,12 +1102,14 @@ export interface Procedure extends BaseContract {
   roleRemove(
     account: PromiseOrValue<string>,
     role: PromiseOrValue<string>,
+    amount: PromiseOrValue<BigNumberish>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   roleRemoveFromToken(
     sbt: PromiseOrValue<BigNumberish>,
     role: PromiseOrValue<string>,
+    amount: PromiseOrValue<BigNumberish>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
@@ -1268,12 +1295,14 @@ export interface Procedure extends BaseContract {
     roleAssign(
       account: PromiseOrValue<string>,
       role: PromiseOrValue<string>,
+      amount: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<void>;
 
     roleAssignToToken(
       ownerToken: PromiseOrValue<BigNumberish>,
       role: PromiseOrValue<string>,
+      amount: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -1281,6 +1310,7 @@ export interface Procedure extends BaseContract {
       account: PromiseOrValue<string>,
       roleOld: PromiseOrValue<string>,
       roleNew: PromiseOrValue<string>,
+      amount: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -1309,12 +1339,14 @@ export interface Procedure extends BaseContract {
     roleRemove(
       account: PromiseOrValue<string>,
       role: PromiseOrValue<string>,
+      amount: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<void>;
 
     roleRemoveFromToken(
       sbt: PromiseOrValue<BigNumberish>,
       role: PromiseOrValue<string>,
+      amount: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -1666,12 +1698,14 @@ export interface Procedure extends BaseContract {
     roleAssign(
       account: PromiseOrValue<string>,
       role: PromiseOrValue<string>,
+      amount: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     roleAssignToToken(
       ownerToken: PromiseOrValue<BigNumberish>,
       role: PromiseOrValue<string>,
+      amount: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
@@ -1679,6 +1713,7 @@ export interface Procedure extends BaseContract {
       account: PromiseOrValue<string>,
       roleOld: PromiseOrValue<string>,
       roleNew: PromiseOrValue<string>,
+      amount: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
@@ -1707,12 +1742,14 @@ export interface Procedure extends BaseContract {
     roleRemove(
       account: PromiseOrValue<string>,
       role: PromiseOrValue<string>,
+      amount: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     roleRemoveFromToken(
       sbt: PromiseOrValue<BigNumberish>,
       role: PromiseOrValue<string>,
+      amount: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
@@ -1901,12 +1938,14 @@ export interface Procedure extends BaseContract {
     roleAssign(
       account: PromiseOrValue<string>,
       role: PromiseOrValue<string>,
+      amount: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     roleAssignToToken(
       ownerToken: PromiseOrValue<BigNumberish>,
       role: PromiseOrValue<string>,
+      amount: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
@@ -1914,6 +1953,7 @@ export interface Procedure extends BaseContract {
       account: PromiseOrValue<string>,
       roleOld: PromiseOrValue<string>,
       roleNew: PromiseOrValue<string>,
+      amount: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
@@ -1942,12 +1982,14 @@ export interface Procedure extends BaseContract {
     roleRemove(
       account: PromiseOrValue<string>,
       role: PromiseOrValue<string>,
+      amount: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     roleRemoveFromToken(
       sbt: PromiseOrValue<BigNumberish>,
       role: PromiseOrValue<string>,
+      amount: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 

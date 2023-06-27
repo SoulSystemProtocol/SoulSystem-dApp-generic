@@ -71,7 +71,7 @@ export interface RuleExtInterface extends utils.Interface {
     "effectsGet(uint256)": FunctionFragment;
     "getRepoAddr()": FunctionFragment;
     "hub()": FunctionFragment;
-    "ruleAdd((bytes32,string,bool,string,bool),(string,bool,uint256),(string,int256,bool)[])": FunctionFragment;
+    "ruleAdd((bytes32,string,bool,string,bool),(string,int256,bool)[],(string,bool,uint256))": FunctionFragment;
     "ruleDisable(uint256,bool)": FunctionFragment;
     "ruleGet(uint256)": FunctionFragment;
     "ruleUpdate(uint256,(bytes32,string,bool,string,bool),(string,int256,bool)[])": FunctionFragment;
@@ -108,8 +108,8 @@ export interface RuleExtInterface extends utils.Interface {
     functionFragment: "ruleAdd",
     values: [
       DataTypes.RuleStruct,
-      DataTypes.ConfirmationStruct,
-      DataTypes.RepChangeStruct[]
+      DataTypes.RepChangeStruct[],
+      DataTypes.ConfirmationStruct
     ]
   ): string;
   encodeFunctionData(
@@ -201,8 +201,8 @@ export interface RuleExt extends BaseContract {
 
     ruleAdd(
       rule: DataTypes.RuleStruct,
-      confirmation: DataTypes.ConfirmationStruct,
       effects: DataTypes.RepChangeStruct[],
+      confirmation: DataTypes.ConfirmationStruct,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
@@ -247,8 +247,8 @@ export interface RuleExt extends BaseContract {
 
   ruleAdd(
     rule: DataTypes.RuleStruct,
-    confirmation: DataTypes.ConfirmationStruct,
     effects: DataTypes.RepChangeStruct[],
+    confirmation: DataTypes.ConfirmationStruct,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
@@ -293,8 +293,8 @@ export interface RuleExt extends BaseContract {
 
     ruleAdd(
       rule: DataTypes.RuleStruct,
-      confirmation: DataTypes.ConfirmationStruct,
       effects: DataTypes.RepChangeStruct[],
+      confirmation: DataTypes.ConfirmationStruct,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -342,8 +342,8 @@ export interface RuleExt extends BaseContract {
 
     ruleAdd(
       rule: DataTypes.RuleStruct,
-      confirmation: DataTypes.ConfirmationStruct,
       effects: DataTypes.RepChangeStruct[],
+      confirmation: DataTypes.ConfirmationStruct,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
@@ -389,8 +389,8 @@ export interface RuleExt extends BaseContract {
 
     ruleAdd(
       rule: DataTypes.RuleStruct,
-      confirmation: DataTypes.ConfirmationStruct,
       effects: DataTypes.RepChangeStruct[],
+      confirmation: DataTypes.ConfirmationStruct,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 

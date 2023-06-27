@@ -73,7 +73,7 @@ export interface RulesInterface extends utils.Interface {
   functions: {
     "confirmationGet(uint256)": FunctionFragment;
     "effectsGet(uint256)": FunctionFragment;
-    "ruleAdd((bytes32,string,bool,string,bool),(string,bool,uint256),(string,int256,bool)[])": FunctionFragment;
+    "ruleAdd((bytes32,string,bool,string,bool),(string,int256,bool)[],(string,bool,uint256))": FunctionFragment;
     "ruleDisable(uint256,bool)": FunctionFragment;
     "ruleGet(uint256)": FunctionFragment;
     "ruleUpdate(uint256,(bytes32,string,bool,string,bool),(string,int256,bool)[])": FunctionFragment;
@@ -103,8 +103,8 @@ export interface RulesInterface extends utils.Interface {
     functionFragment: "ruleAdd",
     values: [
       DataTypes.RuleStruct,
-      DataTypes.ConfirmationStruct,
-      DataTypes.RepChangeStruct[]
+      DataTypes.RepChangeStruct[],
+      DataTypes.ConfirmationStruct
     ]
   ): string;
   encodeFunctionData(
@@ -266,8 +266,8 @@ export interface Rules extends BaseContract {
 
     ruleAdd(
       rule: DataTypes.RuleStruct,
-      confirmation: DataTypes.ConfirmationStruct,
       effects: DataTypes.RepChangeStruct[],
+      confirmation: DataTypes.ConfirmationStruct,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
@@ -308,8 +308,8 @@ export interface Rules extends BaseContract {
 
   ruleAdd(
     rule: DataTypes.RuleStruct,
-    confirmation: DataTypes.ConfirmationStruct,
     effects: DataTypes.RepChangeStruct[],
+    confirmation: DataTypes.ConfirmationStruct,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
@@ -350,8 +350,8 @@ export interface Rules extends BaseContract {
 
     ruleAdd(
       rule: DataTypes.RuleStruct,
-      confirmation: DataTypes.ConfirmationStruct,
       effects: DataTypes.RepChangeStruct[],
+      confirmation: DataTypes.ConfirmationStruct,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -456,8 +456,8 @@ export interface Rules extends BaseContract {
 
     ruleAdd(
       rule: DataTypes.RuleStruct,
-      confirmation: DataTypes.ConfirmationStruct,
       effects: DataTypes.RepChangeStruct[],
+      confirmation: DataTypes.ConfirmationStruct,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
@@ -499,8 +499,8 @@ export interface Rules extends BaseContract {
 
     ruleAdd(
       rule: DataTypes.RuleStruct,
-      confirmation: DataTypes.ConfirmationStruct,
       effects: DataTypes.RepChangeStruct[],
+      confirmation: DataTypes.ConfirmationStruct,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 

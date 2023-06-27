@@ -32,7 +32,7 @@ export interface ITaskInterface extends utils.Interface {
     "acceptApplicant(uint256)": FunctionFragment;
     "application(string)": FunctionFragment;
     "cancel(string,address[])": FunctionFragment;
-    "deliveryApprove(uint256)": FunctionFragment;
+    "deliveryApprove(uint256,uint256)": FunctionFragment;
     "deliveryReject(uint256,string)": FunctionFragment;
     "disburse(address[])": FunctionFragment;
     "refund(address[])": FunctionFragment;
@@ -69,7 +69,7 @@ export interface ITaskInterface extends utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "deliveryApprove",
-    values: [PromiseOrValue<BigNumberish>]
+    values: [PromiseOrValue<BigNumberish>, PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
     functionFragment: "deliveryReject",
@@ -187,6 +187,7 @@ export interface ITask extends BaseContract {
 
     deliveryApprove(
       sbtId: PromiseOrValue<BigNumberish>,
+      amount: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
@@ -239,6 +240,7 @@ export interface ITask extends BaseContract {
 
   deliveryApprove(
     sbtId: PromiseOrValue<BigNumberish>,
+    amount: PromiseOrValue<BigNumberish>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
@@ -291,6 +293,7 @@ export interface ITask extends BaseContract {
 
     deliveryApprove(
       sbtId: PromiseOrValue<BigNumberish>,
+      amount: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -355,6 +358,7 @@ export interface ITask extends BaseContract {
 
     deliveryApprove(
       sbtId: PromiseOrValue<BigNumberish>,
+      amount: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
@@ -408,6 +412,7 @@ export interface ITask extends BaseContract {
 
     deliveryApprove(
       sbtId: PromiseOrValue<BigNumberish>,
+      amount: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
