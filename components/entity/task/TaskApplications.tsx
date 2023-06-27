@@ -32,7 +32,7 @@ export default function TaskApplications({
     );
   }, [task, accountSoul]);
 
-  console.warn('[DEV] TaskApplications() Task Item:', task);
+  // console.warn('[DEV] TaskApplications() Task Item:', task);
   return (
     <Box sx={{ sm: 12 }}>
       <Stack spacing={2} direction="row" justifyContent="space-between">

@@ -106,7 +106,7 @@ export const containedProcContent = (relation: any): CardItem => {
 /// Soul Part
 export const soulPartCardContent = (item: any): CardItem => {
   const metadata = hexStringToJson(item.ent.metadata);
-  console.log('Part Item:', { item, metadata, ent: item.ent });
+  // console.log('Part Item:', { item, metadata, ent: item.ent });
   const ret = {
     id: item.ent?.id,
     imgSrc: resolveLink(metadata?.image),
