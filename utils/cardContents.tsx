@@ -6,7 +6,7 @@ import { normalizeGraphEntity } from 'helpers/metadata';
 import { SxProps } from '@mui/material';
 import StageDisplay from 'components/entity/task/StageDisplay';
 import { addressToShortAddress, hexStringToJson } from 'utils/converters';
-import { soulImage, soulName } from 'utils/soul';
+import { soulDescription, soulImage, soulName } from 'utils/soul';
 
 export interface CardItem {
   id: string;
@@ -106,11 +106,12 @@ export const containedProcContent = (relation: any): CardItem => {
 /// Soul Part
 export const soulPartCardContent = (item: any): CardItem => {
   const metadata = hexStringToJson(item.ent.metadata);
+  console.log('Part Item:', { item, metadata, ent: item.ent });
   const ret = {
     id: item.ent?.id,
     imgSrc: resolveLink(metadata?.image),
-    label: metadata?.description,
-    title: metadata?.name,
+    title: soulName({ ...item.ent, metadata }),
+    label: soulDescription({ ...item.ent, metadata }),
     metadata,
     link: `/soul/${item.ent.owner}`,
     roles: item?.roles,
@@ -120,12 +121,12 @@ export const soulPartCardContent = (item: any): CardItem => {
 
 /// Game Participant
 export const gamePartCardContent = (item: any): CardItem => {
-  let metadata = hexStringToJson(item.entity.metadata);
+  const metadata = hexStringToJson(item.entity.metadata);
   const ret = {
     id: item.entity.id,
     imgSrc: resolveLink(metadata?.image),
-    label: metadata?.description,
-    title: metadata?.name,
+    title: soulName({ ...item.entity, metadata }),
+    label: soulDescription({ ...item.entity, metadata }),
     metadata,
     link: `/soul/${item.entity.id}`,
     roles: item?.roles,
@@ -140,8 +141,8 @@ export const soulPartTaskCardContent = (item: any): CardItem => {
     id: item.ent.id,
     imgSrc: 'PARENT_IMAGE',
     component: 'GridCardTask',
-    label: metadata?.description,
-    title: metadata?.name,
+    title: soulName({ ...item.ent, metadata }),
+    label: soulDescription({ ...item.ent, metadata }),
     metadata,
     link: `/soul/${item.ent.owner}`,
     roles: item?.roles,
