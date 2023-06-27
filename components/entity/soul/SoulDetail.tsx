@@ -17,7 +17,13 @@ import ImageBox from 'components/utils/ImageBox';
 /**
  * Display Soul details
  */
-export default function SoulDetail({ soul, sx }: any): JSX.Element {
+export default function SoulDetail({
+  soul,
+  sx,
+}: {
+  soul: any;
+  sx: any;
+}): JSX.Element {
   const { account } = useContext(Web3Context);
   const [isOwned, setIsOwned] = useState<boolean>(false);
   const [name, setName] = useState<string>('');
@@ -55,6 +61,7 @@ export default function SoulDetail({ soul, sx }: any): JSX.Element {
             sx={{
               borderRadius: '50%',
               border: '5px solid ' + theme.palette.background.default,
+              backgroundColor: theme.palette.background.default,
               mt: '-60px',
               ml: 'auto',
               mr: 'auto',
