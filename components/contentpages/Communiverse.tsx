@@ -177,13 +177,6 @@ export default function Communiverse(): JSX.Element {
             </Typography>
           </Card>
         </Box>
-        {/* {!account && (
-          <Box mt={4} textAlign="center">
-            <Typography fontSize="1.2em" letterSpacing="0.02em">
-              Connect wallet to explore mDAOs <ConnectButton sx={{ ml: 4 }} />
-            </Typography>
-          </Box>
-        )} */}
         <FaucetCallout minBalance={0.1} />
         <Box sx={{ mt: 4 }}>
           <Typography
