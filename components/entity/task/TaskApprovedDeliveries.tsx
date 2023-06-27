@@ -13,7 +13,6 @@ import {
 import { CLAIM_ROLE, PROC_STAGE_REV } from 'constants/contracts';
 import { DataContext } from 'contexts/data';
 import useError from 'hooks/useError';
-import useTask from 'hooks/useTask';
 import useToast from 'hooks/useToast';
 import { useContext, useEffect, useState } from 'react';
 import useSubgraph from 'hooks/useSubgraph';
@@ -26,6 +25,7 @@ import useContract from 'hooks/useContract';
 import Link from 'components/utils/Link';
 import { nameEntity } from 'helpers/utils';
 import { soulImage } from 'utils/soul';
+import { getSoulsByRole } from 'hooks/utils';
 
 /**
  * Approved Deliveries Display
@@ -34,11 +34,10 @@ export default function TaskApprovedDeliveries({ task, sx }: any): JSX.Element {
   const { accountSoul } = useContext(DataContext);
   const { handleError } = useError();
   const { showToastSuccess } = useToast();
-  const { getSoulsByRole } = useTask();
   const { getContractTask } = useContract();
-  const approvedSouls = getSoulsByRole(task, CLAIM_ROLE.subject.id);
   const [isProcessing, setIsProcessing] = useState(false);
   const [isProcessed, setIsProcessed] = useState(false);
+  const approvedSouls = getSoulsByRole(task, CLAIM_ROLE.subject.id);
 
   async function disburseFunds() {
     try {

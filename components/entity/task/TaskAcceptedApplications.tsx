@@ -12,7 +12,7 @@ import {
 import { CLAIM_ROLE } from 'constants/contracts';
 import useError from 'hooks/useError';
 import useSouls from 'hooks/useSouls';
-import useTask from 'hooks/useTask';
+import { getSoulsByRole } from 'hooks/utils';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { soulImage } from 'utils/soul';
@@ -22,7 +22,6 @@ import { soulImage } from 'utils/soul';
  */
 export default function TaskAcceptedApplications({ task, sx }: any) {
   const { handleError } = useError();
-  const { getSoulsByRole } = useTask();
   const { getSouls } = useSouls();
   const [acceptedSouls, setAcceptedSouls] = useState<Array<any>>([]);
 

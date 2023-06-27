@@ -13,13 +13,13 @@ import { CLAIM_ROLE } from 'constants/contracts';
 import { POST_TYPE } from 'constants/entities';
 import { DataContext } from 'contexts/data';
 import useContract from 'hooks/useContract';
-import useTask from 'hooks/useTask';
 import useError from 'hooks/useError';
 import useIpfs from 'hooks/useIpfs';
 import useToast from 'hooks/useToast';
 import { DialogParams } from 'contexts/dialog';
 import { JSONSchema7 } from 'json-schema';
 import { analyticsEvent } from 'utils/analytics';
+import { isSoulHasRole } from 'hooks/utils';
 
 interface PostParams extends DialogParams {
   item: any;
@@ -39,7 +39,7 @@ export default function PostAddDialog({
   const { handleError } = useError();
   const { showToastSuccess } = useToast();
   const { uploadJsonToIPFS } = useIpfs();
-  const { isSoulHasRole } = useTask();
+
   const { getContractGame } = useContract();
   const [caseRoleNames, setCaseRoleNames] = useState<Array<string>>([]);
   const [formData, setFormData] = useState({});
