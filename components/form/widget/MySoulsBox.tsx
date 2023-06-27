@@ -40,6 +40,7 @@ export default function SoulSearchBox({
     },
   });
 
+  /*
   useEffect(() => {
     //** Handle Injected Value
     if (value) {
@@ -48,6 +49,7 @@ export default function SoulSearchBox({
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value]);
+  */
 
   useEffect(() => {
     //Make sure options is never null | undefined

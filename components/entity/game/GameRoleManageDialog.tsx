@@ -9,6 +9,7 @@ import {
 } from '@mui/material';
 import { MuiForm5 as Form } from '@rjsf/material-ui';
 import SoulSearchBox from 'components/form/widget/SoulSearchBox';
+import RoleAutocomplete from 'components/form/widget/RoleAutocomplete';
 import useContract from 'hooks/useContract';
 import useError from 'hooks/useError';
 import useToast from 'hooks/useToast';
@@ -47,7 +48,6 @@ export default function GameRoleManageDialog({
   const [isLoading, setIsLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(!isClose);
   const { getContractGame } = useContract();
-
   const schema: JSONSchema7 = {
     description: 'Mint or burn NFTs that represent a organizational roles',
     type: 'object',
@@ -64,13 +64,6 @@ export default function GameRoleManageDialog({
         type: 'string',
         title: 'Role',
         default: 'member',
-        enum: ['member', 'admin', 'contributor', 'investor'],
-        enumNames: [
-          capitalize('member'),
-          capitalize('admin'),
-          capitalize('contributor'),
-          capitalize('investor'),
-        ],
       },
       soulId: {
         type: 'string',
@@ -84,14 +77,22 @@ export default function GameRoleManageDialog({
     },
   };
 
+  const widgets = {
+    SoulSearchBox,
+    RoleAutocomplete,
+  };
+
   const uiSchema = {
     soulId: {
       'ui:widget': 'SoulSearchBox',
     },
-  };
-
-  const widgets = {
-    SoulSearchBox,
+    roleName: {
+      'ui:widget': 'RoleAutocomplete',
+      'ui:options': {
+        //Populate with Existing Roles
+        options: game.roles.map((role: any) => role.name),
+      },
+    },
   };
 
   async function close() {
