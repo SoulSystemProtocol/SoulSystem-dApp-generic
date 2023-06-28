@@ -3,7 +3,7 @@ import { Box, Button, Tooltip } from '@mui/material';
 import { DialogContext } from 'contexts/dialog';
 import { DataContext } from 'contexts/data';
 import { getPageTitle } from '../../utils';
-import ProjectManageDialog from 'components/project/ProjectManageDialog';
+import ProjectManageDialog from 'components/entity/project/ProjectManageDialog';
 import Layout from 'components/layout/Layout';
 import PaginatedList from 'components/PaginatedList';
 import SoulsByTypeRoleQuery from 'queries/SoulsByTypeRoleQuery';

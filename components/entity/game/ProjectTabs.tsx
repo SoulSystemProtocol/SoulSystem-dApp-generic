@@ -4,8 +4,8 @@ import EntityPosts from 'components/entity/post/EntityPosts';
 import CTXParts from 'components/entity/game/CTXParts';
 import { nameEntity } from 'helpers/utils';
 import { useState } from 'react';
-import ProjectAddTaskButton from '../../project/ProjectAddTaskButton';
-import ProjectTaskList from '../../project/ProjectTaskList';
+import ProjectAddTaskButton from 'components/entity/project/ProjectAddTaskButton';
+import ProjectTaskList from 'components/entity/project/ProjectTaskList';
 
 /**
  * Project tabs
