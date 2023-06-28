@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import MenuIcon from '@mui/icons-material/Menu';
-import { Button, Toolbar, Tooltip, Typography } from '@mui/material';
+import { Button, SxProps, Toolbar, Tooltip, Typography } from '@mui/material';
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
 import IconButton from '@mui/material/IconButton';
 import { Box } from '@mui/system';
@@ -22,7 +22,7 @@ interface AppBarProps extends MuiAppBarProps {
 interface IHeaderProps {
   open: boolean;
   toggleDrawer: () => void;
-  sx?: any;
+  sx?: SxProps;
   links?: [];
 }
 

@@ -7,6 +7,7 @@ import {
   Collapse,
   Paper,
   Stack,
+  SxProps,
   Typography,
 } from '@mui/material';
 import { Box } from '@mui/system';
@@ -19,7 +20,7 @@ interface Props {
   law: any;
   isCollapseEnabled: boolean;
   isCommentsEnabled: boolean;
-  sx?: any;
+  sx?: SxProps;
 }
 
 /**

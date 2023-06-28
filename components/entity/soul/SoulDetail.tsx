@@ -1,5 +1,5 @@
 import { PersonOutlineOutlined } from '@mui/icons-material';
-import { Box, Button, Stack, Typography } from '@mui/material';
+import { Box, Button, Stack, SxProps, Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { Web3Context } from 'contexts/Web3Context';
 import { useContext, useEffect, useState } from 'react';
@@ -22,7 +22,7 @@ export default function SoulDetail({
   sx,
 }: {
   soul: any;
-  sx?: any;
+  sx?: SxProps;
 }): JSX.Element {
   const { account } = useContext(Web3Context);
   const [isOwned, setIsOwned] = useState<boolean>(false);

@@ -1,5 +1,5 @@
 import { AutoAwesomeOutlined } from '@mui/icons-material';
-import { Avatar } from '@mui/material';
+import { Avatar, SxProps } from '@mui/material';
 import { resolveLink } from 'helpers/IPFS';
 
 export interface EntityImageProps {
@@ -8,7 +8,7 @@ export interface EntityImageProps {
   alt?: string;
   icon?: any;
   imgSrc?: string;
-  sx?: any;
+  sx?: SxProps;
 }
 /**
  * Generic entity image component.
