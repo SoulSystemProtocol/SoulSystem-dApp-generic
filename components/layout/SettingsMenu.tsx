@@ -15,6 +15,7 @@ import { Web3Context } from 'contexts/Web3Context';
 import { useContext, useState } from 'react';
 import { soulName, soulImage } from 'utils/soul';
 import PersonIcon from '@mui/icons-material/Person';
+import QRCOde from 'components/QRCode';
 
 /**
  * User Settings Menu
@@ -25,7 +26,6 @@ export default function SettingsMenu({ profile }: any): JSX.Element {
   const { accountSoul } = useContext(DataContext);
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
   const theme = useTheme();
-
   const handleCloseUserMenu = () => setAnchorElUser(null);
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) =>
     setAnchorElUser(event.currentTarget);
@@ -89,6 +89,11 @@ export default function SettingsMenu({ profile }: any): JSX.Element {
         <MenuItem key="disconnect" onClick={handleCloseUserMenu}>
           <ConnectButton />
         </MenuItem>
+        {/* 
+        <MenuItem key="QRCOde">
+          <QRCOde payload="https://google.com" />
+        </MenuItem>
+        */}
       </Menu>
     </Box>
   );
