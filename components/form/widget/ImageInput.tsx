@@ -4,6 +4,7 @@ import {
   CircularProgress,
   Input,
   Stack,
+  SxProps,
   Typography,
 } from '@mui/material';
 import { Box } from '@mui/system';
@@ -19,14 +20,14 @@ import InvalidFileError from 'errors/InvalidFileError';
  */
 export default function ImageInput(props: WidgetProps): ReactElement {
   const propsDisabled = props.disabled;
-  const propsSx = props.options?.sx;
+  const propsSx: SxProps = (props.options?.sx as SxProps) || {};
   const propsHeader = props.options?.header;
   const propsImage = props.value;
   const propsOnChange = props.onChange;
   const { handleError } = useError();
   const { uploadFileToIPFS } = useIpfs();
   const [isLoading, setIsLoading] = useState(false);
-  const size = 164;
+  const size = props.uiSchema?.size || 164;
   const elId = 'imageInput';
 
   /// Input File Validation
@@ -66,7 +67,7 @@ export default function ImageInput(props: WidgetProps): ReactElement {
   }
 
   return (
-    <Box sx={{ ...(propsSx as object) }}>
+    <Box sx={propsSx}>
       {propsHeader as ReactNode}
       <label
         htmlFor={elId}
@@ -77,7 +78,7 @@ export default function ImageInput(props: WidgetProps): ReactElement {
             cursor: !isLoading && !propsDisabled ? 'pointer' : null,
             width: size,
             height: size,
-            borderRadius: '50%',
+            borderRadius: props.uiSchema?.borderRadius || '50%',
           }}
           src={!isLoading ? resolveLink(propsImage) : undefined}
         >
