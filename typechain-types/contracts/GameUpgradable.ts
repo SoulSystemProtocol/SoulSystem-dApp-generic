@@ -119,6 +119,7 @@ export interface GameUpgradableInterface extends utils.Interface {
     "roleExist(string)": FunctionFragment;
     "roleHas(address,string)": FunctionFragment;
     "roleHasByToken(uint256,string)": FunctionFragment;
+    "roleMake(string,string)": FunctionFragment;
     "roleRemove(address,string,uint256)": FunctionFragment;
     "roleRemoveFromToken(uint256,string,uint256)": FunctionFragment;
     "roleToId(string)": FunctionFragment;
@@ -185,6 +186,7 @@ export interface GameUpgradableInterface extends utils.Interface {
       | "roleExist"
       | "roleHas"
       | "roleHasByToken"
+      | "roleMake"
       | "roleRemove"
       | "roleRemoveFromToken"
       | "roleToId"
@@ -372,6 +374,10 @@ export interface GameUpgradableInterface extends utils.Interface {
   encodeFunctionData(
     functionFragment: "roleHasByToken",
     values: [PromiseOrValue<BigNumberish>, PromiseOrValue<string>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "roleMake",
+    values: [PromiseOrValue<string>, PromiseOrValue<string>]
   ): string;
   encodeFunctionData(
     functionFragment: "roleRemove",
@@ -574,6 +580,7 @@ export interface GameUpgradableInterface extends utils.Interface {
     functionFragment: "roleHasByToken",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(functionFragment: "roleMake", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "roleRemove", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "roleRemoveFromToken",
@@ -1082,6 +1089,12 @@ export interface GameUpgradable extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[boolean]>;
 
+    roleMake(
+      role: PromiseOrValue<string>,
+      _tokenURI: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
+
     roleRemove(
       account: PromiseOrValue<string>,
       role: PromiseOrValue<string>,
@@ -1403,6 +1416,12 @@ export interface GameUpgradable extends BaseContract {
     overrides?: CallOverrides
   ): Promise<boolean>;
 
+  roleMake(
+    role: PromiseOrValue<string>,
+    _tokenURI: PromiseOrValue<string>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
+
   roleRemove(
     account: PromiseOrValue<string>,
     role: PromiseOrValue<string>,
@@ -1717,6 +1736,12 @@ export interface GameUpgradable extends BaseContract {
       role: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<boolean>;
+
+    roleMake(
+      role: PromiseOrValue<string>,
+      _tokenURI: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<void>;
 
     roleRemove(
       account: PromiseOrValue<string>,
@@ -2208,6 +2233,12 @@ export interface GameUpgradable extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    roleMake(
+      role: PromiseOrValue<string>,
+      _tokenURI: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
+
     roleRemove(
       account: PromiseOrValue<string>,
       role: PromiseOrValue<string>,
@@ -2528,6 +2559,12 @@ export interface GameUpgradable extends BaseContract {
       soulToken: PromiseOrValue<BigNumberish>,
       role: PromiseOrValue<string>,
       overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    roleMake(
+      role: PromiseOrValue<string>,
+      _tokenURI: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     roleRemove(
