@@ -11,6 +11,16 @@ const nextConfig = {
     };
     return config;
   },
+  images: {
+    formats: ['image/webp'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '**',
+        // hostname: 'api.qrserver.com',
+      },
+    ],
+  },
 };
 
 module.exports = nextConfig;
