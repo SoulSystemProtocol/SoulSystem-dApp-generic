@@ -20,8 +20,7 @@ export default function IconSelect(props: WidgetProps): ReactElement {
       setValue('Default');
       propsOnChange('Default');
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [propsValue]);
 
   return (
     <Box>
