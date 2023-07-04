@@ -379,7 +379,6 @@ function getFindActionEntitiesQuery(guids?: string[]) {
       object
       tool
       uri
-      uriData
       metadata
       rules {
         id
@@ -425,7 +424,6 @@ function findGameRulesQuery(
       ruleId
       affected
       uri
-      uriData
       metadata
       negation
       confirmationRuling
@@ -467,7 +465,6 @@ function findGameRulesQueryMulti(
     ruleId
     affected
     uri
-    uriData
     metadata
     negation
     confirmationRuling
