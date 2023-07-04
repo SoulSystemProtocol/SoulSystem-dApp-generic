@@ -2,7 +2,7 @@ import axios from 'axios';
 import { IS_GAMES_CREATED_BY_NOT_HUB_DISABLED } from 'constants/features';
 import { hexStringToJson } from 'utils/converters';
 
-/**
+/** [DEPRECATE]
  * Hook to work with subgraph.
  */
 export default function useSubgraph() {

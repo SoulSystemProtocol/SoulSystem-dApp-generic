@@ -1,7 +1,7 @@
 import { normalizeGraphEntity } from 'helpers/metadata';
 import useSubgraph from './useSubgraph';
 
-/**
+/** [DEPRECATE]
  * Hooks for fetching souls
  */
 export default function useSouls() {
