@@ -79,7 +79,7 @@ export default function GameDetail({ sx }: any): JSX.Element {
             </Link>
           )}
         </Stack>
-        {getChainData()?.live == false || <DevFundMsg />}
+        {getChainData()?.live == false && <DevFundMsg />}
       </Stack>
     </Box>
   );
