@@ -17,7 +17,7 @@ export default function SoulAffiliations(): JSX.Element {
   const { soul } = useContext(SelectedSoulContext);
 
   return (
-    <>
+    <Box>
       <Box sx={{ my: 2 }}>
         <Typography variant="h4" sx={{ mb: 1 }}>
           {nameEntity('mdao', true)}
@@ -197,6 +197,6 @@ export default function SoulAffiliations(): JSX.Element {
           />
         )}
       </Box>
-    </>
+    </Box>
   );
 }
