@@ -1,17 +1,10 @@
 import { Box, Card, Divider, MenuItem, Stack, Typography } from '@mui/material';
-// import SoulList from 'components/entity/soul/SoulList';
-// import useError from 'hooks/useError';
-// import useSoulsById from 'hooks/useSoulsById';
-// import { nameRole } from 'helpers/utils';
-// import { union } from 'lodash';
 import { ReactElement, useContext, useEffect, useState } from 'react';
 // import FormControl from '@mui/material/FormControl';
 // import Select, { SelectChangeEvent } from '@mui/material/Select';
 // import InputLabel from '@mui/material/InputLabel';
 import SoulPartsOf from '../soul/SoulPartsOf';
-// import { GAME_TYPE } from 'constants/contracts';
 import { CardItem, soulPartCardContent } from 'utils/cardContents';
-import { nameEntity } from 'helpers/utils';
 import { SelectedSoulContext } from 'contexts/SelectedSoul';
 
 /**
