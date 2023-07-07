@@ -2,11 +2,11 @@ import { useQuery } from '@apollo/client';
 import { useEffect, useState } from 'react';
 import { Box, Grid, Pagination, Typography } from '@mui/material';
 import { APP_CONFIGS } from '../constants/app';
-import Loader from './Loader';
-import GridCard from './GridCard';
 import { CardItem } from 'utils/cardContents';
+import GridCard from './GridCard';
 import GridCardTask from './GridCardTask';
 import GridCardUser from './GridCardUser';
+import Loader from './Loader';
 import { NO_RESULTS } from 'constants/texts';
 
 type TPaginatedList = {

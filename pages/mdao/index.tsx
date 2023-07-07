@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { Box, Button, Tooltip } from '@mui/material';
+import { Button, Tooltip } from '@mui/material';
 import { DialogContext } from 'contexts/dialog';
 import { DataContext } from 'contexts/data';
 import { getPageTitle } from '../../utils';

@@ -15,11 +15,13 @@ export default function GameView({ sx }: { sx?: SxProps }): JSX.Element {
   const { handleError } = useError();
   const { game, loading, error } = useContext(SelectedGameContext);
   if (error) {
-    handleError({ message: '404: Failed to load Game', game, error }, true);
+    handleError(
+      { message: '404: Failed to load Game Entity', game, error },
+      true,
+    );
     return <>Failed to Load Entity</>;
   }
   if (loading) return <Loading />;
-  // if (!game) return <>Failed to Load Entity</>;
   return (
     <Box sx={sx}>
       <GameDetail />

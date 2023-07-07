@@ -2,6 +2,14 @@ import { Dialog, DialogContent, DialogTitle } from '@mui/material';
 import { ReactElement, useContext, useState } from 'react';
 import { DialogContext } from 'contexts/dialog';
 
+interface DialogParams {
+  isClose: boolean;
+  onClose: () => void;
+  children?: ReactElement;
+  maxWidth?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | false;
+  title?: string;
+}
+
 /**
  * A Generic Dialog Wrapper
  */
@@ -11,13 +19,7 @@ export default function DialogWrapper({
   children,
   maxWidth, // = 'xs',
   title,
-}: {
-  isClose: boolean;
-  onClose: () => void;
-  children?: ReactElement;
-  maxWidth?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | false;
-  title?: string;
-}): ReactElement {
+}: DialogParams): ReactElement {
   // const [isLoading, setIsLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(!isClose);
   const { closeDialog } = useContext(DialogContext);

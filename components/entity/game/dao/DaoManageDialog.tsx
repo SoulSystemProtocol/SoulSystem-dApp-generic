@@ -60,6 +60,10 @@ export default function DaoManageDialog({
     },
   };
 
+  const widgets = {
+    ImageInput,
+  };
+
   const uiSchema = {
     image: {
       'ui:widget': 'ImageInput',
@@ -73,10 +77,6 @@ export default function DaoManageDialog({
         rows: 3,
       },
     },
-  };
-
-  const widgets = {
-    ImageInput,
   };
 
   async function close() {
