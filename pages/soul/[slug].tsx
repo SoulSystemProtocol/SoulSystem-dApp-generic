@@ -48,6 +48,8 @@ export default function SoulSinglePage(): JSX.Element {
 function SoulSinglePageContent(): JSX.Element {
   const { soul, loading, error } = useContext(SelectedSoulContext);
 
+  console.log('Soul Tags', soul?.tags);
+
   const CONF = {
     PAGE_TITLE: soulName(soul),
     TITLE: soulName(soul),
@@ -58,7 +60,7 @@ function SoulSinglePageContent(): JSX.Element {
     writingMode: 'vertical-lr',
     letterSpacing: '0.15em',
     fontSize: '0.8em',
-    margin: 'auto 0',
+    margin: '0 0 auto 0 ',
     transform: 'rotate(180deg)',
     marginLeft: '-18px',
   };

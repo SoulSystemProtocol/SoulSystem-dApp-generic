@@ -56,8 +56,8 @@ export default function DisplayPOAP({
       {title}
       <Box
         sx={{
-          display: 'flex',
-          flexDirection: 'row',
+          // display: 'flex',
+          // flexDirection: 'row',
           alignItems: 'center',
           ...sx,
         }}
@@ -90,14 +90,15 @@ export default function DisplayPOAP({
                   />
                 ),
               )}
-              {items.length > displayCount && !isShowMore && (
-                <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                  <Button onClick={() => setIsShowMore(true)}>Show All</Button>
-                </Box>
-              )}
+              
             </>
           )}
         </Grid>
+        {items.length > displayCount && !isShowMore && (
+                <Box sx={{ mb:'-30px' }}>
+                  <Button onClick={() => setIsShowMore(true)} sx={{float:'right'}}>Show All</Button>
+                </Box>
+              )}
       </Box>
     </>
   );
