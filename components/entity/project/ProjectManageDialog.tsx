@@ -75,7 +75,7 @@ export default function ProjectManageDialog({
   };
 
   const widgets = {
-    ImageInput: ImageInput,
+    ImageInput,
   };
 
   async function close() {
@@ -86,10 +86,10 @@ export default function ProjectManageDialog({
   }
 
   async function submit({ formData }: any) {
+    setIsLoading(true);
     try {
       setFormData(formData);
-      setIsLoading(true);
-      const { url: metadataUrl } = await uploadJsonToIPFS(formData);
+      const { url: metadataURI } = await uploadJsonToIPFS(formData);
       if (project) {
         // await editProject(project.id, meadataUrl);
         //TODO: Use Soul Edit Functionality for this
@@ -98,15 +98,15 @@ export default function ProjectManageDialog({
         await getContractHub().makeGame(
           GAME_TYPE.project,
           formData.name,
-          metadataUrl,
+          metadataURI,
         );
       }
       showToastSuccess('Success! Data will be updated soon');
       close();
     } catch (error: any) {
       handleError(error, true);
-      setIsLoading(false);
     }
+    setIsLoading(false);
   }
 
   return (

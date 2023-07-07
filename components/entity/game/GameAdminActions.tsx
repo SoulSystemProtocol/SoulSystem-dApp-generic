@@ -22,11 +22,11 @@ export default function GameAdminActions({
   const { game } = useContext(SelectedGameContext);
   const { soul } = useContext(SelectedSoulContext);
   const { showDialog, closeDialog } = useContext(DialogContext);
-  const [isSoulAdmin, setIsSoulAdmin] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
-    setIsSoulAdmin(
+    setIsAdmin(
       accountSoul && game && isSoulHasRole(game, accountSoul.id, 'admin'),
     );
   }, [accountSoul, game]);
@@ -35,20 +35,21 @@ export default function GameAdminActions({
   return (
     <Stack direction="column" spacing={1} sx={{ ...sx }}>
       <TooltipButton
-        disabled={!isSoulAdmin}
+        disabled={!isAdmin}
         sx={{ width: '100%' }}
-        tooltip={isSoulAdmin ? 'Edit Info' : 'Admin Only'}
+        tooltip={isAdmin ? 'Edit Info' : 'Admin Only'}
         size="small"
         variant="outlined"
         onClick={() => router.push('/soul/edit/' + soul.owner)}
       >
         Edit
       </TooltipButton>
+      {/* Moved to Roles Tab
       <TooltipButton
-        disabled={!isSoulAdmin}
+        disabled={!isAdmin}
         sx={{ width: '100%' }}
         tooltip={
-          isSoulAdmin
+          isAdmin
             ? 'Mint & Burn Role NFTs'
             : 'Mint & Burn Role NFTs (Admin Only)'
         }
@@ -61,7 +62,7 @@ export default function GameAdminActions({
         }
       >
         Manage Roles
-      </TooltipButton>
+      </TooltipButton> */}
     </Stack>
   );
 }

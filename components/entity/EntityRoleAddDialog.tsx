@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Save } from '@mui/icons-material';
 import { LoadingButton } from '@mui/lab';
 import {
@@ -6,119 +7,113 @@ import {
   DialogContent,
   DialogTitle,
   Stack,
+  Typography,
 } from '@mui/material';
 import { MuiForm5 as Form } from '@rjsf/material-ui';
-import SoulSearchBox from 'components/form/widget/SoulSearchBox';
-import RoleAutocomplete from 'components/form/widget/RoleAutocomplete';
+import ImageInput from 'components/form/widget/ImageInput';
 import useContract from 'hooks/useContract';
 import useError from 'hooks/useError';
 import useToast from 'hooks/useToast';
 import { JSONSchema7 } from 'json-schema';
-import { capitalize } from 'lodash';
-import { useState } from 'react';
+import useIpfs from 'hooks/useIpfs';
+import DefaultRoleImage from 'components/DefaultRoleImage';
+import { renderToStaticMarkup } from 'react-dom/server';
 
 /**
- * Fix to support enum names in the schema.
- *
- * Details - https://github.com/rjsf-team/react-jsonschema-form/issues/2663#issuecomment-1106698186
+ * Create a new Game Role
  */
-declare module 'json-schema' {
-  export interface JSONSchema7 {
-    enumNames?: Array<string>;
-  }
-}
-
-interface DialogParams {
-  game: any;
-  onClose: () => void;
-  isClose?: boolean;
-}
-
-/**
- * Assign or remove roles
- */
-export default function GameRoleManageDialog({
+export default function EntityRolesAddDialog({
   game,
   isClose,
   onClose,
-}: DialogParams): JSX.Element {
+}: {
+  game: any;
+  isClose?: boolean;
+  onClose: () => void;
+}): JSX.Element {
+  // const { closeDialog } = useContext(DialogContext);
   const { handleError } = useError();
   const { showToastSuccess } = useToast();
+  const { uploadJsonToIPFS, uploadToIPFS } = useIpfs();
   const [formData, setFormData] = useState({});
-  const [isLoading, setIsLoading] = useState(false);
-  const [isOpen, setIsOpen] = useState(!isClose);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState<boolean>(!isClose);
   const { getContractGame } = useContract();
   const schema: JSONSchema7 = {
-    description: 'Mint or burn NFTs that represent a organizational roles',
+    description: 'Create a New Role Token for this Organization',
     type: 'object',
-    required: ['soulId', 'action', 'roleName'],
+    required: ['name'],
     properties: {
-      action: {
+      image: {
         type: 'string',
-        title: 'Action',
-        default: 'assignRole',
-        enum: ['assignRole', 'removeRole'], //TODO: Maybe add support for roleChange (w/from & to fields)
-        enumNames: ['Assign (Mint)', 'Remove (Burn)'],
+        title: '',
       },
-      roleName: {
+      name: {
         type: 'string',
-        title: 'Role',
-        default: 'member',
+        title: 'Name',
+        default: '',
       },
-      soulId: {
+      description: {
         type: 'string',
-        title: 'Soul',
-      },
-      amount: {
-        type: 'number',
-        title: 'Amount',
-        default: 1,
+        title: 'Description',
+        default: '',
       },
     },
   };
+  const widgets = { ImageInput };
 
-  const widgets = {
-    SoulSearchBox,
-    RoleAutocomplete,
-  };
+  const payload = renderToStaticMarkup(
+    <DefaultRoleImage
+      role={'[Role]'}
+      game={'[Organization]'}
+      style={{ height: 600, width: 600 }}
+    />,
+  );
+  // console.warn("Payload", payload);
+  // const { url } = await
+  // uploadToIPFS( payload ).then((uri) => {console.warn("Payload URI:", uri)});
 
   const uiSchema = {
-    soulId: {
-      'ui:widget': 'SoulSearchBox',
-    },
-    roleName: {
-      'ui:widget': 'RoleAutocomplete',
+    image: {
+      'ui:widget': 'ImageInput',
+      borderRadius: '5px',
+      size: 275,
+      // value: 'ipfs://QmUmM6duopm49SGm1zYF1QK41ic4o26LzPuhgbWxiAf44a',
+      label: 'label',
       'ui:options': {
-        //Populate with Existing Roles
-        options: game.roles.map((role: any) => role.name),
+        header: (
+          <Typography variant="subtitle2">Image (click to upload)</Typography>
+        ),
+        // default: 'ipfs://QmUmM6duopm49SGm1zYF1QK41ic4o26LzPuhgbWxiAf44a',
+        default: 'ipfs://QmdKX2Fp7nFcXF82kBXTKZNRH4PJASvYPohPzhWiVtRsYx',
+      },
+    },
+    description: {
+      'ui:widget': 'textarea',
+      'ui:options': {
+        rows: 3,
       },
     },
   };
-
-  async function close() {
+  const close = () => {
     setFormData({});
     setIsLoading(false);
     setIsOpen(false);
     onClose();
-  }
+  };
 
   async function submit({ formData }: any) {
     setIsLoading(true);
     try {
       setFormData(formData);
-      if (formData.action === 'assignRole') {
-        await getContractGame(game.id).roleAssignToToken(
-          formData.soulId,
-          formData.roleName,
-          formData.amount,
-        );
-      } else if (formData.action === 'removeRole') {
-        await getContractGame(game.id).roleRemoveFromToken(
-          formData.soulId,
-          formData.roleName,
-          formData.amount,
-        );
-      } else console.error('Unknown action: ' + formData.action);
+      //Names in Lowercase
+      formData.name = formData.name.toLowerCase();
+      //Upload Metadata to IPFS
+      const { url: metadataURI } = await uploadJsonToIPFS(formData);
+
+      console.warn('[DEV] Saving metadata', { metadataURI, formData });
+
+      await getContractGame(game.id).roleMake(formData.name, metadataURI);
       showToastSuccess('Success! Data will be updated soon');
       close();
     } catch (error: any) {
@@ -129,7 +124,7 @@ export default function GameRoleManageDialog({
 
   return (
     <Dialog open={isOpen} onClose={onClose} maxWidth="xs" fullWidth>
-      <DialogTitle sx={{ pb: 0 }}>Manage Roles</DialogTitle>
+      <DialogTitle sx={{ pb: 0 }}>Create New Role</DialogTitle>
       <DialogContent>
         <Form
           schema={schema}
