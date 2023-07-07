@@ -13,6 +13,7 @@ const query = gql`
         name
         souls
         soulsCount
+        metadata
       }
       nominations {
         id

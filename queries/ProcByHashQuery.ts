@@ -22,6 +22,7 @@ const query = gql`
         roleId
         souls
         soulsCount
+        metadata
       }
       nominations {
         id

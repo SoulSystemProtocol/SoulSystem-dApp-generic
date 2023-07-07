@@ -10,6 +10,7 @@ const query = gql`
       roleId
       name
       souls
+      metadata
     }
   }
 `;
