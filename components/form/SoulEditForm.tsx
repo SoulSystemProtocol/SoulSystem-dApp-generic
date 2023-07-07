@@ -4,6 +4,7 @@ import { Button, Stack } from '@mui/material';
 import { MuiForm5 as Form } from '@rjsf/material-ui';
 import CoverInput from 'components/form/widget/CoverInput';
 import ImageInput from 'components/form/widget/ImageInput';
+import Person4Icon from '@mui/icons-material/Person4';
 import SoulAttributesInput from 'components/form/widget/SoulAttributesInput';
 import { DataContext } from 'contexts/data';
 import { prepMetadata } from 'helpers/metadata';
@@ -73,6 +74,9 @@ export default function SoulEditForm({
   const defaultUiSchema = {
     image: {
       'ui:widget': 'ImageInput',
+      'ui:options': {
+        label: <Person4Icon sx={{ fontSize: '90px', opacity: '0.8' }} />,
+      },
     },
     cover: {
       'ui:widget': 'CoverInput',
