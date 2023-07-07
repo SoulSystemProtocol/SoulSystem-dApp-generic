@@ -130,7 +130,7 @@ export default function SoulEditForm({
           : //Contract Soul
             await getContractGame(soul.owner).setContractURI(metadataUrl);
         showToastSuccess(
-          'Update has been sent to chain and will be processed shortly',
+          'Update has been sent to chain and will be processed shortly. Please refresh page in a few seconds.',
         );
         // await tx.wait(); //No need...
         //Update Current Soul's Metadata
