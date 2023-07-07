@@ -142,7 +142,9 @@ export default function SoulEditForm({
         router.push('/soul/' + soul.id);
       } else {
         let tx = await getContractSoul().mint(metadataUrl);
-        showToastSuccess('Your new soul is on its way');
+        showToastSuccess(
+          'Your new soul is on its way. Please refresh page in a few seconds.',
+        );
         analyticsEvent('soulMint');
         await tx.wait();
 
