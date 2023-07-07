@@ -103,7 +103,10 @@ export default function EntityRoles({ sx }: { sx?: SxProps }): JSX.Element {
 
       <Stack direction="row" flexWrap="wrap">
         {game.roles.map((role: any) => {
+          
           console.warn('Role Data', role);
+          //TODO: Pull actual metadata from Tokens
+
           return (
             <Card
               key={role.name}
