@@ -14,7 +14,6 @@ import useContract from 'hooks/useContract';
 import useError from 'hooks/useError';
 import useToast from 'hooks/useToast';
 import { JSONSchema7 } from 'json-schema';
-import { capitalize } from 'lodash';
 import { useState } from 'react';
 
 /**
