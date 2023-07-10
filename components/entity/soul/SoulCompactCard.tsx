@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   Avatar,
   Box,
@@ -9,8 +9,9 @@ import {
   Stack,
 } from '@mui/material';
 import PersonIcon from '@mui/icons-material/Person';
-import { addressToShortAddress } from 'utils/converters';
+import { addressToShortAddress, processGraphEntity } from 'utils/converters';
 import { soulName, soulImage } from 'utils/soul';
+import { normalizeGraphEntity } from 'helpers/metadata';
 
 /**
  * Passive Component for a compact profile card
@@ -29,6 +30,11 @@ export default function SoulCompactCard({
   sx?: SxProps;
 }): JSX.Element {
   const [isLoading, setIsLoading] = useState(false);
+
+  //Process Profile (if needed)
+  if (typeof profile.metadata == 'string') {
+    profile = normalizeGraphEntity(profile);
+  }
 
   return (
     <Box
