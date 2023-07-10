@@ -22,21 +22,6 @@ export function hexStringToJson(hexString: string): any {
 }
 
 /**
- * Process Graph Entity
- */
-export function processGraphEntity(entity: any): any {
-  try {
-    //Process Metadata
-    if (typeof entity?.metadata == 'string') {
-      entity.metadata = hexStringToJson(entity.metadata);
-    }
-  } catch (error) {
-    console.error('Failed to process Graph Entity', { entity, error });
-  }
-  return entity;
-}
-
-/**
  * Trim string
  */
 export function cutoff(str: string, n: number): string {

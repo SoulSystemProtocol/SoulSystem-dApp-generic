@@ -25,12 +25,14 @@ export const normalizeGraphEntity = (subgraphEntity: any): any => {
       subgraphEntity.role + ' Entity missing Metadata',
       subgraphEntity,
     );
-  return subgraphEntity
+  return !subgraphEntity
+    ? null
+    : typeof subgraphEntity?.metadata == 'string' 
     ? {
         ...subgraphEntity,
         metadata: hexStringToJson(subgraphEntity?.metadata),
       }
-    : null;
+    : subgraphEntity;
 };
 
 /**

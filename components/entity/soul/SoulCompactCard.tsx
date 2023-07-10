@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import {
   Avatar,
   Box,
@@ -9,7 +9,7 @@ import {
   Stack,
 } from '@mui/material';
 import PersonIcon from '@mui/icons-material/Person';
-import { addressToShortAddress, processGraphEntity } from 'utils/converters';
+import { addressToShortAddress } from 'utils/converters';
 import { soulName, soulImage } from 'utils/soul';
 import { normalizeGraphEntity } from 'helpers/metadata';
 
