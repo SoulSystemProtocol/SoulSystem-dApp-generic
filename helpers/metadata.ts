@@ -20,29 +20,19 @@ export interface MetadataAttribute {
 export const normalizeGraphEntity = (subgraphEntity: any): any => {
   //Validations
   if (!subgraphEntity) return null;
-  if (!subgraphEntity?.metadata)
-    console.error(
-      subgraphEntity.role + ' Entity missing Metadata',
-      subgraphEntity,
-    );
-  return subgraphEntity
+  // if (!subgraphEntity?.metadata)
+  //   console.warn(
+  //     subgraphEntity.role + ' Entity missing Metadata',
+  //     subgraphEntity,
+  //   );
+  return !subgraphEntity
+    ? null
+    : typeof subgraphEntity?.metadata == 'string' 
     ? {
         ...subgraphEntity,
         metadata: hexStringToJson(subgraphEntity?.metadata),
       }
-    : null;
-};
-
-/**
- * Prep Metadata
- */
-export const prepMetadata = (metadata: any): any => {
-  metadata.name = MetaAttrHelper.extractName(metadata?.attributes);
-  metadata.description = MetaAttrHelper.extractValue(
-    metadata?.attributes,
-    'description',
-  );
-  return metadata;
+    : subgraphEntity;
 };
 
 /**

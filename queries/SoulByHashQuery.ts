@@ -14,6 +14,7 @@ const query = gql`
       uriFirstName
       uriLastName
       name
+      tags
     }
   }
 `;

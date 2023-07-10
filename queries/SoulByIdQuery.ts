@@ -13,6 +13,7 @@ const query = gql`
       uriFirstName
       uriLastName
       name
+      tags
       attrs {
         id
         role

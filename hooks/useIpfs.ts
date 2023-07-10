@@ -26,14 +26,19 @@ export default function useIpfs() {
     url: process.env.NEXT_PUBLIC_THE_GRAPH_IPFS_API,
   });
 
-  const uploadFileToIPFS = async function (file: any) {
-    const created = await infuraClient.add({
-      path: '',
-      content: file,
-    });
+  const uploadToIPFS = async function (content: any) {
+    const created = await infuraClient.add(content);
     const cid = created.path;
     const url = `ipfs://${cid}`;
     return { cid, url };
+  };
+
+
+  const uploadFileToIPFS = async function (file: any) {
+    return uploadToIPFS({
+      path: '',
+      content: file,
+    });
   };
 
   const uploadJsonToIPFS = async function (json: any) {
@@ -45,11 +50,8 @@ export default function useIpfs() {
         console.error('Failed to save file to Graph IPFS', error),
       );
     // Upload to IPFS via infura
-    const created = await infuraClient.add(jsonString);
-    const cid = created.path;
-    const url = `ipfs://${cid}`;
-    return { cid, url };
+    return uploadToIPFS(jsonString);
   };
 
-  return { uploadFileToIPFS, uploadJsonToIPFS };
+  return { uploadToIPFS, uploadFileToIPFS, uploadJsonToIPFS };
 }

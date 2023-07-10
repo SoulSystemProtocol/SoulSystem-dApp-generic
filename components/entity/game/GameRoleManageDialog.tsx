@@ -14,7 +14,6 @@ import useContract from 'hooks/useContract';
 import useError from 'hooks/useError';
 import useToast from 'hooks/useToast';
 import { JSONSchema7 } from 'json-schema';
-import { capitalize } from 'lodash';
 import { useState } from 'react';
 
 /**
@@ -30,7 +29,7 @@ declare module 'json-schema' {
 
 interface DialogParams {
   game: any;
-  onClose: any;
+  onClose: () => void;
   isClose?: boolean;
 }
 
@@ -57,7 +56,7 @@ export default function GameRoleManageDialog({
         type: 'string',
         title: 'Action',
         default: 'assignRole',
-        enum: ['assignRole', 'removeRole'],
+        enum: ['assignRole', 'removeRole'], //TODO: Maybe add support for roleChange (w/from & to fields)
         enumNames: ['Assign (Mint)', 'Remove (Burn)'],
       },
       roleName: {
@@ -128,12 +127,7 @@ export default function GameRoleManageDialog({
   }
 
   return (
-    <Dialog
-      open={isOpen}
-      onClose={isLoading ? null : onClose}
-      maxWidth="xs"
-      fullWidth
-    >
+    <Dialog open={isOpen} onClose={onClose} maxWidth="xs" fullWidth>
       <DialogTitle sx={{ pb: 0 }}>Manage Roles</DialogTitle>
       <DialogContent>
         <Form

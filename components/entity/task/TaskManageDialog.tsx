@@ -99,6 +99,9 @@ export default function TaskManageDialog({
         //Update URI
         await getContractTask(task.id).setContractURI(metadataUrl);
       } else {
+        console.warn("[DEV] Make Task", {project: project.id, type: GAME_TYPE.task,
+          name: formData.name,
+          metadataUrl})
         await getContractGameProject(project.id).makeTask(
           GAME_TYPE.task,
           formData.name,
@@ -121,7 +124,7 @@ export default function TaskManageDialog({
       fullWidth
     >
       <DialogTitle sx={{ pb: 0 }}>
-        {task ? 'Edit ' + nameEntity('task') : 'Deploy ' + nameEntity('task')}
+        {`${task ? 'Edit ' : 'Deploy'} ` + nameEntity('task')}
       </DialogTitle>
       <DialogContent>
         <Form

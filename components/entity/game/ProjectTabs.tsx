@@ -6,6 +6,7 @@ import { nameEntity } from 'helpers/utils';
 import { useState } from 'react';
 import ProjectAddTaskButton from 'components/entity/project/ProjectAddTaskButton';
 import ProjectTaskList from 'components/entity/project/ProjectTaskList';
+import EntityRoles from '../EntityRoles';
 
 /**
  * Project tabs
@@ -34,16 +35,20 @@ export default function ProjectTabs({ item: project, sx }: any) {
           {/* <Tab label="Announcements" value="1" /> */}
           <Tab label={nameEntity('task', true)} value="1" />
           <Tab label="Members" value="3" />
+          <Tab label="Roles" value="5" />
         </TabList>
-        {/* <TabPanel value="1" sx={{ px: 0 }}>
+        {/* <TabPanel value="1" sx={{ px: { xs: 0, sm: 2 } }}>
           <EntityPosts item={project} />
         </TabPanel> */}
         <TabPanel value="1" sx={{ px: 0 }}>
           <ProjectAddTaskButton project={project} sx={{ mb: 4 }} />
           <ProjectTaskList />
         </TabPanel>
-        <TabPanel value="3" sx={{ px: 0 }}>
+        <TabPanel value="3" sx={{ px: { xs: 0, sm: 2 } }}>
           <CTXParts />
+        </TabPanel>
+        <TabPanel value="5" sx={{ px: { xs: 0, sm: 2 } }}>
+          <EntityRoles />
         </TabPanel>
       </TabContext>
     </Box>

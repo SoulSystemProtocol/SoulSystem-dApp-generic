@@ -48,7 +48,8 @@ export default function SoulSinglePage(): JSX.Element {
 function SoulSinglePageContent(): JSX.Element {
   const { soul, loading, error } = useContext(SelectedSoulContext);
 
-  console.log('Soul Tags', soul?.tags);
+  if (soul?.tags !== undefined) console.log('Soul Tags', soul?.tags);
+  console.log('Soul', soul);
 
   const CONF = {
     PAGE_TITLE: soulName(soul),

@@ -1,6 +1,6 @@
 import { Autocomplete, Box, TextField, SxProps } from '@mui/material';
 import SoulCompactCard from 'components/entity/soul/SoulCompactCard';
-import useError from 'hooks/useError';
+// import useError from 'hooks/useError';
 import { ReactElement, useEffect, useState } from 'react';
 import { soulName } from 'utils/soul';
 import { useQuery } from '@apollo/client';
@@ -34,25 +34,25 @@ export default function SoulSearchBox({
   disabled = false,
   onChange = () => {},
   onKeyDown = () => {},
-  type = '', //TODO: Should Maybe Also Allow Games...
-  role = '',
+  type,
+  role,
 }: TProps): ReactElement {
   const [isDisabled, setIsDisabled] = useState(disabled);
   const [selectedSoul, setSelectedSoul] = useState(null);
   const [inputValue, setInputValue] = useState<string>(''); //Current text input value
   const [searchQueryParams, setSearchQueryParams] = useState<string>(''); //Current text input value
   const [items, setItems] = useState<Array<any>>([]);
-  const { handleError } = useError();
+  // const { handleError } = useError();
 
   useEffect(() => {
     let queryFilters: string[] = [];
     // queryFilters.push(`type: "" `);
     if (type !== undefined) queryFilters.push(`type: "${type}"`);
-    role && queryFilters.push(`role: "${role}"`);
+    if (role !== undefined) queryFilters.push(`role: "${role}"`);
     inputValue &&
       queryFilters.push(`searchField_contains_nocase: "${inputValue}"`);
     let searchQueryParams = queryFilters.join(', ');
-    // console.log('searchQueryParams', searchQueryParams);
+    console.log('searchQueryParams', searchQueryParams);
     setSearchQueryParams(searchQueryParams);
   }, [inputValue]);
 

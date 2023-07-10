@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Save } from '@mui/icons-material';
 import { LoadingButton } from '@mui/lab';
 import {
@@ -6,41 +7,40 @@ import {
   DialogContent,
   DialogTitle,
   Stack,
+  Typography,
 } from '@mui/material';
 import { MuiForm5 as Form } from '@rjsf/material-ui';
 import ImageInput from 'components/form/widget/ImageInput';
-import { GAME_TYPE } from 'constants/contracts';
+import useContract from 'hooks/useContract';
 import useError from 'hooks/useError';
-import useIpfs from 'hooks/useIpfs';
 import useToast from 'hooks/useToast';
 import { JSONSchema7 } from 'json-schema';
-import { useState } from 'react';
-import useContract from 'hooks/useContract';
-import { nameEntity } from 'helpers/utils';
+import useIpfs from 'hooks/useIpfs';
+import DefaultRoleImage from 'components/DefaultRoleImage';
+import { renderToStaticMarkup } from 'react-dom/server';
 
 /**
- * A dialog for creating a new project
+ * Create a new Game Role
  */
-export default function ProjectManageDialog({
-  project,
+export default function EntityRolesAddDialog({
+  game,
   isClose,
   onClose,
-}: any) {
-  const { showToastSuccess } = useToast();
-  const { uploadJsonToIPFS } = useIpfs();
+}: {
+  game: any;
+  isClose?: boolean;
+  onClose: () => void;
+}): JSX.Element {
+  // const { closeDialog } = useContext(DialogContext);
   const { handleError } = useError();
-  const { getContractHub } = useContract();
-  const [isLoading, setIsLoading] = useState(false);
-  const [isOpen, setIsOpen] = useState(!isClose);
-  const [formData, setFormData] = useState({
-    ...(project && {
-      image: project?.metadata?.image,
-      name: project.name,
-      description: project?.metadata?.description,
-    }),
-  });
-
+  const { showToastSuccess } = useToast();
+  const { uploadJsonToIPFS, uploadToIPFS } = useIpfs();
+  const [formData, setFormData] = useState({});
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState<boolean>(!isClose);
+  const { getContractGame } = useContract();
   const schema: JSONSchema7 = {
+    description: 'Create a New Role Token for this Organization',
     type: 'object',
     required: ['name'],
     properties: {
@@ -51,20 +51,42 @@ export default function ProjectManageDialog({
       name: {
         type: 'string',
         title: 'Name',
+        default: '',
       },
       description: {
         type: 'string',
         title: 'Description',
+        default: '',
       },
     },
   };
+  const widgets = { ImageInput };
+
+  const payload = renderToStaticMarkup(
+    <DefaultRoleImage
+      role={'[Role]'}
+      game={'[Organization]'}
+      style={{ height: 600, width: 600 }}
+    />,
+  );
+  // console.warn("Payload", payload);
+  // const { url } = await
+  // uploadToIPFS( payload ).then((uri) => {console.warn("Payload URI:", uri)});
 
   const uiSchema = {
     image: {
       'ui:widget': 'ImageInput',
-    },
-    name: {
-      'ui:disabled': project ? true : false,
+      borderRadius: '5px',
+      size: 275,
+      // value: 'ipfs://QmUmM6duopm49SGm1zYF1QK41ic4o26LzPuhgbWxiAf44a',
+      label: 'label',
+      'ui:options': {
+        header: (
+          <Typography variant="subtitle2">Image (click to upload)</Typography>
+        ),
+        // default: 'ipfs://QmUmM6duopm49SGm1zYF1QK41ic4o26LzPuhgbWxiAf44a',
+        default: 'ipfs://QmdKX2Fp7nFcXF82kBXTKZNRH4PJASvYPohPzhWiVtRsYx',
+      },
     },
     description: {
       'ui:widget': 'textarea',
@@ -73,34 +95,25 @@ export default function ProjectManageDialog({
       },
     },
   };
-
-  const widgets = {
-    ImageInput,
-  };
-
-  async function close() {
+  const close = () => {
     setFormData({});
     setIsLoading(false);
     setIsOpen(false);
     onClose();
-  }
+  };
 
   async function submit({ formData }: any) {
     setIsLoading(true);
     try {
       setFormData(formData);
+      //Names in Lowercase
+      formData.name = formData.name.toLowerCase();
+      //Upload Metadata to IPFS
       const { url: metadataURI } = await uploadJsonToIPFS(formData);
-      if (project) {
-        // await editProject(project.id, meadataUrl);
-        //TODO: Use Soul Edit Functionality for this
-        console.error('No Mapped Function. Should Use Soul Edit');
-      } else {
-        await getContractHub().makeGame(
-          GAME_TYPE.project,
-          formData.name,
-          metadataURI,
-        );
-      }
+
+      console.warn('[DEV] Saving metadata', { metadataURI, formData });
+
+      await getContractGame(game.id).roleMake(formData.name, metadataURI);
       showToastSuccess('Success! Data will be updated soon');
       close();
     } catch (error: any) {
@@ -110,23 +123,14 @@ export default function ProjectManageDialog({
   }
 
   return (
-    <Dialog
-      open={isOpen}
-      onClose={isLoading ? () => {} : close}
-      maxWidth="xs"
-      fullWidth
-    >
-      <DialogTitle sx={{ pb: 0 }}>
-        {project
-          ? 'Edit ' + nameEntity('project')
-          : 'Deploy ' + nameEntity('project')}
-      </DialogTitle>
+    <Dialog open={isOpen} onClose={onClose} maxWidth="xs" fullWidth>
+      <DialogTitle sx={{ pb: 0 }}>Create New Role</DialogTitle>
       <DialogContent>
         <Form
           schema={schema}
-          formData={formData}
           uiSchema={uiSchema}
           widgets={widgets}
+          formData={formData}
           onSubmit={submit}
           disabled={isLoading}
         >
@@ -143,7 +147,7 @@ export default function ProjectManageDialog({
             ) : (
               <>
                 <Button variant="contained" type="submit">
-                  {project ? 'Save' : 'Create'}
+                  Submit
                 </Button>
                 <Button variant="outlined" onClick={onClose}>
                   Cancel
