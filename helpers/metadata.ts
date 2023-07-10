@@ -20,11 +20,11 @@ export interface MetadataAttribute {
 export const normalizeGraphEntity = (subgraphEntity: any): any => {
   //Validations
   if (!subgraphEntity) return null;
-  if (!subgraphEntity?.metadata)
-    console.error(
-      subgraphEntity.role + ' Entity missing Metadata',
-      subgraphEntity,
-    );
+  // if (!subgraphEntity?.metadata)
+  //   console.warn(
+  //     subgraphEntity.role + ' Entity missing Metadata',
+  //     subgraphEntity,
+  //   );
   return !subgraphEntity
     ? null
     : typeof subgraphEntity?.metadata == 'string' 

@@ -22,6 +22,9 @@ import { styled } from '@mui/material/styles';
 import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
 import GameRoleManageDialog from './game/GameRoleManageDialog';
+import { normalizeGraphEntity } from 'helpers/metadata';
+import { resolveLink } from 'helpers/IPFS';
+import ImageBox from 'components/utils/ImageBox';
 
 /**
  * CTX Roles
@@ -103,10 +106,8 @@ export default function EntityRoles({ sx }: { sx?: SxProps }): JSX.Element {
 
       <Stack direction="row" flexWrap="wrap">
         {game.roles.map((role: any) => {
-          
-          console.warn('Role Data', role);
-          //TODO: Pull actual metadata from Tokens
-
+          //Normalize Grap Data
+          role = normalizeGraphEntity(role);
           return (
             <Card
               key={role.name}
@@ -118,12 +119,22 @@ export default function EntityRoles({ sx }: { sx?: SxProps }): JSX.Element {
                 mb: 2,
               }}
             >
-              <DefaultRoleImage
-                role={role.name}
-                game={soul.name}
-                style={{ height: 200, width: '100%' }}
-              />
-
+              {role?.metadata?.image ? (
+                <img
+                  src={resolveLink(role.metadata.image)}
+                  style={{
+                    maxWidth: '100%',
+                    maxHeight: '100%',
+                    aspectRatio: 1,
+                  }}
+                />
+              ) : (
+                <DefaultRoleImage
+                  role={role.name}
+                  game={soul.name}
+                  style={{ height: 200, width: '100%' }}
+                />
+              )}
               <Box
                 sx={{
                   maxWidth: '100%',
@@ -138,7 +149,7 @@ export default function EntityRoles({ sx }: { sx?: SxProps }): JSX.Element {
                     <StyledBadge badgeContent={role.soulsCount.toString()} />
                   </Tooltip>
                 </Stack>
-                <Typography>{role.description}</Typography>
+                <Typography>{role.metadata?.description}</Typography>
               </Box>
             </Card>
           );
