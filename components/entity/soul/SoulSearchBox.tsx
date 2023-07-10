@@ -34,8 +34,8 @@ export default function SoulSearchBox({
   disabled = false,
   onChange = () => {},
   onKeyDown = () => {},
-  type = '', //TODO: Should Maybe Also Allow Games...
-  role = '',
+  type,
+  role,
 }: TProps): ReactElement {
   const [isDisabled, setIsDisabled] = useState(disabled);
   const [selectedSoul, setSelectedSoul] = useState(null);
@@ -48,11 +48,11 @@ export default function SoulSearchBox({
     let queryFilters: string[] = [];
     // queryFilters.push(`type: "" `);
     if (type !== undefined) queryFilters.push(`type: "${type}"`);
-    role && queryFilters.push(`role: "${role}"`);
+    if (role !== undefined) queryFilters.push(`role: "${role}"`);
     inputValue &&
       queryFilters.push(`searchField_contains_nocase: "${inputValue}"`);
     let searchQueryParams = queryFilters.join(', ');
-    // console.log('searchQueryParams', searchQueryParams);
+    console.log('searchQueryParams', searchQueryParams);
     setSearchQueryParams(searchQueryParams);
   }, [inputValue]);
 
