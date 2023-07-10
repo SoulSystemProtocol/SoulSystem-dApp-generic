@@ -1,6 +1,6 @@
 import { Autocomplete, Box, TextField, SxProps } from '@mui/material';
 import SoulCompactCard from 'components/entity/soul/SoulCompactCard';
-import useError from 'hooks/useError';
+// import useError from 'hooks/useError';
 import { ReactElement, useEffect, useState } from 'react';
 import { soulName } from 'utils/soul';
 import { useQuery } from '@apollo/client';
@@ -42,7 +42,7 @@ export default function SoulSearchBox({
   const [inputValue, setInputValue] = useState<string>(''); //Current text input value
   const [searchQueryParams, setSearchQueryParams] = useState<string>(''); //Current text input value
   const [items, setItems] = useState<Array<any>>([]);
-  const { handleError } = useError();
+  // const { handleError } = useError();
 
   useEffect(() => {
     let queryFilters: string[] = [];
