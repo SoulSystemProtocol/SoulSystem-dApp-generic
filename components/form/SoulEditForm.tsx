@@ -97,14 +97,7 @@ export default function SoulEditForm({
       //Status: Uploading to IPFS
       setStatus(STATUS.ipfsUpload);
       //Prep Metadata Object
-      let metadata = prepMetadata(formData);
-
-      //[DEV] Validate
-      if (formData.name == 'Anonymous')
-        console.error('Saving Soul with a default name...', {
-          formData,
-          metadata,
-        });
+      let metadata = formData;
 
       //Sanitize -- Clean Empty Attributes (Automatically added by form)
       if (!!metadata.attributes) {
@@ -119,16 +112,17 @@ export default function SoulEditForm({
       }
       //Save to IPFS
       const { url: metadataUrl } = await uploadJsonToIPFS(metadata);
+
       //Status: Using contract / Wait for Chain
       setStatus(STATUS.waitForChain);
 
       if (soul) {
-        // let tx =
-        !soul.type && !soul.role
-          ? //Human Soul
-            await getContractSoul().update(soul.id, metadataUrl)
-          : //Contract Soul
-            await getContractGame(soul.owner).setContractURI(metadataUrl);
+        const tx =
+          !soul.type && !soul.role
+            ? //Human Soul
+              await getContractSoul().update(soul.id, metadataUrl)
+            : //Contract Soul
+              await getContractGame(soul.owner).setContractURI(metadataUrl);
         showToastSuccess(
           'Update has been sent to chain and will be processed shortly. Please refresh page in a few seconds.',
         );
@@ -136,20 +130,26 @@ export default function SoulEditForm({
         //Update Current Soul's Metadata
         soul.id == accountSoul.id && injectMetadata?.(metadata);
         analyticsEvent('soulEdit', { id: soul.id });
-        //TODO: Optimistic Updates for Non-current Souls
+
+        await tx.wait();
+        console.log('TX Included');
+        //TODO: Optimistic Updates for Non-current Souls or Force Page/Query Refresh
 
         //Redirect out of edit mode
         router.push('/soul/' + soul.id);
       } else {
-        let tx = await getContractSoul().mint(metadataUrl);
+        const tx = await getContractSoul().mint(metadataUrl);
         showToastSuccess(
           'Your new soul is on its way. Please refresh page in a few seconds.',
         );
         analyticsEvent('soulMint');
         await tx.wait();
+        console.log('TX Included');
 
         //Optimistic injection for new accountSoul
-        let nextTokenId = await getContractSoul().callStatic.mint(metadataUrl);
+        const nextTokenId = await getContractSoul().callStatic.mint(
+          metadataUrl,
+        );
         injectSoul?.(metadata, {
           id: Number(nextTokenId),
         });

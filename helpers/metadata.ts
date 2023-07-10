@@ -36,18 +36,6 @@ export const normalizeGraphEntity = (subgraphEntity: any): any => {
 };
 
 /**
- * Prep Metadata
- */
-export const prepMetadata = (metadata: any): any => {
-  metadata.name = MetaAttrHelper.extractName(metadata?.attributes);
-  metadata.description = MetaAttrHelper.extractValue(
-    metadata?.attributes,
-    'description',
-  );
-  return metadata;
-};
-
-/**
  * Update a Soul Entity on metadata update
  */
 export const updateSoul = (soul: any, metadata: any) => {
