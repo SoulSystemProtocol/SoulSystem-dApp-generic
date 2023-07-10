@@ -7,7 +7,6 @@ import ImageInput from 'components/form/widget/ImageInput';
 import Person4Icon from '@mui/icons-material/Person4';
 import SoulAttributesInput from 'components/form/widget/SoulAttributesInput';
 import { DataContext } from 'contexts/data';
-import { prepMetadata } from 'helpers/metadata';
 import useContract from 'hooks/useContract';
 import useError from 'hooks/useError';
 import useIpfs from 'hooks/useIpfs';
