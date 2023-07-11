@@ -3,7 +3,7 @@ import axios from 'axios';
 
 ///Generate Page Title
 export const getPageTitle = (pageName: string) =>
-  `${APP_CONFIGS.NAME} ${APP_CONFIGS.TITLE_SEP} ${pageName}`;
+  `${pageName} ${APP_CONFIGS.TITLE_SEP} ${APP_CONFIGS.NAME}`;
 
 /// Pagination Helper
 export const getPagination = (page: any) => (page - 1) * APP_CONFIGS.PAGE_SIZE;

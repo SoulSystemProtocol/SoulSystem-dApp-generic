@@ -24,7 +24,7 @@ import { NO_SOUL_MSG } from 'constants/texts';
 import useContract from 'hooks/useContract';
 import Link from 'components/utils/Link';
 import { nameEntity } from 'helpers/utils';
-import { soulImage } from 'utils/soul';
+import { soulImage, soulLink, soulName } from 'utils/soul';
 import { getSoulsByRole } from 'hooks/utils';
 
 /**
@@ -126,8 +126,8 @@ function TaskApprovedDelivery({ soulId }: any) {
             </Avatar>
           </ListItemAvatar>
           <Stack direction="row" spacing={1}>
-            <Link href={`/soul/${soul?.owner}`}>
-              <Typography>{soul?.name}</Typography>
+            <Link href={soulLink(soul)}>
+              <Typography>{soulName(soul)}</Typography>
             </Link>
           </Stack>
         </>

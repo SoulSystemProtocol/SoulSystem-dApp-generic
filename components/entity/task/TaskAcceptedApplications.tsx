@@ -15,7 +15,7 @@ import useSouls from 'hooks/useSouls';
 import { getSoulsByRole } from 'hooks/utils';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import { soulImage } from 'utils/soul';
+import { soulImage, soulLink } from 'utils/soul';
 
 /** [DEPRECATE?] What is this even for?!
  *
@@ -51,7 +51,7 @@ export default function TaskAcceptedApplications({ task, sx }: any) {
 }
 
 function TaskAcceptedApplication({ soul }: any) {
-  const { handleError } = useError();
+  // const { handleError } = useError();
 
   return (
     <ListItem sx={{ flex: '1 0', minWidth: '200px' }}>
@@ -61,7 +61,7 @@ function TaskAcceptedApplication({ soul }: any) {
             <CheckOutlined />
           </Avatar>
         </ListItemAvatar>
-        <Link href={`/soul/${soul.owner}`} passHref>
+        <Link href={soulLink(soul)} passHref>
           <MuiLink underline="none">
             <Typography>{soul.name || '...'}</Typography>
           </MuiLink>

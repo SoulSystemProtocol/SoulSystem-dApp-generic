@@ -22,7 +22,7 @@ import { renderToStaticMarkup } from 'react-dom/server';
 /**
  * Create a new Game Role
  */
-export default function EntityRolesAddDialog({
+export default function CTXRolesAddDialog({
   game,
   isClose,
   onClose,

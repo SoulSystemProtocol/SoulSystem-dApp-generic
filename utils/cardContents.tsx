@@ -4,9 +4,8 @@ import TaskSoulCardDetails from 'components/entity/task/TaskSoulCardDetails';
 import PersonIcon from '@mui/icons-material/Person';
 import { normalizeGraphEntity } from 'helpers/metadata';
 import { SxProps } from '@mui/material';
-import StageDisplay from 'components/entity/task/StageDisplay';
 import { addressToShortAddress, hexStringToJson } from 'utils/converters';
-import { soulDescription, soulImage, soulName } from 'utils/soul';
+import { soulDescription, soulImage, soulLink, soulName } from 'utils/soul';
 
 export interface CardItem {
   id: string;
@@ -46,7 +45,7 @@ export const soulCardProcessedContent = (
     avatarIcon: <PersonIcon sx={{ fontSize: 50 }} />,
     label: addressToShortAddress(item.owner),
     title: soulName(item),
-    link: `/soul/${item.id}`,
+    link: soulLink(item),
     roles,
   };
   return ret;
@@ -61,7 +60,7 @@ export const gameCardContent = (item: any): CardItem => {
     label: metadata?.description,
     title: metadata?.name,
     metadata,
-    link: `/soul/${item.owner}`,
+    link: soulLink(item),
     avatarIcon: <WorkOutlineOutlined />,
   };
   return ret;
@@ -78,7 +77,7 @@ export const processCardContent = (soul: any): CardItem => {
     label: metadata?.description,
     title: metadata?.name,
     metadata,
-    link: `/soul/${soul.owner}`,
+    link: soulLink(soul),
     children: soul && <TaskSoulCardDetails address={soul.owner} />,
   };
   return ret;
@@ -96,7 +95,7 @@ export const containedProcContent = (relation: any): CardItem => {
     label: metadata?.description,
     title: metadata?.name,
     metadata,
-    link: `/soul/${soul?.owner}`,
+    link: soulLink(soul),
     children: soul && <TaskSoulCardDetails address={soul?.owner} />,
     linkSX: { display: { xs: 'none', md: 'block' } },
   };
@@ -113,7 +112,7 @@ export const soulPartCardContent = (item: any): CardItem => {
     title: soulName({ ...item.ent, metadata }),
     label: soulDescription({ ...item.ent, metadata }),
     metadata,
-    link: `/soul/${item.ent.owner}`,
+    link: soulLink(item.ent),
     roles: item?.roles,
   };
   return ret;
@@ -128,7 +127,7 @@ export const gamePartCardContent = (item: any): CardItem => {
     title: soulName({ ...item.entity, metadata }),
     label: soulDescription({ ...item.entity, metadata }),
     metadata,
-    link: `/soul/${item.entity.id}`,
+    link: soulLink(item.entity),
     roles: item?.roles,
   };
   return ret;
@@ -144,7 +143,7 @@ export const soulPartTaskCardContent = (item: any): CardItem => {
     title: soulName({ ...item.ent, metadata }),
     label: soulDescription({ ...item.ent, metadata }),
     metadata,
-    link: `/soul/${item.ent.owner}`,
+    link: soulLink(item.ent),
     roles: item?.roles,
     // children: item && <StageDisplay proc={item.ent} />,
   };
