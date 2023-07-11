@@ -14,6 +14,9 @@ import { nameEntity } from 'helpers/utils';
 
 /**
  * Page for a list of souls
+ *
+ * TODO: Apply Filter for Type/Role (Humans Only)
+ *
  */
 export default function SoulsSearch({ type = '' }: any) {
   const router = useRouter();
