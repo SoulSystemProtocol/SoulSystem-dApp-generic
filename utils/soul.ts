@@ -51,7 +51,7 @@ export function soulDescription(soul: any): string {
  */
 export function soulLink(soul: any): string {
   //Validate
-  if (!!soul.owner) console.error('Soul object missing owner', { soul });
+  if (!soul.owner) console.error('Soul object missing owner', { soul });
   return `/soul/${soul.owner}`;
 }
 
