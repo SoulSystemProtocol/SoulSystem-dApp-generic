@@ -1,4 +1,5 @@
-# Solidify Manager dApp
+# SoulSystem Boilerplate dApp
+A flexible dApp that can serve as a frontend for any decentralized application on the protocol
 
 
 ## Affordances 
