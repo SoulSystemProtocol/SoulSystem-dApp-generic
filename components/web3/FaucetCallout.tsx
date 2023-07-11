@@ -51,7 +51,7 @@ function FaucetCalloutAurora(): JSX.Element {
         <Typography sx={{ marginTop: '5px' }}>
           Get your{' '}
           <Link href="https://aurora.plus/dashboard" target="_blank">
-            <>Aurora + </>
+            <>Aurora+ </>
           </Link>
           account and enjoy 50 free transactions every month
         </Typography>
