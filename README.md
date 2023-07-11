@@ -1,29 +1,21 @@
 # Solidify Manager dApp
 
 
-## Function
+## Affordances 
 
 Basic meta-space management functionality
 
-- Mint a Soulbound Avatar to represent your wallet in the meta-space
-
-- Deploy a Safe ERC721 Contract
-
-- Deploy a Safe ERC1155 Contract
-
-
-## Features
-
-- SBTs representation - Mint an on-chain public representation for any entities (Wallets & Contracts)
-
-- Safe NFTs & NFT Contracts - In these contracts tokens are attached to the user's main SBT. Making them retrivable by the governing DAO in case of loss or theft.
-
+- Mint a Soulbound Profiles to represent addresses in the metaverse
+- Deploy Communities & Services
+- Deploy and manage the lifecycle of requests for services (bounties) 
+- Deploy a SafeERC721 Contract (socially moderated assets)
+- Deploy a SafeERC1155 Contract
 
 
 ## Dev
 
-### Commands
+### Basic Commands
 
-- Install depencies - `npm install`
+- Install dependencies - `npm install`
+- Build - `npm build`
 - Start development server - `npm run dev`
-- Deploy to production on Vercel - `vercel --prod`
