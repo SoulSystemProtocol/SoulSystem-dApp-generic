@@ -2,9 +2,7 @@
 A flexible dApp that can serve as a frontend for any decentralized application on the protocol
 
 
-## Affordances 
-
-Basic meta-space management functionality
+## Functionality 
 
 - Mint a Soulbound Profiles to represent addresses in the metaverse
 - Deploy Communities & Services
