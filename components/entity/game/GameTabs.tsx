@@ -1,7 +1,6 @@
 import { TabContext, TabList, TabPanel } from '@mui/lab';
-import { Box, Tab, Typography } from '@mui/material';
+import { Box, Tab } from '@mui/material';
 import CTXParts from 'components/entity/game/CTXParts';
-import EntityPosts from 'components/entity/post/EntityPosts';
 import { useState } from 'react';
 import GameApplications from './dao/GameApplications';
 import SoulAffiliations from 'components/entity/soul/SoulAffiliations';
@@ -21,14 +20,6 @@ export default function GameTabs({ item: game, sx }: any) {
   }
   return (
     <Box sx={{ width: '100%', ...sx }}>
-      <Typography variant="h4" sx={{ mt: 4 }}>
-        Announcements
-      </Typography>
-      <EntityPosts
-        item={game}
-        types={['post', 'comment']}
-        sx={{ mb: 5, mt: 1 }}
-      />
       <TabContext value={tabValue}>
         <TabList
           onChange={(_: any, newTabValue: any) => setTabValue(newTabValue)}

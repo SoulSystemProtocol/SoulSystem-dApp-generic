@@ -1,6 +1,5 @@
 import { TabContext, TabList, TabPanel } from '@mui/lab';
-import { Box, Tab, Typography } from '@mui/material';
-import EntityPosts from 'components/entity/post/EntityPosts';
+import { Box, Tab } from '@mui/material';
 import CTXParts from 'components/entity/game/CTXParts';
 import { nameEntity } from 'helpers/utils';
 import { useState } from 'react';
@@ -9,17 +8,13 @@ import ProjectTaskList from 'components/entity/project/ProjectTaskList';
 import CTXRoles from '../CTXRoles';
 
 /**
- * Project tabs
+ * Tabs for Game Type:'project'
  */
 export default function ProjectTabs({ item: project, sx }: any) {
   const [tabValue, setTabValue] = useState('1');
 
   return (
     <Box sx={{ width: '100%', ...sx }}>
-      <Typography variant="h4" sx={{ mt: 4 }}>
-        Announcements
-      </Typography>
-      <EntityPosts item={project} sx={{ mb: 5, mt: 1 }} />
       <TabContext value={tabValue}>
         <TabList
           onChange={(_: any, newTabValue: any) => setTabValue(newTabValue)}
