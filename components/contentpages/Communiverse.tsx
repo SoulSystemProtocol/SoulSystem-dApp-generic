@@ -13,8 +13,7 @@ import SecurityIcon from '@mui/icons-material/Security';
  * Home Page
  */
 export default function Communiverse(): JSX.Element {
-  const { account } = useContext(Web3Context);
-
+  // const { account } = useContext(Web3Context);
   const listStyle = '🤩';
   const featureIconSX = { fontSize: '70px', fill: 'url(#linearColorsAccent)' };
   const flows = [
