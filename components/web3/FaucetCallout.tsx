@@ -46,10 +46,10 @@ function FaucetCalloutAurora(): JSX.Element {
         }}
       >
         <Typography variant="h6" mb={2}>
-          Free! No need to pay
+          Free to Use. No need to pay!
         </Typography>
         <Typography sx={{ marginTop: '5px' }}>
-          Get your{' '}
+          Claim your{' '}
           <Link href="https://aurora.plus/dashboard" target="_blank">
             <>Aurora+ </>
           </Link>
