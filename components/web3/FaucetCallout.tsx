@@ -57,7 +57,7 @@ function FaucetCalloutAurora(): JSX.Element {
         </Typography>
         <Link href="https://aurora.plus/dashboard" target="_blank">
           <Button size="small" variant="contained" sx={{ mt: 4, mb: 2 }}>
-            🤩 Claim Your Free Transactions Now! 🤩
+            🤩 Claim Your Free Transactions Now 🤩
           </Button>
         </Link>
       </Box>
