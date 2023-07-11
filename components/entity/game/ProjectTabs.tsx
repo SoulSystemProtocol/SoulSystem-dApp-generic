@@ -6,7 +6,7 @@ import { nameEntity } from 'helpers/utils';
 import { useState } from 'react';
 import ProjectAddTaskButton from 'components/entity/project/ProjectAddTaskButton';
 import ProjectTaskList from 'components/entity/project/ProjectTaskList';
-import EntityRoles from '../EntityRoles';
+import CTXRoles from '../CTXRoles';
 
 /**
  * Project tabs
@@ -48,7 +48,7 @@ export default function ProjectTabs({ item: project, sx }: any) {
           <CTXParts />
         </TabPanel>
         <TabPanel value="5" sx={{ px: { xs: 0, sm: 2 } }}>
-          <EntityRoles />
+          <CTXRoles />
         </TabPanel>
       </TabContext>
     </Box>

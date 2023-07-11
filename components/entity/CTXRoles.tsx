@@ -14,7 +14,7 @@ import { SelectedGameContext } from 'contexts/SelectedGame';
 import { DataContext } from 'contexts/data';
 import { isSoulHasRole } from 'hooks/utils';
 import { useContext, useEffect, useState } from 'react';
-import EntityRolesAddDialog from './EntityRoleAddDialog';
+import CTXRolesAddDialog from './CTXRoleAddDialog';
 import { DialogContext } from 'contexts/dialog';
 import DefaultRoleImage from 'components/DefaultRoleImage';
 import { SelectedSoulContext } from 'contexts/SelectedSoul';
@@ -24,12 +24,11 @@ import EditIcon from '@mui/icons-material/Edit';
 import GameRoleManageDialog from './game/GameRoleManageDialog';
 import { normalizeGraphEntity } from 'helpers/metadata';
 import { resolveLink } from 'helpers/IPFS';
-import ImageBox from 'components/utils/ImageBox';
 
 /**
  * CTX Roles
  */
-export default function EntityRoles({ sx }: { sx?: SxProps }): JSX.Element {
+export default function CTXRoles({ sx }: { sx?: SxProps }): JSX.Element {
   const { accountSoul } = useContext(DataContext);
   const { game } = useContext(SelectedGameContext);
   const { soul } = useContext(SelectedSoulContext);
@@ -92,7 +91,7 @@ export default function EntityRoles({ sx }: { sx?: SxProps }): JSX.Element {
                 disabled={!isAdmin}
                 onClick={() =>
                   showDialog?.(
-                    <EntityRolesAddDialog game={game} onClose={closeDialog} />,
+                    <CTXRolesAddDialog game={game} onClose={closeDialog} />,
                   )
                 }
                 sx={{ border: `2px solid ${theme.palette.grey[600]}` }}

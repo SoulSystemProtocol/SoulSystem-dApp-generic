@@ -6,7 +6,7 @@ import { useState } from 'react';
 import GameApplications from './dao/GameApplications';
 import SoulAffiliations from 'components/entity/soul/SoulAffiliations';
 import useError from 'hooks/useError';
-import EntityRoles from '../EntityRoles';
+import CTXRoles from '../CTXRoles';
 
 /**
  * Tabs for Game type:DAO
@@ -60,7 +60,7 @@ export default function GameTabs({ item: game, sx }: any) {
           <SoulAffiliations />
         </TabPanel>
         <TabPanel value="5" sx={{ px: { xs: 0, sm: 2 } }}>
-          <EntityRoles />
+          <CTXRoles />
         </TabPanel>
       </TabContext>
     </Box>
