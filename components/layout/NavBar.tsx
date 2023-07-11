@@ -13,7 +13,6 @@ import HeaderLogo from './HeaderLogo';
 import SettingsMenu from './SettingsMenu';
 import { addressToShortAddress } from 'utils/converters';
 import Link from 'components/utils/Link';
-// import Link from 'next/link';
 import { soulLink } from 'utils/soul';
 import { useAccount } from 'wagmi';
 //TODO: Add Search
@@ -105,6 +104,21 @@ export default function ResponsiveAppBar({
           </Typography>
 
           {/*
+          <SoulSearchBox 
+            // label="Entity Search..."
+            label={<SearchIcon />}
+            sx={{ width: { xs: 1, md: 520 }, margin: '30px auto 40px' }}
+            value={search as string}
+            onChange={(id) => {
+              console.log('Search Changed -- Go to Soul:', id);
+              router.push('/soul/' + id);
+            }}
+            onKeyDown={(e: any) => {
+              if (e.keyCode === 13) {
+                router.push('/souls/' + e.target.value);
+              }
+            }}
+          />
           <Search>
             <SearchIconWrapper>
               <SearchIcon />
@@ -175,7 +189,7 @@ export default function ResponsiveAppBar({
           >
             <HeaderLogo />
           </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', sm: 'flex' } }}>
+          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {links.map(({ route, label, hide }: any, index: number) => {
               if (hide) return <></>;
               return (
