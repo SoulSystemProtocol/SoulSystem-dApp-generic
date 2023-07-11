@@ -49,9 +49,10 @@ export function soulDescription(soul: any): string {
 /**
  * Generate soul link.
  */
-export function soulLink(soul: any): string {
+export function soulLink(soul: any, guid: boolean = false): string {
   //Validate
   if (!soul.owner) console.error('Soul object missing owner', { soul });
+  // if(!guid) return soul.handle
   return `/soul/${soul.owner}`;
 }
 
