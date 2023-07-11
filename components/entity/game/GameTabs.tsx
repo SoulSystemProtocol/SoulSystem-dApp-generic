@@ -8,7 +8,7 @@ import useError from 'hooks/useError';
 import CTXRoles from '../CTXRoles';
 
 /**
- * Tabs for Game type:DAO
+ * Tabs for Game type:mDAO
  */
 export default function GameTabs({ item: game, sx }: any) {
   const [tabValue, setTabValue] = useState('1');
@@ -33,22 +33,22 @@ export default function GameTabs({ item: game, sx }: any) {
           }}
         >
           {/* <Tab label="Discussion" value="1" /> */}
-          <Tab label="Members" value="1" />
+          <Tab label="Relations" value="1" />
           <Tab label="Applicants" value="3" />
-          <Tab label="Relations" value="4" />
+          <Tab label="Members" value="4" />
           <Tab label="Roles" value="5" />
         </TabList>
         {/* <TabPanel value="1" sx={{ p: 0 }}>
           <EntityPosts item={game} types={['post', 'comment']} />
         </TabPanel> */}
-        <TabPanel value="1" sx={{ px: 0 }}>
-          <CTXParts />
+        <TabPanel value="1" sx={{ px: { xs: 0, sm: 2 } }}>
+          <SoulAffiliations showServices={false} />
         </TabPanel>
         <TabPanel value="3" sx={{ px: { xs: 0, sm: 2 } }}>
           <GameApplications />
         </TabPanel>
-        <TabPanel value="4" sx={{ px: { xs: 0, sm: 2 } }}>
-          <SoulAffiliations />
+        <TabPanel value="4" sx={{ px: 0 }}>
+          <CTXParts />
         </TabPanel>
         <TabPanel value="5" sx={{ px: { xs: 0, sm: 2 } }}>
           <CTXRoles />

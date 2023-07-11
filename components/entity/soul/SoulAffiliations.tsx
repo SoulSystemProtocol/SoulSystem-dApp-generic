@@ -13,47 +13,51 @@ import SoulParts from './SoulParts';
 /**
  * Soul's Connections to other protocol entities
  */
-export default function SoulAffiliations(): JSX.Element {
+export default function SoulAffiliations({
+  showServices = true,
+}: any): JSX.Element {
   const { soul } = useContext(SelectedSoulContext);
 
   return (
     <Box>
-      <Box sx={{ my: 2 }}>
-        <Typography variant="h4" sx={{ mb: 1 }}>
-          {nameEntity('mdao', true)}
-        </Typography>
-        {soul?.id && (
-          <SoulParts
-            variables={{
-              id: soul?.id,
-              role: GAME_TYPE.mdao,
-              stage: 0, //for consistency
-              // type: 'GAME',
-            }}
-            itemsProcessing={(items: any): CardItem[] => {
-              // console.log('Parts Items', items);
-              //Merge Participant Roles (SoulPartsQuery)
-              let outputs: any = {};
-              for (let item of items) {
-                //By Container
-                const elId = item.aEnd.id;
-                /* Role Names Only */
-                if (!outputs[elId]) {
-                  outputs[elId] = {
-                    id: item.id,
-                    ent: item.aEnd,
-                    roles: [],
-                  };
+      {showServices && (
+        <Box sx={{ my: 2 }}>
+          <Typography variant="h4" sx={{ mb: 1 }}>
+            {nameEntity('mdao', true)}
+          </Typography>
+          {soul?.id && (
+            <SoulParts
+              variables={{
+                id: soul?.id,
+                role: GAME_TYPE.mdao,
+                stage: 0, //for consistency
+                // type: 'GAME',
+              }}
+              itemsProcessing={(items: any): CardItem[] => {
+                // console.log('Parts Items', items);
+                //Merge Participant Roles (SoulPartsQuery)
+                let outputs: any = {};
+                for (let item of items) {
+                  //By Container
+                  const elId = item.aEnd.id;
+                  /* Role Names Only */
+                  if (!outputs[elId]) {
+                    outputs[elId] = {
+                      id: item.id,
+                      ent: item.aEnd,
+                      roles: [],
+                    };
+                  }
+                  //Add Role
+                  outputs[elId].roles.push({ name: item.role, qty: item.qty });
                 }
-                //Add Role
-                outputs[elId].roles.push({ name: item.role, qty: item.qty });
-              }
-              return Object.values(outputs);
-            }}
-            getCardContent={soulPartCardContent}
-          />
-        )}
-      </Box>
+                return Object.values(outputs);
+              }}
+              getCardContent={soulPartCardContent}
+            />
+          )}
+        </Box>
+      )}
 
       <Box sx={{ my: 2 }}>
         <Typography variant="h4" sx={{ mb: 1 }}>
