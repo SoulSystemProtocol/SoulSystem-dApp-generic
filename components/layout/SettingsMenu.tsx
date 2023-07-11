@@ -13,7 +13,7 @@ import ConnectButton from 'components/web3/connect/ConnectButton';
 import { DataContext } from 'contexts/data';
 import { Web3Context } from 'contexts/Web3Context';
 import { useContext, useState } from 'react';
-import { soulName, soulImage } from 'utils/soul';
+import { soulName, soulImage, soulLink } from 'utils/soul';
 import PersonIcon from '@mui/icons-material/Person';
 
 /**
@@ -79,7 +79,7 @@ export default function SettingsMenu({ profile }: any): JSX.Element {
               mr: 2,
             }}
           >
-            <Link href={`/soul/${accountSoul.id}`}>
+            <Link href={soulLink(accountSoul)}>
               <Typography sx={{ mr: 1, color: 'text.primary' }}>
                 {soulName(accountSoul)}
               </Typography>
