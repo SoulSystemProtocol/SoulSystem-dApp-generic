@@ -10,7 +10,7 @@ import {
 } from '@mui/material';
 import PersonIcon from '@mui/icons-material/Person';
 import { addressToShortAddress } from 'utils/converters';
-import { soulName, soulImage } from 'utils/soul';
+import { soulName, soulImage, soulLink } from 'utils/soul';
 import { normalizeGraphEntity } from 'helpers/metadata';
 
 /**
@@ -58,7 +58,7 @@ export default function SoulCompactCard({
               {disableLink ? (
                 <>{soulName(profile)}</>
               ) : (
-                <Link href={`/soul/${profile.id}`}>{soulName(profile)}</Link>
+                <Link href={soulLink(profile)}>{soulName(profile)}</Link>
               )}
             </Typography>
           </Stack>
