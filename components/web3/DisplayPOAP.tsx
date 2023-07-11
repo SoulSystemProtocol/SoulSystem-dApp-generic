@@ -90,15 +90,16 @@ export default function DisplayPOAP({
                   />
                 ),
               )}
-              
             </>
           )}
         </Grid>
         {items.length > displayCount && !isShowMore && (
-                <Box sx={{ mb:'-30px' }}>
-                  <Button onClick={() => setIsShowMore(true)} sx={{float:'right'}}>Show All</Button>
-                </Box>
-              )}
+          <Box sx={{ mb: '-30px' }}>
+            <Button onClick={() => setIsShowMore(true)} sx={{ float: 'right' }}>
+              Show All
+            </Button>
+          </Box>
+        )}
       </Box>
     </>
   );
