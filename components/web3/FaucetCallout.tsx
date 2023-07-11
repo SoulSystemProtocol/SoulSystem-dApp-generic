@@ -44,7 +44,7 @@ function FaucetCalloutAurora(): JSX.Element {
         }}
       >
         <Typography variant="h6" mb={2}>
-          No need to pay!
+          Free! No need to pay
         </Typography>
         <Typography sx={{ marginTop: '5px' }}>
           Get your{' '}
