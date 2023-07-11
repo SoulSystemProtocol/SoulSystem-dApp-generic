@@ -17,7 +17,7 @@ export default function FaucetCallout({
   if (getChainData()?.key == '0x13881') {
     //Mumbai
     return <FaucetCalloutMumbai minBalance={minBalance} />;
-  } else if (getChainData()?.key == '0x4E454152') {
+  } else if (getChainData()?.key == '0x4e454152') {
     //Aurora
     return <FaucetCalloutAurora />;
   }
