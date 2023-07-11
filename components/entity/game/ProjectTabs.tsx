@@ -30,7 +30,7 @@ export default function ProjectTabs({ item: project, sx }: any) {
           {/* <Tab label="Announcements" value="1" /> */}
           <Tab label={nameEntity('task', true)} value="1" />
           <Tab label="Members" value="3" />
-          <Tab label="Roles" value="5" />
+          <Tab label="Role Tokens" value="5" />
         </TabList>
         {/* <TabPanel value="1" sx={{ px: { xs: 0, sm: 2 } }}>
           <EntityPosts item={project} />
