@@ -99,9 +99,7 @@ export default function TaskManageDialog({
         //Update URI
         await getContractTask(task.id).setContractURI(metadataUrl);
       } else {
-        console.warn("[DEV] Make Task", {project: project.id, type: GAME_TYPE.task,
-          name: formData.name,
-          metadataUrl})
+        //Deaploy Task
         await getContractGameProject(project.id).makeTask(
           GAME_TYPE.task,
           formData.name,

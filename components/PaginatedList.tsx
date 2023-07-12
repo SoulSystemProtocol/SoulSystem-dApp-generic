@@ -64,12 +64,6 @@ export default function PaginatedList({
       console.error('PaginatedList() query failed', { data, error, variables });
       setItems([]);
     } else {
-      // console.warn('[DEBUG] PaginatedList() query ', {
-      //   data,
-      //   entityName,
-      //   variables,
-      //   entities: data?.[entityName],
-      // });
       //Validate
       if (data && !data.hasOwnProperty(entityName))
         console.error("Query Result doesn't have requested entity name", {
