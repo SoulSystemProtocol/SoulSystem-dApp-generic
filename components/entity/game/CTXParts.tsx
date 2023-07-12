@@ -3,7 +3,7 @@ import { ReactElement, useContext, useEffect, useState } from 'react';
 // import FormControl from '@mui/material/FormControl';
 // import Select, { SelectChangeEvent } from '@mui/material/Select';
 // import InputLabel from '@mui/material/InputLabel';
-import SoulPartsOf from '../soul/SoulPartsOf';
+import SoulMembersOf from '../soul/SoulMembersOf';
 import { CardItem, soulPartCardContent } from 'utils/cardContents';
 import { SelectedSoulContext } from 'contexts/SelectedSoul';
 
@@ -48,14 +48,15 @@ export default function CTXParts({ sx }: any): ReactElement {
         </FormControl>
       </Card> */}
       <Box sx={{ my: 2 }}>
-        <SoulPartsOf
+        <SoulMembersOf
           variables={{
             id: soul.id,
+            type: '',
           }}
           itemsProcessing={(items: any[]): CardItem[] => {
-            // console.log('SoulPartsOf', { items, soul });
+            // console.log('SoulMembersOf', { items, soul });
             if (!items) return [];
-            //Merge Participant Roles (SoulPartsOfQuery)
+            //Merge Participant Roles (SoulMembersOfQuery)
             let outputs: any = {};
             for (let item of items) {
               //By Container
