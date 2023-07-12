@@ -117,8 +117,12 @@ export default function SoulSearchBox({
             />
           )}
           renderOption={(props, option) => {
-            return (
-              <li {...props} style={{ display: 'block' }}>
+            //Validate
+            // if (!option?.metadata) console.log('Skip option', option);
+            return !option?.metadata ? (
+              <></>
+            ) : (
+              <li {...props} key={option.owner} style={{ display: 'block' }}>
                 <SoulCompactCard
                   profile={option}
                   disableAddress={false}

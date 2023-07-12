@@ -9,7 +9,7 @@ import { truncate } from 'lodash';
 export function soulName(soul: any, length: number = 36): string {
   if (soul?.name) return soul.name;
   if (soul?.metadata?.name) return soul.metadata.name;
-  if (soul?.uriFirstName || soul?.uriLastName) {
+  if (!!soul?.uriFirstName || !!soul?.uriLastName) {
     let name = (soul.uriFirstName || '') + ' ' + (soul.uriLastName || '');
     return truncate(name, { length: length });
   }
