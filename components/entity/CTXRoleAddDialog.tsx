@@ -31,7 +31,6 @@ export default function CTXRolesAddDialog({
   isClose?: boolean;
   onClose: () => void;
 }): JSX.Element {
-  // const { closeDialog } = useContext(DialogContext);
   const { handleError } = useError();
   const { showToastSuccess } = useToast();
   const { uploadJsonToIPFS, uploadToIPFS } = useIpfs();
@@ -62,6 +61,7 @@ export default function CTXRolesAddDialog({
   };
   const widgets = { ImageInput };
 
+  /* Custom SVG Image Upload to IPFS
   const payload = renderToStaticMarkup(
     <DefaultRoleImage
       role={'[Role]'}
@@ -69,9 +69,10 @@ export default function CTXRolesAddDialog({
       style={{ height: 600, width: 600 }}
     />,
   );
-  // console.warn("Payload", payload);
-  // const { url } = await
-  // uploadToIPFS( payload ).then((uri) => {console.warn("Payload URI:", uri)});
+  console.warn("Payload", payload);
+  const { url } = await
+  uploadToIPFS( payload ).then((uri) => {console.warn("Payload URI:", uri)});
+  */
 
   const uiSchema = {
     image: {
