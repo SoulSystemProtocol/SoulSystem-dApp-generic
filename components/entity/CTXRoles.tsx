@@ -148,7 +148,9 @@ export default function CTXRoles({ sx }: { sx?: SxProps }): JSX.Element {
                     <StyledBadge badgeContent={role.soulsCount.toString()} />
                   </Tooltip>
                 </Stack>
-                <Typography>{role.metadata?.description}</Typography>
+                <Typography variant="body2" sx={{ mt: 1 }}>
+                  {role.metadata?.description}
+                </Typography>
               </Box>
             </Card>
           );
