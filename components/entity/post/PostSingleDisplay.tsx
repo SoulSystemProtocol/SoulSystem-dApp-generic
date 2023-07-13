@@ -9,7 +9,7 @@ export default function PostSingleDisplay({
   post: any;
   children?: JSX.Element;
 }): JSX.Element {
-  console.log('post', post);
+  // console.log('post', post);
 
   return (
     <Grid item key={post.id} xs={12}>
