@@ -1,16 +1,18 @@
 import { TabContext, TabList, TabPanel } from '@mui/lab';
-import { Box, Tab } from '@mui/material';
+import { Box, Tab, Typography } from '@mui/material';
 import CTXParts from 'components/entity/game/CTXParts';
 import { nameEntity } from 'helpers/utils';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import ProjectAddTaskButton from 'components/entity/project/ProjectAddTaskButton';
 import ProjectTaskList from 'components/entity/project/ProjectTaskList';
-import CTXRoles from '../CTXRoles';
+import CTXRoleTokens from '../CTXRoleTokens';
+import { SelectedGameContext } from 'contexts/SelectedGame';
 
 /**
  * Tabs for Game Type:'project'
  */
 export default function ProjectTabs({ item: project, sx }: any) {
+  const { game } = useContext(SelectedGameContext);
   const [tabValue, setTabValue] = useState('1');
 
   return (
@@ -40,10 +42,14 @@ export default function ProjectTabs({ item: project, sx }: any) {
           <ProjectTaskList />
         </TabPanel>
         <TabPanel value="3" sx={{ px: { xs: 0, sm: 2 } }}>
+          <Typography variant="body1" color="text.secondary" sx={{ mb: 2 }}>
+            These are the stewards of this contract who hold NFTs that represent
+            their roles
+          </Typography>
           <CTXParts />
         </TabPanel>
         <TabPanel value="5" sx={{ px: { xs: 0, sm: 2 } }}>
-          <CTXRoles />
+          <CTXRoleTokens ctx={game} />
         </TabPanel>
       </TabContext>
     </Box>

@@ -209,7 +209,11 @@ export default function TaskDetail({ item, sx }: any) {
             size="small"
             variant="outlined"
             onClick={() => {
-              getContractTask(item.id).cancel('TEST_URI', tokens);
+              try {
+                getContractTask(item.id).cancel('TEST_URI', tokens);
+              } catch (error: any) {
+                handleError(error, true);
+              }
             }}
           >
             Cancel {nameEntity('task')}

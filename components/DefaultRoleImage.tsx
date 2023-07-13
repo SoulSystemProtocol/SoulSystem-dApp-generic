@@ -7,7 +7,6 @@ export const Image = (args: any) => {
   const style = args?.style || {};
   const backgroundColor = '#708090';
   const textColor = '#fff';
-  // const textColor = '#222';
 
   return (
     <svg
@@ -69,7 +68,7 @@ c28.092,40.226,42.94,87.441,42.94,136.576C494.933,315.742,472.969,372.437,432.90
         </g>
       </g>
       <text fill={textColor} textAnchor="middle" x="50%" y="360" fontSize={58}>
-        {capitalizeEveryWord(args.game)}
+        {capitalizeEveryWord(args.name)}
       </text>
       <text fill={textColor} textAnchor="middle" x="50%" y="290" fontSize={40}>
         at

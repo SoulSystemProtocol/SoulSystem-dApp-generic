@@ -1,16 +1,3 @@
-import {
-  Badge,
-  BadgeProps,
-  Box,
-  Card,
-  IconButton,
-  Stack,
-  SxProps,
-  Tooltip,
-  Typography,
-  useTheme,
-} from '@mui/material';
-import { SelectedGameContext } from 'contexts/SelectedGame';
 import { DataContext } from 'contexts/data';
 import { isSoulHasRole } from 'hooks/utils';
 import { useContext, useEffect, useState } from 'react';
@@ -24,13 +11,30 @@ import EditIcon from '@mui/icons-material/Edit';
 import GameRoleManageDialog from './game/GameRoleManageDialog';
 import { normalizeGraphEntity } from 'helpers/metadata';
 import { resolveLink } from 'helpers/IPFS';
+import {
+  Badge,
+  BadgeProps,
+  Box,
+  Card,
+  IconButton,
+  Stack,
+  SxProps,
+  Tooltip,
+  Typography,
+  useTheme,
+} from '@mui/material';
 
 /**
- * CTX Roles
+ * CTX Role Tokens Display
  */
-export default function CTXRoles({ sx }: { sx?: SxProps }): JSX.Element {
+export default function CTXRoleTokens({
+  ctx,
+  sx,
+}: {
+  ctx: any;
+  sx?: SxProps;
+}): JSX.Element {
   const { accountSoul } = useContext(DataContext);
-  const { game } = useContext(SelectedGameContext);
   const { soul } = useContext(SelectedSoulContext);
   const { showDialog, closeDialog } = useContext(DialogContext);
   const [isAdmin, setIsAdmin] = useState(false);
@@ -46,11 +50,11 @@ export default function CTXRoles({ sx }: { sx?: SxProps }): JSX.Element {
 
   useEffect(() => {
     setIsAdmin(
-      !!accountSoul && !!game && isSoulHasRole(game, accountSoul.id, 'admin'),
+      !!accountSoul && !!ctx && isSoulHasRole(ctx, accountSoul.id, 'admin'),
     );
-  }, [game, accountSoul]);
+  }, [ctx, accountSoul]);
 
-  if (!game) return <>...</>;
+  if (!ctx) return <>...</>;
 
   return (
     <Box sx={{ sm: 12, ...sx }}>
@@ -73,7 +77,7 @@ export default function CTXRoles({ sx }: { sx?: SxProps }): JSX.Element {
                 disabled={!isAdmin}
                 onClick={() =>
                   showDialog?.(
-                    <GameRoleManageDialog game={game} onClose={closeDialog} />,
+                    <GameRoleManageDialog game={ctx} onClose={closeDialog} />,
                   )
                 }
                 sx={{ border: `2px solid ${theme.palette.grey[600]}`, mr: 2 }}
@@ -91,7 +95,7 @@ export default function CTXRoles({ sx }: { sx?: SxProps }): JSX.Element {
                 disabled={!isAdmin}
                 onClick={() =>
                   showDialog?.(
-                    <CTXRolesAddDialog game={game} onClose={closeDialog} />,
+                    <CTXRolesAddDialog game={ctx} onClose={closeDialog} />,
                   )
                 }
                 sx={{ border: `2px solid ${theme.palette.grey[600]}` }}
@@ -104,7 +108,7 @@ export default function CTXRoles({ sx }: { sx?: SxProps }): JSX.Element {
       </Box>
 
       <Stack direction="row" flexWrap="wrap">
-        {game.roles.map((role: any) => {
+        {ctx.roles.map((role: any) => {
           //Normalize Grap Data
           role = normalizeGraphEntity(role);
           return (
@@ -130,7 +134,7 @@ export default function CTXRoles({ sx }: { sx?: SxProps }): JSX.Element {
               ) : (
                 <DefaultRoleImage
                   role={role.name}
-                  game={soul.name}
+                  name={soul.name}
                   style={{ height: 200, width: '100%' }}
                 />
               )}

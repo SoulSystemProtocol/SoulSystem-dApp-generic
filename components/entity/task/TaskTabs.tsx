@@ -7,6 +7,7 @@ import { useState } from 'react';
 import TaskApplications from './TaskApplications';
 import TaskApprovedDeliveries from './TaskApprovedDeliveries';
 import TaskPostedDeliveries from '../post/TaskPostedDeliveries';
+import CTXRoleTokens from '../CTXRoleTokens';
 
 /**
  * Task tabs
@@ -35,6 +36,7 @@ export default function ProjectTabs({ item, sx }: any) {
           <Tab label="Deliveries" value="1" />
           <Tab label="Discussion" value="2" />
           <Tab label="Members" value="3" />
+          <Tab label="Role Tokens" value="5" />
         </TabList>
         <TabPanel value="1" sx={{ px: 0 }}>
           <Stack
@@ -60,6 +62,9 @@ export default function ProjectTabs({ item, sx }: any) {
             their roles
           </Typography>
           <CTXParts />
+        </TabPanel>
+        <TabPanel value="5" sx={{ px: { xs: 0, sm: 2 } }}>
+          <CTXRoleTokens ctx={item} />
         </TabPanel>
       </TabContext>
     </Box>

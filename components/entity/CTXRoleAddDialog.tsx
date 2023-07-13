@@ -65,7 +65,7 @@ export default function CTXRolesAddDialog({
   const payload = renderToStaticMarkup(
     <DefaultRoleImage
       role={'[Role]'}
-      game={'[Organization]'}
+      name={'[Organization]'}
       style={{ height: 600, width: 600 }}
     />,
   );

@@ -1,11 +1,11 @@
 import { TabContext, TabList, TabPanel } from '@mui/lab';
-import { Box, Tab } from '@mui/material';
+import { Box, Tab, Typography } from '@mui/material';
 import CTXParts from 'components/entity/game/CTXParts';
 import { useState } from 'react';
 import GameApplications from './dao/GameApplications';
 import SoulAffiliations from 'components/entity/soul/SoulAffiliations';
 import useError from 'hooks/useError';
-import CTXRoles from '../CTXRoles';
+import CTXRoleTokens from '../CTXRoleTokens';
 
 /**
  * Tabs for Game type:mDAO
@@ -48,10 +48,14 @@ export default function GameTabs({ item: game, sx }: any) {
           <GameApplications />
         </TabPanel>
         <TabPanel value="4" sx={{ px: 0 }}>
+          <Typography variant="body1" color="text.secondary" sx={{ mb: 2 }}>
+            These are the stewards of this contract who hold NFTs that represent
+            their roles
+          </Typography>
           <CTXParts />
         </TabPanel>
         <TabPanel value="5" sx={{ px: { xs: 0, sm: 2 } }}>
-          <CTXRoles />
+          <CTXRoleTokens ctx={game} />
         </TabPanel>
       </TabContext>
     </Box>
