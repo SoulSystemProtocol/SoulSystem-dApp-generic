@@ -26,11 +26,12 @@ export default function HeaderLogo(): JSX.Element {
           pl: 1,
         }}
       >
-        {process.env.NEXT_PUBLIC_FEATURE_DEV
+        {'v' + process.env.NEXT_PUBLIC_VERSION}
+        {/* {process.env.NEXT_PUBLIC_FEATURE_DEV
           ? 'v' + process.env.NEXT_PUBLIC_VERSION
           : !getChainData()?.live
           ? 'testnet'
-          : ''}
+          : ''} */}
       </Typography>
     </Box>
   );
