@@ -36,7 +36,9 @@ export default function PostSingleDisplay({
               </Typography>
               {post?.metadata?.link && (
                 <Typography variant="body2" sx={{ fontSize: '0.7em', mb: 1 }}>
-                  <Link target="_blank" href={post.metadata.link}>{post.metadata.link}</Link>
+                  <Link target="_blank" href={post.metadata.link}>
+                    {post.metadata.link}
+                  </Link>
                 </Typography>
               )}
             </Box>
