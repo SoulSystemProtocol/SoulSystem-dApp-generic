@@ -96,15 +96,25 @@ export default function FundDialog({
     >
       <DialogTitle sx={{ pb: 0 }}>
         {title}
-        <Typography variant="body2">
-          Send {chain?.id ? chain.nativeCurrency.name : 'funds'} to this address
-        </Typography>
-        <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-          <AddressHash
-            address={address}
-            displayLink={true}
-            displayCopy={false}
-          />
+        <Stack direction="row">
+          <Typography variant="body2">
+            Send {chain?.id ? chain.nativeCurrency.name : 'funds'} to address:
+          </Typography>
+          <Typography variant="body2" sx={{ color: 'text.secondary', ml: 2 }}>
+            <AddressHash
+              address={address}
+              displayLink={true}
+              displayCopy={false}
+            />
+          </Typography>
+        </Stack>
+        {/* Dev Env */}
+        <Typography
+          variant="body2"
+          sx={{ color: 'text.secondary', fontSize: '0.7em' }}
+        >
+          * note that this product is still in active development. Use with
+          caution.
         </Typography>
       </DialogTitle>
       <DialogContent>
