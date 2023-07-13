@@ -7,6 +7,7 @@ import ProjectAddTaskButton from 'components/entity/project/ProjectAddTaskButton
 import ProjectTaskList from 'components/entity/project/ProjectTaskList';
 import CTXRoleTokens from '../CTXRoleTokens';
 import { SelectedGameContext } from 'contexts/SelectedGame';
+import RuleManage from 'components/rules/RuleManage';
 
 /**
  * Tabs for Game Type:'project'
@@ -33,6 +34,9 @@ export default function ProjectTabs({ item: project, sx }: any) {
           <Tab label={nameEntity('task', true)} value="1" />
           <Tab label="Members" value="3" />
           <Tab label="Role Tokens" value="5" />
+          {process.env.NEXT_PUBLIC_FEATURE_RULES == 'true' && (
+            <Tab label="Rules" value="6" />
+          )}
         </TabList>
         {/* <TabPanel value="1" sx={{ px: { xs: 0, sm: 2 } }}>
           <EntityPosts item={project} />
@@ -50,6 +54,9 @@ export default function ProjectTabs({ item: project, sx }: any) {
         </TabPanel>
         <TabPanel value="5" sx={{ px: { xs: 0, sm: 2 } }}>
           <CTXRoleTokens ctx={game} />
+        </TabPanel>
+        <TabPanel value="6" sx={{ px: { xs: 0, sm: 2 } }}>
+          <RuleManage ctx={game} />
         </TabPanel>
       </TabContext>
     </Box>

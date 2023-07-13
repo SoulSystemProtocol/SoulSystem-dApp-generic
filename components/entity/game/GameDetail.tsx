@@ -71,7 +71,7 @@ export default function GameDetail({ sx }: any): JSX.Element {
             text={`Fund ${nameEntity(game?.role)}`}
             address={game?.id}
           />
-          {process.env.NEXT_PUBLIC_FEATURE_RULES === 'true' && (
+          {process.env.NEXT_PUBLIC_FEATURE_RULES == 'true' && (
             <Link href={`/game/${game?.id}/rules/manage`}>
               <Button size="small" variant="outlined">
                 Rules
