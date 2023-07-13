@@ -8,7 +8,7 @@ const query = gql`
     soulParts(
       first: $first
       skip: $skip
-      where: { aEnd_: { id: $id }, bEnd_: { type: "" } }
+      where: { aEnd_: { id: $id }, bEnd_: { type_not: "TASK" } }
     ) {
       id
       qty
