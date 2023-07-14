@@ -144,26 +144,23 @@ export default function Communiverse(): JSX.Element {
             sx={{ fontSize: { xs: '2.2rem', sm: '3.6rem' } }}
           >
             {/* {APP_CONFIGS.NAME} */}
-            SoulSystem Community Builder
+            The SoulSystem Community Builder
           </Typography>
         </Box>
-
         <Box maxWidth="lg" sx={{ mx: 'auto', my: 2 }}>
           <Card sx={{ p: { xs: 2, md: 4 }, pb: 4 }}>
+            <Typography
+              variant="h3"
+              sx={{
+                textAlign: 'center',
+                pb: 2,
+                // fontSize: { xs: '1.4rem', md: '1.8rem' },
+              }}
+              letterSpacing="0.02em"
+            >
+              A platform for structuring fractal organizations and managing shared ownership
+            </Typography>
             <Box maxWidth="md" sx={{ m: 'auto' }}>
-              <Typography
-                variant="h4"
-                sx={{
-                  textAlign: 'center',
-                  pb: 2,
-                  fontSize: { xs: '1.4rem', md: '1.8rem' },
-                }}
-                letterSpacing="0.02em"
-              >
-                {/* A platform for democratizing communities */}
-                {/* A Protocol for democratizing communities */}
-                Community of Communities
-              </Typography>
               <Typography
                 variant="body2"
                 sx={{ fontSize: '1.1rem', textAlign: 'center' }}
