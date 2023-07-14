@@ -148,32 +148,34 @@ export default function Communiverse(): JSX.Element {
           </Typography>
         </Box>
 
-        <Box maxWidth="md" sx={{ mx: 'auto', my: 2 }}>
+        <Box maxWidth="lg" sx={{ mx: 'auto', my: 2 }}>
           <Card sx={{ p: { xs: 2, md: 4 }, pb: 4 }}>
-            <Typography
-              variant="h4"
-              sx={{
-                textAlign: 'center',
-                pb: 2,
-                fontSize: { xs: '1.4rem', md: '1.8rem' },
-              }}
-              letterSpacing="0.02em"
-            >
-              {/* A platform for democratizing communities */}
-              {/* A Protocol for democratizing communities */}
-              Community of Communities
-            </Typography>
-            <Typography
-              variant="body2"
-              sx={{ fontSize: '1.1rem', textAlign: 'center' }}
-            >
-              In a world where digital interactions play an increasingly
-              significant role in our lives, we recognize the need to establish
-              a better relationship between communities and technology. Our
-              platform harnesses the power of blockchain technology and
-              tokenization to democratize the way communities are formed,
-              organized, and incentivized.
-            </Typography>
+            <Box maxWidth="md" sx={{ m: 'auto' }}>
+              <Typography
+                variant="h4"
+                sx={{
+                  textAlign: 'center',
+                  pb: 2,
+                  fontSize: { xs: '1.4rem', md: '1.8rem' },
+                }}
+                letterSpacing="0.02em"
+              >
+                {/* A platform for democratizing communities */}
+                {/* A Protocol for democratizing communities */}
+                Community of Communities
+              </Typography>
+              <Typography
+                variant="body2"
+                sx={{ fontSize: '1.1rem', textAlign: 'center' }}
+              >
+                In a world where digital interactions play an increasingly
+                significant role in our lives, we recognize the need to
+                establish a better relationship between communities and
+                technology. Our platform harnesses the power of blockchain
+                technology and tokenization to democratize the way communities
+                are formed, organized, and incentivized.
+              </Typography>
+            </Box>
           </Card>
         </Box>
         <FaucetCallout minBalance={0.1} />

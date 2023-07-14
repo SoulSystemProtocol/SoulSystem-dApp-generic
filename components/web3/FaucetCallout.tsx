@@ -36,7 +36,7 @@ function FaucetCalloutAurora(): JSX.Element {
         sx={{
           mt: 8,
           p: 2,
-          maxWidth: 'md',
+          maxWidth: 'lg',
           mx: 'auto',
           justifyContent: 'center',
           background: `linear-gradient(${theme.palette.background.default}, ${theme.palette.background.default}) padding-box, linear-gradient(to right, darkblue, darkorchid) border-box`,
