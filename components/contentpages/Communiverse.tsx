@@ -158,7 +158,8 @@ export default function Communiverse(): JSX.Element {
               }}
               letterSpacing="0.02em"
             >
-              A platform for structuring fractal organizations and managing shared ownership
+              A platform for structuring fractal organizations and managing
+              shared ownership
             </Typography>
             <Box maxWidth="md" sx={{ m: 'auto' }}>
               <Typography
