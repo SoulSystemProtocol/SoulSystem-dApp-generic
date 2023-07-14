@@ -85,7 +85,7 @@ export default function ActionAddDialog({
     setFormData({});
     setIsLoading(false);
     setIsOpen(false);
-    return onClose();
+    onClose && onClose();
   }
 
   async function submit({ formData }: any): Promise<void> {
@@ -112,7 +112,7 @@ export default function ActionAddDialog({
   return (
     <Dialog
       open={isOpen}
-      onClose={() => isLoading && close()}
+      onClose={isLoading ? () => {} : close}
       maxWidth="md"
       fullWidth
     >
@@ -141,7 +141,10 @@ export default function ActionAddDialog({
                 <Button variant="contained" type="submit">
                   Add
                 </Button>
-                <Button variant="outlined" onClick={onClose}>
+                <Button
+                  variant="outlined"
+                  onClick={(e) => onClose && onClose(e)}
+                >
                   Cancel
                 </Button>
               </>

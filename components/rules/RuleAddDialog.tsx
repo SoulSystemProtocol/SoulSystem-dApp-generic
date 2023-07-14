@@ -159,7 +159,7 @@ export default function RuleAddDialog({ item, isClose, onClose }: any) {
     setFormData({});
     setIsLoading(false);
     setIsOpen(false);
-    onClose();
+    onClose && onClose();
   }
 
   async function submit({ formData }: any) {
@@ -194,7 +194,7 @@ export default function RuleAddDialog({ item, isClose, onClose }: any) {
   return (
     <Dialog
       open={isOpen}
-      onClose={() => isLoading && close()}
+      onClose={isLoading ? () => {} : close}
       maxWidth="md"
       fullWidth
     >
