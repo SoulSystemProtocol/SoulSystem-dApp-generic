@@ -36,7 +36,7 @@ export default function ActionAddDialog({
 
   const schema: JSONSchema7 = {
     type: 'object',
-    required: ['subject', 'verb'],
+    required: ['verb'],
     properties: {
       subject: {
         type: 'string',
@@ -64,7 +64,7 @@ export default function ActionAddDialog({
   const uiSchema = {
     subject: {
       'ui:emptyValue': '',
-      'ui:placeholder': 'who',
+      'ui:placeholder': 'who (everyone)',
     },
     verb: {
       'ui:emptyValue': '',
