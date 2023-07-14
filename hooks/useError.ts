@@ -28,7 +28,12 @@ export default function useError() {
     ) {
       //Generic Chain Error
       isErrorToastRequired = false;
-      showToastError({ message: 'Contract Error' });
+      showToastError({
+        //TODO: This doesn't actually work. Try to get the Metamask error in here...
+        message: `Contract Error${
+          error?.data?.message ? ': ' + error.data.message : ''
+        }`,
+      });
     } else if (typeof error == 'object' && error?.code == -32603) {
       //Insuficient Gas
       isErrorToastRequired = false;

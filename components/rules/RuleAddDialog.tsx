@@ -33,7 +33,7 @@ export default function RuleAddDialog({ item, isClose, onClose }: any) {
 
   const schema: JSONSchema7 = {
     type: 'object',
-    required: ['about', 'affected', 'name'],
+    required: ['about', 'name'],
     properties: {
       // icon: {
       //   type: 'string',
@@ -54,6 +54,7 @@ export default function RuleAddDialog({ item, isClose, onClose }: any) {
       affected: {
         type: 'string',
         title: 'Affected',
+        default: '',
       },
       negation: {
         type: 'boolean',
@@ -66,9 +67,9 @@ export default function RuleAddDialog({ item, isClose, onClose }: any) {
       },
       effects: {
         type: 'array',
-        minItems: 1,
+        // minItems: 0,
         title: 'Effects',
-        description: 'At least 1 element must be defined',
+        description: 'Effects this action should have on reputation',
         items: {
           type: 'object',
           properties: {
@@ -111,12 +112,12 @@ export default function RuleAddDialog({ item, isClose, onClose }: any) {
       evidence: {
         type: 'boolean',
         title: 'Evidence required',
-        default: true,
+        default: false,
       },
       witness: {
         type: 'integer',
         title: 'Witnesses required',
-        default: 1,
+        default: 0,
       },
     },
   };
@@ -163,10 +164,28 @@ export default function RuleAddDialog({ item, isClose, onClose }: any) {
   }
 
   async function submit({ formData }: any) {
+    console.log('FormData', formData);
+
     try {
       setFormData(formData);
       setIsLoading(true);
       const { url: ruleMetadataUri } = await uploadJsonToIPFS(formData); //This should be good enough
+      console.log('[DEV] Rule:', {
+        rule: {
+          about: formData.about,
+          affected: formData.affected,
+          negation: formData.negation,
+          uri: ruleMetadataUri,
+          disabled: false,
+        },
+        effects: formData.effects || [],
+        confirmation: {
+          ruling: formData.ruling,
+          evidence: formData.evidence,
+          witness: formData.witness,
+        },
+      });
+
       await getContractGame(item.id).ruleAdd(
         {
           about: formData.about,
@@ -175,7 +194,7 @@ export default function RuleAddDialog({ item, isClose, onClose }: any) {
           uri: ruleMetadataUri,
           disabled: false,
         },
-        formData.effects,
+        formData.effects || [],
         {
           ruling: formData.ruling,
           evidence: formData.evidence,
