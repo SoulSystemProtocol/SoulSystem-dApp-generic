@@ -108,7 +108,7 @@ export default function SolidifyLanding(): JSX.Element {
     // },
     {
       title: 'Automated Incentives',
-      text: 'Easily set up procedures and incentives to automate your DAO',
+      text: 'Easily set up procedures and incentives to automate your Organization',
       icon: <DirectionsRunIcon sx={featureIconSX} />,
     },
     {
