@@ -26,7 +26,7 @@ export default function SoulsSearch({ type = '' }: any) {
 
   const CONF = {
     // PAGE_TITLE: search ? `Soul Search ` : 'SBT Profiles',
-    PAGE_TITLE: search ? `Search ${nameEntity('', true)}` : 'SBT Profiles',
+    PAGE_TITLE: search ? `Search ${nameEntity('', true)}` : 'Profiles',
     TITLE: search ? `Results for: ${search}` : nameEntity('', true), //'Human Souls',
     SUBTITLE: `Become a part of the SoulSystem and own your NFT profile`,
     ROUTE: 'souls',
@@ -55,7 +55,7 @@ export default function SoulsSearch({ type = '' }: any) {
   return (
     <Layout title={getPageTitle(CONF.PAGE_TITLE)}>
       <SoulSearchBox
-        label="Soul Search"
+        label="Search"
         sx={{ width: { xs: 1, md: 520 }, margin: '30px auto 40px' }}
         value={search as string}
         onChange={(id) => {

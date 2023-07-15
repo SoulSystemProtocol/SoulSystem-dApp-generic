@@ -96,7 +96,7 @@ export default function SoulSearchBox({
             // fullWidth
             {...params}
             size={size}
-            label={label || 'Soul Search'}
+            label={label || 'Search'}
             placeholder={'Search by name or address'}
             required={required || false}
             onKeyDown={onKeyDown}
