@@ -35,7 +35,9 @@ export function SelectedSoulProvider({ slug, children }: any) {
   return isNumber(slug as string) ? (
     <SelectedSoulById id={slug}>{children}</SelectedSoulById>
   ) : (
-    <SelectedSoulByHash hash={slug}>{children}</SelectedSoulByHash>
+    <SelectedSoulByHash hash={slug.toLowerCase()}>
+      {children}
+    </SelectedSoulByHash>
   );
 }
 
