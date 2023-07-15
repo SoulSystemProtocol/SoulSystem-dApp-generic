@@ -40,7 +40,7 @@ export default function SoulSearchBox({
   const [isDisabled, setIsDisabled] = useState(disabled);
   const [selectedSoul, setSelectedSoul] = useState(null);
   const [inputValue, setInputValue] = useState<string>(''); //Current text input value
-  const [searchQueryParams, setSearchQueryParams] = useState<string>(''); //Current text input value
+  const [searchQueryParams, setSearchQueryParams] = useState<Array<string>>([]); //Current text input value
   const [items, setItems] = useState<Array<any>>([]);
   // const { handleError } = useError();
 
@@ -51,9 +51,7 @@ export default function SoulSearchBox({
     if (role !== undefined) queryFilters.push(`role: "${role}"`);
     inputValue &&
       queryFilters.push(`searchField_contains_nocase: "${inputValue}"`);
-    let searchQueryParams = queryFilters.join(', ');
-    console.log('searchQueryParams', searchQueryParams);
-    setSearchQueryParams(searchQueryParams);
+    setSearchQueryParams(queryFilters);
   }, [inputValue]);
 
   const { data, loading, error } = useQuery(SoulsOpenInj(searchQueryParams), {

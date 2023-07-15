@@ -51,9 +51,6 @@ export default function SoulsSearch({ type = '' }: any) {
   if (type !== undefined) queryFilters.push(`type: "${type}" `);
   // role && queryFilters.push(`role: "${role}""`);
   search && queryFilters.push(`searchField_contains_nocase: "${search}"`);
-  // let searchQueryParams = ` type: "${type}" `;
-  let searchQueryParams = queryFilters.join(', ');
-  console.log('Soul searchQueryParams', searchQueryParams);
 
   return (
     <Layout title={getPageTitle(CONF.PAGE_TITLE)}>
@@ -76,7 +73,7 @@ export default function SoulsSearch({ type = '' }: any) {
         renderActions={renderActions || <></>}
         subtitle={CONF.SUBTITLE}
         title={CONF.TITLE}
-        query={SoulsOpenInj(searchQueryParams)}
+        query={SoulsOpenInj(queryFilters)}
         gridSM={6}
         gridMD={4}
         gridLG={3}

@@ -3,13 +3,14 @@ import { gql } from '@apollo/client';
 /**
  * Unsafe GQL Injector
  */
-const injectedGQL = (where: string) => {
+const injectedGQL = (where: string[] = []) => {
+  console.warn("WHERE", where);
   /**
    * Soul Query By Type, Role, & Text
    */
   const query = gql`
     query SoulsOpenQuery($first: Int, $skip: Int) {
-      souls(first: $first, skip: $skip, where: { ${where} }) {
+      souls(first: $first, skip: $skip, where: { ${where.join(', ')} }) {
         id
         owner
         type
@@ -32,8 +33,6 @@ const injectedGQL = (where: string) => {
   `;
   return query;
 };
-
-// const query = injectedGQL(`{ type: "" }`);
 
 // export default query;
 export default injectedGQL;
