@@ -22,7 +22,6 @@ export const SelectedSoulContext = createContext<Partial<ISelectedSoulContext>>(
  */
 export function SelectedSoulProvider({ slug, children }: any) {
   const { accountSoul: soul, loading, error } = useContext(DataContext);
-
   if (slug == soul?.id || slug == soul?.owner) {
     //Current Soul
     return (

@@ -15,7 +15,7 @@ export const SelectedProcContext = createContext<Partial<ISelectedProcContext>>(
 );
 
 /**
- * Wrapper for Soul Context Provider
+ * Wrapper for Process Context Provider
  */
 export function SelectedProcProvider({ address, children }: any) {
   const { proc, loading, error } = useProcByAddr(address as string);
