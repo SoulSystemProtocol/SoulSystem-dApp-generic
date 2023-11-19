@@ -26,6 +26,11 @@ export const initAnalytics = () => {
 };
 
 /**
+ * Page view event.
+ */
+export const analyticsPageView = () => analyticsEvent('pageView');
+
+/**
  * Generic Analytic Event
  */
 export const analyticsEvent = (event: string, properties?: any): void => {
@@ -35,11 +40,6 @@ export const analyticsEvent = (event: string, properties?: any): void => {
     console.error('[CAUGHT] ' + error);
   }
 };
-
-/**
- * Page view event.
- */
-export const analyticsPageView = () => analyticsEvent('pageView');
 
 /**
  * Connect account event
