@@ -9,7 +9,7 @@ import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 import { darkTheme as theme } from '../constants/theme';
 import '../styles/globals.css';
 import { useEffect } from 'react';
-import { analyticsPageViewEvent, initAnalytics } from 'utils/analytics';
+import { analyticsPageView, initAnalytics } from 'utils/analytics';
 import router from 'next/router';
 
 const client = new ApolloClient({
@@ -28,10 +28,10 @@ export default function App({ Component, pageProps }: AppProps): JSX.Element {
    * Send page view event to analytics if page changed via router
    */
   useEffect(() => {
-    // const handleRouteChange = function () { analyticsPageViewEvent(); };
-    router.events.on('routeChangeComplete', analyticsPageViewEvent);
+    // const handleRouteChange = function () { analyticsPageView(); };
+    router.events.on('routeChangeComplete', analyticsPageView);
     return () => {
-      router.events.off('routeChangeComplete', analyticsPageViewEvent);
+      router.events.off('routeChangeComplete', analyticsPageView);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router.events]);

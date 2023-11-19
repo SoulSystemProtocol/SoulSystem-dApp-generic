@@ -39,7 +39,7 @@ export const analyticsEvent = (event: string, properties?: any): void => {
 /**
  * Page view event.
  */
-export const analyticsPageViewEvent = () => analyticsEvent('pageView');
+export const analyticsPageView = () => analyticsEvent('pageView');
 
 /**
  * Connect account event
