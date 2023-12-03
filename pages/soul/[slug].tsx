@@ -1,4 +1,3 @@
-import { useContext } from 'react';
 import Layout from 'components/layout/Layout';
 import SoulDetail from 'components/entity/soul/SoulDetail';
 import { useRouter } from 'next/router';
@@ -8,10 +7,7 @@ import { GAME_DESC } from 'constants/contracts';
 import { Box, Grid, Typography } from '@mui/material';
 import DisplayPOAP from 'components/web3/DisplayPOAP';
 import SoulAffiliations from 'components/entity/soul/SoulAffiliations';
-import {
-  SelectedSoulContext,
-  SelectedSoulProvider,
-} from 'contexts/SelectedSoul';
+import { SelectedSoulContext } from 'contexts/SelectedSoul';
 import { SelectedGameProvider } from 'contexts/SelectedGame';
 import { SelectedProcProvider } from 'contexts/SelectedProc';
 import GameView from 'components/entity/game/GameView';
@@ -39,6 +35,7 @@ export async function getServerSideProps(context: any) {
   if (!soul) return { notFound: true };
 
   const pageData = {
+    soul,
     slug,
     title: getPageTitle(soulName(soul)),
     description: soulDescription(soul),
@@ -61,6 +58,7 @@ export async function getServerSideProps(context: any) {
 export default function SoulSinglePage({ pageData }: any): JSX.Element {
   const router = useRouter();
   const { slug } = router.query;
+  const { soul } = pageData;
 
   if (!router.isReady)
     return (
@@ -68,20 +66,20 @@ export default function SoulSinglePage({ pageData }: any): JSX.Element {
         <Loading />
       </Layout>
     );
-  if (!slug)
-    return <Layout title={'Soul Not Specified'}>Soul Not Specified</Layout>;
+  // if (!slug)
+  //   return <Layout title={'Soul Not Specified'}>Soul Not Specified</Layout>;
   return (
-    <SelectedSoulProvider slug={slug}>
-      <SoulSinglePageContent />
-    </SelectedSoulProvider>
+    <SelectedSoulContext.Provider value={{ soul, loading: false, error: null }}>
+      <SoulSinglePageContent {...pageData} />
+    </SelectedSoulContext.Provider>
   );
 }
 
 /**
  * Single Soul Page Content
  */
-function SoulSinglePageContent(): JSX.Element {
-  const { soul, loading, error } = useContext(SelectedSoulContext);
+function SoulSinglePageContent({ soul }: { soul: any }): JSX.Element {
+  // const { soul, loading, error } = useContext(SelectedSoulContext);
 
   if (soul?.tags !== undefined) console.log('Soul Tags', soul?.tags);
   console.log('Soul', soul);
@@ -101,12 +99,12 @@ function SoulSinglePageContent(): JSX.Element {
     marginLeft: '-18px',
   };
 
-  if (error)
-    return (
-      <Layout title={getPageTitle(CONF.PAGE_TITLE)}>
-        Failed to Load Entity
-      </Layout>
-    );
+  // if (error)
+  //   return (
+  //     <Layout title={getPageTitle(CONF.PAGE_TITLE)}>
+  //       Failed to Load Entity
+  //     </Layout>
+  //   );
 
   return (
     <Layout title={getPageTitle(CONF.PAGE_TITLE)}>
