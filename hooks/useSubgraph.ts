@@ -22,6 +22,7 @@ export default function useSubgraph() {
     return response.souls;
   };
 
+
   const findGames = async function (
     ids?: Array<string>,
     type?: string,

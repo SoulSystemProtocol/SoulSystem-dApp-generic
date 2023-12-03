@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import Layout from 'components/layout/Layout';
 import SoulDetail from 'components/entity/soul/SoulDetail';
 import { useRouter } from 'next/router';
-import { soulName } from 'utils/soul';
+import { soulDescription, soulImage, soulName } from 'utils/soul';
 import { getPageTitle } from 'utils';
 import { GAME_DESC } from 'constants/contracts';
 import { Box, Grid, Typography } from '@mui/material';
@@ -16,20 +16,55 @@ import { SelectedGameProvider } from 'contexts/SelectedGame';
 import { SelectedProcProvider } from 'contexts/SelectedProc';
 import GameView from 'components/entity/game/GameView';
 import TaskView from 'components/entity/task/TaskView';
-import { MetadataAttribute } from 'helpers/metadata';
+import { MetadataAttribute, normalizeGraphEntity } from 'helpers/metadata';
 import AttributeDisplayPercentage from 'components/entity/soul/AttributeDisplayPercentage';
 import Loading from 'components/layout/Loading';
+import { isNumber } from 'helpers/utils';
+import { getSoulById, getSoulByHash } from 'utils/subgraphQueries';
+
+type Props = {
+  params: { id: string };
+  searchParams: { [key: string]: string | string[] | undefined };
+};
+
+// Fetch dynamic data for this page
+export async function getServerSideProps(context: any) {
+  const slug = context.query.slug;
+  //Fetch Soul
+  const soul = isNumber(slug as string)
+    ? await getSoulById(slug).then((entity) => normalizeGraphEntity(entity))
+    : await getSoulByHash(slug).then((entity) => normalizeGraphEntity(entity));
+
+  //Validate
+  if (!soul) return { notFound: true }
+
+  const pageData = {
+    slug,
+    title: getPageTitle(soulName(soul)),
+    description: soulDescription(soul),
+    imageUrl: soulImage(soul),
+    openGraph: {
+      type: 'profile',
+    },
+  };
+
+  return {
+    props: {
+      pageData,
+    },
+  };
+}
 
 /**
  * Single Soul Page
  */
-export default function SoulSinglePage(): JSX.Element {
+export default function SoulSinglePage({ pageData }: any): JSX.Element {
   const router = useRouter();
   const { slug } = router.query;
 
   if (!router.isReady)
     return (
-      <Layout title={'Soul'}>
+      <Layout title={pageData.title}>
         <Loading />
       </Layout>
     );
@@ -93,15 +128,15 @@ function SoulSinglePageContent(): JSX.Element {
           </Grid> */}
           {soul?.metadata?.attributes.map((item: MetadataAttribute) =>
             !item ||
-            // eslint-disable-next-line prettier/prettier
-            item.display_type != 'boost_percentage' 
-            // || Number(item.value) < 80 //Threashold
-            // eslint-disable-next-line prettier/prettier
-            ? null : (
-              <Grid key={item.trait_type} item xs={4} sm={2} lg={2}>
-                <AttributeDisplayPercentage item={item} />
-              </Grid>
-            ),
+              // eslint-disable-next-line prettier/prettier
+              item.display_type != 'boost_percentage'
+              // || Number(item.value) < 80 //Threashold
+              // eslint-disable-next-line prettier/prettier
+              ? null : (
+                <Grid key={item.trait_type} item xs={4} sm={2} lg={2}>
+                  <AttributeDisplayPercentage item={item} />
+                </Grid>
+              ),
           )}
         </Grid>
       )}

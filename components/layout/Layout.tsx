@@ -19,6 +19,7 @@ import Head from 'next/head';
 import Footer from './Footer';
 import { nameEntity } from 'helpers/utils';
 import NavBar from './NavBar';
+import PageHead from './PageHead';
 // import Header from './Header';
 // import Sidebar from './Sidebar';
 // import Link from 'components/utils/Link';
@@ -160,30 +161,22 @@ const footer_icons: MenuLink[] = [
 export default function Layout({ children, title }: any) {
   // const theme = useTheme();
   // const toggleDrawer = () => setIsOpen(!isOpen);
-  const [isOpen, setIsOpen] = useState(false);
+  // const [isOpen, setIsOpen] = useState(false);
 
   return (
     <Box sx={{ display: 'flex', minHeight: '100vh' }}>
-      <CssBaseline />
-      <Head>
-        <title>{title || process.env.NEXT_PUBLIC_APP_NAME}</title>
-        <meta name="viewport" content="initial-scale=1, width=device-width" />
-      </Head>
-
-      <>
-        <svg width={0} height={0}>
-          <linearGradient id="linearColors" x1={1} y1={0} x2={1} y2={1}>
-            <stop offset={0} stopColor="rgba(241,184,74,1)" />
-            <stop offset={1} stopColor="rgba(207,113,8,1)" />
-          </linearGradient>
-        </svg>
-        <svg width={0} height={0}>
-          <linearGradient id="linearColorsAccent" x1={0} y1={0} x2={1} y2={1}>
-            <stop offset={0} stopColor="#8c9eff" />
-            <stop offset={0.8} stopColor="#4776E6" />
-          </linearGradient>
-        </svg>
-      </>
+      <svg width={0} height={0}>
+        <linearGradient id="linearColors" x1={1} y1={0} x2={1} y2={1}>
+          <stop offset={0} stopColor="rgba(241,184,74,1)" />
+          <stop offset={1} stopColor="rgba(207,113,8,1)" />
+        </linearGradient>
+      </svg>
+      <svg width={0} height={0}>
+        <linearGradient id="linearColorsAccent" x1={0} y1={0} x2={1} y2={1}>
+          <stop offset={0} stopColor="#8c9eff" />
+          <stop offset={0.8} stopColor="#4776E6" />
+        </linearGradient>
+      </svg>
       {/* {process.env.NEXT_PUBLIC_FEATURE_SIDEBAR == 'true' ? (
         <Sidebar
           toggler={toggleDrawer}

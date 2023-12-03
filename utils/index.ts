@@ -1,9 +1,10 @@
 import { APP_CONFIGS } from '../constants/app';
-import axios from 'axios';
+import { runSubgraphQuery } from './subgraph';
+const manifest = require('manifest.json');
 
 ///Generate Page Title
 export const getPageTitle = (pageName: string) =>
-  `${pageName} ${APP_CONFIGS.TITLE_SEP} ${APP_CONFIGS.NAME}`;
+  `${pageName} ${APP_CONFIGS.TITLE_SEP} ${manifest.name}`;
 
 /// Pagination Helper
 export const getPagination = (page: any) => (page - 1) * APP_CONFIGS.PAGE_SIZE;
@@ -25,23 +26,3 @@ export const getSBTForAccount = async (
   // console.log('Ran Query and got:', query, response);
   return response?.account?.sbt?.id;
 };
-
-/// Runs a subgraph query
-export async function runSubgraphQuery(query: string, variables: any = {}) {
-  try {
-    const response = await axios.post(
-      process.env.NEXT_PUBLIC_SUBGRAPH_API || '',
-      { query, variables },
-    );
-    if (response.data.errors) {
-      throw new Error(
-        `Error making subgraph query: ${JSON.stringify(response.data.errors)}`,
-      );
-    }
-    return response.data.data;
-  } catch (error: any) {
-    throw new Error(
-      `Could not query the subgraph: ${JSON.stringify(error.message)}`,
-    );
-  }
-}

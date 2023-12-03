@@ -1,4 +1,8 @@
-import { responsiveFontSizes, ThemeProvider } from '@mui/material/styles';
+import {
+  responsiveFontSizes,
+  ThemeProvider,
+  styled,
+} from '@mui/material/styles';
 import { DataProvider } from 'contexts/data';
 import { DialogProvider } from 'contexts/dialog';
 import { Web3Provider } from 'contexts/Web3Context';
@@ -11,6 +15,8 @@ import '../styles/globals.css';
 import { useEffect } from 'react';
 import { analyticsPageView, initAnalytics } from 'utils/analytics';
 import router from 'next/router';
+import CssBaseline from '@mui/material/CssBaseline';
+import PageHead from 'components/layout/PageHead';
 
 const client = new ApolloClient({
   uri: process.env.NEXT_PUBLIC_SUBGRAPH_API,
@@ -44,6 +50,8 @@ export default function App({ Component, pageProps }: AppProps): JSX.Element {
             <DataProvider>
               <DialogProvider>
                 <NextNProgress height={4} />
+                <PageHead {...pageProps.pageData} />
+                <CssBaseline />
                 <Component {...pageProps} />
               </DialogProvider>
             </DataProvider>

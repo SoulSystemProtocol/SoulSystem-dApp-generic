@@ -48,9 +48,6 @@ export const __ = {
       let uri2Adjusted = uri2
         .replace('https://ipfs.moralis.io:2053/ipfs/', '')
         .replace('ipfs://', '');
-
-      // if(uri1Adjusted !== uri2Adjusted) console.warn("[TEST] Different IPFS IDs", {uri1, uri2, uri1Adjusted, uri2Adjusted});   //V
-
       return uri1Adjusted === uri2Adjusted;
     }
     return uri1 === uri2;

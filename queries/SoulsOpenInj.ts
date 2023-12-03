@@ -4,7 +4,6 @@ import { gql } from '@apollo/client';
  * Unsafe GQL Injector
  */
 const injectedGQL = (where: string[] = []) => {
-  console.warn("WHERE", where);
   /**
    * Soul Query By Type, Role, & Text
    */
