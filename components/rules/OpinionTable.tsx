@@ -203,7 +203,6 @@ export default function OpinionTable({ item, sx }: any) {
       setRows([]);
       setIsLoading(true);
       const rows = [];
-      
       const rules = await getGameRules([], item.id);
 
       // const actionGuids = new Set();

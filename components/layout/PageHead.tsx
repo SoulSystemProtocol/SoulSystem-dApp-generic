@@ -26,7 +26,6 @@ const PageHead = ({
 }): JSX.Element => {
   const manifest = require('manifest.json');
 
-
   return (
     <Head>
       <title>{title}</title>

@@ -36,7 +36,7 @@ export async function getServerSideProps(context: any) {
     : await getSoulByHash(slug).then((entity) => normalizeGraphEntity(entity));
 
   //Validate
-  if (!soul) return { notFound: true }
+  if (!soul) return { notFound: true };
 
   const pageData = {
     slug,
