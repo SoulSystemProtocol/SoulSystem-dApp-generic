@@ -224,11 +224,7 @@ export default function OpinionTable({ item, sx }: any) {
     }
   }
 
-  useEffect(() => {
-    if (item) loadData();
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [item]);
+  useEffect(() => item && loadData(), [item]);
 
   return (
     <Box sx={{ height: 800, ...sx }}>
