@@ -176,10 +176,29 @@ export default function Communiverse(): JSX.Element {
             </Box>
           </Card>
         </Box>
-        <Box>
+        <FaucetCallout minBalance={0.1} />
+        <Box
+          sx={{
+            textAlign: 'center',
+            width: { xs: '100%', sm: '650px' },
+            margin: '60px auto 40px',
+          }}
+        >
+          <Typography
+            variant="h1"
+            sx={{
+              mb: 4,
+              mt: 10,
+              textAlign: 'center',
+              fontSize: { sm: '3rem', xs: '3rem' },
+            }}
+          >
+            Quick Demo
+          </Typography>
           <iframe
-            width="560"
+            width="100%"
             height="315"
+            style={{ margin: '10px auto' }}
             src="https://www.youtube.com/embed/NTg-EKd4B8Y?si=n2zMPjRNGervXzGJ"
             title="YouTube video player"
             frameBorder="0"
@@ -187,7 +206,6 @@ export default function Communiverse(): JSX.Element {
             allowFullScreen
           ></iframe>
         </Box>
-        <FaucetCallout minBalance={0.1} />
         <Box sx={{ mt: 4 }}>
           <Typography
             variant="h1"
@@ -200,7 +218,7 @@ export default function Communiverse(): JSX.Element {
           >
             What does it do?
           </Typography>
-          <Typography variant="h4">
+          <Typography variant="h4" sx={{ textAlign: 'center' }}>
             {`Community building and management tool that's easy to use, no-code
             required.`}
           </Typography>

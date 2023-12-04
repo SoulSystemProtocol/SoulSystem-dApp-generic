@@ -165,17 +165,6 @@ export default function SolidifyLanding(): JSX.Element {
           </Box>
         )} */}
         <Box>
-          <iframe
-            width="560"
-            height="315"
-            src="https://www.youtube.com/embed/NTg-EKd4B8Y?si=n2zMPjRNGervXzGJ"
-            title="YouTube video player"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowfullscreen
-          ></iframe>
-        </Box>
-        <Box>
           <Typography>
             In a world where digital interactions play an increasingly
             significant role in our lives, we recognize the need to establish a
@@ -195,6 +184,35 @@ export default function SolidifyLanding(): JSX.Element {
           </Typography>
         </Box>
         <FaucetCallout minBalance={0.1} />
+        <Box
+          sx={{
+            textAlign: 'center',
+            width: { xs: '100%', sm: '650px' },
+            margin: '60px auto 40px',
+          }}
+        >
+          <Typography
+            variant="h1"
+            sx={{
+              mb: 4,
+              mt: 10,
+              textAlign: 'center',
+              fontSize: { sm: '3rem', xs: '3rem' },
+            }}
+          >
+            Quick Demo
+          </Typography>
+          <iframe
+            width="100%"
+            height="315"
+            style={{ margin: '10px auto' }}
+            src="https://www.youtube.com/embed/NTg-EKd4B8Y?si=n2zMPjRNGervXzGJ"
+            title="YouTube video player"
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowFullScreen
+          ></iframe>
+        </Box>
         <Box sx={{ mt: 4 }}>
           <Typography
             variant="h1"
