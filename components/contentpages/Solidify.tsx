@@ -165,6 +165,17 @@ export default function SolidifyLanding(): JSX.Element {
           </Box>
         )} */}
         <Box>
+          <iframe
+            width="560"
+            height="315"
+            src="https://www.youtube.com/embed/NTg-EKd4B8Y?si=n2zMPjRNGervXzGJ"
+            title="YouTube video player"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+          ></iframe>
+        </Box>
+        <Box>
           <Typography>
             In a world where digital interactions play an increasingly
             significant role in our lives, we recognize the need to establish a
