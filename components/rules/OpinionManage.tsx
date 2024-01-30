@@ -32,11 +32,12 @@ export default function OpinionManage({ ctx }: { ctx: any }): JSX.Element {
       <Box sx={{ mb: 12 }}>
         <Box>
           <Typography variant="h3" gutterBottom>
-            {nameEntity(ctx?.role)} Rules (Opinions)
+            {nameEntity(ctx?.role)} {nameEntity('rules', true)} (Opinions)
           </Typography>
           <Typography variant="subtitle1">
-            Define the organizational culture via Rules. Each rule consists of a
-            general action and a reaction
+            Define the organizational culture via {nameEntity('rules', true)}. Each
+            {nameEntity('rules', false)} consists of a general action and a
+            reaction
           </Typography>
           {/* <Divider /> */}
         </Box>

@@ -18,6 +18,7 @@ import useIpfs from 'hooks/useIpfs';
 import useToast from 'hooks/useToast';
 import { capitalize } from 'lodash';
 import { useState } from 'react';
+import { nameEntity } from 'helpers/utils';
 
 /**
  * Component: Dialog for adding a Rule to a Game
@@ -217,7 +218,7 @@ export default function RuleAddDialog({ item, isClose, onClose }: any) {
       maxWidth="md"
       fullWidth
     >
-      <DialogTitle>Add Rule</DialogTitle>
+      <DialogTitle>Add {nameEntity('rules', false)}</DialogTitle>
       <DialogContent>
         <Form
           schema={schema}

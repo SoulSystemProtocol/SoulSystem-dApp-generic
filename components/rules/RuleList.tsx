@@ -1,5 +1,6 @@
 import { Box, Skeleton, Stack, Typography } from '@mui/material';
 import RuleCard from './RuleCard';
+import { nameEntity } from 'helpers/utils';
 
 /**
  * Component: a list of laws
@@ -23,7 +24,9 @@ export default function RuleList({
           <Skeleton variant="rectangular" width={82} height={24} />
         </Box>
       )}
-      {laws && laws.size === 0 && <Typography>No Rules Found</Typography>}
+      {laws && laws.size === 0 && (
+        <Typography>No {nameEntity('rules', true)} Found</Typography>
+      )}
       {laws && laws.size > 0 && (
         <>
           {[...laws.keys()].map((key) => (
