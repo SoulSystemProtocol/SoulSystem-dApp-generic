@@ -5,3 +5,9 @@ body {
   font-family: 'Open Sans', 'Roboto', Helvetica, Arial;
   font-size: 18px;
 }
+
+a {
+  color: inherit;
+  border-color: inherit;
+  text-decoration: none;
+}
