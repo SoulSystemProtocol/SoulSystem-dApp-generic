@@ -3,10 +3,10 @@ import NextLink from 'next/link';
 import { ReactElement, forwardRef } from 'react';
 
 const LinkBehaviour = forwardRef(function LinkBehaviour(
-  props,
-  ref,
+  props: any,
+  ref: any,
 ): JSX.Element {
-  return <NextLink ref={ref} {...props} />;
+  return <NextLink ref={ref || null} href={props.href} {...props} />;
 });
 
 /**
