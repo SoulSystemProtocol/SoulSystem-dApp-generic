@@ -106,7 +106,9 @@ export default function SoulDetail({
           sx={{ flexGrow: 1, mt: { xs: 2, md: 2 }, ml: { md: 4 } }}
         >
           <Typography variant="h1">{name}</Typography>
-          <AddressHash address={soul.owner} sx={{ mt: 1 }} />
+          {!isLostSoul(soul.owner) && (
+            <AddressHash address={soul.owner} sx={{ mt: 1 }} />
+          )}
           <SoulDescription soul={soul} sx={{ mt: 1 }} />
           <SocialLinks key="SocialLinks" soul={soul} sx={{ mt: 2 }} />
         </Stack>
