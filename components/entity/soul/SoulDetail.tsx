@@ -3,7 +3,7 @@ import { Box, Button, Stack, SxProps, Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { Web3Context } from 'contexts/Web3Context';
 import { useContext, useEffect, useState } from 'react';
-import { isLostSoul, soulCover, soulImage, soulName } from 'utils/soul';
+import { isLostSoul, isProtocolAdmin, soulCover, soulImage, soulName } from 'utils/soul';
 import AddressHash from 'components/web3/AddressHash';
 import FundDialogButton from 'components/web3/FundDialogButton';
 import EntityImage from 'components/entity/EntityImage';
@@ -13,6 +13,7 @@ import Loading from 'components/layout/Loading';
 import { nameEntity } from 'helpers/utils';
 import Link from 'components/utils/Link';
 import ImageBox from 'components/utils/ImageBox';
+import { DataContext } from 'contexts/data';
 
 /**
  * Display Soul details
@@ -25,6 +26,7 @@ export default function SoulDetail({
   sx?: SxProps;
 }): JSX.Element {
   const { account } = useContext(Web3Context);
+  const { accountSoul } = useContext(DataContext);
   const [isOwned, setIsOwned] = useState<boolean>(false);
   const [name, setName] = useState<string>('');
   const theme = useTheme();
@@ -79,8 +81,8 @@ export default function SoulDetail({
               sx={{ px: '25px' }}
               text={'Sponsor ' + nameEntity(soul.role)}
             />
-            {isOwned && (
-              <Link href={`/soul/edit`}>
+            {(isOwned || isProtocolAdmin(accountSoul?.owner)) && (
+              <Link href={`/soul/edit/${soul.id}`}>
                 <Button
                   size="small"
                   variant="outlined"
