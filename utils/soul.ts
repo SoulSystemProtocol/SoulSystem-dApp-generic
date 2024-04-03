@@ -54,7 +54,7 @@ export function soulLink(soul: any, guid: boolean = false): string {
   //Validate
   if (!soul.owner) console.error('Soul object missing owner', { soul });
   // if(!guid) return soul.handle
-  return `/soul/${soul.owner}`;
+  return `/soul/${isLostSoul(soul.owner) ? soul.id : soul.owner}`;
 }
 
 /**
