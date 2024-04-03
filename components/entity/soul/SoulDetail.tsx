@@ -73,7 +73,6 @@ export default function SoulDetail({
             spacing={2}
             sx={{ mt: 2, justifyContent: 'center' }}
           >
-
             <FundDialogButton
               address={soul.owner}
               disabled={isOwned || isLostSoul(soul.owner)}
