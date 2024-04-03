@@ -1,6 +1,7 @@
 import { DEFAULT_COVER, DEFAULT_IMAGE } from 'constants/texts';
 import { resolveLink } from 'helpers/IPFS';
 import { MetaAttrHelper } from 'helpers/MetaAttrHelper';
+import __ from 'helpers/__';
 import { truncate } from 'lodash';
 
 /**
@@ -73,4 +74,4 @@ export function genFauxSoul(metadata: any, additional: any = {}): any {
  * Check if soul is lost (not owned)
  */
 export const isLostSoul = (address: string): boolean =>
-  address == process.env.NEXT_PUBLIC_SOUL_CONTRACT_ADDRESS;
+  __.matchAddr(address, process.env.NEXT_PUBLIC_SOUL_CONTRACT_ADDRESS);
