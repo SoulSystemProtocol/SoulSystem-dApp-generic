@@ -30,9 +30,9 @@ export default function useIpfs() {
     const created = await infuraClient.add(content);
     const cid = created.path;
     const url = `ipfs://${cid}`;
+    console.log('IPFS', { cid, url });
     return { cid, url };
   };
-
 
   const uploadFileToIPFS = async function (file: any) {
     return uploadToIPFS({
