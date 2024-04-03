@@ -75,3 +75,7 @@ export function genFauxSoul(metadata: any, additional: any = {}): any {
  */
 export const isLostSoul = (address: string): boolean =>
   __.matchAddr(address, process.env.NEXT_PUBLIC_SOUL_CONTRACT_ADDRESS);
+
+///is Soul Protocol Admin (Set by ENV)
+export const isProtocolAdmin = (address: string): boolean =>
+  __.matchAddr(address, process.env.NEXT_PUBLIC_PROTOCOL_OWNER);
