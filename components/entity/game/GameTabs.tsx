@@ -36,7 +36,7 @@ export default function GameTabs({ item: game, sx }: any) {
           <Tab label="Relations" value="1" />
           <Tab label="Applicants" value="3" />
           <Tab label="Members" value="4" />
-          <Tab label="Role Tokens" value="5" />
+          <Tab label="Positions" value="5" />
         </TabList>
         {/* <TabPanel value="1" sx={{ p: 0 }}>
           <EntityPosts item={game} types={['post', 'comment']} />

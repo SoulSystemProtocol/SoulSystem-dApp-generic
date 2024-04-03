@@ -34,7 +34,7 @@ export default function ProjectTabs({ item: project, sx }: any) {
           {/* <Tab label="Announcements" value="1" /> */}
           <Tab label={nameEntity('task', true)} value="1" />
           <Tab label="Members" value="3" />
-          <Tab label="Role Tokens" value="5" />
+          <Tab label="Positions" value="5" />
           {process.env.NEXT_PUBLIC_FEATURE_RULES == 'true' && (
             <Tab label={nameEntity('rules', true)} value="6" />
           )}

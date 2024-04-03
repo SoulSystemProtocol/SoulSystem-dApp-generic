@@ -36,13 +36,13 @@ export default function ProjectTabs({ item, sx }: any) {
           <Tab label="Deliveries" value="1" />
           <Tab label="Discussion" value="2" />
           <Tab label="Members" value="3" />
-          <Tab label="Role Tokens" value="5" />
+          <Tab label="Positions" value="5" />
         </TabList>
         <TabPanel value="1" sx={{ px: 0 }}>
           <Stack
             direction="column"
             spacing={2}
-            // divider={<Divider sx={{ my: 4 }} />}
+          // divider={<Divider sx={{ my: 4 }} />}
           >
             {item && <TaskApplications task={item} sx={{ mt: 2 }} />}
             {/* {item && <TaskAcceptedApplications task={item} sx={{ mt: 2 }} />} */}
