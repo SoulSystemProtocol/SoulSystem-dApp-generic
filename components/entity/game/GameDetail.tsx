@@ -66,7 +66,7 @@ export default function GameDetail({ sx }: any): JSX.Element {
         <SocialLinks key="SocialLinks" soul={soul} sx={{ mt: 2 }} />
 
         <Stack key="buttons" direction="row" spacing={2} sx={{ mt: 2 }}>
-          <GameMembershipActions dao={game} />
+          <GameMembershipActions game={game} />
           <FundDialogButton
             text={`Fund ${nameEntity(game?.role)}`}
             address={game?.id}
