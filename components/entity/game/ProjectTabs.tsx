@@ -32,8 +32,8 @@ export default function ProjectTabs({ item: project, sx }: any) {
           }}
         >
           {/* <Tab label="Announcements" value="1" /> */}
-          <Tab label={nameEntity('task', true)} value="1" />
-          <Tab label="Members" value="3" />
+          <Tab label="Members" value="1" />
+          <Tab label={nameEntity('task', true)} value="3" />
           <Tab label="Positions" value="5" />
           {process.env.NEXT_PUBLIC_FEATURE_RULES == 'true' && (
             <Tab label={nameEntity('rules', true)} value="6" />
@@ -43,15 +43,15 @@ export default function ProjectTabs({ item: project, sx }: any) {
           <EntityPosts item={project} />
         </TabPanel> */}
         <TabPanel value="1" sx={{ px: 0 }}>
-          <ProjectAddTaskButton project={project} sx={{ mb: 4 }} />
-          <ProjectTaskList />
-        </TabPanel>
-        <TabPanel value="3" sx={{ px: { xs: 0, sm: 2 } }}>
           <Typography variant="body1" color="text.secondary" sx={{ mb: 2 }}>
             These are the stewards of this contract who hold NFTs that represent
             their roles
           </Typography>
           <CTXParts />
+        </TabPanel>
+        <TabPanel value="3" sx={{ px: { xs: 0, sm: 2 } }}>
+          <ProjectAddTaskButton project={project} sx={{ mb: 4 }} />
+          <ProjectTaskList />
         </TabPanel>
         <TabPanel value="5" sx={{ px: { xs: 0, sm: 2 } }}>
           <CTXRoleTokens ctx={game} />
