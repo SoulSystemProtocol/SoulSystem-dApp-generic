@@ -68,3 +68,9 @@ export function genFauxSoul(metadata: any, additional: any = {}): any {
   };
   return soulFaux;
 }
+
+/**
+ * Check if soul is lost (not owned)
+ */
+export const isLostSoul = (address: string): boolean =>
+  address == process.env.NEXT_PUBLIC_SOUL_CONTRACT_ADDRESS;
