@@ -3,7 +3,7 @@ import { Box, Button, Stack, SxProps, Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { Web3Context } from 'contexts/Web3Context';
 import { useContext, useEffect, useState } from 'react';
-import { soulCover, soulImage, soulName } from 'utils/soul';
+import { isLostSoul, soulCover, soulImage, soulName } from 'utils/soul';
 import AddressHash from 'components/web3/AddressHash';
 import FundDialogButton from 'components/web3/FundDialogButton';
 import EntityImage from 'components/entity/EntityImage';
@@ -73,12 +73,10 @@ export default function SoulDetail({
             spacing={2}
             sx={{ mt: 2, justifyContent: 'center' }}
           >
+
             <FundDialogButton
               address={soul.owner}
-              disabled={
-                isOwned ||
-                soul.owner == process.env.NEXT_PUBLIC_SOUL_CONTRACT_ADDRESS
-              }
+              disabled={isOwned || isLostSoul(soul.owner)}
               sx={{ px: '25px' }}
               text={'Sponsor ' + nameEntity(soul.role)}
             />
