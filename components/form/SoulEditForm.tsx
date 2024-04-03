@@ -15,6 +15,7 @@ import { JSONSchema7 } from 'json-schema';
 import { useRouter } from 'next/router';
 import { ReactElement, useContext, useState } from 'react';
 import { analyticsEvent } from 'utils/analytics';
+import { MetaAttrHelper } from 'helpers/MetaAttrHelper';
 
 /**
  * Create or edit Soul.
@@ -108,7 +109,13 @@ export default function SoulEditForm({
             metadata.attributes.splice(i, 1);
           }
         }
+        if (!soul.name) {
+          //Backwards compatibility
+          metadata.name = MetaAttrHelper.extractName(metadata.attributes);
+        }
       }
+
+      console.warn("metadata", metadata);
       //Save to IPFS
       const { url: metadataUrl } = await uploadJsonToIPFS(metadata);
 
@@ -119,9 +126,9 @@ export default function SoulEditForm({
         const tx =
           !soul.type && !soul.role
             ? //Human Soul
-              await getContractSoul().update(soul.id, metadataUrl)
+            await getContractSoul().update(soul.id, metadataUrl)
             : //Contract Soul
-              await getContractGame(soul.owner).setContractURI(metadataUrl);
+            await getContractGame(soul.owner).setContractURI(metadataUrl);
         showToastSuccess(
           'Update has been sent to chain and will be processed shortly. Please refresh page in a few seconds.',
         );
