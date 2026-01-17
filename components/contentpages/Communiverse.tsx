@@ -29,12 +29,12 @@ export default function Communiverse(): JSX.Element {
               {listStyle}
               Mint yourself a Soul (NFT profile) to represent yourself on the
               blockchain
-              <li>{listStyle} Own your data!</li>
-              <li>
-                {listStyle}
-                Take your soul with you everywhere you go and use it on other
-                dApps
-              </li>
+            </li>
+            <li>{listStyle} Own your data!</li>
+            <li>
+              {listStyle}
+              Take your soul with you everywhere you go and use it on other
+              dApps
             </li>
           </List>
         </>
@@ -230,7 +230,7 @@ export default function Communiverse(): JSX.Element {
                   item
                   xs={12}
                   // md={6}
-                  key={'flow.title'}
+                  key={flow.title}
                   sx={{ flexDirection: 'row' }}
                 >
                   <Card
