@@ -22,6 +22,7 @@ import { ProjectExt } from '../typechain-types/contracts/extensions/ProjectExt';
 import { RuleExt } from '../typechain-types/contracts/extensions/RuleExt';
 import { TaskUpgradable } from '../typechain-types/contracts/TaskUpgradable';
 import { useSigner } from 'wagmi';
+import { APP_CONFIGS } from 'constants/app';
 
 /**
  * Hook for workin with contracts.
@@ -33,6 +34,8 @@ export default function useContract() {
 
   /// Common Validations
   function validateChain() {
+    //Validate
+    if (!APP_CONFIGS.WEB3_ENABLED) throw new NoWalletError();
     if (!account) {
       console.error('[DEBUG] Not ready -- is Wallet Connected?', {
         account,

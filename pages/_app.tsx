@@ -1,8 +1,5 @@
-import {
-  responsiveFontSizes,
-  ThemeProvider,
-  styled,
-} from '@mui/material/styles';
+import { useEffect } from 'react';
+import { responsiveFontSizes, ThemeProvider } from '@mui/material/styles';
 import { DataProvider } from 'contexts/data';
 import { DialogProvider } from 'contexts/dialog';
 import { Web3Provider } from 'contexts/Web3Context';
@@ -12,16 +9,25 @@ import { SnackbarProvider } from 'notistack';
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 import { darkTheme as theme } from '../constants/theme';
 import '../styles/globals.css';
-import { useEffect } from 'react';
 import { analyticsPageView, initAnalytics } from 'utils/analytics';
 import router from 'next/router';
 import CssBaseline from '@mui/material/CssBaseline';
 import PageHead from 'components/layout/PageHead';
+import { APP_CONFIGS } from 'constants/app';
 
 const client = new ApolloClient({
   uri: process.env.NEXT_PUBLIC_SUBGRAPH_API,
   cache: new InMemoryCache(),
 });
+
+const ConditionalWeb3Provider = ({
+  children,
+}: {
+  children: React.ReactNode;
+}) => {
+  // if (!APP_CONFIGS.WEB3_ENABLED) return <>{children}</>;
+  return <Web3Provider>{children}</Web3Provider>;
+};
 
 /**
  * Component with an app.
@@ -46,7 +52,7 @@ export default function App({ Component, pageProps }: AppProps): JSX.Element {
     <ApolloProvider client={client}>
       <ThemeProvider theme={responsiveFontSizes(theme)}>
         <SnackbarProvider maxSnack={3}>
-          <Web3Provider>
+          <ConditionalWeb3Provider>
             <DataProvider>
               <DialogProvider>
                 <NextNProgress height={4} />
@@ -55,7 +61,7 @@ export default function App({ Component, pageProps }: AppProps): JSX.Element {
                 <Component {...pageProps} />
               </DialogProvider>
             </DataProvider>
-          </Web3Provider>
+          </ConditionalWeb3Provider>
         </SnackbarProvider>
       </ThemeProvider>
     </ApolloProvider>

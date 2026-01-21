@@ -4,7 +4,7 @@ import {
   analyticsAccountDisconnect,
   analyticsAccountConnect,
 } from 'utils/analytics';
-import { EthereumClient, modalConnectors } from '@web3modal/ethereum';
+import { EthereumClient, w3mConnectors } from '@web3modal/ethereum';
 import { Web3Modal } from '@web3modal/react';
 import {
   configureChains,
@@ -12,7 +12,7 @@ import {
   useAccount,
   WagmiConfig,
   useNetwork,
-  useProvider,
+  // useProvider,
 } from 'wagmi';
 import { alchemyProvider } from 'wagmi/providers/alchemy';
 import { publicProvider } from 'wagmi/providers/public';
@@ -59,8 +59,8 @@ const { chains, provider } = configureChains(
 const wagmiClient = createClient({
   autoConnect: true,
   // connectors: [new InjectedConnector({ chains }) as any],
-  connectors: modalConnectors({
-    appName: process.env.NEXT_PUBLIC_APP_NAME || '',
+  connectors: w3mConnectors({
+    projectId: process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECTID || '',
     chains,
   }),
   provider,
@@ -119,7 +119,7 @@ export function Web3Provider({ children }: { children: any }) {
     //Check if supported chain
     setIsNetworkChainCorrect(
       !!networkChainId &&
-        networkChainId?.toString() === process.env.NEXT_PUBLIC_NETWORK_CHAIN_ID,
+      networkChainId?.toString() === process.env.NEXT_PUBLIC_NETWORK_CHAIN_ID,
     );
   }, [networkChainId]);
 
