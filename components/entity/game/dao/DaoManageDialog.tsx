@@ -8,10 +8,10 @@ import {
 import ImageInput from 'components/form/widget/ImageInput';
 import useError from 'hooks/useError';
 import { useState } from 'react';
-import { MuiForm5 as Form } from '@rjsf/material-ui';
+import Form from 'components/form/RjsfForm';
 import { LoadingButton } from '@mui/lab';
 import { Save } from '@mui/icons-material';
-import { JSONSchema7 } from 'json-schema';
+import type { RJSFSchema } from '@rjsf/utils';
 import useToast from 'hooks/useToast';
 import useIpfs from 'hooks/useIpfs';
 import useContract from 'hooks/useContract';
@@ -41,7 +41,7 @@ export default function DaoManageDialog({
   });
   const GAMETYPE = GAME_TYPE.mdao;
 
-  const schema: JSONSchema7 = {
+  const schema: RJSFSchema = {
     type: 'object',
     required: ['name'],
     properties: {

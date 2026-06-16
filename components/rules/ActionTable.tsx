@@ -101,13 +101,13 @@ export default function ActionTable({ sx }: any): JSX.Element {
         loading={isLoading}
         rows={rows}
         columns={columns}
-        pageSize={50}
-        rowsPerPageOptions={[50]}
+        initialState={{
+          pagination: { paginationModel: { pageSize: 50 } },
+        }}
+        pageSizeOptions={[50]}
         rowHeight={84}
         getRowId={(row: any) => row.id}
-        components={{
-          Toolbar: GridToolbar,
-        }}
+        slots={{ toolbar: GridToolbar }}
       />
     </Box>
   );

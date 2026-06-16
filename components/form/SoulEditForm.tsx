@@ -1,7 +1,7 @@
 import { Save } from '@mui/icons-material';
 import { LoadingButton } from '@mui/lab';
 import { Button, Stack } from '@mui/material';
-import { MuiForm5 as Form } from '@rjsf/material-ui';
+import Form from 'components/form/RjsfForm';
 import CoverInput from 'components/form/widget/CoverInput';
 import ImageInput from 'components/form/widget/ImageInput';
 import Person4Icon from '@mui/icons-material/Person4';
@@ -11,7 +11,7 @@ import useContract from 'hooks/useContract';
 import useError from 'hooks/useError';
 import useIpfs from 'hooks/useIpfs';
 import useToast from 'hooks/useToast';
-import { JSONSchema7 } from 'json-schema';
+import type { RJSFSchema } from '@rjsf/utils';
 import { useRouter } from 'next/router';
 import { ReactElement, useContext, useState } from 'react';
 import { analyticsEvent } from 'utils/analytics';
@@ -28,7 +28,7 @@ export default function SoulEditForm({
 }: {
   soul?: any;
   children?: ReactElement;
-  schema?: JSONSchema7;
+  schema?: RJSFSchema;
   uiSchema?: any;
 }): ReactElement {
   const STATUS = {
@@ -46,7 +46,7 @@ export default function SoulEditForm({
   const [status, setStatus] = useState<number>(STATUS.available);
   const [formData, setFormData] = useState(soul?.metadata || {});
 
-  const defaultSchema: JSONSchema7 = {
+  const defaultSchema: RJSFSchema = {
     // description: "Soul's metadata",
     type: 'object',
     properties: {
@@ -115,7 +115,7 @@ export default function SoulEditForm({
         }
       }
 
-      console.warn("metadata", metadata);
+      console.warn('metadata', metadata);
       //Save to IPFS
       const { url: metadataUrl } = await uploadJsonToIPFS(metadata);
 
@@ -126,9 +126,9 @@ export default function SoulEditForm({
         const tx =
           !soul.type && !soul.role
             ? //Human Soul
-            await getContractSoul().update(soul.id, metadataUrl)
+              await getContractSoul().update(soul.id, metadataUrl)
             : //Contract Soul
-            await getContractGame(soul.owner).setContractURI(metadataUrl);
+              await getContractGame(soul.owner).setContractURI(metadataUrl);
         showToastSuccess(
           'Update has been sent to chain and will be processed shortly. Please refresh page in a few seconds.',
         );
@@ -153,9 +153,8 @@ export default function SoulEditForm({
         console.log('TX Included');
 
         //Optimistic injection for new accountSoul
-        const nextTokenId = await getContractSoul().callStatic.mint(
-          metadataUrl,
-        );
+        const nextTokenId =
+          await getContractSoul().callStatic.mint(metadataUrl);
         injectSoul?.(metadata, {
           id: Number(nextTokenId),
         });

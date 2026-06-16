@@ -7,12 +7,12 @@ import {
   DialogTitle,
   Stack,
 } from '@mui/material';
-import { MuiForm5 as Form } from '@rjsf/material-ui';
+import Form from 'components/form/RjsfForm';
 import useError from 'hooks/useError';
 import useIpfs from 'hooks/useIpfs';
 import useContract from 'hooks/useContract';
 import useToast from 'hooks/useToast';
-import { JSONSchema7 } from 'json-schema';
+import type { RJSFSchema } from '@rjsf/utils';
 import { useState } from 'react';
 import { GAME_TYPE } from 'constants/contracts';
 import OpenTags from 'components/form/widget/OpenTags';
@@ -41,7 +41,7 @@ export default function TaskManageDialog({
     }),
   });
 
-  const schema: JSONSchema7 = {
+  const schema: RJSFSchema = {
     type: 'object',
     required: ['name'],
     properties: {

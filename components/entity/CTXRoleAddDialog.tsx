@@ -9,12 +9,12 @@ import {
   Stack,
   Typography,
 } from '@mui/material';
-import { MuiForm5 as Form } from '@rjsf/material-ui';
+import Form from 'components/form/RjsfForm';
 import ImageInput from 'components/form/widget/ImageInput';
 import useContract from 'hooks/useContract';
 import useError from 'hooks/useError';
 import useToast from 'hooks/useToast';
-import { JSONSchema7 } from 'json-schema';
+import type { RJSFSchema } from '@rjsf/utils';
 import useIpfs from 'hooks/useIpfs';
 import DefaultRoleImage from 'components/DefaultRoleImage';
 import { renderToStaticMarkup } from 'react-dom/server';
@@ -38,7 +38,7 @@ export default function CTXRolesAddDialog({
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isOpen, setIsOpen] = useState<boolean>(!isClose);
   const { getContractGame } = useContract();
-  const schema: JSONSchema7 = {
+  const schema: RJSFSchema = {
     description: 'Create a New Role Token for this Organization',
     type: 'object',
     required: ['name'],

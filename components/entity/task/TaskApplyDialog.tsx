@@ -7,7 +7,7 @@ import {
   DialogTitle,
   Stack,
 } from '@mui/material';
-import { MuiForm5 as Form } from '@rjsf/material-ui';
+import Form from 'components/form/RjsfForm';
 import MySoulsBox from 'components/form/widget/MySoulsBox';
 import { DataContext } from 'contexts/data';
 import useContract from 'hooks/useContract';
@@ -15,7 +15,7 @@ import useError from 'hooks/useError';
 import useToast from 'hooks/useToast';
 import useIpfs from 'hooks/useIpfs';
 import { nameEntity } from 'helpers/utils';
-import { JSONSchema7 } from 'json-schema';
+import type { RJSFSchema } from '@rjsf/utils';
 import { useContext, useState } from 'react';
 
 /**
@@ -31,7 +31,7 @@ export default function TaskApplyDialog({ task, isClose, onClose }: any) {
   const { accountSoul } = useContext(DataContext);
   const { uploadJsonToIPFS } = useIpfs();
 
-  const schema: JSONSchema7 = {
+  const schema: RJSFSchema = {
     type: 'object',
     required: ['account'],
     properties: {

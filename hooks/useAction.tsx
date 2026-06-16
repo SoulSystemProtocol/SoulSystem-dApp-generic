@@ -24,13 +24,13 @@ export default function useAction() {
    * @param {Array.<string>} guids If not null, then the function returns the actions for the specified guids.
    * @returns {Promise.<Array.<Action>>} A list with actions.
    */
-  let getActions = async function (guids: string[] = []) {
+  let getActions = async function (guids: string[] = []): Promise<any[]> {
     const actionEntities = await findActionEntities(guids);
     // return actionEntities.map((action: any) => {
     //   action.metadata = hexStringToJson(action.metadata);
     //   return action;
     // })}
-    let actions = [];
+    let actions: any[] = [];
     console.log('[DEBUG] actionEntities', actionEntities);
     for (const action of actionEntities) {
       try {

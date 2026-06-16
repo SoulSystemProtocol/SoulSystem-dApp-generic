@@ -8,10 +8,10 @@ import {
   DialogTitle,
   Stack,
 } from '@mui/material';
-import { MuiForm5 as Form } from '@rjsf/material-ui';
+import Form from 'components/form/RjsfForm';
 import useError from 'hooks/useError';
 import useToast from 'hooks/useToast';
-import { JSONSchema7 } from 'json-schema';
+import type { RJSFSchema } from '@rjsf/utils';
 import AddressHash from 'components/web3/AddressHash';
 import useContract from 'hooks/useContract';
 import { DialogParams } from 'contexts/dialog';
@@ -45,7 +45,7 @@ export default function FundDialog({
   const { chain } = useNetwork();
   const account = useAccount();
 
-  const schema: JSONSchema7 = {
+  const schema: RJSFSchema = {
     type: 'object',
     required: ['amount'],
     properties: {

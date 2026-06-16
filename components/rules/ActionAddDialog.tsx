@@ -7,8 +7,8 @@ import {
   DialogTitle,
   Stack,
 } from '@mui/material';
-import { MuiForm5 as Form } from '@rjsf/material-ui';
-import { JSONSchema7 } from 'json-schema';
+import Form from 'components/form/RjsfForm';
+import type { RJSFSchema } from '@rjsf/utils';
 import useContract from 'hooks/useContract';
 import useError from 'hooks/useError';
 import useToast from 'hooks/useToast';
@@ -34,7 +34,7 @@ export default function ActionAddDialog({
   const [isLoading, setIsLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(!isClose);
 
-  const schema: JSONSchema7 = {
+  const schema: RJSFSchema = {
     type: 'object',
     required: ['verb'],
     properties: {

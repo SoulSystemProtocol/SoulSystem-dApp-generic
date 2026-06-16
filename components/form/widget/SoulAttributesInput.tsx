@@ -9,7 +9,7 @@ import {
   Typography,
 } from '@mui/material';
 import { Box } from '@mui/system';
-import { WidgetProps } from '@rjsf/core';
+import type { WidgetProps } from '@rjsf/utils';
 import { PROFILE_TRAIT_TYPE } from 'constants/metadata';
 import {
   GAME_PROFILE_TRAITS,

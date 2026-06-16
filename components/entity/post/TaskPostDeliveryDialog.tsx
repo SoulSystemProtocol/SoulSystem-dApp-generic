@@ -7,12 +7,12 @@ import {
   DialogTitle,
   Stack,
 } from '@mui/material';
-import { MuiForm5 as Form } from '@rjsf/material-ui';
+import Form from 'components/form/RjsfForm';
 import useError from 'hooks/useError';
 import useIpfs from 'hooks/useIpfs';
 import useContract from 'hooks/useContract';
 import useToast from 'hooks/useToast';
-import { JSONSchema7 } from 'json-schema';
+import type { RJSFSchema } from '@rjsf/utils';
 import { useContext, useState } from 'react';
 import { DataContext } from 'contexts/data';
 import MySoulsBox from 'components/form/widget/MySoulsBox';
@@ -34,7 +34,7 @@ export default function TaskPostDeliveryDialog({
   const [isOpen, setIsOpen] = useState(!isClose);
   const [formData, setFormData] = useState({});
 
-  const schema: JSONSchema7 = {
+  const schema: RJSFSchema = {
     type: 'object',
     required: ['account', 'link'],
     properties: {

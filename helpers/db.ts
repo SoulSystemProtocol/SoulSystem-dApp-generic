@@ -6,26 +6,27 @@ export type HealthStatus = {
   message: string;
 };
 
-export async function checkSubgraphHealth(): Promise<HealthStatus> {
-  const uri = process.env.NEXT_PUBLIC_SUBGRAPH_API;
+export async function checkIndexerHealth(): Promise<HealthStatus> {
+  const uri =
+    process.env.NEXT_PUBLIC_INDEXER_GRAPHQL_URL ||
+    process.env.NEXT_PUBLIC_SUBGRAPH_API;
 
   if (!uri) {
     return {
       ok: false,
-      message: 'NEXT_PUBLIC_SUBGRAPH_API is not configured',
+      message: 'NEXT_PUBLIC_INDEXER_GRAPHQL_URL is not configured',
     };
   }
 
   try {
-    // Minimal introspection-like query to avoid heavy load
     const response = await axios.post(uri, {
-      query: '{ __typename: __schema }',
+      query: '{ __typename }',
     });
 
     if (response.data.errors) {
       return {
         ok: false,
-        message: `Subgraph responded with errors: ${JSON.stringify(
+        message: `Indexer responded with errors: ${JSON.stringify(
           response.data.errors,
         )}`,
       };
@@ -33,15 +34,18 @@ export async function checkSubgraphHealth(): Promise<HealthStatus> {
 
     return {
       ok: true,
-      message: 'Subgraph is reachable and responded successfully',
+      message: 'Indexer is reachable and responded successfully',
     };
   } catch (error: any) {
     return {
       ok: false,
-      message: `Subgraph request failed: ${error?.message ?? 'Unknown error'}`,
+      message: `Indexer request failed: ${error?.message ?? 'Unknown error'}`,
     };
   }
 }
+
+/** @deprecated Use checkIndexerHealth. */
+export const checkSubgraphHealth = checkIndexerHealth;
 
 // Cached client across hot reloads in dev to avoid creating many connections
 let cachedMongoClient: MongoClient | null = null;

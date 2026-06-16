@@ -7,13 +7,13 @@ import {
   DialogTitle,
   Stack,
 } from '@mui/material';
-import { MuiForm5 as Form } from '@rjsf/material-ui';
+import Form from 'components/form/RjsfForm';
 import ImageInput from 'components/form/widget/ImageInput';
 import { GAME_TYPE } from 'constants/contracts';
 import useError from 'hooks/useError';
 import useIpfs from 'hooks/useIpfs';
 import useToast from 'hooks/useToast';
-import { JSONSchema7 } from 'json-schema';
+import type { RJSFSchema } from '@rjsf/utils';
 import { useState } from 'react';
 import useContract from 'hooks/useContract';
 import { nameEntity } from 'helpers/utils';
@@ -40,7 +40,7 @@ export default function ProjectManageDialog({
     }),
   });
 
-  const schema: JSONSchema7 = {
+  const schema: RJSFSchema = {
     type: 'object',
     required: ['name'],
     properties: {

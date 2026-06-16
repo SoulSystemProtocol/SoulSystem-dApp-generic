@@ -6,7 +6,7 @@ import { soulName } from 'utils/soul';
 import { useQuery } from '@apollo/client';
 import { DataContext } from 'contexts/data';
 import SoulsManagedByQuery from 'queries/SoulsManagedByQuery';
-import { WidgetProps } from '@rjsf/core';
+import type { WidgetProps } from '@rjsf/utils';
 
 /**
  * Form Widget: Select a Soul

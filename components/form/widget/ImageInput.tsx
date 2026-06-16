@@ -1,7 +1,7 @@
 import { AddOutlined } from '@mui/icons-material';
 import { Avatar, CircularProgress, Input, Stack, SxProps } from '@mui/material';
 import { Box } from '@mui/system';
-import { WidgetProps } from '@rjsf/core';
+import type { WidgetProps } from '@rjsf/utils';
 import useError from 'hooks/useError';
 import useIpfs from 'hooks/useIpfs';
 import { ReactElement, ReactNode, useEffect, useState } from 'react';

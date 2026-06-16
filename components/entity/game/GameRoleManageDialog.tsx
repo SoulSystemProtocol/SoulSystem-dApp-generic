@@ -7,25 +7,14 @@ import {
   DialogTitle,
   Stack,
 } from '@mui/material';
-import { MuiForm5 as Form } from '@rjsf/material-ui';
+import Form from 'components/form/RjsfForm';
 import SoulSearchBox from 'components/form/widget/SoulSearchBox';
 import RoleAutocomplete from 'components/form/widget/RoleAutocomplete';
 import useContract from 'hooks/useContract';
 import useError from 'hooks/useError';
 import useToast from 'hooks/useToast';
-import { JSONSchema7 } from 'json-schema';
+import type { RJSFSchema } from '@rjsf/utils';
 import { useState } from 'react';
-
-/**
- * Fix to support enum names in the schema.
- *
- * Details - https://github.com/rjsf-team/react-jsonschema-form/issues/2663#issuecomment-1106698186
- */
-declare module 'json-schema' {
-  export interface JSONSchema7 {
-    enumNames?: Array<string>;
-  }
-}
 
 interface DialogParams {
   game: any;
@@ -47,7 +36,7 @@ export default function GameRoleManageDialog({
   const [isLoading, setIsLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(!isClose);
   const { getContractGame } = useContract();
-  const schema: JSONSchema7 = {
+  const schema: RJSFSchema = {
     description: 'Mint or burn NFTs that represent a organizational roles',
     type: 'object',
     required: ['soulId', 'action', 'roleName'],

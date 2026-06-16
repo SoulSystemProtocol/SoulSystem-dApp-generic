@@ -37,10 +37,13 @@ export const aurora: Chain = {
   //     blockCreated: 11907934,
   //   },
   // },
-}
+};
 
 import { validateEnv } from 'hooks/utils';
 // import { InjectedConnector } from 'wagmi/connectors/injected';
+
+const walletConnectProjectId =
+  process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECTID || '';
 
 const { chains, provider } = configureChains(
   // [polygonMumbai],
@@ -60,7 +63,7 @@ const wagmiClient = createClient({
   autoConnect: true,
   // connectors: [new InjectedConnector({ chains }) as any],
   connectors: w3mConnectors({
-    projectId: process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECTID || '',
+    projectId: walletConnectProjectId,
     chains,
   }),
   provider,
@@ -119,7 +122,7 @@ export function Web3Provider({ children }: { children: any }) {
     //Check if supported chain
     setIsNetworkChainCorrect(
       !!networkChainId &&
-      networkChainId?.toString() === process.env.NEXT_PUBLIC_NETWORK_CHAIN_ID,
+        networkChainId?.toString() === process.env.NEXT_PUBLIC_NETWORK_CHAIN_ID,
     );
   }, [networkChainId]);
 
@@ -140,7 +143,7 @@ export function Web3Provider({ children }: { children: any }) {
         </Web3Context.Provider>
       </WagmiConfig>
       <Web3Modal
-        projectId={process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECTID}
+        projectId={walletConnectProjectId}
         ethereumClient={ethereumClient}
       />
     </>

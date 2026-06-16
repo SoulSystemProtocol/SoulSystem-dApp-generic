@@ -7,11 +7,11 @@ import {
   DialogTitle,
   Stack,
 } from '@mui/material';
-import { MuiForm5 as Form } from '@rjsf/material-ui';
+import Form from 'components/form/RjsfForm';
 import ActionSelect from 'components/form/widget/ActionSelect';
 // import IconSelect from 'components/form/widget/IconSelect';
 import { REPUTATION_DOMAIN } from 'constants/contracts';
-import { JSONSchema7 } from 'json-schema';
+import type { RJSFSchema } from '@rjsf/utils';
 import useContract from 'hooks/useContract';
 import useError from 'hooks/useError';
 import useIpfs from 'hooks/useIpfs';
@@ -32,7 +32,7 @@ export default function RuleAddDialog({ item, isClose, onClose }: any) {
   const [isOpen, setIsOpen] = useState(!isClose);
   const [isLoading, setIsLoading] = useState(false);
 
-  const schema: JSONSchema7 = {
+  const schema: RJSFSchema = {
     type: 'object',
     required: ['about', 'name'],
     properties: {

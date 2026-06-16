@@ -1,5 +1,5 @@
 import { ReactElement } from 'react';
-import { WidgetProps } from '@rjsf/core';
+import type { WidgetProps } from '@rjsf/utils';
 import SoulSearchBox from 'components/entity/soul/SoulSearchBox';
 
 /**

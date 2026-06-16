@@ -7,7 +7,7 @@ import {
   Typography,
 } from '@mui/material';
 import { Box } from '@mui/system';
-import { WidgetProps } from '@rjsf/core';
+import type { WidgetProps } from '@rjsf/utils';
 import useError from 'hooks/useError';
 import useIpfs from 'hooks/useIpfs';
 import { ReactElement, ReactNode, useState } from 'react';

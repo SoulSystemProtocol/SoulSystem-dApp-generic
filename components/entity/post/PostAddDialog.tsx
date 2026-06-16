@@ -8,7 +8,7 @@ import {
   DialogTitle,
   Stack,
 } from '@mui/material';
-import { MuiForm5 as Form } from '@rjsf/material-ui';
+import Form from 'components/form/RjsfForm';
 import { CLAIM_ROLE } from 'constants/contracts';
 import { POST_TYPE } from 'constants/entities';
 import { DataContext } from 'contexts/data';
@@ -17,7 +17,7 @@ import useError from 'hooks/useError';
 import useIpfs from 'hooks/useIpfs';
 import useToast from 'hooks/useToast';
 import { DialogParams } from 'contexts/dialog';
-import { JSONSchema7 } from 'json-schema';
+import type { RJSFSchema } from '@rjsf/utils';
 import { analyticsEvent } from 'utils/analytics';
 import { isSoulHasRole } from 'hooks/utils';
 
@@ -46,7 +46,7 @@ export default function PostAddDialog({
   const [isLoading, setIsLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(!isClose);
 
-  const schema: JSONSchema7 = {
+  const schema: RJSFSchema = {
     type: 'object',
     ...(postType === POST_TYPE.comment && {
       // required: ['role', 'message'],

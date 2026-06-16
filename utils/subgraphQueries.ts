@@ -1,12 +1,11 @@
-import { runSubgraphQuery, SoulByIdQuery, SoulByHashQuery } from './subgraph';
+import { indexer } from 'services/indexer/client';
 
-/**
- * Fetch a Specific Soul by ID
- */
+/** @deprecated Use indexer.getSoulById from services/indexer/client. */
 export const getSoulById = async (id: string): Promise<any> => {
-  return runSubgraphQuery(SoulByIdQuery(id)).then((res) => res?.soul);
+  return indexer.getSoulById(id);
 };
 
+/** @deprecated Use indexer.getSoulByOwner from services/indexer/client. */
 export const getSoulByHash = async (hash: string): Promise<any> => {
-  return runSubgraphQuery(SoulByHashQuery(hash)).then((res) => res?.souls[0]);
+  return indexer.getSoulByOwner(hash);
 };

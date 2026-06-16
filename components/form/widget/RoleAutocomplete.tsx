@@ -1,5 +1,5 @@
 import { Autocomplete, FormControl, TextField } from '@mui/material';
-import { WidgetProps } from '@rjsf/core';
+import type { WidgetProps } from '@rjsf/utils';
 import { ReactElement, useEffect, useState } from 'react';
 
 /**

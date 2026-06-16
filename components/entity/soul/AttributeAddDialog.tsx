@@ -7,8 +7,8 @@ import {
 } from '@mui/material';
 import useError from 'hooks/useError';
 import { useState } from 'react';
-import { MuiForm5 as Form } from '@rjsf/material-ui';
-import { JSONSchema7 } from 'json-schema';
+import Form from 'components/form/RjsfForm';
+import type { RJSFSchema } from '@rjsf/utils';
 import useToast from 'hooks/useToast';
 
 const defaultValues = {
@@ -32,7 +32,7 @@ export default function AttributeAddDialog({
   const [isOpen, setIsOpen] = useState(!isClose);
   const [formData, setFormData] = useState(defaultValues);
 
-  const schema: JSONSchema7 = {
+  const schema: RJSFSchema = {
     type: 'object',
     required: ['trait_type', 'value'],
     properties: {

@@ -6,7 +6,12 @@ import { Web3Provider } from 'contexts/Web3Context';
 import { AppProps } from 'next/app';
 import NextNProgress from 'nextjs-progressbar';
 import { SnackbarProvider } from 'notistack';
-import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
+import {
+  ApolloClient,
+  HttpLink,
+  InMemoryCache,
+  ApolloProvider,
+} from '@apollo/client';
 import { darkTheme as theme } from '../constants/theme';
 import '../styles/globals.css';
 import { analyticsPageView, initAnalytics } from 'utils/analytics';
@@ -16,7 +21,11 @@ import PageHead from 'components/layout/PageHead';
 import { APP_CONFIGS } from 'constants/app';
 
 const client = new ApolloClient({
-  uri: process.env.NEXT_PUBLIC_SUBGRAPH_API,
+  link: new HttpLink({
+    uri:
+      process.env.NEXT_PUBLIC_INDEXER_GRAPHQL_URL ||
+      process.env.NEXT_PUBLIC_SUBGRAPH_API,
+  }),
   cache: new InMemoryCache(),
 });
 

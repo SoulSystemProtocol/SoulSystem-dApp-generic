@@ -9,16 +9,16 @@ import {
   Grid,
   Chip,
 } from '@mui/material';
-import { checkMongoHealth, checkSubgraphHealth, HealthStatus } from 'helpers/db';
+import { checkIndexerHealth, checkMongoHealth, HealthStatus } from 'helpers/db';
 
 interface AdminProps {
-  subgraph: HealthStatus;
+  indexer: HealthStatus;
   mongo: HealthStatus;
 }
 
 const statusColor = (ok: boolean) => (ok ? 'success' : 'error');
 
-export default function AdminDashboard({ subgraph, mongo }: AdminProps) {
+export default function AdminDashboard({ indexer, mongo }: AdminProps) {
   return (
     <>
       <Head>
@@ -37,16 +37,16 @@ export default function AdminDashboard({ subgraph, mongo }: AdminProps) {
               <Card variant="outlined">
                 <CardContent>
                   <Typography variant="h6" gutterBottom>
-                    Subgraph (existing connection)
+                    Indexer
                   </Typography>
                   <Chip
-                    label={subgraph.ok ? 'OK' : 'Error'}
-                    color={statusColor(subgraph.ok) as any}
+                    label={indexer.ok ? 'OK' : 'Error'}
+                    color={statusColor(indexer.ok) as any}
                     size="small"
                     sx={{ mb: 1 }}
                   />
                   <Typography variant="body2" color="text.secondary">
-                    {subgraph.message}
+                    {indexer.message}
                   </Typography>
                 </CardContent>
               </Card>
@@ -77,14 +77,14 @@ export default function AdminDashboard({ subgraph, mongo }: AdminProps) {
 }
 
 export const getServerSideProps: GetServerSideProps<AdminProps> = async () => {
-  const [subgraph, mongo] = await Promise.all([
-    checkSubgraphHealth(),
+  const [indexer, mongo] = await Promise.all([
+    checkIndexerHealth(),
     checkMongoHealth(),
   ]);
 
   return {
     props: {
-      subgraph,
+      indexer,
       mongo,
     },
   };
