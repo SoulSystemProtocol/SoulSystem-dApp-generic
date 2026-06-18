@@ -6,7 +6,8 @@
     "dev": "next dev --port=3001",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test": "jest"
   },
   "dependencies": {
     "@apollo/client": "3.13.9",
@@ -37,6 +38,7 @@
     "wagmi": "^0.10.6"
   },
   "devDependencies": {
+    "@types/jest": "^30.0.0",
     "@types/lodash": "^4.14.198",
     "@types/node": "^20.5.7",
     "@types/react": "^18.2.21",
@@ -45,6 +47,7 @@
     "eslint-config-next": "^13.5.6",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-prettier": "^5.0.0",
+    "jest": "^30.4.2",
     "prettier": "^3.0.3",
     "typescript": "^5.2.2"
   }
