@@ -4,7 +4,7 @@
 
 **Goal:** Replace the dApp's dependency on The Graph hosted-service/Studio flow with a durable indexing path that keeps SoulSystem data queryable on Aurora.
 
-**Architecture:** Introduce a provider-neutral indexer client inside the dApp first, then migrate the indexer backend. The recommended long-term backend is Envio HyperIndex because it has explicit Aurora support and moves the project away from Graph manifest/AssemblyScript infrastructure; Goldsky or SubQuery can be used as a short bridge if the priority is fastest endpoint recovery with minimal subgraph changes.
+**Architecture:** Introduce a provider-neutral indexer client inside the dApp first, then migrate the indexer backend. The current production bridge is Sentio Hosted Subgraphs compatibility mode because it supports Aurora while preserving the existing subgraph code. The recommended long-term backend remains Envio HyperIndex if the project wants to move away from Graph manifest/AssemblyScript infrastructure.
 
 **Tech Stack:** Next.js 13, React 18, ethers v5, axios/Apollo Client, Aurora EVM contracts, Envio HyperIndex TypeScript indexer, GraphQL compatibility boundary.
 
@@ -12,8 +12,10 @@
 
 ## Current State
 
-- dApp Graph endpoint is configured through `NEXT_PUBLIC_SUBGRAPH_API`.
-- The current production endpoint is `https://api.thegraph.com/subgraphs/name/toledoroy/soulsystem_aurora`.
+- dApp Graph endpoint is configured through `NEXT_PUBLIC_INDEXER_GRAPHQL_URL`.
+- The current production hosted indexer path is Sentio compatibility mode at `https://app.sentio.xyz/toledoroy/soulsystem-aurora/datasource/sDQzRF2F`.
+- The active dApp GraphQL endpoint is `https://app.sentio.xyz//api/v1/graphql/toledoroy/soulsystem-aurora`.
+- `NEXT_PUBLIC_SUBGRAPH_API` is retained only as an empty legacy fallback and should not point to The Graph.
 - dApp query code is spread across `hooks/useSubgraph.ts`, `utils/subgraph.ts`, `utils/subgraphQueries.ts`, `utils/index.ts`, `helpers/db.ts`, `pages/_app.tsx`, and several entity/rule consumers.
 - The subgraph package at `C:\Users\toled\Documents\GitHub\Subgraph` indexes Aurora contracts from `startBlock: 94773622`.
 - The subgraph uses dynamic templates for `Game` and `Claim` contracts created by `Hub`.
@@ -27,8 +29,9 @@ Use a two-phase migration.
 1. **Phase 1: dApp adapter boundary.** Replace direct `useSubgraph`/`runSubgraphQuery` usage with a single `indexer` module that exposes current domain methods.
 2. **Phase 2: Envio indexer.** Port the subgraph manifest, schema, and handlers into a TypeScript Envio HyperIndex project, then point the adapter to the new GraphQL endpoint.
 
-Goldsky/SubQuery remain practical fallback paths:
+Sentio/Goldsky/SubQuery remain practical fallback paths:
 
+- **Sentio:** Current bridge. It can deploy the existing subgraph in compatibility mode with Aurora chain ID `1313161554`, but the final GraphQL endpoint is exposed through Sentio Data Studio rather than the current CLI output.
 - **Goldsky:** Best emergency bridge. It can run existing subgraph-style projects with minimal changes and preserve the current GraphQL query surface, but it keeps the project in the subgraph model.
 - **SubQuery:** Similar bridge with a migration path from The Graph and broad EVM support, but still requires provider adoption and likely some mapping adjustments.
 - **The Graph Network:** Not preferred because the explicit goal is to stop using The Graph rather than move from hosted service to the decentralized network.

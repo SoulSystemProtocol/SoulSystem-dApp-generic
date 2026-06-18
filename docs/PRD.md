@@ -14,6 +14,8 @@ An admin dashboard is available at `/admin` to provide quick visibility into bac
 - **Indexer**
   - Endpoint: `NEXT_PUBLIC_INDEXER_GRAPHQL_URL`.
   - Temporary fallback endpoint: `NEXT_PUBLIC_SUBGRAPH_API`.
+  - Current hosted provider: Sentio compatibility-mode subgraph.
+  - Status URL: `NEXT_PUBLIC_INDEXER_STATUS_URL`.
   - Checked via a lightweight GraphQL request.
 
 - **MongoDB (additional connection)**
@@ -36,3 +38,11 @@ An admin dashboard is available at `/admin` to provide quick visibility into bac
   - MongoDB (MONGODB_URI).
 
 If either check fails, the corresponding card will show `Error` and provide a short diagnostic message to assist debugging.
+
+For Sentio deployments, copy the hosted subgraph GraphQL endpoint from Sentio Data Studio into `NEXT_PUBLIC_INDEXER_GRAPHQL_URL`. Keep `NEXT_PUBLIC_SUBGRAPH_API` empty unless a legacy fallback is explicitly needed.
+
+Current Sentio GraphQL endpoint:
+
+```text
+https://app.sentio.xyz//api/v1/graphql/toledoroy/soulsystem-aurora
+```

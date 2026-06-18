@@ -14,7 +14,8 @@ export async function checkIndexerHealth(): Promise<HealthStatus> {
   if (!uri) {
     return {
       ok: false,
-      message: 'NEXT_PUBLIC_INDEXER_GRAPHQL_URL is not configured',
+      message:
+        'NEXT_PUBLIC_INDEXER_GRAPHQL_URL is not configured. Copy the Sentio Data Studio GraphQL endpoint into the environment.',
     };
   }
 

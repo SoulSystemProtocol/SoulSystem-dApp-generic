@@ -11,7 +11,7 @@ export async function runIndexerGraphqlQuery<TData>(
 
   if (!endpoint) {
     throw new Error(
-      'Indexer GraphQL endpoint is not configured. Set NEXT_PUBLIC_INDEXER_GRAPHQL_URL.',
+      'Indexer GraphQL endpoint is not configured. Copy the Sentio Data Studio GraphQL endpoint into NEXT_PUBLIC_INDEXER_GRAPHQL_URL.',
     );
   }
 

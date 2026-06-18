@@ -137,9 +137,10 @@ const footer_icons: MenuLink[] = [
   {
     // eslint-disable-next-line prettier/prettier
     route:
-      'https://thegraph.com/hosted-service/subgraph/toledoroy/soulsystem_aurora',
+      process.env.NEXT_PUBLIC_INDEXER_STATUS_URL ||
+      'https://app.sentio.xyz/toledoroy/soulsystem-aurora/datasource/sDQzRF2F',
     icon: <SensorOccupiedIcon sx={{ fill: 'url(#linearColors)' }} />,
-    label: 'SubGraph',
+    label: 'Indexer',
   },
 
   {
