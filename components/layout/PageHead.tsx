@@ -1,6 +1,7 @@
 import React from 'react';
 import Head from 'next/head';
 import router from 'next/router';
+import manifest from '../../public/manifest.json';
 
 /**
  * HTML Head
@@ -24,8 +25,6 @@ const PageHead = ({
   openGraph: any;
   children: React.ReactNode;
 }): JSX.Element => {
-  const manifest = require('manifest.json');
-
   return (
     <Head>
       <title>{title}</title>

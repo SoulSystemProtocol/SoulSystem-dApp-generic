@@ -1,0 +1,13 @@
+{
+  "name": "SoulSystem",
+  "short_name": "SoulSystem",
+  "version": "0.9",
+  "description": "SoulSystem dApp",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#000000",
+  "default_locale": "en",
+  "locale": "en_US"
+}

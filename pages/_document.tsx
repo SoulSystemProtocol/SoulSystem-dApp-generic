@@ -1,6 +1,8 @@
 import { Html, Head, Main, NextScript } from 'next/document';
 
 function Document() {
+  const hubspotPortalId = process.env.NEXT_PUBLIC_HUBSPOT_PORTAL_ID;
+
   return (
     <Html>
       <Head>
@@ -18,13 +20,15 @@ function Document() {
           href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap"
           rel="stylesheet"
         />
-        <script
-          type="text/javascript"
-          id="hs-script-loader"
-          async
-          defer
-          src="//js-na1.hs-scripts.com/23767716.js"
-        ></script>
+        {hubspotPortalId && (
+          <script
+            type="text/javascript"
+            id="hs-script-loader"
+            async
+            defer
+            src={`https://js-na1.hs-scripts.com/${hubspotPortalId}.js`}
+          ></script>
+        )}
       </Head>
       <body>
         <Main />

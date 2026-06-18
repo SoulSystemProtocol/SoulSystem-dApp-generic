@@ -29,6 +29,8 @@ An admin dashboard is available at `/admin` to provide quick visibility into bac
   - `checkSubgraphHealth(): Promise<{ ok: boolean; message: string }>` (temporary compatibility alias)
   - `checkMongoHealth(uri?: string): Promise<{ ok: boolean; message: string }>`
 - `/admin` is implemented as `pages/admin/index.tsx` using `getServerSideProps` to avoid exposing any secrets and to ensure checks run only on the server.
+- The public web manifest is served from `public/manifest.json`; any app metadata shown in `<head>` should import that file instead of keeping a second root manifest copy.
+- HubSpot tracking is opt-in through `NEXT_PUBLIC_HUBSPOT_PORTAL_ID`. Leave it empty to avoid loading HubSpot scripts and ad-blocker console noise; set it to the portal ID only when HubSpot collection is required.
 
 ## Usage
 

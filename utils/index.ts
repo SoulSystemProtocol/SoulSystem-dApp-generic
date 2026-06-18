@@ -1,6 +1,6 @@
 import { APP_CONFIGS } from '../constants/app';
 import { indexer } from 'services/indexer/client';
-const manifest = require('manifest.json');
+import manifest from '../public/manifest.json';
 
 ///Generate Page Title
 export const getPageTitle = (pageName: string) =>
