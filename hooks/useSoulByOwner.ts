@@ -7,7 +7,17 @@ import { Web3Context } from 'contexts/Web3Context';
 /**
  * Fetch Single Soul by Hash
  */
-export default function useSoulByOwner(hash: string): {
+export function getSoulByOwnerQueryOptions(hash?: string | null) {
+  const normalizedHash = hash?.trim().toLowerCase() ?? '';
+
+  return {
+    ssr: false,
+    skip: !normalizedHash,
+    variables: { hash: normalizedHash },
+  };
+}
+
+export default function useSoulByOwner(hash?: string | null): {
   soul: any;
   loading: boolean;
   error: any;
@@ -16,10 +26,10 @@ export default function useSoulByOwner(hash: string): {
   const [soul, setSoul] = useState<any | null>(null);
   const [isOwned, setIsOwned] = useState<boolean>(false);
   const { account } = useContext(Web3Context);
-  const { data, loading, error } = useQuery(SoulByHashQuery, {
-    ssr: false,
-    variables: { hash },
-  });
+  const { data, loading, error } = useQuery(
+    SoulByHashQuery,
+    getSoulByOwnerQueryOptions(hash),
+  );
 
   useEffect(() => {
     if (loading) {
