@@ -666,3 +666,9 @@ After one stable deployment, remove `NEXT_PUBLIC_SUBGRAPH_API` from runtime code
 ## Recommended Next Step
 
 Start with Task 1 in this repo. It gives the dApp a single source of truth for indexed data access and makes the later provider migration much less risky.
+
+## Follow-up Task: Modernize Client Runtime Dependencies
+
+- [ ] Review the Apollo/Web3 dependency set together instead of pinning one package in isolation. Current build validation passes, but `@apollo/client@3.14.0` emits `canonizeResults` deprecation messages during static generation, and the Web3 stack emits storage-option deprecation messages.
+- [ ] Upgrade or align `@apollo/client`, `wagmi`, `@web3modal/ethereum`, and `@web3modal/react` as one compatibility slice.
+- [ ] After dependency alignment, run `npm install --legacy-peer-deps`, `npm run lint`, `npx tsc --noEmit`, and `npm run build`.

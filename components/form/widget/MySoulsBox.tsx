@@ -31,6 +31,7 @@ export default function SoulSearchBox({
   const { handleError } = useError();
 
   const { data, loading, error } = useQuery(SoulsManagedByQuery, {
+    ssr: false,
     variables: {
       Bid: accountSoul.id,
       RelRole: 'admin',

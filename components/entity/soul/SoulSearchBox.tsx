@@ -55,6 +55,7 @@ export default function SoulSearchBox({
   }, [inputValue]);
 
   const { data, loading, error } = useQuery(SoulsOpenInj(searchQueryParams), {
+    ssr: false,
     variables: { first: 12, skip: 0 },
   });
 

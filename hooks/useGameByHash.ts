@@ -8,6 +8,7 @@ import queryGameSingle from 'queries/GameByHashQuery';
 export default function useGameByHash(hash: string): any {
   const [game, setGame] = useState<any | null>(null);
   const { data, loading, error } = useQuery(queryGameSingle, {
+    ssr: false,
     variables: { id: hash?.toLowerCase() },
   });
 

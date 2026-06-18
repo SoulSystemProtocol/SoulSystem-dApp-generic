@@ -56,6 +56,7 @@ export default function PaginatedList({
   //TODO: Use Order
   const [orderBy, setOrderBy] = useState({ createdAt: 'desc' });
   const { data, loading, error } = useQuery(query, {
+    ssr: false,
     variables: { ...variables, first, skip },
   });
 

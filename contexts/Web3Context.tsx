@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from 'react';
+import { createContext, useEffect, useMemo, useState } from 'react';
 import { getChainData } from 'components/web3/chains/ChainsData';
 import {
   analyticsAccountDisconnect,
@@ -87,13 +87,6 @@ export function Web3Provider({ children }: { children: any }) {
   const [isNetworkChainIdCorrect, setIsNetworkChainCorrect] =
     useState<boolean>(false);
 
-  //Validate Env
-  validateEnv('NEXT_PUBLIC_ALCHEMY_KEY', process.env.NEXT_PUBLIC_ALCHEMY_KEY);
-  validateEnv(
-    'NEXT_PUBLIC_WALLETCONNECT_PROJECTID',
-    process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECTID,
-  );
-
   //WGMI
   const { address: account } = useAccount();
   const { chain } = useNetwork();
@@ -101,11 +94,22 @@ export function Web3Provider({ children }: { children: any }) {
   //   chainId: polygonMumbai.id,
   // });
 
-  // Web3Modal Ethereum Client
-  const ethereumClient = new EthereumClient(wagmiClient, chains);
+  // Web3Modal touches browser-only state, so keep its client stable after hydration.
+  const ethereumClient = useMemo(
+    () => new EthereumClient(wagmiClient, chains),
+    [],
+  );
 
   /// Workaround for the hydration problem
   useEffect(() => setIsReady(true), []);
+
+  useEffect(() => {
+    validateEnv('NEXT_PUBLIC_ALCHEMY_KEY', process.env.NEXT_PUBLIC_ALCHEMY_KEY);
+    validateEnv(
+      'NEXT_PUBLIC_WALLETCONNECT_PROJECTID',
+      process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECTID,
+    );
+  }, []);
 
   useEffect(() => setNetworkChainId(Number(chain?.id)), [chain]);
 
@@ -142,10 +146,12 @@ export function Web3Provider({ children }: { children: any }) {
           {children}
         </Web3Context.Provider>
       </WagmiConfig>
-      <Web3Modal
-        projectId={walletConnectProjectId}
-        ethereumClient={ethereumClient}
-      />
+      {isReady && (
+        <Web3Modal
+          projectId={walletConnectProjectId}
+          ethereumClient={ethereumClient}
+        />
+      )}
     </>
   );
 }

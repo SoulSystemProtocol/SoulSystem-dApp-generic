@@ -13,6 +13,7 @@ export default function useSoulsById(
 ): any {
   const [souls, setSouls] = useState<Array<any> | null>(null);
   const { data, loading, error } = useQuery(SoulsByIdQuery, {
+    ssr: false,
     variables: { ids, first, skip },
   });
 

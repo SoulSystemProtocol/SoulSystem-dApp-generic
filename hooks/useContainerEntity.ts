@@ -13,6 +13,7 @@ export default function useContainerEntity(id: string): {
   error: any;
 } {
   const { data, loading, error } = useQuery(SoulContainerQuery, {
+    ssr: false,
     variables: { id },
   });
   const [imageSrc, setImageSrc] = useState<string>('');

@@ -8,6 +8,7 @@ import ProcByHashQuery from 'queries/ProcByHashQuery';
 export default function useProcByAddr(address: string): any {
   const [item, setItem] = useState<any | null>(null);
   const { data, loading, error } = useQuery(ProcByHashQuery, {
+    ssr: false,
     variables: { id: address },
   });
 

@@ -17,6 +17,7 @@ export default function useSoulByOwner(hash: string): {
   const [isOwned, setIsOwned] = useState<boolean>(false);
   const { account } = useContext(Web3Context);
   const { data, loading, error } = useQuery(SoulByHashQuery, {
+    ssr: false,
     variables: { hash },
   });
 
@@ -34,7 +35,7 @@ export default function useSoulByOwner(hash: string): {
         setSoul(data?.souls ? normalizeGraphEntity(data.souls[0]) : null);
         setIsOwned(
           !!account &&
-          data?.souls?.[0]?.owner?.toLowerCase() == account.toLowerCase(),
+            data?.souls?.[0]?.owner?.toLowerCase() == account.toLowerCase(),
         );
       } catch (e) {
         console.error(e);

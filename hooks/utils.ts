@@ -40,6 +40,8 @@ export const isSoulHasRole = (
  * Validate ENV
  */
 export const validateEnv = (name: string, value?: string): void => {
+  if (typeof window === 'undefined') return;
+
   if (!value) {
     console.error('Missing ENV:' + name);
     analyticsCatchErrorEvent(new Error('Missing ENV: ' + name), {

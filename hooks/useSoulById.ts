@@ -12,6 +12,7 @@ export default function useSoulById(id: string): any {
   const [isOwned, setIsOwned] = useState<boolean>(false);
   const { account } = useContext(Web3Context);
   const { data, loading, error } = useQuery(SoulByIdQuery, {
+    ssr: false,
     variables: { id },
   });
 
