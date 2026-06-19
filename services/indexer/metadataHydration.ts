@@ -148,7 +148,10 @@ function getIpfsPath(uri: string): string | null {
 
 function hasMetadata(metadata: SoulEntity['metadata']): boolean {
   if (!metadata) return false;
-  if (typeof metadata === 'string') return metadata.trim().length > 0;
+  if (typeof metadata === 'string') {
+    const normalizedMetadata = metadata.trim().toLowerCase();
+    return normalizedMetadata.length > 0 && normalizedMetadata !== '0x';
+  }
   return true;
 }
 

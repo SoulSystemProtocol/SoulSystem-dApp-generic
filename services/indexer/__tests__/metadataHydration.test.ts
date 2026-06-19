@@ -131,6 +131,25 @@ describe('metadataHydration', () => {
     expect(souls[0].metadata).toEqual({ name: 'Collection Soul' });
   });
 
+  it('hydrates when the indexer returns an empty hex metadata placeholder', async () => {
+    jest.mocked(global.fetch).mockResolvedValueOnce({
+      ok: true,
+      json: async () => ({ name: 'Placeholder Soul' }),
+    } as Response);
+
+    const soul = await hydrateSoulMetadata({
+      id: '15',
+      owner: '0xowner',
+      uri: 'ipfs://QmPlaceholder',
+      metadata: '0x',
+    });
+
+    expect(global.fetch).toHaveBeenCalledWith(
+      'https://ipfs.io/ipfs/QmPlaceholder',
+    );
+    expect(soul?.metadata).toEqual({ name: 'Placeholder Soul' });
+  });
+
   it('schedules single soul hydration without waiting for IPFS', async () => {
     let resolveJson: (value: Record<string, unknown>) => void = () => {};
     jest.mocked(global.fetch).mockResolvedValueOnce({

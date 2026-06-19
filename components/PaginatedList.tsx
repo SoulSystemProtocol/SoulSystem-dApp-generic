@@ -1,5 +1,5 @@
 import { useQuery } from '@apollo/client';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Box, Grid, Pagination, Typography } from '@mui/material';
 import { APP_CONFIGS } from '../constants/app';
 import { CardItem } from 'utils/cardContents';
@@ -8,7 +8,7 @@ import GridCardTask from './GridCardTask';
 import GridCardUser from './GridCardUser';
 import Loader from './Loader';
 import { NO_RESULTS } from 'constants/texts';
-import { scheduleSoulsMetadataHydration } from 'services/indexer/metadataHydration';
+import { useHydratedSoulsMetadata } from 'hooks/useSoulMetadata';
 
 type TPaginatedList = {
   query: any;
@@ -51,7 +51,6 @@ export default function PaginatedList({
   const pageSize = APP_CONFIGS.PAGE_SIZE;
   const [currentPage, setCurrentPage] = useState(1);
   // const [currentPageCount, setCurrentPageCount] = useState(2); //Unknown End
-  const [items, setItems] = useState<Array<CardItem>>([]);
   const [first] = useState<number>(pageSize);
   const [skip, setSkip] = useState<number>(0);
   //TODO: Use Order
@@ -60,38 +59,29 @@ export default function PaginatedList({
     ssr: false,
     variables: { ...variables, first, skip },
   });
+  const rawItems = data ? data?.[entityName] || [] : [];
+  const hydratedSoulItems = useHydratedSoulsMetadata(
+    entityName === 'souls' ? rawItems : [],
+  );
+  const displayItems = entityName === 'souls' ? hydratedSoulItems : rawItems;
+  const items = useMemo<Array<CardItem>>(
+    () => (error ? [] : itemsProcessing(displayItems)),
+    [displayItems, error, itemsProcessing],
+  );
 
   useEffect(() => {
-    let isCurrent = true;
-
-    function setProcessedItems() {
-      const rawItems = data ? data?.[entityName] : [];
-      if (isCurrent) setItems(itemsProcessing(rawItems));
-
-      if (entityName === 'souls') {
-        scheduleSoulsMetadataHydration(rawItems, (hydratedItems) => {
-          if (isCurrent) setItems(itemsProcessing(hydratedItems));
-        });
-      }
-    }
-
     if (error) {
       console.error('PaginatedList() query failed', { data, error, variables });
-      setItems([]);
-    } else {
-      //Validate
-      if (data && !data.hasOwnProperty(entityName))
-        console.error("Query Result doesn't have requested entity name", {
-          entityName,
-          data,
-        });
-      setProcessedItems();
+      return;
     }
 
-    return () => {
-      isCurrent = false;
-    };
-  }, [data, error]);
+    //Validate
+    if (data && !data.hasOwnProperty(entityName))
+      console.error("Query Result doesn't have requested entity name", {
+        entityName,
+        data,
+      });
+  }, [data, entityName, error, variables]);
 
   function pageChanged(page: number) {
     // console.log('[WIP] Set Page', page);

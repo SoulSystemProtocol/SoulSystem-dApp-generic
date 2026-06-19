@@ -5,7 +5,7 @@ import { ReactElement, useEffect, useState } from 'react';
 import { soulName } from 'utils/soul';
 import { useQuery } from '@apollo/client';
 import SoulsOpenInj from 'queries/SoulsOpenInj';
-import { scheduleSoulsMetadataHydration } from 'services/indexer/metadataHydration';
+import { useHydratedSoulsMetadata } from 'hooks/useSoulMetadata';
 
 interface TProps {
   options?: any;
@@ -42,7 +42,6 @@ export default function SoulSearchBox({
   const [selectedSoul, setSelectedSoul] = useState(null);
   const [inputValue, setInputValue] = useState<string>(''); //Current text input value
   const [searchQueryParams, setSearchQueryParams] = useState<Array<string>>([]); //Current text input value
-  const [items, setItems] = useState<Array<any>>([]);
   // const { handleError } = useError();
 
   useEffect(() => {
@@ -59,6 +58,7 @@ export default function SoulSearchBox({
     ssr: false,
     variables: { first: 12, skip: 0 },
   });
+  const items = useHydratedSoulsMetadata(data?.souls || []);
 
   useEffect(() => {
     //** Handle Injected Value
@@ -78,24 +78,8 @@ export default function SoulSearchBox({
   }, [value]);
 
   useEffect(() => {
-    let isCurrent = true;
-
-    function setHydratedItems() {
-      const souls = data?.souls || [];
-      if (isCurrent) setItems(souls);
-
-      scheduleSoulsMetadataHydration(souls, (hydratedSouls) => {
-        if (isCurrent) setItems(hydratedSouls);
-      });
-    }
-
-    //Make sure options is never null | undefined
-    setHydratedItems();
-
-    return () => {
-      isCurrent = false;
-    };
-  }, [data]);
+    if (error) console.error('SoulSearchBox() query failed', { data, error });
+  }, [data, error]);
 
   return (
     <Box sx={{ ...sx }}>

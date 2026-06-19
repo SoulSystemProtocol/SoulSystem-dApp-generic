@@ -1,9 +1,9 @@
 import { useQuery } from '@apollo/client';
 import SoulByHashQuery from 'queries/SoulByHashQuery';
 import { normalizeGraphEntity } from 'helpers/metadata';
-import { useState, useEffect, useContext } from 'react';
+import { useEffect, useContext, useMemo } from 'react';
 import { Web3Context } from 'contexts/Web3Context';
-import { scheduleSoulMetadataHydration } from 'services/indexer/metadataHydration';
+import { useHydratedSoulMetadata } from './useSoulMetadata';
 
 /**
  * Fetch Single Soul by Hash
@@ -24,50 +24,26 @@ export default function useSoulByOwner(hash?: string | null): {
   error: any;
   isOwned: boolean;
 } {
-  const [soul, setSoul] = useState<any | null>(null);
-  const [isOwned, setIsOwned] = useState<boolean>(false);
   const { account } = useContext(Web3Context);
   const { data, loading, error } = useQuery(
     SoulByHashQuery,
     getSoulByOwnerQueryOptions(hash),
   );
+  const rawSoul = data?.souls?.[0] || null;
+  const hydratedSoul = useHydratedSoulMetadata(rawSoul);
+  const soul = useMemo(
+    () => (loading || error ? null : normalizeGraphEntity(hydratedSoul)),
+    [error, hydratedSoul, loading],
+  );
+  const isOwned =
+    !loading &&
+    !error &&
+    !!account &&
+    rawSoul?.owner?.toLowerCase() == account.toLowerCase();
 
   useEffect(() => {
-    let isCurrent = true;
-
-    function setHydratedSoul() {
-      const rawSoul = data?.souls?.[0] || null;
-      if (isCurrent) setSoul(rawSoul ? normalizeGraphEntity(rawSoul) : null);
-
-      scheduleSoulMetadataHydration(rawSoul, (hydratedSoul) => {
-        if (isCurrent) setSoul(normalizeGraphEntity(hydratedSoul));
-      });
-    }
-
-    if (loading) {
-      setSoul(null);
-      setIsOwned(false);
-    } else if (error) {
-      setSoul(null);
-      setIsOwned(false);
-      console.error('Soul query failed', { data, error });
-    } else {
-      try {
-        // console.log('[DEV] Soul query Return:', { hash, data });
-        setHydratedSoul();
-        setIsOwned(
-          !!account &&
-            data?.souls?.[0]?.owner?.toLowerCase() == account.toLowerCase(),
-        );
-      } catch (e) {
-        console.error(e);
-      }
-    }
-
-    return () => {
-      isCurrent = false;
-    };
-  }, [data, error, loading, account]);
+    if (error) console.error('Soul query failed', { data, error });
+  }, [data, error]);
 
   return {
     soul,
