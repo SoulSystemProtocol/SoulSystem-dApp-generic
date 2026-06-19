@@ -6,8 +6,10 @@ export type SoulEntity = {
   type?: string;
   role?: string;
   uri?: string;
-  metadata?: string;
+  metadata?: any;
   uriImage?: string;
+  uriFirstName?: string;
+  uriLastName?: string;
   image?: string;
   name?: string;
   tags?: string[];

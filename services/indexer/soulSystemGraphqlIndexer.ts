@@ -1,6 +1,10 @@
 import { IS_GAMES_CREATED_BY_NOT_HUB_DISABLED } from 'constants/features';
 import { hexStringToJson } from 'utils/converters';
 import { runIndexerGraphqlQuery } from './graphqlClient';
+import {
+  hydrateSoulMetadata,
+  hydrateSoulsMetadata,
+} from './metadataHydration';
 import type {
   ActionEntity,
   ClaimEntity,
@@ -27,7 +31,7 @@ export const soulSystemGraphqlIndexer: SoulSystemIndexer = {
     const response = await runIndexerGraphqlQuery<SoulsResponse>(
       getFindSoulsQuery(ids, fixedOwners, type, first, skip),
     );
-    return response.souls;
+    return hydrateSoulsMetadata(response.souls);
   },
 
   async findGames({ ids, type, first, skip }) {
@@ -123,14 +127,14 @@ export const soulSystemGraphqlIndexer: SoulSystemIndexer = {
     const response = await runIndexerGraphqlQuery<SoulResponse>(
       SoulByIdQuery(id),
     );
-    return response?.soul ?? null;
+    return hydrateSoulMetadata(response?.soul ?? null);
   },
 
   async getSoulByOwner(owner) {
     const response = await runIndexerGraphqlQuery<SoulsResponse>(
       SoulByHashQuery(owner),
     );
-    return response?.souls[0] ?? null;
+    return hydrateSoulMetadata(response?.souls[0] ?? null);
   },
 
   async getSBTForAccount(address) {
