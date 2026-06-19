@@ -3,7 +3,7 @@ import SoulByHashQuery from 'queries/SoulByHashQuery';
 import { normalizeGraphEntity } from 'helpers/metadata';
 import { useState, useEffect, useContext } from 'react';
 import { Web3Context } from 'contexts/Web3Context';
-import { hydrateSoulMetadata } from 'services/indexer/metadataHydration';
+import { scheduleSoulMetadataHydration } from 'services/indexer/metadataHydration';
 
 /**
  * Fetch Single Soul by Hash
@@ -35,11 +35,13 @@ export default function useSoulByOwner(hash?: string | null): {
   useEffect(() => {
     let isCurrent = true;
 
-    async function setHydratedSoul() {
+    function setHydratedSoul() {
       const rawSoul = data?.souls?.[0] || null;
-      const hydratedSoul = rawSoul ? await hydrateSoulMetadata(rawSoul) : null;
-      if (isCurrent)
-        setSoul(hydratedSoul ? normalizeGraphEntity(hydratedSoul) : null);
+      if (isCurrent) setSoul(rawSoul ? normalizeGraphEntity(rawSoul) : null);
+
+      scheduleSoulMetadataHydration(rawSoul, (hydratedSoul) => {
+        if (isCurrent) setSoul(normalizeGraphEntity(hydratedSoul));
+      });
     }
 
     if (loading) {

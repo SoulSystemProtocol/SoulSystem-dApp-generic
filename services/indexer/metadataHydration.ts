@@ -44,6 +44,36 @@ export async function hydrateSoulsMetadata(
   );
 }
 
+export function scheduleSoulMetadataHydration(
+  soul: SoulEntity | null,
+  onHydrated: (soul: SoulEntity) => void,
+): void {
+  void hydrateSoulMetadata(soul)
+    .then((hydratedSoul) => {
+      if (hydratedSoul) onHydrated(hydratedSoul);
+    })
+    .catch((error) => {
+      console.warn('[IPFS] Scheduled metadata hydration failed', {
+        id: soul?.id,
+        message: error instanceof Error ? error.message : String(error),
+      });
+    });
+}
+
+export function scheduleSoulsMetadataHydration(
+  souls: SoulEntity[],
+  onHydrated: (souls: SoulEntity[]) => void,
+): void {
+  void hydrateSoulsMetadata(souls)
+    .then(onHydrated)
+    .catch((error) => {
+      console.warn('[IPFS] Scheduled collection hydration failed', {
+        count: souls.length,
+        message: error instanceof Error ? error.message : String(error),
+      });
+    });
+}
+
 async function fetchIpfsJson(
   uri: string,
   id: string,

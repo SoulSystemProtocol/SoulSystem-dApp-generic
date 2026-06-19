@@ -3,7 +3,7 @@ import { normalizeGraphEntity } from 'helpers/metadata';
 import { useState, useEffect, useContext } from 'react';
 import { Web3Context } from 'contexts/Web3Context';
 import SoulByIdQuery from 'queries/SoulByIdQuery';
-import { hydrateSoulMetadata } from 'services/indexer/metadataHydration';
+import { scheduleSoulMetadataHydration } from 'services/indexer/metadataHydration';
 
 /**
  * Fetch Single Soul by Id
@@ -20,12 +20,13 @@ export default function useSoulById(id: string): any {
   useEffect(() => {
     let isCurrent = true;
 
-    async function setHydratedSoul() {
-      const hydratedSoul = data?.soul
-        ? await hydrateSoulMetadata(data.soul)
-        : null;
-      if (isCurrent)
-        setSoul(hydratedSoul ? normalizeGraphEntity(hydratedSoul) : null);
+    function setHydratedSoul() {
+      const rawSoul = data?.soul || null;
+      if (isCurrent) setSoul(rawSoul ? normalizeGraphEntity(rawSoul) : null);
+
+      scheduleSoulMetadataHydration(rawSoul, (hydratedSoul) => {
+        if (isCurrent) setSoul(normalizeGraphEntity(hydratedSoul));
+      });
     }
 
     if (loading) {

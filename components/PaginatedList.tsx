@@ -8,7 +8,7 @@ import GridCardTask from './GridCardTask';
 import GridCardUser from './GridCardUser';
 import Loader from './Loader';
 import { NO_RESULTS } from 'constants/texts';
-import { hydrateSoulsMetadata } from 'services/indexer/metadataHydration';
+import { scheduleSoulsMetadataHydration } from 'services/indexer/metadataHydration';
 
 type TPaginatedList = {
   query: any;
@@ -64,13 +64,15 @@ export default function PaginatedList({
   useEffect(() => {
     let isCurrent = true;
 
-    async function setProcessedItems() {
-      let hydratedItems = data ? data?.[entityName] : [];
-      if (entityName === 'souls') {
-        hydratedItems = await hydrateSoulsMetadata(hydratedItems);
-      }
+    function setProcessedItems() {
+      const rawItems = data ? data?.[entityName] : [];
+      if (isCurrent) setItems(itemsProcessing(rawItems));
 
-      if (isCurrent) setItems(itemsProcessing(hydratedItems));
+      if (entityName === 'souls') {
+        scheduleSoulsMetadataHydration(rawItems, (hydratedItems) => {
+          if (isCurrent) setItems(itemsProcessing(hydratedItems));
+        });
+      }
     }
 
     if (error) {

@@ -5,7 +5,7 @@ import { ReactElement, useEffect, useState } from 'react';
 import { soulName } from 'utils/soul';
 import { useQuery } from '@apollo/client';
 import SoulsOpenInj from 'queries/SoulsOpenInj';
-import { hydrateSoulsMetadata } from 'services/indexer/metadataHydration';
+import { scheduleSoulsMetadataHydration } from 'services/indexer/metadataHydration';
 
 interface TProps {
   options?: any;
@@ -80,9 +80,13 @@ export default function SoulSearchBox({
   useEffect(() => {
     let isCurrent = true;
 
-    async function setHydratedItems() {
-      const souls = data ? await hydrateSoulsMetadata(data.souls || []) : [];
+    function setHydratedItems() {
+      const souls = data?.souls || [];
       if (isCurrent) setItems(souls);
+
+      scheduleSoulsMetadataHydration(souls, (hydratedSouls) => {
+        if (isCurrent) setItems(hydratedSouls);
+      });
     }
 
     //Make sure options is never null | undefined
