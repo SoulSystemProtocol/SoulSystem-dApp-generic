@@ -14,10 +14,24 @@ export async function hydrateSoulMetadata(
 ): Promise<SoulEntity | null> {
   if (!soul || hasMetadata(soul.metadata) || !soul.uri) return soul;
 
-  const metadata = await fetchIpfsJson(soul.uri);
+  console.info('[IPFS] Loading metadata', {
+    id: soul.id,
+    uri: soul.uri,
+  });
+
+  const metadata = await fetchIpfsJson(soul.uri, soul.id);
   if (!metadata || typeof metadata !== 'object' || Array.isArray(metadata)) {
+    console.warn('[IPFS] Metadata gateways exhausted', {
+      id: soul.id,
+      uri: soul.uri,
+    });
     return soul;
   }
+
+  console.info('[IPFS] Hydrated soul metadata', {
+    id: soul.id,
+    name: metadata.name,
+  });
 
   return mergeSoulMetadata(soul, metadata);
 }
@@ -30,17 +44,45 @@ export async function hydrateSoulsMetadata(
   );
 }
 
-async function fetchIpfsJson(uri: string): Promise<MetadataRecord | null> {
-  if (typeof fetch !== 'function') return null;
+async function fetchIpfsJson(
+  uri: string,
+  id: string,
+): Promise<MetadataRecord | null> {
+  if (typeof fetch !== 'function') {
+    console.warn('[IPFS] Fetch API unavailable', { id, uri });
+    return null;
+  }
 
-  for (const url of getJsonUrls(uri)) {
+  const urls = getJsonUrls(uri);
+  for (let gatewayIndex = 0; gatewayIndex < urls.length; gatewayIndex++) {
+    const url = urls[gatewayIndex];
     try {
       const response = await fetch(url);
-      if (!response.ok) continue;
+      if (!response.ok) {
+        console.warn('[IPFS] Metadata gateway failed', {
+          id,
+          gatewayIndex,
+          status: response.status,
+          statusText: response.statusText,
+          url,
+        });
+        continue;
+      }
 
-      return await response.json();
-    } catch {
-      // Try the next gateway. Metadata hydration is a fallback, not a query blocker.
+      const metadata = await response.json();
+      console.info('[IPFS] Loaded metadata', {
+        id,
+        gatewayIndex,
+        url,
+      });
+      return metadata;
+    } catch (error) {
+      console.warn('[IPFS] Metadata gateway threw', {
+        id,
+        gatewayIndex,
+        message: error instanceof Error ? error.message : String(error),
+        url,
+      });
     }
   }
 
@@ -66,7 +108,9 @@ function getIpfsPath(uri: string): string | null {
 
   const ipfsPathIndex = trimmedUri.indexOf('/ipfs/');
   if (ipfsPathIndex >= 0) {
-    return trimmedUri.slice(ipfsPathIndex + '/ipfs/'.length).replace(/^\/+/, '');
+    return trimmedUri
+      .slice(ipfsPathIndex + '/ipfs/'.length)
+      .replace(/^\/+/, '');
   }
 
   return null;

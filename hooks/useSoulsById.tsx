@@ -2,6 +2,7 @@ import { useQuery } from '@apollo/client';
 import { normalizeGraphEntity } from 'helpers/metadata';
 import SoulsByIdQuery from 'queries/SoulsByIdQuery';
 import { useEffect, useState } from 'react';
+import { hydrateSoulsMetadata } from 'services/indexer/metadataHydration';
 
 /**
  * Fetch Multiple Souls by IDs
@@ -18,6 +19,17 @@ export default function useSoulsById(
   });
 
   useEffect(() => {
+    let isCurrent = true;
+
+    async function setHydratedSouls() {
+      const hydratedSouls = data?.souls
+        ? await hydrateSoulsMetadata(data.souls)
+        : [];
+      if (isCurrent) {
+        setSouls(hydratedSouls.map((soul: any) => normalizeGraphEntity(soul)));
+      }
+    }
+
     if (loading) {
       setSouls(null);
     } else if (error) {
@@ -25,11 +37,15 @@ export default function useSoulsById(
       console.error('Soul query failed', { data, error });
     } else {
       try {
-        setSouls(data?.souls?.map((soul: any) => normalizeGraphEntity(soul)));
+        setHydratedSouls();
       } catch (error) {
         console.error(error);
       }
     }
+
+    return () => {
+      isCurrent = false;
+    };
   }, [data, error, loading]);
 
   return {

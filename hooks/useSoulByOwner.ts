@@ -3,6 +3,7 @@ import SoulByHashQuery from 'queries/SoulByHashQuery';
 import { normalizeGraphEntity } from 'helpers/metadata';
 import { useState, useEffect, useContext } from 'react';
 import { Web3Context } from 'contexts/Web3Context';
+import { hydrateSoulMetadata } from 'services/indexer/metadataHydration';
 
 /**
  * Fetch Single Soul by Hash
@@ -32,6 +33,15 @@ export default function useSoulByOwner(hash?: string | null): {
   );
 
   useEffect(() => {
+    let isCurrent = true;
+
+    async function setHydratedSoul() {
+      const rawSoul = data?.souls?.[0] || null;
+      const hydratedSoul = rawSoul ? await hydrateSoulMetadata(rawSoul) : null;
+      if (isCurrent)
+        setSoul(hydratedSoul ? normalizeGraphEntity(hydratedSoul) : null);
+    }
+
     if (loading) {
       setSoul(null);
       setIsOwned(false);
@@ -42,7 +52,7 @@ export default function useSoulByOwner(hash?: string | null): {
     } else {
       try {
         // console.log('[DEV] Soul query Return:', { hash, data });
-        setSoul(data?.souls ? normalizeGraphEntity(data.souls[0]) : null);
+        setHydratedSoul();
         setIsOwned(
           !!account &&
             data?.souls?.[0]?.owner?.toLowerCase() == account.toLowerCase(),
@@ -51,6 +61,10 @@ export default function useSoulByOwner(hash?: string | null): {
         console.error(e);
       }
     }
+
+    return () => {
+      isCurrent = false;
+    };
   }, [data, error, loading, account]);
 
   return {
