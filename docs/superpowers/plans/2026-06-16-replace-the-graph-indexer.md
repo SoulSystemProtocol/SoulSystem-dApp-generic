@@ -472,9 +472,13 @@ Port handlers in this order:
 5. `actionRepoHandler.ts`: `ActionAdded`, `ActionURI`.
 6. `openRepoHandlers.ts`: `StringSet`, `AddressAdd`, `AddressSet`.
 
-- [ ] **Step 5: Decide metadata hydration behavior**
+- [x] **Step 5: Decide metadata hydration behavior**
 
 Keep handler-side IPFS fetch only if Envio hosting supports the same reliability as the old mapping behavior. Otherwise, write raw `uri` during indexing and hydrate metadata in the dApp/server layer with a cache.
+
+2026-06-18 evidence: Soul `9` returned `metadata: null` from the indexer with `uri: ipfs://QmUrmh5KpEHR3w16iFZK6TGBWqKvpRkDLUzVPr1UiipZZ9`, but the CID is still available through public gateways (`dweb.link`, `ipfs.io`, and Pinata) and returns the expected `Alter Ego` JSON. Add metadata hydration for entities with a raw `uri` and null/empty `metadata`, preferably behind the indexer adapter or a server-side cache so UI hooks do not duplicate IPFS fetch logic.
+
+Implemented in this dApp indexer adapter on 2026-06-18: `services/indexer/metadataHydration.ts` hydrates `Soul` entities with null/empty `metadata` from their raw `uri`; `soulSystemGraphqlIndexer` applies it in `getSoulById`, `getSoulByOwner`, and `findSouls`.
 
 For dApp/server hydration, create:
 
