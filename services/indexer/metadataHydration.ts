@@ -44,6 +44,10 @@ export async function hydrateSoulsMetadata(
   );
 }
 
+export function shouldHydrateSoulMetadata(soul: SoulEntity | null): boolean {
+  return !!soul && !hasMetadata(soul.metadata) && !!soul.uri;
+}
+
 export function scheduleSoulMetadataHydration(
   soul: SoulEntity | null,
   onHydrated: (soul: SoulEntity) => void,

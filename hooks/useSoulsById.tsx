@@ -2,7 +2,7 @@ import { useQuery } from '@apollo/client';
 import { normalizeGraphEntity } from 'helpers/metadata';
 import SoulsByIdQuery from 'queries/SoulsByIdQuery';
 import { useEffect, useMemo } from 'react';
-import { useHydratedSoulsMetadata } from './useSoulMetadata';
+import { useHydratedSoulsMetadataState } from './useSoulMetadata';
 
 /**
  * Fetch Multiple Souls by IDs
@@ -16,13 +16,15 @@ export default function useSoulsById(
     ssr: false,
     variables: { ids, first, skip },
   });
-  const hydratedSouls = useHydratedSoulsMetadata(data?.souls || []);
+  const { souls: hydratedSouls, isHydrating: metadataLoading } =
+    useHydratedSoulsMetadataState(data?.souls || []);
+  const isLoading = loading || metadataLoading;
   const souls = useMemo(
     () =>
-      loading || error
+      isLoading || error
         ? null
         : hydratedSouls.map((soul: any) => normalizeGraphEntity(soul)),
-    [error, hydratedSouls, loading],
+    [error, hydratedSouls, isLoading],
   );
 
   useEffect(() => {
@@ -31,7 +33,8 @@ export default function useSoulsById(
 
   return {
     souls,
-    loading,
+    loading: isLoading,
+    metadataLoading,
     error,
   };
 }

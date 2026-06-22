@@ -3,6 +3,7 @@ import {
   hydrateSoulsMetadata,
   scheduleSoulMetadataHydration,
   scheduleSoulsMetadataHydration,
+  shouldHydrateSoulMetadata,
 } from '../metadataHydration';
 
 describe('metadataHydration', () => {
@@ -148,6 +149,32 @@ describe('metadataHydration', () => {
       'https://ipfs.io/ipfs/QmPlaceholder',
     );
     expect(soul?.metadata).toEqual({ name: 'Placeholder Soul' });
+  });
+
+  it('reports hydration pending only when URI-backed metadata is missing', () => {
+    expect(
+      shouldHydrateSoulMetadata({
+        id: '16',
+        owner: '0xowner',
+        uri: 'ipfs://QmPending',
+        metadata: '0x',
+      }),
+    ).toBe(true);
+    expect(
+      shouldHydrateSoulMetadata({
+        id: '17',
+        owner: '0xowner',
+        uri: 'ipfs://QmReady',
+        metadata: { name: 'Ready Soul' },
+      }),
+    ).toBe(false);
+    expect(
+      shouldHydrateSoulMetadata({
+        id: '18',
+        owner: '0xowner',
+        metadata: null,
+      }),
+    ).toBe(false);
   });
 
   it('schedules single soul hydration without waiting for IPFS', async () => {

@@ -1,11 +1,17 @@
-import { Autocomplete, Box, TextField, SxProps } from '@mui/material';
+import {
+  Autocomplete,
+  Box,
+  CircularProgress,
+  TextField,
+  SxProps,
+} from '@mui/material';
 import SoulCompactCard from 'components/entity/soul/SoulCompactCard';
 // import useError from 'hooks/useError';
 import { ReactElement, useEffect, useState } from 'react';
 import { soulName } from 'utils/soul';
 import { useQuery } from '@apollo/client';
 import SoulsOpenInj from 'queries/SoulsOpenInj';
-import { useHydratedSoulsMetadata } from 'hooks/useSoulMetadata';
+import { useHydratedSoulsMetadataState } from 'hooks/useSoulMetadata';
 
 interface TProps {
   options?: any;
@@ -58,7 +64,9 @@ export default function SoulSearchBox({
     ssr: false,
     variables: { first: 12, skip: 0 },
   });
-  const items = useHydratedSoulsMetadata(data?.souls || []);
+  const { souls: items, isHydrating: isMetadataLoading } =
+    useHydratedSoulsMetadataState(data?.souls || []);
+  const isLoading = loading || isMetadataLoading;
 
   useEffect(() => {
     //** Handle Injected Value
@@ -88,6 +96,8 @@ export default function SoulSearchBox({
         <Autocomplete
           disabled={isDisabled}
           getOptionLabel={(option) => soulName(option)}
+          loading={isLoading}
+          loadingText={isMetadataLoading ? 'Loading metadata...' : 'Loading...'}
           // filterOptions={(x) => x}
           options={items}
           value={selectedSoul}
@@ -113,6 +123,17 @@ export default function SoulSearchBox({
               placeholder={'Search by name or address'}
               required={required || false}
               onKeyDown={onKeyDown}
+              InputProps={{
+                ...params.InputProps,
+                endAdornment: (
+                  <>
+                    {isLoading ? (
+                      <CircularProgress color="inherit" size={20} />
+                    ) : null}
+                    {params.InputProps.endAdornment}
+                  </>
+                ),
+              }}
             />
           )}
           renderOption={(props, option) => {

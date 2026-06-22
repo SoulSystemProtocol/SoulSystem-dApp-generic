@@ -2,21 +2,42 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import {
   hydrateSoulMetadata,
   hydrateSoulsMetadata,
+  shouldHydrateSoulMetadata,
 } from 'services/indexer/metadataHydration';
 import type { SoulEntity } from 'services/indexer/types';
+
+type HydratedSoulMetadataState<T extends SoulEntity | null> = {
+  soul: T;
+  isHydrating: boolean;
+};
+
+type HydratedSoulsMetadataState<T extends SoulEntity[]> = {
+  souls: T;
+  isHydrating: boolean;
+};
 
 export function useHydratedSoulMetadata<T extends SoulEntity | null>(
   soul: T,
 ): T {
-  const [hydratedSoul, setHydratedSoul] = useState<T>(soul);
+  return useHydratedSoulMetadataState(soul).soul;
+}
+
+export function useHydratedSoulMetadataState<T extends SoulEntity | null>(
+  soul: T,
+): HydratedSoulMetadataState<T> {
+  const [state, setState] = useState<HydratedSoulMetadataState<T>>({
+    soul,
+    isHydrating: false,
+  });
   const hydrationKey = useMemo(() => getSoulHydrationKey(soul), [soul]);
   const requestIdRef = useRef(0);
 
   useEffect(() => {
     const requestId = ++requestIdRef.current;
-    setHydratedSoul(soul);
+    const isHydrating = shouldHydrateSoulMetadata(soul);
+    setState({ soul, isHydrating });
 
-    if (!soul) return;
+    if (!soul || !isHydrating) return;
 
     console.info('[IPFS] Soul metadata hook scheduled', {
       id: soul.id,
@@ -31,7 +52,7 @@ export function useHydratedSoulMetadata<T extends SoulEntity | null>(
           id: nextSoul.id,
           hasMetadata: !!nextSoul.metadata,
         });
-        setHydratedSoul(nextSoul as T);
+        setState({ soul: nextSoul as T, isHydrating: false });
       })
       .catch((error) => {
         if (requestIdRef.current !== requestId) return;
@@ -40,24 +61,35 @@ export function useHydratedSoulMetadata<T extends SoulEntity | null>(
           id: soul.id,
           message: error instanceof Error ? error.message : String(error),
         });
+        setState({ soul, isHydrating: false });
       });
     // hydrationKey tracks the meaningful soul fields without refetching on
     // every parent render that creates a new object with the same content.
   }, [hydrationKey]);
 
-  return hydratedSoul;
+  return state;
 }
 
 export function useHydratedSoulsMetadata<T extends SoulEntity[]>(souls: T): T {
-  const [hydratedSouls, setHydratedSouls] = useState<T>(souls);
+  return useHydratedSoulsMetadataState(souls).souls;
+}
+
+export function useHydratedSoulsMetadataState<T extends SoulEntity[]>(
+  souls: T,
+): HydratedSoulsMetadataState<T> {
+  const [state, setState] = useState<HydratedSoulsMetadataState<T>>({
+    souls,
+    isHydrating: false,
+  });
   const hydrationKey = useMemo(() => getSoulsHydrationKey(souls), [souls]);
   const requestIdRef = useRef(0);
 
   useEffect(() => {
     const requestId = ++requestIdRef.current;
-    setHydratedSouls(souls);
+    const isHydrating = souls.some(shouldHydrateSoulMetadata);
+    setState({ souls, isHydrating });
 
-    if (!souls.length) return;
+    if (!souls.length || !isHydrating) return;
 
     console.info('[IPFS] Soul metadata collection hook scheduled', {
       count: souls.length,
@@ -72,7 +104,7 @@ export function useHydratedSoulsMetadata<T extends SoulEntity[]>(souls: T): T {
           count: nextSouls.length,
           hydratedCount: nextSouls.filter((soul) => !!soul.metadata).length,
         });
-        setHydratedSouls(nextSouls as T);
+        setState({ souls: nextSouls as T, isHydrating: false });
       })
       .catch((error) => {
         if (requestIdRef.current !== requestId) return;
@@ -81,10 +113,11 @@ export function useHydratedSoulsMetadata<T extends SoulEntity[]>(souls: T): T {
           count: souls.length,
           message: error instanceof Error ? error.message : String(error),
         });
+        setState({ souls, isHydrating: false });
       });
   }, [hydrationKey]);
 
-  return hydratedSouls;
+  return state;
 }
 
 function getSoulsHydrationKey(souls: SoulEntity[]): string {
