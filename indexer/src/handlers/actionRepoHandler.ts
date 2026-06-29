@@ -1,4 +1,6 @@
-import { handlerNotPorted } from './migration.js';
+import { indexer } from 'envio';
 
-export const handleActionAdded = () => handlerNotPorted('ActionRepo.ActionAdded');
-export const handleActionURI = () => handlerNotPorted('ActionRepo.ActionURI');
+const noop = async () => {};
+
+indexer.onEvent({ contract: 'ActionRepo', event: 'ActionAdded' }, noop);
+indexer.onEvent({ contract: 'ActionRepo', event: 'ActionURI' }, noop);

@@ -1,8 +1,9 @@
-import { handlerNotPorted } from './migration.js';
+import { indexer } from 'envio';
 
-export const handleTransferByToken = () =>
-  handlerNotPorted('Game.TransferByToken');
-export const handleNominate = () => handlerNotPorted('Game.Nominate');
-export const handlePost = () => handlerNotPorted('Game.Post');
-export const handleRoleCreated = () => handlerNotPorted('Game.RoleCreated');
-export const handleUriChange = () => handlerNotPorted('Game.URI');
+const noop = async () => {};
+
+indexer.onEvent({ contract: 'Game', event: 'TransferByToken' }, noop);
+indexer.onEvent({ contract: 'Game', event: 'Nominate' }, noop);
+indexer.onEvent({ contract: 'Game', event: 'Post' }, noop);
+indexer.onEvent({ contract: 'Game', event: 'RoleCreated' }, noop);
+indexer.onEvent({ contract: 'Game', event: 'URI' }, noop);

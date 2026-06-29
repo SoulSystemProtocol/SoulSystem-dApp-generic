@@ -407,7 +407,7 @@ Status on 2026-06-29:
 - Blocked from completing generated bindings or local runtime validation because both `pnpm dlx envio@3.2.1 --help` and `npx envio@3.2.1 --help` fail with `Cannot read properties of null (reading 'runCli')`.
 - 2026-06-29 follow-up: root cause is platform support. `envio@3.2.1` declares Linux/macOS optional native packages, but no Windows package. Added a GitHub Actions Ubuntu job for `indexer` codegen/typecheck so validation runs on a supported platform.
 - 2026-06-29 validation: GitHub Actions run `28377789082` passed `Indexer codegen and typecheck` on Ubuntu after normalizing Envio schema relationships and event signatures.
-- The handler stubs intentionally fail fast until the legacy handlers are ported against generated Envio bindings.
+- 2026-06-29 follow-up: handler modules now use Envio `indexer.onEvent` registrations and `Hub.ContractCreated` uses `indexer.contractRegister` to dynamically register `Game` and `Claim` addresses. The modules are runtime-safe no-op handlers until the legacy entity-writing logic is ported.
 
 - [x] **Step 1: Scaffold Envio**
 
@@ -483,6 +483,8 @@ Port handlers in this order:
 4. `claimHandlers.ts`: `Stage`, `RoleCreated`, `URI`, `PaymentReleased`, `ERC20PaymentReleased`, `TransferByToken`, `Nominate`, `Post`.
 5. `actionRepoHandler.ts`: `ActionAdded`, `ActionURI`.
 6. `openRepoHandlers.ts`: `StringSet`, `AddressAdd`, `AddressSet`.
+
+2026-06-29 status: Envio handler registration is complete and typechecked. Remaining handler work is field-level parity: replace each no-op body with the corresponding entity writes from `src/subgraph-reference`.
 
 - [x] **Step 5: Decide metadata hydration behavior**
 

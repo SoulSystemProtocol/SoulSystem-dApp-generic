@@ -9,6 +9,6 @@
     "skipLibCheck": true,
     "types": ["node"]
   },
-  "include": ["src/handlers/**/*.ts", "generated/**/*.ts"],
+  "include": ["envio-env.d.ts", "src/handlers/**/*.ts", "generated/**/*.ts"],
   "exclude": ["src/subgraph-reference"]
 }

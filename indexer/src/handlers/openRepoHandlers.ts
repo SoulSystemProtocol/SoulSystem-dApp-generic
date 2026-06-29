@@ -1,5 +1,7 @@
-import { handlerNotPorted } from './migration.js';
+import { indexer } from 'envio';
 
-export const handleStringSet = () => handlerNotPorted('OpenRepo.StringSet');
-export const handleAddressAdd = () => handlerNotPorted('OpenRepo.AddressAdd');
-export const handleAddressSet = () => handlerNotPorted('OpenRepo.AddressSet');
+const noop = async () => {};
+
+indexer.onEvent({ contract: 'OpenRepo', event: 'StringSet' }, noop);
+indexer.onEvent({ contract: 'OpenRepo', event: 'AddressAdd' }, noop);
+indexer.onEvent({ contract: 'OpenRepo', event: 'AddressSet' }, noop);

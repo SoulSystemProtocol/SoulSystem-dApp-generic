@@ -1,10 +1,12 @@
-import { handlerNotPorted } from './migration.js';
+import { indexer } from 'envio';
 
-export const handleTransfer = () => handlerNotPorted('Soul.Transfer');
-export const handleApproval = () => handlerNotPorted('Soul.Approval');
-export const handleApprovalForAll = () => handlerNotPorted('Soul.ApprovalForAll');
-export const handleURI = () => handlerNotPorted('Soul.URI');
-export const handleSoulType = () => handlerNotPorted('Soul.SoulType');
-export const handleAnnouncement = () => handlerNotPorted('Soul.Announcement');
-export const handleHandleSet = () => handlerNotPorted('Soul.SoulHandle');
-export const handleOpinionChange = () => handlerNotPorted('Soul.OpinionChange');
+const noop = async () => {};
+
+indexer.onEvent({ contract: 'Soul', event: 'Transfer' }, noop);
+indexer.onEvent({ contract: 'Soul', event: 'Approval' }, noop);
+indexer.onEvent({ contract: 'Soul', event: 'ApprovalForAll' }, noop);
+indexer.onEvent({ contract: 'Soul', event: 'URI' }, noop);
+indexer.onEvent({ contract: 'Soul', event: 'SoulType' }, noop);
+indexer.onEvent({ contract: 'Soul', event: 'Announcement' }, noop);
+indexer.onEvent({ contract: 'Soul', event: 'SoulHandle' }, noop);
+indexer.onEvent({ contract: 'Soul', event: 'OpinionChange' }, noop);
