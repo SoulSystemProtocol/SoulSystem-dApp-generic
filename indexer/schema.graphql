@@ -47,7 +47,7 @@ type PaymentTotal {
 #Entity: OpenRepo [WIP]
 type OpenRepo {
   id: ID! # contract address
-  conf: [RelAddress!]
+  conf: [String!]
 }
 
 type RelAddress {
@@ -61,7 +61,7 @@ type RelAddress {
 type Hub {
   id: ID! # Address
   OpenRepo: String! # Address
-  conf: [HubConf!]
+  conf: [String!]
 }
 type HubConf {
   id: ID! #
@@ -192,7 +192,7 @@ type GameRule {
   metadata: Bytes
   uriName: String
   negation: Boolean
-  effects: [GameRuleEffect!]!
+  effects: [GameRuleEffect!]! @derivedFrom(field: "rule")
   effectsBlock: BigInt # number of block where effects were defined
   confirmationRuling: String
   confirmationEvidence: Boolean
@@ -289,7 +289,7 @@ type ProcNomination {
   claim: Claim!
   createdDate: BigInt!
   nominated: Soul!
-  nominator: [Soul!]!
+  nominator: [String!]!
   uri: [String!]!
   status: String
 }

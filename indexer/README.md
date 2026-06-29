@@ -33,5 +33,6 @@ pnpm dev
 
 - Register `Game` and `Claim` addresses dynamically from `Hub.ContractCreated`.
 - Preserve the dApp-facing GraphQL field names in `schema.graphql`.
+- Envio requires entity list relationships to use `@derivedFrom`; legacy direct entity arrays such as `ProcNomination.nominator` need adapter mapping if the dApp still expects nested `Soul` objects.
 - Keep IPFS metadata hydration outside the indexer unless Envio-hosted effects are explicitly adopted for external fetch reliability.
 - Validate against `scripts/compare-indexer-query-parity.mjs` before changing the dApp endpoint.
