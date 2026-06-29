@@ -11,13 +11,17 @@ This folder is the Envio HyperIndex migration scaffold for the SoulSystem Aurora
 
 ## Status
 
-The project has the Envio file structure, contract/event configuration, Aurora addresses, schema, ABI assets, and source handler references. The Envio CLI currently fails in this environment before it can scaffold or codegen:
+The project has the Envio file structure, contract/event configuration, Aurora addresses, schema, ABI assets, and source handler references.
+
+Envio 3.2.1 currently ships native CLI packages for Linux and macOS, but not Windows. On Windows, the CLI exits before codegen with:
 
 ```text
 Cannot read properties of null (reading 'runCli')
 ```
 
-Because of that, `src/handlers` contains fail-fast migration stubs instead of claiming a complete runtime port. Port each handler from `src/subgraph-reference`, then run:
+Run codegen and local indexer validation on Linux/macOS, in a Linux container, or through the GitHub Actions `Indexer codegen and typecheck` job.
+
+`src/handlers` contains fail-fast migration stubs until each legacy handler is ported from `src/subgraph-reference` against generated Envio bindings. After editing handlers, run:
 
 ```powershell
 pnpm install

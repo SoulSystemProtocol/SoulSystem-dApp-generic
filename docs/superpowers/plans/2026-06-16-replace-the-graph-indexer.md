@@ -405,6 +405,7 @@ Status on 2026-06-29:
 - Copied ABIs and source handler references from `C:\GitHubs\SubgraphStudio\graph`.
 - Added `indexer/config.yaml`, `indexer/schema.graphql`, handler stubs, package scripts, and migration notes.
 - Blocked from completing generated bindings or local runtime validation because both `pnpm dlx envio@3.2.1 --help` and `npx envio@3.2.1 --help` fail with `Cannot read properties of null (reading 'runCli')`.
+- 2026-06-29 follow-up: root cause is platform support. `envio@3.2.1` declares Linux/macOS optional native packages, but no Windows package. Added a GitHub Actions Ubuntu job for `indexer` codegen/typecheck so validation runs on a supported platform.
 - The handler stubs intentionally fail fast until the legacy handlers are ported against generated Envio bindings.
 
 - [x] **Step 1: Scaffold Envio**
