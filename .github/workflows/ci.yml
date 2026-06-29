@@ -1,0 +1,50 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: Lint, build, and test
+    runs-on: ubuntu-latest
+
+    env:
+      NEXT_PUBLIC_ALCHEMY_KEY: ci-placeholder
+      NEXT_PUBLIC_WALLETCONNECT_PROJECTID: ci-placeholder
+      NEXT_PUBLIC_NETWORK_CHAIN_ID: "1313161554"
+      NEXT_PUBLIC_NETWORK_CHAIN_ID_HEX: "0x4e454152"
+      NEXT_PUBLIC_NETWORK_NAME: Aurora
+      NEXT_PUBLIC_INDEXER_GRAPHQL_URL: https://app.sentio.xyz//api/v1/graphql/toledoroy/soulsystem-aurora
+      NEXT_PUBLIC_SUBGRAPH_API: ""
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Typecheck
+        run: npx tsc --noEmit
+
+      - name: Build
+        run: npm run build
+
+      - name: Test
+        run: npm test -- --ci --runInBand
