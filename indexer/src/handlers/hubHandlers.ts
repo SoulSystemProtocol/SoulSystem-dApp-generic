@@ -1,4 +1,4 @@
-import { handlerNotPorted } from './migration';
+import { handlerNotPorted } from './migration.js';
 
 export const handleContractCreated = () =>
   handlerNotPorted(

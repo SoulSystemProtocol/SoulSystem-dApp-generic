@@ -1,4 +1,4 @@
-import { handlerNotPorted } from './migration';
+import { handlerNotPorted } from './migration.js';
 
 export const handleStage = () => handlerNotPorted('Claim.Stage');
 export const handleTransferByToken = () =>
