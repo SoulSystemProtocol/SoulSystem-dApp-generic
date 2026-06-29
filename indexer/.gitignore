@@ -1,0 +1,5 @@
+generated/
+.env
+.env.local
+.envio/
+node_modules/

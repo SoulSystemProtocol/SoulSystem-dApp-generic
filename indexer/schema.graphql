@@ -1,0 +1,376 @@
+# Interfaces
+
+interface CTX {
+  id: ID!
+  name: String!
+  type: String!
+}
+
+interface Post {
+  id: ID!
+  createdDate: BigInt
+  author: Soul!
+  uri: String!
+  metadata: Bytes
+}
+
+interface Part {
+  id: ID!
+  sbt: Soul!
+  roles: [String!]!
+}
+
+#Entity: Account
+type Account {
+  id: ID! # account address
+  sbt: Soul!
+}
+
+#Log: Payment
+type EvtPayment {
+  id: ID!
+  from: String!
+  to: String!
+  amount: BigInt!
+  token: String
+}
+
+#Log: Payments Tracking
+type PaymentTotal {
+  id: ID!
+  from: String!
+  to: String!
+  amount: BigInt!
+  token: String
+}
+
+#Entity: OpenRepo [WIP]
+type OpenRepo {
+  id: ID! # contract address
+  conf: [RelAddress!]
+}
+
+type RelAddress {
+  id: ID! # Unique Combo
+  owner: String! # Address
+  key: String!
+  value: [String!]! # Addresses
+}
+
+#Entity: Hub [WIP]
+type Hub {
+  id: ID! # Address
+  OpenRepo: String! # Address
+  conf: [HubConf!]
+}
+type HubConf {
+  id: ID! #
+}
+
+#Separate Relations [DEV]
+type GameRelAddress {
+  id: ID! # Unique Combo
+  origin: Game!
+  key: String!
+  value: [String!]! # Addresses
+}
+type ProcRelAddress {
+  id: ID! # Unique Combo
+  origin: Claim!
+  key: String!
+  value: [String!]! # Addresses
+}
+type AccountRelAddress {
+  id: ID! # Unique Combo
+  origin: Account!
+  key: String!
+  value: [String!]! # Addresses
+}
+
+#Entity: Soul
+type Soul {
+  id: ID! # Token ID
+  owner: String! # account address
+  type: String! # human or contract type (classified by contract)
+  role: String! # Entity's function designation
+  stage: Int! # Entity's stage (as a process)
+  uri: String # metadata uri
+  metadata: Bytes
+  handle: String
+
+  #DEPRECATE THESE
+  uriImage: String!
+  uriFirstName: String!
+  uriLastName: String!
+
+  image: String!
+  name: String!
+  tags: [String!]
+  searchField: String
+  participantGame: [GameParticipant!]! @derivedFrom(field: "sbt")
+  participantProc: [ProcParticipant!]! @derivedFrom(field: "sbt")
+
+  #opinion: [SoulOpinion!]! @derivedFrom(field: "aEnd")
+  #opinionOn: [SoulOpinion!]! @derivedFrom(field: "bEnd")
+  opinion: [SoulOpinion!]! @derivedFrom(field: "aEnd")
+  opinionOn: [SoulOpinion!]! @derivedFrom(field: "bSoul")
+
+  posts: [SoulPost!]! @derivedFrom(field: "author")
+
+  # Semantic Relations
+  assoc: [SoulAssoc!]! @derivedFrom(field: "aEnd")
+  parts: [SoulPart!]! @derivedFrom(field: "aEnd")
+  attrs: [SoulAttr!]! @derivedFrom(field: "aEnd")
+}
+
+## Reputation (SBT Opinions on SBT) [DEV]
+#Opinion Change Events
+type SoulOpinionChange {
+  id: ID! # combination of subject, object, and domain name
+  subject: Soul!
+  object: Soul!
+  role: String!
+  # rating: Boolean! #DEPRECATED
+  valueBefore: BigInt!
+  valueAfter: BigInt!
+}
+
+#Accumelated Opinion
+type SoulOpinion
+  { # S?H? (SBT->Ext.Token)
+  id: ID! # combination of A,B,R
+  aEnd: Soul!
+  bEnd: String! # Dest. Token ID
+  bContract: String! # Dest. Contract Address
+  bSoul: Soul
+  role: String
+  value: BigInt!
+  #negativeRating: BigInt #DEPRECATED
+  #positiveRating: BigInt #DEPRECATED
+}
+
+#Entity: Game
+type Game implements CTX {
+  id: ID! # contract address
+  hub: String! # hub address
+  name: String!
+  type: String!
+  role: String! # Entity's function designation
+  createdDate: BigInt!
+  nominations: [GameNomination!]! @derivedFrom(field: "game")
+  posts: [GamePost!]! @derivedFrom(field: "entity")
+
+  #Relations to Souls (Parts / Members)
+  roles: [GameRole!]! @derivedFrom(field: "ctx")
+  rulse: [GameRule!]! @derivedFrom(field: "game")
+  parts: [GameParticipant!]! @derivedFrom(field: "entity") # DEPRECATE?
+  assoc: [GameAssoc!]! @derivedFrom(field: "bEnt") # DEPRECATE?
+}
+
+#DEPRECATE? Try to use GamePart Instead
+# ERC1155 Token for Game
+type GameRole {
+  id: ID! # combination of game address and role id
+  ctx: Game!
+  roleId: BigInt!
+  name: String!
+  uri: String!
+  metadata: Bytes
+  souls: [String!]!
+  soulsCount: Int!
+}
+
+#Entity: Rule
+type GameRule {
+  id: ID! # combination of game address and role id
+  game: Game!
+  about: Action!
+  aboutSubject: String
+  ruleId: BigInt!
+  affected: String
+  uri: String
+  metadata: Bytes
+  uriName: String
+  negation: Boolean
+  effects: [GameRuleEffect!]!
+  effectsBlock: BigInt # number of block where effects were defined
+  confirmationRuling: String
+  confirmationEvidence: Boolean
+  confirmationWitness: BigInt
+  isPositive: Boolean
+  isDisabled: Boolean!
+}
+
+type GameRuleEffect {
+  id: ID! # combination of game address, rule id, effect name
+  rule: GameRule!
+  name: String!
+  direction: Boolean!
+  value: Int!
+}
+
+#TODO: Update Like ProcNominations
+type GameNomination {
+  id: ID! # combination of game address and event transaction address
+  game: Game!
+  createdDate: BigInt!
+  nominator: Soul!
+  nominated: Soul!
+  #uri: [String!]! #TBD
+}
+
+type GamePost implements Post {
+  id: ID! # combination of game address and event transaction address
+  entity: Game!
+  createdDate: BigInt
+  author: Soul!
+  entityRole: String! # Role in CTX
+  uri: String!
+  metadata: Bytes
+}
+
+#Entity: Action
+type Action {
+  id: ID! # guid
+  subject: String
+  verb: String
+  object: String
+  tool: String
+  uri: String
+  metadata: Bytes
+  rules: [GameRule!]! @derivedFrom(field: "about")
+}
+
+#Entity: Process (Claim/Task/etc')
+type Claim implements CTX {
+  id: ID! # contract address
+  hub: String # hub address
+  name: String!
+  game: Game
+  type: String!
+  role: String! # Entity's function designation
+  stage: Int!
+  createdDate: BigInt!
+  updatedDate: BigInt
+  nominations: [ProcNomination!]! @derivedFrom(field: "claim")
+  posts: [ProcPost!]! @derivedFrom(field: "entity")
+  stageURI: [ProcStageURI!]! @derivedFrom(field: "entity")
+  # Relations to Souls (Parts / Members)
+  roles: [ProcRole!]! @derivedFrom(field: "ctx")
+  participants: [ProcParticipant!]! @derivedFrom(field: "entity")
+  # Relations
+  # assoc: [ProcAssoc!]! @derivedFrom(field: "bEnt")
+}
+
+type ProcStageURI
+  { # [DEV]
+  id: ID! # combination of claim address and stage name
+  entity: Claim!
+  stage: Int!
+  uri: String!
+  Author: String # SBT
+}
+
+# ERC1155 Token for Process
+type ProcRole {
+  id: ID! # combination of claim address and role id
+  ctx: Claim!
+  name: String!
+  uri: String!
+  metadata: Bytes
+  role: String!
+  roleId: BigInt!
+  souls: [String!]!
+  soulsCount: Int!
+}
+
+type ProcNomination {
+  id: ID! # combination of claim address and event transaction address
+  claim: Claim!
+  createdDate: BigInt!
+  nominated: Soul!
+  nominator: [Soul!]!
+  uri: [String!]!
+  status: String
+}
+
+type ProcPost implements Post {
+  id: ID! # combination of claim address and event transaction address
+  entity: Claim!
+  createdDate: BigInt
+  author: Soul!
+  entityRole: String!
+  uri: String!
+  metadata: Bytes
+}
+
+#[WIP]
+type GameParticipant implements Part {
+  id: ID!
+  entity: Game!
+  sbt: Soul!
+  roles: [String!]! #Tokens
+}
+type ProcParticipant implements Part {
+  id: ID!
+  entity: Claim!
+  sbt: Soul!
+  roles: [String!]!
+}
+
+type GameAssoc {
+  id: ID! # combination of claim address and SBT & roleId address
+  bEnt: Game! # Group
+  sbt: Soul! # Entity
+  role: BigInt!
+  qty: BigInt!
+}
+
+type ProcAssoc
+  { # DEPRECATED & UNUSED
+  id: ID! # combination of claim address and SBT & roleId address
+  bEnt: Claim! # Group
+  sbt: Soul! # Entity
+  role: BigInt!
+  qty: BigInt!
+}
+
+# Semantic Relations
+
+type SoulAssoc
+  { #S2H0 (SBT->SBT)
+  id: ID! # combination of A,B,R
+  aEnd: Soul!
+  bEnd: Soul!
+  role: String!
+  qty: BigInt # Power/Influence
+}
+
+type SoulPart
+  { #S3H1 (SBT->SBTx2)
+  id: ID! # combination of A,B,R
+  aEnd: Soul!
+  bEnd: Soul!
+  role: String! #can I get the role name here? (e.g. "admin")
+  roleId: String!
+  qty: BigInt! # Quantity?
+  uri: String
+}
+
+type SoulAttr
+  { # S4H0 (SBT->String)
+  id: ID! # combination of A,B,R
+  aEnd: Soul!
+  bEnd: String!
+  role: String!
+}
+
+type SoulPost implements Post {
+  id: ID!
+  createdDate: BigInt
+  author: Soul!
+  context: String!
+  uri: String!
+  metadata: Bytes
+  #entityRole: String # Role in CTX
+}

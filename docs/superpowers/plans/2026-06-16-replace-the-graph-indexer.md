@@ -394,22 +394,32 @@ Status on 2026-06-16:
 
 **Files:**
 
-- Create: `C:\Users\toled\Documents\GitHub\SoulSystem-Indexer`
-- Use source: `C:\Users\toled\Documents\GitHub\Subgraph\schema.graphql`
-- Use source: `C:\Users\toled\Documents\GitHub\Subgraph\subgraph.yaml`
-- Use source: `C:\Users\toled\Documents\GitHub\Subgraph\abis\*.json`
+- Create: `indexer/`
+- Use source: `C:\GitHubs\SubgraphStudio\graph\schema.graphql`
+- Use source: `C:\GitHubs\SubgraphStudio\graph\subgraph.yaml`
+- Use source: `C:\GitHubs\SubgraphStudio\graph\abis\*.json`
 
-- [ ] **Step 1: Scaffold Envio**
+Status on 2026-06-29:
 
-Run in `C:\Users\toled\Documents\GitHub`:
+- Added a repo-tracked Envio scaffold under `indexer/` so the migration can be committed with the dApp.
+- Copied ABIs and source handler references from `C:\GitHubs\SubgraphStudio\graph`.
+- Added `indexer/config.yaml`, `indexer/schema.graphql`, handler stubs, package scripts, and migration notes.
+- Blocked from completing generated bindings or local runtime validation because both `pnpm dlx envio@3.2.1 --help` and `npx envio@3.2.1 --help` fail with `Cannot read properties of null (reading 'runCli')`.
+- The handler stubs intentionally fail fast until the legacy handlers are ported against generated Envio bindings.
+
+- [x] **Step 1: Scaffold Envio**
+
+Run in the repo root:
 
 ```powershell
-pnpm dlx envio init SoulSystem-Indexer
+pnpm dlx envio init indexer
 ```
 
-Expected: a new `SoulSystem-Indexer` project with Envio config, generated schema/codegen setup, and package scripts.
+Expected: a new Envio project with config, generated schema/codegen setup, and package scripts.
 
-- [ ] **Step 2: Configure Aurora contracts**
+2026-06-29 note: the CLI failed before scaffolding, so the initial Envio file structure was created manually in `indexer/`.
+
+- [x] **Step 2: Configure Aurora contracts**
 
 Create the Envio config with these static contracts:
 
@@ -435,7 +445,7 @@ networks:
 
 Then add dynamic contract registration for `Game` and `Claim` addresses emitted by `Hub.ContractCreated`.
 
-- [ ] **Step 3: Port entity schema**
+- [x] **Step 3: Port entity schema**
 
 Translate each entity in `schema.graphql` into Envio schema definitions, preserving field names used by the dApp:
 

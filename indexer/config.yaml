@@ -1,0 +1,73 @@
+# yaml-language-server: $schema=./node_modules/envio/evm.schema.json
+name: soulsystem-indexer
+description: SoulSystem Aurora indexer migrated from the legacy subgraph.
+
+contracts:
+  - name: Soul
+    abi_file_path: ./abis/Soul.json
+    handler: ./src/handlers/soulHandlers.ts
+    events:
+      - event: Transfer(indexed address,indexed address,indexed uint256)
+      - event: Approval(indexed address,indexed address,indexed uint256)
+      - event: ApprovalForAll(indexed address,indexed address,bool)
+      - event: URI(string,indexed uint256)
+      - event: SoulType(indexed uint256,string)
+      - event: Announcement(indexed address,uint256,string,string)
+      - event: SoulHandle(indexed uint256,string)
+      - event: OpinionChange(uint256,indexed address,indexed uint256,string,int256,int256)
+  - name: Hub
+    abi_file_path: ./abis/Hub.json
+    handler: ./src/handlers/hubHandlers.ts
+    events:
+      - event: ContractCreated(string,indexed address)
+  - name: ActionRepo
+    abi_file_path: ./abis/ActionRepo.json
+    handler: ./src/handlers/actionRepoHandler.ts
+    events:
+      - event: ActionAdded(indexed uint256,indexed bytes32,string,string,string,string)
+      - event: ActionURI(indexed bytes32,string)
+  - name: OpenRepo
+    abi_file_path: ./abis/OpenRepo.json
+    handler: ./src/handlers/openRepoHandlers.ts
+    events:
+      - event: StringSet(address,string,string)
+      - event: AddressAdd(address,string,address)
+      - event: AddressSet(address,string,address)
+  - name: Game
+    abi_file_path: ./abis/Game.json
+    handler: ./src/handlers/gameHandlers.ts
+    events:
+      - event: TransferByToken(indexed address,indexed uint256,indexed uint256,uint256,uint256)
+      - event: Nominate(address,indexed uint256,string)
+      - event: Post(indexed address,uint256,string,string)
+      - event: RoleCreated(indexed uint256,string)
+      - event: URI(string,indexed uint256)
+  - name: Claim
+    abi_file_path: ./abis/Claim.json
+    handler: ./src/handlers/claimHandlers.ts
+    events:
+      - event: Stage(uint8)
+      - event: TransferByToken(indexed address,indexed uint256,indexed uint256,uint256,uint256)
+      - event: Nominate(address,indexed uint256,string)
+      - event: Post(indexed address,uint256,string,string)
+      - event: RoleCreated(indexed uint256,string)
+      - event: URI(string,indexed uint256)
+      - event: PaymentReleased(address,uint256)
+      - event: ERC20PaymentReleased(indexed address,address,uint256)
+
+chains:
+  - id: 1313161554
+    start_block: 94773622
+    contracts:
+      - name: Soul
+        address:
+          - 0xD1b792De2c9c358F0C765C9f07DD618A12d8E97C
+      - name: Hub
+        address:
+          - 0x3CfF0AC9554Bc90ac37b8b84c2449F5B27f35740
+      - name: ActionRepo
+        address:
+          - 0x75228869bD1Bbae3b534681826730134e2385a13
+      - name: OpenRepo
+        address:
+          - 0x2C9cc43C53141AA1CD16699f4Fe24742269c2Fe5
