@@ -522,7 +522,14 @@ Expected: the indexer starts, connects to Aurora, and exposes a local GraphQL en
 - Create: `scripts/compare-indexer-query-parity.mjs`
 - Use endpoints: old `NEXT_PUBLIC_SUBGRAPH_API`, new Envio local/hosted endpoint
 
-- [ ] **Step 1: Create parity script**
+Status on 2026-06-29:
+
+- Added `scripts/compare-indexer-query-parity.mjs`.
+- Added `npm run indexer:compare` as the repo entry point.
+- Verified script mechanics by comparing the current Sentio endpoint to itself.
+- True old-vs-new Envio parity remains blocked until Task 3 has a running Envio endpoint.
+
+- [x] **Step 1: Create parity script**
 
 Create `scripts/compare-indexer-query-parity.mjs`:
 
