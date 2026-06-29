@@ -9,7 +9,7 @@ This file is the lightweight task index for repo-local follow-up work. Detailed 
 
 - [ ] Replace The Graph indexer migration
   - Source: `docs/superpowers/plans/2026-06-16-replace-the-graph-indexer.md`
-  - Next action: finish Task 3 by creating the Envio indexer project from the current `C:\GitHubs\SubgraphStudio\graph` source, then finish Task 4 query parity tooling.
+  - Next action: run the Envio indexer on Linux/macOS or Docker, capture the new GraphQL endpoint, then run `npm run indexer:compare -- --new <envio-endpoint>` against the current Sentio endpoint before switching the dApp.
 
 ## Product Experience
 

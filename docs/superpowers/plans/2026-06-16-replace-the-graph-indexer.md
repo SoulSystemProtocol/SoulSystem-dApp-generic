@@ -408,6 +408,7 @@ Status on 2026-06-29:
 - 2026-06-29 follow-up: root cause is platform support. `envio@3.2.1` declares Linux/macOS optional native packages, but no Windows package. Added a GitHub Actions Ubuntu job for `indexer` codegen/typecheck so validation runs on a supported platform.
 - 2026-06-29 validation: GitHub Actions run `28377789082` passed `Indexer codegen and typecheck` on Ubuntu after normalizing Envio schema relationships and event signatures.
 - 2026-06-29 follow-up: handler modules now use Envio `indexer.onEvent` registrations and `Hub.ContractCreated` uses `indexer.contractRegister` to dynamically register `Game` and `Claim` addresses. The modules are runtime-safe no-op handlers until the legacy entity-writing logic is ported.
+- 2026-06-29 follow-up: core entity-writing handlers are ported for `Soul`, `Hub`, `ActionRepo`, `Game`, `Claim`, and `OpenRepo`; deterministic handler behavior writes raw URI fields and leaves IPFS metadata hydration to the dApp/server layer.
 
 - [x] **Step 1: Scaffold Envio**
 
@@ -473,7 +474,7 @@ type Soul {
 
 Repeat for `Account`, `Game`, `Claim`, `Action`, `GameRule`, `GameRole`, `ProcRole`, `GameParticipant`, `ProcParticipant`, `GameNomination`, `ProcNomination`, `GamePost`, `ProcPost`, `SoulPost`, `SoulOpinion`, `SoulPart`, `EvtPayment`, and `PaymentTotal`.
 
-- [ ] **Step 4: Port handlers incrementally**
+- [x] **Step 4: Port handlers incrementally**
 
 Port handlers in this order:
 
@@ -484,7 +485,7 @@ Port handlers in this order:
 5. `actionRepoHandler.ts`: `ActionAdded`, `ActionURI`.
 6. `openRepoHandlers.ts`: `StringSet`, `AddressAdd`, `AddressSet`.
 
-2026-06-29 status: Envio handler registration is complete and typechecked. Remaining handler work is field-level parity: replace each no-op body with the corresponding entity writes from `src/subgraph-reference`.
+2026-06-29 status: Envio handler registration and core entity writes are complete for the configured events. `Soul`, `Hub`, `ActionRepo`, `Game`, `Claim`, and `OpenRepo` handlers typecheck against generated Envio bindings. IPFS metadata fetches were intentionally not ported into handlers so indexing remains deterministic; raw `uri` fields are preserved for existing adapter/server hydration.
 
 - [x] **Step 5: Decide metadata hydration behavior**
 
@@ -519,7 +520,7 @@ pnpm dev
 
 Expected: the indexer starts, connects to Aurora, and exposes a local GraphQL endpoint.
 
-2026-06-29 status: codegen and typecheck pass in GitHub Actions on Ubuntu. A full `pnpm dev` runtime sync still requires porting the handler stubs and running on Linux/macOS or Docker because Envio 3.2.1 has no Windows native CLI package.
+2026-06-29 status: codegen and typecheck pass in GitHub Actions on Ubuntu. A full `pnpm dev` runtime sync still needs to run on Linux/macOS or Docker because Envio 3.2.1 has no Windows native CLI package.
 
 ### Task 4: Verify Query Parity
 
@@ -534,6 +535,7 @@ Status on 2026-06-29:
 - Added `npm run indexer:compare` as the repo entry point.
 - Verified script mechanics by comparing the current Sentio endpoint to itself.
 - True old-vs-new Envio parity remains blocked until Task 3 has a running Envio endpoint.
+- Handler parity tooling is ready to run once the Envio indexer is running and exposes a GraphQL endpoint.
 
 - [x] **Step 1: Create parity script**
 
