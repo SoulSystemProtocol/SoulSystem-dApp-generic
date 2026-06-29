@@ -1,4 +1,5 @@
 generated/
+envio-env.d.ts
 .env
 .env.local
 .envio/

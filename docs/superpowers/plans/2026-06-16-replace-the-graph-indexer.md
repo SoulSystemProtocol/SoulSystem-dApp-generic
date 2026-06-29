@@ -406,6 +406,7 @@ Status on 2026-06-29:
 - Added `indexer/config.yaml`, `indexer/schema.graphql`, handler stubs, package scripts, and migration notes.
 - Blocked from completing generated bindings or local runtime validation because both `pnpm dlx envio@3.2.1 --help` and `npx envio@3.2.1 --help` fail with `Cannot read properties of null (reading 'runCli')`.
 - 2026-06-29 follow-up: root cause is platform support. `envio@3.2.1` declares Linux/macOS optional native packages, but no Windows package. Added a GitHub Actions Ubuntu job for `indexer` codegen/typecheck so validation runs on a supported platform.
+- 2026-06-29 validation: GitHub Actions run `28377789082` passed `Indexer codegen and typecheck` on Ubuntu after normalizing Envio schema relationships and event signatures.
 - The handler stubs intentionally fail fast until the legacy handlers are ported against generated Envio bindings.
 
 - [x] **Step 1: Scaffold Envio**
@@ -515,6 +516,8 @@ pnpm dev
 ```
 
 Expected: the indexer starts, connects to Aurora, and exposes a local GraphQL endpoint.
+
+2026-06-29 status: codegen and typecheck pass in GitHub Actions on Ubuntu. A full `pnpm dev` runtime sync still requires porting the handler stubs and running on Linux/macOS or Docker because Envio 3.2.1 has no Windows native CLI package.
 
 ### Task 4: Verify Query Parity
 
