@@ -9,5 +9,6 @@
     "skipLibCheck": true,
     "types": ["node"]
   },
-  "include": ["src/**/*.ts", "generated/**/*.ts"]
+  "include": ["src/handlers/**/*.ts", "generated/**/*.ts"],
+  "exclude": ["src/subgraph-reference"]
 }
