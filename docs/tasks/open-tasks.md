@@ -13,9 +13,6 @@ This file is the lightweight task index for repo-local follow-up work. The dApp 
 
 ## Product Experience
 
-- [ ] Add per-entity metadata loading with individual progress indicators.
-  - Source paths: `services/indexer/metadataHydration.ts`, `hooks/useSoulMetadata.ts`, `components/PaginatedList.tsx`, `components/entity/soul/SoulSearchBox.tsx`
-  - Instructions: load metadata independently for each entity/list entry instead of blocking the whole collection, expose per-item hydration state from the metadata hook, and render an individual progress indicator on each entry whose metadata is still loading.
 - [ ] Add global search to the navigation shell.
   - Source TODOs: `components/layout/NavBar.tsx`
   - Instructions: implement an icon button with a tooltip that opens a simple search affordance, reuse existing soul search routes where possible, and keep mobile behavior clear.
@@ -76,3 +73,9 @@ This file is the lightweight task index for repo-local follow-up work. The dApp 
 - [ ] Modernize client runtime dependencies.
   - Source: dependency audit
   - Instructions: align `@apollo/client`, `wagmi`, `@web3modal/ethereum`, and `@web3modal/react` together and validate with CI.
+
+## Completed
+
+- [x] 2026-06-30: Added per-entity metadata loading with individual progress indicators.
+  - Updated `services/indexer/metadataHydration.ts`, `hooks/useSoulMetadata.ts`, `components/PaginatedList.tsx`, and `components/entity/soul/SoulSearchBox.tsx`.
+  - Verified with focused metadata tests, TypeScript, and lint.

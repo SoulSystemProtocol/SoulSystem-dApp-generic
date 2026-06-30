@@ -2,6 +2,7 @@ import {
   hydrateSoulMetadata,
   hydrateSoulsMetadata,
   scheduleSoulMetadataHydration,
+  scheduleSoulsMetadataHydrationByItem,
   scheduleSoulsMetadataHydration,
   shouldHydrateSoulMetadata,
 } from '../metadataHydration';
@@ -249,5 +250,66 @@ describe('metadataHydration', () => {
         metadata: { name: 'Slow Collection Soul' },
       }),
     ]);
+  });
+
+  it('schedules collection items independently as each soul hydrates', async () => {
+    let resolveSlowJson: (value: Record<string, unknown>) => void = () => {};
+    jest
+      .mocked(global.fetch)
+      .mockResolvedValueOnce({
+        ok: true,
+        json: async () => ({ name: 'Fast Soul' }),
+      } as Response)
+      .mockResolvedValueOnce({
+        ok: true,
+        json: () =>
+          new Promise((resolve) => {
+            resolveSlowJson = resolve;
+          }),
+      } as Response);
+    const onHydrated = jest.fn();
+    const onSettled = jest.fn();
+
+    scheduleSoulsMetadataHydrationByItem(
+      [
+        {
+          id: '20',
+          owner: '0xowner',
+          uri: 'ipfs://QmFast',
+          metadata: null,
+        },
+        {
+          id: '21',
+          owner: '0xowner',
+          uri: 'ipfs://QmSlowItem',
+          metadata: null,
+        },
+      ],
+      onHydrated,
+      onSettled,
+    );
+
+    await flushPromises();
+
+    expect(onHydrated).toHaveBeenCalledWith(
+      expect.objectContaining({
+        id: '20',
+        metadata: { name: 'Fast Soul' },
+      }),
+    );
+    expect(onHydrated).toHaveBeenCalledTimes(1);
+    expect(onSettled).toHaveBeenCalledWith('20');
+    expect(onSettled).not.toHaveBeenCalledWith('21');
+
+    resolveSlowJson({ name: 'Slow Item Soul' });
+    await flushPromises();
+
+    expect(onHydrated).toHaveBeenCalledWith(
+      expect.objectContaining({
+        id: '21',
+        metadata: { name: 'Slow Item Soul' },
+      }),
+    );
+    expect(onSettled).toHaveBeenCalledWith('21');
   });
 });

@@ -64,9 +64,9 @@ export default function SoulSearchBox({
     ssr: false,
     variables: { first: 12, skip: 0 },
   });
-  const { souls: items, isHydrating: isMetadataLoading } =
-    useHydratedSoulsMetadataState(data?.souls || []);
-  const isLoading = loading || isMetadataLoading;
+  const { souls: items, hydratingById } = useHydratedSoulsMetadataState(
+    data?.souls || [],
+  );
 
   useEffect(() => {
     //** Handle Injected Value
@@ -96,8 +96,8 @@ export default function SoulSearchBox({
         <Autocomplete
           disabled={isDisabled}
           getOptionLabel={(option) => soulName(option)}
-          loading={isLoading}
-          loadingText={isMetadataLoading ? 'Loading metadata...' : 'Loading...'}
+          loading={loading}
+          loadingText="Loading..."
           // filterOptions={(x) => x}
           options={items}
           value={selectedSoul}
@@ -127,7 +127,7 @@ export default function SoulSearchBox({
                 ...params.InputProps,
                 endAdornment: (
                   <>
-                    {isLoading ? (
+                    {loading ? (
                       <CircularProgress color="inherit" size={20} />
                     ) : null}
                     {params.InputProps.endAdornment}
@@ -137,12 +137,25 @@ export default function SoulSearchBox({
             />
           )}
           renderOption={(props, option) => {
-            //Validate
-            // if (!option?.metadata) console.log('Skip option', option);
-            return !option?.metadata ? (
-              <></>
-            ) : (
+            const isOptionMetadataLoading = !!hydratingById[option.id];
+
+            return (
               <li {...props} key={option.owner} style={{ display: 'block' }}>
+                {isOptionMetadataLoading && (
+                  <Box
+                    sx={{
+                      alignItems: 'center',
+                      color: 'text.secondary',
+                      display: 'flex',
+                      gap: 1,
+                      px: 0.5,
+                      py: 0.75,
+                    }}
+                  >
+                    <CircularProgress color="inherit" size={16} />
+                    <span>Loading metadata...</span>
+                  </Box>
+                )}
                 <SoulCompactCard
                   profile={option}
                   disableAddress={false}

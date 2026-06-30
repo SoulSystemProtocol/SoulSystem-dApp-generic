@@ -78,6 +78,33 @@ export function scheduleSoulsMetadataHydration(
     });
 }
 
+export function scheduleSoulsMetadataHydrationByItem(
+  souls: SoulEntity[],
+  onHydrated: (soul: SoulEntity) => void,
+  onSettled?: (id: string) => void,
+): void {
+  souls.forEach((soul) => {
+    if (!shouldHydrateSoulMetadata(soul)) {
+      if (soul) onSettled?.(soul.id);
+      return;
+    }
+
+    void hydrateSoulMetadata(soul)
+      .then((hydratedSoul) => {
+        if (hydratedSoul) onHydrated(hydratedSoul);
+      })
+      .catch((error) => {
+        console.warn('[IPFS] Scheduled item metadata hydration failed', {
+          id: soul.id,
+          message: error instanceof Error ? error.message : String(error),
+        });
+      })
+      .finally(() => {
+        onSettled?.(soul.id);
+      });
+  });
+}
+
 async function fetchIpfsJson(
   uri: string,
   id: string,

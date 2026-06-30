@@ -66,8 +66,11 @@ export default function PaginatedList({
     variables: { ...variables, first, skip },
   });
   const rawItems = data ? data?.[entityName] || [] : [];
-  const { souls: hydratedSoulItems, isHydrating: isMetadataLoading } =
-    useHydratedSoulsMetadataState(entityName === 'souls' ? rawItems : []);
+  const {
+    souls: hydratedSoulItems,
+    isHydrating: isMetadataLoading,
+    hydratingById,
+  } = useHydratedSoulsMetadataState(entityName === 'souls' ? rawItems : []);
   const displayItems = entityName === 'souls' ? hydratedSoulItems : rawItems;
   const items = useMemo<Array<CardItem>>(
     () => (error ? [] : itemsProcessing(displayItems)),
@@ -119,27 +122,6 @@ export default function PaginatedList({
         <Loader />
       ) : (
         <Grid container spacing={2}>
-          {isMetadataLoading && (
-            <Grid item xs={12}>
-              <Box
-                sx={{
-                  alignItems: 'center',
-                  display: 'flex',
-                  gap: 1.5,
-                  mb: 0.5,
-                }}
-              >
-                <LinearProgress sx={{ flexGrow: 1 }} />
-                <Typography
-                  color="text.secondary"
-                  sx={{ whiteSpace: 'nowrap' }}
-                  variant="caption"
-                >
-                  Loading metadata...
-                </Typography>
-              </Box>
-            </Grid>
-          )}
           {!items?.length && !isMetadataLoading ? (
             <Grid item xs={12}>
               <Typography variant="caption" color="text.secondary">
@@ -150,6 +132,8 @@ export default function PaginatedList({
             <>
               {items.map((dataItem: any, index: number) => {
                 const cardData: CardItem = getCardContent(dataItem);
+                const isItemMetadataLoading =
+                  entityName === 'souls' && !!hydratingById[cardData.id];
                 return (
                   <Grid
                     key={index}
@@ -159,13 +143,21 @@ export default function PaginatedList({
                     md={gridMD}
                     lg={gridLG}
                   >
-                    {cardData?.component == 'GridCardUser' ? (
-                      <GridCardUser {...cardData} />
-                    ) : cardData?.component == 'GridCardTask' ? (
-                      <GridCardTask {...cardData} />
-                    ) : (
-                      <GridCard {...cardData} />
-                    )}
+                    <Box>
+                      {cardData?.component == 'GridCardUser' ? (
+                        <GridCardUser {...cardData} />
+                      ) : cardData?.component == 'GridCardTask' ? (
+                        <GridCardTask {...cardData} />
+                      ) : (
+                        <GridCard {...cardData} />
+                      )}
+                      {isItemMetadataLoading && (
+                        <LinearProgress
+                          aria-label={`Loading metadata for ${cardData.title}`}
+                          sx={{ mt: 0.75 }}
+                        />
+                      )}
+                    </Box>
                   </Grid>
                 );
               })}
