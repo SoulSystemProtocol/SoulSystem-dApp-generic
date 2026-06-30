@@ -70,6 +70,9 @@ This file is the lightweight task index for repo-local follow-up work. The dApp 
 - [ ] Remove debug-only TODO logs and comments as nearby code is touched.
   - Source TODOs: `components/form/widget/MySoulsBox.tsx`, `components/PaginatedList.tsx`
   - Instructions: clean these opportunistically during related feature work rather than as a standalone churn commit.
+- [ ] Update CI Node runtime after GitHub Actions Node 20 deprecation.
+  - Source: CI annotation from run `28434220289`.
+  - Instructions: move `.github/workflows/ci.yml` and local/deployment Node expectations to the current supported LTS together, then validate install, lint, typecheck, build, and tests in CI.
 - [ ] Modernize client runtime dependencies.
   - Source: dependency audit
   - Instructions: align `@apollo/client`, `wagmi`, `@web3modal/ethereum`, and `@web3modal/react` together and validate with CI.
