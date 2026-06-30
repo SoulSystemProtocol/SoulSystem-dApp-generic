@@ -1,18 +1,21 @@
 # Open Tasks
 
 Status: Active
-Date: 2026-06-29
+Date: 2026-06-30
 
-This file is the lightweight task index for repo-local follow-up work. Detailed migration work remains in `docs/superpowers/plans/2026-06-16-replace-the-graph-indexer.md`.
+This file is the lightweight task index for repo-local follow-up work. The dApp uses Sentio's hosted GraphQL endpoint through `NEXT_PUBLIC_INDEXER_GRAPHQL_URL`.
 
 ## In Progress
 
-- [ ] Replace The Graph indexer migration
+- [ ] Keep the Sentio indexer path healthy.
   - Source: `docs/superpowers/plans/2026-06-16-replace-the-graph-indexer.md`
-  - Next action: run the Envio indexer on Linux/macOS or Docker, capture the new GraphQL endpoint, then run `npm run indexer:compare -- --new <envio-endpoint>` against the current Sentio endpoint before switching the dApp.
+  - Next action: monitor `/admin` indexer health and keep `NEXT_PUBLIC_INDEXER_GRAPHQL_URL` pointed at the Sentio Data Studio GraphQL endpoint.
 
 ## Product Experience
 
+- [ ] Add per-entity metadata loading with individual progress indicators.
+  - Source paths: `services/indexer/metadataHydration.ts`, `hooks/useSoulMetadata.ts`, `components/PaginatedList.tsx`, `components/entity/soul/SoulSearchBox.tsx`
+  - Instructions: load metadata independently for each entity/list entry instead of blocking the whole collection, expose per-item hydration state from the metadata hook, and render an individual progress indicator on each entry whose metadata is still loading.
 - [ ] Add global search to the navigation shell.
   - Source TODOs: `components/layout/NavBar.tsx`
   - Instructions: implement an icon button with a tooltip that opens a simple search affordance, reuse existing soul search routes where possible, and keep mobile behavior clear.
@@ -71,5 +74,5 @@ This file is the lightweight task index for repo-local follow-up work. Detailed 
   - Source TODOs: `components/form/widget/MySoulsBox.tsx`, `components/PaginatedList.tsx`
   - Instructions: clean these opportunistically during related feature work rather than as a standalone churn commit.
 - [ ] Modernize client runtime dependencies.
-  - Source: `docs/superpowers/plans/2026-06-16-replace-the-graph-indexer.md`
+  - Source: dependency audit
   - Instructions: align `@apollo/client`, `wagmi`, `@web3modal/ethereum`, and `@web3modal/react` together and validate with CI.

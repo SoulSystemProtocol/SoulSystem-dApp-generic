@@ -26,9 +26,6 @@
     "**/*.tsx"
   ],
   "exclude": [
-    "node_modules",
-    "indexer",
-    "indexer/generated",
-    "indexer/node_modules"
+    "node_modules"
   ]
 }
